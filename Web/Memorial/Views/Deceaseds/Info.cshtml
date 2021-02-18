@@ -1,0 +1,72 @@
+﻿@model Memorial.Core.Dtos.DeceasedDto
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+<div class="form-group">
+    IC
+    @Model.IC
+</div>
+<div class="form-group">
+    English Name
+    @Model.Name
+</div>
+<div class="form-group">
+    Chinese Name
+    @Model.Name2
+</div>
+<div class="form-group">
+    Age
+    @Model.Age
+</div>
+<div class="form-group">
+    Address
+    @Model.Address
+</div>
+<div class="form-group">
+    Gender
+    @Model.GenderType.Name
+</div>
+<div class="form-group">
+    Marital
+    @Model.MaritalType.Name
+</div>
+<div class="form-group">
+    Religion
+    @Model.ReligionType.Name
+</div>
+<div class="form-group">
+    Nationality
+    @Model.NationalityType.Name
+</div>
+<div class="form-group">
+    Relationship
+    @Model.RelationshipType.Name
+</div>
+<div class="form-group">
+    Death Date
+    @Model.DeathDate.ToString("yyyy-MM-dd HH:mm")
+</div>
+<div class="form-group">
+    Death Registration Centre
+    @Model.DeathRegistrationCentre
+</div>
+<div class="form-group">
+    Death Certificate
+    @Model.DeathCertificate
+</div>
+<div class="form-group">
+    Burial Certificate
+    @Model.BurialCertificate
+</div>
+<div class="form-group">
+    Import Permit Number
+    @Model.ImportPermitNumber
+</div>
+<div class="form-group">
+    Remark
+    @Model.Remark
+</div>

@@ -1,0 +1,29 @@
+﻿@model Memorial.ViewModels.QuadrangleItemsViewModel
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Item</h2>
+<h5>@Model.QuadrangleName</h5>
+<h5>@Model.QuadrangleDescription</h5>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quadrangleItem in Model.QuadrangleItemDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(quadrangleItem.Name, "Item", new { itemId = quadrangleItem.Id, id = Model.QuadrangleId, areaId = Model.QuadrangleAreaId, applicantId = Model.applicantId })</td>
+                <td>@quadrangleItem.Description</td>
+                <td>@quadrangleItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

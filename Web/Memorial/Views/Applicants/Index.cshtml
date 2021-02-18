@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Memorial.Core.Domain.Applicant>
+@{
+    ViewBag.Title = "Applicants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Applicants</h2>
+
+<p>
+    @Html.ActionLink("New", "New")
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>English Name</th>
+            <th>Chinese Name</th>
+            <th>IC</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicant in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(applicant.Name, "Catalog", new { id = applicant.Id })</td>
+                <td>@applicant.Name2</td>
+                <td>@applicant.IC</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = applicant.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>

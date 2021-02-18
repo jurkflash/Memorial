@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Memorial.Core.Domain.MaritalType>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<ul>
+    @foreach (var maritalType in Model)
+    {
+        <li>@maritalType.Name</li>
+    }
+</ul>

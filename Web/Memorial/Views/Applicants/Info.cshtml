@@ -1,0 +1,36 @@
+﻿@model Memorial.Core.Dtos.ApplicantDto
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+<div class="form-group">
+    IC
+    @Model.IC
+</div>
+<div class="form-group">
+    English Name
+    @Model.Name
+</div>
+<div class="form-group">
+    Chinese Name
+    @Model.Name2
+</div>
+<div class="form-group">
+    Address
+    @Model.Address
+</div>
+<div class="form-group">
+    HousePhone
+    @Model.HousePhone
+</div>
+<div class="form-group">
+    MobileNumber
+    @Model.MobileNumber
+</div>
+<div class="form-group">
+    Remark
+    @Model.Remark
+</div>

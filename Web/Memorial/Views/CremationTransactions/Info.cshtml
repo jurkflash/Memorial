@@ -1,0 +1,46 @@
+﻿@model Memorial.Core.Dtos.CremationTransactionDto
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+@{Html.RenderAction("ApplicantInfo", "Applicants", new { id = Model.ApplicantId });}
+
+Deceased
+@{Html.RenderAction("DeceasedInfo", "Deceaseds", new { id = Model.DeceasedId });}
+
+Cremation
+<div class="row">
+    <div class="col-md-3">
+        Funeral Company
+    </div>
+    <div class="col-md-3">
+        @Model.FuneralCompany.Name
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Price
+    </div>
+    <div class="col-md-3">
+        @Model.Price
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Cremate Date
+    </div>
+    <div class="col-md-3">
+        @Model.CremateDate.ToString("yyyy-MM-dd HH:mm")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.Remark
+    </div>
+</div>

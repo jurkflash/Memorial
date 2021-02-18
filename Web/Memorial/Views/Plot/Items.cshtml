@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Memorial.Core.Domain.PlotItem>
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Item</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotItem in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(plotItem.Name, "Item", new { item = plotItem.SystemCode, plotItemId = plotItem.Id })</td>
+                <td>@plotItem.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

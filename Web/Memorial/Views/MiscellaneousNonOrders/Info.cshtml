@@ -1,0 +1,26 @@
+﻿@model Memorial.Core.Dtos.MiscellaneousTransactionDto
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+@{Html.RenderAction("ApplicantInfo", "Applicants", new { id = Model.ApplicantId });}
+
+<div class="row">
+    <div class="col-md-3">
+        Amount
+    </div>
+    <div class="col-md-3">
+        @Model.Amount
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.Remark
+    </div>
+</div>

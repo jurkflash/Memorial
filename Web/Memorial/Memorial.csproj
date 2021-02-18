@@ -1,0 +1,2523 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C9E93257-2873-4D57-80CD-26E78A14B073}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Memorial</RootNamespace>
+    <AssemblyName>Memorial</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.3.1.0.133\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.min.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-af.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-am.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-bg.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ca.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-cs.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-da.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-de.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-el.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-es.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-et.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-eu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fa.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-gl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-he.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-id.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-it.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ja.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ko.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-mk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-nl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-no.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt-BR.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ro.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ru.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sq.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-RS.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-YU.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-th.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-tr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-uk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-vi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-TW.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui-sliderAccess.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="App_Start\StructuremapWebApi.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorFreeController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorMaintenanceController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorOrderController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorShiftController.cs" />
+    <Compile Include="Controllers\Api\QuadrangleItemsController.cs" />
+    <Compile Include="Controllers\Api\SpacesController.cs" />
+    <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
+    <Compile Include="Controllers\ApplicantsController.cs" />
+    <Compile Include="Controllers\Cremation\CremationController.cs" />
+    <Compile Include="Controllers\Cremation\CremationTransactionsController.cs" />
+    <Compile Include="Controllers\DeceasedsController.cs" />
+    <Compile Include="Controllers\FuneralCompaniesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousTransactionsController.cs" />
+    <Compile Include="Controllers\Plot\PlotController.cs" />
+    <Compile Include="Controllers\Plot\PlotDoubleController.cs" />
+    <Compile Include="Controllers\Plot\PlotFengShuiController.cs" />
+    <Compile Include="Controllers\Plot\PlotClearanceController.cs" />
+    <Compile Include="Controllers\Plot\PlotSecondBurialController.cs" />
+    <Compile Include="Controllers\Plot\PlotSingleController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleTransactionsController.cs" />
+    <Compile Include="Controllers\Receipt\OrderReceiptsController.cs" />
+    <Compile Include="Controllers\Receipt\NonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Space\SpaceTransactionsController.cs" />
+    <Compile Include="Controllers\Space\SpaceController.cs" />
+    <Compile Include="Controllers\Urn\UrnController.cs" />
+    <Compile Include="Core\Domain\AncestorTransaction.cs" />
+    <Compile Include="Core\Domain\AncestorNumber.cs" />
+    <Compile Include="Core\Domain\AncestorItem.cs" />
+    <Compile Include="Core\Domain\Catalog.cs" />
+    <Compile Include="Core\Domain\CremationTransaction.cs" />
+    <Compile Include="Core\Domain\MasterCatalog.cs" />
+    <Compile Include="Core\Domain\PlotTransaction.cs" />
+    <Compile Include="Core\Domain\QuadrangleTransaction.cs" />
+    <Compile Include="Core\Domain\Receipt.cs" />
+    <Compile Include="Core\Domain\MiscellaneousNumber.cs" />
+    <Compile Include="Core\Domain\Miscellaneous.cs" />
+    <Compile Include="Core\Domain\Cremation.cs" />
+    <Compile Include="Core\Domain\CremationItem.cs" />
+    <Compile Include="Core\Domain\AncestorArea.cs" />
+    <Compile Include="Core\Domain\Invoice.cs" />
+    <Compile Include="Core\Domain\PlotItem.cs" />
+    <Compile Include="Core\Domain\MiscellaneousItem.cs" />
+    <Compile Include="Core\Domain\MiscellaneousTransaction.cs" />
+    <Compile Include="Core\Domain\UrnTransaction.cs" />
+    <Compile Include="Core\Domain\SpaceTransaction.cs" />
+    <Compile Include="Core\Domain\UrnNumber.cs" />
+    <Compile Include="Core\Domain\UrnItem.cs" />
+    <Compile Include="Core\Domain\QuadrangleItem.cs" />
+    <Compile Include="Core\Domain\PlotNumber.cs" />
+    <Compile Include="Core\Domain\CremationNumber.cs" />
+    <Compile Include="Core\Domain\SpaceItem.cs" />
+    <Compile Include="Core\Domain\QuadrangleNumber.cs" />
+    <Compile Include="Core\Domain\SpaceNumber.cs" />
+    <Compile Include="Core\Domain\Urn.cs" />
+    <Compile Include="Core\Domain\QuadrangleCentre.cs" />
+    <Compile Include="Core\Domain\Space.cs" />
+    <Compile Include="Core\Domain\PlotLandscapeCompany.cs" />
+    <Compile Include="Core\Domain\FuneralCompany.cs" />
+    <Compile Include="Core\Domain\GenderType.cs" />
+    <Compile Include="Core\Domain\NationalityType.cs" />
+    <Compile Include="Core\Domain\MaritalType.cs" />
+    <Compile Include="Core\Domain\Deceased.cs" />
+    <Compile Include="Core\Domain\Quadrangle.cs" />
+    <Compile Include="Core\Domain\Plot.cs" />
+    <Compile Include="Core\Domain\Ancestor.cs" />
+    <Compile Include="Core\Domain\PlotArea.cs" />
+    <Compile Include="Core\Domain\QuadrangleArea.cs" />
+    <Compile Include="Core\Domain\PlotType.cs" />
+    <Compile Include="Core\Domain\FengShuiMaster.cs" />
+    <Compile Include="Core\Domain\QuadrangleType.cs" />
+    <Compile Include="Core\Domain\Site.cs" />
+    <Compile Include="Core\Domain\ReligionType.cs" />
+    <Compile Include="Core\Domain\RelationshipType.cs" />
+    <Compile Include="Core\Domain\PaymentMethod.cs" />
+    <Compile Include="Core\Domain\Applicant.cs" />
+    <Compile Include="Core\Dtos\AncestorDto.cs" />
+    <Compile Include="Core\Dtos\AncestorAreaDto.cs" />
+    <Compile Include="Core\Dtos\AncestorItemDto.cs" />
+    <Compile Include="Core\Dtos\AncestorNumberDto.cs" />
+    <Compile Include="Core\Dtos\AncestorTransactionDto.cs" />
+    <Compile Include="Core\Dtos\CremationDto.cs" />
+    <Compile Include="Core\Dtos\CremationItemDto.cs" />
+    <Compile Include="Core\Dtos\CremationNumberDto.cs" />
+    <Compile Include="Core\Dtos\MiscellaneousDto.cs" />
+    <Compile Include="Core\Dtos\MiscellaneousItemDto.cs" />
+    <Compile Include="Core\Dtos\MiscellaneousTransactionDto.cs" />
+    <Compile Include="Core\Dtos\PaymentMethodDto.cs" />
+    <Compile Include="Core\Dtos\ApplicantDto.cs" />
+    <Compile Include="Core\Dtos\CremationTransactionDto.cs" />
+    <Compile Include="Core\Dtos\DeceasedBriefDto.cs" />
+    <Compile Include="Core\Dtos\DeceasedDto.cs" />
+    <Compile Include="Core\Dtos\FuneralCompanyDto.cs" />
+    <Compile Include="Core\Dtos\InvoiceDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleAreaDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleCentreDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleItemDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleTransactionDto.cs" />
+    <Compile Include="Core\Dtos\ReceiptDto.cs" />
+    <Compile Include="Core\Dtos\SpaceDto.cs" />
+    <Compile Include="Core\Dtos\SpaceItemDto.cs" />
+    <Compile Include="Core\Dtos\SpaceTransactionDto.cs" />
+    <Compile Include="Core\Dtos\UrnDto.cs" />
+    <Compile Include="Core\Dtos\UrnItemDto.cs" />
+    <Compile Include="Core\Dtos\UrnTransactionDto.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IAncestorTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestorNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestorItemRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestorAreaRepository.cs" />
+    <Compile Include="Core\Repositories\ICatalogRepository.cs" />
+    <Compile Include="Core\Repositories\INumberRepository.cs" />
+    <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IReceiptRepository.cs" />
+    <Compile Include="Core\Repositories\IInvoiceRepository.cs" />
+    <Compile Include="Core\Repositories\ICremationNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IMiscellaneousItemRepository.cs" />
+    <Compile Include="Core\Repositories\IMiscellaneousTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IMiscellaneousNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleItemRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleNumberRepository.cs" />
+    <Compile Include="Core\Repositories\ICremationItemRepository.cs" />
+    <Compile Include="Core\Repositories\ISpaceNumberRepository.cs" />
+    <Compile Include="Core\Repositories\ISpaceItemRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotItemRepository.cs" />
+    <Compile Include="Core\Repositories\ISpaceTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IUrnItemRepository.cs" />
+    <Compile Include="Core\Repositories\IUrnNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IUrnTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IUrnRepository.cs" />
+    <Compile Include="Core\Repositories\ICremationRepository.cs" />
+    <Compile Include="Core\Repositories\IDeceasedRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotLandscapeCompanyRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotAreaRepository.cs" />
+    <Compile Include="Core\Repositories\IFuneralCompanyRepository.cs" />
+    <Compile Include="Core\Repositories\IGenderTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IPaymentMethodRepository.cs" />
+    <Compile Include="Core\Repositories\IApplicantRepository.cs" />
+    <Compile Include="Core\Repositories\IFengShuiMasterRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestorRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleCentreRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleAreaRepository.cs" />
+    <Compile Include="Core\Repositories\IMiscellaneousRepository.cs" />
+    <Compile Include="Core\Repositories\ISpaceRepository.cs" />
+    <Compile Include="Core\Repositories\ISiteRepository.cs" />
+    <Compile Include="Core\Repositories\IReligionTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IRelationshipTypeRepository.cs" />
+    <Compile Include="Core\Repositories\INationalityTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IMaritalTypeRepository.cs" />
+    <Compile Include="Core\Repositories\IRepository.cs" />
+    <Compile Include="DependencyResolution\ControllerConvention.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
+    <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
+    <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\Ancestor\IAncestor.cs" />
+    <Compile Include="Lib\Ancestor\IAncestorNumber.cs" />
+    <Compile Include="Lib\Ancestor\Ancestor.cs" />
+    <Compile Include="Lib\Ancestor\AncestorNumber.cs" />
+    <Compile Include="Lib\Common\ICommon.cs" />
+    <Compile Include="Lib\Common\Common.cs" />
+    <Compile Include="Lib\Cremation\ICremation.cs" />
+    <Compile Include="Lib\Cremation\ICremationNumber.cs" />
+    <Compile Include="Lib\Cremation\Cremation.cs" />
+    <Compile Include="Lib\Cremation\CremationNumber.cs" />
+    <Compile Include="Lib\Deceased\Deceased.cs" />
+    <Compile Include="Lib\Deceased\IDeceased.cs" />
+    <Compile Include="Lib\FuneralCo\FuneralCo.cs" />
+    <Compile Include="Lib\FuneralCo\IFuneralCo.cs" />
+    <Compile Include="Lib\Invoice\IInvoice.cs" />
+    <Compile Include="Lib\Invoice\Invoice.cs" />
+    <Compile Include="Lib\MiscellaneousItem\IMiscellaneousItem.cs" />
+    <Compile Include="Lib\MiscellaneousItem\MiscellaneousItem.cs" />
+    <Compile Include="Lib\MiscellaneousNumber\IMiscellaneousNumber.cs" />
+    <Compile Include="Lib\MiscellaneousNumber\MiscellaneousNumber.cs" />
+    <Compile Include="Lib\MiscellaneousTransaction\IMiscellaneousTransaction.cs" />
+    <Compile Include="Lib\MiscellaneousTransaction\MiscellaneousTransaction.cs" />
+    <Compile Include="Lib\Miscellaneous\IMiscellaneous.cs" />
+    <Compile Include="Lib\Miscellaneous\Miscellaneous.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangleTransaction.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangleCentre.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangleArea.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangleItem.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangle.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadrangleNumber.cs" />
+    <Compile Include="Lib\Quadrangle\Quadrangle.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleTransaction.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleCentre.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleArea.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleItem.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleNumber.cs" />
+    <Compile Include="Lib\Receipt\IReceipt.cs" />
+    <Compile Include="Lib\Receipt\Receipt.cs" />
+    <Compile Include="Lib\SpaceItem\ISpaceItem.cs" />
+    <Compile Include="Lib\SpaceItem\SpaceItem.cs" />
+    <Compile Include="Lib\SpaceNumber\ISpaceNumber.cs" />
+    <Compile Include="Lib\SpaceNumber\SpaceNumber.cs" />
+    <Compile Include="Lib\SpaceTransaction\ISpaceTransaction.cs" />
+    <Compile Include="Lib\Space\ISpace.cs" />
+    <Compile Include="Lib\SpaceTransaction\SpaceTransaction.cs" />
+    <Compile Include="Lib\Space\Space.cs" />
+    <Compile Include="Lib\Urn\IUrnNumber.cs" />
+    <Compile Include="Lib\Urn\IUrn.cs" />
+    <Compile Include="Lib\Urn\UrnNumber.cs" />
+    <Compile Include="Lib\Urn\Urn.cs" />
+    <Compile Include="Migrations\202011161613327_Initial.cs" />
+    <Compile Include="Migrations\202011161613327_Initial.designer.cs">
+      <DependentUpon>202011161613327_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161614477_AddMaritalTypesTable.cs" />
+    <Compile Include="Migrations\202011161614477_AddMaritalTypesTable.designer.cs">
+      <DependentUpon>202011161614477_AddMaritalTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161615341_PopulateDataToMaritalTypesTable.cs" />
+    <Compile Include="Migrations\202011161615341_PopulateDataToMaritalTypesTable.designer.cs">
+      <DependentUpon>202011161615341_PopulateDataToMaritalTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161626283_AddGenderTypesTable.cs" />
+    <Compile Include="Migrations\202011161626283_AddGenderTypesTable.designer.cs">
+      <DependentUpon>202011161626283_AddGenderTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161630509_PopulateDataToGenderTypesTable.cs" />
+    <Compile Include="Migrations\202011161630509_PopulateDataToGenderTypesTable.designer.cs">
+      <DependentUpon>202011161630509_PopulateDataToGenderTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161648227_AddGenderTypeConfiguration.cs" />
+    <Compile Include="Migrations\202011161648227_AddGenderTypeConfiguration.designer.cs">
+      <DependentUpon>202011161648227_AddGenderTypeConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161649265_UpdateMaritalColumnSizeTo255ForMaritalTypesTable.cs" />
+    <Compile Include="Migrations\202011161649265_UpdateMaritalColumnSizeTo255ForMaritalTypesTable.designer.cs">
+      <DependentUpon>202011161649265_UpdateMaritalColumnSizeTo255ForMaritalTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161650469_AddNationalityTypesTable.cs" />
+    <Compile Include="Migrations\202011161650469_AddNationalityTypesTable.designer.cs">
+      <DependentUpon>202011161650469_AddNationalityTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161651281_PopulateDataToNationalityTypesTable.cs" />
+    <Compile Include="Migrations\202011161651281_PopulateDataToNationalityTypesTable.designer.cs">
+      <DependentUpon>202011161651281_PopulateDataToNationalityTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170233442_ChangeColumnNameGenderToNameInGenderTypesTable.cs" />
+    <Compile Include="Migrations\202011170233442_ChangeColumnNameGenderToNameInGenderTypesTable.designer.cs">
+      <DependentUpon>202011170233442_ChangeColumnNameGenderToNameInGenderTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170236539_RenameColumnNameMaritalToNameInMaritalTypesTable.cs" />
+    <Compile Include="Migrations\202011170236539_RenameColumnNameMaritalToNameInMaritalTypesTable.designer.cs">
+      <DependentUpon>202011170236539_RenameColumnNameMaritalToNameInMaritalTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170237504_RenameColumnNameNationalityToNameInNationalityTypesTable.cs" />
+    <Compile Include="Migrations\202011170237504_RenameColumnNameNationalityToNameInNationalityTypesTable.designer.cs">
+      <DependentUpon>202011170237504_RenameColumnNameNationalityToNameInNationalityTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170840220_AddRelationshipTypesTable.cs" />
+    <Compile Include="Migrations\202011170840220_AddRelationshipTypesTable.designer.cs">
+      <DependentUpon>202011170840220_AddRelationshipTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170845059_PopulateDataToRelationshipTypesTable.cs" />
+    <Compile Include="Migrations\202011170845059_PopulateDataToRelationshipTypesTable.designer.cs">
+      <DependentUpon>202011170845059_PopulateDataToRelationshipTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170850391_AddReligionTypesTable.cs" />
+    <Compile Include="Migrations\202011170850391_AddReligionTypesTable.designer.cs">
+      <DependentUpon>202011170850391_AddReligionTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170901169_PopulateDataToReligionTypesTable.cs" />
+    <Compile Include="Migrations\202011170901169_PopulateDataToReligionTypesTable.designer.cs">
+      <DependentUpon>202011170901169_PopulateDataToReligionTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170911504_AddPaymentMethodsTable.cs" />
+    <Compile Include="Migrations\202011170911504_AddPaymentMethodsTable.designer.cs">
+      <DependentUpon>202011170911504_AddPaymentMethodsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170913410_PopulateDataToPaymentMethodsTable.cs" />
+    <Compile Include="Migrations\202011170913410_PopulateDataToPaymentMethodsTable.designer.cs">
+      <DependentUpon>202011170913410_PopulateDataToPaymentMethodsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170918514_AddSitesTable.cs" />
+    <Compile Include="Migrations\202011170918514_AddSitesTable.designer.cs">
+      <DependentUpon>202011170918514_AddSitesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011170923474_PopulateDataToSitesTable.cs" />
+    <Compile Include="Migrations\202011170923474_PopulateDataToSitesTable.designer.cs">
+      <DependentUpon>202011170923474_PopulateDataToSitesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011171318530_AddApplicantsTable.cs" />
+    <Compile Include="Migrations\202011171318530_AddApplicantsTable.designer.cs">
+      <DependentUpon>202011171318530_AddApplicantsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011171451076_AddDeceasedsTable.cs" />
+    <Compile Include="Migrations\202011171451076_AddDeceasedsTable.designer.cs">
+      <DependentUpon>202011171451076_AddDeceasedsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221540182_AddFengShuiMastersTable.cs" />
+    <Compile Include="Migrations\202011221540182_AddFengShuiMastersTable.designer.cs">
+      <DependentUpon>202011221540182_AddFengShuiMastersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221553219_AddFuneralCompaniesTable.cs" />
+    <Compile Include="Migrations\202011221553219_AddFuneralCompaniesTable.designer.cs">
+      <DependentUpon>202011221553219_AddFuneralCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221657135_AddPlotTypesTable.cs" />
+    <Compile Include="Migrations\202011221657135_AddPlotTypesTable.designer.cs">
+      <DependentUpon>202011221657135_AddPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221658220_PopulateDataToPlotTypesTable.cs" />
+    <Compile Include="Migrations\202011221658220_PopulateDataToPlotTypesTable.designer.cs">
+      <DependentUpon>202011221658220_PopulateDataToPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221700105_AddPlotAreasTable.cs" />
+    <Compile Include="Migrations\202011221700105_AddPlotAreasTable.designer.cs">
+      <DependentUpon>202011221700105_AddPlotAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011221740112_AddPlotsTable.cs" />
+    <Compile Include="Migrations\202011221740112_AddPlotsTable.designer.cs">
+      <DependentUpon>202011221740112_AddPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231529214_AddAncestorsTable.cs" />
+    <Compile Include="Migrations\202011231529214_AddAncestorsTable.designer.cs">
+      <DependentUpon>202011231529214_AddAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231625441_AddQuadrangleAreasTable.cs" />
+    <Compile Include="Migrations\202011231625441_AddQuadrangleAreasTable.designer.cs">
+      <DependentUpon>202011231625441_AddQuadrangleAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231630526_RenameLocationColumnToPositionForAncestorsTable.cs" />
+    <Compile Include="Migrations\202011231630526_RenameLocationColumnToPositionForAncestorsTable.designer.cs">
+      <DependentUpon>202011231630526_RenameLocationColumnToPositionForAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231637287_AddQuadrangleTypesTable.cs" />
+    <Compile Include="Migrations\202011231637287_AddQuadrangleTypesTable.designer.cs">
+      <DependentUpon>202011231637287_AddQuadrangleTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231638391_PopulateDataToQuadrangleTypesTable.cs" />
+    <Compile Include="Migrations\202011231638391_PopulateDataToQuadrangleTypesTable.designer.cs">
+      <DependentUpon>202011231638391_PopulateDataToQuadrangleTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011231707267_AddQuadranglesTable.cs" />
+    <Compile Include="Migrations\202011231707267_AddQuadranglesTable.designer.cs">
+      <DependentUpon>202011231707267_AddQuadranglesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241356200_AddPlotLandscapeCompaniesTable.cs" />
+    <Compile Include="Migrations\202011241356200_AddPlotLandscapeCompaniesTable.designer.cs">
+      <DependentUpon>202011241356200_AddPlotLandscapeCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241436314_AddSpacesTable.cs" />
+    <Compile Include="Migrations\202011241436314_AddSpacesTable.designer.cs">
+      <DependentUpon>202011241436314_AddSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241446002_PopulateDataToSpacesTable.cs" />
+    <Compile Include="Migrations\202011241446002_PopulateDataToSpacesTable.designer.cs">
+      <DependentUpon>202011241446002_PopulateDataToSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241545567_AddMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202011241545567_AddMiscellaneousTable.designer.cs">
+      <DependentUpon>202011241545567_AddMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241547064_PopulateDataToMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202011241547064_PopulateDataToMiscellaneousTable.designer.cs">
+      <DependentUpon>202011241547064_PopulateDataToMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011251449508_AddCodeToMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202011251449508_AddCodeToMiscellaneousTable.designer.cs">
+      <DependentUpon>202011251449508_AddCodeToMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011251511151_PopulateDataAndUpdateDataForMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202011251511151_PopulateDataAndUpdateDataForMiscellaneousTable.designer.cs">
+      <DependentUpon>202011251511151_PopulateDataAndUpdateDataForMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261314577_ChangeCodeColumnToRequiredForMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202011261314577_ChangeCodeColumnToRequiredForMiscellaneousTable.designer.cs">
+      <DependentUpon>202011261314577_ChangeCodeColumnToRequiredForMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261318177_ChangeCodeColumnToRequiredForSpacesTable.cs" />
+    <Compile Include="Migrations\202011261318177_ChangeCodeColumnToRequiredForSpacesTable.designer.cs">
+      <DependentUpon>202011261318177_ChangeCodeColumnToRequiredForSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261321263_PopulateDataAndUpdateDataForSpacesTable.cs" />
+    <Compile Include="Migrations\202011261321263_PopulateDataAndUpdateDataForSpacesTable.designer.cs">
+      <DependentUpon>202011261321263_PopulateDataAndUpdateDataForSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261438464_AddColumnCodeToPlotAreasTable.cs" />
+    <Compile Include="Migrations\202011261438464_AddColumnCodeToPlotAreasTable.designer.cs">
+      <DependentUpon>202011261438464_AddColumnCodeToPlotAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261532269_RemoveSiteIdColumnAndRenameCodeToNameForQuadrangleAreasTable.cs" />
+    <Compile Include="Migrations\202011261532269_RemoveSiteIdColumnAndRenameCodeToNameForQuadrangleAreasTable.designer.cs">
+      <DependentUpon>202011261532269_RemoveSiteIdColumnAndRenameCodeToNameForQuadrangleAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011261538197_AddQuadrangleCentresTable.cs" />
+    <Compile Include="Migrations\202011261538197_AddQuadrangleCentresTable.designer.cs">
+      <DependentUpon>202011261538197_AddQuadrangleCentresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011280912011_AddCremationsTable.cs" />
+    <Compile Include="Migrations\202011280912011_AddCremationsTable.designer.cs">
+      <DependentUpon>202011280912011_AddCremationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011280913573_PopulateDataToCremationsTable.cs" />
+    <Compile Include="Migrations\202011280913573_PopulateDataToCremationsTable.designer.cs">
+      <DependentUpon>202011280913573_PopulateDataToCremationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011280923307_AddColumnCodeToPlotTypeAndRepopulateData.cs" />
+    <Compile Include="Migrations\202011280923307_AddColumnCodeToPlotTypeAndRepopulateData.designer.cs">
+      <DependentUpon>202011280923307_AddColumnCodeToPlotTypeAndRepopulateData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011280958399_AddUrnsTable.cs" />
+    <Compile Include="Migrations\202011280958399_AddUrnsTable.designer.cs">
+      <DependentUpon>202011280958399_AddUrnsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291308034_AddQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202011291308034_AddQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202011291308034_AddQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291343286_PopulateDataToQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202011291343286_PopulateDataToQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202011291343286_PopulateDataToQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011291449256_AddQuadrangleItemNumbersTable.cs" />
+    <Compile Include="Migrations\202011291449256_AddQuadrangleItemNumbersTable.designer.cs">
+      <DependentUpon>202011291449256_AddQuadrangleItemNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011301627372_AddSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202011301627372_AddSpaceItemsTable.designer.cs">
+      <DependentUpon>202011301627372_AddSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011301628198_PopulateDataToSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202011301628198_PopulateDataToSpaceItemsTable.designer.cs">
+      <DependentUpon>202011301628198_PopulateDataToSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012010931107_RemoveAllRelatedWithSpaceNumbersItem.cs" />
+    <Compile Include="Migrations\202012010931107_RemoveAllRelatedWithSpaceNumbersItem.designer.cs">
+      <DependentUpon>202012010931107_RemoveAllRelatedWithSpaceNumbersItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012010938447_AddSpaceNumbersTable.cs" />
+    <Compile Include="Migrations\202012010938447_AddSpaceNumbersTable.designer.cs">
+      <DependentUpon>202012010938447_AddSpaceNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012010942178_RemoveQuadrangleItemNumbersTable.cs" />
+    <Compile Include="Migrations\202012010942178_RemoveQuadrangleItemNumbersTable.designer.cs">
+      <DependentUpon>202012010942178_RemoveQuadrangleItemNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012010953146_AddQuadrangleNumbersTable.cs" />
+    <Compile Include="Migrations\202012010953146_AddQuadrangleNumbersTable.designer.cs">
+      <DependentUpon>202012010953146_AddQuadrangleNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012010959071_PopulateDataToQuadrangleCentresTable.cs" />
+    <Compile Include="Migrations\202012010959071_PopulateDataToQuadrangleCentresTable.designer.cs">
+      <DependentUpon>202012010959071_PopulateDataToQuadrangleCentresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012011006280_RemoveCodeColumnFromQuadrangleCentresTable.cs" />
+    <Compile Include="Migrations\202012011006280_RemoveCodeColumnFromQuadrangleCentresTable.designer.cs">
+      <DependentUpon>202012011006280_RemoveCodeColumnFromQuadrangleCentresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012011015318_RemoveColumnSiteFromQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202012011015318_RemoveColumnSiteFromQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202012011015318_RemoveColumnSiteFromQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012011307380_AddQuadrangleCentreIdColumnToQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202012011307380_AddQuadrangleCentreIdColumnToQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202012011307380_AddQuadrangleCentreIdColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012011400477_PopulateDataToQuadrangleItemsTable1.cs" />
+    <Compile Include="Migrations\202012011400477_PopulateDataToQuadrangleItemsTable1.designer.cs">
+      <DependentUpon>202012011400477_PopulateDataToQuadrangleItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012021529018_RemoveCodeColumnFromPlotAreasTable.cs" />
+    <Compile Include="Migrations\202012021529018_RemoveCodeColumnFromPlotAreasTable.designer.cs">
+      <DependentUpon>202012021529018_RemoveCodeColumnFromPlotAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012021540096_AddPlotItemsTable.cs" />
+    <Compile Include="Migrations\202012021540096_AddPlotItemsTable.designer.cs">
+      <DependentUpon>202012021540096_AddPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012021550208_AddPlotNumbersTable.cs" />
+    <Compile Include="Migrations\202012021550208_AddPlotNumbersTable.designer.cs">
+      <DependentUpon>202012021550208_AddPlotNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012021602272_PopulateDataToPlotAreasTable.cs" />
+    <Compile Include="Migrations\202012021602272_PopulateDataToPlotAreasTable.designer.cs">
+      <DependentUpon>202012021602272_PopulateDataToPlotAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041223158_RemoveColumnCodeFromCremationsTable.cs" />
+    <Compile Include="Migrations\202012041223158_RemoveColumnCodeFromCremationsTable.designer.cs">
+      <DependentUpon>202012041223158_RemoveColumnCodeFromCremationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041244166_AddCremationItemsTable.cs" />
+    <Compile Include="Migrations\202012041244166_AddCremationItemsTable.designer.cs">
+      <DependentUpon>202012041244166_AddCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041302373_AddCremationNumbersTable.cs" />
+    <Compile Include="Migrations\202012041302373_AddCremationNumbersTable.designer.cs">
+      <DependentUpon>202012041302373_AddCremationNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041321197_RemovePriceColumnFromCremationsTable.cs" />
+    <Compile Include="Migrations\202012041321197_RemovePriceColumnFromCremationsTable.designer.cs">
+      <DependentUpon>202012041321197_RemovePriceColumnFromCremationsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041324338_RemovePricePerDay_AllowDoubleBook_ToleranceHour_CodeFromSpacesTable.cs" />
+    <Compile Include="Migrations\202012041324338_RemovePricePerDay_AllowDoubleBook_ToleranceHour_CodeFromSpacesTable.designer.cs">
+      <DependentUpon>202012041324338_RemovePricePerDay_AllowDoubleBook_ToleranceHour_CodeFromSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041331136_PopulateDataToCremationItemsTable.cs" />
+    <Compile Include="Migrations\202012041331136_PopulateDataToCremationItemsTable.designer.cs">
+      <DependentUpon>202012041331136_PopulateDataToCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051432548_AddMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202012051432548_AddMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202012051432548_AddMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051439495_AddMiscellaneousNumbersTable.cs" />
+    <Compile Include="Migrations\202012051439495_AddMiscellaneousNumbersTable.designer.cs">
+      <DependentUpon>202012051439495_AddMiscellaneousNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051444395_RemoveColumnCodeFromMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202012051444395_RemoveColumnCodeFromMiscellaneousTable.designer.cs">
+      <DependentUpon>202012051444395_RemoveColumnCodeFromMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051450137_PopulateDataToMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202012051450137_PopulateDataToMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202012051450137_PopulateDataToMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051712121_RemoveColumnSiteFromAncestorsTable.cs" />
+    <Compile Include="Migrations\202012051712121_RemoveColumnSiteFromAncestorsTable.designer.cs">
+      <DependentUpon>202012051712121_RemoveColumnSiteFromAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051725241_AddAncestorAreasTable.cs" />
+    <Compile Include="Migrations\202012051725241_AddAncestorAreasTable.designer.cs">
+      <DependentUpon>202012051725241_AddAncestorAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051737397_AddAncestorItemsTable.cs" />
+    <Compile Include="Migrations\202012051737397_AddAncestorItemsTable.designer.cs">
+      <DependentUpon>202012051737397_AddAncestorItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012051748080_AddAncestorNumbersTable.cs" />
+    <Compile Include="Migrations\202012051748080_AddAncestorNumbersTable.designer.cs">
+      <DependentUpon>202012051748080_AddAncestorNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012060314310_AddNumberOfPlacement_isFengShuiPlotColumnToPlotItemsTable.cs" />
+    <Compile Include="Migrations\202012060314310_AddNumberOfPlacement_isFengShuiPlotColumnToPlotItemsTable.designer.cs">
+      <DependentUpon>202012060314310_AddNumberOfPlacement_isFengShuiPlotColumnToPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012071610459_RemoveColumnAddNumberOfPlacement_isFengShuiPlotFromPlotItemsTable.cs" />
+    <Compile Include="Migrations\202012071610459_RemoveColumnAddNumberOfPlacement_isFengShuiPlotFromPlotItemsTable.designer.cs">
+      <DependentUpon>202012071610459_RemoveColumnAddNumberOfPlacement_isFengShuiPlotFromPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080807578_RemoveColumnCodeFromUrnsTable.cs" />
+    <Compile Include="Migrations\202012080807578_RemoveColumnCodeFromUrnsTable.designer.cs">
+      <DependentUpon>202012080807578_RemoveColumnCodeFromUrnsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080823157_AddUrnItemsTable.cs" />
+    <Compile Include="Migrations\202012080823157_AddUrnItemsTable.designer.cs">
+      <DependentUpon>202012080823157_AddUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080832195_AddUrnNumbersTable.cs" />
+    <Compile Include="Migrations\202012080832195_AddUrnNumbersTable.designer.cs">
+      <DependentUpon>202012080832195_AddUrnNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080846381_AddColumnSecondBurialPrice_ClearancePriceToPlotTypesTable.cs" />
+    <Compile Include="Migrations\202012080846381_AddColumnSecondBurialPrice_ClearancePriceToPlotTypesTable.designer.cs">
+      <DependentUpon>202012080846381_AddColumnSecondBurialPrice_ClearancePriceToPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012080921370_PopulateDataToPlotItemsTable.cs" />
+    <Compile Include="Migrations\202012080921370_PopulateDataToPlotItemsTable.designer.cs">
+      <DependentUpon>202012080921370_PopulateDataToPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081011497_PopulateDataToSpaceItemsTable1.cs" />
+    <Compile Include="Migrations\202012081011497_PopulateDataToSpaceItemsTable1.designer.cs">
+      <DependentUpon>202012081011497_PopulateDataToSpaceItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081014185_PopulateDataToQuadrangleItemsTable2.cs" />
+    <Compile Include="Migrations\202012081014185_PopulateDataToQuadrangleItemsTable2.designer.cs">
+      <DependentUpon>202012081014185_PopulateDataToQuadrangleItemsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081020017_PopulateDataToPlotItemsTable1.cs" />
+    <Compile Include="Migrations\202012081020017_PopulateDataToPlotItemsTable1.designer.cs">
+      <DependentUpon>202012081020017_PopulateDataToPlotItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081036233_PopulateDataToPlotItemsTable2.cs" />
+    <Compile Include="Migrations\202012081036233_PopulateDataToPlotItemsTable2.designer.cs">
+      <DependentUpon>202012081036233_PopulateDataToPlotItemsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081456188_PopulateDataToAncestorItemsTable.cs" />
+    <Compile Include="Migrations\202012081456188_PopulateDataToAncestorItemsTable.designer.cs">
+      <DependentUpon>202012081456188_PopulateDataToAncestorItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081458178_PopulateDataToAncestorAreasTable.cs" />
+    <Compile Include="Migrations\202012081458178_PopulateDataToAncestorAreasTable.designer.cs">
+      <DependentUpon>202012081458178_PopulateDataToAncestorAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081508544_PopulateDataToAncestorItemsTable1.cs" />
+    <Compile Include="Migrations\202012081508544_PopulateDataToAncestorItemsTable1.designer.cs">
+      <DependentUpon>202012081508544_PopulateDataToAncestorItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091512095_AddSpaceTransactionsTable.cs" />
+    <Compile Include="Migrations\202012091512095_AddSpaceTransactionsTable.designer.cs">
+      <DependentUpon>202012091512095_AddSpaceTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091531475_AddMiscellaneousTransactionsTable.cs" />
+    <Compile Include="Migrations\202012091531475_AddMiscellaneousTransactionsTable.designer.cs">
+      <DependentUpon>202012091531475_AddMiscellaneousTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091552585_SetColumnAFToNotNullAndLength_RemarkLengthForSpaceAndMiscellaneousTransactionsTable.cs" />
+    <Compile Include="Migrations\202012091552585_SetColumnAFToNotNullAndLength_RemarkLengthForSpaceAndMiscellaneousTransactionsTable.designer.cs">
+      <DependentUpon>202012091552585_SetColumnAFToNotNullAndLength_RemarkLengthForSpaceAndMiscellaneousTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091609536_AddInvoicesTable.cs" />
+    <Compile Include="Migrations\202012091609536_AddInvoicesTable.designer.cs">
+      <DependentUpon>202012091609536_AddInvoicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091631079_AddReceiptsTable.cs" />
+    <Compile Include="Migrations\202012091631079_AddReceiptsTable.designer.cs">
+      <DependentUpon>202012091631079_AddReceiptsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012101420582_LinkMiscellaneousTransactionsAFColumnWIthReceiptsTable.cs" />
+    <Compile Include="Migrations\202012101420582_LinkMiscellaneousTransactionsAFColumnWIthReceiptsTable.designer.cs">
+      <DependentUpon>202012101420582_LinkMiscellaneousTransactionsAFColumnWIthReceiptsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012121331058_AddQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202012121331058_AddQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202012121331058_AddQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012121540024_ReduceLengthForColumnAFTo50ForPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202012121540024_ReduceLengthForColumnAFTo50ForPlotTransactionsTable.designer.cs">
+      <DependentUpon>202012121540024_ReduceLengthForColumnAFTo50ForPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012121549452_AddPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202012121549452_AddPlotTransactionsTable.designer.cs">
+      <DependentUpon>202012121549452_AddPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012121630084_AddQuadrangleItemIdToQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202012121630084_AddQuadrangleItemIdToQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202012121630084_AddQuadrangleItemIdToQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012131602134_AddPlotItemToPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202012131602134_AddPlotItemToPlotTransactionsTable.designer.cs">
+      <DependentUpon>202012131602134_AddPlotItemToPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012140913346_AddUrnTransactionsTable.cs" />
+    <Compile Include="Migrations\202012140913346_AddUrnTransactionsTable.designer.cs">
+      <DependentUpon>202012140913346_AddUrnTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141006558_AddCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141006558_AddCremationTransactionsTable.designer.cs">
+      <DependentUpon>202012141006558_AddCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141133139_AddAncestorTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141133139_AddAncestorTransactionsTable.designer.cs">
+      <DependentUpon>202012141133139_AddAncestorTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141136407_AddCreateDateToCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141136407_AddCreateDateToCremationTransactionsTable.designer.cs">
+      <DependentUpon>202012141136407_AddCreateDateToCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141137483_AddCreateDateColumnToMiscellaneousTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141137483_AddCreateDateColumnToMiscellaneousTransactionsTable.designer.cs">
+      <DependentUpon>202012141137483_AddCreateDateColumnToMiscellaneousTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141139219_AddCreateDateColumnToSpaceTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141139219_AddCreateDateColumnToSpaceTransactionsTable.designer.cs">
+      <DependentUpon>202012141139219_AddCreateDateColumnToSpaceTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141142475_AddCreateDateColumnToUrnTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141142475_AddCreateDateColumnToUrnTransactionsTable.designer.cs">
+      <DependentUpon>202012141142475_AddCreateDateColumnToUrnTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141355443_MoveRelationshipTypeIdFromAncestorsTableToAncestorTransactionsTable.cs" />
+    <Compile Include="Migrations\202012141355443_MoveRelationshipTypeIdFromAncestorsTableToAncestorTransactionsTable.designer.cs">
+      <DependentUpon>202012141355443_MoveRelationshipTypeIdFromAncestorsTableToAncestorTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141406011_RemoveApplicantIdFromAncestorsTable.cs" />
+    <Compile Include="Migrations\202012141406011_RemoveApplicantIdFromAncestorsTable.designer.cs">
+      <DependentUpon>202012141406011_RemoveApplicantIdFromAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141443064_AddAncestorTransactionAFToAncestorsTable.cs" />
+    <Compile Include="Migrations\202012141443064_AddAncestorTransactionAFToAncestorsTable.designer.cs">
+      <DependentUpon>202012141443064_AddAncestorTransactionAFToAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141511456_RemoveLabelColumnFromAncestorsTable.cs" />
+    <Compile Include="Migrations\202012141511456_RemoveLabelColumnFromAncestorsTable.designer.cs">
+      <DependentUpon>202012141511456_RemoveLabelColumnFromAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141518224_RemoveApplicantIdFromPlotsTable.cs" />
+    <Compile Include="Migrations\202012141518224_RemoveApplicantIdFromPlotsTable.designer.cs">
+      <DependentUpon>202012141518224_RemoveApplicantIdFromPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012141524418_RemoveDeceasedIdFromPlotsTable.cs" />
+    <Compile Include="Migrations\202012141524418_RemoveDeceasedIdFromPlotsTable.designer.cs">
+      <DependentUpon>202012141524418_RemoveDeceasedIdFromPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012151042089_AddCreateAndDeleteDateColumnToUrnTypeTables.cs" />
+    <Compile Include="Migrations\202012151042089_AddCreateAndDeleteDateColumnToUrnTypeTables.designer.cs">
+      <DependentUpon>202012151042089_AddCreateAndDeleteDateColumnToUrnTypeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012151300251_AddModifyDateAndSetDeleteDateTimeToAllowNullForUrnTypeTables.cs" />
+    <Compile Include="Migrations\202012151300251_AddModifyDateAndSetDeleteDateTimeToAllowNullForUrnTypeTables.designer.cs">
+      <DependentUpon>202012151300251_AddModifyDateAndSetDeleteDateTimeToAllowNullForUrnTypeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012180619369_AddCatalogsTable.cs" />
+    <Compile Include="Migrations\202012180619369_AddCatalogsTable.designer.cs">
+      <DependentUpon>202012180619369_AddCatalogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012180621117_PopulateDataToCatalogsTable.cs" />
+    <Compile Include="Migrations\202012180621117_PopulateDataToCatalogsTable.designer.cs">
+      <DependentUpon>202012180621117_PopulateDataToCatalogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012181002473_AddColumnCodeToCatalogsTable.cs" />
+    <Compile Include="Migrations\202012181002473_AddColumnCodeToCatalogsTable.designer.cs">
+      <DependentUpon>202012181002473_AddColumnCodeToCatalogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012181005553_PopulateDataToCatalogsTable1.cs" />
+    <Compile Include="Migrations\202012181005553_PopulateDataToCatalogsTable1.designer.cs">
+      <DependentUpon>202012181005553_PopulateDataToCatalogsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012200819375_AddCreateModifyDeleteDateColumnToApplicantsTable.cs" />
+    <Compile Include="Migrations\202012200819375_AddCreateModifyDeleteDateColumnToApplicantsTable.designer.cs">
+      <DependentUpon>202012200819375_AddCreateModifyDeleteDateColumnToApplicantsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012200823066_AddCreateModifyDeleteDateColumnToDeceasedsTable.cs" />
+    <Compile Include="Migrations\202012200823066_AddCreateModifyDeleteDateColumnToDeceasedsTable.designer.cs">
+      <DependentUpon>202012200823066_AddCreateModifyDeleteDateColumnToDeceasedsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201430553_AddSystemCodeColumnToSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202012201430553_AddSystemCodeColumnToSpaceItemsTable.designer.cs">
+      <DependentUpon>202012201430553_AddSystemCodeColumnToSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201434191_PopulateDataToSpaceItemsTable2.cs" />
+    <Compile Include="Migrations\202012201434191_PopulateDataToSpaceItemsTable2.designer.cs">
+      <DependentUpon>202012201434191_PopulateDataToSpaceItemsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201639166_AddSystemCodeColumnToUrnItemsTable.cs" />
+    <Compile Include="Migrations\202012201639166_AddSystemCodeColumnToUrnItemsTable.designer.cs">
+      <DependentUpon>202012201639166_AddSystemCodeColumnToUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201640081_PopulateDataToUrnItemsTable.cs" />
+    <Compile Include="Migrations\202012201640081_PopulateDataToUrnItemsTable.designer.cs">
+      <DependentUpon>202012201640081_PopulateDataToUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201700040_AddSystemCodeColumnToMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202012201700040_AddSystemCodeColumnToMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202012201700040_AddSystemCodeColumnToMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201700594_PopulateDataToMiscellaneousItemsTable1.cs" />
+    <Compile Include="Migrations\202012201700594_PopulateDataToMiscellaneousItemsTable1.designer.cs">
+      <DependentUpon>202012201700594_PopulateDataToMiscellaneousItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012201720461_AddDescriptionColumnToMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202012201720461_AddDescriptionColumnToMiscellaneousTable.designer.cs">
+      <DependentUpon>202012201720461_AddDescriptionColumnToMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210216481_AddRemarkColumnToAncestorAreasTable.cs" />
+    <Compile Include="Migrations\202012210216481_AddRemarkColumnToAncestorAreasTable.designer.cs">
+      <DependentUpon>202012210216481_AddRemarkColumnToAncestorAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210241400_AddisPurchasedColumnToAncestosTable.cs" />
+    <Compile Include="Migrations\202012210241400_AddisPurchasedColumnToAncestosTable.designer.cs">
+      <DependentUpon>202012210241400_AddisPurchasedColumnToAncestosTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210300238_AddSystemCodeColumnToAncestorItemsTable.cs" />
+    <Compile Include="Migrations\202012210300238_AddSystemCodeColumnToAncestorItemsTable.designer.cs">
+      <DependentUpon>202012210300238_AddSystemCodeColumnToAncestorItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210304448_UpdateAncestorItemsTableData.cs" />
+    <Compile Include="Migrations\202012210304448_UpdateAncestorItemsTableData.designer.cs">
+      <DependentUpon>202012210304448_UpdateAncestorItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012211532417_ChangeAllNumbersTableofTinyintToInt.cs" />
+    <Compile Include="Migrations\202012211532417_ChangeAllNumbersTableofTinyintToInt.designer.cs">
+      <DependentUpon>202012211532417_ChangeAllNumbersTableofTinyintToInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221514408_AddSystemCodeColumnToCremationItemsTable.cs" />
+    <Compile Include="Migrations\202012221514408_AddSystemCodeColumnToCremationItemsTable.designer.cs">
+      <DependentUpon>202012221514408_AddSystemCodeColumnToCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221516029_PopulateDataToCremationItemsTable1.cs" />
+    <Compile Include="Migrations\202012221516029_PopulateDataToCremationItemsTable1.designer.cs">
+      <DependentUpon>202012221516029_PopulateDataToCremationItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221600197_UpdateNameForUrnItemsTable.cs" />
+    <Compile Include="Migrations\202012221600197_UpdateNameForUrnItemsTable.designer.cs">
+      <DependentUpon>202012221600197_UpdateNameForUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221604384_PopulateDataToCremationItemsTable2.cs" />
+    <Compile Include="Migrations\202012221604384_PopulateDataToCremationItemsTable2.designer.cs">
+      <DependentUpon>202012221604384_PopulateDataToCremationItemsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221610560_PopulateDataForMiscellaneousAndItemsTable.cs" />
+    <Compile Include="Migrations\202012221610560_PopulateDataForMiscellaneousAndItemsTable.designer.cs">
+      <DependentUpon>202012221610560_PopulateDataForMiscellaneousAndItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012221624034_PopulateDataForAncestorAndItemsTable.cs" />
+    <Compile Include="Migrations\202012221624034_PopulateDataForAncestorAndItemsTable.designer.cs">
+      <DependentUpon>202012221624034_PopulateDataForAncestorAndItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012241506520_UpdateSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202012241506520_UpdateSpaceItemsTable.designer.cs">
+      <DependentUpon>202012241506520_UpdateSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012241526502_UpdateSpaceItemsTable1.cs" />
+    <Compile Include="Migrations\202012241526502_UpdateSpaceItemsTable1.designer.cs">
+      <DependentUpon>202012241526502_UpdateSpaceItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012241535237_UpdateSpaceItemsTable2.cs" />
+    <Compile Include="Migrations\202012241535237_UpdateSpaceItemsTable2.designer.cs">
+      <DependentUpon>202012241535237_UpdateSpaceItemsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012250313499_AddSystemCodeColumnToQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202012250313499_AddSystemCodeColumnToQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202012250313499_AddSystemCodeColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012250333473_UpdateDataForQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202012250333473_UpdateDataForQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202012250333473_UpdateDataForQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012251356542_UpdateDataForQuadrangleItemsTable1.cs" />
+    <Compile Include="Migrations\202012251356542_UpdateDataForQuadrangleItemsTable1.designer.cs">
+      <DependentUpon>202012251356542_UpdateDataForQuadrangleItemsTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012281327183_AddSystemCodeColumnToPlotItemsTable.cs" />
+    <Compile Include="Migrations\202012281327183_AddSystemCodeColumnToPlotItemsTable.designer.cs">
+      <DependentUpon>202012281327183_AddSystemCodeColumnToPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012281458561_UpdatePlotItemsTableData.cs" />
+    <Compile Include="Migrations\202012281458561_UpdatePlotItemsTableData.designer.cs">
+      <DependentUpon>202012281458561_UpdatePlotItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012281615580_AddHasPurchasedAndBuriedColumnToPlotsTable.cs" />
+    <Compile Include="Migrations\202012281615580_AddHasPurchasedAndBuriedColumnToPlotsTable.designer.cs">
+      <DependentUpon>202012281615580_AddHasPurchasedAndBuriedColumnToPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291501551_AddApplicantAndDeceasedLinkToPlotsTable.cs" />
+    <Compile Include="Migrations\202012291501551_AddApplicantAndDeceasedLinkToPlotsTable.designer.cs">
+      <DependentUpon>202012291501551_AddApplicantAndDeceasedLinkToPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012291510292_RemoveHasPurchasedAndHasBuriedFromPlotsTable.cs" />
+    <Compile Include="Migrations\202012291510292_RemoveHasPurchasedAndHasBuriedFromPlotsTable.designer.cs">
+      <DependentUpon>202012291510292_RemoveHasPurchasedAndHasBuriedFromPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101010518504_RenameRemarksToRemarkForDeceasedsTable.cs" />
+    <Compile Include="Migrations\202101010518504_RenameRemarksToRemarkForDeceasedsTable.designer.cs">
+      <DependentUpon>202101010518504_RenameRemarksToRemarkForDeceasedsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101010522443_ReduceRemarkColumnSizeTo255ForApplicantsTable.cs" />
+    <Compile Include="Migrations\202101010522443_ReduceRemarkColumnSizeTo255ForApplicantsTable.designer.cs">
+      <DependentUpon>202101010522443_ReduceRemarkColumnSizeTo255ForApplicantsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011303202_AddModifyAndDeleteDateToCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202101011303202_AddModifyAndDeleteDateToCremationTransactionsTable.designer.cs">
+      <DependentUpon>202101011303202_AddModifyAndDeleteDateToCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011321099_AddCreateModifyDeleteDateColumnToFuneralCompaniesTable.cs" />
+    <Compile Include="Migrations\202101011321099_AddCreateModifyDeleteDateColumnToFuneralCompaniesTable.designer.cs">
+      <DependentUpon>202101011321099_AddCreateModifyDeleteDateColumnToFuneralCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011337010_ResizeRemarkTo255ForFuneralCompaniesTable.cs" />
+    <Compile Include="Migrations\202101011337010_ResizeRemarkTo255ForFuneralCompaniesTable.designer.cs">
+      <DependentUpon>202101011337010_ResizeRemarkTo255ForFuneralCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101011652284_AddCreateModifyDeleteDateColumnToCremationItemsTable.cs" />
+    <Compile Include="Migrations\202101011652284_AddCreateModifyDeleteDateColumnToCremationItemsTable.designer.cs">
+      <DependentUpon>202101011652284_AddCreateModifyDeleteDateColumnToCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101020428302_AddCreateModifyDeleteDateColumnToInvoicesAndReceiptsTable.cs" />
+    <Compile Include="Migrations\202101020428302_AddCreateModifyDeleteDateColumnToInvoicesAndReceiptsTable.designer.cs">
+      <DependentUpon>202101020428302_AddCreateModifyDeleteDateColumnToInvoicesAndReceiptsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101030841252_AddInvoiceAndReceiptForeignKeyToCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202101030841252_AddInvoiceAndReceiptForeignKeyToCremationTransactionsTable.designer.cs">
+      <DependentUpon>202101030841252_AddInvoiceAndReceiptForeignKeyToCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101031307290_AddInvoiceAndReceiptForeignKeyToAllTransactionsTable.cs" />
+    <Compile Include="Migrations\202101031307290_AddInvoiceAndReceiptForeignKeyToAllTransactionsTable.designer.cs">
+      <DependentUpon>202101031307290_AddInvoiceAndReceiptForeignKeyToAllTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101031353572_RemoveAFColumnFromInvoicesTable.cs" />
+    <Compile Include="Migrations\202101031353572_RemoveAFColumnFromInvoicesTable.designer.cs">
+      <DependentUpon>202101031353572_RemoveAFColumnFromInvoicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101061454399_UpdateCremationItemsTable.cs" />
+    <Compile Include="Migrations\202101061454399_UpdateCremationItemsTable.designer.cs">
+      <DependentUpon>202101061454399_UpdateCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101091238324_UpdateDataForMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202101091238324_UpdateDataForMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202101091238324_UpdateDataForMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101091327107_AddTransactionAFColumnToReceiptsTable.cs" />
+    <Compile Include="Migrations\202101091327107_AddTransactionAFColumnToReceiptsTable.designer.cs">
+      <DependentUpon>202101091327107_AddTransactionAFColumnToReceiptsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101101505267_AddPaymentMethodToReceiptsTable.cs" />
+    <Compile Include="Migrations\202101101505267_AddPaymentMethodToReceiptsTable.designer.cs">
+      <DependentUpon>202101101505267_AddPaymentMethodToReceiptsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101101528415_AddRequireRemarkToPaymentMethodsTable.cs" />
+    <Compile Include="Migrations\202101101528415_AddRequireRemarkToPaymentMethodsTable.designer.cs">
+      <DependentUpon>202101101528415_AddRequireRemarkToPaymentMethodsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101181423201_AddModifyAndDeleteDateToMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202101181423201_AddModifyAndDeleteDateToMiscellaneousTable.designer.cs">
+      <DependentUpon>202101181423201_AddModifyAndDeleteDateToMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101181450347_AddCreateModifyDeleteDateToMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202101181450347_AddCreateModifyDeleteDateToMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202101181450347_AddCreateModifyDeleteDateToMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191556382_UpdateMiscellaneousItemsTableData.cs" />
+    <Compile Include="Migrations\202101191556382_UpdateMiscellaneousItemsTableData.designer.cs">
+      <DependentUpon>202101191556382_UpdateMiscellaneousItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191603092_UpdateMiscellaneousItemsTableData1.cs" />
+    <Compile Include="Migrations\202101191603092_UpdateMiscellaneousItemsTableData1.designer.cs">
+      <DependentUpon>202101191603092_UpdateMiscellaneousItemsTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201500095_AddhasReceiptColumnToInvoicesTable.cs" />
+    <Compile Include="Migrations\202101201500095_AddhasReceiptColumnToInvoicesTable.designer.cs">
+      <DependentUpon>202101201500095_AddhasReceiptColumnToInvoicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201544213_AddisOrderColumnToMiscellaneousItemstable.cs" />
+    <Compile Include="Migrations\202101201544213_AddisOrderColumnToMiscellaneousItemstable.designer.cs">
+      <DependentUpon>202101201544213_AddisOrderColumnToMiscellaneousItemstable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201545535_UpdateMiscellaneousItemsTableData2.cs" />
+    <Compile Include="Migrations\202101201545535_UpdateMiscellaneousItemsTableData2.designer.cs">
+      <DependentUpon>202101201545535_UpdateMiscellaneousItemsTableData2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101281512578_AddCreateModifyDeleteDateToSpaceEntities.cs" />
+    <Compile Include="Migrations\202101281512578_AddCreateModifyDeleteDateToSpaceEntities.designer.cs">
+      <DependentUpon>202101281512578_AddCreateModifyDeleteDateToSpaceEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102010839126_UpdateFromAndToDateToNullableColumnForSpaceTransactionsTable.cs" />
+    <Compile Include="Migrations\202102010839126_UpdateFromAndToDateToNullableColumnForSpaceTransactionsTable.designer.cs">
+      <DependentUpon>202102010839126_UpdateFromAndToDateToNullableColumnForSpaceTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021319497_AddIsOrderColumnToSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202102021319497_AddIsOrderColumnToSpaceItemsTable.designer.cs">
+      <DependentUpon>202102021319497_AddIsOrderColumnToSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021320573_UpdateSpaceItemsData.cs" />
+    <Compile Include="Migrations\202102021320573_UpdateSpaceItemsData.designer.cs">
+      <DependentUpon>202102021320573_UpdateSpaceItemsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021452356_UpdateSpaceItemsData1.cs" />
+    <Compile Include="Migrations\202102021452356_UpdateSpaceItemsData1.designer.cs">
+      <DependentUpon>202102021452356_UpdateSpaceItemsData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102031540398_AddisOrderColumnToUrnItemsTable.cs" />
+    <Compile Include="Migrations\202102031540398_AddisOrderColumnToUrnItemsTable.designer.cs">
+      <DependentUpon>202102031540398_AddisOrderColumnToUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051532249_AddIsOrderColumnToCremationItemsTable.cs" />
+    <Compile Include="Migrations\202102051532249_AddIsOrderColumnToCremationItemsTable.designer.cs">
+      <DependentUpon>202102051532249_AddIsOrderColumnToCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051533444_UpdateCremationItemsData.cs" />
+    <Compile Include="Migrations\202102051533444_UpdateCremationItemsData.designer.cs">
+      <DependentUpon>202102051533444_UpdateCremationItemsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051544293_AddisOrderColumnToQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202102051544293_AddisOrderColumnToQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202102051544293_AddisOrderColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051548072_UpdateQuadrangleItemsData.cs" />
+    <Compile Include="Migrations\202102051548072_UpdateQuadrangleItemsData.designer.cs">
+      <DependentUpon>202102051548072_UpdateQuadrangleItemsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102051554435_AddCreateModifyAndDeleteColumnQuadrangleItemsTable.cs" />
+    <Compile Include="Migrations\202102051554435_AddCreateModifyAndDeleteColumnQuadrangleItemsTable.designer.cs">
+      <DependentUpon>202102051554435_AddCreateModifyAndDeleteColumnQuadrangleItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071503304_AddisOrderColumnToAncestorItemsTable.cs" />
+    <Compile Include="Migrations\202102071503304_AddisOrderColumnToAncestorItemsTable.designer.cs">
+      <DependentUpon>202102071503304_AddisOrderColumnToAncestorItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071510339_AddCreateDeleteModifyDateColumnToAncestorItemsTable.cs" />
+    <Compile Include="Migrations\202102071510339_AddCreateDeleteModifyDateColumnToAncestorItemsTable.designer.cs">
+      <DependentUpon>202102071510339_AddCreateDeleteModifyDateColumnToAncestorItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071532377_AddCreateDeleteModifyDateColumnToAncestorQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202102071532377_AddCreateDeleteModifyDateColumnToAncestorQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202102071532377_AddCreateDeleteModifyDateColumnToAncestorQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102081526552_AddIsOrderColumnToPlotItemsTable.cs" />
+    <Compile Include="Migrations\202102081526552_AddIsOrderColumnToPlotItemsTable.designer.cs">
+      <DependentUpon>202102081526552_AddIsOrderColumnToPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102100316035_AddCreateModifyDeleteDateColumnToQuadranglesTable.cs" />
+    <Compile Include="Migrations\202102100316035_AddCreateModifyDeleteDateColumnToQuadranglesTable.designer.cs">
+      <DependentUpon>202102100316035_AddCreateModifyDeleteDateColumnToQuadranglesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102101411050_AddhasDeceasedColumnToQuadranglesTable.cs" />
+    <Compile Include="Migrations\202102101411050_AddhasDeceasedColumnToQuadranglesTable.designer.cs">
+      <DependentUpon>202102101411050_AddhasDeceasedColumnToQuadranglesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102151319005_AddCreateModifyAndDeleteDateToQuadrangleAreaAndCentresTable.cs" />
+    <Compile Include="Migrations\202102151319005_AddCreateModifyAndDeleteDateToQuadrangleAreaAndCentresTable.designer.cs">
+      <DependentUpon>202102151319005_AddCreateModifyAndDeleteDateToQuadrangleAreaAndCentresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102161433259_AddFromToDateAnd3TextColumnsToQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202102161433259_AddFromToDateAnd3TextColumnsToQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202102161433259_AddFromToDateAnd3TextColumnsToQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102161548160_UpdateQuadrangleItemsTableData.cs" />
+    <Compile Include="Migrations\202102161548160_UpdateQuadrangleItemsTableData.designer.cs">
+      <DependentUpon>202102161548160_UpdateQuadrangleItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102161555111_UpdateQuadrangleItemsTableData1.cs" />
+    <Compile Include="Migrations\202102161555111_UpdateQuadrangleItemsTableData1.designer.cs">
+      <DependentUpon>202102161555111_UpdateQuadrangleItemsTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\InvoiceConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\MiscellaneousNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorAreaConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CremationItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\MiscellaneousItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CremationNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\MiscellaneousTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\SpaceTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UrnTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UrnNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UrnItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\SpaceItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\SpaceNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UrnConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\DeceasedConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotLandscapeCompanyConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\FuneralCompanyConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\MaritalTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\GenderTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ApplicantConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\FengShuiMasterConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotAreaConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleCentreConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleAreaConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\MiscellaneousConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CremationConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\SpaceConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\SiteConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ReligionTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\RelationshipTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\NationalityTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PaymentMethodConfiguration.cs" />
+    <Compile Include="Persistence\MemorialContext.cs" />
+    <Compile Include="Persistence\Repositories\AncestorNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestorItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestorAreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestorTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\CatalogRepository.cs" />
+    <Compile Include="Persistence\Repositories\NumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
+    <Compile Include="Persistence\Repositories\CremationNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\CremationItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\CremationRepository.cs" />
+    <Compile Include="Persistence\Repositories\MiscellaneousItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\MiscellaneousNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\MiscellaneousTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotLandscapeCompanyRepository.cs" />
+    <Compile Include="Persistence\Repositories\FuneralCompanyRepository.cs" />
+    <Compile Include="Persistence\Repositories\PaymentMethodRepository.cs" />
+    <Compile Include="Persistence\Repositories\ApplicantRepository.cs" />
+    <Compile Include="Persistence\Repositories\DeceasedRepository.cs" />
+    <Compile Include="Persistence\Repositories\FengShuiMasterRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotAreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestorRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleCentreRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleAreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleRepository.cs" />
+    <Compile Include="Persistence\Repositories\MiscellaneousRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\SpaceTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\SpaceNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\SpaceItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\UrnNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\UrnItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\InvoiceRepository.cs" />
+    <Compile Include="Persistence\Repositories\UrnTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\UrnRepository.cs" />
+    <Compile Include="Persistence\Repositories\SpaceRepository.cs" />
+    <Compile Include="Persistence\Repositories\SiteRepository.cs" />
+    <Compile Include="Persistence\Repositories\ReligionTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\RelationshipTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\NationalityTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\MaritalTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\GenderTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\Repository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\InvoiceFormViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationNewNonOrderReceiptFormViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationNonOrderReceiptsViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleCentreIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleAreaIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleTransactionsFormViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\NewNonOrderReceiptFormViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\NewOrderReceiptFormViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\NonOrderReceiptsViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\OrderReceiptsViewModel.cs" />
+    <Compile Include="ViewModels\DeceasedBriefViewModel.cs" />
+    <Compile Include="ViewModels\ApplicantBriefViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationItemsViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationOrdersViewModel.cs" />
+    <Compile Include="ViewModels\ListCatalogViewModel.cs" />
+    <Compile Include="ViewModels\InvoicesViewModel.cs" />
+    <Compile Include="ViewModels\ListInvoicesViewModel.cs" />
+    <Compile Include="ViewModels\ApplicantInfoViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationOrderFormViewModel.cs" />
+    <Compile Include="ViewModels\DeceasedFormViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleItemsViewModel.cs" />
+    <Compile Include="ViewModels\ListUrnTransactionViewModel.cs" />
+    <Compile Include="ViewModels\ListAncestorItemsViewModel.cs" />
+    <Compile Include="ViewModels\Miscellaneous\MiscellaneousItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Miscellaneous\MiscellaneousItemsViewModel.cs" />
+    <Compile Include="ViewModels\Miscellaneous\MiscellaneousIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Space\SpaceItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Space\SpaceItemsViewModel.cs" />
+    <Compile Include="ViewModels\Space\SpaceIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Urn\UrnItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Urn\UrnIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Urn\UrnItemsViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\Catalog.cshtml" />
+    <Content Include="Views\Urn\Index.cshtml" />
+    <Content Include="Views\Applicants\Index.cshtml" />
+    <Content Include="Views\Space\Index.cshtml" />
+    <Content Include="Views\Space\Items.cshtml" />
+    <Content Include="Views\SpaceTransactions\Index.cshtml" />
+    <Content Include="Views\Urn\Items.cshtml" />
+    <Content Include="Views\Miscellaneous\Index.cshtml" />
+    <Content Include="Views\Miscellaneous\Items.cshtml" />
+    <Content Include="Views\Ancestor\Index.cshtml" />
+    <Content Include="Views\Ancestor\Ancestor.cshtml" />
+    <Content Include="Views\Ancestor\Items.cshtml" />
+    <Content Include="Views\AncestorFree\Index.cshtml" />
+    <Content Include="Views\AncestorMaintenance\Index.cshtml" />
+    <Content Include="Views\AncestorOrder\Index.cshtml" />
+    <Content Include="Views\AncestorShift\Index.cshtml" />
+    <Content Include="Views\Cremation\Index.cshtml" />
+    <Content Include="Views\Cremation\Items.cshtml" />
+    <Content Include="Views\CremationTransactions\Index.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\Index.cshtml" />
+    <Content Include="Views\Quadrangle\Centre.cshtml" />
+    <Content Include="Views\Quadrangle\Area.cshtml" />
+    <Content Include="Views\Quadrangle\Quadrangle.cshtml" />
+    <Content Include="Views\Quadrangle\Items.cshtml" />
+    <Content Include="Views\Plot\Index.cshtml" />
+    <Content Include="Views\Plot\Items.cshtml" />
+    <Content Include="Views\PlotSingle\Index.cshtml" />
+    <Content Include="Views\PlotDouble\Index.cshtml" />
+    <Content Include="Views\PlotFengShui\Index.cshtml" />
+    <Content Include="Views\PlotClearance\Index.cshtml" />
+    <Content Include="Views\PlotSecondBurial\Index.cshtml" />
+    <Content Include="Views\Applicants\Form.cshtml" />
+    <Content Include="Views\Applicants\Catalog.cshtml" />
+    <Content Include="Views\Deceaseds\Form.cshtml" />
+    <Content Include="Views\Deceaseds\Info.cshtml" />
+    <Content Include="Views\CremationTransactions\Form.cshtml" />
+    <Content Include="Views\FuneralCompanies\Index.cshtml" />
+    <Content Include="Views\FuneralCompanies\Form.cshtml" />
+    <Content Include="Views\CremationTransactions\Info.cshtml" />
+    <Content Include="Views\Shared\_ApplicantInfo.cshtml" />
+    <Content Include="Views\Shared\_ApplicantBrief.cshtml" />
+    <Content Include="Views\Applicants\Info.cshtml" />
+    <Content Include="Views\Shared\_DeceasedInfo.cshtml" />
+    <Content Include="Views\NonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\NonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\MiscellaneousTransactions\Index.cshtml" />
+    <Content Include="Views\MiscellaneousTransactions\Form.cshtml" />
+    <Content Include="Views\MiscellaneousTransactions\Info.cshtml" />
+    <Content Include="Views\MiscellaneousNonOrders\Form.cshtml" />
+    <Content Include="Views\MiscellaneousNonOrders\Index.cshtml" />
+    <Content Include="Views\MiscellaneousNonOrders\Info.cshtml" />
+    <Content Include="Views\SpaceTransactions\Form.cshtml" />
+    <Content Include="Views\SpaceTransactions\Info.cshtml" />
+    <Content Include="Views\OrderReceipts\Index.cshtml" />
+    <Content Include="Views\OrderReceipts\Form.cshtml" />
+    <Content Include="Views\Invoices\Form.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
+    <Content Include="Views\Urn\Transactions.cshtml" />
+    <Content Include="Views\Urn\Form.cshtml" />
+    <Content Include="Views\Urn\Info.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\OrderForm.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\ManageForm.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\PhotoForm.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\ShiftForm.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\TransferForm.cshtml" />
+    <Content Include="Views\QuadrangleTransactions\FreeForm.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202011161613327_Initial.resx">
+      <DependentUpon>202011161613327_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161614477_AddMaritalTypesTable.resx">
+      <DependentUpon>202011161614477_AddMaritalTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161615341_PopulateDataToMaritalTypesTable.resx">
+      <DependentUpon>202011161615341_PopulateDataToMaritalTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161626283_AddGenderTypesTable.resx">
+      <DependentUpon>202011161626283_AddGenderTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161630509_PopulateDataToGenderTypesTable.resx">
+      <DependentUpon>202011161630509_PopulateDataToGenderTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161648227_AddGenderTypeConfiguration.resx">
+      <DependentUpon>202011161648227_AddGenderTypeConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161649265_UpdateMaritalColumnSizeTo255ForMaritalTypesTable.resx">
+      <DependentUpon>202011161649265_UpdateMaritalColumnSizeTo255ForMaritalTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161650469_AddNationalityTypesTable.resx">
+      <DependentUpon>202011161650469_AddNationalityTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161651281_PopulateDataToNationalityTypesTable.resx">
+      <DependentUpon>202011161651281_PopulateDataToNationalityTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170233442_ChangeColumnNameGenderToNameInGenderTypesTable.resx">
+      <DependentUpon>202011170233442_ChangeColumnNameGenderToNameInGenderTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170236539_RenameColumnNameMaritalToNameInMaritalTypesTable.resx">
+      <DependentUpon>202011170236539_RenameColumnNameMaritalToNameInMaritalTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170237504_RenameColumnNameNationalityToNameInNationalityTypesTable.resx">
+      <DependentUpon>202011170237504_RenameColumnNameNationalityToNameInNationalityTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170840220_AddRelationshipTypesTable.resx">
+      <DependentUpon>202011170840220_AddRelationshipTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170845059_PopulateDataToRelationshipTypesTable.resx">
+      <DependentUpon>202011170845059_PopulateDataToRelationshipTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170850391_AddReligionTypesTable.resx">
+      <DependentUpon>202011170850391_AddReligionTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170901169_PopulateDataToReligionTypesTable.resx">
+      <DependentUpon>202011170901169_PopulateDataToReligionTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170911504_AddPaymentMethodsTable.resx">
+      <DependentUpon>202011170911504_AddPaymentMethodsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170913410_PopulateDataToPaymentMethodsTable.resx">
+      <DependentUpon>202011170913410_PopulateDataToPaymentMethodsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170918514_AddSitesTable.resx">
+      <DependentUpon>202011170918514_AddSitesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011170923474_PopulateDataToSitesTable.resx">
+      <DependentUpon>202011170923474_PopulateDataToSitesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011171318530_AddApplicantsTable.resx">
+      <DependentUpon>202011171318530_AddApplicantsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011171451076_AddDeceasedsTable.resx">
+      <DependentUpon>202011171451076_AddDeceasedsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221540182_AddFengShuiMastersTable.resx">
+      <DependentUpon>202011221540182_AddFengShuiMastersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221553219_AddFuneralCompaniesTable.resx">
+      <DependentUpon>202011221553219_AddFuneralCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221657135_AddPlotTypesTable.resx">
+      <DependentUpon>202011221657135_AddPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221658220_PopulateDataToPlotTypesTable.resx">
+      <DependentUpon>202011221658220_PopulateDataToPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221700105_AddPlotAreasTable.resx">
+      <DependentUpon>202011221700105_AddPlotAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011221740112_AddPlotsTable.resx">
+      <DependentUpon>202011221740112_AddPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231529214_AddAncestorsTable.resx">
+      <DependentUpon>202011231529214_AddAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231625441_AddQuadrangleAreasTable.resx">
+      <DependentUpon>202011231625441_AddQuadrangleAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231630526_RenameLocationColumnToPositionForAncestorsTable.resx">
+      <DependentUpon>202011231630526_RenameLocationColumnToPositionForAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231637287_AddQuadrangleTypesTable.resx">
+      <DependentUpon>202011231637287_AddQuadrangleTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231638391_PopulateDataToQuadrangleTypesTable.resx">
+      <DependentUpon>202011231638391_PopulateDataToQuadrangleTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231707267_AddQuadranglesTable.resx">
+      <DependentUpon>202011231707267_AddQuadranglesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241356200_AddPlotLandscapeCompaniesTable.resx">
+      <DependentUpon>202011241356200_AddPlotLandscapeCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241436314_AddSpacesTable.resx">
+      <DependentUpon>202011241436314_AddSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241446002_PopulateDataToSpacesTable.resx">
+      <DependentUpon>202011241446002_PopulateDataToSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241545567_AddMiscellaneousTable.resx">
+      <DependentUpon>202011241545567_AddMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241547064_PopulateDataToMiscellaneousTable.resx">
+      <DependentUpon>202011241547064_PopulateDataToMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011251449508_AddCodeToMiscellaneousTable.resx">
+      <DependentUpon>202011251449508_AddCodeToMiscellaneousTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011251511151_PopulateDataAndUpdateDataForMiscellaneousTable.resx">
+      <DependentUpon>202011251511151_PopulateDataAndUpdateDataForMiscellaneousTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261314577_ChangeCodeColumnToRequiredForMiscellaneousTable.resx">
+      <DependentUpon>202011261314577_ChangeCodeColumnToRequiredForMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261318177_ChangeCodeColumnToRequiredForSpacesTable.resx">
+      <DependentUpon>202011261318177_ChangeCodeColumnToRequiredForSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261321263_PopulateDataAndUpdateDataForSpacesTable.resx">
+      <DependentUpon>202011261321263_PopulateDataAndUpdateDataForSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261438464_AddColumnCodeToPlotAreasTable.resx">
+      <DependentUpon>202011261438464_AddColumnCodeToPlotAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261532269_RemoveSiteIdColumnAndRenameCodeToNameForQuadrangleAreasTable.resx">
+      <DependentUpon>202011261532269_RemoveSiteIdColumnAndRenameCodeToNameForQuadrangleAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011261538197_AddQuadrangleCentresTable.resx">
+      <DependentUpon>202011261538197_AddQuadrangleCentresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011280912011_AddCremationsTable.resx">
+      <DependentUpon>202011280912011_AddCremationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011280913573_PopulateDataToCremationsTable.resx">
+      <DependentUpon>202011280913573_PopulateDataToCremationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011280923307_AddColumnCodeToPlotTypeAndRepopulateData.resx">
+      <DependentUpon>202011280923307_AddColumnCodeToPlotTypeAndRepopulateData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011280958399_AddUrnsTable.resx">
+      <DependentUpon>202011280958399_AddUrnsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291308034_AddQuadrangleItemsTable.resx">
+      <DependentUpon>202011291308034_AddQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291343286_PopulateDataToQuadrangleItemsTable.resx">
+      <DependentUpon>202011291343286_PopulateDataToQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291449256_AddQuadrangleItemNumbersTable.resx">
+      <DependentUpon>202011291449256_AddQuadrangleItemNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011301627372_AddSpaceItemsTable.resx">
+      <DependentUpon>202011301627372_AddSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011301628198_PopulateDataToSpaceItemsTable.resx">
+      <DependentUpon>202011301628198_PopulateDataToSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010931107_RemoveAllRelatedWithSpaceNumbersItem.resx">
+      <DependentUpon>202012010931107_RemoveAllRelatedWithSpaceNumbersItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010938447_AddSpaceNumbersTable.resx">
+      <DependentUpon>202012010938447_AddSpaceNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010942178_RemoveQuadrangleItemNumbersTable.resx">
+      <DependentUpon>202012010942178_RemoveQuadrangleItemNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010953146_AddQuadrangleNumbersTable.resx">
+      <DependentUpon>202012010953146_AddQuadrangleNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010959071_PopulateDataToQuadrangleCentresTable.resx">
+      <DependentUpon>202012010959071_PopulateDataToQuadrangleCentresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011006280_RemoveCodeColumnFromQuadrangleCentresTable.resx">
+      <DependentUpon>202012011006280_RemoveCodeColumnFromQuadrangleCentresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011015318_RemoveColumnSiteFromQuadrangleItemsTable.resx">
+      <DependentUpon>202012011015318_RemoveColumnSiteFromQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011307380_AddQuadrangleCentreIdColumnToQuadrangleItemsTable.resx">
+      <DependentUpon>202012011307380_AddQuadrangleCentreIdColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011400477_PopulateDataToQuadrangleItemsTable1.resx">
+      <DependentUpon>202012011400477_PopulateDataToQuadrangleItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012021529018_RemoveCodeColumnFromPlotAreasTable.resx">
+      <DependentUpon>202012021529018_RemoveCodeColumnFromPlotAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012021540096_AddPlotItemsTable.resx">
+      <DependentUpon>202012021540096_AddPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012021550208_AddPlotNumbersTable.resx">
+      <DependentUpon>202012021550208_AddPlotNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012021602272_PopulateDataToPlotAreasTable.resx">
+      <DependentUpon>202012021602272_PopulateDataToPlotAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041223158_RemoveColumnCodeFromCremationsTable.resx">
+      <DependentUpon>202012041223158_RemoveColumnCodeFromCremationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041244166_AddCremationItemsTable.resx">
+      <DependentUpon>202012041244166_AddCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041302373_AddCremationNumbersTable.resx">
+      <DependentUpon>202012041302373_AddCremationNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041321197_RemovePriceColumnFromCremationsTable.resx">
+      <DependentUpon>202012041321197_RemovePriceColumnFromCremationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041324338_RemovePricePerDay_AllowDoubleBook_ToleranceHour_CodeFromSpacesTable.resx">
+      <DependentUpon>202012041324338_RemovePricePerDay_AllowDoubleBook_ToleranceHour_CodeFromSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041331136_PopulateDataToCremationItemsTable.resx">
+      <DependentUpon>202012041331136_PopulateDataToCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051432548_AddMiscellaneousItemsTable.resx">
+      <DependentUpon>202012051432548_AddMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051439495_AddMiscellaneousNumbersTable.resx">
+      <DependentUpon>202012051439495_AddMiscellaneousNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051444395_RemoveColumnCodeFromMiscellaneousTable.resx">
+      <DependentUpon>202012051444395_RemoveColumnCodeFromMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051450137_PopulateDataToMiscellaneousItemsTable.resx">
+      <DependentUpon>202012051450137_PopulateDataToMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051712121_RemoveColumnSiteFromAncestorsTable.resx">
+      <DependentUpon>202012051712121_RemoveColumnSiteFromAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051725241_AddAncestorAreasTable.resx">
+      <DependentUpon>202012051725241_AddAncestorAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051737397_AddAncestorItemsTable.resx">
+      <DependentUpon>202012051737397_AddAncestorItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012051748080_AddAncestorNumbersTable.resx">
+      <DependentUpon>202012051748080_AddAncestorNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012060314310_AddNumberOfPlacement_isFengShuiPlotColumnToPlotItemsTable.resx">
+      <DependentUpon>202012060314310_AddNumberOfPlacement_isFengShuiPlotColumnToPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012071610459_RemoveColumnAddNumberOfPlacement_isFengShuiPlotFromPlotItemsTable.resx">
+      <DependentUpon>202012071610459_RemoveColumnAddNumberOfPlacement_isFengShuiPlotFromPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080807578_RemoveColumnCodeFromUrnsTable.resx">
+      <DependentUpon>202012080807578_RemoveColumnCodeFromUrnsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080823157_AddUrnItemsTable.resx">
+      <DependentUpon>202012080823157_AddUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080832195_AddUrnNumbersTable.resx">
+      <DependentUpon>202012080832195_AddUrnNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080846381_AddColumnSecondBurialPrice_ClearancePriceToPlotTypesTable.resx">
+      <DependentUpon>202012080846381_AddColumnSecondBurialPrice_ClearancePriceToPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012080921370_PopulateDataToPlotItemsTable.resx">
+      <DependentUpon>202012080921370_PopulateDataToPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081011497_PopulateDataToSpaceItemsTable1.resx">
+      <DependentUpon>202012081011497_PopulateDataToSpaceItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081014185_PopulateDataToQuadrangleItemsTable2.resx">
+      <DependentUpon>202012081014185_PopulateDataToQuadrangleItemsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081020017_PopulateDataToPlotItemsTable1.resx">
+      <DependentUpon>202012081020017_PopulateDataToPlotItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081036233_PopulateDataToPlotItemsTable2.resx">
+      <DependentUpon>202012081036233_PopulateDataToPlotItemsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081456188_PopulateDataToAncestorItemsTable.resx">
+      <DependentUpon>202012081456188_PopulateDataToAncestorItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081458178_PopulateDataToAncestorAreasTable.resx">
+      <DependentUpon>202012081458178_PopulateDataToAncestorAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081508544_PopulateDataToAncestorItemsTable1.resx">
+      <DependentUpon>202012081508544_PopulateDataToAncestorItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091512095_AddSpaceTransactionsTable.resx">
+      <DependentUpon>202012091512095_AddSpaceTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091531475_AddMiscellaneousTransactionsTable.resx">
+      <DependentUpon>202012091531475_AddMiscellaneousTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091552585_SetColumnAFToNotNullAndLength_RemarkLengthForSpaceAndMiscellaneousTransactionsTable.resx">
+      <DependentUpon>202012091552585_SetColumnAFToNotNullAndLength_RemarkLengthForSpaceAndMiscellaneousTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091609536_AddInvoicesTable.resx">
+      <DependentUpon>202012091609536_AddInvoicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091631079_AddReceiptsTable.resx">
+      <DependentUpon>202012091631079_AddReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012101420582_LinkMiscellaneousTransactionsAFColumnWIthReceiptsTable.resx">
+      <DependentUpon>202012101420582_LinkMiscellaneousTransactionsAFColumnWIthReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012121331058_AddQuadrangleTransactionsTable.resx">
+      <DependentUpon>202012121331058_AddQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012121540024_ReduceLengthForColumnAFTo50ForPlotTransactionsTable.resx">
+      <DependentUpon>202012121540024_ReduceLengthForColumnAFTo50ForPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012121549452_AddPlotTransactionsTable.resx">
+      <DependentUpon>202012121549452_AddPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012121630084_AddQuadrangleItemIdToQuadrangleTransactionsTable.resx">
+      <DependentUpon>202012121630084_AddQuadrangleItemIdToQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131602134_AddPlotItemToPlotTransactionsTable.resx">
+      <DependentUpon>202012131602134_AddPlotItemToPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012140913346_AddUrnTransactionsTable.resx">
+      <DependentUpon>202012140913346_AddUrnTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141006558_AddCremationTransactionsTable.resx">
+      <DependentUpon>202012141006558_AddCremationTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141133139_AddAncestorTransactionsTable.resx">
+      <DependentUpon>202012141133139_AddAncestorTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141136407_AddCreateDateToCremationTransactionsTable.resx">
+      <DependentUpon>202012141136407_AddCreateDateToCremationTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141137483_AddCreateDateColumnToMiscellaneousTransactionsTable.resx">
+      <DependentUpon>202012141137483_AddCreateDateColumnToMiscellaneousTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141139219_AddCreateDateColumnToSpaceTransactionsTable.resx">
+      <DependentUpon>202012141139219_AddCreateDateColumnToSpaceTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141142475_AddCreateDateColumnToUrnTransactionsTable.resx">
+      <DependentUpon>202012141142475_AddCreateDateColumnToUrnTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141355443_MoveRelationshipTypeIdFromAncestorsTableToAncestorTransactionsTable.resx">
+      <DependentUpon>202012141355443_MoveRelationshipTypeIdFromAncestorsTableToAncestorTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141406011_RemoveApplicantIdFromAncestorsTable.resx">
+      <DependentUpon>202012141406011_RemoveApplicantIdFromAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141443064_AddAncestorTransactionAFToAncestorsTable.resx">
+      <DependentUpon>202012141443064_AddAncestorTransactionAFToAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141511456_RemoveLabelColumnFromAncestorsTable.resx">
+      <DependentUpon>202012141511456_RemoveLabelColumnFromAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141518224_RemoveApplicantIdFromPlotsTable.resx">
+      <DependentUpon>202012141518224_RemoveApplicantIdFromPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141524418_RemoveDeceasedIdFromPlotsTable.resx">
+      <DependentUpon>202012141524418_RemoveDeceasedIdFromPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012151042089_AddCreateAndDeleteDateColumnToUrnTypeTables.resx">
+      <DependentUpon>202012151042089_AddCreateAndDeleteDateColumnToUrnTypeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012151300251_AddModifyDateAndSetDeleteDateTimeToAllowNullForUrnTypeTables.resx">
+      <DependentUpon>202012151300251_AddModifyDateAndSetDeleteDateTimeToAllowNullForUrnTypeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012180619369_AddCatalogsTable.resx">
+      <DependentUpon>202012180619369_AddCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012180621117_PopulateDataToCatalogsTable.resx">
+      <DependentUpon>202012180621117_PopulateDataToCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181002473_AddColumnCodeToCatalogsTable.resx">
+      <DependentUpon>202012181002473_AddColumnCodeToCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181005553_PopulateDataToCatalogsTable1.resx">
+      <DependentUpon>202012181005553_PopulateDataToCatalogsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012200819375_AddCreateModifyDeleteDateColumnToApplicantsTable.resx">
+      <DependentUpon>202012200819375_AddCreateModifyDeleteDateColumnToApplicantsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012200823066_AddCreateModifyDeleteDateColumnToDeceasedsTable.resx">
+      <DependentUpon>202012200823066_AddCreateModifyDeleteDateColumnToDeceasedsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201430553_AddSystemCodeColumnToSpaceItemsTable.resx">
+      <DependentUpon>202012201430553_AddSystemCodeColumnToSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201434191_PopulateDataToSpaceItemsTable2.resx">
+      <DependentUpon>202012201434191_PopulateDataToSpaceItemsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201639166_AddSystemCodeColumnToUrnItemsTable.resx">
+      <DependentUpon>202012201639166_AddSystemCodeColumnToUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201640081_PopulateDataToUrnItemsTable.resx">
+      <DependentUpon>202012201640081_PopulateDataToUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201700040_AddSystemCodeColumnToMiscellaneousItemsTable.resx">
+      <DependentUpon>202012201700040_AddSystemCodeColumnToMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201700594_PopulateDataToMiscellaneousItemsTable1.resx">
+      <DependentUpon>202012201700594_PopulateDataToMiscellaneousItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012201720461_AddDescriptionColumnToMiscellaneousTable.resx">
+      <DependentUpon>202012201720461_AddDescriptionColumnToMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210216481_AddRemarkColumnToAncestorAreasTable.resx">
+      <DependentUpon>202012210216481_AddRemarkColumnToAncestorAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210241400_AddisPurchasedColumnToAncestosTable.resx">
+      <DependentUpon>202012210241400_AddisPurchasedColumnToAncestosTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210300238_AddSystemCodeColumnToAncestorItemsTable.resx">
+      <DependentUpon>202012210300238_AddSystemCodeColumnToAncestorItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210304448_UpdateAncestorItemsTableData.resx">
+      <DependentUpon>202012210304448_UpdateAncestorItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012211532417_ChangeAllNumbersTableofTinyintToInt.resx">
+      <DependentUpon>202012211532417_ChangeAllNumbersTableofTinyintToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221514408_AddSystemCodeColumnToCremationItemsTable.resx">
+      <DependentUpon>202012221514408_AddSystemCodeColumnToCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221516029_PopulateDataToCremationItemsTable1.resx">
+      <DependentUpon>202012221516029_PopulateDataToCremationItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221600197_UpdateNameForUrnItemsTable.resx">
+      <DependentUpon>202012221600197_UpdateNameForUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221604384_PopulateDataToCremationItemsTable2.resx">
+      <DependentUpon>202012221604384_PopulateDataToCremationItemsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221610560_PopulateDataForMiscellaneousAndItemsTable.resx">
+      <DependentUpon>202012221610560_PopulateDataForMiscellaneousAndItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012221624034_PopulateDataForAncestorAndItemsTable.resx">
+      <DependentUpon>202012221624034_PopulateDataForAncestorAndItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012241506520_UpdateSpaceItemsTable.resx">
+      <DependentUpon>202012241506520_UpdateSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012241526502_UpdateSpaceItemsTable1.resx">
+      <DependentUpon>202012241526502_UpdateSpaceItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012241535237_UpdateSpaceItemsTable2.resx">
+      <DependentUpon>202012241535237_UpdateSpaceItemsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012250313499_AddSystemCodeColumnToQuadrangleItemsTable.resx">
+      <DependentUpon>202012250313499_AddSystemCodeColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012250333473_UpdateDataForQuadrangleItemsTable.resx">
+      <DependentUpon>202012250333473_UpdateDataForQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012251356542_UpdateDataForQuadrangleItemsTable1.resx">
+      <DependentUpon>202012251356542_UpdateDataForQuadrangleItemsTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281327183_AddSystemCodeColumnToPlotItemsTable.resx">
+      <DependentUpon>202012281327183_AddSystemCodeColumnToPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281458561_UpdatePlotItemsTableData.resx">
+      <DependentUpon>202012281458561_UpdatePlotItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012281615580_AddHasPurchasedAndBuriedColumnToPlotsTable.resx">
+      <DependentUpon>202012281615580_AddHasPurchasedAndBuriedColumnToPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291501551_AddApplicantAndDeceasedLinkToPlotsTable.resx">
+      <DependentUpon>202012291501551_AddApplicantAndDeceasedLinkToPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012291510292_RemoveHasPurchasedAndHasBuriedFromPlotsTable.resx">
+      <DependentUpon>202012291510292_RemoveHasPurchasedAndHasBuriedFromPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101010518504_RenameRemarksToRemarkForDeceasedsTable.resx">
+      <DependentUpon>202101010518504_RenameRemarksToRemarkForDeceasedsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101010522443_ReduceRemarkColumnSizeTo255ForApplicantsTable.resx">
+      <DependentUpon>202101010522443_ReduceRemarkColumnSizeTo255ForApplicantsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011303202_AddModifyAndDeleteDateToCremationTransactionsTable.resx">
+      <DependentUpon>202101011303202_AddModifyAndDeleteDateToCremationTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011321099_AddCreateModifyDeleteDateColumnToFuneralCompaniesTable.resx">
+      <DependentUpon>202101011321099_AddCreateModifyDeleteDateColumnToFuneralCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011337010_ResizeRemarkTo255ForFuneralCompaniesTable.resx">
+      <DependentUpon>202101011337010_ResizeRemarkTo255ForFuneralCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101011652284_AddCreateModifyDeleteDateColumnToCremationItemsTable.resx">
+      <DependentUpon>202101011652284_AddCreateModifyDeleteDateColumnToCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101020428302_AddCreateModifyDeleteDateColumnToInvoicesAndReceiptsTable.resx">
+      <DependentUpon>202101020428302_AddCreateModifyDeleteDateColumnToInvoicesAndReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101030841252_AddInvoiceAndReceiptForeignKeyToCremationTransactionsTable.resx">
+      <DependentUpon>202101030841252_AddInvoiceAndReceiptForeignKeyToCremationTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101031307290_AddInvoiceAndReceiptForeignKeyToAllTransactionsTable.resx">
+      <DependentUpon>202101031307290_AddInvoiceAndReceiptForeignKeyToAllTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101031353572_RemoveAFColumnFromInvoicesTable.resx">
+      <DependentUpon>202101031353572_RemoveAFColumnFromInvoicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061454399_UpdateCremationItemsTable.resx">
+      <DependentUpon>202101061454399_UpdateCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101091238324_UpdateDataForMiscellaneousItemsTable.resx">
+      <DependentUpon>202101091238324_UpdateDataForMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101091327107_AddTransactionAFColumnToReceiptsTable.resx">
+      <DependentUpon>202101091327107_AddTransactionAFColumnToReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101505267_AddPaymentMethodToReceiptsTable.resx">
+      <DependentUpon>202101101505267_AddPaymentMethodToReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101528415_AddRequireRemarkToPaymentMethodsTable.resx">
+      <DependentUpon>202101101528415_AddRequireRemarkToPaymentMethodsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101181423201_AddModifyAndDeleteDateToMiscellaneousTable.resx">
+      <DependentUpon>202101181423201_AddModifyAndDeleteDateToMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101181450347_AddCreateModifyDeleteDateToMiscellaneousItemsTable.resx">
+      <DependentUpon>202101181450347_AddCreateModifyDeleteDateToMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191556382_UpdateMiscellaneousItemsTableData.resx">
+      <DependentUpon>202101191556382_UpdateMiscellaneousItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191603092_UpdateMiscellaneousItemsTableData1.resx">
+      <DependentUpon>202101191603092_UpdateMiscellaneousItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201500095_AddhasReceiptColumnToInvoicesTable.resx">
+      <DependentUpon>202101201500095_AddhasReceiptColumnToInvoicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201544213_AddisOrderColumnToMiscellaneousItemstable.resx">
+      <DependentUpon>202101201544213_AddisOrderColumnToMiscellaneousItemstable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201545535_UpdateMiscellaneousItemsTableData2.resx">
+      <DependentUpon>202101201545535_UpdateMiscellaneousItemsTableData2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101281512578_AddCreateModifyDeleteDateToSpaceEntities.resx">
+      <DependentUpon>202101281512578_AddCreateModifyDeleteDateToSpaceEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102010839126_UpdateFromAndToDateToNullableColumnForSpaceTransactionsTable.resx">
+      <DependentUpon>202102010839126_UpdateFromAndToDateToNullableColumnForSpaceTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021319497_AddIsOrderColumnToSpaceItemsTable.resx">
+      <DependentUpon>202102021319497_AddIsOrderColumnToSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021320573_UpdateSpaceItemsData.resx">
+      <DependentUpon>202102021320573_UpdateSpaceItemsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021452356_UpdateSpaceItemsData1.resx">
+      <DependentUpon>202102021452356_UpdateSpaceItemsData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102031540398_AddisOrderColumnToUrnItemsTable.resx">
+      <DependentUpon>202102031540398_AddisOrderColumnToUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051532249_AddIsOrderColumnToCremationItemsTable.resx">
+      <DependentUpon>202102051532249_AddIsOrderColumnToCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051533444_UpdateCremationItemsData.resx">
+      <DependentUpon>202102051533444_UpdateCremationItemsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051544293_AddisOrderColumnToQuadrangleItemsTable.resx">
+      <DependentUpon>202102051544293_AddisOrderColumnToQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051548072_UpdateQuadrangleItemsData.resx">
+      <DependentUpon>202102051548072_UpdateQuadrangleItemsData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102051554435_AddCreateModifyAndDeleteColumnQuadrangleItemsTable.resx">
+      <DependentUpon>202102051554435_AddCreateModifyAndDeleteColumnQuadrangleItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071503304_AddisOrderColumnToAncestorItemsTable.resx">
+      <DependentUpon>202102071503304_AddisOrderColumnToAncestorItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071510339_AddCreateDeleteModifyDateColumnToAncestorItemsTable.resx">
+      <DependentUpon>202102071510339_AddCreateDeleteModifyDateColumnToAncestorItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071532377_AddCreateDeleteModifyDateColumnToAncestorQuadrangleTransactionsTable.resx">
+      <DependentUpon>202102071532377_AddCreateDeleteModifyDateColumnToAncestorQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102081526552_AddIsOrderColumnToPlotItemsTable.resx">
+      <DependentUpon>202102081526552_AddIsOrderColumnToPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102100316035_AddCreateModifyDeleteDateColumnToQuadranglesTable.resx">
+      <DependentUpon>202102100316035_AddCreateModifyDeleteDateColumnToQuadranglesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102101411050_AddhasDeceasedColumnToQuadranglesTable.resx">
+      <DependentUpon>202102101411050_AddhasDeceasedColumnToQuadranglesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102151319005_AddCreateModifyAndDeleteDateToQuadrangleAreaAndCentresTable.resx">
+      <DependentUpon>202102151319005_AddCreateModifyAndDeleteDateToQuadrangleAreaAndCentresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161433259_AddFromToDateAnd3TextColumnsToQuadrangleTransactionsTable.resx">
+      <DependentUpon>202102161433259_AddFromToDateAnd3TextColumnsToQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161548160_UpdateQuadrangleItemsTableData.resx">
+      <DependentUpon>202102161548160_UpdateQuadrangleItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161555111_UpdateQuadrangleItemsTableData1.resx">
+      <DependentUpon>202102161555111_UpdateQuadrangleItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51535</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51535/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

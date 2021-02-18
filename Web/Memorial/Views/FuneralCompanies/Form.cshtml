@@ -1,0 +1,53 @@
+﻿@model Memorial.Core.Dtos.FuneralCompanyDto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Funeral Company</h2>
+
+@using (Html.BeginForm("Save", "FuneralCompanies"))
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            Name
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Name)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Contact Person
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.ContactPerson, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.ContactPerson)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Contact Number
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.ContactNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.ContactNumber)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(a => a.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(a => a.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

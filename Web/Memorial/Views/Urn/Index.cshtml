@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.UrnIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Remark</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urn in Model.UrnDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(urn.Name, "Items", new { urnId = urn.Id, applicantId = Model.ApplicantId })</td>
+                <td>@urn.Description</td>
+                <td>@urn.Remark</td>
+            </tr>
+        }
+    </tbody>
+</table>

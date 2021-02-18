@@ -1,0 +1,56 @@
+﻿@model Memorial.ViewModels.UrnItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listing</h2>
+
+<p>
+    @Html.ActionLink("New", "New", new { urnItemId = Model.UrnItemId, applicantId = Model.ApplicantId })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Remark</th>
+            <th>Price</th>
+            <th>Create Date</th>
+            @if (Model.OrderFlag)
+            {
+                <th>Invoice</th>
+            }
+            else
+            {
+                <th>Receipt</th>
+            }
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urnTransaction in Model.UrnTransactionDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(urnTransaction.AF, "Info", new { AF = urnTransaction.AF }, new { target = "UrnTransactionInfo" })</td>
+                <td>@urnTransaction.Remark</td>
+                <td>@urnTransaction.Price</td>
+                <td>@urnTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                @if (Model.OrderFlag)
+                {
+                    <td>@Html.ActionLink("Invoice", "Invoice", new { AF = urnTransaction.AF })</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("Receipt", "Receipt", new { AF = urnTransaction.AF })</td>
+                }
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+               new { AF = urnTransaction.AF, urnItemId = Model.UrnItemId, applicantId = Model.ApplicantId },
+               new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Memorial.Core.Dtos.FuneralCompanyDto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Funeral Company</h2>
+
+<p>
+    @Html.ActionLink("New", "New")
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact Person</th>
+            <th>Contact Name</th>
+            <th>Remark</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var funeralCompany in Model)
+        {
+        <tr>
+            <td>@funeralCompany.Name</td>
+            <td>@funeralCompany.ContactPerson</td>
+            <td>@funeralCompany.ContactNumber</td>
+            <td>@funeralCompany.Remark</td>
+            <td>@Html.ActionLink("Edit", "Edit", new { id = funeralCompany.Id })</td>
+        </tr>
+        }
+    </tbody>
+</table>

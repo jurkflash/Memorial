@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.ListAncestorItemsViewModel
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Item</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ancestorItem in Model.AncestorItems)
+        {
+            <tr>
+                <td>@Html.ActionLink(ancestorItem.Name, "Item", new { item = ancestorItem.SystemCode, ancestorItemId = ancestorItem.Id, ancestorId = Model.Ancestor.Id, ancestorAreaId = Model.AncestorArea.Id })</td>
+                <td>@ancestorItem.Description</td>
+                <td>@ancestorItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

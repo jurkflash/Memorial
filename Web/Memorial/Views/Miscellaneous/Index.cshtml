@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.MiscellaneousIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Remark</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var miscellaneous in Model.MiscellaneousDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(miscellaneous.Name, "Items", new { miscellaneousId = miscellaneous.Id, applicantId = Model.ApplicantId })</td>
+                <td>@miscellaneous.Description</td>
+                <td>@miscellaneous.Remark</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,76 @@
+﻿@model Memorial.ViewModels.CremationOrderFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.CremationTransactionDto.ApplicantId });}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Save", "CremationTransactions"))
+{
+    @Html.LabelFor(c => c.CremationTransactionDto.AF)
+    <div class="form-group">
+        Deceased
+        @Html.DropDownListFor(c => c.CremationTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Funeral Company
+        @Html.DropDownListFor(c => c.CremationTransactionDto.FuneralCompanyId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Cremate Date
+        @Html.TextBoxFor(c => c.CremationTransactionDto.CremateDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
+        @Html.ValidationMessageFor(c => c.CremationTransactionDto.CremateDate)
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Price
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.CremationTransactionDto.Price, new { @class = "form-control", @required = "required" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.CremationTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.CremationTransactionDto.CremationItemId)
+    @Html.HiddenFor(c => c.CremationTransactionDto.ApplicantId)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+
+    @Scripts.Render("~/bundles/jqueryui-timepicker")
+    @Styles.Render("~/Content/jqueryuicss-timepicker")
+
+    <script type="text/javascript">
+        $(document).ready(function () {   // will trigger when the document is ready
+            var dateNow = new Date();
+            $('.datepicker').datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                useCurrent: false,
+                defaultDate: dateNow
+            }); //Initialise any date pickers
+            $('.datetimepicker').datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                timeFormat: 'HH:mm',
+                useCurrent: false,
+                defaultDate: dateNow
+            }); //Initialise any date pickers
+        });
+    </script>
+
+}

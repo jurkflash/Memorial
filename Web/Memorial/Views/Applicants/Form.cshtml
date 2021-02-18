@@ -1,0 +1,76 @@
+﻿@model Memorial.Core.Dtos.ApplicantDto
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Applicant</h2>
+
+@using (Html.BeginForm("Save", "Applicants"))
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            IC
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.IC, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.IC)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            English Name
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Name)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Chinese Name
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.Name2, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Address
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(a => a.Address, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            House Phone
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.HousePhone, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Mobile Number
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(a => a.MobileNumber, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(a => a.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(a => a.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts 
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

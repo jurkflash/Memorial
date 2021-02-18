@@ -1,0 +1,29 @@
+﻿@model Memorial.ViewModels.SpaceIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Remark</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var space in Model.SpaceDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(space.Name, "Items", new { spaceId = space.Id, applicantId = Model.ApplicantId })</td>
+                <td>@space.Description</td>
+                <td>@space.Remark</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

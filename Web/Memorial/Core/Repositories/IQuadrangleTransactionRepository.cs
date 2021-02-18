@@ -1,0 +1,14 @@
+﻿using Memorial.Core.Domain;
+using System.Collections.Generic;
+
+namespace Memorial.Core.Repositories
+{
+    public interface IQuadrangleTransactionRepository : IRepository<QuadrangleTransaction>
+    {
+        QuadrangleTransaction GetActive(string AF);
+
+        IEnumerable<QuadrangleTransaction> GetByApplicant(int id);
+
+        IEnumerable<QuadrangleTransaction> GetByItemAndApplicant(int itemId, int applicantId);
+    }
+}

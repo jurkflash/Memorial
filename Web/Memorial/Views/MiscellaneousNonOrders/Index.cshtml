@@ -1,0 +1,36 @@
+﻿@model Memorial.ViewModels.MiscellaneousItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("New", "New", new { miscellaneousItemId = Model.MiscellaneousItemId, applicantId = Model.ApplicantId })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Remark</th>
+            <th>Price</th>
+            <th>Create Date</th>
+            <th>Receipt</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var miscellaneousTransaction in Model.MiscellaneousTransactionDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(miscellaneousTransaction.AF, "Info", new { AF = miscellaneousTransaction.AF }, new { target = "MiscellaneousTransactionInfo" })</td>
+                <td>@miscellaneousTransaction.Remark</td>
+                <td>@miscellaneousTransaction.Amount</td>
+                <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Receipt", "Receipt", new { AF = miscellaneousTransaction.AF })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

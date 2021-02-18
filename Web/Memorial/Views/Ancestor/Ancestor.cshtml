@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Memorial.Core.Domain.Ancestor>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Maintenance</th>
+            <th>Remark</th>
+            <th>PositionX</th>
+            <th>PositionY</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ancestor in Model)
+        {
+        <tr>
+            <td>@Html.ActionLink(ancestor.Code, "Item", new { ancestorId = ancestor.Id, ancestorAreaId = ancestor.AncestorAreaId })</td>
+            <td>@ancestor.Price</td>
+            <td>@ancestor.Maintenance</td>
+            <td>@ancestor.Remark</td>
+            <td>@ancestor.PositionX</td>
+            <td>@ancestor.PositionY</td>
+        </tr>
+        }
+    </tbody>
+</table>

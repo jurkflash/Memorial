@@ -1,0 +1,13 @@
+﻿@model Memorial.ViewModels.ListCatalogViewModel
+@{
+    ViewBag.Title = "Catalog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+@foreach (var catalog in Model.Catalogs)
+{
+    @Html.ActionLink(catalog.Name, "Item", new { catalog = catalog.Code, siteId = catalog.SiteId, applicantId = Model.ApplicantId })
+    <br />
+}

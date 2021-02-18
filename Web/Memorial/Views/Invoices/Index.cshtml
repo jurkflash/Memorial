@@ -1,0 +1,42 @@
+﻿@model Memorial.ViewModels.InvoicesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.MasterCatalog Invoices</h2>
+
+<p>
+    @Html.ActionLink("New", "New", new { AF = Model.AF, masterCatalog = Model.MasterCatalog })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Invoice</th>
+            <th>Remark</th>
+            <th>Amount</th>
+            <th>Paid</th>
+            <th>Create Date</th>
+            <th>Receipt Issued</th>
+            <th>Receipt</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model.InvoiceDtos)
+        {
+        <tr>
+            <td>@invoice.IV</td>
+            <td>@invoice.Remark</td>
+            <td>@invoice.Amount</td>
+            <td>@invoice.isPaid</td>
+            <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@invoice.hasReceipt</td>
+            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, AF = Model.AF, masterCatalog = Model.MasterCatalog })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

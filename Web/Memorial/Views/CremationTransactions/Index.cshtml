@@ -1,0 +1,35 @@
+﻿@model Memorial.ViewModels.CremationOrdersViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("New", "New", new { cremationItemId = Model.CremationItemId, applicantId = Model.ApplicantId })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Remark</th>
+            <th>Price</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cremationTransaction in Model.CremationTransactionDtos)
+        {
+        <tr>
+            <td>@Html.ActionLink(cremationTransaction.AF, "Info", new { AF = cremationTransaction.AF }, new { target = "CremationTransactionInfo" })</td>
+            <td>@cremationTransaction.Remark</td>
+            <td>@cremationTransaction.Price</td>
+            <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@Html.ActionLink("Invoice", "Invoice", new { AF = cremationTransaction.AF })</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Memorial.Core.Domain.PlotArea>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotArea in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(plotArea.Name, "Items", new { plotAreaId = plotArea.Id })</td>
+                <td>@plotArea.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

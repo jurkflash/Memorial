@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.SpaceItemsViewModel
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var spaceItem in Model.SpaceItemDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(spaceItem.Name, "Item", new { spaceItemId = spaceItem.Id, applicantId = Model.ApplicantId })</td>
+                <td>@spaceItem.Description</td>
+                <td>@spaceItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

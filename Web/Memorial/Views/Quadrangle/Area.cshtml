@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.QuadrangleAreaIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Area</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quadrangleArea in Model.QuadrangleAreaDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(quadrangleArea.Name, "Quadrangle", new { areaId = quadrangleArea.Id, applicantId = Model.ApplicantId })</td>
+                <td>@quadrangleArea.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

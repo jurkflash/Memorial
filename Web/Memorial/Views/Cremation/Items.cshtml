@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.CremationItemsViewModel
+@{
+    ViewBag.Title = "Items";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cremationItem in Model.CremationItemDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(cremationItem.Name, "Item", new { cremationItemId = cremationItem.Id, applicantId = Model.ApplicantId })</td>
+                <td>@cremationItem.Description</td>
+                <td>@cremationItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
