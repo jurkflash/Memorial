@@ -56,31 +56,45 @@ namespace Memorial.Controllers
             };
             viewModel.QuadrangleTransactionDto.Price = _quadrangleItem.GetPrice();
 
-            switch (systemCode)
-            {
-                case "Order":
-                    viewModel.QuadrangleTransactionDto.Price = _quadrangle.GetPrice();
-                    viewModel.QuadrangleTransactionDto.Maintenance = _quadrangle.GetMaintenance();
-                    viewModel.QuadrangleTransactionDto.LifeTimeMaintenance = _quadrangle.GetLifeTimeMaintenance();
-                    return View("OrderForm", viewModel);
-                case "Manage":
-                    return View("ManageForm", viewModel);
-                case "Photo":
-                    return View("PhotoForm", viewModel);
-                case "Shift":
-                    return View("ShiftForm", viewModel);
-                case "Transfer":
-                    return View("TransferForm", viewModel);
-                case "Free":
-                    return View("FreeForm", viewModel);
-                default:
-                    return RedirectToAction("Index", new
-                    {
-                        itemId = itemId,
-                        id = id,
-                        applicantId = applicantId
-                    });
-            }
+            return (ActionResult)InvokeMethod(systemCode + "Form", new List<object> { viewModel, systemCode + "Form" });
+        }
+
+        public ViewResult OrderForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            viewModel.QuadrangleTransactionDto.Price = _quadrangle.GetPrice();
+            viewModel.QuadrangleTransactionDto.Maintenance = _quadrangle.GetMaintenance();
+            viewModel.QuadrangleTransactionDto.LifeTimeMaintenance = _quadrangle.GetLifeTimeMaintenance();
+            return View(view, viewModel);
+        }
+
+        public ViewResult ManageForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            return View(view, viewModel);
+        }
+
+        public ViewResult PhotoForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            return View(view, viewModel);
+        }
+
+        public ViewResult ShiftForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            return View(view, viewModel);
+        }
+
+        public ViewResult TransferForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            return View(view, viewModel);
+        }
+
+        public ViewResult FreeForm(QuadrangleTransactionsFormViewModel viewModel, string view)
+        {
+            return View(view, viewModel);
+        }
+
+        public object InvokeMethod(string methodName, List<object> args)
+        {
+            return GetType().GetMethod(methodName).Invoke(this, args.ToArray());
         }
 
         public ActionResult Save(QuadrangleTransactionsFormViewModel viewModel)
@@ -96,11 +110,13 @@ namespace Memorial.Controllers
             }
             else
             {
-                _quadrangleItem.SetById(viewModel.QuadrangleTransactionDto.QuadrangleId);
+                _quadrangle.SetById(viewModel.QuadrangleTransactionDto.QuadrangleId);
+                _quadrangleItem.SetById(viewModel.QuadrangleTransactionDto.QuadrangleItemId);
                 var systemCode = _quadrangleItem.GetSystemCode();
                 viewModel.FuneralCompanyDtos = _funeralCo.GetAll();
                 viewModel.DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(viewModel.QuadrangleTransactionDto.ApplicantId);
-                return View(systemCode + "Form", viewModel);
+
+                return (ActionResult)InvokeMethod(systemCode + "Form", new List<object> { viewModel, systemCode + "Form" });
             }
         }
 
