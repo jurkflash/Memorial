@@ -16,6 +16,8 @@ namespace Memorial.Core.Domain
             AncestorTransactions = new HashSet<AncestorTransaction>();
 
             PlotTransactions = new HashSet<PlotTransaction>();
+
+            QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
         }
 
         public int Id { get; set; }
@@ -91,6 +93,8 @@ namespace Memorial.Core.Domain
         public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
 
         public ICollection<PlotTransaction> PlotTransactions { get; set; }
+
+        public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
 
     }
 }

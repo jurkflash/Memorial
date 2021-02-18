@@ -34,6 +34,11 @@ namespace Memorial.Lib
             _quadrangle = _unitOfWork.Quadrangles.GetActive(id);
         }
 
+        public Core.Domain.Quadrangle GetQuadrangle()
+        {
+            return _quadrangle;
+        }
+
         public string GetName()
         {
             return _quadrangle.Name;
@@ -65,5 +70,9 @@ namespace Memorial.Lib
             return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(_quadrangle);
         }
 
+        public void SetHasDeceased()
+        {
+            _quadrangle.hasDeceased = true;
+        }
     }
 }

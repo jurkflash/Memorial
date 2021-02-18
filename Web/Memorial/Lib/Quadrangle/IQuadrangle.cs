@@ -16,6 +16,8 @@ namespace Memorial.Lib
 
         void SetById(int id);
 
+        Core.Domain.Quadrangle GetQuadrangle();
+
         string GetName();
 
         string GetDescription();
@@ -26,5 +28,6 @@ namespace Memorial.Lib
 
         float GetLifeTimeMaintenance();
 
+        void SetHasDeceased();
     }
 }

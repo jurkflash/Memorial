@@ -1641,6 +1641,14 @@
     <Compile Include="Migrations\202102161555111_UpdateQuadrangleItemsTableData1.designer.cs">
       <DependentUpon>202102161555111_UpdateQuadrangleItemsTableData1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102181515398_AddDeceasedToQuadranlgeTransactionsTable.cs" />
+    <Compile Include="Migrations\202102181515398_AddDeceasedToQuadranlgeTransactionsTable.designer.cs">
+      <DependentUpon>202102181515398_AddDeceasedToQuadranlgeTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
@@ -2475,6 +2483,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102161555111_UpdateQuadrangleItemsTableData1.resx">
       <DependentUpon>202102161555111_UpdateQuadrangleItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102181515398_AddDeceasedToQuadranlgeTransactionsTable.resx">
+      <DependentUpon>202102181515398_AddDeceasedToQuadranlgeTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.resx">
+      <DependentUpon>202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

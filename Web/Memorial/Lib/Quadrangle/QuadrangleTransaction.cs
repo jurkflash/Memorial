@@ -40,6 +40,21 @@ namespace Memorial.Lib
 
         public bool CreateNew(QuadrangleTransactionDto quadrangleTransactionDto)
         {
+            dynamic IDeceased = null;
+            IQuadrangleItem quadrangleItem = new Lib.QuadrangleItem(_unitOfWork);
+            quadrangleItem.SetById(quadrangleTransactionDto.QuadrangleItemId);
+
+            if (quadrangleItem.GetSystemCode() == "Order")
+            {
+                if (quadrangleTransactionDto.DeceasedId == null)
+                    return false;
+
+                IDeceased = new Lib.Deceased(_unitOfWork);
+                IDeceased.GetActive((int)quadrangleTransactionDto.DeceasedId);
+                if (IDeceased.GetQuadrangle() != null)
+                    return false;
+            }
+
             IQuadrangleNumber quadrangleNumber = new Lib.QuadrangleNumber(_unitOfWork);
             var number = quadrangleNumber.GetNewAF(quadrangleTransactionDto.QuadrangleItemId, System.DateTime.Now.Year);
             if (number == "")
@@ -52,7 +67,20 @@ namespace Memorial.Lib
                 quadrangleTransaction.AF = number;
                 quadrangleTransaction.CreateDate = System.DateTime.Now;
                 _unitOfWork.QuadrangleTransactions.Add(quadrangleTransaction);
-                _unitOfWork.Complete();
+
+                if (quadrangleItem.GetSystemCode() == "Order")
+                {
+                    if (IDeceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    {
+                        IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
+                        quadrangle.SetById(quadrangleTransactionDto.QuadrangleId);
+                        quadrangle.SetHasDeceased();
+                        _unitOfWork.Complete();
+                    }
+                    else
+                        return false;
+                }
+
                 return true;
             }
         }

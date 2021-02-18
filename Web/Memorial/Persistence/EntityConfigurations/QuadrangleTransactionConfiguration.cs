@@ -31,6 +31,11 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.ApplicantId)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(qt => qt.Deceased)
+                .WithMany(fc => fc.QuadrangleTransactions)
+                .HasForeignKey(qt => qt.DeceasedId)
+                .WillCascadeOnDelete(false);
+
             HasOptional(qt => qt.FuneralCompany)
                 .WithMany(fc => fc.QuadrangleTransactions)
                 .HasForeignKey(qt => qt.FuneralCompanyId)

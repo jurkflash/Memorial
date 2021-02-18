@@ -18,9 +18,9 @@ namespace Memorial.Core.Domain
 
         public float Price { get; set; }
 
-        public float Maintenance { get; set; }
+        public float? Maintenance { get; set; }
 
-        public float LifeTimeMaintenance { get; set; }
+        public float? LifeTimeMaintenance { get; set; }
 
         public DateTime? FromDate { get; set; }
 
@@ -49,6 +49,10 @@ namespace Memorial.Core.Domain
         public Applicant Applicant { get; set; }
 
         public int ApplicantId { get; set; }
+
+        public Deceased Deceased { get; set; }
+
+        public int? DeceasedId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

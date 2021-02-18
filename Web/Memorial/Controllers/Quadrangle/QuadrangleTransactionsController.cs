@@ -30,7 +30,7 @@ namespace Memorial.Controllers
         }
         public ActionResult Index(int itemId, int id, int applicantId)
         {
-            _quadrangleItem.SetById(id);
+            _quadrangleItem.SetById(itemId);
             var viewModel = new QuadrangleItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
