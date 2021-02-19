@@ -40,7 +40,7 @@ namespace Memorial.Lib
 
         public bool CreateNew(QuadrangleTransactionDto quadrangleTransactionDto)
         {
-            dynamic IDeceased = null;
+            IDeceased deceased = null;
             IQuadrangleItem quadrangleItem = new Lib.QuadrangleItem(_unitOfWork);
             quadrangleItem.SetById(quadrangleTransactionDto.QuadrangleItemId);
 
@@ -49,9 +49,9 @@ namespace Memorial.Lib
                 if (quadrangleTransactionDto.DeceasedId == null)
                     return false;
 
-                IDeceased = new Lib.Deceased(_unitOfWork);
-                IDeceased.GetActive((int)quadrangleTransactionDto.DeceasedId);
-                if (IDeceased.GetQuadrangle() != null)
+                deceased = new Lib.Deceased(_unitOfWork);
+                deceased.SetById((int)quadrangleTransactionDto.DeceasedId);
+                if (deceased.GetQuadrangle() != null)
                     return false;
             }
 
@@ -70,11 +70,12 @@ namespace Memorial.Lib
 
                 if (quadrangleItem.GetSystemCode() == "Order")
                 {
-                    if (IDeceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    if (deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
                     {
                         IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
                         quadrangle.SetById(quadrangleTransactionDto.QuadrangleId);
-                        quadrangle.SetHasDeceased();
+                        quadrangle.SetHasDeceased(true);
+                        quadrangle.SetApplicant(quadrangleTransaction.ApplicantId);
                         _unitOfWork.Complete();
                     }
                     else
@@ -99,8 +100,29 @@ namespace Memorial.Lib
 
         public bool Delete()
         {
+            IQuadrangleItem quadrangleItem = new Lib.QuadrangleItem(_unitOfWork);
+            quadrangleItem.SetById(_quadrangleTransaction.QuadrangleItemId);
+
             ICommon common = new Lib.Common(_unitOfWork);
-            return common.DeleteForm(_quadrangleTransaction.AF, Core.Domain.MasterCatalog.Quadrangle);
+            if (common.DeleteForm(_quadrangleTransaction.AF, Core.Domain.MasterCatalog.Quadrangle))
+            {
+                if (quadrangleItem.GetSystemCode() == "Order")
+                {
+                    IDeceased deceased = new Lib.Deceased(_unitOfWork);
+                    deceased.SetById((int)_quadrangleTransaction.DeceasedId);
+                    deceased.RemoveQuadrangle();
+                    _unitOfWork.Complete();
+
+                    IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
+                    quadrangle.SetById(_quadrangleTransaction.QuadrangleId);
+                    quadrangle.SetHasDeceased(deceased.GetByQuadrangle(_quadrangleTransaction.QuadrangleId).Any());
+                    quadrangle.RemoveApplicant();
+                    _unitOfWork.Complete();
+                }
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

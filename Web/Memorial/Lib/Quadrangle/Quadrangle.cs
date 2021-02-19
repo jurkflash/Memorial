@@ -70,9 +70,20 @@ namespace Memorial.Lib
             return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(_quadrangle);
         }
 
-        public void SetHasDeceased()
+        public void SetApplicant(int applicantId)
         {
-            _quadrangle.hasDeceased = true;
+            _quadrangle.ApplicantId = applicantId;
+        }
+
+        public void RemoveApplicant()
+        {
+            _quadrangle.Applicant = null;
+            _quadrangle.ApplicantId = null;
+        }
+
+        public void SetHasDeceased(bool flag)
+        {
+            _quadrangle.hasDeceased = flag;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Memorial.Core.Repositories
         Deceased GetActive(int id);
 
         IEnumerable<Deceased> GetByApplicant(int id);
+
+        IEnumerable<Deceased> GetByQuadrangle(int quadrangleId);
     }
 }

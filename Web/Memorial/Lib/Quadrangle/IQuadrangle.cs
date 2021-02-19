@@ -28,6 +28,10 @@ namespace Memorial.Lib
 
         float GetLifeTimeMaintenance();
 
-        void SetHasDeceased();
+        void SetApplicant(int applicantId);
+
+        void RemoveApplicant();
+
+        void SetHasDeceased(bool flag);
     }
 }

@@ -39,6 +39,13 @@ namespace Memorial.Persistence.Repositories
                     d.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<Deceased> GetByQuadrangle(int quadrangleId)
+        {
+            return MemorialContext.Deceaseds
+                    .Where(d => d.QuadrangleId == quadrangleId &&
+                    d.DeleteDate == null).ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

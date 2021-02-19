@@ -20,16 +20,29 @@ namespace Memorial.Lib
             _unitOfWork = unitOfWork;
         }
 
-        public Core.Domain.Deceased GetActive(int id)
+        public void SetById(int id)
         {
             _deceased = _unitOfWork.Deceaseds.GetActive(id);
+        }
+
+        public void SetByIC(string ic)
+        {
+            _deceased = _unitOfWork.Deceaseds.GetByIC(ic);
+        }
+
+        public Core.Domain.Deceased GetDeceased()
+        {
             return _deceased;
         }
 
-        public Core.Domain.Deceased GetByIC(string ic)
+        public IEnumerable<Core.Domain.Deceased> GetByApplicant(int applicantId)
         {
-            _deceased = _unitOfWork.Deceaseds.GetByIC(ic);
-            return _deceased;
+            return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
+        }
+
+        public IEnumerable<Core.Domain.Deceased> GetByQuadrangle(int quadrangleId)
+        {
+            return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
         }
 
         public Core.Domain.Quadrangle GetQuadrangle()
@@ -49,16 +62,36 @@ namespace Memorial.Lib
             {
                 if (_deceased.QuadrangleId == null)
                 {
-                    _deceased.QuadrangleId = quadrangleId;
-                    return true;
+                    IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
+                    quadrangle.SetById(quadrangleId);
+                    if (quadrangle.GetQuadrangle() != null)
+                    {
+                        _deceased.Quadrangle = quadrangle.GetQuadrangle();
+                        _deceased.QuadrangleId = quadrangleId;
+                        return true;
+                    }
                 }
+            }
+            return false;
+        }
+
+        public bool RemoveQuadrangle()
+        {
+            if (_deceased != null)
+            {
+                if (_deceased.QuadrangleId != null)
+                {
+                    _deceased.Quadrangle = null;
+                    _deceased.QuadrangleId = null;
+                }
+                return true;
             }
             return false;
         }
 
         public IEnumerable<DeceasedBriefDto> BriefDtosGetByApplicant(int applicantId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(_unitOfWork.Deceaseds.GetByApplicant(applicantId));
+            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetByApplicant(applicantId));
         }
 
     }
