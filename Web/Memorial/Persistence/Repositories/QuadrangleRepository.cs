@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public Quadrangle GetActive(int id)
         {
             return MemorialContext.Quadrangles
+                .Include(q => q.Applicant)
                 .Include(q => q.QuadrangleType)
                 .Include(q => q.QuadrangleArea)
                 .Include(q => q.QuadrangleArea.QuadrangleCentre)
