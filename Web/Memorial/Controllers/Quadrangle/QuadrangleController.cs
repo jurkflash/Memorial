@@ -75,10 +75,5 @@ namespace Memorial.Controllers
             };
             return View(viewModel);
         }
-
-        public ActionResult Item(int itemId, int id, int areaId, int applicantId)
-        {
-            return RedirectToAction("Index", "QuadrangleTransactions", new { itemId = itemId, id = id, applicantId = applicantId });
-        }
     }
 }

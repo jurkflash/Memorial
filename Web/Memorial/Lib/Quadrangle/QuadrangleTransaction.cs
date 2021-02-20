@@ -46,9 +46,6 @@ namespace Memorial.Lib
 
             if (quadrangleItem.GetSystemCode() == "Order")
             {
-                if (quadrangleTransactionDto.DeceasedId == null)
-                    return false;
-
                 deceased = new Lib.Deceased(_unitOfWork);
                 deceased.SetById((int)quadrangleTransactionDto.DeceasedId);
                 if (deceased.GetQuadrangle() != null)

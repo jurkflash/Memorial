@@ -639,6 +639,11 @@
     <Compile Include="Controllers\Plot\PlotSecondBurialController.cs" />
     <Compile Include="Controllers\Plot\PlotSingleController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleTransferController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleShiftController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleManageController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleOrderController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleTransactionsController.cs" />
     <Compile Include="Controllers\Receipt\OrderReceiptsController.cs" />
     <Compile Include="Controllers\Receipt\NonOrderReceiptsController.cs" />
@@ -1861,6 +1866,16 @@
     <Content Include="Views\QuadrangleTransactions\ShiftForm.cshtml" />
     <Content Include="Views\QuadrangleTransactions\TransferForm.cshtml" />
     <Content Include="Views\QuadrangleTransactions\FreeForm.cshtml" />
+    <Content Include="Views\QuadrangleOrder\Index.cshtml" />
+    <Content Include="Views\QuadrangleOrder\Form.cshtml" />
+    <Content Include="Views\QuadrangleManage\Index.cshtml" />
+    <Content Include="Views\QuadrangleShift\Index.cshtml" />
+    <Content Include="Views\QuadranglePhoto\Index.cshtml" />
+    <Content Include="Views\QuadrangleTransfer\Index.cshtml" />
+    <Content Include="Views\QuadrangleManage\Form.cshtml" />
+    <Content Include="Views\QuadranglePhoto\Form.cshtml" />
+    <Content Include="Views\QuadrangleShift\Form.cshtml" />
+    <Content Include="Views\QuadrangleTransfer\Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

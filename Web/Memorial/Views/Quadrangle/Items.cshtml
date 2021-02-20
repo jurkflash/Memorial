@@ -13,16 +13,14 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Price</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var quadrangleItem in Model.QuadrangleItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(quadrangleItem.Name, "Item", new { itemId = quadrangleItem.Id, id = Model.QuadrangleId, areaId = Model.QuadrangleAreaId, applicantId = Model.applicantId })</td>
+                <td>@Html.ActionLink(quadrangleItem.Name, "Index", "Quadrangle" + quadrangleItem.SystemCode, new { itemId = quadrangleItem.Id, id = Model.QuadrangleId, areaId = Model.QuadrangleAreaId, applicantId = Model.applicantId }, null)</td>
                 <td>@quadrangleItem.Description</td>
-                <td>@quadrangleItem.Price</td>
             </tr>
         }
     </tbody>
