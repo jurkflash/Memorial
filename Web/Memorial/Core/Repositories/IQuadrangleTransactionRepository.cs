@@ -9,6 +9,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<QuadrangleTransaction> GetByApplicant(int id);
 
-        IEnumerable<QuadrangleTransaction> GetByItemAndApplicant(int itemId, int applicantId);
+        IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId);
     }
 }

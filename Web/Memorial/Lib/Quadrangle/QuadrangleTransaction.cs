@@ -28,14 +28,14 @@ namespace Memorial.Lib
             return Mapper.Map<Core.Domain.QuadrangleTransaction, QuadrangleTransactionDto>(_quadrangleTransaction);
         }
 
-        public IEnumerable<Core.Domain.QuadrangleTransaction> GetByItemAndApplicant(int itemId, int applicantId)
+        public IEnumerable<Core.Domain.QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
         {
-            return _unitOfWork.QuadrangleTransactions.GetByItemAndApplicant(itemId, applicantId);
+            return _unitOfWork.QuadrangleTransactions.GetByQuadrangleIdAndItemAndApplicant(quadrangleId, itemId, applicantId);
         }
 
-        public IEnumerable<QuadrangleTransactionDto> DtosGetByItemAndApplicant(int itemId, int applicantId)
+        public IEnumerable<QuadrangleTransactionDto> DtosGetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetByItemAndApplicant(itemId, applicantId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetByQuadrangleIdAndItemAndApplicant(quadrangleId, itemId, applicantId));
         }
 
         public bool CreateNew(QuadrangleTransactionDto quadrangleTransactionDto)
@@ -44,7 +44,7 @@ namespace Memorial.Lib
             IQuadrangleItem quadrangleItem = new Lib.QuadrangleItem(_unitOfWork);
             quadrangleItem.SetById(quadrangleTransactionDto.QuadrangleItemId);
 
-            if (quadrangleItem.GetSystemCode() == "Order")
+            if (quadrangleItem.GetSystemCode() == "Order" && quadrangleTransactionDto.DeceasedId != null)
             {
                 deceased = new Lib.Deceased(_unitOfWork);
                 deceased.SetById((int)quadrangleTransactionDto.DeceasedId);
@@ -67,16 +67,20 @@ namespace Memorial.Lib
 
                 if (quadrangleItem.GetSystemCode() == "Order")
                 {
-                    if (deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
+                    quadrangle.SetById(quadrangleTransactionDto.QuadrangleId);
+                    quadrangle.SetApplicant(quadrangleTransaction.ApplicantId);
+
+                    if (quadrangleTransactionDto.DeceasedId != null)
                     {
-                        IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
-                        quadrangle.SetById(quadrangleTransactionDto.QuadrangleId);
-                        quadrangle.SetHasDeceased(true);
-                        quadrangle.SetApplicant(quadrangleTransaction.ApplicantId);
-                        _unitOfWork.Complete();
+                        if (deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                        {
+                            quadrangle.SetHasDeceased(true);
+                        }
+                        else
+                            return false;
                     }
-                    else
-                        return false;
+                    _unitOfWork.Complete();
                 }
 
                 return true;

@@ -17,24 +17,28 @@ namespace Memorial.Controllers
         private readonly IQuadrangleItem _quadrangleItem;
         private readonly IQuadrangleTransaction _quadrangleTransaction;
         private readonly IDeceased _deceased;
+        private readonly IApplicant _applicant;
 
         public QuadrangleTransferController(IQuadrangle quadrangle, IDeceased deceased,
-            IQuadrangleItem quadrangleItem, IQuadrangleTransaction quadrangleTransaction)
+            IQuadrangleItem quadrangleItem, IQuadrangleTransaction quadrangleTransaction, IApplicant applicant)
         {
             _quadrangle = quadrangle;
             _quadrangleItem = quadrangleItem;
             _quadrangleTransaction = quadrangleTransaction;
             _deceased = deceased;
+            _applicant = applicant;
         }
         public ActionResult Index(int itemId, int id, int applicantId)
         {
+            _quadrangle.SetById(id);
             _quadrangleItem.SetById(itemId);
             var viewModel = new QuadrangleItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
+                QuadrangleDto = _quadrangle.DtoGetQuadrangle(),
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByItemAndApplicant(itemId, applicantId),
+                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByQuadrangleIdAndItemAndApplicant(id, itemId, applicantId),
                 SystemCode = _quadrangleItem.GetSystemCode()
             };
             return View(viewModel);
@@ -44,7 +48,10 @@ namespace Memorial.Controllers
         {
             _quadrangle.SetById(id);
             _quadrangleItem.SetById(itemId);
+            _applicant.SetById(applicantId);
             var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+            quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
+            quadrangleTransactionDto.Applicant = _applicant.GetApplicant();
             var viewModel = new QuadrangleTransactionsFormViewModel()
             {
                 DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(applicantId),

@@ -13,6 +13,29 @@
     @Html.LabelFor(c => c.QuadrangleTransactionDto.AF)
     <div class="form-group row">
         <div class="col-md-3">
+            Owner
+        </div>
+        <div class="col-md-6">
+            @Model.QuadrangleTransactionDto.Quadrangle.Applicant.Name &nbsp;
+            @Model.QuadrangleTransactionDto.Quadrangle.Applicant.Name2
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-9">
+            Transfer To
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            New applicant
+        </div>
+        <div class="col-md-6">
+            @Model.QuadrangleTransactionDto.Applicant.Name &nbsp;
+            @Model.QuadrangleTransactionDto.Applicant.Name2
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
             Price
         </div>
         <div class="col-md-6">

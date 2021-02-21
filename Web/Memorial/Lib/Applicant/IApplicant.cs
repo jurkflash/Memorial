@@ -14,5 +14,6 @@ namespace Memorial.Lib
 
         Core.Domain.Applicant GetApplicant();
 
+        ApplicantDto DtosGetApplicant();
     }
 }

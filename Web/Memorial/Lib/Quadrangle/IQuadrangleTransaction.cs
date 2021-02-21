@@ -12,9 +12,9 @@ namespace Memorial.Lib
 
         QuadrangleTransactionDto GetDto();
 
-        IEnumerable<Core.Domain.QuadrangleTransaction> GetByItemAndApplicant(int itemId, int applicantId);
+        IEnumerable<Core.Domain.QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId);
 
-        IEnumerable<QuadrangleTransactionDto> DtosGetByItemAndApplicant(int itemId, int applicantId);
+        IEnumerable<QuadrangleTransactionDto> DtosGetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId);
 
         bool CreateNew(QuadrangleTransactionDto quadrangleTransactionDto);
 

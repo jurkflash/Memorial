@@ -36,7 +36,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByItemAndApplicant(itemId, applicantId),
+                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByQuadrangleIdAndItemAndApplicant(id, itemId, applicantId),
                 SystemCode = _quadrangleItem.GetSystemCode()
             };
             return View(viewModel);

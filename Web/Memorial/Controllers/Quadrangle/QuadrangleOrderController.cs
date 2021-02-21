@@ -36,7 +36,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByItemAndApplicant(itemId, applicantId),
+                QuadrangleTransactionDtos = _quadrangleTransaction.DtosGetByQuadrangleIdAndItemAndApplicant(id, itemId, applicantId),
                 SystemCode = _quadrangleItem.GetSystemCode()
             };
             return View(viewModel);
@@ -61,11 +61,14 @@ namespace Memorial.Controllers
 
         public ActionResult Save(QuadrangleTransactionsFormViewModel viewModel)
         {
-            _deceased.SetById((int)viewModel.QuadrangleTransactionDto.DeceasedId);
-            if (_deceased.GetQuadrangle() != null)
+            if (viewModel.QuadrangleTransactionDto.DeceasedId != null)
             {
-                ModelState.AddModelError("QuadrangleTransactionDto.DeceasedId", "Invalid");
-                return FormForResubmit(viewModel);
+                _deceased.SetById((int)viewModel.QuadrangleTransactionDto.DeceasedId);
+                if (_deceased.GetQuadrangle() != null)
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.DeceasedId", "Invalid");
+                    return FormForResubmit(viewModel);
+                }
             }
 
             if (_quadrangleTransaction.CreateNew(viewModel.QuadrangleTransactionDto))

@@ -39,6 +39,11 @@ namespace Memorial.Lib
             return _quadrangle;
         }
 
+        public QuadrangleDto DtoGetQuadrangle()
+        {
+            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(_quadrangle);
+        }
+
         public string GetName()
         {
             return _quadrangle.Name;

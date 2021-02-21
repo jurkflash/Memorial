@@ -796,6 +796,8 @@
     <Compile Include="Lib\Ancestor\IAncestorNumber.cs" />
     <Compile Include="Lib\Ancestor\Ancestor.cs" />
     <Compile Include="Lib\Ancestor\AncestorNumber.cs" />
+    <Compile Include="Lib\Applicant\Applicant.cs" />
+    <Compile Include="Lib\Applicant\IApplicant.cs" />
     <Compile Include="Lib\Common\ICommon.cs" />
     <Compile Include="Lib\Common\Common.cs" />
     <Compile Include="Lib\Cremation\ICremation.cs" />

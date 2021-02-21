@@ -27,13 +27,14 @@ namespace Memorial.Persistence.Repositories
                                             && qt.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<QuadrangleTransaction> GetByItemAndApplicant(int itemId, int applicantId)
+        public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
         {
             return MemorialContext.QuadrangleTransactions
                 .Include(qt => qt.Quadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.ApplicantId == applicantId
                                             && qt.QuadrangleItemId == itemId
+                                            && qt.QuadrangleId == quadrangleId
                                             && qt.DeleteDate == null).ToList();
         }
 

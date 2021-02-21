@@ -18,6 +18,8 @@ namespace Memorial.Lib
 
         Core.Domain.Quadrangle GetQuadrangle();
 
+        QuadrangleDto DtoGetQuadrangle();
+
         string GetName();
 
         string GetDescription();

@@ -6,9 +6,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId })
-</p>
+@if (!Model.QuadrangleDto.hasDeceased)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId })
+    </p>
+}
 
 <table class="table table-bordered table-hover">
     <thead>

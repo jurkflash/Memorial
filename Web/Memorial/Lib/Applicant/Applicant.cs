@@ -35,5 +35,10 @@ namespace Memorial.Lib
             return _applicant;
         }
 
+        public ApplicantDto DtosGetApplicant()
+        {
+            return Mapper.Map<Core.Domain.Applicant, ApplicantDto>(GetApplicant());
+        }
+
     }
 }
