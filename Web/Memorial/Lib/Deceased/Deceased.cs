@@ -5,6 +5,7 @@ using System.Web;
 using Memorial.Core;
 using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Quadrangle;
 using AutoMapper;
 
 namespace Memorial.Lib
@@ -12,12 +13,19 @@ namespace Memorial.Lib
     public class Deceased : IDeceased
     {
         private readonly IUnitOfWork _unitOfWork;
+        private IQuadrangle _quadrangle;
 
         private Core.Domain.Deceased _deceased;
 
-        public Deceased(IUnitOfWork unitOfWork)
+        public Deceased(IUnitOfWork unitOfWork, IQuadrangle quadrangle)
         {
             _unitOfWork = unitOfWork;
+            _quadrangle = quadrangle;
+        }
+
+        public void SetDeceased(int id)
+        {
+            _deceased = _unitOfWork.Deceaseds.GetActive(id);
         }
 
         public void SetById(int id)
@@ -35,6 +43,11 @@ namespace Memorial.Lib
             return _deceased;
         }
 
+        public DeceasedDto DtoGetDeceased()
+        {
+            return Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased);
+        }
+
         public IEnumerable<Core.Domain.Deceased> GetByApplicant(int applicantId)
         {
             return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
@@ -49,9 +62,8 @@ namespace Memorial.Lib
         {
             if (_deceased.QuadrangleId != null)
             {
-                IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
-                quadrangle.SetById((int)_deceased.QuadrangleId);
-                return quadrangle.GetQuadrangle();
+                _quadrangle.SetQuadrangle((int)_deceased.QuadrangleId);
+                return _quadrangle.GetQuadrangle();
             }
             return null;
         }
@@ -62,11 +74,10 @@ namespace Memorial.Lib
             {
                 if (_deceased.QuadrangleId == null)
                 {
-                    IQuadrangle quadrangle = new Lib.Quadrangle(_unitOfWork);
-                    quadrangle.SetById(quadrangleId);
-                    if (quadrangle.GetQuadrangle() != null)
+                    _quadrangle.SetQuadrangle(quadrangleId);
+                    if (_quadrangle.GetQuadrangle() != null)
                     {
-                        _deceased.Quadrangle = quadrangle.GetQuadrangle();
+                        _deceased.Quadrangle = _quadrangle.GetQuadrangle();
                         _deceased.QuadrangleId = quadrangleId;
                         return true;
                     }

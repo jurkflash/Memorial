@@ -6,6 +6,7 @@ using Memorial.Core;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.Core.Repositories;
+using Memorial.Lib.Quadrangle;
 using AutoMapper;
 
 namespace Memorial.Lib
@@ -45,9 +46,10 @@ namespace Memorial.Lib
                 //case MasterCatalog.Plot:
                 //    return _unitOfWork.Invoices.GetByActivePlotAF(AF));
                 case MasterCatalog.Quadrangle:
-                    IQuadrangleTransaction quadrangleTransaction = new Lib.QuadrangleTransaction(_unitOfWork);
-                    quadrangleTransaction.SetByAF(AF);
-                    return quadrangleTransaction.GetAmount();
+                    //ITransaction quadrangleTransaction = new Lib.Quadrangle.Transaction(_unitOfWork);
+                    //quadrangleTransaction.SetByAF(AF);
+                    //return quadrangleTransaction.GetAmount();
+                    return 0;
                 case MasterCatalog.Space:
                     ISpaceTransaction spaceTransaction = new Lib.SpaceTransaction(_unitOfWork);
                     return spaceTransaction.GetAmount(AF);

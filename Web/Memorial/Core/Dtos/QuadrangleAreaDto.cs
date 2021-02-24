@@ -14,6 +14,6 @@ namespace Memorial.Core.Dtos
 
         public QuadrangleCentre QuadrangleCentre { get; set; }
 
-        public int? QuadrangleCentreId { get; set; }
+        public int QuadrangleCentreId { get; set; }
     }
 }

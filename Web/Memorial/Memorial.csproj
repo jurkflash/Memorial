@@ -619,7 +619,7 @@
     <Compile Include="Controllers\Ancestor\AncestorMaintenanceController.cs" />
     <Compile Include="Controllers\Ancestor\AncestorOrderController.cs" />
     <Compile Include="Controllers\Ancestor\AncestorShiftController.cs" />
-    <Compile Include="Controllers\Api\QuadrangleItemsController.cs" />
+    <Compile Include="Controllers\Api\Quadrangle\ManagesController.cs" />
     <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
@@ -644,7 +644,6 @@
     <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleManageController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleOrderController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadrangleTransactionsController.cs" />
     <Compile Include="Controllers\Receipt\OrderReceiptsController.cs" />
     <Compile Include="Controllers\Receipt\NonOrderReceiptsController.cs" />
     <Compile Include="Controllers\Space\SpaceTransactionsController.cs" />
@@ -818,17 +817,27 @@
     <Compile Include="Lib\MiscellaneousTransaction\MiscellaneousTransaction.cs" />
     <Compile Include="Lib\Miscellaneous\IMiscellaneous.cs" />
     <Compile Include="Lib\Miscellaneous\Miscellaneous.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangleTransaction.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangleCentre.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangleArea.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangleItem.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangle.cs" />
+    <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
+    <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
+    <Compile Include="Lib\Quadrangle\Order\IOrder.cs" />
+    <Compile Include="Lib\Quadrangle\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Quadrangle\Centre\ICentre.cs" />
+    <Compile Include="Lib\Quadrangle\Area\IArea.cs" />
+    <Compile Include="Lib\Quadrangle\Item\IItem.cs" />
+    <Compile Include="Lib\Quadrangle\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Quadrangle\IQuadrangleNumber.cs" />
-    <Compile Include="Lib\Quadrangle\Quadrangle.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleTransaction.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleCentre.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleArea.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleItem.cs" />
+    <Compile Include="Lib\Quadrangle\Photo\IPhoto.cs" />
+    <Compile Include="Lib\Quadrangle\Photo\Photo.cs" />
+    <Compile Include="Lib\Quadrangle\Shift\IShift.cs" />
+    <Compile Include="Lib\Quadrangle\Shift\Shift.cs" />
+    <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
+    <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Quadrangle\Order\Order.cs" />
+    <Compile Include="Lib\Quadrangle\Quadrangle\Quadrangle.cs" />
+    <Compile Include="Lib\Quadrangle\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Quadrangle\Centre\Centre.cs" />
+    <Compile Include="Lib\Quadrangle\Area\Area.cs" />
+    <Compile Include="Lib\Quadrangle\Item\Item.cs" />
     <Compile Include="Lib\Quadrangle\QuadrangleNumber.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
@@ -1767,6 +1776,7 @@
     <Compile Include="ViewModels\Quadrangle\QuadrangleAreaIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleTransactionsInfoViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleTransactionsFormViewModel.cs" />
     <Compile Include="ViewModels\Receipt\NewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="ViewModels\Receipt\NewOrderReceiptFormViewModel.cs" />
@@ -1878,6 +1888,11 @@
     <Content Include="Views\QuadranglePhoto\Form.cshtml" />
     <Content Include="Views\QuadrangleShift\Form.cshtml" />
     <Content Include="Views\QuadrangleTransfer\Form.cshtml" />
+    <Content Include="Views\QuadrangleOrder\Info.cshtml" />
+    <Content Include="Views\QuadrangleManage\Info.cshtml" />
+    <Content Include="Views\QuadranglePhoto\Info.cshtml" />
+    <Content Include="Views\QuadrangleShift\Info.cshtml" />
+    <Content Include="Views\QuadrangleTransfer\Info.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1887,6 +1902,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Lib\Invoice\Ancestor\" />
+    <Folder Include="Lib\Invoice\Cremation\" />
+    <Folder Include="Lib\Invoice\Miscellaneous\" />
+    <Folder Include="Lib\Invoice\Plot\" />
+    <Folder Include="Lib\Invoice\Quadrangle\" />
+    <Folder Include="Lib\Invoice\Space\" />
+    <Folder Include="Lib\Invoice\Urn\" />
+    <Folder Include="Lib\Quadrangle\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -22,5 +22,7 @@ namespace Memorial.ViewModels
         public bool OrderFlag { get; set; }
 
         public string SystemCode { get; set; }
+
+        public bool AllowNew { get; set; }
     }
 }

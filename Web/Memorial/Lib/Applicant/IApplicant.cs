@@ -8,6 +8,8 @@ namespace Memorial.Lib
 {
     public interface IApplicant
     {
+        void SetApplicant(int id);
+
         void SetById(int id);
 
         void SetByIC(string IC);

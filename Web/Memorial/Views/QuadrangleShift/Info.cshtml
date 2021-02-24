@@ -1,0 +1,22 @@
+﻿@model Memorial.ViewModels.QuadrangleTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+@{Html.RenderAction("ApplicantInfo", "Applicants", new { id = Model.ApplicantId });}
+
+Deceased
+@{Html.RenderAction("DeceasedInfo", "Deceaseds", new { id = Model.DeceasedId });}
+
+
+<div class="row">
+    <div class="col-md-3">
+        AF
+    </div>
+    <div class="col-md-3">
+        @Model.QuadrangleTransactionDto.AF
+    </div>
+</div>

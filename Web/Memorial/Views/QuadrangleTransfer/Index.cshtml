@@ -17,7 +17,8 @@
     <thead>
         <tr>
             <th>AF</th>
-            <th>From</th>
+            <th>Quadrangle</th>
+            <th>Applicant</th>
             <th>Create Date</th>
             <th>Invoice</th>
             <th>Delete</th>
@@ -26,17 +27,18 @@
     <tbody>
         @foreach (var quadrangleTransaction in Model.QuadrangleTransactionDtos)
         {
-            <tr>
-                <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
-                <td>@quadrangleTransaction.Quadrangle.Name</td>
-                <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = quadrangleTransaction.AF })</td>
-                <td>
-                    @Html.ActionLink("Delete", "Delete",
-                    new { AF = quadrangleTransaction.AF, itemId = Model.QuadrangleItemId, id = Model.QuadrangleId, applicantId = Model.ApplicantId },
-                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
-                </td>
-            </tr>
+        <tr>
+            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
+            <td>@quadrangleTransaction.Quadrangle.Name</td>
+            <td>@quadrangleTransaction.Quadrangle.Applicant.Name &nbsp; @quadrangleTransaction.Quadrangle.Applicant.Name2</td>
+            <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@Html.ActionLink("Invoice", "Invoice", new { AF = quadrangleTransaction.AF })</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete",
+                new { AF = quadrangleTransaction.AF, itemId = Model.QuadrangleItemId, id = Model.QuadrangleId, applicantId = Model.ApplicantId },
+                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

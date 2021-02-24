@@ -20,6 +20,11 @@ namespace Memorial.Lib
             _unitOfWork = unitOfWork;
         }
 
+        public void SetApplicant(int id)
+        {
+            _applicant = _unitOfWork.Applicants.GetActive(id);
+        }
+
         public void SetById(int id)
         {
             _applicant = _unitOfWork.Applicants.GetActive(id);

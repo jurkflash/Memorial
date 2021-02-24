@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
+using Memorial.Lib.Quadrangle;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -14,13 +15,13 @@ namespace Memorial.Controllers
     public class QuadrangleTransactionsController : Controller
     {
         private readonly IQuadrangle _quadrangle;
-        private readonly IQuadrangleItem _quadrangleItem;
-        private readonly IQuadrangleTransaction _quadrangleTransaction;
+        private readonly IItem _quadrangleItem;
+        private readonly ITransaction _quadrangleTransaction;
         private readonly IDeceased _deceased;
         private readonly IFuneralCo _funeralCo;
 
         public QuadrangleTransactionsController(IQuadrangle quadrangle, IDeceased deceased, IFuneralCo funeralCo, 
-            IQuadrangleItem quadrangleItem, IQuadrangleTransaction quadrangleTransaction)
+            IItem quadrangleItem, ITransaction quadrangleTransaction)
         {
             _quadrangle = quadrangle;
             _quadrangleItem = quadrangleItem;
@@ -44,7 +45,7 @@ namespace Memorial.Controllers
 
         public ActionResult Form(int itemId, int id, int applicantId)
         {
-            _quadrangle.SetById(id);
+            _quadrangle.SetQuadrangle(id);
             _quadrangleItem.SetById(itemId);
             var systemCode = _quadrangleItem.GetSystemCode();
             var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
@@ -110,7 +111,7 @@ namespace Memorial.Controllers
             }
             else
             {
-                _quadrangle.SetById(viewModel.QuadrangleTransactionDto.QuadrangleId);
+                _quadrangle.SetQuadrangle(viewModel.QuadrangleTransactionDto.QuadrangleId);
                 _quadrangleItem.SetById(viewModel.QuadrangleTransactionDto.QuadrangleItemId);
                 var systemCode = _quadrangleItem.GetSystemCode();
                 viewModel.FuneralCompanyDtos = _funeralCo.GetAll();
@@ -127,7 +128,7 @@ namespace Memorial.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            _quadrangleTransaction.SetByAF(AF);
+            _quadrangleTransaction.SetQuadrangleTransaction(AF);
             _quadrangleTransaction.Delete();
             return RedirectToAction("Index", new
             {

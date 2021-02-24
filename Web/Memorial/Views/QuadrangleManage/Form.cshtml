@@ -73,7 +73,7 @@
             var t = $("#QuadrangleTransactionDto_ToDate").val();
             if (f != "" && t != "") {
                 var ii = $("#QuadrangleTransactionDto_QuadrangleItemId").val();
-                var url = '/api/QuadrangleItems/GetAmount';
+                var url = '/api/Quadrangle/Manages/GetAmount';
                 $.ajax({
                     url: url,
                     type: 'GET',

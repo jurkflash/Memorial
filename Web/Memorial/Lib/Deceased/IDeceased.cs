@@ -8,11 +8,15 @@ namespace Memorial.Lib
 {
     public interface IDeceased
     {
+        void SetDeceased(int id);
+
         void SetById(int id);
 
         void SetByIC(string IC);
 
         Core.Domain.Deceased GetDeceased();
+
+        DeceasedDto DtoGetDeceased();
 
         IEnumerable<Core.Domain.Deceased> GetByApplicant(int applicantId);
 

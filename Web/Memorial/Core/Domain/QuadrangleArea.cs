@@ -20,7 +20,7 @@ namespace Memorial.Core.Domain
 
         public QuadrangleCentre QuadrangleCentre { get; set; }
 
-        public int? QuadrangleCentreId { get; set; }
+        public int QuadrangleCentreId { get; set; }
 
         public ICollection<Quadrangle> Quadrangles { get; set; }
 

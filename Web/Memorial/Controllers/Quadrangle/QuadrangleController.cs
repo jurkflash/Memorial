@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.ViewModels;
 using Memorial.Lib;
+using Memorial.Lib.Quadrangle;
+using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Controllers
 {
     public class QuadrangleController : Controller
     {
         private readonly IQuadrangle _quadrangle;
-        private readonly IQuadrangleArea _quadrangleArea;
-        private readonly IQuadrangleCentre _quadrangleCentre;
-        private readonly IQuadrangleItem _quadrangleItem;
+        private readonly IArea _area;
+        private readonly ICentre _centre;
+        private readonly IItem _item;
 
-        public QuadrangleController(IQuadrangle quadrangle, IQuadrangleCentre quadrangleCentre, IQuadrangleArea quadrangleArea, IQuadrangleItem quadrangleItem)
+        public QuadrangleController(IQuadrangle quadrangle, ICentre centre, IArea area, IItem item)
         {
             _quadrangle = quadrangle;
-            _quadrangleArea = quadrangleArea;
-            _quadrangleCentre = quadrangleCentre;
-            _quadrangleItem = quadrangleItem;
+            _area = area;
+            _centre = centre;
+            _item = item;
         }
 
         public ActionResult Index(byte siteId, int applicantId)
@@ -33,7 +34,7 @@ namespace Memorial.Controllers
         {
             var viewModel = new QuadrangleCentreIndexesViewModel()
             {
-                QuadrangleCentreDtos = _quadrangleCentre.DtosGetBySite(siteId),
+                QuadrangleCentreDtos = _centre.DtosGetBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -43,7 +44,7 @@ namespace Memorial.Controllers
         {
             var viewModel = new QuadrangleAreaIndexesViewModel()
             {
-                QuadrangleAreaDtos = _quadrangleArea.DtosGetByCentre(centreId),
+                QuadrangleAreaDtos = _area.DtosGetByCentre(centreId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -60,17 +61,15 @@ namespace Memorial.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Items(int id, int areaId, int centreId, int applicantId)
+        public ActionResult Items(int id, int applicantId)
         {
-            var quad = _quadrangle.DtosGetById(id);
+            _quadrangle.SetQuadrangle(id);
             var viewModel = new QuadrangleItemsViewModel()
             {
-                QuadrangleItemDtos = _quadrangleItem.DtosGetByCentre(centreId),
-                QuadrangleId = quad.Id,
-                QuadrangleAreaId = areaId,
-                QuadrangleCentreId = centreId,
-                QuadrangleName = quad.Name,
-                QuadrangleDescription = quad.Description,
+                QuadrangleItemDtos = Mapper.Map<IEnumerable<Core.Domain.QuadrangleItem>,IEnumerable<QuadrangleItemDto>>(_quadrangle.GetItems()),
+                QuadrangleId = id,
+                QuadrangleName = _quadrangle.GetName(),
+                QuadrangleDescription = _quadrangle.GetName(),
                 applicantId = applicantId
             };
             return View(viewModel);

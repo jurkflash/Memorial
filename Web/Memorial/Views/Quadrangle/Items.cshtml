@@ -19,7 +19,7 @@
         @foreach (var quadrangleItem in Model.QuadrangleItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(quadrangleItem.Name, "Index", "Quadrangle" + quadrangleItem.SystemCode, new { itemId = quadrangleItem.Id, id = Model.QuadrangleId, areaId = Model.QuadrangleAreaId, applicantId = Model.applicantId }, null)</td>
+                <td>@Html.ActionLink(quadrangleItem.Name, "Index", "Quadrangle" + quadrangleItem.SystemCode, new { itemId = quadrangleItem.Id, id = Model.QuadrangleId, applicantId = Model.applicantId }, null)</td>
                 <td>@quadrangleItem.Description</td>
             </tr>
         }
