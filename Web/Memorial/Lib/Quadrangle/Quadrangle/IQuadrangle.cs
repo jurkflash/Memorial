@@ -4,11 +4,23 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Quadrangle
 {
     public interface IQuadrangle
     {
         void SetQuadrangle(int id);
+
+        Core.Domain.Quadrangle GetQuadrangle();
+
+        QuadrangleDto GetQuadrangleDto();
+
+        Core.Domain.Quadrangle GetQuadrangle(int id);
+
+        QuadrangleDto GetQuadrangleDto(int id);
+
+        IEnumerable<Core.Domain.Quadrangle> GetQuadranglesByAreaId(int id);
+
+        IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int id);
 
         string GetName();
 
@@ -22,31 +34,21 @@ namespace Memorial.Lib
 
         bool HasDeceased();
 
+        void SetHasDeceased(bool flag);
+
         bool HasApplicant();
 
-        int GetAreaId();
-
-        int GetNumberOfPlacement();
+        int? GetApplicantId();
 
         void SetApplicant(int applicantId);
 
         void RemoveApplicant();
 
-        void SetHasDeceased(bool flag);
+        int GetAreaId();
 
-        Core.Domain.Quadrangle GetQuadrangle();
+        int GetNumberOfPlacement();
 
-        Core.Domain.QuadrangleArea GetArea();
-
-        Core.Domain.QuadrangleCentre GetCentre();
-
-        IEnumerable<Core.Domain.QuadrangleItem> GetItems();
-
-        QuadrangleDto DtoGetQuadrangle();
-
-        IEnumerable<QuadrangleDto> DtosGetByArea(int areaId);
-
-        IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int areaId);
+        IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
 
     }
 }

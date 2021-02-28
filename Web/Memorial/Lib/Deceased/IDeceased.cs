@@ -4,23 +4,29 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Deceased
 {
     public interface IDeceased
     {
         void SetDeceased(int id);
 
-        void SetById(int id);
-
-        void SetByIC(string IC);
+        Core.Domain.Deceased GetDeceasedByIC(string ic);
 
         Core.Domain.Deceased GetDeceased();
 
-        DeceasedDto DtoGetDeceased();
+        DeceasedDto GetDeceasedDto();
 
-        IEnumerable<Core.Domain.Deceased> GetByApplicant(int applicantId);
+        Core.Domain.Deceased GetDeceased(int id);
 
-        IEnumerable<Core.Domain.Deceased> GetByQuadrangle(int quadrangleId);
+        DeceasedDto GetDeceasedDto(int id);
+
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId);
+
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
+
+        bool Create(Core.Domain.Deceased deceased);
+
+        bool Update(Core.Domain.Deceased deceased);
 
         Core.Domain.Quadrangle GetQuadrangle();
 
@@ -28,6 +34,6 @@ namespace Memorial.Lib
 
         bool RemoveQuadrangle();
 
-        IEnumerable<DeceasedBriefDto> BriefDtosGetByApplicant(int applicantId);
+        IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
     }
 }

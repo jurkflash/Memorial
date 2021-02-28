@@ -7,7 +7,7 @@ using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.FuneralCo
 {
     public class FuneralCo : IFuneralCo
     {
@@ -17,7 +17,7 @@ namespace Memorial.Lib
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<FuneralCompanyDto> GetAll()
+        public IEnumerable<FuneralCompanyDto> GetFuneralCompanyDtos()
         {
             return Mapper.Map<IEnumerable<Core.Domain.FuneralCompany>, IEnumerable<FuneralCompanyDto>>(_unitOfWork.FuneralCompanies.GetAllActive());
         }

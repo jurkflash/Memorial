@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.FuneralCo
 {
     public interface IFuneralCo
     {
-        IEnumerable<FuneralCompanyDto> GetAll();
+        IEnumerable<FuneralCompanyDto> GetFuneralCompanyDtos();
     }
 }

@@ -28,6 +28,21 @@ namespace Memorial.Lib.Quadrangle
             return _item;
         }
 
+        public QuadrangleItemDto GetItemDto()
+        {
+            return Mapper.Map<Core.Domain.QuadrangleItem, QuadrangleItemDto>(GetItem());
+        }
+
+        public Core.Domain.QuadrangleItem GetItem(int id)
+        {
+            return _unitOfWork.QuadrangleItems.GetActive(id);
+        }
+
+        public QuadrangleItemDto GetItemDto(int id)
+        {
+            return Mapper.Map<Core.Domain.QuadrangleItem, QuadrangleItemDto>(GetItem(id));
+        }
+
         public int GetId()
         {
             return _item.Id;
@@ -58,14 +73,14 @@ namespace Memorial.Lib.Quadrangle
             return _item.isOrder;
         }
 
-        public IEnumerable<Core.Domain.QuadrangleItem> GetByCentre(int centreId)
+        public IEnumerable<Core.Domain.QuadrangleItem> GetItemByCentre(int centreId)
         {
             return _unitOfWork.QuadrangleItems.GetByCentre(centreId);
         }
 
-        public IEnumerable<QuadrangleItemDto> DtosGetByCentre(int centreId)
+        public IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleItem>, IEnumerable<QuadrangleItemDto>>(GetByCentre(centreId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleItem>, IEnumerable<QuadrangleItemDto>>(GetItemByCentre(centreId));
         }
 
     }

@@ -4,18 +4,28 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Applicant
 {
     public interface IApplicant
     {
         void SetApplicant(int id);
 
-        void SetById(int id);
-
-        void SetByIC(string IC);
+        Core.Domain.Applicant GetApplicantByIC(string ic);
 
         Core.Domain.Applicant GetApplicant();
 
-        ApplicantDto DtosGetApplicant();
+        ApplicantDto GetApplicantDto();
+
+        Core.Domain.Applicant GetApplicant(int id);
+
+        ApplicantDto GetApplicantDto(int id);
+
+        IEnumerable<Core.Domain.Applicant> GetApplicants();
+
+        IEnumerable<ApplicantDto> GetApplicantDtos();
+
+        bool Create(Core.Domain.Applicant applicant);
+
+        bool Update(Core.Domain.Applicant applicant);
     }
 }

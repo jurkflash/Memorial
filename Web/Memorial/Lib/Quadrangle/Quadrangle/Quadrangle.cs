@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Memorial.Core;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
@@ -12,17 +11,11 @@ namespace Memorial.Lib.Quadrangle
     public class Quadrangle : IQuadrangle
     {
         private readonly IUnitOfWork _unitOfWork;
-        private ICentre _centre;
-        private IArea _area;
-        private IItem _item;
         private Core.Domain.Quadrangle _quadrangle;
 
-        public Quadrangle(IUnitOfWork unitOfWork, ICentre centre, IArea area, IItem item)
+        public Quadrangle(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _centre = centre;
-            _area = area;
-            _item = item;
         }
 
         public void SetQuadrangle(int id)
@@ -30,15 +23,34 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle = _unitOfWork.Quadrangles.GetActive(id);
         }
 
-        private void SetArea()
+        public Core.Domain.Quadrangle GetQuadrangle()
         {
-            _area.SetArea(_quadrangle.QuadrangleAreaId);
+            return _quadrangle;
         }
 
-        private void SetCentre()
+        public QuadrangleDto GetQuadrangleDto()
         {
-            SetArea();
-            _centre.SetCentre(_area.GetCentreId());
+            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(GetQuadrangle());
+        }
+
+        public Core.Domain.Quadrangle GetQuadrangle(int id)
+        {
+            return _unitOfWork.Quadrangles.GetActive(id);
+        }
+
+        public QuadrangleDto GetQuadrangleDto(int id)
+        {
+            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(GetQuadrangle(id));
+        }
+
+        public IEnumerable<Core.Domain.Quadrangle> GetQuadranglesByAreaId(int id)
+        {
+            return _unitOfWork.Quadrangles.GetByArea(id);
+        }
+
+        public IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int id)
+        {
+            return Mapper.Map< IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(GetQuadranglesByAreaId(id));
         }
 
         public string GetName()
@@ -71,25 +83,19 @@ namespace Memorial.Lib.Quadrangle
             return _quadrangle.hasDeceased;
         }
 
+        public void SetHasDeceased(bool flag)
+        {
+            _quadrangle.hasDeceased = flag;
+        }
+
         public bool HasApplicant()
         {
             return _quadrangle.ApplicantId == null ? false : true;
         }
 
-        public int GetAreaId()
+        public int? GetApplicantId()
         {
-            return _quadrangle.QuadrangleAreaId;
-        }
-
-        public int GetCentreId()
-        {
-            SetCentre();
-            return _centre.GetID();
-        }
-
-        public int GetNumberOfPlacement()
-        {
-            return _quadrangle.QuadrangleType.NumberOfPlacement;
+            return _quadrangle.ApplicantId;
         }
 
         public void SetApplicant(int applicantId)
@@ -103,48 +109,19 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle.ApplicantId = null;
         }
 
-        public void SetHasDeceased(bool flag)
+        public int GetAreaId()
         {
-            _quadrangle.hasDeceased = flag;
+            return _quadrangle.QuadrangleAreaId;
         }
 
-        public Core.Domain.Quadrangle GetQuadrangle()
+        public int GetNumberOfPlacement()
         {
-            return _quadrangle;
+            return _quadrangle.QuadrangleType.NumberOfPlacement;
         }
 
-        public Core.Domain.QuadrangleArea GetArea()
-        {
-            SetArea();
-            return _area.GetArea();
-        }
-
-        public Core.Domain.QuadrangleCentre GetCentre()
-        {
-            SetCentre();
-            return _centre.GetCentre();
-        }
-
-        public IEnumerable<Core.Domain.QuadrangleItem> GetItems()
-        {
-            SetCentre();
-            return _item.GetByCentre(_centre.GetID());
-        }
-
-        public QuadrangleDto DtoGetQuadrangle()
-        {
-            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(GetQuadrangle());
-        }   
-
-        public IEnumerable<QuadrangleDto> DtosGetByArea(int areaId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(_unitOfWork.Quadrangles.GetByArea(areaId));
-        }
-
-        public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int areaId)
+        public IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId)
         {
             return _unitOfWork.Quadrangles.GetPositionsByArea(areaId);
         }
-
     }
 }

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Deceased;
 
 namespace Memorial.Lib.Quadrangle
 {
@@ -10,11 +12,35 @@ namespace Memorial.Lib.Quadrangle
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public Order(IUnitOfWork unitOfWork, IItem item, IQuadrangle quadrangle, IApplicant applicant, IDeceased deceased) : base(unitOfWork, item, quadrangle, applicant, deceased)
+        public Order(
+            IUnitOfWork unitOfWork,
+            IItem item,
+            IQuadrangle quadrangle,
+            IApplicant applicant,
+            IDeceased deceased,
+            INumber number,
+            Invoice.IQuadrangle quadrangleInvoice,
+            Receipt.IQuadrangle quadrangleReceipt
+            ) : 
+            base(
+                unitOfWork, 
+                item, 
+                quadrangle, 
+                applicant, 
+                deceased, 
+                number, 
+                quadrangleInvoice, 
+                quadrangleReceipt
+                )
         {
             _unitOfWork = unitOfWork;
+            _item = item;
             _quadrangle = quadrangle;
+            _applicant = applicant;
             _deceased = deceased;
+            _number = number;
+            _quadrangleInvoice = quadrangleInvoice;
+            _quadrangleReceipt = quadrangleReceipt;
         }
 
         public void SetOrder(int id)
@@ -29,7 +55,7 @@ namespace Memorial.Lib.Quadrangle
 
         private void SetDeceased(int id)
         {
-            _deceased.SetById(id);
+            _deceased.SetDeceased(id);
         }
 
         public bool Create()
@@ -49,7 +75,7 @@ namespace Memorial.Lib.Quadrangle
 
             if (_transaction.DeceasedId != null)
             {
-                _deceased.SetById((int)_transaction.DeceasedId);
+                SetDeceased((int)_transaction.DeceasedId);
                 if (_deceased.SetQuadrangle(_transaction.QuadrangleId))
                 {
                     _quadrangle.SetHasDeceased(true);
@@ -62,6 +88,32 @@ namespace Memorial.Lib.Quadrangle
 
             return true;
         }
+
+        public bool Update()
+        {
+            return true;
+        }
+
+        override
+        public bool Delete()
+        {
+            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
+            if (_quadrangle.HasDeceased())
+                return false;
+
+            _quadrangleInvoice.DeleteByApplication(GetAF());
+            _transaction.DeleteDate = System.DateTime.Now;
+
+            SetDeceased((int)_transaction.DeceasedId);
+            _deceased.RemoveQuadrangle();
+
+            _quadrangle.SetHasDeceased(false);
+            _quadrangle.RemoveApplicant();
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
 
     }
 }

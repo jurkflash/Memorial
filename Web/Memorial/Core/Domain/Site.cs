@@ -49,5 +49,11 @@ namespace Memorial.Core.Domain
         public ICollection<Urn> Urns { get; set; }
 
         public ICollection<Catalog> Catalogs { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
     }
 }

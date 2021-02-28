@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
+using System.Web.Mvc;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.Site;
 using Memorial.ViewModels;
 using AutoMapper;
 
@@ -13,16 +13,20 @@ namespace Memorial.Controllers
 {
     public class ApplicantsController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private IApplicant _applicant;
+        private IDeceased _deceased;
+        private ISite _site;
 
-        public ApplicantsController(IUnitOfWork unitOfWork)
+        public ApplicantsController(IApplicant applicant, IDeceased deceased, ISite site)
         {
-            _unitOfWork = unitOfWork;
+            _applicant = applicant;
+            _deceased = deceased;
+            _site = site;
         }
 
         public ActionResult Index()
         {
-            var applicants = _unitOfWork.Applicants.GetAllActive().OrderByDescending(a => a.CreateDate);
+            var applicants = _applicant.GetApplicantDtos();
             return View(applicants);
         }
 
@@ -34,43 +38,35 @@ namespace Memorial.Controllers
         [HttpPost]
         public ActionResult Save(ApplicantDto applicantDto)
         {
-            var applicantIC = _unitOfWork.Applicants.GetByIC(applicantDto.IC);
+            var applicantIC = _applicant.GetApplicantByIC(applicantDto.IC);
             if (applicantIC != null && ((applicantDto.Id == 0) || (applicantDto.Id != applicantIC.Id)))
             {
                 ModelState.AddModelError("IC", "IC exists");
                 return View("Form", applicantDto);
             }
 
-            if (applicantDto.Id == 0)
-            {
-                var applicant = Mapper.Map<ApplicantDto, Applicant>(applicantDto);
-                applicant.CreateDate = System.DateTime.Now;
-                _unitOfWork.Applicants.Add(applicant);
-            }
-            else
-            {
-                var applicantm = _unitOfWork.Applicants.GetActive(applicantDto.Id);
-                Mapper.Map(applicantDto, applicantm);
-                applicantm.ModifyDate = System.DateTime.Now;
-            }
-            _unitOfWork.Complete();
+            if (applicantDto.Id == 0 && !_applicant.Create(Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto)))
+                return View("Form", applicantDto);
+
+            if (applicantDto.Id != 0 && !_applicant.Update(Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto)))
+                return View("Form", applicantDto);
+
 
             return RedirectToAction("Index", "Applicants");
         }
 
         public ActionResult Edit(int id)
         {
-            var applicant = _unitOfWork.Applicants.GetActive(id);
-            return View("Form", Mapper.Map<Applicant, ApplicantDto>(applicant));
+            return View("Form", Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id)));
         }
 
         public ActionResult Catalog(int id)
         {
             var applicantInfoViewModel = new ApplicantInfoViewModel()
             {
-                ApplicantDto = Mapper.Map<Applicant, ApplicantDto>(_unitOfWork.Applicants.GetActive(id)),
-                DeceasedDtos = Mapper.Map<IEnumerable<Deceased>, IEnumerable<DeceasedDto>>(_unitOfWork.Deceaseds.GetByApplicant(id)),
-                Sites = _unitOfWork.Sites.GetAll()
+                ApplicantDto = Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id)),
+                DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId(id)),
+                SiteDtos = _site.GetSiteDtos()
             };
             return View(applicantInfoViewModel);
         }
@@ -98,15 +94,15 @@ namespace Memorial.Controllers
         [ChildActionOnly]
         public PartialViewResult ApplicantInfo(int id)
         {
-            var applicantDto = Mapper.Map<Applicant, ApplicantDto>(_unitOfWork.Applicants.GetActive(id));
+            var applicantDto = Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id));
             return PartialView("_ApplicantInfo", applicantDto);
         }
 
         [ChildActionOnly]
         public PartialViewResult ApplicantBrief(int id)
         {
-            var applicant = _unitOfWork.Applicants.GetActive(id);
-            var deceaseds = Mapper.Map<IEnumerable<Deceased>, IEnumerable<DeceasedBriefDto>>(_unitOfWork.Deceaseds.GetByApplicant(id));
+            var applicant = _applicant.GetApplicant(id);
+            var deceaseds = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(_deceased.GetDeceasedsByApplicantId(id));
             var applicantBriefViewModel = new ApplicantBriefViewModel()
             {
                 Id = applicant.Id,

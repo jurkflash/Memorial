@@ -19,5 +19,12 @@ namespace Memorial.Core.Domain
         public byte NumberOfPlacement { get; set; }
 
         public ICollection<Quadrangle> Quadrangles { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
+
     }
 }

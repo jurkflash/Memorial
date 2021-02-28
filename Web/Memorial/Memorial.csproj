@@ -614,41 +614,15 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Ancestor\AncestorController.cs" />
-    <Compile Include="Controllers\Ancestor\AncestorFreeController.cs" />
-    <Compile Include="Controllers\Ancestor\AncestorMaintenanceController.cs" />
-    <Compile Include="Controllers\Ancestor\AncestorOrderController.cs" />
-    <Compile Include="Controllers\Ancestor\AncestorShiftController.cs" />
-    <Compile Include="Controllers\Api\Quadrangle\ManagesController.cs" />
-    <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
-    <Compile Include="Controllers\Cremation\CremationController.cs" />
-    <Compile Include="Controllers\Cremation\CremationTransactionsController.cs" />
     <Compile Include="Controllers\DeceasedsController.cs" />
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\Miscellaenous\MiscellaneousController.cs" />
-    <Compile Include="Controllers\Miscellaenous\MiscellaneousTransactionsController.cs" />
-    <Compile Include="Controllers\Plot\PlotController.cs" />
-    <Compile Include="Controllers\Plot\PlotDoubleController.cs" />
-    <Compile Include="Controllers\Plot\PlotFengShuiController.cs" />
-    <Compile Include="Controllers\Plot\PlotClearanceController.cs" />
-    <Compile Include="Controllers\Plot\PlotSecondBurialController.cs" />
-    <Compile Include="Controllers\Plot\PlotSingleController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadrangleTransferController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadrangleShiftController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadrangleManageController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleOrderController.cs" />
-    <Compile Include="Controllers\Receipt\OrderReceiptsController.cs" />
-    <Compile Include="Controllers\Receipt\NonOrderReceiptsController.cs" />
-    <Compile Include="Controllers\Space\SpaceTransactionsController.cs" />
-    <Compile Include="Controllers\Space\SpaceController.cs" />
-    <Compile Include="Controllers\Urn\UrnController.cs" />
     <Compile Include="Core\Domain\AncestorTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
     <Compile Include="Core\Domain\AncestorItem.cs" />
@@ -707,9 +681,12 @@
     <Compile Include="Core\Dtos\CremationDto.cs" />
     <Compile Include="Core\Dtos\CremationItemDto.cs" />
     <Compile Include="Core\Dtos\CremationNumberDto.cs" />
+    <Compile Include="Core\Dtos\GenderTypeDto.cs" />
+    <Compile Include="Core\Dtos\MaritalTypeDto.cs" />
     <Compile Include="Core\Dtos\MiscellaneousDto.cs" />
     <Compile Include="Core\Dtos\MiscellaneousItemDto.cs" />
     <Compile Include="Core\Dtos\MiscellaneousTransactionDto.cs" />
+    <Compile Include="Core\Dtos\NationalityTypeDto.cs" />
     <Compile Include="Core\Dtos\PaymentMethodDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDto.cs" />
     <Compile Include="Core\Dtos\CremationTransactionDto.cs" />
@@ -723,6 +700,9 @@
     <Compile Include="Core\Dtos\QuadrangleItemDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleTransactionDto.cs" />
     <Compile Include="Core\Dtos\ReceiptDto.cs" />
+    <Compile Include="Core\Dtos\RelationshipTypeDto.cs" />
+    <Compile Include="Core\Dtos\ReligionTypeDto.cs" />
+    <Compile Include="Core\Dtos\SiteDto.cs" />
     <Compile Include="Core\Dtos\SpaceDto.cs" />
     <Compile Include="Core\Dtos\SpaceItemDto.cs" />
     <Compile Include="Core\Dtos\SpaceTransactionDto.cs" />
@@ -791,34 +771,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Ancestor\IAncestor.cs" />
-    <Compile Include="Lib\Ancestor\IAncestorNumber.cs" />
-    <Compile Include="Lib\Ancestor\Ancestor.cs" />
-    <Compile Include="Lib\Ancestor\AncestorNumber.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
-    <Compile Include="Lib\Common\ICommon.cs" />
-    <Compile Include="Lib\Common\Common.cs" />
-    <Compile Include="Lib\Cremation\ICremation.cs" />
-    <Compile Include="Lib\Cremation\ICremationNumber.cs" />
-    <Compile Include="Lib\Cremation\Cremation.cs" />
-    <Compile Include="Lib\Cremation\CremationNumber.cs" />
     <Compile Include="Lib\Deceased\Deceased.cs" />
     <Compile Include="Lib\Deceased\IDeceased.cs" />
     <Compile Include="Lib\FuneralCo\FuneralCo.cs" />
     <Compile Include="Lib\FuneralCo\IFuneralCo.cs" />
+    <Compile Include="Lib\GenderType\GenderType.cs" />
+    <Compile Include="Lib\GenderType\IGenderType.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
-    <Compile Include="Lib\MiscellaneousItem\IMiscellaneousItem.cs" />
-    <Compile Include="Lib\MiscellaneousItem\MiscellaneousItem.cs" />
-    <Compile Include="Lib\MiscellaneousNumber\IMiscellaneousNumber.cs" />
-    <Compile Include="Lib\MiscellaneousNumber\MiscellaneousNumber.cs" />
-    <Compile Include="Lib\MiscellaneousTransaction\IMiscellaneousTransaction.cs" />
-    <Compile Include="Lib\MiscellaneousTransaction\MiscellaneousTransaction.cs" />
-    <Compile Include="Lib\Miscellaneous\IMiscellaneous.cs" />
-    <Compile Include="Lib\Miscellaneous\Miscellaneous.cs" />
-    <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
-    <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
+    <Compile Include="Lib\Invoice\Quadrangle\IQuadrangle.cs" />
+    <Compile Include="Lib\Invoice\Quadrangle\Quadrangle.cs" />
+    <Compile Include="Lib\MaritalType\MaritalType.cs" />
+    <Compile Include="Lib\MaritalType\IMaritalType.cs" />
+    <Compile Include="Lib\NationalityType\INationalityType.cs" />
+    <Compile Include="Lib\NationalityType\NationalityType.cs" />
+    <Compile Include="Lib\PaymentMethod\IPaymentMethod.cs" />
+    <Compile Include="Lib\PaymentMethod\PaymentMethod.cs" />
     <Compile Include="Lib\Quadrangle\Order\IOrder.cs" />
     <Compile Include="Lib\Quadrangle\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Quadrangle\Centre\ICentre.cs" />
@@ -826,12 +796,6 @@
     <Compile Include="Lib\Quadrangle\Item\IItem.cs" />
     <Compile Include="Lib\Quadrangle\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Quadrangle\IQuadrangleNumber.cs" />
-    <Compile Include="Lib\Quadrangle\Photo\IPhoto.cs" />
-    <Compile Include="Lib\Quadrangle\Photo\Photo.cs" />
-    <Compile Include="Lib\Quadrangle\Shift\IShift.cs" />
-    <Compile Include="Lib\Quadrangle\Shift\Shift.cs" />
-    <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
-    <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
     <Compile Include="Lib\Quadrangle\Order\Order.cs" />
     <Compile Include="Lib\Quadrangle\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Quadrangle\Transaction\Transaction.cs" />
@@ -840,19 +804,15 @@
     <Compile Include="Lib\Quadrangle\Item\Item.cs" />
     <Compile Include="Lib\Quadrangle\QuadrangleNumber.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
+    <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
+    <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
-    <Compile Include="Lib\SpaceItem\ISpaceItem.cs" />
-    <Compile Include="Lib\SpaceItem\SpaceItem.cs" />
-    <Compile Include="Lib\SpaceNumber\ISpaceNumber.cs" />
-    <Compile Include="Lib\SpaceNumber\SpaceNumber.cs" />
-    <Compile Include="Lib\SpaceTransaction\ISpaceTransaction.cs" />
-    <Compile Include="Lib\Space\ISpace.cs" />
-    <Compile Include="Lib\SpaceTransaction\SpaceTransaction.cs" />
-    <Compile Include="Lib\Space\Space.cs" />
-    <Compile Include="Lib\Urn\IUrnNumber.cs" />
-    <Compile Include="Lib\Urn\IUrn.cs" />
-    <Compile Include="Lib\Urn\UrnNumber.cs" />
-    <Compile Include="Lib\Urn\Urn.cs" />
+    <Compile Include="Lib\RelationshipType\IRelationshipType.cs" />
+    <Compile Include="Lib\RelationshipType\RelationshipType.cs" />
+    <Compile Include="Lib\ReligionType\IReligionType.cs" />
+    <Compile Include="Lib\ReligionType\ReligionType.cs" />
+    <Compile Include="Lib\Site\Site.cs" />
+    <Compile Include="Lib\Site\ISite.cs" />
     <Compile Include="Migrations\202011161613327_Initial.cs" />
     <Compile Include="Migrations\202011161613327_Initial.designer.cs">
       <DependentUpon>202011161613327_Initial.cs</DependentUpon>
@@ -1665,6 +1625,10 @@
     <Compile Include="Migrations\202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.designer.cs">
       <DependentUpon>202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.cs" />
+    <Compile Include="Migrations\202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.designer.cs">
+      <DependentUpon>202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
@@ -1893,6 +1857,10 @@
     <Content Include="Views\QuadranglePhoto\Info.cshtml" />
     <Content Include="Views\QuadrangleShift\Info.cshtml" />
     <Content Include="Views\QuadrangleTransfer\Info.cshtml" />
+    <Content Include="Views\QuadrangleInvoices\InvoiceForm.cshtml" />
+    <Content Include="Views\QuadrangleInvoices\Invoices.cshtml" />
+    <Content Include="Views\QuadrangleOrder\Invoices.cshtml" />
+    <Content Include="Views\QuadrangleOrder\InvoiceForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1902,13 +1870,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Lib\Invoice\Ancestor\" />
-    <Folder Include="Lib\Invoice\Cremation\" />
-    <Folder Include="Lib\Invoice\Miscellaneous\" />
-    <Folder Include="Lib\Invoice\Plot\" />
-    <Folder Include="Lib\Invoice\Quadrangle\" />
-    <Folder Include="Lib\Invoice\Space\" />
-    <Folder Include="Lib\Invoice\Urn\" />
+    <Folder Include="Controllers\Api\Quadrangle\" />
     <Folder Include="Lib\Quadrangle\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -2529,6 +2491,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.resx">
       <DependentUpon>202102181517455_SetNullForMaintenanceAndLifeTimeMaintenanceColumnsForQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.resx">
+      <DependentUpon>202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

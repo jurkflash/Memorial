@@ -14,7 +14,5 @@ namespace Memorial.ViewModels
         public float Amount { get; set; }
 
         public InvoiceDto InvoiceDto { get; set; }
-
-        public MasterCatalog MasterCatalog { get; set; }
     }
 }

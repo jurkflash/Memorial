@@ -8,7 +8,7 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
 using AutoMapper;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Deceased
 {
     public class Deceased : IDeceased
     {
@@ -28,14 +28,9 @@ namespace Memorial.Lib
             _deceased = _unitOfWork.Deceaseds.GetActive(id);
         }
 
-        public void SetById(int id)
+        public Core.Domain.Deceased GetDeceasedByIC(string ic)
         {
-            _deceased = _unitOfWork.Deceaseds.GetActive(id);
-        }
-
-        public void SetByIC(string ic)
-        {
-            _deceased = _unitOfWork.Deceaseds.GetByIC(ic);
+            return _unitOfWork.Deceaseds.GetByIC(ic);
         }
 
         public Core.Domain.Deceased GetDeceased()
@@ -43,19 +38,46 @@ namespace Memorial.Lib
             return _deceased;
         }
 
-        public DeceasedDto DtoGetDeceased()
+        public DeceasedDto GetDeceasedDto()
         {
             return Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased);
         }
 
-        public IEnumerable<Core.Domain.Deceased> GetByApplicant(int applicantId)
+        public Core.Domain.Deceased GetDeceased(int id)
+        {
+            return _unitOfWork.Deceaseds.GetActive(id);
+        }
+
+        public DeceasedDto GetDeceasedDto(int id)
+        {
+            return Mapper.Map<Core.Domain.Deceased, DeceasedDto>(GetDeceased(id));
+        }
+
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId)
         {
             return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
         }
 
-        public IEnumerable<Core.Domain.Deceased> GetByQuadrangle(int quadrangleId)
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
         {
             return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
+        }
+
+        public bool Create(Core.Domain.Deceased deceased)
+        {
+            deceased.CreateDate = System.DateTime.Now;
+            _unitOfWork.Deceaseds.Add(deceased);
+            _unitOfWork.Complete();
+            return true;
+        }
+
+        public bool Update(Core.Domain.Deceased deceased)
+        {
+            SetDeceased(deceased.Id);
+            Mapper.Map(deceased, GetDeceased());
+            deceased.ModifyDate = System.DateTime.Now;
+            _unitOfWork.Complete();
+            return true;
         }
 
         public Core.Domain.Quadrangle GetQuadrangle()
@@ -90,19 +112,16 @@ namespace Memorial.Lib
         {
             if (_deceased != null)
             {
-                if (_deceased.QuadrangleId != null)
-                {
-                    _deceased.Quadrangle = null;
-                    _deceased.QuadrangleId = null;
-                }
+                _deceased.Quadrangle = null;
+                _deceased.QuadrangleId = null;
                 return true;
             }
             return false;
         }
 
-        public IEnumerable<DeceasedBriefDto> BriefDtosGetByApplicant(int applicantId)
+        public IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetByApplicant(applicantId));
+            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetDeceasedsByApplicantId(applicantId));
         }
 
     }

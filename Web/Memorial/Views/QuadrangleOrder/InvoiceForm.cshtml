@@ -1,0 +1,37 @@
+﻿@model Memorial.ViewModels.InvoiceFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Invoice Form</h2>
+<h5>Application Form: @Model.AF</h5>
+<h5>Amount: @Model.Amount</h5>
+
+@using (Html.BeginForm("SaveInvoice", "QuadrangleOrder"))
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            Amount
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.InvoiceDto.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.InvoiceDto.Amount)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.InvoiceDto.Remark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.InvoiceDto.Remark)
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.AF)
+    @Html.HiddenFor(c => c.Amount)
+    @Html.HiddenFor(c => c.InvoiceDto.IV)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

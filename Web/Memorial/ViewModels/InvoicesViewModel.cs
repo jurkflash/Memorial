@@ -11,7 +11,5 @@ namespace Memorial.ViewModels
     {
         public string AF { get; set; }
         public IEnumerable<InvoiceDto> InvoiceDtos { get; set; }
-
-        public MasterCatalog MasterCatalog { get; set; }
     }
 }

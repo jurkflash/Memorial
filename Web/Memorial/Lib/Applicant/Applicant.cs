@@ -7,7 +7,7 @@ using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Applicant
 {
     public class Applicant : IApplicant
     {
@@ -25,14 +25,9 @@ namespace Memorial.Lib
             _applicant = _unitOfWork.Applicants.GetActive(id);
         }
 
-        public void SetById(int id)
+        public Core.Domain.Applicant GetApplicantByIC(string ic)
         {
-            _applicant = _unitOfWork.Applicants.GetActive(id);
-        }
-
-        public void SetByIC(string ic)
-        {
-            _applicant = _unitOfWork.Applicants.GetByIC(ic);
+            return _unitOfWork.Applicants.GetByIC(ic);
         }
 
         public Core.Domain.Applicant GetApplicant()
@@ -40,10 +35,46 @@ namespace Memorial.Lib
             return _applicant;
         }
 
-        public ApplicantDto DtosGetApplicant()
+        public ApplicantDto GetApplicantDto()
         {
             return Mapper.Map<Core.Domain.Applicant, ApplicantDto>(GetApplicant());
         }
 
+        public Core.Domain.Applicant GetApplicant(int id)
+        {
+            return _unitOfWork.Applicants.GetActive(id);
+        }
+
+        public ApplicantDto GetApplicantDto(int id)
+        {
+            return Mapper.Map<Core.Domain.Applicant, ApplicantDto>(GetApplicant(id));
+        }
+
+        public IEnumerable<Core.Domain.Applicant> GetApplicants()
+        {
+            return _unitOfWork.Applicants.GetAll();
+        }
+
+        public IEnumerable<ApplicantDto> GetApplicantDtos()
+        {
+            return Mapper.Map< IEnumerable<Core.Domain.Applicant>, IEnumerable<ApplicantDto>>(GetApplicants());
+        }
+
+        public bool Create(Core.Domain.Applicant applicant)
+        {
+            applicant.CreateDate = System.DateTime.Now;
+            _unitOfWork.Applicants.Add(applicant);
+            _unitOfWork.Complete();
+            return true;
+        }
+
+        public bool Update(Core.Domain.Applicant applicant)
+        {
+            SetApplicant(applicant.Id);
+            Mapper.Map(applicant, GetApplicant());
+            applicant.ModifyDate = System.DateTime.Now;
+            _unitOfWork.Complete();
+            return true;
+        }
     }
 }

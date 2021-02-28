@@ -11,6 +11,6 @@ namespace Memorial.ViewModels
     {
         public ApplicantDto ApplicantDto { get; set; }
         public IEnumerable<DeceasedDto> DeceasedDtos { get; set; }
-        public IEnumerable<Site> Sites { get; set; }
+        public IEnumerable<SiteDto> SiteDtos { get; set; }
     }
 }

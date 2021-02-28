@@ -11,23 +11,16 @@ namespace Memorial.Lib.Quadrangle
     public class Area : IArea
     {
         private readonly IUnitOfWork _unitOfWork;
-        private ICentre _centre;
         private Core.Domain.QuadrangleArea _area;
 
-        public Area(IUnitOfWork unitOfWork, ICentre centre)
+        public Area(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _centre = centre;
         }
 
         public void SetArea(int id)
         {
             _area = _unitOfWork.QuadrangleAreas.GetActive(id);
-        }
-
-        private void SetCentre()
-        {
-            _centre.SetCentre(_unitOfWork.QuadrangleCentres.GetActive(_area.QuadrangleCentreId));
         }
 
         public int GetId()
@@ -55,20 +48,29 @@ namespace Memorial.Lib.Quadrangle
             return _area;
         }
 
-        public Core.Domain.QuadrangleCentre GetCentre()
+        public QuadrangleAreaDto GetAreaDto()
         {
-            SetCentre();
-            return _centre.GetCentre();
+            return Mapper.Map<Core.Domain.QuadrangleArea, QuadrangleAreaDto>(_area);
         }
 
-        public IEnumerable<Core.Domain.QuadrangleArea> GetByCentre(int centreId)
+        public Core.Domain.QuadrangleArea GetArea(int areaId)
+        {
+            return _unitOfWork.QuadrangleAreas.GetActive(areaId);
+        }
+
+        public QuadrangleAreaDto GetAreaDto(int areaId)
+        {
+            return Mapper.Map<Core.Domain.QuadrangleArea, QuadrangleAreaDto>(GetArea(areaId));
+        }
+
+        public IEnumerable<Core.Domain.QuadrangleArea> GetAreaByCentre(int centreId)
         {
             return _unitOfWork.QuadrangleAreas.GetByCentre(centreId);
         }
 
-        public IEnumerable<QuadrangleAreaDto> DtosGetByCentre(int centreId)
+        public IEnumerable<QuadrangleAreaDto> GetAreaDtosByCentre(int centreId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleArea>, IEnumerable<QuadrangleAreaDto>>(GetByCentre(centreId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleArea>, IEnumerable<QuadrangleAreaDto>>(GetAreaByCentre(centreId));
         }
     }
 }

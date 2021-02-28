@@ -7,17 +7,40 @@ using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.GenderType;
+using Memorial.Lib.MaritalType;
+using Memorial.Lib.NationalityType;
+using Memorial.Lib.RelationshipType;
+using Memorial.Lib.ReligionType;
 using AutoMapper;
 
 namespace Memorial.Controllers
 {
     public class DeceasedsController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private IDeceased _deceased;
+        private IGenderType _genderType;
+        private IMaritalType _maritalType;
+        private INationalityType _nationalityType;
+        private IRelationshipType _relationshipType;
+        private IReligionType _religionType;
 
-        public DeceasedsController(IUnitOfWork unitOfWork)
+        public DeceasedsController(
+            IDeceased deceased,
+            IGenderType genderType,
+            IMaritalType maritalType,
+            INationalityType nationalityType,
+            IRelationshipType relationshipType,
+            IReligionType religionType
+            )
         {
-            _unitOfWork = unitOfWork;
+            _deceased = deceased;
+            _genderType = genderType;
+            _maritalType = maritalType;
+            _nationalityType = nationalityType;
+            _relationshipType = relationshipType;
+            _religionType = religionType;
         }
 
         public ActionResult Index()
@@ -29,11 +52,11 @@ namespace Memorial.Controllers
         {
             var viewModel = new DeceasedFormViewModel
             {
-                GenderTypes = _unitOfWork.GenderTypes.GetAll(),
-                MaritalTypes = _unitOfWork.MaritalTypes.GetAll(),
-                NationalityTypes = _unitOfWork.NationalityTypes.GetAll(),
-                RelationshipTypes = _unitOfWork.RelationshipTypes.GetAll(),
-                ReligionTypes = _unitOfWork.ReligionTypes.GetAll(),
+                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
+                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
+                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
+                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
+                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
                 ApplicantId = applicantId,
                 DeceasedDto = new DeceasedDto()
             };
@@ -43,16 +66,16 @@ namespace Memorial.Controllers
 
         public ActionResult Edit(int id)
         {
-            var deceased = _unitOfWork.Deceaseds.GetActive(id);
+            var deceased = _deceased.GetDeceasedDto(id);
             var viewModel = new DeceasedFormViewModel
             {
-                GenderTypes = _unitOfWork.GenderTypes.GetAll(),
-                MaritalTypes = _unitOfWork.MaritalTypes.GetAll(),
-                NationalityTypes = _unitOfWork.NationalityTypes.GetAll(),
-                RelationshipTypes = _unitOfWork.RelationshipTypes.GetAll(),
-                ReligionTypes = _unitOfWork.ReligionTypes.GetAll(),
+                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
+                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
+                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
+                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
+                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
                 ApplicantId = deceased.ApplicantId,
-                DeceasedDto = Mapper.Map<Deceased, DeceasedDto>(deceased)
+                DeceasedDto = deceased
             };
             return View("Form", viewModel);
         }
@@ -61,17 +84,17 @@ namespace Memorial.Controllers
         {
             var viewModel = new DeceasedFormViewModel
             {
-                GenderTypes = _unitOfWork.GenderTypes.GetAll(),
-                MaritalTypes = _unitOfWork.MaritalTypes.GetAll(),
-                NationalityTypes = _unitOfWork.NationalityTypes.GetAll(),
-                RelationshipTypes = _unitOfWork.RelationshipTypes.GetAll(),
-                ReligionTypes = _unitOfWork.ReligionTypes.GetAll(),
+                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
+                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
+                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
+                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
+                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
                 ApplicantId = deceasedFormViewModel.ApplicantId,
                 DeceasedDto = deceasedFormViewModel.DeceasedDto
             };
 
-
-            var deceasedIC = _unitOfWork.Deceaseds.GetByIC(deceasedFormViewModel.DeceasedDto.IC);
+            
+            var deceasedIC = _deceased.GetDeceasedByIC(deceasedFormViewModel.DeceasedDto.IC);
             if (deceasedIC != null && ((deceasedFormViewModel.DeceasedDto.Id == 0) || (deceasedFormViewModel.DeceasedDto.Id != deceasedIC.Id)))
             {
                 ModelState.AddModelError("DeceasedDto.IC", "IC exists");
@@ -84,26 +107,28 @@ namespace Memorial.Controllers
                 return View("Form", viewModel);
             }
 
+
             if (deceasedFormViewModel.DeceasedDto.Id == 0)
             {
-                var deceased = Mapper.Map<DeceasedDto, Deceased>(deceasedFormViewModel.DeceasedDto);
+                var deceased = Mapper.Map<DeceasedDto, Core.Domain.Deceased>(deceasedFormViewModel.DeceasedDto);
                 deceased.ApplicantId = deceasedFormViewModel.ApplicantId;
-                deceased.CreateDate = System.DateTime.Now;
-                _unitOfWork.Deceaseds.Add(deceased);
+                if(!_deceased.Create(deceased))
+                    return View("Form", viewModel);
             }
             else
             {
-                var deceasedm = _unitOfWork.Deceaseds.GetActive(deceasedFormViewModel.DeceasedDto.Id);
-                deceasedFormViewModel.DeceasedDto.NationalityType = _unitOfWork.NationalityTypes.Get(deceasedFormViewModel.DeceasedDto.NationalityTypeId);
-                deceasedFormViewModel.DeceasedDto.RelationshipType = _unitOfWork.RelationshipTypes.Get(deceasedFormViewModel.DeceasedDto.RelationshipTypeId);
-                deceasedFormViewModel.DeceasedDto.ReligionType = _unitOfWork.ReligionTypes.Get(deceasedFormViewModel.DeceasedDto.ReligionTypeId);
-                deceasedFormViewModel.DeceasedDto.GenderType = _unitOfWork.GenderTypes.Get(deceasedFormViewModel.DeceasedDto.GenderTypeId);
-                deceasedFormViewModel.DeceasedDto.MaritalType = _unitOfWork.MaritalTypes.Get(deceasedFormViewModel.DeceasedDto.MaritalTypeId);
+                var deceasedm = _deceased.GetDeceased(deceasedFormViewModel.DeceasedDto.Id);
+                deceasedFormViewModel.DeceasedDto.NationalityType = _nationalityType.GetNationalityTypeById(deceasedFormViewModel.DeceasedDto.NationalityTypeId);
+                deceasedFormViewModel.DeceasedDto.RelationshipType = _relationshipType.GetRelationshipTypeById(deceasedFormViewModel.DeceasedDto.RelationshipTypeId);
+                deceasedFormViewModel.DeceasedDto.ReligionType = _religionType.GetReligionTypeById(deceasedFormViewModel.DeceasedDto.ReligionTypeId);
+                deceasedFormViewModel.DeceasedDto.GenderType = _genderType.GetGenderTypeById(deceasedFormViewModel.DeceasedDto.GenderTypeId);
+                deceasedFormViewModel.DeceasedDto.MaritalType = _maritalType.GetMaritalTypeById(deceasedFormViewModel.DeceasedDto.MaritalTypeId);
                 Mapper.Map(deceasedFormViewModel.DeceasedDto, deceasedm);
 
-                deceasedm.ModifyDate = System.DateTime.Now;
+
+                if (!_deceased.Update(deceasedm))
+                    return View("Form", viewModel);
             }
-            _unitOfWork.Complete();
 
             return RedirectToAction("Info", "Applicants", new { id = deceasedFormViewModel.ApplicantId });
         }
@@ -111,7 +136,7 @@ namespace Memorial.Controllers
         [ChildActionOnly]
         public PartialViewResult DeceasedInfo(int id)
         {
-            var deceasedDto = Mapper.Map<Deceased, DeceasedDto>(_unitOfWork.Deceaseds.GetActive(id));
+            var deceasedDto = Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased.GetDeceased(id));
             return PartialView("_DeceasedInfo", deceasedDto);
         }
     }

@@ -89,7 +89,7 @@
     </tbody>
 </table>
 
-@foreach (var site in Model.Sites)
+@foreach (var site in Model.SiteDtos)
 {
     @Html.ActionLink(site.Name, "Site", new { siteId = site.Id, applicantId = Model.ApplicantDto.Id })
     <br />

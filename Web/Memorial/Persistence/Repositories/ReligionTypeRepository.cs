@@ -1,6 +1,7 @@
 ﻿using Memorial.Core.Domain;
 using Memorial.Core.Repositories;
 using System.Data.Entity;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Memorial.Persistence.Repositories
@@ -11,6 +12,18 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public ReligionType GetActive(int id)
+        {
+            return MemorialContext.ReligionTypes
+                .Where(rt => rt.Id == id && rt.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public IEnumerable<ReligionType> GetAllActive()
+        {
+            return MemorialContext.ReligionTypes
+                .Where(rt => rt.DeleteDate == null);
+        }
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

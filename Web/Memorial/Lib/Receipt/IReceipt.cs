@@ -9,20 +9,48 @@ namespace Memorial.Lib
 {
     public interface IReceipt
     {
-        ReceiptDto GetDto(string RE);
+        void SetReceipt(string RE);
 
-        IEnumerable<Core.Domain.Receipt> GetByIV(string IV);
+        void SetReceipt(ReceiptDto receiptDto);
 
-        IEnumerable<ReceiptDto> GetDtosByIV(string IV);
+        Core.Domain.Receipt GetReceipt();
 
-        IEnumerable<ReceiptDto> GetDtosByAF(string AF, MasterCatalog masterCatalog);
+        ReceiptDto GetReceiptDto();
 
-        IEnumerable<Core.Domain.Receipt> GetByAF(string AF, MasterCatalog masterCatalog);
+        Core.Domain.Receipt GetReceipt(string RE);
 
-        bool CreateOrderReceipt(string AF, string IV, float amount, string remark, byte paymentMethodId, string paymentRemark, MasterCatalog masterCatalog);
+        ReceiptDto GetReceiptDto(string RE);
 
-        bool CreateNonOrderReceipt(string AF, float amount, string remark, byte paymentMethodId, string paymentRemark, MasterCatalog masterCatalog);
+        IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV);
 
-        bool Delete(string RE);
+        IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV);
+
+        float GetAmount();
+
+        void SetAmount(float amount);
+
+        string GetRemark();
+
+        void SetRemark(string remark);
+
+        int GetPaymentMethodId();
+
+        string GetPaymentRemark();
+
+        void SetPaymentRemark(string paymentRemark);
+
+        bool isOrderReceipt();
+
+        bool IsPaymentRemarkNecessaryButEmpty(byte paymentMethodId, string paymentRemark);
+
+        float GetTotalIssuedOrderReceiptAmount();
+
+        void NewNumber();
+
+        bool Update(float amount, string remark, byte paymentMethodId, string paymentRemark);
+
+        bool Delete();
+
+        bool DeleteByInvoiceIV(string IV);
     }
 }

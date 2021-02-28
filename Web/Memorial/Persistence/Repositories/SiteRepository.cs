@@ -1,6 +1,6 @@
 ﻿using Memorial.Core.Domain;
 using Memorial.Core.Repositories;
-using System.Data.Entity;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Memorial.Persistence.Repositories
@@ -9,6 +9,19 @@ namespace Memorial.Persistence.Repositories
     {
         public SiteRepository(MemorialContext context) : base(context)
         {
+        }
+
+        public Site GetActive(int id)
+        {
+            return MemorialContext.Sites
+                .Where(s => s.Id == id && s.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public IEnumerable<Site> GetAllActive()
+        {
+            return MemorialContext.Sites
+                .Where(s => s.DeleteDate == null);
         }
 
         public MemorialContext MemorialContext

@@ -12,6 +12,12 @@ namespace Memorial.Lib.Quadrangle
 
         Core.Domain.QuadrangleItem GetItem();
 
+        QuadrangleItemDto GetItemDto();
+
+        Core.Domain.QuadrangleItem GetItem(int id);
+
+        QuadrangleItemDto GetItemDto(int id);
+
         int GetId();
 
         string GetName();
@@ -24,6 +30,8 @@ namespace Memorial.Lib.Quadrangle
 
         bool IsOrder();
 
-        IEnumerable<Core.Domain.QuadrangleItem> GetByCentre(int centreId);
+        IEnumerable<Core.Domain.QuadrangleItem> GetItemByCentre(int centreId);
+
+        IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId);
     }
 }

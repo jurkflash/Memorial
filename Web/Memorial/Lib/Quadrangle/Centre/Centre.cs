@@ -48,14 +48,14 @@ namespace Memorial.Lib.Quadrangle
             return _centre;
         }
 
-        public IEnumerable<Core.Domain.QuadrangleCentre> GetBySite(byte sitId)
+        public IEnumerable<Core.Domain.QuadrangleCentre> GetCentreBySite(byte sitId)
         {
             return _unitOfWork.QuadrangleCentres.GetBySite(sitId);
         }
 
-        public IEnumerable<QuadrangleCentreDto> DtosGetBySite(byte siteId)
+        public IEnumerable<QuadrangleCentreDto> GetCentreDtosBySite(byte siteId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleCentre>, IEnumerable<QuadrangleCentreDto>>(GetBySite(siteId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleCentre>, IEnumerable<QuadrangleCentreDto>>(GetCentreBySite(siteId));
         }
     }
 }

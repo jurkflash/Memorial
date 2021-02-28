@@ -20,11 +20,16 @@ namespace Memorial.Lib.Quadrangle
 
         Core.Domain.QuadrangleArea GetArea();
 
-        Core.Domain.QuadrangleCentre GetCentre();
+        QuadrangleAreaDto GetAreaDto();
 
-        IEnumerable<Core.Domain.QuadrangleArea> GetByCentre(int centreId);
 
-        IEnumerable<QuadrangleAreaDto> DtosGetByCentre(int centreId);
+        Core.Domain.QuadrangleArea GetArea(int areaId);
+
+        QuadrangleAreaDto GetAreaDto(int areaId);
+
+        IEnumerable<Core.Domain.QuadrangleArea> GetAreaByCentre(int centreId);
+
+        IEnumerable<QuadrangleAreaDto> GetAreaDtosByCentre(int centreId);
 
     }
 }

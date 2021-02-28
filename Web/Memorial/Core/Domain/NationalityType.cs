@@ -17,5 +17,12 @@ namespace Memorial.Core.Domain
         public string Name { get; set; }
 
         public ICollection<Deceased> Deceaseds { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
+
     }
 }

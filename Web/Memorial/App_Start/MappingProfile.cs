@@ -13,6 +13,8 @@ namespace Memorial.App_Start
         public MappingProfile()
         {
             // Domain to Dto
+            CreateMap<Site, SiteDto>();
+
             CreateMap<Applicant, ApplicantDto>();
             CreateMap<Deceased, DeceasedDto>();
             CreateMap<Deceased, DeceasedBriefDto>();
@@ -52,6 +54,9 @@ namespace Memorial.App_Start
 
 
             // Dto to Domain
+            CreateMap<SiteDto, Site>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+
             CreateMap<ApplicantDto, Applicant>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<DeceasedDto, Deceased>()

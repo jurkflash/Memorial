@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Receipt;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Deceased;
 using AutoMapper;
 
 namespace Memorial.Lib.Quadrangle
@@ -15,21 +18,30 @@ namespace Memorial.Lib.Quadrangle
         protected IItem _item;
         protected IApplicant _applicant;
         protected IDeceased _deceased;
+        protected INumber _number;
+        protected Invoice.IQuadrangle _quadrangleInvoice;
+        protected Receipt.IQuadrangle _quadrangleReceipt;
         protected Core.Domain.QuadrangleTransaction _transaction;
-        protected string _number;
+        protected string _AFnumber;
 
         public Transaction(
             IUnitOfWork unitOfWork, 
             IItem item, 
             IQuadrangle quadrangle, 
             IApplicant applicant,
-            IDeceased deceased)
+            IDeceased deceased,
+            INumber number,
+            Invoice.IQuadrangle quadrangleInvoice,
+            Receipt.IQuadrangle quadrangleReceipt)
         {
             _unitOfWork = unitOfWork;
             _item = item;
             _quadrangle = quadrangle;
             _applicant = applicant;
             _deceased = deceased;
+            _number = number;
+            _quadrangleInvoice = quadrangleInvoice;
+            _quadrangleReceipt = quadrangleReceipt;
         }
 
         public void SetTransaction(string AF)
@@ -42,20 +54,29 @@ namespace Memorial.Lib.Quadrangle
             _transaction = transaction;
         }
 
-        private void SetQuadrangle()
+        public Core.Domain.QuadrangleTransaction GetTransaction()
         {
-            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
+            return _transaction;
         }
 
-        public Core.Domain.Quadrangle GetQuadrangle()
+        public QuadrangleTransactionDto GetTransactionDto()
         {
-            SetQuadrangle();
-            return _quadrangle.GetQuadrangle();
+            return Mapper.Map<Core.Domain.QuadrangleTransaction, QuadrangleTransactionDto>(GetTransaction());
         }
 
-        public QuadrangleDto DtoGetQuadrangle()
+        public Core.Domain.QuadrangleTransaction GetTransaction(string AF)
         {
-            return _quadrangle.DtoGetQuadrangle();
+            return _unitOfWork.QuadrangleTransactions.GetActive(AF);
+        }
+
+        public QuadrangleTransactionDto GetTransactionDto(string AF)
+        {
+            return Mapper.Map<Core.Domain.QuadrangleTransaction, QuadrangleTransactionDto>(GetTransaction(AF));
+        }
+
+        public string GetAF()
+        {
+            return _transaction.AF;
         }
 
         public float GetAmount()
@@ -63,14 +84,14 @@ namespace Memorial.Lib.Quadrangle
             return _transaction.Price;
         }
 
-        public Core.Domain.QuadrangleTransaction GetTransaction()
+        public int GetQuadrangleId()
         {
-            return _transaction;
+            return _transaction.QuadrangleId;
         }
 
-        public QuadrangleTransactionDto DtoGetTransaction()
+        public int GetItemId()
         {
-            return Mapper.Map<Core.Domain.QuadrangleTransaction, QuadrangleTransactionDto>(GetTransaction());
+            return _transaction.QuadrangleItemId;
         }
 
         public string GetItemName()
@@ -84,67 +105,44 @@ namespace Memorial.Lib.Quadrangle
             return _transaction.ApplicantId;
         }
 
-        public Core.Domain.Applicant GetApplicant()
-        {
-            _applicant.SetApplicant(_transaction.ApplicantId);
-            return _applicant.GetApplicant();
-        }
-
-        public ApplicantDto DtoGetApplicant()
-        {
-            return _applicant.DtosGetApplicant();
-        }
-
         public int? GetDeceasedId()
         {
             return _transaction.DeceasedId;
         }
 
-        public Core.Domain.Applicant GetDeceased()
-        {
-            _deceased.SetDeceased(_transaction.ApplicantId);
-            return _applicant.GetApplicant();
-        }
-
-        public DeceasedDto DtoGetDeceased()
-        {
-            return _deceased.DtoGetDeceased();
-        }
-
-        public IEnumerable<Core.Domain.QuadrangleTransaction> GetByQuadrangleIdAndItem(int quadrangleId, int itemId)
+        public IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId)
         {
             return _unitOfWork.QuadrangleTransactions.GetByQuadrangleIdAndItem(quadrangleId, itemId);
         }
 
-        public IEnumerable<QuadrangleTransactionDto> DtosGetByQuadrangleIdAndItem(int quadrangleId, int itemId)
+        public IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemId(int quadrangleId, int itemId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetByQuadrangleIdAndItem(quadrangleId, itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetTransactionsByQuadrangleIdAndItemId(quadrangleId, itemId));
         }
 
-        public IEnumerable<Core.Domain.QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
+        public IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId)
         {
             return _unitOfWork.QuadrangleTransactions.GetByQuadrangleIdAndItemAndApplicant(quadrangleId, itemId, applicantId);
         }
 
-        public IEnumerable<QuadrangleTransactionDto> DtosGetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
+        public IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetByQuadrangleIdAndItemAndApplicant(quadrangleId, itemId, applicantId));
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(quadrangleId, itemId, applicantId));
         }
 
         protected void NewNumber()
         {
-            INumber quadrangleNumber = new Number(_unitOfWork);
-            _number = quadrangleNumber.GetNewAF(_transaction.QuadrangleItemId, System.DateTime.Now.Year);
+            _AFnumber = _number.GetNewAF(_transaction.QuadrangleItemId, System.DateTime.Now.Year);
         }
 
         protected bool CreateNewTransaction()
         {
             NewNumber();
 
-            if (_number == "")
+            if (_AFnumber == "")
                 return false;
 
-            _transaction.AF = _number;
+            _transaction.AF = _AFnumber;
             _transaction.CreateDate = System.DateTime.Now;
             _unitOfWork.QuadrangleTransactions.Add(_transaction);
             return true;
@@ -152,34 +150,58 @@ namespace Memorial.Lib.Quadrangle
 
         public float GetUnpaidNonOrderAmount()
         {
-            IReceipt receipt = new Lib.Receipt(_unitOfWork);
-            return GetAmount() -
-                receipt.GetDtosByAF(_transaction.AF, Core.Domain.MasterCatalog.Quadrangle).Sum(r => r.Amount);
+            return GetAmount() - _quadrangleReceipt.GetTotalIssuedNonOrderReceiptAmount();
         }
 
-        public bool Delete()
-        {
-            IItem quadrangleItem = new Item(_unitOfWork);
-            quadrangleItem.SetItem(_transaction.QuadrangleItemId);
+        abstract
+        public bool Delete();
+            //if (IsOrder())
+            //{
+            //    _quadrangleInvoice.DeleteByApplication(GetAF());
+            //}
+            //else
+            //{
+            //    _quadrangleReceipt.SetTransaction(_transaction.AF);
+            //    var receipts = _quadrangleReceipt.GetNonOrderReceipts();
+            //    foreach (var receipt in receipts)
+            //    {
+            //        _quadrangleReceipt.SetReceipt(receipt.RE);
+            //        _quadrangleReceipt.Delete();
+            //    }
+            //}
 
-            ICommon common = new Lib.Common(_unitOfWork);
-            if (common.DeleteForm(_transaction.AF, Core.Domain.MasterCatalog.Quadrangle))
-            {
-                if (quadrangleItem.GetSystemCode() == "Order")
-                {
-                    _deceased.SetById((int)_transaction.DeceasedId);
-                    _deceased.RemoveQuadrangle();
-                    _unitOfWork.Complete();
 
-                    _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
-                    _quadrangle.SetHasDeceased(_deceased.GetByQuadrangle(_transaction.QuadrangleId).Any());
-                    _quadrangle.RemoveApplicant();
-                    _unitOfWork.Complete();
-                }
-                return true;
-            }
-            else
-                return false;
-        }
+
+
+
+
+
+
+
+
+        //public bool Delete()
+        //{
+        //    IItem quadrangleItem = new Item(_unitOfWork);
+        //    quadrangleItem.SetItem(_transaction.QuadrangleItemId);
+
+        //    ICommon common = new Lib.Common(_unitOfWork);
+        //    if (common.DeleteForm(_transaction.AF, Core.Domain.MasterCatalog.Quadrangle))
+        //    {
+        //        if (quadrangleItem.GetSystemCode() == "Order")
+        //        {
+        //            _deceased.SetById((int)_transaction.DeceasedId);
+        //            _deceased.RemoveQuadrangle();
+        //            _unitOfWork.Complete();
+
+        //            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
+        //            _quadrangle.SetHasDeceased(_deceased.GetByQuadrangle(_transaction.QuadrangleId).Any());
+        //            _quadrangle.RemoveApplicant();
+        //            _unitOfWork.Complete();
+        //        }
+        //        return true;
+        //    }
+        //    else
+        //        return false;
+        //}
     }
 }

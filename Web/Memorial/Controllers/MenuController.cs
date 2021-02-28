@@ -6,23 +6,24 @@ using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
+using Memorial.Lib.Site;
 
 namespace Memorial.Controllers
 {
     public class MenuController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private ISite _site;
 
-        public MenuController(IUnitOfWork unitOfWork)
+        public MenuController(IUnitOfWork unitOfWork, ISite site)
         {
             _unitOfWork = unitOfWork;
+            _site = site;
         }
 
         public ActionResult Index()
         {
-            var sites = _unitOfWork.Sites.GetAll();
-
-            return View(sites);
+            return View(_site.GetSites());
         }
 
         public ActionResult Catalog(byte siteId, int applicantId)
