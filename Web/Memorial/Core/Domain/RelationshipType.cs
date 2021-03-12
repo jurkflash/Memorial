@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public RelationshipType()
         {
-            Deceaseds = new HashSet<Deceased>();
+            ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
 
             AncestorTransactions = new HashSet<AncestorTransaction>();
         }
@@ -18,7 +18,7 @@ namespace Memorial.Core.Domain
 
         public string Name { get; set; }
 
-        public ICollection<Deceased> Deceaseds { get; set; }
+        public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
         public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
 

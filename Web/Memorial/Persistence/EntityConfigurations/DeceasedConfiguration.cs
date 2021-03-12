@@ -21,11 +21,6 @@ namespace Memorial.Persistence.EntityConfigurations
             Property(d => d.Remark)
                 .HasMaxLength(255);
 
-            HasRequired(a => a.Applicant)
-                .WithMany(d => d.Deceaseds)
-                .HasForeignKey(a => a.ApplicantId)
-                .WillCascadeOnDelete(false);
-
             HasRequired(g => g.GenderType)
                 .WithMany(d => d.Deceaseds)
                 .HasForeignKey(g => g.GenderTypeId)
@@ -45,12 +40,6 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(d => d.Deceaseds)
                 .HasForeignKey(r => r.ReligionTypeId)
                 .WillCascadeOnDelete(false);
-
-            HasRequired(r => r.RelationshipType)
-                .WithMany(d => d.Deceaseds)
-                .HasForeignKey(r => r.RelationshipTypeId)
-                .WillCascadeOnDelete(false);
-
         }
     }
 }

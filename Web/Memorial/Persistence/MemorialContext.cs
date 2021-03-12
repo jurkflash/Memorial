@@ -21,6 +21,7 @@ namespace Memorial.Persistence
         public DbSet<Site> Sites { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Deceased> Deceaseds { get; set; }
+        public DbSet<ApplicantDeceased> ApplicantDeceaseds { get; set; }
         public DbSet<FengShuiMaster> FengShuiMasters { get; set; }
         public DbSet<FuneralCompany> FuneralCompanies { get; set; }
         public DbSet<PlotArea> PlotAreas { get; set; }
@@ -73,6 +74,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new SiteConfiguration());
             modelBuilder.Configurations.Add(new ApplicantConfiguration());
             modelBuilder.Configurations.Add(new DeceasedConfiguration());
+            modelBuilder.Configurations.Add(new ApplicantDeceasedConfiguration());
             modelBuilder.Configurations.Add(new FengShuiMasterConfiguration());
             modelBuilder.Configurations.Add(new FuneralCompanyConfiguration());
             modelBuilder.Configurations.Add(new PlotAreaConfiguration());

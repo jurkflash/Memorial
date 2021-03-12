@@ -10,7 +10,11 @@ namespace Memorial.ViewModels
     public class ApplicantInfoViewModel
     {
         public ApplicantDto ApplicantDto { get; set; }
+
         public IEnumerable<DeceasedDto> DeceasedDtos { get; set; }
+
+        public IEnumerable<ApplicantDeceasedDto> ApplicantDeceasedDtos { get; set; }
+
         public IEnumerable<SiteDto> SiteDtos { get; set; }
     }
 }

@@ -13,8 +13,6 @@ namespace Memorial.ViewModels
 
         public float RemainingAmount { get; set; }
 
-        public MasterCatalog MasterCatalog { get; set; }
-
         public InvoiceDto InvoiceDto { get; set; }
 
         public ReceiptDto ReceiptDto { get; set; }

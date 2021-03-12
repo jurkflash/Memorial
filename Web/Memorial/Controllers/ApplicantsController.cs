@@ -5,6 +5,7 @@ using Memorial.Core.Dtos;
 using System.Web.Mvc;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Site;
 using Memorial.ViewModels;
 using AutoMapper;
@@ -15,12 +16,14 @@ namespace Memorial.Controllers
     {
         private IApplicant _applicant;
         private IDeceased _deceased;
+        private IApplicantDeceased _applicantDeceased;
         private ISite _site;
 
-        public ApplicantsController(IApplicant applicant, IDeceased deceased, ISite site)
+        public ApplicantsController(IApplicant applicant, IDeceased deceased, IApplicantDeceased applicantDeceased, ISite site)
         {
             _applicant = applicant;
             _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
             _site = site;
         }
 
@@ -64,8 +67,9 @@ namespace Memorial.Controllers
         {
             var applicantInfoViewModel = new ApplicantInfoViewModel()
             {
-                ApplicantDto = Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id)),
+                ApplicantDto = _applicant.GetApplicantDto(id),
                 DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId(id)),
+                ApplicantDeceasedDtos = _applicantDeceased.GetApplicantDeceasedDtosByApplicantId(id),
                 SiteDtos = _site.GetSiteDtos()
             };
             return View(applicantInfoViewModel);
@@ -79,6 +83,11 @@ namespace Memorial.Controllers
         public ActionResult NewDeceased(int id)
         {
             return RedirectToAction("New", "Deceaseds", new { applicantId = id });
+        }
+
+        public ActionResult LinkDeceased(int id)
+        {
+            return View(_applicant.GetApplicantDto(id));
         }
 
         public ActionResult EditDeceased(int id)

@@ -6,6 +6,7 @@ using Memorial.Core;
 using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
+using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
 namespace Memorial.Lib.Deceased
@@ -14,13 +15,15 @@ namespace Memorial.Lib.Deceased
     {
         private readonly IUnitOfWork _unitOfWork;
         private IQuadrangle _quadrangle;
+        private IApplicantDeceased _appplicantDeceased;
 
         private Core.Domain.Deceased _deceased;
 
-        public Deceased(IUnitOfWork unitOfWork, IQuadrangle quadrangle)
+        public Deceased(IUnitOfWork unitOfWork, IQuadrangle quadrangle, IApplicantDeceased appplicantDeceased)
         {
             _unitOfWork = unitOfWork;
             _quadrangle = quadrangle;
+            _appplicantDeceased = appplicantDeceased;
         }
 
         public void SetDeceased(int id)
@@ -58,25 +61,41 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
         }
 
-        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName)
+        {
+            return _unitOfWork.Deceaseds.GetAllExcludeFilter(applicantId, deceasedName);
+        }
+
+        public Core.Domain.Deceased GetDeceasedsByQuadrangleId(int quadrangleId)
         {
             return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
         }
 
-        public bool Create(Core.Domain.Deceased deceased)
+        public int Create(DeceasedDto deceasedDto)
         {
-            deceased.CreateDate = System.DateTime.Now;
-            _unitOfWork.Deceaseds.Add(deceased);
+            _deceased = new Core.Domain.Deceased();
+
+            Mapper.Map(deceasedDto, _deceased);
+
+            _deceased.CreateDate = System.DateTime.Now;
+
+            _unitOfWork.Deceaseds.Add(_deceased);
+
             _unitOfWork.Complete();
-            return true;
+
+            return _deceased.Id;
         }
 
-        public bool Update(Core.Domain.Deceased deceased)
+        public bool Update(DeceasedDto deceasedDto)
         {
-            SetDeceased(deceased.Id);
-            Mapper.Map(deceased, GetDeceased());
-            deceased.ModifyDate = System.DateTime.Now;
+            var deceasedInDb = GetDeceased(deceasedDto.Id);
+
+            Mapper.Map(deceasedDto, deceasedInDb);
+
+            deceasedInDb.ModifyDate = System.DateTime.Now;
+
             _unitOfWork.Complete();
+
             return true;
         }
 

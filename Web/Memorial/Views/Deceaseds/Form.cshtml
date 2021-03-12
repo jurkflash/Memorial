@@ -8,76 +8,141 @@
 
 @using (Html.BeginForm("Save", "Deceaseds"))
 {
-    <div class="form-group">
-        IC
-        @Html.TextBoxFor(d => d.DeceasedDto.IC, new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.DeceasedDto.IC)
+    <div class="form-group row">
+        <div class="col-md-3">
+            IC
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.IC, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.DeceasedDto.IC)
+        </div>
     </div>
-    <div class="form-group">
-        English Name
-        @Html.TextBoxFor(d => d.DeceasedDto.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(d => d.DeceasedDto.Name)
+    <div class="form-group row">
+        <div class="col-md-3">
+            English Name
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.DeceasedDto.Name)
+        </div>
     </div>
-    <div class="form-group">
-        Chinese Name
-        @Html.TextBoxFor(d => d.DeceasedDto.Name2, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Chinese Name
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.Name2, new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.DeceasedDto.Name2)
+        </div>
     </div>
-    <div class="form-group">
-        Age
-        @Html.TextBoxFor(d => d.DeceasedDto.Age, new { @class = "form-control", type = "number" })
-        @Html.ValidationMessageFor(d => d.DeceasedDto.Age)
+    <div class="form-group row">
+        <div class="col-md-3">
+            Age
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.Age, new { @class = "form-control", type = "number" })
+            @Html.ValidationMessageFor(d => d.DeceasedDto.Age)
+        </div>
     </div>
-    <div class="form-group">
-        Address
-        @Html.TextAreaFor(d => d.DeceasedDto.Address, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Address
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(d => d.DeceasedDto.Address, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Gender
-        @Html.DropDownListFor(d => d.DeceasedDto.GenderTypeId, new SelectList(Model.GenderTypes, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Gender
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.DeceasedDto.GenderTypeId, new SelectList(Model.GenderTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Marital
-        @Html.DropDownListFor(d => d.DeceasedDto.MaritalTypeId, new SelectList(Model.MaritalTypes, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Relationship
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.RelationshipTypeId, new SelectList(Model.RelationshipTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Religion
-        @Html.DropDownListFor(d => d.DeceasedDto.ReligionTypeId, new SelectList(Model.ReligionTypes, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Marital
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.DeceasedDto.MaritalTypeId, new SelectList(Model.MaritalTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Nationality
-        @Html.DropDownListFor(d => d.DeceasedDto.NationalityTypeId, new SelectList(Model.NationalityTypes, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Religion
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.DeceasedDto.ReligionTypeId, new SelectList(Model.ReligionTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Relationship
-        @Html.DropDownListFor(d => d.DeceasedDto.RelationshipTypeId, new SelectList(Model.RelationshipTypes, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Nationality
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.DeceasedDto.NationalityTypeId, new SelectList(Model.NationalityTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Death Date
-        @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
-        @Html.ValidationMessageFor(d => d.DeceasedDto.DeathDate)
+    <div class="form-group row">
+        <div class="col-md-3">
+            Death Date
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
+            @Html.ValidationMessageFor(d => d.DeceasedDto.DeathDate)
+        </div>
     </div>
-    <div class="form-group">
-        Death Registration Centre
-        @Html.TextBoxFor(d => d.DeceasedDto.DeathRegistrationCentre, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Death Registration Centre
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathRegistrationCentre, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Death Certificate
-        @Html.TextBoxFor(d => d.DeceasedDto.DeathCertificate, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Death Certificate
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathCertificate, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Burial Certificate
-        @Html.TextBoxFor(d => d.DeceasedDto.BurialCertificate, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Burial Certificate
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.BurialCertificate, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Import Permit Number
-        @Html.TextBoxFor(d => d.DeceasedDto.ImportPermitNumber, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Import Permit Number
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(d => d.DeceasedDto.ImportPermitNumber, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="form-group">
-        Remark
-        @Html.TextAreaFor(d => d.DeceasedDto.Remark, new { @class = "form-control" })
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(d => d.DeceasedDto.Remark, new { @class = "form-control" })
+        </div>
     </div>
+
     @Html.HiddenFor(d => d.ApplicantId)
-    @Html.HiddenFor(d => d.DeceasedDto.ApplicantId)
     @Html.HiddenFor(d => d.DeceasedDto.Id)
     <button type="submit" class="btn btn-primary">Save</button>
 }
@@ -95,15 +160,10 @@
     <script type="text/javascript">
         $(document).ready(function () {   // will trigger when the document is ready
             var dateNow = new Date();
-            $('.datepicker').datetimepicker({
-                dateFormat: 'yy-mm-dd',
-                useCurrent: false,
-                defaultDate: dateNow
-            }); //Initialise any date pickers
             $('.datetimepicker').datetimepicker({
                 dateFormat: 'yy-mm-dd',
                 timeFormat: 'HH:mm',
-                useCurrent: false,
+                useCurrent: true,
                 defaultDate: dateNow
             }); //Initialise any date pickers
         });

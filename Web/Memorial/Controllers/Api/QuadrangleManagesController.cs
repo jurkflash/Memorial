@@ -11,23 +11,23 @@ using AutoMapper;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
 
-namespace Memorial.Controllers.Api.Quadrangle
+namespace Memorial.Controllers.Api
 {
-    public class ManagesController : ApiController
+    public class QuadrangleManagesController : ApiController
     {
         private readonly IManage _manage;
 
-        public ManagesController(IManage manage)
+        public QuadrangleManagesController(IManage manage)
         {
             _manage = manage;
         }
 
-        public IHttpActionResult GetAmount(DateTime from, DateTime to)
+        public IHttpActionResult GetAmount(int itemId, DateTime from, DateTime to)
         {
             if (from > to)
                 return BadRequest();
 
-            var result = _manage.GetAmount(from, to);
+            var result = _manage.GetAmount(itemId, from, to);
 
             if (result == -1)
                 return BadRequest();

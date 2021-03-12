@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public QuadrangleTransaction GetActive(string AF)
         {
             return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.AF == AF && qt.DeleteDate == null)
@@ -30,6 +31,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItem(int quadrangleId, int itemId)
         {
             return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.QuadrangleItemId == itemId
@@ -40,6 +42,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)
         {
             return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.ApplicantId == applicantId

@@ -9,6 +9,8 @@ namespace Memorial.Core.Domain
     {
         public Deceased()
         {
+            ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
+
             SpaceTransactions = new HashSet<SpaceTransaction>();
 
             CremationTransactions = new HashSet<CremationTransaction>();
@@ -52,13 +54,7 @@ namespace Memorial.Core.Domain
 
         public byte ReligionTypeId { get; set; }
 
-        public RelationshipType RelationshipType { get; set; }
-
-        public byte RelationshipTypeId { get; set; }
-
-        public Applicant Applicant { get; set; }
-
-        public int ApplicantId { get; set; }
+        public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
         public string DeathPlace { get; set; }
 

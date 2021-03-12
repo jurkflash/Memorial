@@ -3,6 +3,7 @@ using Memorial.Core.Repositories;
 using System.Data.Entity;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace Memorial.Persistence.Repositories
 {
@@ -25,7 +26,6 @@ namespace Memorial.Persistence.Repositories
                 .Include(d => d.GenderType)
                 .Include(d => d.MaritalType)
                 .Include(d => d.NationalityType)
-                .Include(d => d.RelationshipType)
                 .Include(d => d.ReligionType)
                 .Where(d => d.DeleteDate == null &&
                         d.Id == id).SingleOrDefault();
@@ -33,17 +33,39 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<Deceased> GetByApplicant(int id)
         {
-            return MemorialContext.Deceaseds
-                    .Include(d => d.RelationshipType)
-                    .Where(d => d.ApplicantId == id &&
-                    d.DeleteDate == null).ToList();
+            var t = MemorialContext.Deceaseds.Join(
+                MemorialContext.ApplicantDeceaseds.Where(ad => ad.ApplicantId == id && ad.DeleteDate == null),
+                d => d.Id,
+                ad => ad.DeceasedId,
+                (d, ad) => d)
+                .Where(d => d.DeleteDate == null)
+                .AsEnumerable();
+
+            return t;
         }
 
-        public IEnumerable<Deceased> GetByQuadrangle(int quadrangleId)
+        public IEnumerable<Deceased> GetAllExcludeFilter(int applicantId, string deceasedName)
+        {
+            var deceasedsQuery =
+                MemorialContext.Deceaseds.Except(
+                    MemorialContext.Deceaseds.Join(
+                    MemorialContext.ApplicantDeceaseds.Where(a => a.ApplicantId == applicantId && a.DeleteDate == null),
+                    d => d.Id,
+                    ad => ad.DeceasedId,
+                    (d, ad) => d).AsEnumerable()
+                ).Where(d => d.DeleteDate == null);
+
+            if (!String.IsNullOrWhiteSpace(deceasedName))
+                deceasedsQuery = deceasedsQuery.Where(d => d.Name.Contains(deceasedName));
+
+            return deceasedsQuery.AsEnumerable();
+        }
+
+        public Deceased GetByQuadrangle(int quadrangleId)
         {
             return MemorialContext.Deceaseds
                     .Where(d => d.QuadrangleId == quadrangleId &&
-                    d.DeleteDate == null).ToList();
+                    d.DeleteDate == null).FirstOrDefault();
         }
 
         public MemorialContext MemorialContext

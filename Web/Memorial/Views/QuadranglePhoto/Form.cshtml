@@ -17,6 +17,7 @@
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(c => c.QuadrangleTransactionDto.Price, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.QuadrangleTransactionDto.Price)
         </div>
     </div>
     <div class="form-group row">
@@ -55,6 +56,7 @@
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleItemId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.QuadrangleTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
@@ -64,5 +66,22 @@
 
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/jqueryuicss")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.validator.addMethod("AtLeastZero", function (value, element, arg) {
+                if (value >= 1)
+                    return true;
+                return false;
+            }, "At least 1");
+
+            $("#QuadrangleTransactionDto_Price").rules("add",
+                {
+                    AtLeastOne: true
+                });
+        });
+    </script>
 
 }

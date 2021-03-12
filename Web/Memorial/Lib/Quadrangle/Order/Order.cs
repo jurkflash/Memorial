@@ -5,12 +5,15 @@ using System.Linq;
 using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
+using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Quadrangle
 {
     public class Order : Transaction, IOrder
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly Invoice.IQuadrangle _invoice;
+        private readonly IQuadranglePayment _payment;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -19,8 +22,8 @@ namespace Memorial.Lib.Quadrangle
             IApplicant applicant,
             IDeceased deceased,
             INumber number,
-            Invoice.IQuadrangle quadrangleInvoice,
-            Receipt.IQuadrangle quadrangleReceipt
+            Invoice.IQuadrangle invoice,
+            IQuadranglePayment payment
             ) : 
             base(
                 unitOfWork, 
@@ -28,9 +31,7 @@ namespace Memorial.Lib.Quadrangle
                 quadrangle, 
                 applicant, 
                 deceased, 
-                number, 
-                quadrangleInvoice, 
-                quadrangleReceipt
+                number
                 )
         {
             _unitOfWork = unitOfWork;
@@ -39,18 +40,13 @@ namespace Memorial.Lib.Quadrangle
             _applicant = applicant;
             _deceased = deceased;
             _number = number;
-            _quadrangleInvoice = quadrangleInvoice;
-            _quadrangleReceipt = quadrangleReceipt;
+            _invoice = invoice;
+            _payment = payment;
         }
 
-        public void SetOrder(int id)
+        public void SetOrder(string AF)
         {
-            _item.SetItem(id);
-        }
-
-        public float GetPrice()
-        {
-            return _item.GetPrice();
+            SetTransaction(AF);
         }
 
         private void SetDeceased(int id)
@@ -58,62 +54,99 @@ namespace Memorial.Lib.Quadrangle
             _deceased.SetDeceased(id);
         }
 
-        public bool Create()
+        public void NewNumber(int itemId)
         {
-            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
+            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
+        }
 
-            if (_transaction.DeceasedId != null)
+        public bool Create(QuadrangleTransactionDto quadrangleTransactionDto)
+        {
+            if (quadrangleTransactionDto.DeceasedId != null)
             {
-                SetDeceased((int)_transaction.DeceasedId);
+                SetDeceased((int)quadrangleTransactionDto.DeceasedId);
                 if (_deceased.GetQuadrangle() != null)
                     return false;
             }
 
-            CreateNewTransaction();
+            NewNumber(quadrangleTransactionDto.QuadrangleItemId);
 
-            _quadrangle.SetApplicant(_transaction.ApplicantId);
-
-            if (_transaction.DeceasedId != null)
+            if (CreateNewTransaction(quadrangleTransactionDto))
             {
-                SetDeceased((int)_transaction.DeceasedId);
-                if (_deceased.SetQuadrangle(_transaction.QuadrangleId))
+                _quadrangle.SetQuadrangle(quadrangleTransactionDto.QuadrangleId);
+                _quadrangle.SetApplicant(quadrangleTransactionDto.ApplicantId);
+
+                if (quadrangleTransactionDto.DeceasedId != null)
                 {
-                    _quadrangle.SetHasDeceased(true);
+                    SetDeceased((int)quadrangleTransactionDto.DeceasedId);
+                    if (_deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    {
+                        _quadrangle.SetHasDeceased(true);
+                    }
+                    else
+                        return false;
                 }
-                else
-                    return false;
+
+                _unitOfWork.Complete();
+            }
+            else
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        public bool Update(QuadrangleTransactionDto quadrangleTransactionDto)
+        {
+            if (_invoice.GetInvoicesByAF(quadrangleTransactionDto.AF).Any() && quadrangleTransactionDto.Price + (float)quadrangleTransactionDto.Maintenance + (float)quadrangleTransactionDto.LifeTimeMaintenance < 
+                _invoice.GetInvoicesByAF(quadrangleTransactionDto.AF).Max(i => i.Amount))
+            {
+                return false;
             }
 
-            _unitOfWork.Complete();
+            if(UpdateTransaction(quadrangleTransactionDto))
+            {
+                if (quadrangleTransactionDto.DeceasedId != null)
+                {
+                    SetDeceased((int)quadrangleTransactionDto.DeceasedId);
+                    if (_deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    {
+                        _quadrangle.SetHasDeceased(true);
+                    }
+                    else
+                        return false;
+                }
+
+                _unitOfWork.Complete();
+            }
 
             return true;
         }
 
-        public bool Update()
-        {
-            return true;
-        }
-
-        override
         public bool Delete()
         {
             _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
             if (_quadrangle.HasDeceased())
                 return false;
 
-            _quadrangleInvoice.DeleteByApplication(GetAF());
-            _transaction.DeleteDate = System.DateTime.Now;
+            DeleteTransaction();
 
-            SetDeceased((int)_transaction.DeceasedId);
-            _deceased.RemoveQuadrangle();
+            if (_transaction.DeceasedId != null)
+            {
+                SetDeceased((int)_transaction.DeceasedId);
+                _deceased.RemoveQuadrangle();
+                _quadrangle.SetHasDeceased(false);
+            }
 
-            _quadrangle.SetHasDeceased(false);
             _quadrangle.RemoveApplicant();
+
+            _payment.SetTransaction(_transaction.AF);
+            _payment.DeleteTransaction();
+
             _unitOfWork.Complete();
 
             return true;
         }
-
 
     }
 }

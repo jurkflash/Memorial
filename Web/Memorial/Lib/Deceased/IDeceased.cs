@@ -22,11 +22,13 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId);
 
-        IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
-        bool Create(Core.Domain.Deceased deceased);
+        Core.Domain.Deceased GetDeceasedsByQuadrangleId(int quadrangleId);
 
-        bool Update(Core.Domain.Deceased deceased);
+        int Create(DeceasedDto deceasedDto);
+
+        bool Update(DeceasedDto deceasedDto);
 
         Core.Domain.Quadrangle GetQuadrangle();
 

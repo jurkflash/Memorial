@@ -11,6 +11,8 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Deceased> GetByApplicant(int id);
 
-        IEnumerable<Deceased> GetByQuadrangle(int quadrangleId);
+        IEnumerable<Deceased> GetAllExcludeFilter(int applicantId, string deceasedName);
+
+        Deceased GetByQuadrangle(int quadrangleId);
     }
 }

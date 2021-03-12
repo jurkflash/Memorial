@@ -51,11 +51,6 @@ namespace Memorial.Lib.Invoice
             return Mapper.Map<Core.Domain.Invoice, InvoiceDto>(GetInvoice(IV));
         }
 
-        protected void SetNew()
-        {
-            _invoice = new Core.Domain.Invoice();
-        }
-
         public string GetIV()
         {
             return _invoice.IV;
@@ -103,6 +98,47 @@ namespace Memorial.Lib.Invoice
 
         abstract
         public string GetAF();
+
+        abstract
+        public void NewNumber(int itemId);
+
+        protected bool CreateNewInvoice(InvoiceDto invoiceDto)
+        {
+            if (string.IsNullOrEmpty(_ivNumber))
+                return false;
+
+            _invoice = new Core.Domain.Invoice();
+
+            Mapper.Map(invoiceDto, _invoice);
+
+            _invoice.IV = _ivNumber;
+            _invoice.hasReceipt = false;
+            _invoice.CreateDate = System.DateTime.Now;
+
+            _unitOfWork.Invoices.Add(_invoice);
+
+            return true;
+        }
+
+        protected bool UpdateInvoice(InvoiceDto invoiceDto)
+        {
+            var invoiceInDb = GetInvoice(invoiceDto.IV);
+
+            Mapper.Map(invoiceDto, invoiceInDb);
+
+            invoiceInDb.ModifyDate = System.DateTime.Now;
+
+            return true;
+        }
+
+        protected bool DeleteInvoice()
+        {
+            _invoice.DeleteDate = System.DateTime.Now;
+
+            return true;
+        }
+
+
 
         //protected IEnumerable<Core.Domain.Invoice> GetInvoicesByAncestorAF(string AF)
         //{
@@ -164,30 +200,6 @@ namespace Memorial.Lib.Invoice
         //    return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByUrnAF(AF));
         //}
 
-        abstract
-        public void NewNumber(int itemId);
-
-        protected bool CreateNewInvoice(float amount, string remark)
-        {
-            if (_ivNumber == "")
-                return false;
-
-            _invoice.IV = _ivNumber;
-            _invoice.Amount = amount;
-            _invoice.Remark = remark;
-            _invoice.hasReceipt = false;
-            _invoice.CreateDate = System.DateTime.Now;
-            _unitOfWork.Invoices.Add(_invoice);
-            return true;
-        }
-
-        public bool Delete()
-        {
-            _invoice.DeleteDate = System.DateTime.Now;
-            return true;
-        }
-
-        
 
 
 
@@ -412,7 +424,7 @@ namespace Memorial.Lib.Invoice
         //    var invoice = _unitOfWork.Invoices.GetByActiveIV(IV);
         //    if (invoice == null)
         //        return false;
-            
+
         //    invoice.DeleteDate = System.DateTime.Now;
         //    _unitOfWork.Complete();
         //    return true;

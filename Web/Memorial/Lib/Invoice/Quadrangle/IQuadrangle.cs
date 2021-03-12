@@ -1,8 +1,7 @@
 ﻿using Memorial.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
 
 namespace Memorial.Lib.Invoice
@@ -13,11 +12,15 @@ namespace Memorial.Lib.Invoice
 
         IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF);
 
+        bool HasInvoiceByAF(string AF);
+
         string GetAF();
 
-        bool Create(int itemId, string AF, float amount, string remark);
+        bool Create(int itemId, InvoiceDto invoiceDto);
 
-        bool Update(float amount, string remark);
+        bool Update(InvoiceDto invoiceDto);
+
+        bool Delete();
 
         bool DeleteByApplication(string AF);
     }

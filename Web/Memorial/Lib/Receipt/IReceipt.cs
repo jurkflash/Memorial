@@ -11,7 +11,7 @@ namespace Memorial.Lib
     {
         void SetReceipt(string RE);
 
-        void SetReceipt(ReceiptDto receiptDto);
+        void SetReceipt(Core.Domain.Receipt receipt);
 
         Core.Domain.Receipt GetReceipt();
 
@@ -21,9 +21,11 @@ namespace Memorial.Lib
 
         ReceiptDto GetReceiptDto(string RE);
 
-        IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV);
+        IEnumerable<Core.Domain.Receipt> GetOrderReceiptsByInvoiceIV(string IV);
 
-        IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV);
+        IEnumerable<ReceiptDto> GetOrderReceiptDtosByInvoiceIV(string IV);
+
+        string GetInvoiceIV();
 
         float GetAmount();
 
@@ -35,22 +37,16 @@ namespace Memorial.Lib
 
         int GetPaymentMethodId();
 
+        int SetPaymentMethodId(byte paymentMethodId);
+
         string GetPaymentRemark();
 
         void SetPaymentRemark(string paymentRemark);
 
         bool isOrderReceipt();
 
-        bool IsPaymentRemarkNecessaryButEmpty(byte paymentMethodId, string paymentRemark);
+        float GetTotalIssuedOrderReceiptAmountByInvoiceIV(string IV);
 
-        float GetTotalIssuedOrderReceiptAmount();
-
-        void NewNumber();
-
-        bool Update(float amount, string remark, byte paymentMethodId, string paymentRemark);
-
-        bool Delete();
-
-        bool DeleteByInvoiceIV(string IV);
+        bool DeleteOrderReceiptsByInvoiceIV(string IV);
     }
 }

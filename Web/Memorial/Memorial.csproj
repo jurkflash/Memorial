@@ -503,6 +503,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -614,18 +615,27 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
+    <Compile Include="Controllers\Api\DeceasedsController.cs" />
+    <Compile Include="Controllers\Api\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
+    <Compile Include="Controllers\Api\QuadrangleManagesController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\DeceasedsController.cs" />
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\QuadrangleNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\QuadrangleReceiptsController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleController.cs" />
-    <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleManageController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleOrderController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
     <Compile Include="Core\Domain\AncestorTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
     <Compile Include="Core\Domain\AncestorItem.cs" />
+    <Compile Include="Core\Domain\ApplicantDeceased.cs" />
     <Compile Include="Core\Domain\Catalog.cs" />
     <Compile Include="Core\Domain\CremationTransaction.cs" />
     <Compile Include="Core\Domain\MasterCatalog.cs" />
@@ -678,6 +688,8 @@
     <Compile Include="Core\Dtos\AncestorItemDto.cs" />
     <Compile Include="Core\Dtos\AncestorNumberDto.cs" />
     <Compile Include="Core\Dtos\AncestorTransactionDto.cs" />
+    <Compile Include="Core\Dtos\ApplicantDeceasedFlattenDto.cs" />
+    <Compile Include="Core\Dtos\ApplicantDeceasedDto.cs" />
     <Compile Include="Core\Dtos\CremationDto.cs" />
     <Compile Include="Core\Dtos\CremationItemDto.cs" />
     <Compile Include="Core\Dtos\CremationNumberDto.cs" />
@@ -714,6 +726,7 @@
     <Compile Include="Core\Repositories\IAncestorNumberRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorItemRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorAreaRepository.cs" />
+    <Compile Include="Core\Repositories\IApplicantDeceasedRepository.cs" />
     <Compile Include="Core\Repositories\ICatalogRepository.cs" />
     <Compile Include="Core\Repositories\INumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
@@ -771,6 +784,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib\ApplicantDeceased\ApplicantDeceased.cs" />
+    <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
     <Compile Include="Lib\Deceased\Deceased.cs" />
@@ -781,6 +796,12 @@
     <Compile Include="Lib\GenderType\IGenderType.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
+    <Compile Include="Lib\Quadrangle\IQuadranglePayment.cs" />
+    <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
+    <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
+    <Compile Include="Lib\Quadrangle\Photo\IPhoto.cs" />
+    <Compile Include="Lib\Quadrangle\Photo\Photo.cs" />
+    <Compile Include="Lib\Quadrangle\QuadranglePayment.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\MaritalType\MaritalType.cs" />
@@ -803,6 +824,8 @@
     <Compile Include="Lib\Quadrangle\Area\Area.cs" />
     <Compile Include="Lib\Quadrangle\Item\Item.cs" />
     <Compile Include="Lib\Quadrangle\QuadrangleNumber.cs" />
+    <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
+    <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
@@ -1629,7 +1652,20 @@
     <Compile Include="Migrations\202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.designer.cs">
       <DependentUpon>202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103071635560_ChangeAppliantsAndDeceasedsRelationshipManyToMany.cs" />
+    <Compile Include="Migrations\202103071635560_ChangeAppliantsAndDeceasedsRelationshipManyToMany.designer.cs">
+      <DependentUpon>202103071635560_ChangeAppliantsAndDeceasedsRelationshipManyToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103081403213_RemoveApplicantDeceasedsManyToManyTable.cs" />
+    <Compile Include="Migrations\202103081403213_RemoveApplicantDeceasedsManyToManyTable.designer.cs">
+      <DependentUpon>202103081403213_RemoveApplicantDeceasedsManyToManyTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103081431485_AddApplicantDeceasedsTable.cs" />
+    <Compile Include="Migrations\202103081431485_AddApplicantDeceasedsTable.designer.cs">
+      <DependentUpon>202103081431485_AddApplicantDeceasedsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
@@ -1684,6 +1720,7 @@
     <Compile Include="Persistence\Repositories\AncestorItemRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\ApplicantDeceasedRepository.cs" />
     <Compile Include="Persistence\Repositories\CatalogRepository.cs" />
     <Compile Include="Persistence\Repositories\NumberRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
@@ -1746,17 +1783,17 @@
     <Compile Include="ViewModels\Receipt\NewOrderReceiptFormViewModel.cs" />
     <Compile Include="ViewModels\Receipt\NonOrderReceiptsViewModel.cs" />
     <Compile Include="ViewModels\Receipt\OrderReceiptsViewModel.cs" />
-    <Compile Include="ViewModels\DeceasedBriefViewModel.cs" />
-    <Compile Include="ViewModels\ApplicantBriefViewModel.cs" />
+    <Compile Include="ViewModels\Deceased\DeceasedBriefViewModel.cs" />
+    <Compile Include="ViewModels\Applicant\ApplicantBriefViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationItemsViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationIndexesViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationOrdersViewModel.cs" />
     <Compile Include="ViewModels\ListCatalogViewModel.cs" />
     <Compile Include="ViewModels\InvoicesViewModel.cs" />
     <Compile Include="ViewModels\ListInvoicesViewModel.cs" />
-    <Compile Include="ViewModels\ApplicantInfoViewModel.cs" />
+    <Compile Include="ViewModels\Applicant\ApplicantInfoViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationOrderFormViewModel.cs" />
-    <Compile Include="ViewModels\DeceasedFormViewModel.cs" />
+    <Compile Include="ViewModels\Deceased\DeceasedFormViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleItemsViewModel.cs" />
     <Compile Include="ViewModels\ListUrnTransactionViewModel.cs" />
     <Compile Include="ViewModels\ListAncestorItemsViewModel.cs" />
@@ -1861,6 +1898,15 @@
     <Content Include="Views\QuadrangleInvoices\Invoices.cshtml" />
     <Content Include="Views\QuadrangleOrder\Invoices.cshtml" />
     <Content Include="Views\QuadrangleOrder\InvoiceForm.cshtml" />
+    <Content Include="Views\QuadrangleOrder\ReceiptForm.cshtml" />
+    <Content Include="Views\QuadrangleOrder\Receipts.cshtml" />
+    <Content Include="Views\QuadrangleReceipts\Form.cshtml" />
+    <Content Include="Views\QuadrangleReceipts\Index.cshtml" />
+    <Content Include="Views\QuadrangleInvoices\Form.cshtml" />
+    <Content Include="Views\QuadrangleInvoices\Index.cshtml" />
+    <Content Include="Views\QuadrangleNonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\QuadrangleNonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\Applicants\LinkDeceased.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1870,7 +1916,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Api\Quadrangle\" />
     <Folder Include="Lib\Quadrangle\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -2494,6 +2539,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.resx">
       <DependentUpon>202102261626132_AddCreateModifyDeleteDateColumnToThoseNecessaryTablesAndSomeChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103071635560_ChangeAppliantsAndDeceasedsRelationshipManyToMany.resx">
+      <DependentUpon>202103071635560_ChangeAppliantsAndDeceasedsRelationshipManyToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081403213_RemoveApplicantDeceasedsManyToManyTable.resx">
+      <DependentUpon>202103081403213_RemoveApplicantDeceasedsManyToManyTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081431485_AddApplicantDeceasedsTable.resx">
+      <DependentUpon>202103081431485_AddApplicantDeceasedsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

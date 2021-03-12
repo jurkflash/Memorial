@@ -8,12 +8,16 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface IManage : ITransaction
     {
-        void SetManage(int id);
+        void SetManage(string AF);
 
-        float GetPrice();
+        float GetPrice(int itemId);
 
-        bool Create();
+        bool Create(QuadrangleTransactionDto quadrangleTransactionDto);
 
-        float GetAmount(DateTime from, DateTime to);
+        bool Update(QuadrangleTransactionDto quadrangleTransactionDto);
+
+        bool Delete();
+
+        float GetAmount(int itemId, DateTime from, DateTime to);
     }
 }

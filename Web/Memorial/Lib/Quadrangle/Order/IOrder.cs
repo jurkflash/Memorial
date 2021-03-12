@@ -8,10 +8,12 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface IOrder : ITransaction
     {
-        void SetOrder(int id);
+        void SetOrder(string AF);
 
-        float GetPrice();
+        bool Create(QuadrangleTransactionDto quadrangleTransactionDto);
 
-        bool Create();
+        bool Update(QuadrangleTransactionDto quadrangleTransactionDto);
+
+        bool Delete();
     }
 }

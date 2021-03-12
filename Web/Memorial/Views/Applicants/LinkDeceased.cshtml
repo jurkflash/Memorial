@@ -1,0 +1,197 @@
+﻿@model Memorial.Core.Dtos.ApplicantDto
+@{
+    ViewBag.Title = "LinkDeceased";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>LinkDeceased</h2>
+
+@Model.Name
+@Model.Name2
+@Html.HiddenFor(m => m.Id)
+
+Linked Deceaseds
+<table id="linkedDeceaseds" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>English Name</th>
+            <th>Chinese Name</th>
+            <th>Relationship</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+UnLinked Deceaseds
+<table id="unlinkedDeceaseds" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>English Name</th>
+            <th>Chinese Name</th>
+            <th>Relationship</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        var relationshipType;
+
+        $.ajax({
+            url: "/api/RelationshipTypes"
+        })
+        .done
+        (function (response) {
+            if (response.length > 0) {
+                relationshipType = '<select id="jsonStatusList" class="form-control">';
+                relationshipType += '<option value="0">Please Select</option>';
+                for (var i = 0; i < response.length; i++) {
+                    relationshipType += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
+                }
+                relationshipType += '</select>';
+            }
+        })
+        .fail(function () {
+            toastr.error("Something unexpected happened.");
+        });
+
+        var table = $("#linkedDeceaseds").DataTable({
+            ajax: {
+                url: "/api/ApplicantDeceaseds/GetFlattenByApplicant",
+                data: { applicantId: $("#Id").val() },
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "deceasedName",
+                },
+                {
+                    data: "deceasedName2"
+                },
+                {
+                    data: "relationshipTypeName"
+                },
+                {
+                    data: "id",
+                    render: function (data) {
+                        return "<button class='btn btn-sm btn-danger js-unlink' data-applicantdeceased-id=" + data + ">Unlink</button>";
+                    }
+                }
+            ]
+        });
+
+        $("#linkedDeceaseds").on("click", ".js-unlink", function () {
+            var button = $(this);
+            bootbox.confirm("Are you sure you want to unlink this deceased?", function (result) {
+                if (result) {
+                    var tr = table.row(button.parents("tr")).node();
+                    //addRow.childNodes[2].textContent = "";
+                    //addRow.childNodes[3].textContent = "";
+                    //table.row(button.parents("tr")).remove().draw();
+                    //table2.row.add(addRow).draw();
+
+                    //$.ajax({
+                    //    url: "/api/ApplicantDeceaseds/" + button.attr("data-applicantdeceased-id"),
+                    //    method: "DELETE",
+                    //    success: function () {
+                    //        table.row(button.parents("tr")).remove().draw();
+                    //    }
+                    //});
+
+                    $.ajax({
+                        url: "/api/ApplicantDeceaseds/DeleteWithReturnDeceasedId/" + button.attr("data-applicantdeceased-id"),
+                        method: "Delete"
+                    })
+                    .done(function (response) {
+                        toastr.success("Successfully unlink");
+
+                        table.row(button.parents("tr")).remove().draw();
+                        table2.row.add({
+                            "name": tr.childNodes[0].textContent,
+                            "name2": tr.childNodes[1].textContent,
+                            "":"",
+                            "id": response
+                        }).draw();
+                    })
+                    .fail(function () {
+                        toastr.error("Something unexpected happened.");
+                    });
+                }
+            });
+        });
+
+        var table2 = $("#unlinkedDeceaseds").DataTable({
+            ajax: {
+                url: "/api/Deceaseds/GetDeceasedsExcludeFilter",
+                data: { applicantId: $("#Id").val() },
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "name",
+                },
+                {
+                    data: "name2"
+                },
+                {
+                    render: function (data) {
+                        return relationshipType;
+                    }
+                },
+                {
+                    data: "id",
+                    render: function (data) {
+                        return "<button class='btn btn-sm btn-secondary js-link' data-deceased-id=" + data + ">Link</button>";
+                    }
+                }
+            ]
+        });
+
+        $("#unlinkedDeceaseds").on("click", ".js-link", function () {
+            var button = $(this);
+            bootbox.confirm("Are you sure you want to link this deceased?", function (result) {
+                if (result) {
+                    var addRow2 = table2.row(button.parents("tr")).node();
+                    var ddl = $(addRow2.getElementsByTagName("select")).children("option:selected");
+                    //$(addRow2.getElementsByTagName("select")).children("option:selected").val()
+                    //addRow2.childNodes[2].textContent = $(addRow2.getElementsByTagName("select")).children("option:selected").text();
+                    //addRow2.childNodes[3].textContent = "";
+                    
+                    //$('#linkedDeceaseds').DataTable().ajax.reload();
+
+                    $.ajax({
+                        url: "/api/ApplicantDeceaseds/CreateWithReturnId",
+                        method: "POST",
+                        data: {
+                            ApplicantId: $("#Id").val(),
+                            DeceasedId: button.attr("data-deceased-id"),
+                            RelationshipTypeId: ddl.val()
+                        }
+                    })
+                    .done(function (response) {
+                        toastr.success("Successfully linked");
+
+                        table2.row(button.parents("tr")).remove().draw();
+                        table.row.add({
+                            "deceasedName": addRow2.childNodes[0].textContent,
+                            "deceasedName2": addRow2.childNodes[1].textContent,
+                            "relationshipTypeName": ddl.text(),
+                            "id": response
+                        }).draw();
+                    })
+                    .fail(function () {
+                        toastr.error("Something unexpected happened.");
+                    });
+                }
+            });
+        });
+    });
+    </script>
+}

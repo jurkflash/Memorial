@@ -6,31 +6,39 @@ using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.FuneralCo;
+using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using AutoMapper;
 
 namespace Memorial.Controllers
 {
     public class QuadranglePhotoController : Controller
     {
-        private IPhoto _photo;
         private IQuadrangle _quadrangle;
         private IDeceased _deceased;
+        private IPhoto _photo;
         private IApplicant _applicant;
+        private Lib.Invoice.IQuadrangle _invoice;
 
         public QuadranglePhotoController(
-            IDeceased deceased, 
-            IPhoto photo,
             IQuadrangle quadrangle,
-            IApplicant applicant
+            IApplicant applicant,
+            IDeceased deceased,
+            IPhoto photo,
+            Lib.Invoice.IQuadrangle invoice
             )
         {
-            _photo = photo;
             _quadrangle = quadrangle;
-            _deceased = deceased;
             _applicant = applicant;
+            _deceased = deceased;
+            _photo = photo;
+            _invoice = invoice;
         }
+
         public ActionResult Index(int itemId, int id, int applicantId)
         {
             _quadrangle.SetQuadrangle(id);
@@ -39,9 +47,9 @@ namespace Memorial.Controllers
             {
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
-                QuadrangleDto = _quadrangle.DtoGetQuadrangle(),
+                QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _photo.DtosGetByQuadrangleIdAndItem(id, itemId),
+                QuadrangleTransactionDtos = _photo.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId),
                 AllowNew = _quadrangle.HasApplicant() && _quadrangle.HasDeceased()
             };
             return View(viewModel);
@@ -50,72 +58,107 @@ namespace Memorial.Controllers
         public ActionResult Info(string AF)
         {
             _photo.SetTransaction(AF);
+            _quadrangle.SetQuadrangle(_photo.GetTransactionQuadrangleId());
+
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
-                ApplicantId = _photo.GetApplicantId(),
-                DeceasedId = _photo.GetDeceasedId(),
-                QuadrangleDto = _photo.DtoGetQuadrangle(),
+                ApplicantId = _photo.GetTransactionApplicantId(),
+                DeceasedId = _photo.GetTransactionDeceasedId(),
+                QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _photo.GetItemName(),
-                QuadrangleTransactionDto = _photo.DtoGetTransaction()
+                QuadrangleTransactionDto = _photo.GetTransactionDto()
             };
             return View(viewModel);
         }
 
-        public ActionResult Form(int itemId, int id, int applicantId)
+        public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _quadrangle.SetQuadrangle(id);
-            _applicant.SetById(applicantId);
-            _photo.SetPhoto(itemId);
-
-            var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
-            quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
-            quadrangleTransactionDto.QuadrangleId = id;
-            quadrangleTransactionDto.Applicant = _applicant.GetApplicant();
             var viewModel = new QuadrangleTransactionsFormViewModel()
             {
-                DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(applicantId),
-                QuadrangleTransactionDto = quadrangleTransactionDto
+                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
-            viewModel.QuadrangleTransactionDto.Price = _photo.GetPrice();
+
+            if (AF == null)
+            {
+                _quadrangle.SetQuadrangle(id);
+                
+                var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+                quadrangleTransactionDto.QuadrangleId = id;
+                viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
+                viewModel.QuadrangleTransactionDto.Price = _photo.GetItemPrice(itemId);
+            }
+            else
+            {
+                _photo.SetTransaction(AF);
+                viewModel.QuadrangleTransactionDto = _photo.GetTransactionDto(AF);
+            }
+
             return View(viewModel);
         }
 
         public ActionResult Save(QuadrangleTransactionsFormViewModel viewModel)
         {
-            _photo.SetTransaction(AutoMapper.Mapper.Map<Core.Dtos.QuadrangleTransactionDto, Core.Domain.QuadrangleTransaction>(viewModel.QuadrangleTransactionDto));
-
-            if (_photo.Create())
+            if (viewModel.QuadrangleTransactionDto.AF == null)
             {
-                return RedirectToAction("Index", new
+                if (_photo.Create(viewModel.QuadrangleTransactionDto))
                 {
-                    itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
-                    id = viewModel.QuadrangleTransactionDto.QuadrangleId,
-                    applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
-                });
+                    return RedirectToAction("Index", new
+                    {
+                        itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+                    });
+                }
+                else
+                {
+                    return FormForResubmit(viewModel);
+                }
             }
             else
             {
-                viewModel.DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(viewModel.QuadrangleTransactionDto.ApplicantId);
+                if (_invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Any() && 
+                    viewModel.QuadrangleTransactionDto.Price <
+                _invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Max(i => i.Amount))
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.Price", "* Exceed invoice amount");
+                    return FormForResubmit(viewModel);
+                }
 
-                return View("Form",viewModel);
+
+                _photo.Update(viewModel.QuadrangleTransactionDto);
             }
+
+            return RedirectToAction("Index", new
+            {
+                itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+            });
         }
 
-        public ActionResult Invoice(string AF)
+        public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
-            return RedirectToAction("Index", "Invoices", new { AF = AF, masterCatalog = MasterCatalog.Quadrangle });
+            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.QuadrangleTransactionDto.ApplicantId);
+
+            return View("Form", viewModel);
         }
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            //_transaction.SetTransaction(AF);
-            //_transaction.Delete();
+            _photo.SetTransaction(AF);
+            _photo.Delete();
+
             return RedirectToAction("Index", new
             {
                 itemId = itemId,
                 id = id,
                 applicantId = applicantId
             });
+        }
+
+        public ActionResult Invoice(string AF)
+        {
+            return RedirectToAction("Index", "QuadrangleInvoices", new { AF = AF });
         }
     }
 }

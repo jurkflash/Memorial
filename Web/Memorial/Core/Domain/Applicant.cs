@@ -10,7 +10,7 @@ namespace Memorial.Core.Domain
     {
         public Applicant()
         {
-            Deceaseds = new HashSet<Deceased>();
+            ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
 
             Quadrangles = new HashSet<Quadrangle>();
 
@@ -57,7 +57,7 @@ namespace Memorial.Core.Domain
 
         public DateTime? DeleteDate { get; set; }
 
-        public ICollection<Deceased> Deceaseds { get; set; }
+        public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
         public ICollection<Quadrangle> Quadrangles { get; set; }
 

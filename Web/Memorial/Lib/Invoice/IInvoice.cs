@@ -39,10 +39,6 @@ namespace Memorial.Lib.Invoice
 
         void SetHasReceipt(bool hasReceipt);
 
-        void NewNumber(int itemId);
-
-        bool Delete();
-
 
 
 

@@ -13,6 +13,7 @@ using Memorial.Lib.MaritalType;
 using Memorial.Lib.NationalityType;
 using Memorial.Lib.RelationshipType;
 using Memorial.Lib.ReligionType;
+using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
 namespace Memorial.Controllers
@@ -25,6 +26,7 @@ namespace Memorial.Controllers
         private INationalityType _nationalityType;
         private IRelationshipType _relationshipType;
         private IReligionType _religionType;
+        private IApplicantDeceased _applicantDeceased;
 
         public DeceasedsController(
             IDeceased deceased,
@@ -32,7 +34,8 @@ namespace Memorial.Controllers
             IMaritalType maritalType,
             INationalityType nationalityType,
             IRelationshipType relationshipType,
-            IReligionType religionType
+            IReligionType religionType,
+            IApplicantDeceased applicantDeceased
             )
         {
             _deceased = deceased;
@@ -41,6 +44,7 @@ namespace Memorial.Controllers
             _nationalityType = nationalityType;
             _relationshipType = relationshipType;
             _religionType = religionType;
+            _applicantDeceased = applicantDeceased;
         }
 
         public ActionResult Index()
@@ -64,73 +68,76 @@ namespace Memorial.Controllers
             return View("Form", viewModel);
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int applicantId)
         {
-            var deceased = _deceased.GetDeceasedDto(id);
             var viewModel = new DeceasedFormViewModel
             {
                 GenderTypeDtos = _genderType.GetGenderTypeDtos(),
                 MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
                 NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
                 RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
-                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
-                ApplicantId = deceased.ApplicantId,
-                DeceasedDto = deceased
+                ReligionTypeDtos = _religionType.GetReligionTypeDtos()
             };
+
+            var deceased = _deceased.GetDeceasedDto(id);
+            if (deceased != null)
+            {
+                _applicantDeceased.SetApplicantDeceased(id, applicantId);
+                viewModel.ApplicantId = applicantId;
+                viewModel.DeceasedDto = deceased;
+                viewModel.RelationshipTypeId = _applicantDeceased.GetRelationshipTypeId();
+            }
+
             return View("Form", viewModel);
         }
 
-        public ActionResult Save(DeceasedFormViewModel deceasedFormViewModel)
+        public ActionResult Save(DeceasedFormViewModel viewModel)
         {
-            var viewModel = new DeceasedFormViewModel
-            {
-                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
-                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
-                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
-                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
-                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
-                ApplicantId = deceasedFormViewModel.ApplicantId,
-                DeceasedDto = deceasedFormViewModel.DeceasedDto
-            };
-
+            viewModel.GenderTypeDtos = _genderType.GetGenderTypeDtos();
+            viewModel.MaritalTypeDtos = _maritalType.GetMaritalTypeDtos();
+            viewModel.NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos();
+            viewModel.RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos();
+            viewModel.ReligionTypeDtos = _religionType.GetReligionTypeDtos();
             
-            var deceasedIC = _deceased.GetDeceasedByIC(deceasedFormViewModel.DeceasedDto.IC);
-            if (deceasedIC != null && ((deceasedFormViewModel.DeceasedDto.Id == 0) || (deceasedFormViewModel.DeceasedDto.Id != deceasedIC.Id)))
+            var deceasedIC = _deceased.GetDeceasedByIC(viewModel.DeceasedDto.IC);
+            if (deceasedIC != null && ((viewModel.DeceasedDto.Id == 0) || (viewModel.DeceasedDto.Id != deceasedIC.Id)))
             {
                 ModelState.AddModelError("DeceasedDto.IC", "IC exists");
                 return View("Form", viewModel);
             }
 
-            if (deceasedFormViewModel.DeceasedDto.DeathDate.Year < 1900)
+            if (viewModel.DeceasedDto.DeathDate.Year < 1900)
             {
                 ModelState.AddModelError("DeceasedDto.DeathDate", "Death Date invalid");
                 return View("Form", viewModel);
             }
 
-
-            if (deceasedFormViewModel.DeceasedDto.Id == 0)
+            if (viewModel.DeceasedDto.Id == 0)
             {
-                var deceased = Mapper.Map<DeceasedDto, Core.Domain.Deceased>(deceasedFormViewModel.DeceasedDto);
-                deceased.ApplicantId = deceasedFormViewModel.ApplicantId;
-                if(!_deceased.Create(deceased))
+                var id = _deceased.Create(viewModel.DeceasedDto);
+
+                if (id != 0)
+                {
+                    _applicantDeceased.Create(viewModel.ApplicantId, id, viewModel.RelationshipTypeId);
+                }
+                else
+                {
                     return View("Form", viewModel);
+                }
             }
             else
             {
-                var deceasedm = _deceased.GetDeceased(deceasedFormViewModel.DeceasedDto.Id);
-                deceasedFormViewModel.DeceasedDto.NationalityType = _nationalityType.GetNationalityTypeById(deceasedFormViewModel.DeceasedDto.NationalityTypeId);
-                deceasedFormViewModel.DeceasedDto.RelationshipType = _relationshipType.GetRelationshipTypeById(deceasedFormViewModel.DeceasedDto.RelationshipTypeId);
-                deceasedFormViewModel.DeceasedDto.ReligionType = _religionType.GetReligionTypeById(deceasedFormViewModel.DeceasedDto.ReligionTypeId);
-                deceasedFormViewModel.DeceasedDto.GenderType = _genderType.GetGenderTypeById(deceasedFormViewModel.DeceasedDto.GenderTypeId);
-                deceasedFormViewModel.DeceasedDto.MaritalType = _maritalType.GetMaritalTypeById(deceasedFormViewModel.DeceasedDto.MaritalTypeId);
-                Mapper.Map(deceasedFormViewModel.DeceasedDto, deceasedm);
-
-
-                if (!_deceased.Update(deceasedm))
+                if (_deceased.Update(viewModel.DeceasedDto))
+                {
+                    _applicantDeceased.Update(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.RelationshipTypeId);
+                }
+                else
+                {
                     return View("Form", viewModel);
+                }
             }
 
-            return RedirectToAction("Info", "Applicants", new { id = deceasedFormViewModel.ApplicantId });
+            return RedirectToAction("Catalog", "Applicants", new { id = viewModel.ApplicantId });
         }
 
         [ChildActionOnly]

@@ -12,6 +12,7 @@ using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using AutoMapper;
 
 namespace Memorial.Controllers
 {
@@ -22,9 +23,7 @@ namespace Memorial.Controllers
         private IFuneralCo _funeralCo;
         private IOrder _order;
         private IApplicant _applicant;
-
-        private Lib.Invoice.IQuadrangle _quadrangleInvoice;
-        private Lib.Receipt.IQuadrangle _quadrangleReceipt;
+        private Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleOrderController(
             IQuadrangle quadrangle,
@@ -32,9 +31,7 @@ namespace Memorial.Controllers
             IDeceased deceased, 
             IFuneralCo funeralCo, 
             IOrder order,
-            
-            Lib.Invoice.IQuadrangle quadrangleInvoice,
-            Lib.Receipt.IQuadrangle quadrangleReceipt
+            Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
@@ -42,10 +39,9 @@ namespace Memorial.Controllers
             _deceased = deceased;
             _funeralCo = funeralCo;
             _order = order;
-
-            _quadrangleInvoice = quadrangleInvoice;
-            _quadrangleReceipt = quadrangleReceipt;
+            _invoice = invoice;
         }
+
         public ActionResult Index(int itemId, int id, int applicantId)
         {
             _quadrangle.SetQuadrangle(id);
@@ -65,11 +61,12 @@ namespace Memorial.Controllers
         public ActionResult Info(string AF)
         {
             _order.SetTransaction(AF);
-            _quadrangle.SetQuadrangle(_order.GetQuadrangleId());
+            _quadrangle.SetQuadrangle(_order.GetTransactionQuadrangleId());
+
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
-                ApplicantId = _order.GetApplicantId(),
-                DeceasedId = _order.GetDeceasedId(),
+                ApplicantId = _order.GetTransactionApplicantId(),
+                DeceasedId = _order.GetTransactionDeceasedId(),
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _order.GetItemName(),
                 QuadrangleTransactionDto = _order.GetTransactionDto()
@@ -77,25 +74,31 @@ namespace Memorial.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Form(int itemId, int id, int applicantId)
+        public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _quadrangle.SetQuadrangle(id);
-            _applicant.SetApplicant(applicantId);
-            _order.SetOrder(itemId);
-
-            var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
-            quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
-            quadrangleTransactionDto.QuadrangleId = id;
-            quadrangleTransactionDto.Applicant = _applicant.GetApplicant();
             var viewModel = new QuadrangleTransactionsFormViewModel()
             {
                 FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos(),
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
-                QuadrangleTransactionDto = quadrangleTransactionDto
+                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
-            viewModel.QuadrangleTransactionDto.Price = _quadrangle.GetPrice();
-            viewModel.QuadrangleTransactionDto.Maintenance = _quadrangle.GetMaintenance();
-            viewModel.QuadrangleTransactionDto.LifeTimeMaintenance = _quadrangle.GetLifeTimeMaintenance();
+            
+            if (AF == null)
+            {
+                _quadrangle.SetQuadrangle(id);
+
+                var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+                quadrangleTransactionDto.QuadrangleId = id;
+                viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
+                viewModel.QuadrangleTransactionDto.Price = _quadrangle.GetPrice();
+                viewModel.QuadrangleTransactionDto.Maintenance = _quadrangle.GetMaintenance();
+                viewModel.QuadrangleTransactionDto.LifeTimeMaintenance = _quadrangle.GetLifeTimeMaintenance();
+            }
+            else
+            {
+                _order.SetTransaction(AF);
+                viewModel.QuadrangleTransactionDto = _order.GetTransactionDto(AF);
+            }
+
             return View(viewModel);
         }
 
@@ -111,20 +114,44 @@ namespace Memorial.Controllers
                 }
             }
 
-            _order.SetTransaction(AutoMapper.Mapper.Map<Core.Dtos.QuadrangleTransactionDto, Core.Domain.QuadrangleTransaction>(viewModel.QuadrangleTransactionDto));
-            if(_order.Create())
+            if (viewModel.QuadrangleTransactionDto.AF == null)
             {
-                return RedirectToAction("Index", new
+                if (_order.Create(viewModel.QuadrangleTransactionDto))
                 {
-                    itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
-                    id = viewModel.QuadrangleTransactionDto.QuadrangleId,
-                    applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
-                });
+                    return RedirectToAction("Index", new
+                    {
+                        itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+                    });
+                }
+                else
+                {
+                    return FormForResubmit(viewModel);
+                }
             }
             else
             {
-                return FormForResubmit(viewModel);
+                if (_invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Any() && 
+                    viewModel.QuadrangleTransactionDto.Price + (float)viewModel.QuadrangleTransactionDto.Maintenance + (float)viewModel.QuadrangleTransactionDto.LifeTimeMaintenance <
+                _invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Max(i => i.Amount))
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.Price", "* Exceed invoice amount");
+                    ModelState.AddModelError("QuadrangleTransactionDto.Maintenance", "* Exceed invoice amount");
+                    ModelState.AddModelError("QuadrangleTransactionDto.LifeTimeMaintenance", "* Exceed invoice amount");
+                    return FormForResubmit(viewModel);
+                }
+
+
+                _order.Update(viewModel.QuadrangleTransactionDto);
             }
+
+            return RedirectToAction("Index", new
+            {
+                itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+            });
         }
 
         public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
@@ -139,6 +166,7 @@ namespace Memorial.Controllers
         {
             _order.SetTransaction(AF);
             _order.Delete();
+
             return RedirectToAction("Index", new
             {
                 itemId,
@@ -147,60 +175,10 @@ namespace Memorial.Controllers
             });
         }
 
-
-
-
         public ActionResult Invoices(string AF)
         {
-            var viewModel = new InvoicesViewModel()
-            {
-                AF = AF,
-                InvoiceDtos = _quadrangleInvoice.GetInvoiceDtosByAF(AF),
-            };
-
-            return View(viewModel);
+            return RedirectToAction("Index", "QuadrangleInvoices", new { AF = AF });
         }
 
-        public ActionResult NewInvoice(string AF)
-        {
-            _order.SetTransaction(AF);
-
-            var viewModel = new InvoiceFormViewModel()
-            {
-                AF = AF,
-                Amount = _order.GetAmount(),
-                InvoiceDto = new InvoiceDto(),
-            };
-
-            return View("InvoiceForm", viewModel);
-        }
-
-        public ActionResult SaveInvoice(InvoiceFormViewModel viewModel)
-        {
-            if (viewModel.Amount < viewModel.InvoiceDto.Amount)
-            {
-                ModelState.AddModelError("InvoiceDto.Amount", "Amount invalid");
-                return View("InvoiceForm", viewModel);
-            }
-
-            if (viewModel.InvoiceDto.IV == null)
-            {
-                _order.SetTransaction(viewModel.AF);
-                if (_quadrangleInvoice.Create(_order.GetItemId(), viewModel.AF, viewModel.InvoiceDto.Amount, viewModel.InvoiceDto.Remark))
-                    return RedirectToAction("Index", new { AF = viewModel.AF });
-                else
-                {
-                    return View("InvoiceForm", viewModel);
-                }
-            }
-            else
-            {
-                _quadrangleInvoice.SetInvoice(viewModel.InvoiceDto.IV);
-                if (_quadrangleInvoice.Update(viewModel.InvoiceDto.Amount, viewModel.InvoiceDto.Remark))
-                    return RedirectToAction("Index", new { AF = viewModel.AF });
-                else
-                    return View("InvoiceForm", viewModel);
-            }
-        }
     }
 }

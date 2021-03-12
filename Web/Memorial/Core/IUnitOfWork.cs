@@ -16,6 +16,7 @@ namespace Memorial.Core
         ISiteRepository Sites { get; }
         IApplicantRepository Applicants { get; }
         IDeceasedRepository Deceaseds { get; }
+        IApplicantDeceasedRepository ApplicantDeceaseds { get; }
         IFengShuiMasterRepository FengShuiMasters { get; }
         IFuneralCompanyRepository FuneralCompanies { get; }
 

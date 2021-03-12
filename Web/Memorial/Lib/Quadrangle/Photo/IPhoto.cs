@@ -8,10 +8,12 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface IPhoto : ITransaction
     {
-        void SetPhoto(int id);
+        void SetPhoto(string AF);
 
-        float GetPrice();
+        bool Create(QuadrangleTransactionDto quadrangleTransactionDto);
 
-        bool Create();
+        bool Update(QuadrangleTransactionDto quadrangleTransactionDto);
+
+        bool Delete();
     }
 }

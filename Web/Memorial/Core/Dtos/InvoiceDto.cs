@@ -18,8 +18,6 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public DateTime CreateDate { get; set; }
-
         public PlotTransaction PlotTransaction { get; set; }
 
         public string PlotTransactionAF { get; set; }
@@ -47,5 +45,12 @@ namespace Memorial.Core.Dtos
         public UrnTransaction UrnTransaction { get; set; }
 
         public string UrnTransactionAF { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
+
     }
 }

@@ -10,7 +10,7 @@ namespace Memorial.Lib.Quadrangle
     {
         void SetTransaction(string AF);
 
-        void SetTransaction(Core.Domain.QuadrangleTransaction quadrangleTransaction);
+        void SetTransaction(Core.Domain.QuadrangleTransaction transaction);
 
         Core.Domain.QuadrangleTransaction GetTransaction();
 
@@ -20,19 +20,27 @@ namespace Memorial.Lib.Quadrangle
 
         QuadrangleTransactionDto GetTransactionDto(string AF);
 
-        string GetAF();
+        string GetTransactionAF();
 
-        float GetAmount();
+        float GetTransactionAmount();
 
-        int GetQuadrangleId();
+        int GetTransactionQuadrangleId();
 
         int GetItemId();
 
         string GetItemName();
 
-        int GetApplicantId();
+        string GetItemName(int id);
 
-        int? GetDeceasedId();
+        float GetItemPrice();
+
+        float GetItemPrice(int id);
+
+        bool IsItemOrder();
+
+        int GetTransactionApplicantId();
+
+        int? GetTransactionDeceasedId();
 
         IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId);
 
@@ -41,10 +49,6 @@ namespace Memorial.Lib.Quadrangle
         IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
 
         IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
-
-        float GetUnpaidNonOrderAmount();
-
-        bool Delete();
 
     }
 }

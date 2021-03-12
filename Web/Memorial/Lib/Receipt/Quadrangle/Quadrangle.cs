@@ -13,100 +13,77 @@ namespace Memorial.Lib.Receipt
     {
         private readonly IUnitOfWork _unitOfWork;
         protected INumber _number;
-        protected ITransaction _transaction;
 
         public Quadrangle(
             IUnitOfWork unitOfWork, 
-            INumber number, 
-            IPaymentMethod paymentMethod
-            ) : base(
-                unitOfWork, 
-                paymentMethod)
+            INumber number
+            ) : base( unitOfWork )
         {
             _unitOfWork = unitOfWork;
             _number = number;
         }
 
-        public void SetTransaction(ITransaction transaction)
+        public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
-            _transaction = transaction;
+            return _unitOfWork.Receipts.GetByNonOrderActiveQuadrangleAF(AF);
         }
 
-        public void SetInvoice(Invoice.IQuadrangle invoice)
+        public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
         {
-            _invoice = invoice;
+            return Mapper.Map<IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetNonOrderReceipts(AF));
         }
 
-        public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts()
+        public string GetApplicationAF()
         {
-            return _unitOfWork.Receipts.GetByNonOrderActiveQuadrangleAF(_transaction.GetAF());
-        }
-
-        public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetNonOrderReceipts());
+            return _receipt.QuadrangleTransactionAF;
         }
 
         override
-        public void NewNumber()
+        public void NewNumber(int itemId)
         {
-            _reNumber = _number.GetNewIV(_transaction.GetItemId(), System.DateTime.Now.Year);
+            _reNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        public float GetTotalIssuedNonOrderReceiptAmount()
+        public float GetTotalIssuedNonOrderReceiptAmount(string AF)
         {
-            return GetNonOrderReceipts().Sum(r => r.Amount);
+            return GetNonOrderReceipts(AF).Sum(r => r.Amount);
         }
 
-        public void SetTotalIssuedNonOrderReceiptAmount()
+        public bool Create(int itemId, ReceiptDto receiptDto)
         {
-            _nonOrderTotalIssuedReceiptsAmount = GetTotalIssuedNonOrderReceiptAmount();
-        }
+            NewNumber(itemId);
 
-        public void SetNonOrderAmount()
-        {
-            _nonOrderAmount = _transaction.GetAmount();
-        }
-
-        public float GetNonOrderAmount()
-        {
-            return _nonOrderAmount;
-        }
-
-        public bool NonOrderCreate(float amount, string remark, byte paymentMethodId, string paymentRemark)
-        {
-            SetNew();
-
-            _receipt.QuadrangleTransactionAF = _transaction.GetAF();
-
-            Create(amount, remark, paymentMethodId, paymentRemark);
-
-            _unitOfWork.Complete();
+            CreateNewReceipt(receiptDto);
 
             return true;
         }
 
-        public bool OrderCreate(string IV, float amount, string remark, byte paymentMethodId, string paymentRemark)
+        public bool Update(ReceiptDto receiptDto)
         {
-            SetNew();
+            UpdateReceipt(receiptDto);
 
-            _receipt.QuadrangleTransactionAF = _transaction.GetAF();
+            return true;
+        }
 
-            _receipt.InvoiceIV = IV;
+        public bool Delete()
+        {
+            DeleteReceipt();
 
-            Create(amount, remark, paymentMethodId, paymentRemark);
+            return true;
+        }
 
-            _invoice.SetInvoice(IV);
-            _invoice.SetHasReceipt(true);
-            if(GetTotalIssuedOrderReceiptAmount() + amount == _invoice.GetAmount())
+        public bool DeleteNonOrderReceiptsByApplicationAF(string AF)
+        {
+            var receipts = GetNonOrderReceipts(AF);
+            foreach (var receipt in receipts)
             {
-                _invoice.SetIsPaid(true);
+                receipt.DeleteDate = System.DateTime.Now;
             }
 
-            _unitOfWork.Complete();
-
             return true;
         }
+
+
 
     }
 }

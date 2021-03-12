@@ -8,23 +8,20 @@ namespace Memorial.Lib.Receipt
 {
     public interface IQuadrangle : IReceipt
     {
-        void SetTransaction(ITransaction transaction);
+        IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF);
 
-        IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts();
+        IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF);
 
-        IEnumerable<ReceiptDto> GetNonOrderReceiptDtos();
+        string GetApplicationAF();
 
-        void SetTotalIssuedNonOrderReceiptAmount();
+        float GetTotalIssuedNonOrderReceiptAmount(string AF);
 
-        float GetTotalIssuedNonOrderReceiptAmount();
+        bool Create(int itemId, ReceiptDto receiptDto);
 
-        void SetNonOrderAmount();
+        bool Update(ReceiptDto receiptDto);
 
-        float GetNonOrderAmount();
+        bool Delete();
 
-        bool NonOrderCreate(float amount, string remark, byte paymentMethodId, string paymentRemark);
-
-        bool OrderCreate(string IV, float amount, string remark, byte paymentMethodId, string paymentRemark);
-
+        bool DeleteNonOrderReceiptsByApplicationAF(string AF);
     }
 }

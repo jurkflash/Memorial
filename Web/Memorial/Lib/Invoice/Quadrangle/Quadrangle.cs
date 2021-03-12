@@ -29,6 +29,11 @@ namespace Memorial.Lib.Invoice
             return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByAF(AF));
         }
 
+        public bool HasInvoiceByAF(string AF)
+        {
+            return _unitOfWork.Invoices.GetByActiveQuadrangleAF(AF).Any();
+        }
+
         override
         public string GetAF()
         {
@@ -41,26 +46,26 @@ namespace Memorial.Lib.Invoice
             _ivNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(int itemId, string AF, float amount, string remark)
+        public bool Create(int itemId, InvoiceDto invoiceDto)
         {
-            SetNew();
-
             NewNumber(itemId);
 
-            _invoice.QuadrangleTransactionAF = AF;
-
-            CreateNewInvoice(amount, remark);
-
-            _unitOfWork.Complete();
+            CreateNewInvoice(invoiceDto);
 
             return true;
         }
 
-        public bool Update(float amount, string remark)
+        public bool Update(InvoiceDto invoiceDto)
         {
-            _invoice.Remark = remark;
-            _invoice.Amount = amount;
-            _unitOfWork.Complete();
+            UpdateInvoice(invoiceDto);
+
+            return true;
+        }
+
+        public bool Delete()
+        {
+            DeleteInvoice();
+
             return true;
         }
 

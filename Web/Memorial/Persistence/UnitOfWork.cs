@@ -20,6 +20,7 @@ namespace Memorial.Persistence
             Sites = new SiteRepository(_context);
             Applicants = new ApplicantRepository(_context);
             Deceaseds = new DeceasedRepository(_context);
+            ApplicantDeceaseds = new ApplicantDeceasedRepository(_context);
             FengShuiMasters = new FengShuiMasterRepository(_context);
             FuneralCompanies = new FuneralCompanyRepository(_context);
             PlotLandscapeCompanies = new PlotLandscapeCompanyRepository(_context);
@@ -80,6 +81,7 @@ namespace Memorial.Persistence
         public ISiteRepository Sites { get; private set; }
         public IApplicantRepository Applicants { get; private set; }
         public IDeceasedRepository Deceaseds { get; private set; }
+        public IApplicantDeceasedRepository ApplicantDeceaseds { get; private set; }
         public IFengShuiMasterRepository FengShuiMasters { get; private set; }
         public IFuneralCompanyRepository FuneralCompanies { get; private set; }
         

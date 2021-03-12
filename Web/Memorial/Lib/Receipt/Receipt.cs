@@ -13,17 +13,14 @@ namespace Memorial.Lib.Receipt
     public abstract class Receipt : IReceipt
     {
         private readonly IUnitOfWork _unitOfWork;
-        protected Invoice.IInvoice _invoice;
-        protected IPaymentMethod _paymentMethod;
         protected Core.Domain.Receipt _receipt;
         protected string _reNumber;
         protected float _nonOrderAmount;
         protected float _nonOrderTotalIssuedReceiptsAmount;
 
-        public Receipt(IUnitOfWork unitOfWork, IPaymentMethod paymentMethod)
+        public Receipt(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _paymentMethod = paymentMethod;
         }
 
         public void SetReceipt(string RE)
@@ -31,9 +28,9 @@ namespace Memorial.Lib.Receipt
             _receipt = _unitOfWork.Receipts.GetByActiveRE(RE);
         }
 
-        public void SetReceipt(ReceiptDto receiptDto)
+        public void SetReceipt(Core.Domain.Receipt receipt)
         {
-            _receipt = Mapper.Map<ReceiptDto, Core.Domain.Receipt>(receiptDto);
+            _receipt = receipt;
         }
 
         public Core.Domain.Receipt GetReceipt()
@@ -55,20 +52,20 @@ namespace Memorial.Lib.Receipt
             return Mapper.Map<Core.Domain.Receipt, ReceiptDto>(GetReceipt(RE));
         }
 
-        public IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV)
+        public IEnumerable<Core.Domain.Receipt> GetOrderReceiptsByInvoiceIV(string IV)
         {
             return _unitOfWork.Receipts.GetByActiveIV(IV);
         }
 
-        public IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV)
+        public IEnumerable<ReceiptDto> GetOrderReceiptDtosByInvoiceIV(string IV)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetReceiptsByInvoiceIV(IV));
+            return Mapper.Map< IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetOrderReceiptsByInvoiceIV(IV));
         }
 
-        public void SetNew()
+        public string GetInvoiceIV()
         {
-            _receipt = new Core.Domain.Receipt();
-        }     
+            return _receipt.InvoiceIV;
+        }
 
         public float GetAmount()
         {
@@ -95,6 +92,11 @@ namespace Memorial.Lib.Receipt
             return _receipt.PaymentMethodId;
         }
 
+        public int SetPaymentMethodId(byte paymentMethodId)
+        {
+            return _receipt.PaymentMethodId = paymentMethodId;
+        }
+
         public string GetPaymentRemark()
         {
             return _receipt.PaymentRemark;
@@ -107,136 +109,66 @@ namespace Memorial.Lib.Receipt
 
         public bool isOrderReceipt()
         {
-            return _receipt.InvoiceIV == null ? true : false;
+            return _receipt.InvoiceIV == null ? false : true;
         }
 
-        public bool IsPaymentRemarkNecessaryButEmpty(byte paymentMethodId, string paymentRemark)
+        public float GetTotalIssuedOrderReceiptAmountByInvoiceIV(string IV)
         {
-            _paymentMethod.SetPaymentMethod(paymentMethodId);
-            if (_paymentMethod.GetRequireRemark() && string.IsNullOrEmpty(paymentRemark))
-                return true;
-
-            return false;
-        }
-
-        public float GetTotalIssuedOrderReceiptAmount()
-        {
-            return GetReceiptsByInvoiceIV(_receipt.InvoiceIV).Sum(r => r.Amount);
+            return GetOrderReceiptsByInvoiceIV(IV).Sum(r => r.Amount);
         }
 
         abstract
-        public void NewNumber();
+        public void NewNumber(int itemId);
 
-        virtual
-        protected bool Create(float amount, string remark, byte paymentMethodId, string paymentRemark)
+        protected bool CreateNewReceipt(ReceiptDto receiptDto)
         {
-            if (_reNumber == "")
+            if (string.IsNullOrEmpty(_reNumber))
                 return false;
 
-            if (IsPaymentRemarkNecessaryButEmpty(paymentMethodId, paymentRemark))
-                return false;
+            _receipt = new Core.Domain.Receipt();
+
+            Mapper.Map(receiptDto, _receipt);
 
             _receipt.RE = _reNumber;
-            _receipt.Amount = amount;
-            _receipt.Remark = remark;
-            _receipt.PaymentMethodId = paymentMethodId;
-            _receipt.PaymentRemark = paymentRemark;
             _receipt.CreateDate = System.DateTime.Now;
+
             _unitOfWork.Receipts.Add(_receipt);
+
             return true;
         }
 
-        virtual
-        public bool Update(float amount, string remark, byte paymentMethodId, string paymentRemark)
+        protected bool UpdateReceipt(ReceiptDto receiptDto)
+        {
+            var receiptInDb = GetReceipt(receiptDto.RE);
+
+            Mapper.Map(receiptDto, receiptInDb);
+
+            receiptInDb.ModifyDate = System.DateTime.Now;
+
+            return true;
+        }
+
+        protected bool DeleteReceipt()
         {
             if (_receipt == null)
                 return false;
-
-            if (IsPaymentRemarkNecessaryButEmpty(paymentMethodId, paymentRemark))
-                return false;
-
-            if (_receipt.Amount != amount)
-            {
-                if (isOrderReceipt() && !UpdateOrderReceiptAmount(amount))
-                    return false;
-
-                if (!isOrderReceipt() && !UpdateNonOrderReceiptAmount(amount))
-                    return false;
-
-                SetAmount(amount);
-                _receipt.ModifyDate = System.DateTime.Now;
-                _unitOfWork.Complete();
-            }
-
-            if (_receipt.Remark != remark)
-            {
-                SetRemark(remark);
-                _receipt.ModifyDate = System.DateTime.Now;
-                _unitOfWork.Complete();
-            }
-            
-            return true;
-        }
-
-        private bool UpdateOrderReceiptAmount(float amount)
-        {
-            _invoice.SetInvoice(_receipt.InvoiceIV);
-            if (_invoice.GetAmount() < amount || (_invoice.GetAmount() - GetTotalIssuedOrderReceiptAmount()) < amount)
-                return false;
-
-            if (GetTotalIssuedOrderReceiptAmount() + amount == _invoice.GetAmount())
-            {
-                _invoice.SetIsPaid(true);
-            }
-            else
-            {
-                _invoice.SetIsPaid(false);
-            }
-            return true;
-        }
-
-        private bool UpdateNonOrderReceiptAmount(float amount)
-        {
-            return (_nonOrderAmount - _nonOrderTotalIssuedReceiptsAmount < amount);
-        }
-
-        virtual
-        public bool Delete()
-        {
-            if (_receipt == null)
-                return false;
-
-            if(isOrderReceipt())
-            {
-                _invoice.SetInvoice(_receipt.InvoiceIV);
-
-                if (_receipt.Amount != 0)
-                {
-                    _invoice.SetIsPaid(false);
-                }
-
-                if (GetReceiptsByInvoiceIV(_receipt.InvoiceIV).Count() == 0)
-                {
-                    _invoice.SetHasReceipt(false);
-                }
-            }
 
             _receipt.DeleteDate = System.DateTime.Now;
-            _unitOfWork.Complete();
+
             return true;
         }
 
-        public bool DeleteByInvoiceIV(string IV)
+        public bool DeleteOrderReceiptsByInvoiceIV(string IV)
         {
-            var receipts = GetReceiptsByInvoiceIV(IV);
+            var receipts = GetOrderReceiptsByInvoiceIV(IV);
             foreach(var receipt in receipts)
             {
                 receipt.DeleteDate = System.DateTime.Now;
             }
 
-            _invoice.SetInvoice(_receipt.InvoiceIV);
-            _invoice.SetIsPaid(false);
-            _invoice.SetHasReceipt(false);
+            //_invoice.SetInvoice(_receipt.InvoiceIV);
+            //_invoice.SetIsPaid(false);
+            //_invoice.SetHasReceipt(false);
 
             return true;
         }

@@ -14,8 +14,5 @@ namespace Memorial.Core.Dtos
 
         public string Name2 { get; set; }
 
-        public RelationshipType RelationshipType { get; set; }
-
-        public byte RelationshipTypeId { get; set; }
     }
 }
