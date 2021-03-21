@@ -65,34 +65,12 @@ namespace Memorial.Controllers
 
         public ActionResult Catalog(int id)
         {
-            var applicantInfoViewModel = new ApplicantInfoViewModel()
+            var viewModel = new ApplicantInfoViewModel()
             {
-                ApplicantDto = _applicant.GetApplicantDto(id),
-                DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId(id)),
-                ApplicantDeceasedDtos = _applicantDeceased.GetApplicantDeceasedDtosByApplicantId(id),
+                ApplicantId = id,
                 SiteDtos = _site.GetSiteDtos()
             };
-            return View(applicantInfoViewModel);
-        }
-
-        public ActionResult DeceasedInfo(int id)
-        {
-            return RedirectToAction("Info", "Deceaseds", new { id = id });
-        }
-
-        public ActionResult NewDeceased(int id)
-        {
-            return RedirectToAction("New", "Deceaseds", new { applicantId = id });
-        }
-
-        public ActionResult LinkDeceased(int id)
-        {
-            return View(_applicant.GetApplicantDto(id));
-        }
-
-        public ActionResult EditDeceased(int id)
-        {
-            return RedirectToAction("Edit", "Deceaseds", new { id = id });
+            return View(viewModel);
         }
 
         public ActionResult Site(byte siteId, int applicantId)
@@ -101,7 +79,7 @@ namespace Memorial.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult ApplicantInfo(int id)
+        public PartialViewResult PartialViewInfo(int id)
         {
             var applicantDto = Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id));
             return PartialView("_ApplicantInfo", applicantDto);

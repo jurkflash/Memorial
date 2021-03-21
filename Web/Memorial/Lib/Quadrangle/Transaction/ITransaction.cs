@@ -40,7 +40,7 @@ namespace Memorial.Lib.Quadrangle
 
         int GetTransactionApplicantId();
 
-        int? GetTransactionDeceasedId();
+        int? GetTransactionDeceased1Id();
 
         IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId);
 
@@ -50,5 +50,8 @@ namespace Memorial.Lib.Quadrangle
 
         IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
 
+        Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId);
+
+        Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByShiftedQuadrangleId(int quadrangleId);
     }
 }

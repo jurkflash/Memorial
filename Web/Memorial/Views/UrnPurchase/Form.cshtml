@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });}
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "Urn"))
+@using (Html.BeginForm("Save", "UrnPurchase"))
 {
-    @Html.LabelFor(u => u.AF)
+    @Model.AF
     <div class="form-group row">
         <div class="col-md-3">
             Price

@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
-
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -18,7 +16,7 @@
         @foreach (var urnItem in Model.UrnItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(urnItem.Name, "Transactions", new { urnItemId = urnItem.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(urnItem.Name, "Index", "Urn" + urnItem.SystemCode, new { itemId = urnItem.Id, applicantId = Model.ApplicantId }, null)</td>
                 <td>@urnItem.Description</td>
                 <td>@urnItem.Price</td>
             </tr>

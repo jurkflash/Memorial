@@ -53,6 +53,16 @@ namespace Memorial.Lib.Quadrangle
             return Mapper.Map< IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(GetQuadranglesByAreaId(id));
         }
 
+        public IEnumerable<Core.Domain.Quadrangle> GetAvailableQuadranglesByAreaId(int id)
+        {
+            return _unitOfWork.Quadrangles.GetAvailableByArea(id);
+        }
+
+        public IEnumerable<QuadrangleDto> GetAvailableQuadrangleDtosByAreaId(int id)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(GetAvailableQuadranglesByAreaId(id));
+        }
+
         public string GetName()
         {
             return _quadrangle.Name;

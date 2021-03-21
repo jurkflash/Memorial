@@ -20,6 +20,8 @@ namespace Memorial.Lib.ApplicantDeceased
 
         ApplicantDeceasedDto GetApplicantDeceasedDto(int applicantId, int deceasedId);
 
+        ApplicantDeceasedFlattenDto GetApplicantDeceasedFlattenDto(int applicantId, int deceasedId);
+
         byte GetRelationshipTypeId();
 
         IEnumerable<Core.Domain.ApplicantDeceased> GetApplicantDeceasedsByApplicantId(int applicantId);

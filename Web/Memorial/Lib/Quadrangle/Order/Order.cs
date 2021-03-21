@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Quadrangle
@@ -14,6 +15,8 @@ namespace Memorial.Lib.Quadrangle
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IQuadrangle _invoice;
         private readonly IQuadranglePayment _payment;
+        private readonly ITracking _tracking;
+        private readonly IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -21,16 +24,20 @@ namespace Memorial.Lib.Quadrangle
             IQuadrangle quadrangle,
             IApplicant applicant,
             IDeceased deceased,
+            IApplicantDeceased applicantDeceased,
             INumber number,
             Invoice.IQuadrangle invoice,
-            IQuadranglePayment payment
+            IQuadranglePayment payment,
+            ITracking tracking,
+            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds
             ) : 
             base(
                 unitOfWork, 
                 item, 
                 quadrangle, 
                 applicant, 
-                deceased, 
+                deceased,
+                applicantDeceased,
                 number
                 )
         {
@@ -39,9 +46,12 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle = quadrangle;
             _applicant = applicant;
             _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
             _number = number;
             _invoice = invoice;
             _payment = payment;
+            _tracking = tracking;
+            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
         }
 
         public void SetOrder(string AF)
@@ -61,9 +71,9 @@ namespace Memorial.Lib.Quadrangle
 
         public bool Create(QuadrangleTransactionDto quadrangleTransactionDto)
         {
-            if (quadrangleTransactionDto.DeceasedId != null)
+            if (quadrangleTransactionDto.Deceased1Id != null)
             {
-                SetDeceased((int)quadrangleTransactionDto.DeceasedId);
+                SetDeceased((int)quadrangleTransactionDto.Deceased1Id);
                 if (_deceased.GetQuadrangle() != null)
                     return false;
             }
@@ -75,9 +85,9 @@ namespace Memorial.Lib.Quadrangle
                 _quadrangle.SetQuadrangle(quadrangleTransactionDto.QuadrangleId);
                 _quadrangle.SetApplicant(quadrangleTransactionDto.ApplicantId);
 
-                if (quadrangleTransactionDto.DeceasedId != null)
+                if (quadrangleTransactionDto.Deceased1Id != null)
                 {
-                    SetDeceased((int)quadrangleTransactionDto.DeceasedId);
+                    SetDeceased((int)quadrangleTransactionDto.Deceased1Id);
                     if (_deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
                     {
                         _quadrangle.SetHasDeceased(true);
@@ -85,6 +95,19 @@ namespace Memorial.Lib.Quadrangle
                     else
                         return false;
                 }
+
+                if (quadrangleTransactionDto.Deceased2Id != null)
+                {
+                    SetDeceased((int)quadrangleTransactionDto.Deceased2Id);
+                    if (_deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
+                    {
+                        _quadrangle.SetHasDeceased(true);
+                    }
+                    else
+                        return false;
+                }
+
+                _tracking.Add(quadrangleTransactionDto.QuadrangleId, _AFnumber, quadrangleTransactionDto.ApplicantId, quadrangleTransactionDto.Deceased1Id, quadrangleTransactionDto.Deceased2Id);
 
                 _unitOfWork.Complete();
             }
@@ -104,18 +127,20 @@ namespace Memorial.Lib.Quadrangle
                 return false;
             }
 
-            if(UpdateTransaction(quadrangleTransactionDto))
+            var quadrangleTransactionInDb = GetTransaction(quadrangleTransactionDto.AF);
+
+            if (UpdateTransaction(quadrangleTransactionDto))
             {
-                if (quadrangleTransactionDto.DeceasedId != null)
-                {
-                    SetDeceased((int)quadrangleTransactionDto.DeceasedId);
-                    if (_deceased.SetQuadrangle(quadrangleTransactionDto.QuadrangleId))
-                    {
-                        _quadrangle.SetHasDeceased(true);
-                    }
-                    else
-                        return false;
-                }
+                _quadrangle.SetQuadrangle(quadrangleTransactionDto.QuadrangleId);
+
+                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased1Id, quadrangleTransactionInDb.Deceased1Id);
+
+                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased2Id, quadrangleTransactionInDb.Deceased2Id);
+
+                if (quadrangleTransactionDto.Deceased1Id == null && quadrangleTransactionDto.Deceased2Id == null)
+                    _quadrangle.SetHasDeceased(false);
+
+                _tracking.Change(quadrangleTransactionDto.QuadrangleId, quadrangleTransactionDto.AF, quadrangleTransactionDto.ApplicantId, quadrangleTransactionDto.Deceased1Id, quadrangleTransactionDto.Deceased2Id);
 
                 _unitOfWork.Complete();
             }
@@ -123,25 +148,69 @@ namespace Memorial.Lib.Quadrangle
             return true;
         }
 
+        private bool QuadrangleApplicantDeceaseds(int? deceasedId, int? dbDeceasedId)
+        {
+            if (deceasedId != dbDeceasedId)
+            {
+                if (deceasedId == null)
+                {
+                    _deceased.SetDeceased((int)dbDeceasedId);
+                    _deceased.RemoveQuadrangle();
+                }
+                else
+                {
+                    _deceased.SetDeceased((int)deceasedId);
+                    if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != _quadrangle.GetQuadrangle().Id)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        _deceased.SetQuadrangle(_quadrangle.GetQuadrangle().Id);
+                        _quadrangle.SetHasDeceased(true);
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public bool Delete()
         {
+            if (!_tracking.IsLatestTransaction(_transaction.QuadrangleId, _transaction.AF))
+                return false;
+
             _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
             if (_quadrangle.HasDeceased())
                 return false;
 
+            var lastTransactionOfQuadrangle = GetLastQuadrangleTransactionByQuadrangleId(_transaction.QuadrangleId);
+
             DeleteTransaction();
 
-            if (_transaction.DeceasedId != null)
+            if (lastTransactionOfQuadrangle.AF == _transaction.AF)
             {
-                SetDeceased((int)_transaction.DeceasedId);
-                _deceased.RemoveQuadrangle();
-                _quadrangle.SetHasDeceased(false);
-            }
+                if (_transaction.Deceased1Id != null)
+                {
+                    SetDeceased((int)_transaction.Deceased1Id);
+                    _deceased.RemoveQuadrangle();
+                }
 
-            _quadrangle.RemoveApplicant();
+                if (_transaction.Deceased2Id != null)
+                {
+                    SetDeceased((int)_transaction.Deceased2Id);
+                    _deceased.RemoveQuadrangle();
+                }
+
+                _quadrangle.SetHasDeceased(false);
+
+                _quadrangle.RemoveApplicant();
+            }
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
+
+            _quadrangleApplicantDeceaseds.RollbackQuadrangleApplicantDeceaseds(_transaction.AF, _transaction.QuadrangleId);
 
             _unitOfWork.Complete();
 

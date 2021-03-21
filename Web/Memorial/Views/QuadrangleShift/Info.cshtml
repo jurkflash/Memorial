@@ -4,13 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Info</h2>
-
-@{Html.RenderAction("ApplicantInfo", "Applicants", new { id = Model.ApplicantId });}
-
-Deceased
-@{Html.RenderAction("DeceasedInfo", "Deceaseds", new { id = Model.DeceasedId });}
-
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId });}
 
 <div class="row">
     <div class="col-md-3">

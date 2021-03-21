@@ -61,11 +61,11 @@ namespace Memorial.Persistence.Repositories
             return deceasedsQuery.AsEnumerable();
         }
 
-        public Deceased GetByQuadrangle(int quadrangleId)
+        public IEnumerable<Deceased> GetByQuadrangle(int quadrangleId)
         {
             return MemorialContext.Deceaseds
                     .Where(d => d.QuadrangleId == quadrangleId &&
-                    d.DeleteDate == null).FirstOrDefault();
+                    d.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

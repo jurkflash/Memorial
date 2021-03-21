@@ -66,7 +66,7 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetAllExcludeFilter(applicantId, deceasedName);
         }
 
-        public Core.Domain.Deceased GetDeceasedsByQuadrangleId(int quadrangleId)
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
         {
             return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
         }
@@ -113,15 +113,12 @@ namespace Memorial.Lib.Deceased
         {
             if (_deceased != null)
             {
-                if (_deceased.QuadrangleId == null)
+                var quadrangle = _quadrangle.GetQuadrangle(quadrangleId);
+                if (quadrangle != null)
                 {
-                    _quadrangle.SetQuadrangle(quadrangleId);
-                    if (_quadrangle.GetQuadrangle() != null)
-                    {
-                        _deceased.Quadrangle = _quadrangle.GetQuadrangle();
-                        _deceased.QuadrangleId = quadrangleId;
-                        return true;
-                    }
+                    _deceased.Quadrangle = quadrangle;
+                    _deceased.QuadrangleId = quadrangleId;
+                    return true;
                 }
             }
             return false;

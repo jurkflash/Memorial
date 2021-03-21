@@ -10,11 +10,11 @@ using AutoMapper;
 
 namespace Memorial.Lib
 {
-    public class UrnNumber : IUrnNumber
+    public class Number : INumber
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UrnNumber(IUnitOfWork unitOfWork)
+        public Number(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

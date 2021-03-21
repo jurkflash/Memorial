@@ -16,5 +16,7 @@ namespace Memorial.ViewModels
         public QuadrangleTransactionDto QuadrangleTransactionDto { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
+
+        public QuadrangleDto QuadrangleDto { get; set; }
     }
 }

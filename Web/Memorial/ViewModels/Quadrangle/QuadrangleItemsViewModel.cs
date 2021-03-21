@@ -11,12 +11,9 @@ namespace Memorial.ViewModels
     {
         public IEnumerable<QuadrangleItemDto> QuadrangleItemDtos { get; set; }
 
-        public int QuadrangleId { get; set; }
+        public QuadrangleDto QuadrangleDto { get; set; }
 
-        public string QuadrangleName { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public string QuadrangleDescription { get; set; }
-
-        public int applicantId { get; set; }
     }
 }

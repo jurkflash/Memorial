@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 
-@if (!Model.QuadrangleDto.hasDeceased)
+@if (Model.AllowNew)
 {
     <p>
         @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId })
@@ -21,24 +21,26 @@
             <th>Applicant</th>
             <th>Create Date</th>
             <th>Invoice</th>
+            <th>Edit</th>
             <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var quadrangleTransaction in Model.QuadrangleTransactionDtos)
         {
-        <tr>
-            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
-            <td>@quadrangleTransaction.Quadrangle.Name</td>
-            <td>@quadrangleTransaction.Quadrangle.Applicant.Name &nbsp; @quadrangleTransaction.Quadrangle.Applicant.Name2</td>
-            <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoice", new { AF = quadrangleTransaction.AF })</td>
-            <td>
-                @Html.ActionLink("Delete", "Delete",
-                new { AF = quadrangleTransaction.AF, itemId = Model.QuadrangleItemId, id = Model.QuadrangleId, applicantId = Model.ApplicantId },
-                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
+                <td>@quadrangleTransaction.Quadrangle.Name</td>
+                <td>@quadrangleTransaction.Quadrangle.Applicant.Name &nbsp; @quadrangleTransaction.Quadrangle.Applicant.Name2</td>
+                <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = quadrangleTransaction.AF })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = quadrangleTransaction.AF, applicantId = Model.ApplicantId })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = quadrangleTransaction.AF, itemId = Model.QuadrangleItemId, id = Model.QuadrangleId, applicantId = Model.ApplicantId },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>

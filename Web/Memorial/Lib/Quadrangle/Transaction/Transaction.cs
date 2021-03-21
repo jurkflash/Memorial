@@ -7,6 +7,7 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Receipt;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
 namespace Memorial.Lib.Quadrangle
@@ -18,6 +19,7 @@ namespace Memorial.Lib.Quadrangle
         protected IItem _item;
         protected IApplicant _applicant;
         protected IDeceased _deceased;
+        protected IApplicantDeceased _applicantDeceased;
         protected INumber _number;
         protected Core.Domain.QuadrangleTransaction _transaction;
         protected string _AFnumber;
@@ -28,6 +30,7 @@ namespace Memorial.Lib.Quadrangle
             IQuadrangle quadrangle, 
             IApplicant applicant,
             IDeceased deceased,
+            IApplicantDeceased applicantDeceased,
             INumber number
             )
         {
@@ -36,6 +39,7 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle = quadrangle;
             _applicant = applicant;
             _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
             _number = number;
         }
 
@@ -126,9 +130,9 @@ namespace Memorial.Lib.Quadrangle
             return _transaction.ApplicantId;
         }
 
-        public int? GetTransactionDeceasedId()
+        public int? GetTransactionDeceased1Id()
         {
-            return _transaction.DeceasedId;
+            return _transaction.Deceased1Id;
         }
 
         public IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId)
@@ -149,6 +153,16 @@ namespace Memorial.Lib.Quadrangle
         public IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.QuadrangleTransaction>, IEnumerable<QuadrangleTransactionDto>>(GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(quadrangleId, itemId, applicantId));
+        }
+
+        public Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId)
+        {
+            return _unitOfWork.QuadrangleTransactions.GetLastQuadrangleTransactionByQuadrangleId(quadrangleId);
+        }
+
+        public Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByShiftedQuadrangleId(int quadrangleId)
+        {
+            return _unitOfWork.QuadrangleTransactions.GetLastQuadrangleTransactionByShiftedQuadrangleId(quadrangleId);
         }
 
         protected bool CreateNewTransaction(QuadrangleTransactionDto quadrangleTransactionDto)
@@ -184,51 +198,77 @@ namespace Memorial.Lib.Quadrangle
             _transaction.DeleteDate = System.DateTime.Now;
 
             return true;
+        }      
+
+        protected bool SetDeceasedIdBasedOnQuadrangleLastTransaction(QuadrangleTransactionDto quadrangleTransactionDto)
+        {
+            if (_quadrangle.HasDeceased())
+            {
+                var lastTransactionOfQuadrangle = GetLastQuadrangleTransactionByQuadrangleId(_quadrangle.GetQuadrangle().Id);
+
+                if (lastTransactionOfQuadrangle != null)
+                {
+                    SetDeceasedIdBasedOnQuadrangleLastTransaction(lastTransactionOfQuadrangle, quadrangleTransactionDto);
+                }
+                else
+                {
+                    var lastTransactionOfShiftedQuadrangle = GetLastQuadrangleTransactionByShiftedQuadrangleId(_quadrangle.GetQuadrangle().Id);
+
+                    SetDeceasedIdBasedOnQuadrangleLastTransaction(lastTransactionOfShiftedQuadrangle, quadrangleTransactionDto);
+                }
+            }
+
+            return true;
+        }
+
+        private bool SetDeceasedIdBasedOnQuadrangleLastTransaction(Core.Domain.QuadrangleTransaction lastQuadrangleTransaction, QuadrangleTransactionDto quadrangleTransactionDto)
+        {
+            if (lastQuadrangleTransaction != null)
+            {
+                if (lastQuadrangleTransaction.Deceased1Id != null &&
+                    _applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, (int)lastQuadrangleTransaction.Deceased1Id) == null)
+                {
+                    return false;
+                }
+
+                if (lastQuadrangleTransaction.Deceased2Id != null &&
+                    _applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, (int)lastQuadrangleTransaction.Deceased2Id) == null)
+                {
+                    return false;
+                }
+
+                quadrangleTransactionDto.Deceased1Id = lastQuadrangleTransaction.Deceased1Id;
+
+                quadrangleTransactionDto.Deceased2Id = lastQuadrangleTransaction.Deceased2Id;
+            }
+
+            return true;
         }
 
 
 
+        //        var deceaseds = _deceased.GetDeceasedsByQuadrangleId(_quadrangle.GetQuadrangle().Id);
+        //                    foreach (var deceased in deceaseds)
+        //                    {
+        //                        var applicantDeceased = _applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, deceased.Id);
+        //                        if (applicantDeceased == null)
+        //                        {
+        //                            return false;
+        //                        }
+        //                    }
 
-            //if (IsOrder())
-            //{
-            //    _invoice.DeleteByApplication(GetAF());
-            //}
-            //else
-            //{
-            //    _receipt.SetTransaction(_transaction.AF);
-            //    var receipts = _receipt.GetNonOrderReceipts();
-            //    foreach (var receipt in receipts)
-            //    {
-            //        _receipt.SetReceipt(receipt.RE);
-            //        _receipt.Delete();
-            //    }
-            //}
+        //                    if(deceaseds.Count() > 0)
+        //                    {
+        //                        quadrangleTransactionDto.Deceased1Id = deceaseds.ElementAt(0).Id;
+        //                    }
 
-
-
-        //public bool Delete()
+        //if (deceaseds.Count() > 1)
         //{
-        //    IItem quadrangleItem = new Item(_unitOfWork);
-        //    quadrangleItem.SetItem(_transaction.QuadrangleItemId);
-
-        //    ICommon common = new Lib.Common(_unitOfWork);
-        //    if (common.DeleteForm(_transaction.AF, Core.Domain.MasterCatalog.Quadrangle))
-        //    {
-        //        if (quadrangleItem.GetSystemCode() == "Order")
-        //        {
-        //            _deceased.SetById((int)_transaction.DeceasedId);
-        //            _deceased.RemoveQuadrangle();
-        //            _unitOfWork.Complete();
-
-        //            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
-        //            _quadrangle.SetHasDeceased(_deceased.GetByQuadrangle(_transaction.QuadrangleId).Any());
-        //            _quadrangle.RemoveApplicant();
-        //            _unitOfWork.Complete();
-        //        }
-        //        return true;
-        //    }
-        //    else
-        //        return false;
+        //    quadrangleTransactionDto.Deceased2Id = deceaseds.ElementAt(1).Id;
         //}
+
+
+
+
     }
 }

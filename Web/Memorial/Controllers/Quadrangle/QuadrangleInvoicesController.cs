@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Memorial.Lib;
+using Memorial.Lib.Invoice;
+using Memorial.Lib.Quadrangle;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
-using Memorial.Lib.Quadrangle;
-using Memorial.Lib.Invoice;
 using AutoMapper;
 
 namespace Memorial.Controllers
@@ -18,12 +17,16 @@ namespace Memorial.Controllers
     {
         private readonly ITransaction _transaction;
         private readonly Lib.Invoice.IQuadrangle _invoice;
+        private readonly IQuadranglePayment _payment;
 
         public QuadrangleInvoicesController(
-            Lib.Invoice.IQuadrangle invoice
-            )
+            ITransaction transaction,
+            Lib.Invoice.IQuadrangle invoice, 
+            IQuadranglePayment payment)
         {
+            _transaction = transaction;
             _invoice = invoice;
+            _payment = payment;
         }
 
         public ActionResult Index(string AF)
@@ -31,22 +34,30 @@ namespace Memorial.Controllers
             var viewModel = new InvoicesViewModel()
             {
                 AF = AF,
-                InvoiceDtos = _invoice.GetInvoiceDtosByAF(AF),
+                InvoiceDtos = _invoice.GetInvoiceDtosByAF(AF)
             };
 
             return View(viewModel);
         }
 
-        public ActionResult New(string AF)
+        public ActionResult Form(string AF, string IV = null)
         {
             _transaction.SetTransaction(AF);
-            
+
             var viewModel = new InvoiceFormViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetAmount(),
-                InvoiceDto = new InvoiceDto(),
+                Amount = _transaction.GetTransactionAmount()
             };
+
+            if (IV == null)
+            {
+                viewModel.InvoiceDto = new InvoiceDto();
+            }
+            else
+            {
+                viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+            }
 
             return View("Form", viewModel);
         }
@@ -55,41 +66,47 @@ namespace Memorial.Controllers
         {
             if (viewModel.Amount < viewModel.InvoiceDto.Amount)
             {
+                _transaction.SetTransaction(viewModel.AF);
+
                 ModelState.AddModelError("InvoiceDto.Amount", "Amount invalid");
+                viewModel.Amount = _transaction.GetTransactionAmount();
                 return View("Form", viewModel);
             }
 
+            _payment.SetTransaction(viewModel.AF);
+
+            viewModel.InvoiceDto.QuadrangleTransactionAF = viewModel.AF;
+
             if (viewModel.InvoiceDto.IV == null)
             {
-                _transaction.SetTransaction(viewModel.AF);
-                if (_invoice.Create(_transaction.GetItemId(), viewModel.AF, viewModel.InvoiceDto.Amount, viewModel.InvoiceDto.Remark))
+                if (_payment.CreateInvoice(viewModel.InvoiceDto))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                 {
+                    viewModel.Amount = _transaction.GetTransactionAmount();
                     return View("Form", viewModel);
                 }
             }
             else
             {
-                _invoice.SetInvoice(viewModel.InvoiceDto.IV);
-                if (_invoice.Update(viewModel.InvoiceDto.Amount, viewModel.InvoiceDto.Remark))
+                if (_payment.UpdateInvoice(viewModel.InvoiceDto))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                     return View("Form", viewModel);
             }
         }
 
-        public ActionResult Receipt(string IV, string AF, MasterCatalog masterCatalog)
+        public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "OrderReceipts", new { IV = IV, AF = AF, masterCatalog = masterCatalog });
+            return RedirectToAction("Index", "QuadrangleReceipts", new { IV = IV, AF = AF });
         }
 
-        public ActionResult Delete(string IV)
+        public ActionResult Delete(string IV, string AF)
         {
-            _invoice.SetInvoice(IV);
-            _invoice.Delete();
-            
-            return RedirectToAction("Index", new { AF = _invoice.GetAF() });
+            _payment.SetInvoice(IV);
+            _payment.DeleteInvoice();
+
+            return RedirectToAction("Index", new { AF = AF });
         }
     }
 }

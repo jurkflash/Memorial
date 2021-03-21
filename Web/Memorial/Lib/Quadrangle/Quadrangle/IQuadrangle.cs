@@ -22,6 +22,10 @@ namespace Memorial.Lib.Quadrangle
 
         IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int id);
 
+        IEnumerable<Core.Domain.Quadrangle> GetAvailableQuadranglesByAreaId(int id);
+
+        IEnumerable<QuadrangleDto> GetAvailableQuadrangleDtosByAreaId(int id);
+
         string GetName();
 
         string GetDescription();

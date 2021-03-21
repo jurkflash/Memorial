@@ -48,6 +48,16 @@ namespace Memorial.Lib.Quadrangle
             return _centre;
         }
 
+        public Core.Domain.QuadrangleCentre GetCentre(int id)
+        {
+            return _unitOfWork.QuadrangleCentres.GetActive(id);
+        }
+
+        public QuadrangleCentreDto GetCentreDto(int id)
+        {
+            return Mapper.Map<Core.Domain.QuadrangleCentre, QuadrangleCentreDto>(GetCentre(id));
+        }
+
         public IEnumerable<Core.Domain.QuadrangleCentre> GetCentreBySite(byte sitId)
         {
             return _unitOfWork.QuadrangleCentres.GetBySite(sitId);

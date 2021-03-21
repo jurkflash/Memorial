@@ -22,7 +22,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WillCascadeOnDelete(false);
 
             HasRequired(qt => qt.Quadrangle)
-                .WithMany(q => q.QuadrangleTransactions)
+                .WithMany(q => q.QuadrangleTransactions1)
                 .HasForeignKey(qt => qt.QuadrangleId)
                 .WillCascadeOnDelete(false);
 
@@ -31,14 +31,24 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.ApplicantId)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(qt => qt.Deceased)
-                .WithMany(fc => fc.QuadrangleTransactions)
-                .HasForeignKey(qt => qt.DeceasedId)
+            HasOptional(qt => qt.Deceased1)
+                .WithMany(fc => fc.QuadrangleTransactions1)
+                .HasForeignKey(qt => qt.Deceased1Id)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(qt => qt.Deceased2)
+                .WithMany(fc => fc.QuadrangleTransactions2)
+                .HasForeignKey(qt => qt.Deceased2Id)
                 .WillCascadeOnDelete(false);
 
             HasOptional(qt => qt.FuneralCompany)
                 .WithMany(fc => fc.QuadrangleTransactions)
                 .HasForeignKey(qt => qt.FuneralCompanyId)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(qt => qt.ShiftedQuadrangle)
+                .WithMany(q => q.QuadrangleTransactions2)
+                .HasForeignKey(qt => qt.ShiftedQuadrangleId)
                 .WillCascadeOnDelete(false);
         }
     }

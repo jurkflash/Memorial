@@ -82,7 +82,7 @@ namespace Memorial.Controllers
             var deceased = _deceased.GetDeceasedDto(id);
             if (deceased != null)
             {
-                _applicantDeceased.SetApplicantDeceased(id, applicantId);
+                _applicantDeceased.SetApplicantDeceased(applicantId, id);
                 viewModel.ApplicantId = applicantId;
                 viewModel.DeceasedDto = deceased;
                 viewModel.RelationshipTypeId = _applicantDeceased.GetRelationshipTypeId();
@@ -140,8 +140,17 @@ namespace Memorial.Controllers
             return RedirectToAction("Catalog", "Applicants", new { id = viewModel.ApplicantId });
         }
 
+        public ActionResult Info(int id)
+        {
+            var viewModel = new DeceasedInfoViewModel()
+            {
+                DeceasedId = id
+            };
+            return View(viewModel);
+        }
+
         [ChildActionOnly]
-        public PartialViewResult DeceasedInfo(int id)
+        public PartialViewResult PartialViewInfo(int id)
         {
             var deceasedDto = Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased.GetDeceased(id));
             return PartialView("_DeceasedInfo", deceasedDto);

@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Urn;
+using Memorial.Lib.Site;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
@@ -13,18 +16,28 @@ namespace Memorial.Controllers
 {
     public class UrnController : Controller
     {
+        private readonly IApplicant _applicant;
         private readonly IUrn _urn;
+        private readonly IItem _item;
+        private readonly ISite _site;
 
-        public UrnController(IUrn urn)
+        public UrnController(
+            IApplicant applicant,
+            IUrn urn,
+            IItem item,
+            ISite site)
         {
+            _applicant = applicant;
             _urn = urn;
+            _item = item;
+            _site = site;
         }
 
         public ActionResult Index(byte siteId, int applicantId)
         {
             var viewModel = new UrnIndexesViewModel()
             {
-                UrnDtos = _urn.DtosGetBySite(siteId),
+                UrnDtos = _urn.GetUrnDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -34,61 +47,11 @@ namespace Memorial.Controllers
         {
             var viewModel = new UrnItemsViewModel()
             {
-                UrnItemDtos = _urn.ItemDtosGetByUrn(urnId),
+                UrnItemDtos = _item.GetItemDtosByUrn(urnId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
         }
 
-        public ActionResult Transactions(int urnItemId, int applicantId)
-        {
-            var viewModel = new UrnItemIndexesViewModel()
-            {
-                ApplicantId = applicantId,
-                UrnItemId = urnItemId,
-                OrderFlag = _urn.IsOrderFlag(urnItemId),
-                UrnTransactionDtos = _urn.TransactionDtosGetByItemAndApplicant(urnItemId, applicantId)
-                                                                        .OrderByDescending(mt => mt.CreateDate)
-            };
-            return View(viewModel);
-        }
-
-        public ActionResult New(int urnItemId, int applicantId)
-        {
-            var urnTransactionDto = new UrnTransactionDto();
-            urnTransactionDto.ApplicantId = applicantId;
-            urnTransactionDto.UrnItemId = urnItemId;
-            return View("Form", urnTransactionDto);
-        }
-
-        public ActionResult Save(UrnTransactionDto urnTransactionDto)
-        {
-            if (_urn.CreateNewTransaction(urnTransactionDto))
-                return RedirectToAction("Transactions", new { urnItemId = urnTransactionDto.UrnItemId, applicantId = urnTransactionDto.ApplicantId });
-            else
-                return View("Form", urnTransactionDto);
-        }
-
-        public ActionResult Info(string AF)
-        {
-            return View(_urn.GetTransactionDto(AF));
-        }
-
-        public ActionResult Invoice(string AF)
-        {
-            return RedirectToAction("Index", "Invoices", new { AF = AF, masterCatalog = MasterCatalog.Urn });
-        }
-
-        public ActionResult Receipt(string AF)
-        {
-            return RedirectToAction("Index", "NonOrderReceipts", new { AF = AF, MasterCatalog = MasterCatalog.Urn });
-        }
-
-        public ActionResult Delete(string AF, int urnItemId, int applicantId)
-        {
-            _urn.Delete(AF);
-
-            return RedirectToAction("Index", new { urnItemId = urnItemId, applicantId = applicantId });
-        }
     }
 }

@@ -6,10 +6,10 @@
 
 <h2>Info</h2>
 
-@{Html.RenderAction("ApplicantInfo", "Applicants", new { id = Model.ApplicantId });}
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId });}
 
 Deceased
-@{Html.RenderAction("DeceasedInfo", "Deceaseds", new { id = Model.DeceasedId });}
+@{Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId });}
 
 Cremation
 <div class="row">

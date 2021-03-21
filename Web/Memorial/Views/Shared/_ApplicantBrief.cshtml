@@ -32,14 +32,14 @@
 
 <p>
     @Html.ActionLink("New Deceased", "NewDeceased", new { id = Model.Id })
-</p>
+</p>_ApplicantBrief
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>English Name</th>
             <th>Chinese Name</th>
-            <th>Relationship</th>
+            @*<th>Relationship</th>*@
             <th>Edit</th>
         </tr>
     </thead>
@@ -47,9 +47,9 @@
         @foreach (var deceased in Model.deceasedBriefDtos)
         {
             <tr>
-                <td>@Html.ActionLink(deceased.Name, "DeceasedInfo", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
+                <td>@Html.ActionLink(deceased.Name, "Info", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
                 <td>@deceased.Name2</td>
-                <td>@deceased.RelationshipType.Name</td>
+                @*<td>@deceased.RelationshipType.Name</td>*@
                 <td>@Html.ActionLink("Edit", "EditDeceased", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
             </tr>
         }

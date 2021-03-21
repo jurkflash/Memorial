@@ -11,7 +11,11 @@ namespace Memorial.Core.Domain
         {
             Deceaseds = new HashSet<Deceased>();
 
-            QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
+            QuadrangleTransactions1 = new HashSet<QuadrangleTransaction>();
+
+            QuadrangleTransactions2 = new HashSet<QuadrangleTransaction>();
+
+            QuadrangleTrackings = new HashSet<QuadrangleTracking>();
         }
 
         public int Id { get; set; }
@@ -54,6 +58,10 @@ namespace Memorial.Core.Domain
 
         public ICollection<Deceased> Deceaseds { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
+        public ICollection<QuadrangleTransaction> QuadrangleTransactions1 { get; set; }
+
+        public ICollection<QuadrangleTransaction> QuadrangleTransactions2 { get; set; }
+
+        public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
     }
 }

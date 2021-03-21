@@ -10,7 +10,8 @@
 
 @using (Html.BeginForm("Save", "QuadrangleTransfer"))
 {
-    @Html.LabelFor(c => c.QuadrangleTransactionDto.AF)
+    @Html.DisplayTextFor(a=>a.QuadrangleTransactionDto.AF)
+
     <div class="form-group row">
         <div class="col-md-3">
             Owner
@@ -32,6 +33,7 @@
         <div class="col-md-6">
             @Model.QuadrangleTransactionDto.Applicant.Name &nbsp;
             @Model.QuadrangleTransactionDto.Applicant.Name2
+            @Html.ValidationMessageFor(a => a.QuadrangleTransactionDto.Applicant.Name)
         </div>
     </div>
     <div class="form-group row">
@@ -54,6 +56,7 @@
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleItemId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.QuadrangleTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
@@ -63,4 +66,5 @@
 
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/jqueryuicss")
+
 }

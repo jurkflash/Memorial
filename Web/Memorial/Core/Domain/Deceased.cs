@@ -19,7 +19,13 @@ namespace Memorial.Core.Domain
 
             PlotTransactions = new HashSet<PlotTransaction>();
 
-            QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
+            QuadrangleTransactions1 = new HashSet<QuadrangleTransaction>();
+
+            QuadrangleTransactions2 = new HashSet<QuadrangleTransaction>();
+
+            QuadrangleTrackings1 = new HashSet<QuadrangleTracking>();
+
+            QuadrangleTrackings2 = new HashSet<QuadrangleTracking>();
         }
 
         public int Id { get; set; }
@@ -90,7 +96,13 @@ namespace Memorial.Core.Domain
 
         public ICollection<PlotTransaction> PlotTransactions { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
+        public ICollection<QuadrangleTransaction> QuadrangleTransactions1 { get; set; }
+
+        public ICollection<QuadrangleTransaction> QuadrangleTransactions2 { get; set; }
+
+        public ICollection<QuadrangleTracking> QuadrangleTrackings1 { get; set; }
+
+        public ICollection<QuadrangleTracking> QuadrangleTrackings2 { get; set; }
 
     }
 }

@@ -24,17 +24,17 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public QuadrangleType QuadrangleType { get; set; }
+        public QuadrangleTypeDto QuadrangleTypeDto { get; set; }
 
-        public byte QuadrangleTypeId { get; set; }
+        public byte QuadrangleTypeDtoId { get; set; }
 
-        public QuadrangleArea QuadrangleArea { get; set; }
+        public QuadrangleAreaDto QuadrangleAreaDto { get; set; }
 
-        public int QuadrangleAreaId { get; set; }
+        public int QuadrangleAreaDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int? ApplicantId { get; set; }
+        public int? ApplicantDtoId { get; set; }
 
         public bool hasDeceased { get; set; }
 

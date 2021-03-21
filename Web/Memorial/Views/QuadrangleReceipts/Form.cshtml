@@ -75,7 +75,7 @@ Remaining Amount: @Model.RemainingAmount
                     type: 'GET',
                     data: { id: t }
                 }).done(function (data) {
-                    if (data.RequireRemark) {
+                    if (data.requireRemark) {
                         $("#divPaymentRemark").show();
                     }
                     else {

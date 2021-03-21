@@ -9,6 +9,8 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Quadrangle> GetByArea(int quadrangleAreaId);
 
+        IEnumerable<Quadrangle> GetAvailableByArea(int quadrangleAreaId);
+
         IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int quadrangleAreaId);
     }
 }

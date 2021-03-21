@@ -8,10 +8,12 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface IShift : ITransaction
     {
-        void SetShift(int id);
+        void SetShift(string AF);
 
-        float GetPrice();
+        bool Create(QuadrangleTransactionDto quadrangleTransactionDto);
 
-        bool Create();
+        bool Update(QuadrangleTransactionDto quadrangleTransactionDto);
+
+        bool Delete();
     }
 }

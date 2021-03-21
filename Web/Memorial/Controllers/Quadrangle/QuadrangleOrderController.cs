@@ -23,6 +23,8 @@ namespace Memorial.Controllers
         private IFuneralCo _funeralCo;
         private IOrder _order;
         private IApplicant _applicant;
+        private ITracking _tracking;
+        private IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
         private Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleOrderController(
@@ -31,6 +33,8 @@ namespace Memorial.Controllers
             IDeceased deceased, 
             IFuneralCo funeralCo, 
             IOrder order,
+            ITracking tracking,
+            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
             Lib.Invoice.IQuadrangle invoice
             )
         {
@@ -39,6 +43,8 @@ namespace Memorial.Controllers
             _deceased = deceased;
             _funeralCo = funeralCo;
             _order = order;
+            _tracking = tracking;
+            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
             _invoice = invoice;
         }
 
@@ -53,8 +59,17 @@ namespace Memorial.Controllers
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
                 QuadrangleTransactionDtos = _order.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId),
-                AllowNew = !_quadrangle.HasApplicant()
             };
+
+            if(_quadrangle.HasApplicant())
+            {
+                viewModel.AllowNew = false;
+            }
+            else
+            {
+                viewModel.AllowNew = true;
+            }
+
             return View(viewModel);
         }
 
@@ -66,7 +81,7 @@ namespace Memorial.Controllers
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
                 ApplicantId = _order.GetTransactionApplicantId(),
-                DeceasedId = _order.GetTransactionDeceasedId(),
+                DeceasedId = _order.GetTransactionDeceased1Id(),
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _order.GetItemName(),
                 QuadrangleTransactionDto = _order.GetTransactionDto()
@@ -104,12 +119,29 @@ namespace Memorial.Controllers
 
         public ActionResult Save(QuadrangleTransactionsFormViewModel viewModel)
         {
-            if (viewModel.QuadrangleTransactionDto.DeceasedId != null)
+            if (viewModel.QuadrangleTransactionDto.Deceased1Id == viewModel.QuadrangleTransactionDto.Deceased2Id)
             {
-                _deceased.SetDeceased((int)viewModel.QuadrangleTransactionDto.DeceasedId);
-                if (_deceased.GetQuadrangle() != null)
+                ModelState.AddModelError("QuadrangleTransactionDto.Deceased1Id", "Same deceased");
+                ModelState.AddModelError("QuadrangleTransactionDto.Deceased2Id", "Same deceased");
+                return FormForResubmit(viewModel);
+            }
+
+            if (viewModel.QuadrangleTransactionDto.Deceased1Id != null)
+            {
+                _deceased.SetDeceased((int)viewModel.QuadrangleTransactionDto.Deceased1Id);
+                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.QuadrangleId)
                 {
-                    ModelState.AddModelError("QuadrangleTransactionDto.DeceasedId", "Invalid");
+                    ModelState.AddModelError("QuadrangleTransactionDto.Deceased1Id", "Invalid");
+                    return FormForResubmit(viewModel);
+                }
+            }
+
+            if (viewModel.QuadrangleTransactionDto.Deceased2Id != null)
+            {
+                _deceased.SetDeceased((int)viewModel.QuadrangleTransactionDto.Deceased2Id);
+                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.QuadrangleId)
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.Deceased2Id", "Invalid");
                     return FormForResubmit(viewModel);
                 }
             }
@@ -142,7 +174,6 @@ namespace Memorial.Controllers
                     return FormForResubmit(viewModel);
                 }
 
-
                 _order.Update(viewModel.QuadrangleTransactionDto);
             }
 
@@ -164,8 +195,11 @@ namespace Memorial.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            _order.SetTransaction(AF);
-            _order.Delete();
+            if (_tracking.IsLatestTransaction(id, AF))
+            {
+                _order.SetTransaction(AF);
+                _order.Delete();
+            }
 
             return RedirectToAction("Index", new
             {

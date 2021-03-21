@@ -615,23 +615,32 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\SitesController.cs" />
+    <Compile Include="Controllers\Api\QuadranglesController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
     <Compile Include="Controllers\Api\DeceasedsController.cs" />
     <Compile Include="Controllers\Api\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
     <Compile Include="Controllers\Api\QuadrangleManagesController.cs" />
+    <Compile Include="Controllers\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\DeceasedsController.cs" />
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\QuadrangleInvoicesController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\QuadrangleNonOrderReceiptsController.cs" />
-    <Compile Include="Controllers\QuadrangleReceiptsController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleReceiptsController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleManageController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleOrderController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleShiftController.cs" />
+    <Compile Include="Controllers\Quadrangle\QuadrangleTransferController.cs" />
+    <Compile Include="Controllers\Urn\UrnReceiptsController.cs" />
+    <Compile Include="Controllers\Urn\UrnInvoicesController.cs" />
+    <Compile Include="Controllers\Urn\UrnPurchaseController.cs" />
+    <Compile Include="Controllers\Urn\UrnController.cs" />
     <Compile Include="Core\Domain\AncestorTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
     <Compile Include="Core\Domain\AncestorItem.cs" />
@@ -640,6 +649,7 @@
     <Compile Include="Core\Domain\CremationTransaction.cs" />
     <Compile Include="Core\Domain\MasterCatalog.cs" />
     <Compile Include="Core\Domain\PlotTransaction.cs" />
+    <Compile Include="Core\Domain\QuadrangleTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
     <Compile Include="Core\Domain\MiscellaneousNumber.cs" />
@@ -711,6 +721,7 @@
     <Compile Include="Core\Dtos\QuadrangleDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleItemDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleTransactionDto.cs" />
+    <Compile Include="Core\Dtos\QuadrangleTypeDto.cs" />
     <Compile Include="Core\Dtos\ReceiptDto.cs" />
     <Compile Include="Core\Dtos\RelationshipTypeDto.cs" />
     <Compile Include="Core\Dtos\ReligionTypeDto.cs" />
@@ -731,6 +742,7 @@
     <Compile Include="Core\Repositories\INumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IQuadrangleTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
     <Compile Include="Core\Repositories\IInvoiceRepository.cs" />
@@ -796,6 +808,8 @@
     <Compile Include="Lib\GenderType\IGenderType.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
+    <Compile Include="Lib\Invoice\Urn\IUrn.cs" />
+    <Compile Include="Lib\Invoice\Urn\Urn.cs" />
     <Compile Include="Lib\Quadrangle\IQuadranglePayment.cs" />
     <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
     <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
@@ -811,6 +825,12 @@
     <Compile Include="Lib\PaymentMethod\IPaymentMethod.cs" />
     <Compile Include="Lib\PaymentMethod\PaymentMethod.cs" />
     <Compile Include="Lib\Quadrangle\Order\IOrder.cs" />
+    <Compile Include="Lib\Quadrangle\Shift\IShift.cs" />
+    <Compile Include="Lib\Quadrangle\Shift\Shift.cs" />
+    <Compile Include="Lib\Quadrangle\Tracking\IQuadrangleApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Quadrangle\Tracking\ITracking.cs" />
+    <Compile Include="Lib\Quadrangle\Tracking\QuadrangleApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Quadrangle\Tracking\Tracking.cs" />
     <Compile Include="Lib\Quadrangle\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Quadrangle\Centre\ICentre.cs" />
     <Compile Include="Lib\Quadrangle\Area\IArea.cs" />
@@ -830,12 +850,26 @@
     <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
+    <Compile Include="Lib\Receipt\Urn\IUrn.cs" />
+    <Compile Include="Lib\Receipt\Urn\Urn.cs" />
     <Compile Include="Lib\RelationshipType\IRelationshipType.cs" />
     <Compile Include="Lib\RelationshipType\RelationshipType.cs" />
     <Compile Include="Lib\ReligionType\IReligionType.cs" />
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
     <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
+    <Compile Include="Lib\Urn\Item\IItem.cs" />
+    <Compile Include="Lib\Urn\Item\Item.cs" />
+    <Compile Include="Lib\Urn\Payment\IPayment.cs" />
+    <Compile Include="Lib\Urn\Payment\Payment.cs" />
+    <Compile Include="Lib\Urn\Purchase\IPurchase.cs" />
+    <Compile Include="Lib\Urn\Purchase\Purchase.cs" />
+    <Compile Include="Lib\Urn\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Urn\Urn\IUrn.cs" />
+    <Compile Include="Lib\Urn\Number\INumber.cs" />
+    <Compile Include="Lib\Urn\Urn\Urn.cs" />
+    <Compile Include="Lib\Urn\Number\Number.cs" />
+    <Compile Include="Lib\Urn\Transaction\Transaction.cs" />
     <Compile Include="Migrations\202011161613327_Initial.cs" />
     <Compile Include="Migrations\202011161613327_Initial.designer.cs">
       <DependentUpon>202011161613327_Initial.cs</DependentUpon>
@@ -1664,12 +1698,37 @@
     <Compile Include="Migrations\202103081431485_AddApplicantDeceasedsTable.designer.cs">
       <DependentUpon>202103081431485_AddApplicantDeceasedsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103161608117_RenameDeceasedToDeceased1ForQuadrangleTransaction.cs" />
+    <Compile Include="Migrations\202103161608117_RenameDeceasedToDeceased1ForQuadrangleTransaction.designer.cs">
+      <DependentUpon>202103161608117_RenameDeceasedToDeceased1ForQuadrangleTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103161636012_AddDeceased2ToQuadrangleTransaction.cs" />
+    <Compile Include="Migrations\202103161636012_AddDeceased2ToQuadrangleTransaction.designer.cs">
+      <DependentUpon>202103161636012_AddDeceased2ToQuadrangleTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103171720426_AddShiftedQuadrangleIdToQuadrangleTransactionTable.cs" />
+    <Compile Include="Migrations\202103171720426_AddShiftedQuadrangleIdToQuadrangleTransactionTable.designer.cs">
+      <DependentUpon>202103171720426_AddShiftedQuadrangleIdToQuadrangleTransactionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103181655038_AddQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202103181655038_AddQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202103181655038_AddQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103190141134_RenameDeceased1ToDeceasedForQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202103190141134_RenameDeceased1ToDeceasedForQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202103190141134_RenameDeceased1ToDeceasedForQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103190259577_AddDeceased2ToQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202103190259577_AddDeceased2ToQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202103190259577_AddDeceased2ToQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\QuadrangleTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\InvoiceConfiguration.cs" />
@@ -1725,6 +1784,7 @@
     <Compile Include="Persistence\Repositories\NumberRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\QuadrangleTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationNumberRepository.cs" />
@@ -1770,6 +1830,9 @@
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsInfoViewModel.cs" />
+    <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsIndexViewModel.cs" />
+    <Compile Include="ViewModels\Deceased\DeceasedInfoViewModel.cs" />
     <Compile Include="ViewModels\InvoiceFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNonOrderReceiptsViewModel.cs" />
@@ -1777,6 +1840,7 @@
     <Compile Include="ViewModels\Quadrangle\QuadrangleAreaIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Quadrangle\QuadrangleInfoViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleTransactionsInfoViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleTransactionsFormViewModel.cs" />
     <Compile Include="ViewModels\Receipt\NewNonOrderReceiptFormViewModel.cs" />
@@ -1870,9 +1934,7 @@
     <Content Include="Views\OrderReceipts\Form.cshtml" />
     <Content Include="Views\Invoices\Form.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
-    <Content Include="Views\Urn\Transactions.cshtml" />
-    <Content Include="Views\Urn\Form.cshtml" />
-    <Content Include="Views\Urn\Info.cshtml" />
+    <Content Include="Views\UrnPurchase\Form.cshtml" />
     <Content Include="Views\QuadrangleTransactions\OrderForm.cshtml" />
     <Content Include="Views\QuadrangleTransactions\ManageForm.cshtml" />
     <Content Include="Views\QuadrangleTransactions\PhotoForm.cshtml" />
@@ -1882,7 +1944,7 @@
     <Content Include="Views\QuadrangleOrder\Index.cshtml" />
     <Content Include="Views\QuadrangleOrder\Form.cshtml" />
     <Content Include="Views\QuadrangleManage\Index.cshtml" />
-    <Content Include="Views\QuadrangleShift\Index.cshtml" />
+    <Content Include="Views\QuadrangleShift\ShiftedToIndex.cshtml" />
     <Content Include="Views\QuadranglePhoto\Index.cshtml" />
     <Content Include="Views\QuadrangleTransfer\Index.cshtml" />
     <Content Include="Views\QuadrangleManage\Form.cshtml" />
@@ -1906,7 +1968,19 @@
     <Content Include="Views\QuadrangleInvoices\Index.cshtml" />
     <Content Include="Views\QuadrangleNonOrderReceipts\Index.cshtml" />
     <Content Include="Views\QuadrangleNonOrderReceipts\Form.cshtml" />
-    <Content Include="Views\Applicants\LinkDeceased.cshtml" />
+    <Content Include="Views\ApplicantDeceaseds\LinkDeceased.cshtml" />
+    <Content Include="Views\Shared\_QuadrangleInfo.cshtml" />
+    <Content Include="Views\Shared\_ApplicantDeceasedsIndex.cshtml" />
+    <Content Include="Views\Shared\_ApplicantDeceasedsInfo.cshtml" />
+    <Content Include="Views\QuadrangleShift\ShiftedFromIndex.cshtml" />
+    <Content Include="Views\UrnPurchase\Index.cshtml" />
+    <Content Include="Views\UrnPurchase\Info.cshtml" />
+    <Content Include="Views\UrnInvoices\Form.cshtml" />
+    <Content Include="Views\UrnInvoices\Index.cshtml" />
+    <Content Include="Views\UrnInvoices\InvoiceForm.cshtml" />
+    <Content Include="Views\UrnInvoices\Invoices.cshtml" />
+    <Content Include="Views\UrnReceipts\Form.cshtml" />
+    <Content Include="Views\UrnReceipts\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2548,6 +2622,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103081431485_AddApplicantDeceasedsTable.resx">
       <DependentUpon>202103081431485_AddApplicantDeceasedsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103161608117_RenameDeceasedToDeceased1ForQuadrangleTransaction.resx">
+      <DependentUpon>202103161608117_RenameDeceasedToDeceased1ForQuadrangleTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103161636012_AddDeceased2ToQuadrangleTransaction.resx">
+      <DependentUpon>202103161636012_AddDeceased2ToQuadrangleTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103171720426_AddShiftedQuadrangleIdToQuadrangleTransactionTable.resx">
+      <DependentUpon>202103171720426_AddShiftedQuadrangleIdToQuadrangleTransactionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103181655038_AddQuadrangleTrackingsTable.resx">
+      <DependentUpon>202103181655038_AddQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103190141134_RenameDeceased1ToDeceasedForQuadrangleTrackingsTable.resx">
+      <DependentUpon>202103190141134_RenameDeceased1ToDeceasedForQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103190259577_AddDeceased2ToQuadrangleTrackingsTable.resx">
+      <DependentUpon>202103190259577_AddDeceased2ToQuadrangleTrackingsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -40,9 +40,18 @@ namespace Memorial.App_Start
             CreateMap<UrnItem, UrnItemDto>();
             CreateMap<UrnTransaction, UrnTransactionDto>();
 
-            CreateMap<Quadrangle, QuadrangleDto>();
-            CreateMap<QuadrangleArea, QuadrangleAreaDto>();
+            CreateMap<Quadrangle, QuadrangleDto>()
+                .ForMember(c => c.QuadrangleTypeDto, opt => opt.MapFrom(x => x.QuadrangleType))
+                .ForMember(c => c.QuadrangleTypeDtoId, opt => opt.MapFrom(x => x.QuadrangleTypeId))
+                .ForMember(c => c.QuadrangleAreaDto, opt => opt.MapFrom(x => x.QuadrangleArea))
+                .ForMember(c => c.QuadrangleAreaDtoId, opt => opt.MapFrom(x => x.QuadrangleAreaId));
+
+            CreateMap<QuadrangleArea, QuadrangleAreaDto>()
+                .ForMember(c => c.QuadrangleCentreDto, opt => opt.MapFrom(x => x.QuadrangleCentre))
+                .ForMember(c => c.QuadrangleCentreDtoId, opt => opt.MapFrom(x => x.QuadrangleCentreId));
+
             CreateMap<QuadrangleCentre, QuadrangleCentreDto>();
+            CreateMap<QuadrangleType, QuadrangleTypeDto>();
             CreateMap<QuadrangleItem, QuadrangleItemDto>();
             CreateMap<QuadrangleTransaction, QuadrangleTransactionDto>();
 
@@ -122,13 +131,16 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleItemDto, QuadrangleItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<QuadrangleTypeDto, QuadrangleType>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleTransactionDto, QuadrangleTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.QuadrangleItem, opt => opt.Ignore())
                 .ForMember(c => c.Quadrangle, opt => opt.Ignore())
                 .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
-                .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.Deceased1, opt => opt.Ignore())
+                .ForMember(c => c.Deceased2, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore())
                 .ForMember(c => c.ModifyDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());

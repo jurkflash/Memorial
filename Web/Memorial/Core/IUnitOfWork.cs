@@ -51,6 +51,7 @@ namespace Memorial.Core
         ICremationTransactionRepository CremationTransactions { get; }
 
         IQuadrangleRepository Quadrangles { get; }
+        IQuadrangleTrackingRepository QuadrangleTrackings { get; }
         IQuadrangleAreaRepository QuadrangleAreas { get; }
         IQuadrangleTypeRepository QuadrangleTypes { get; }
         IQuadrangleItemRepository QuadrangleItems { get; }

@@ -1,66 +1,106 @@
 ﻿@model Memorial.Core.Dtos.DeceasedDto
 
-<div class="form-group">
-    IC
-    @Model.IC
+<div class="form-group row">
+    <div class="col-md-3">
+        IC
+    </div>
+    <div class="col-md-6">
+        @Model.IC
+    </div>
 </div>
-<div class="form-group">
-    English Name
-    @Model.Name
+<div class="form-group row">
+    <div class="col-md-3">
+        Name
+    </div>
+    <div class="col-md-3">
+        @Model.Name
+    </div>
+    <div class="col-md-3">
+        Name2
+    </div>
+    <div class="col-md-3">
+        @Model.Name2
+    </div>
 </div>
-<div class="form-group">
-    Chinese Name
-    @Model.Name2
+<div class="form-group row">
+    <div class="col-md-3">
+        Age
+    </div>
+    <div class="col-md-3">
+        @Model.Age
+    </div>
+    <div class="col-md-3">
+        Gender
+    </div>
+    <div class="col-md-3">
+        @Model.GenderType.Name
+    </div>
 </div>
-<div class="form-group">
-    Age
-    @Model.Age
+<div class="form-group row">
+    <div class="col-md-3">
+        Marital
+    </div>
+    <div class="col-md-3">
+        @Model.MaritalType.Name
+    </div>
+    <div class="col-md-3">
+        Religion
+    </div>
+    <div class="col-md-3">
+        @Model.ReligionType.Name
+    </div>
 </div>
-<div class="form-group">
-    Address
-    @Model.Address
+<div class="form-group row">
+    <div class="col-md-3">
+        Address
+    </div>
+    <div class="col-md-3">
+        @Model.Address
+    </div>
+    <div class="col-md-3">
+        Nationality
+    </div>
+    <div class="col-md-3">
+        @Model.NationalityType.Name
+    </div>
 </div>
-<div class="form-group">
-    Gender
-    @Model.GenderType.Name
+<div class="form-group row">
+    <div class="col-md-2">
+        Death Date
+    </div>
+    <div class="col-md-2">
+        @Model.DeathDate.ToString("yyyy-MM-dd HH:mm")
+    </div>
+    <div class="col-md-2">
+        Death Registration Centre
+    </div>
+    <div class="col-md-2">
+        @Model.DeathRegistrationCentre
+    </div>
+    <div class="col-md-2">
+        Death Certificate
+    </div>
+    <div class="col-md-2">
+        @Model.DeathCertificate
+    </div>
 </div>
-<div class="form-group">
-    Marital
-    @Model.MaritalType.Name
-</div>
-<div class="form-group">
-    Religion
-    @Model.ReligionType.Name
-</div>
-<div class="form-group">
-    Nationality
-    @Model.NationalityType.Name
-</div>
-@*<div class="form-group">
-    Relationship
-    @Model.RelationshipType.Name
-</div>*@
-<div class="form-group">
-    Death Date
-    @Model.DeathDate.ToString("yyyy-MM-dd HH:mm")
-</div>
-<div class="form-group">
-    Death Registration Centre
-    @Model.DeathRegistrationCentre
-</div>
-<div class="form-group">
-    Death Certificate
-    @Model.DeathCertificate
-</div>
-<div class="form-group">
-    Burial Certificate
-    @Model.BurialCertificate
-</div>
-<div class="form-group">
-    Import Permit Number
-    @Model.ImportPermitNumber
-</div>
-<div class="form-group">
-    Remark
-    @Model.Remark
+<div class="form-group row">
+    <div class="col-md-2">
+        Burial Certificate
+    </div>
+    <div class="col-md-2">
+        @Model.BurialCertificate
+    </div>
+    <div class="col-md-2">
+        Import Permit Number
+    </div>
+    <div class="col-md-2">
+        @Model.ImportPermitNumber
+    </div>
+    <div class="col-md-2">
+        Remark
+    </div>
+    <div class="col-md-2">
+        @Model.Remark
+    </div>
 </div>

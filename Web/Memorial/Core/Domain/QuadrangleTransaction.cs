@@ -12,6 +12,8 @@ namespace Memorial.Core.Domain
             Invoices = new HashSet<Invoice>();
 
             Receipts = new HashSet<Receipt>();
+
+            QuadrangleTrackings = new HashSet<QuadrangleTracking>();
         }
 
         public string AF { get; set; }
@@ -50,9 +52,17 @@ namespace Memorial.Core.Domain
 
         public int ApplicantId { get; set; }
 
-        public Deceased Deceased { get; set; }
+        public Deceased Deceased1 { get; set; }
 
-        public int? DeceasedId { get; set; }
+        public int? Deceased1Id { get; set; }
+
+        public Deceased Deceased2 { get; set; }
+
+        public int? Deceased2Id { get; set; }
+
+        public Quadrangle ShiftedQuadrangle { get; set; }
+
+        public int? ShiftedQuadrangleId { get; set; }
 
         public DateTime CreateDate { get; set; }
 
@@ -63,5 +73,7 @@ namespace Memorial.Core.Domain
         public ICollection<Invoice> Invoices { get; set; }
 
         public ICollection<Receipt> Receipts { get; set; }
+
+        public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
     }
 }

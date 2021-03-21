@@ -33,9 +33,10 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.QuadrangleTransactions
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.ShiftedQuadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.QuadrangleItemId == itemId
-                                            && qt.QuadrangleId == quadrangleId
+                                            && (qt.QuadrangleId == quadrangleId || qt.ShiftedQuadrangleId == quadrangleId)
                                             && qt.DeleteDate == null).ToList();
         }
 
@@ -49,6 +50,26 @@ namespace Memorial.Persistence.Repositories
                                             && qt.QuadrangleItemId == itemId
                                             && qt.QuadrangleId == quadrangleId
                                             && qt.DeleteDate == null).ToList();
+        }
+
+        public QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.QuadrangleId == quadrangleId
+                                            && qt.DeleteDate == null).OrderByDescending(qt => qt.CreateDate).FirstOrDefault();
+        }
+
+        public QuadrangleTransaction GetLastQuadrangleTransactionByShiftedQuadrangleId(int quadrangleId)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.ShiftedQuadrangleId == quadrangleId
+                                            && qt.DeleteDate == null).OrderByDescending(qt => qt.CreateDate).FirstOrDefault();
         }
 
         public MemorialContext MemorialContext

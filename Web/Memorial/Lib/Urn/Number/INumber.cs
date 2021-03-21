@@ -7,7 +7,7 @@ using Memorial.Core.Repositories;
 
 namespace Memorial.Lib
 {
-    public interface IUrnNumber
+    public interface INumber
     {
         string GetNewAF(int urnItemId, int year);
 

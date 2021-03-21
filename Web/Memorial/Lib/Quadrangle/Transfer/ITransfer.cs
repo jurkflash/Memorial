@@ -10,6 +10,8 @@ namespace Memorial.Lib.Quadrangle
     {
         void SetTransfer(string AF);
 
+        bool AllowQuadrangleDeceasePairing(IQuadrangle quadrangle, int applicantId);
+
         bool Create(QuadrangleTransactionDto quadrangleTransactionDto);
 
         bool Update(QuadrangleTransactionDto quadrangleTransactionDto);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Memorial.Lib.Invoice;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Urn;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
@@ -13,16 +13,16 @@ using AutoMapper;
 
 namespace Memorial.Controllers
 {
-    public class QuadrangleInvoicesController : Controller
+    public class UrnInvoicesController : Controller
     {
         private readonly ITransaction _transaction;
-        private readonly Lib.Invoice.IQuadrangle _invoice;
-        private readonly IQuadranglePayment _payment;
+        private readonly Lib.Invoice.IUrn _invoice;
+        private readonly IUrnPayment _payment;
 
-        public QuadrangleInvoicesController(
+        public UrnInvoicesController(
             ITransaction transaction,
-            Lib.Invoice.IQuadrangle invoice, 
-            IQuadranglePayment payment)
+            Lib.Invoice.IUrn invoice,
+            IUrnPayment payment)
         {
             _transaction = transaction;
             _invoice = invoice;
@@ -75,7 +75,7 @@ namespace Memorial.Controllers
 
             _payment.SetTransaction(viewModel.AF);
 
-            viewModel.InvoiceDto.QuadrangleTransactionAF = viewModel.AF;
+            viewModel.InvoiceDto.UrnTransactionAF = viewModel.AF;
 
             if (viewModel.InvoiceDto.IV == null)
             {
@@ -98,7 +98,7 @@ namespace Memorial.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "QuadrangleReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "UrnReceipts", new { IV = IV, AF = AF });
         }
 
         public ActionResult Delete(string IV, string AF)

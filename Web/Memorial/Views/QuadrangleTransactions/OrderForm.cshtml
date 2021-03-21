@@ -12,8 +12,12 @@
 {
     @Html.LabelFor(c => c.QuadrangleTransactionDto.AF)
     <div class="form-group">
-        Deceased
-        @Html.DropDownListFor(c => c.QuadrangleTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        Deceased1
+        @Html.DropDownListFor(c => c.QuadrangleTransactionDto.Deceased1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        Deceased2
+        @Html.DropDownListFor(c => c.QuadrangleTransactionDto.Deceased2Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
     </div>
     <div class="form-group">
         Funeral Company

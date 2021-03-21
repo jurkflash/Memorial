@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(q => q.Applicant)
                 .Include(q => q.QuadrangleType)
                 .Include(q => q.QuadrangleArea)
-                .Include(q => q.QuadrangleArea.QuadrangleCentre)
+                //.Include(q => q.QuadrangleArea.QuadrangleCentre)
                 .Where(q => q.Id == id && q.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -26,8 +26,13 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Quadrangle> GetByArea(int quadrangleAreaId)
         {
             return MemorialContext.Quadrangles
-                .Where(q => q.QuadrangleAreaId == quadrangleAreaId)
-                .Include(q => q.QuadrangleArea.QuadrangleCentre).ToList();
+                .Where(q => q.QuadrangleAreaId == quadrangleAreaId).ToList();
+        }
+
+        public IEnumerable<Quadrangle> GetAvailableByArea(int quadrangleAreaId)
+        {
+            return MemorialContext.Quadrangles
+                .Where(q => q.QuadrangleAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int quadrangleAreaId)

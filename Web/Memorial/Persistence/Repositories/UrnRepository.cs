@@ -12,10 +12,18 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public Urn GetActive(int id)
+        {
+            return MemorialContext.Urns
+                .Include(u => u.Site)
+                .Where(u => u.Id == id && u.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<Urn> GetBySite(byte siteId)
         {
             return MemorialContext.Urns
-                .Where(u => u.SiteId == siteId).ToList();
+                .Where(u => u.SiteId == siteId && u.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

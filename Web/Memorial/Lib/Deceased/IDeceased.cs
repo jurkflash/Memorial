@@ -24,7 +24,7 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
-        Core.Domain.Deceased GetDeceasedsByQuadrangleId(int quadrangleId);
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
 
         int Create(DeceasedDto deceasedDto);
 

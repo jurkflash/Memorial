@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Quadrangle
@@ -21,6 +22,7 @@ namespace Memorial.Lib.Quadrangle
             IQuadrangle quadrangle,
             IApplicant applicant,
             IDeceased deceased,
+            IApplicantDeceased applicantDeceased,
             INumber number,
             Invoice.IQuadrangle invoice,
             IQuadranglePayment payment
@@ -31,6 +33,7 @@ namespace Memorial.Lib.Quadrangle
                 quadrangle,
                 applicant,
                 deceased,
+                applicantDeceased,
                 number
                 )
         {
@@ -39,6 +42,7 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle = quadrangle;
             _applicant = applicant;
             _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
             _number = number;
             _invoice = invoice;
             _payment = payment;
@@ -61,9 +65,9 @@ namespace Memorial.Lib.Quadrangle
 
         public bool Create(QuadrangleTransactionDto quadrangleTransactionDto)
         {
-            if (quadrangleTransactionDto.DeceasedId != null)
+            if (quadrangleTransactionDto.Deceased1Id != null)
             {
-                SetDeceased((int)quadrangleTransactionDto.DeceasedId);
+                SetDeceased((int)quadrangleTransactionDto.Deceased1Id);
                 if (_deceased.GetQuadrangle() != null)
                     return false;
             }

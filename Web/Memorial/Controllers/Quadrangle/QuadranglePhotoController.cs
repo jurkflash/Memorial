@@ -7,7 +7,6 @@ using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.FuneralCo;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
@@ -63,7 +62,7 @@ namespace Memorial.Controllers
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
                 ApplicantId = _photo.GetTransactionApplicantId(),
-                DeceasedId = _photo.GetTransactionDeceasedId(),
+                DeceasedId = _photo.GetTransactionDeceased1Id(),
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _photo.GetItemName(),
                 QuadrangleTransactionDto = _photo.GetTransactionDto()

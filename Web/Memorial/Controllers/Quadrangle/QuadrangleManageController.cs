@@ -63,7 +63,7 @@ namespace Memorial.Controllers
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
                 ApplicantId = _manage.GetTransactionApplicantId(),
-                DeceasedId = _manage.GetTransactionDeceasedId(),
+                DeceasedId = _manage.GetTransactionDeceased1Id(),
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _manage.GetItemName(),
                 QuadrangleTransactionDto = _manage.GetTransactionDto()

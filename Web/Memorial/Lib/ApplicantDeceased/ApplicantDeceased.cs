@@ -50,6 +50,24 @@ namespace Memorial.Lib.ApplicantDeceased
             return Mapper.Map<Core.Domain.ApplicantDeceased, ApplicantDeceasedDto>(GetApplicantDeceased(applicantId, deceasedId));
         }
 
+        public ApplicantDeceasedFlattenDto GetApplicantDeceasedFlattenDto(int applicantId, int deceasedId)
+        {
+            var ad = GetApplicantDeceasedDto(applicantId, deceasedId);
+
+            return new Core.Dtos.ApplicantDeceasedFlattenDto()
+            {
+                ApplicantId = ad.ApplicantId,
+                ApplicantName = ad.Applicant.Name,
+                ApplicantName2 = ad.Applicant.Name2,
+                DeceasedId = ad.DeceasedId,
+                DeceasedName = ad.Deceased.Name,
+                DeceasedName2 = ad.Deceased.Name2,
+                Id = ad.Id,
+                RelationshipTypeId = ad.RelationshipTypeId,
+                RelationshipTypeName = ad.RelationshipType.Name
+            };
+        }
+
         public byte GetRelationshipTypeId()
         {
             return _applicantDeceased.RelationshipTypeId;

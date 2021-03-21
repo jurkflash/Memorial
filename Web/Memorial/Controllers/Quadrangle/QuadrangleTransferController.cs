@@ -6,31 +6,48 @@ using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using AutoMapper;
 
 namespace Memorial.Controllers
 {
     public class QuadrangleTransferController : Controller
     {
-        private ITransfer _transfer;
         private IQuadrangle _quadrangle;
         private IDeceased _deceased;
+        private IApplicantDeceased _applicantDeceased;
+        private ITransfer _transfer;
         private IApplicant _applicant;
+        private ITracking _tracking;
+        private IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
+        private Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleTransferController(
-            IDeceased deceased, 
-            ITransfer transfer, 
             IQuadrangle quadrangle,
-            IApplicant applicant
+            IApplicant applicant,
+            IApplicantDeceased applicantDeceased,
+            IDeceased deceased,
+            ITransfer transfer,
+            ITracking tracking,
+            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
+            Lib.Invoice.IQuadrangle invoice
             )
         {
-            _transfer = transfer;
             _quadrangle = quadrangle;
-            _deceased = deceased;
             _applicant = applicant;
+            _applicantDeceased = applicantDeceased;
+            _deceased = deceased;
+            _transfer = transfer;
+            _tracking = tracking;
+            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
+            _invoice = invoice;
         }
+
         public ActionResult Index(int itemId, int id, int applicantId)
         {
             _quadrangle.SetQuadrangle(id);
@@ -39,83 +56,137 @@ namespace Memorial.Controllers
             {
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
-                QuadrangleDto = _quadrangle.DtoGetQuadrangle(),
+                QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _transfer.DtosGetByQuadrangleIdAndItem(id, itemId),
-                AllowNew = _quadrangle.HasApplicant()
+                QuadrangleTransactionDtos = _transfer.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId)
             };
+
+            viewModel.AllowNew = _quadrangle.HasApplicant() && _quadrangle.GetApplicantId() != applicantId && _transfer.AllowQuadrangleDeceasePairing(_quadrangle, applicantId);
+
             return View(viewModel);
         }
 
         public ActionResult Info(string AF)
         {
             _transfer.SetTransaction(AF);
+            _quadrangle.SetQuadrangle(_transfer.GetTransactionQuadrangleId());
+
             var viewModel = new QuadrangleTransactionsInfoViewModel()
             {
-                ApplicantId = _transfer.GetApplicantId(),
-                DeceasedId = _transfer.GetDeceasedId(),
-                QuadrangleDto = _transfer.DtoGetQuadrangle(),
+                ApplicantId = _transfer.GetTransactionApplicantId(),
+                DeceasedId = _transfer.GetTransactionDeceased1Id(),
+                QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 ItemName = _transfer.GetItemName(),
-                QuadrangleTransactionDto = _transfer.DtoGetTransaction()
+                QuadrangleTransactionDto = _transfer.GetTransactionDto()
             };
             return View(viewModel);
         }
 
-        public ActionResult Form(int itemId, int id, int applicantId)
+        public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _quadrangle.SetQuadrangle(id);
-            _applicant.SetById(applicantId);
-            _transfer.SetTransfer(itemId);
+            var viewModel = new QuadrangleTransactionsFormViewModel();
 
-            var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
-            quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
-            quadrangleTransactionDto.QuadrangleId = id;
-            quadrangleTransactionDto.Applicant = _applicant.GetApplicant();
-            var viewModel = new QuadrangleTransactionsFormViewModel()
+            if (AF == null)
             {
-                DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(applicantId),
-                QuadrangleTransactionDto = quadrangleTransactionDto
-            };
-            viewModel.QuadrangleTransactionDto.Price = _transfer.GetPrice();
+                _quadrangle.SetQuadrangle(id);
+
+                var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+                quadrangleTransactionDto.Applicant = _applicant.GetApplicant(applicantId);
+                quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
+
+                viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
+                viewModel.QuadrangleTransactionDto.Price = _transfer.GetItemPrice(itemId);
+            }
+            else
+            {
+                _transfer.SetTransaction(AF);
+                viewModel.QuadrangleTransactionDto = _transfer.GetTransactionDto(AF);
+            }
+
             return View(viewModel);
         }
 
         public ActionResult Save(QuadrangleTransactionsFormViewModel viewModel)
         {
-            _transfer.SetTransaction(AutoMapper.Mapper.Map<Core.Dtos.QuadrangleTransactionDto, Core.Domain.QuadrangleTransaction>(viewModel.QuadrangleTransactionDto));
-            
-            if (_transfer.Create())
+            if (viewModel.QuadrangleTransactionDto.AF == null)
             {
-                return RedirectToAction("Index", new
+                _quadrangle.SetQuadrangle(viewModel.QuadrangleTransactionDto.QuadrangleId);
+
+                if (_quadrangle.GetApplicantId() == viewModel.QuadrangleTransactionDto.ApplicantId)
                 {
-                    itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
-                    id = viewModel.QuadrangleTransactionDto.QuadrangleId,
-                    applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
-                });
+                    ModelState.AddModelError("QuadrangleTransactionDto.Applicant.Name", "Not allow to be same applicant");
+                    return FormForResubmit(viewModel);
+                }
+
+                if(!_transfer.AllowQuadrangleDeceasePairing(_quadrangle, viewModel.QuadrangleTransactionDto.ApplicantId))
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.Applicant.Name", "Deceased not linked with new applicant");
+                    return FormForResubmit(viewModel);
+                }
+
+                if (_transfer.Create(viewModel.QuadrangleTransactionDto))
+                {
+                    return RedirectToAction("Index", new
+                    {
+                        itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+                    });
+                }
+                else
+                {
+                    return FormForResubmit(viewModel);
+                }
             }
             else
             {
-                viewModel.DeceasedBriefDtos = _deceased.BriefDtosGetByApplicant(viewModel.QuadrangleTransactionDto.ApplicantId);
+                if (_invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Any() &&
+                    viewModel.QuadrangleTransactionDto.Price <
+                _invoice.GetInvoicesByAF(viewModel.QuadrangleTransactionDto.AF).Max(i => i.Amount))
+                {
+                    ModelState.AddModelError("QuadrangleTransactionDto.Price", "* Exceed invoice amount");
+                    return FormForResubmit(viewModel);
+                }
 
-                return View("Form",viewModel);
+
+                _transfer.Update(viewModel.QuadrangleTransactionDto);
             }
+
+            return RedirectToAction("Index", new
+            {
+                itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
+            });
         }
 
-        public ActionResult Invoice(string AF)
+        public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
-            return RedirectToAction("Index", "Invoices", new { AF = AF, masterCatalog = MasterCatalog.Quadrangle });
+            viewModel.QuadrangleTransactionDto.Applicant = _applicant.GetApplicant(viewModel.QuadrangleTransactionDto.ApplicantId);
+            viewModel.QuadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle(viewModel.QuadrangleTransactionDto.QuadrangleId);
+
+            return View("Form", viewModel);
         }
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            //_quadrangleTransaction.SetQuadrangleTransaction(AF);
-            //_quadrangleTransaction.Delete();
+            if (_tracking.IsLatestTransaction(id, AF))
+            {
+                _transfer.SetTransaction(AF);
+                _transfer.Delete();
+            }
+
             return RedirectToAction("Index", new
             {
                 itemId = itemId,
                 id = id,
                 applicantId = applicantId
             });
+        }
+
+        public ActionResult Invoice(string AF)
+        {
+            return RedirectToAction("Index", "QuadrangleInvoices", new { AF = AF });
         }
     }
 }

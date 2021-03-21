@@ -13,6 +13,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Deceased> GetAllExcludeFilter(int applicantId, string deceasedName);
 
-        Deceased GetByQuadrangle(int quadrangleId);
+        IEnumerable<Deceased> GetByQuadrangle(int quadrangleId);
     }
 }

@@ -1,0 +1,31 @@
+﻿@model Memorial.ViewModels.AppplicantDeceasedsInfoViewModel
+
+<h2>Applicant</h2>
+@if (Model.ApplicantId == null)
+{
+    <div>No record</div>
+}
+else
+{
+    Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId });
+}
+
+<h2>Relationship</h2>
+@if (Model.DeceasedId == null)
+{
+    <div>No record</div>
+}
+else
+{
+    @Model.RelationshipTypeName
+}
+
+<h2>Deceased</h2>
+@if (Model.DeceasedId == null)
+{
+    <div>No record</div>
+}
+else
+{
+    Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId });
+}
