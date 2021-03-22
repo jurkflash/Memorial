@@ -808,14 +808,28 @@
     <Compile Include="Lib\GenderType\IGenderType.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
+    <Compile Include="Lib\Invoice\Miscellaneous\IMiscellaneous.cs" />
+    <Compile Include="Lib\Invoice\Miscellaneous\Miscellaneous.cs" />
     <Compile Include="Lib\Invoice\Urn\IUrn.cs" />
     <Compile Include="Lib\Invoice\Urn\Urn.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadranglePayment.cs" />
+    <Compile Include="Lib\Miscellaneous\Compensate\ICompensate.cs" />
+    <Compile Include="Lib\Miscellaneous\Compensate\Compensate.cs" />
+    <Compile Include="Lib\Miscellaneous\Item\IItem.cs" />
+    <Compile Include="Lib\Miscellaneous\Item\Item.cs" />
+    <Compile Include="Lib\Miscellaneous\Miscellaneous\IMiscellaneous.cs" />
+    <Compile Include="Lib\Miscellaneous\Miscellaneous\Miscellaneous.cs" />
+    <Compile Include="Lib\Miscellaneous\Number\INumber.cs" />
+    <Compile Include="Lib\Miscellaneous\Number\Number.cs" />
+    <Compile Include="Lib\Miscellaneous\Payment\IPayment.cs" />
+    <Compile Include="Lib\Miscellaneous\Payment\Payment.cs" />
+    <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
     <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
     <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
     <Compile Include="Lib\Quadrangle\Photo\IPhoto.cs" />
     <Compile Include="Lib\Quadrangle\Photo\Photo.cs" />
-    <Compile Include="Lib\Quadrangle\QuadranglePayment.cs" />
+    <Compile Include="Lib\Quadrangle\Payment\Payment.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\MaritalType\MaritalType.cs" />
@@ -836,17 +850,19 @@
     <Compile Include="Lib\Quadrangle\Area\IArea.cs" />
     <Compile Include="Lib\Quadrangle\Item\IItem.cs" />
     <Compile Include="Lib\Quadrangle\Quadrangle\IQuadrangle.cs" />
-    <Compile Include="Lib\Quadrangle\IQuadrangleNumber.cs" />
+    <Compile Include="Lib\Quadrangle\Number\INumber.cs" />
     <Compile Include="Lib\Quadrangle\Order\Order.cs" />
     <Compile Include="Lib\Quadrangle\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Quadrangle\Transaction\Transaction.cs" />
     <Compile Include="Lib\Quadrangle\Centre\Centre.cs" />
     <Compile Include="Lib\Quadrangle\Area\Area.cs" />
     <Compile Include="Lib\Quadrangle\Item\Item.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleNumber.cs" />
+    <Compile Include="Lib\Quadrangle\Number\Number.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
+    <Compile Include="Lib\Receipt\Miscellaneous\IMiscellaneous.cs" />
+    <Compile Include="Lib\Receipt\Miscellaneous\Miscellaneous.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
@@ -1722,6 +1738,10 @@
     <Compile Include="Migrations\202103190259577_AddDeceased2ToQuadrangleTrackingsTable.designer.cs">
       <DependentUpon>202103190259577_AddDeceased2ToQuadrangleTrackingsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.designer.cs">
+      <DependentUpon>202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -1990,6 +2010,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Lib\Miscellaneous\Donation\" />
+    <Folder Include="Lib\Miscellaneous\RentAirCooler\" />
     <Folder Include="Lib\Quadrangle\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -2640,6 +2662,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103190259577_AddDeceased2ToQuadrangleTrackingsTable.resx">
       <DependentUpon>202103190259577_AddDeceased2ToQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.resx">
+      <DependentUpon>202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

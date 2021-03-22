@@ -2,25 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Memorial.Lib.Urn;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib.Urn
+namespace Memorial.Lib.Miscellaneous
 {
     public class Payment : IPayment
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransaction _transaction;
-        private readonly Invoice.IUrn _invoice;
-        private readonly Receipt.IUrn _receipt;
+        private readonly Invoice.IMiscellaneous _invoice;
+        private readonly Receipt.IMiscellaneous _receipt;
         private readonly IPaymentMethod _paymentMethod;
 
         public Payment(
             IUnitOfWork unitOfWork, 
             ITransaction transaction, 
-            Invoice.IUrn invoice, 
-            Receipt.IUrn receipt,
+            Invoice.IMiscellaneous invoice, 
+            Receipt.IMiscellaneous receipt,
             IPaymentMethod paymentMethod
             )
         {

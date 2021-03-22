@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Quadrangle;
 
-namespace Memorial.Lib.Quadrangle
+namespace Memorial.Lib.Miscellaneous
 {
-    public interface IQuadranglePayment
+    public interface IPayment
     {
         void SetTransaction(string AF);
 

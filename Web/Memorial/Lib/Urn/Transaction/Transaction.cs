@@ -5,7 +5,6 @@ using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
-using Memorial.Lib.Urn;
 using AutoMapper;
 
 namespace Memorial.Lib.Urn

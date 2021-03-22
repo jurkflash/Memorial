@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Quadrangle;
 
-namespace Memorial.Lib.Urn
+namespace Memorial.Lib.Quadrangle
 {
     public interface IPayment
     {

@@ -20,14 +20,14 @@ namespace Memorial.Controllers
         private readonly Lib.Invoice.IUrn _invoice;
         private readonly Lib.Receipt.IUrn _receipt;
         private readonly IPaymentMethod _paymentMethod;
-        private readonly IUrnPayment _payment;
+        private readonly IPayment _payment;
 
         public UrnReceiptsController(
             ITransaction transaction,
             Lib.Invoice.IUrn invoice,
             Lib.Receipt.IUrn receipt,
             IPaymentMethod paymentMethod,
-            IUrnPayment payment)
+            IPayment payment)
         {
             _transaction = transaction;
             _invoice = invoice;

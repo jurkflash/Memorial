@@ -8,13 +8,13 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Miscellaneous
 {
-    public class MiscellaneousNumber : IMiscellaneousNumber
+    public class Number : INumber
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public MiscellaneousNumber(IUnitOfWork unitOfWork)
+        public Number(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

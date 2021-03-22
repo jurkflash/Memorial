@@ -8,7 +8,7 @@ using AutoMapper;
 
 namespace Memorial.Lib.Quadrangle
 {
-    public class QuadranglePayment : IQuadranglePayment
+    public class Payment : IPayment
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransaction _transaction;
@@ -16,7 +16,7 @@ namespace Memorial.Lib.Quadrangle
         private readonly Receipt.IQuadrangle _receipt;
         private readonly IPaymentMethod _paymentMethod;
 
-        public QuadranglePayment(
+        public Payment(
             IUnitOfWork unitOfWork, 
             ITransaction transaction, 
             Invoice.IQuadrangle invoice, 

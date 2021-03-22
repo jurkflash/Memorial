@@ -17,12 +17,12 @@ namespace Memorial.Controllers
     {
         private readonly ITransaction _transaction;
         private readonly Lib.Invoice.IUrn _invoice;
-        private readonly IUrnPayment _payment;
+        private readonly IPayment _payment;
 
         public UrnInvoicesController(
             ITransaction transaction,
             Lib.Invoice.IUrn invoice,
-            IUrnPayment payment)
+            IPayment payment)
         {
             _transaction = transaction;
             _invoice = invoice;

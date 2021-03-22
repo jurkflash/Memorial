@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Miscellaneous;
+using Memorial.Lib.Urn;
 using AutoMapper;
 
 namespace Memorial.Lib.Receipt
@@ -13,66 +13,74 @@ namespace Memorial.Lib.Receipt
     {
         private readonly IUnitOfWork _unitOfWork;
         protected INumber _number;
-        protected ITransaction _transaction;
 
-        public Miscellaneous(IUnitOfWork unitOfWork, INumber number, ITransaction transaction, IInvoice invoice, IPaymentMethod paymentMethod) : base(unitOfWork, invoice, paymentMethod)
+        public Miscellaneous(
+            IUnitOfWork unitOfWork,
+            INumber number
+            ) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _number = number;
-            _transaction = transaction;
         }
 
-        protected IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
+        public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
             return _unitOfWork.Receipts.GetByNonOrderActiveMiscellaneousAF(AF);
         }
 
-        protected IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
+        public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetNonOrderReceipts(AF));
         }
 
+        public string GetApplicationAF()
+        {
+            return _receipt.MiscellaneousTransactionAF;
+        }
+
         override
-        protected void NewNumber()
+        public void NewNumber(int itemId)
         {
-            _reNumber = _number.GetNewIV(_transaction.GetItemId(), System.DateTime.Now.Year);
+            _reNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        public void SetTotalIssuedNonOrderReceiptAmmount(string AF)
+        public float GetTotalIssuedNonOrderReceiptAmount(string AF)
         {
-            _nonOrderTotalIssuedReceiptsAmount = GetNonOrderReceipts(AF).Sum(r => r.Amount);
+            return GetNonOrderReceipts(AF).Sum(r => r.Amount);
         }
 
-        public float GetTotalIssuedNonOrderReceiptAmmount()
+        public bool Create(int itemId, ReceiptDto receiptDto)
         {
-            return _nonOrderTotalIssuedReceiptsAmount;
-        }
+            NewNumber(itemId);
 
-        public void SetNonOrderAmmount(string AF)
-        {
-            _transaction.SetTransaction(AF);
-            _nonOrderAmount = _transaction.GetAmount();
-        }
-
-        public float GetNonOrderAmmount()
-        {
-            return _nonOrderAmount;
-        }
-
-        public bool Create(string AF, string IV, float amount, string remark, byte paymentMethodId, string paymentRemark)
-        {
-            SetNew();
-
-            NewNumber();
-
-            _receipt.MiscellaneousTransactionAF = AF;
-
-            CreateNewReceipt(IV, amount, remark, paymentMethodId, paymentRemark);
-
-            _unitOfWork.Complete();
+            CreateNewReceipt(receiptDto);
 
             return true;
         }
 
+        public bool Update(ReceiptDto receiptDto)
+        {
+            UpdateReceipt(receiptDto);
+
+            return true;
+        }
+
+        public bool Delete()
+        {
+            DeleteReceipt();
+
+            return true;
+        }
+
+        public bool DeleteNonOrderReceiptsByApplicationAF(string AF)
+        {
+            var receipts = GetNonOrderReceipts(AF);
+            foreach (var receipt in receipts)
+            {
+                receipt.DeleteDate = System.DateTime.Now;
+            }
+
+            return true;
+        }
     }
 }

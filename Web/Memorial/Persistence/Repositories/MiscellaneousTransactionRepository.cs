@@ -15,20 +15,26 @@ namespace Memorial.Persistence.Repositories
         public MiscellaneousTransaction GetActive(string AF)
         {
             return MemorialContext.MiscellaneousTransactions
+                .Include(mt => mt.Applicant)
                 .Include(mt => mt.MiscellaneousItem)
                 .Where(mt => mt.AF == AF && mt.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<MiscellaneousTransaction> GetByApplicant(int id)
+        public IEnumerable<MiscellaneousTransaction> GetByItem(int itemId)
         {
-            return MemorialContext.MiscellaneousTransactions.Where(mt => mt.ApplicantId == id
-                                            && mt.DeleteDate == null).ToList();
+            return MemorialContext.MiscellaneousTransactions
+                .Include(mt => mt.MiscellaneousItem)
+                .Include(mt => mt.Applicant)
+                .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null).ToList();
         }
 
         public IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
-            return MemorialContext.MiscellaneousTransactions.Where(mt => mt.ApplicantId == applicantId
+            return MemorialContext.MiscellaneousTransactions
+                .Include(mt => mt.MiscellaneousItem)
+                .Include(mt => mt.Applicant)
+                .Where(mt => mt.ApplicantId == applicantId
                                             && mt.MiscellaneousItemId == itemId
                                             && mt.DeleteDate == null).ToList();
         }

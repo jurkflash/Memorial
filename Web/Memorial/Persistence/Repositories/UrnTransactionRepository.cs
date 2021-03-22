@@ -34,9 +34,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)
                 .Include(ut => ut.Applicant)
-                .Where(mt => mt.ApplicantId == applicantId
-                                            && mt.UrnItemId == itemId
-                                            && mt.DeleteDate == null).ToList();
+                .Where(ut => ut.ApplicantId == applicantId
+                                            && ut.UrnItemId == itemId
+                                            && ut.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

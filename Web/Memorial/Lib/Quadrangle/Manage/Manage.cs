@@ -14,7 +14,7 @@ namespace Memorial.Lib.Quadrangle
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IQuadrangle _invoice;
-        private readonly IQuadranglePayment _payment;
+        private readonly IPayment _payment;
 
         public Manage(
             IUnitOfWork unitOfWork,
@@ -25,7 +25,7 @@ namespace Memorial.Lib.Quadrangle
             IApplicantDeceased applicantDeceased,
             INumber number,
             Invoice.IQuadrangle invoice,
-            IQuadranglePayment payment
+            IPayment payment
             ) :
             base(
                 unitOfWork,

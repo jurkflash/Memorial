@@ -6,18 +6,18 @@ using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Urn
+namespace Memorial.Lib.Miscellaneous
 {
-    public class Purchase : Transaction, IPurchase
+    public class Compensate : Transaction, ICompensate
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IUrn _invoice;
         private readonly IPayment _payment;
 
-        public Purchase(
+        public Compensate(
             IUnitOfWork unitOfWork,
             IItem item,
-            IUrn urn,
+            IMiscellaneous miscellaneous,
             IApplicant applicant,
             INumber number,
             Invoice.IUrn invoice,
@@ -25,15 +25,15 @@ namespace Memorial.Lib.Urn
             ) : 
             base(
                 unitOfWork, 
-                item, 
-                urn, 
+                item,
+                miscellaneous, 
                 applicant, 
                 number
                 )
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _urn = urn;
+            _miscellaneous = miscellaneous;
             _applicant = applicant;
             _number = number;
             _invoice = invoice;
@@ -50,11 +50,11 @@ namespace Memorial.Lib.Urn
             _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(UrnTransactionDto urnTransactionDto)
+        public bool Create(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            NewNumber(urnTransactionDto.UrnItemId);
+            NewNumber(miscellaneousTransactionDto.MiscellaneousItemId);
 
-            if (CreateNewTransaction(urnTransactionDto))
+            if (CreateNewTransaction(miscellaneousTransactionDto))
             {
                 _unitOfWork.Complete();
             }
@@ -66,15 +66,15 @@ namespace Memorial.Lib.Urn
             return true;
         }
 
-        public bool Update(UrnTransactionDto urnTransactionDto)
+        public bool Update(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            if (_invoice.GetInvoicesByAF(urnTransactionDto.AF).Any() && urnTransactionDto.Price < 
-                _invoice.GetInvoicesByAF(urnTransactionDto.AF).Max(i => i.Amount))
+            if (_invoice.GetInvoicesByAF(miscellaneousTransactionDto.AF).Any() && miscellaneousTransactionDto.Amount < 
+                _invoice.GetInvoicesByAF(miscellaneousTransactionDto.AF).Max(i => i.Amount))
             {
                 return false;
             }
 
-            if (UpdateTransaction(urnTransactionDto))
+            if (UpdateTransaction(miscellaneousTransactionDto))
             {
                 _unitOfWork.Complete();
             }

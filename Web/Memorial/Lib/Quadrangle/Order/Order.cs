@@ -14,7 +14,7 @@ namespace Memorial.Lib.Quadrangle
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IQuadrangle _invoice;
-        private readonly IQuadranglePayment _payment;
+        private readonly IPayment _payment;
         private readonly ITracking _tracking;
         private readonly IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
 
@@ -27,7 +27,7 @@ namespace Memorial.Lib.Quadrangle
             IApplicantDeceased applicantDeceased,
             INumber number,
             Invoice.IQuadrangle invoice,
-            IQuadranglePayment payment,
+            IPayment payment,
             ITracking tracking,
             IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds
             ) : 

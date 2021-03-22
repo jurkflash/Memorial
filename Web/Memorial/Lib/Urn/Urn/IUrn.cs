@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Urn
 {
     public interface IUrn
     {

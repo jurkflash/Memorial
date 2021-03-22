@@ -5,6 +5,8 @@ namespace Memorial.Core.Repositories
 {
     public interface IMiscellaneousRepository : IRepository<Miscellaneous>
     {
+        Miscellaneous GetActive(int id);
+
         IEnumerable<Miscellaneous> GetBySite(byte siteId);
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 using Memorial.Core.Dtos;
 using Memorial.Core.Repositories;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Urn
 {
     public interface INumber
     {

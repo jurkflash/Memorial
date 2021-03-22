@@ -7,7 +7,7 @@ namespace Memorial.Core.Repositories
     {
         MiscellaneousTransaction GetActive(string AF);
 
-        IEnumerable<MiscellaneousTransaction> GetByApplicant(int id);
+        IEnumerable<MiscellaneousTransaction> GetByItem(int itemId);
 
         IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId);
     }

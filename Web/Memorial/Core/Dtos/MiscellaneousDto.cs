@@ -1,4 +1,5 @@
 ﻿using Memorial.Core.Domain;
+using System;
 
 namespace Memorial.Core.Dtos
 {
@@ -15,5 +16,7 @@ namespace Memorial.Core.Dtos
         public Site Site { get; set; }
 
         public byte SiteId { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }

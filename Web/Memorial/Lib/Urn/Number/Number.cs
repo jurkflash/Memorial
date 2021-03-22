@@ -8,7 +8,7 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Urn
 {
     public class Number : INumber
     {

@@ -20,14 +20,14 @@ namespace Memorial.Controllers
         private readonly Lib.Invoice.IQuadrangle _invoice;
         private readonly Lib.Receipt.IQuadrangle _receipt;
         private readonly IPaymentMethod _paymentMethod;
-        private readonly IQuadranglePayment _payment;
+        private readonly IPayment _payment;
 
         public QuadrangleReceiptsController(
             ITransaction transaction,
             Lib.Invoice.IQuadrangle invoice,
             Lib.Receipt.IQuadrangle receipt,
             IPaymentMethod paymentMethod,
-            IQuadranglePayment payment)
+            IPayment payment)
         {
             _transaction = transaction;
             _invoice = invoice;

@@ -5,9 +5,9 @@ using System.Web;
 using Memorial.Core.Dtos;
 using Memorial.Core.Repositories;
 
-namespace Memorial.Lib
+namespace Memorial.Lib.Miscellaneous
 {
-    public interface IMiscellaneousNumber
+    public interface INumber
     {
         string GetNewAF(int miscellaneousItemId, int year);
 

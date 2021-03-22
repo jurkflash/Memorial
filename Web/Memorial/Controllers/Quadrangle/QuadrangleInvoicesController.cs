@@ -17,12 +17,12 @@ namespace Memorial.Controllers
     {
         private readonly ITransaction _transaction;
         private readonly Lib.Invoice.IQuadrangle _invoice;
-        private readonly IQuadranglePayment _payment;
+        private readonly IPayment _payment;
 
         public QuadrangleInvoicesController(
             ITransaction transaction,
             Lib.Invoice.IQuadrangle invoice, 
-            IQuadranglePayment payment)
+            IPayment payment)
         {
             _transaction = transaction;
             _invoice = invoice;
