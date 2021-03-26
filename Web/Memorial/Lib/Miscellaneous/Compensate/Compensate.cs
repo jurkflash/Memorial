@@ -11,7 +11,7 @@ namespace Memorial.Lib.Miscellaneous
     public class Compensate : Transaction, ICompensate
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IUrn _invoice;
+        private readonly Invoice.IMiscellaneous _invoice;
         private readonly IPayment _payment;
 
         public Compensate(
@@ -20,7 +20,7 @@ namespace Memorial.Lib.Miscellaneous
             IMiscellaneous miscellaneous,
             IApplicant applicant,
             INumber number,
-            Invoice.IUrn invoice,
+            Invoice.IMiscellaneous invoice,
             IPayment payment
             ) : 
             base(

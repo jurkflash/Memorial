@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ApplicantId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });}
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -18,7 +18,7 @@
         @foreach (var cremationItem in Model.CremationItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(cremationItem.Name, "Item", new { cremationItemId = cremationItem.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(cremationItem.Name, "Index", "Cremation" + cremationItem.SystemCode, new { itemId = cremationItem.Id, applicantId = Model.ApplicantId }, null)</td>
                 <td>@cremationItem.Description</td>
                 <td>@cremationItem.Price</td>
             </tr>

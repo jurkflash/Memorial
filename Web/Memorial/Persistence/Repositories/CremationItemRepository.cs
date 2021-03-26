@@ -12,10 +12,17 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public CremationItem GetActive(int id)
+        {
+            return MemorialContext.CremationItems
+                .Where(ci => ci.Id == id && ci.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<CremationItem> GetByCremation(int cremationId)
         {
             return MemorialContext.CremationItems
-                .Where(ci => ci.CremationId == cremationId && ci.DeleteDate == null).ToList();
+                .Where(ci => ci.Id == cremationId && ci.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

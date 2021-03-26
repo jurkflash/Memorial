@@ -4,25 +4,40 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Memorial.Core;
-using Memorial.ViewModels;
 using Memorial.Lib;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Cremation;
+using Memorial.Lib.Site;
+using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
+using Memorial.ViewModels;
 
 namespace Memorial.Controllers
 {
     public class CremationController : Controller
     {
+        private readonly IApplicant _applicant;
         private readonly ICremation _cremation;
+        private readonly IItem _item;
+        private readonly ISite _site;
 
-        public CremationController(ICremation cremation)
+        public CremationController(
+            IApplicant applicant,
+            ICremation cremation,
+            IItem item,
+            ISite site)
         {
+            _applicant = applicant;
             _cremation = cremation;
+            _item = item;
+            _site = site;
         }
 
         public ActionResult Index(byte siteId, int applicantId)
         {
             var viewModel = new CremationIndexesViewModel()
             {
-                CremationDtos = _cremation.DtosGetBySite(siteId),
+                CremationDtos = _cremation.GetCremationDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -32,15 +47,11 @@ namespace Memorial.Controllers
         {
             var viewModel = new CremationItemsViewModel()
             {
-                CremationItemDtos = _cremation.ItemDtosGetByCremation(cremationId),
+                CremationItemDtos = _item.GetItemDtosByCremation(cremationId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
         }
 
-        public ActionResult Item(int cremationItemId, int applicantId)
-        {
-            return RedirectToAction("Index", "CremationTransactions", new { cremationItemId = cremationItemId, applicantId = applicantId });
-        }
     }
 }

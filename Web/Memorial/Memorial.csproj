@@ -624,9 +624,21 @@
     <Compile Include="Controllers\Api\QuadrangleManagesController.cs" />
     <Compile Include="Controllers\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
+    <Compile Include="Controllers\Cremation\CremationController.cs" />
+    <Compile Include="Controllers\Cremation\CremationInvoicesController.cs" />
+    <Compile Include="Controllers\Cremation\CremationReceiptsController.cs" />
+    <Compile Include="Controllers\Cremation\CremationNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Cremation\CremationOrdersController.cs" />
     <Compile Include="Controllers\DeceasedsController.cs" />
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousDonationsController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousRentAirCoolerController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousCompensateController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousInvoicesController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousReceiptsController.cs" />
+    <Compile Include="Controllers\Miscellaenous\MiscellaneousNonOrderReceiptsController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleNonOrderReceiptsController.cs" />
@@ -800,12 +812,26 @@
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
+    <Compile Include="Lib\Cremation\Cremation\ICremation.cs" />
+    <Compile Include="Lib\Cremation\Cremation\Cremation.cs" />
+    <Compile Include="Lib\Cremation\Item\IItem.cs" />
+    <Compile Include="Lib\Cremation\Item\Item.cs" />
+    <Compile Include="Lib\Cremation\Number\INumber.cs" />
+    <Compile Include="Lib\Cremation\Number\Number.cs" />
+    <Compile Include="Lib\Cremation\Order\Order.cs" />
+    <Compile Include="Lib\Cremation\Order\IOrder.cs" />
+    <Compile Include="Lib\Cremation\Payment\IPayment.cs" />
+    <Compile Include="Lib\Cremation\Payment\Payment.cs" />
+    <Compile Include="Lib\Cremation\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Cremation\Transaction\Transaction.cs" />
     <Compile Include="Lib\Deceased\Deceased.cs" />
     <Compile Include="Lib\Deceased\IDeceased.cs" />
     <Compile Include="Lib\FuneralCo\FuneralCo.cs" />
     <Compile Include="Lib\FuneralCo\IFuneralCo.cs" />
     <Compile Include="Lib\GenderType\GenderType.cs" />
     <Compile Include="Lib\GenderType\IGenderType.cs" />
+    <Compile Include="Lib\Invoice\Cremation\Cremation.cs" />
+    <Compile Include="Lib\Invoice\Cremation\ICremation.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
     <Compile Include="Lib\Invoice\Miscellaneous\IMiscellaneous.cs" />
@@ -814,6 +840,8 @@
     <Compile Include="Lib\Invoice\Urn\Urn.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\ICompensate.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\Compensate.cs" />
+    <Compile Include="Lib\Miscellaneous\Donation\Donation.cs" />
+    <Compile Include="Lib\Miscellaneous\Donation\IDonation.cs" />
     <Compile Include="Lib\Miscellaneous\Item\IItem.cs" />
     <Compile Include="Lib\Miscellaneous\Item\Item.cs" />
     <Compile Include="Lib\Miscellaneous\Miscellaneous\IMiscellaneous.cs" />
@@ -822,6 +850,8 @@
     <Compile Include="Lib\Miscellaneous\Number\Number.cs" />
     <Compile Include="Lib\Miscellaneous\Payment\IPayment.cs" />
     <Compile Include="Lib\Miscellaneous\Payment\Payment.cs" />
+    <Compile Include="Lib\Miscellaneous\RentAirCooler\RentAirCooler.cs" />
+    <Compile Include="Lib\Miscellaneous\RentAirCooler\IRentAirCooler.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
     <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
@@ -860,6 +890,8 @@
     <Compile Include="Lib\Quadrangle\Number\Number.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Receipt\Cremation\Cremation.cs" />
+    <Compile Include="Lib\Receipt\Cremation\ICremation.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
     <Compile Include="Lib\Receipt\Miscellaneous\IMiscellaneous.cs" />
     <Compile Include="Lib\Receipt\Miscellaneous\Miscellaneous.cs" />
@@ -1742,6 +1774,10 @@
     <Compile Include="Migrations\202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.designer.cs">
       <DependentUpon>202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.cs" />
+    <Compile Include="Migrations\202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.designer.cs">
+      <DependentUpon>202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -1852,6 +1888,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsInfoViewModel.cs" />
     <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsIndexViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationTransactionsInfoViewModel.cs" />
     <Compile Include="ViewModels\Deceased\DeceasedInfoViewModel.cs" />
     <Compile Include="ViewModels\InvoiceFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNewNonOrderReceiptFormViewModel.cs" />
@@ -1871,12 +1909,11 @@
     <Compile Include="ViewModels\Applicant\ApplicantBriefViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationItemsViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationIndexesViewModel.cs" />
-    <Compile Include="ViewModels\Cremation\CremationOrdersViewModel.cs" />
     <Compile Include="ViewModels\ListCatalogViewModel.cs" />
     <Compile Include="ViewModels\InvoicesViewModel.cs" />
     <Compile Include="ViewModels\ListInvoicesViewModel.cs" />
     <Compile Include="ViewModels\Applicant\ApplicantInfoViewModel.cs" />
-    <Compile Include="ViewModels\Cremation\CremationOrderFormViewModel.cs" />
+    <Compile Include="ViewModels\Cremation\CremationTransactionsFormViewModel.cs" />
     <Compile Include="ViewModels\Deceased\DeceasedFormViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleItemsViewModel.cs" />
     <Compile Include="ViewModels\ListUrnTransactionViewModel.cs" />
@@ -1915,7 +1952,6 @@
     <Content Include="Views\AncestorShift\Index.cshtml" />
     <Content Include="Views\Cremation\Index.cshtml" />
     <Content Include="Views\Cremation\Items.cshtml" />
-    <Content Include="Views\CremationTransactions\Index.cshtml" />
     <Content Include="Views\QuadrangleTransactions\Index.cshtml" />
     <Content Include="Views\Quadrangle\Centre.cshtml" />
     <Content Include="Views\Quadrangle\Area.cshtml" />
@@ -1932,19 +1968,14 @@
     <Content Include="Views\Applicants\Catalog.cshtml" />
     <Content Include="Views\Deceaseds\Form.cshtml" />
     <Content Include="Views\Deceaseds\Info.cshtml" />
-    <Content Include="Views\CremationTransactions\Form.cshtml" />
     <Content Include="Views\FuneralCompanies\Index.cshtml" />
     <Content Include="Views\FuneralCompanies\Form.cshtml" />
-    <Content Include="Views\CremationTransactions\Info.cshtml" />
     <Content Include="Views\Shared\_ApplicantInfo.cshtml" />
     <Content Include="Views\Shared\_ApplicantBrief.cshtml" />
     <Content Include="Views\Applicants\Info.cshtml" />
     <Content Include="Views\Shared\_DeceasedInfo.cshtml" />
     <Content Include="Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Views\NonOrderReceipts\Form.cshtml" />
-    <Content Include="Views\MiscellaneousTransactions\Index.cshtml" />
-    <Content Include="Views\MiscellaneousTransactions\Form.cshtml" />
-    <Content Include="Views\MiscellaneousTransactions\Info.cshtml" />
     <Content Include="Views\MiscellaneousNonOrders\Form.cshtml" />
     <Content Include="Views\MiscellaneousNonOrders\Index.cshtml" />
     <Content Include="Views\MiscellaneousNonOrders\Info.cshtml" />
@@ -2001,6 +2032,30 @@
     <Content Include="Views\UrnInvoices\Invoices.cshtml" />
     <Content Include="Views\UrnReceipts\Form.cshtml" />
     <Content Include="Views\UrnReceipts\Index.cshtml" />
+    <Content Include="Views\MiscellaneousCompensate\Index.cshtml" />
+    <Content Include="Views\MiscellaneousCompensate\Form.cshtml" />
+    <Content Include="Views\MiscellaneousCompensate\Info.cshtml" />
+    <Content Include="Views\MiscellaneousReceipts\Index.cshtml" />
+    <Content Include="Views\MiscellaneousInvoices\Index.cshtml" />
+    <Content Include="Views\MiscellaneousInvoices\Form.cshtml" />
+    <Content Include="Views\MiscellaneousReceipts\Form.cshtml" />
+    <Content Include="Views\MiscellaneousRentAirCooler\Form.cshtml" />
+    <Content Include="Views\MiscellaneousRentAirCooler\Index.cshtml" />
+    <Content Include="Views\MiscellaneousRentAirCooler\Info.cshtml" />
+    <Content Include="Views\MiscellaneousDonations\Form.cshtml" />
+    <Content Include="Views\MiscellaneousDonations\Index.cshtml" />
+    <Content Include="Views\MiscellaneousDonations\Info.cshtml" />
+    <Content Include="Views\MiscellaneousNonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\MiscellaneousNonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\CremationInvoices\Form.cshtml" />
+    <Content Include="Views\CremationInvoices\Index.cshtml" />
+    <Content Include="Views\CremationNonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\CremationNonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\CremationReceipts\Form.cshtml" />
+    <Content Include="Views\CremationReceipts\Index.cshtml" />
+    <Content Include="Views\CremationOrders\Form.cshtml" />
+    <Content Include="Views\CremationOrders\Index.cshtml" />
+    <Content Include="Views\CremationOrders\Info.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2010,8 +2065,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Lib\Miscellaneous\Donation\" />
-    <Folder Include="Lib\Miscellaneous\RentAirCooler\" />
     <Folder Include="Lib\Quadrangle\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -2665,6 +2718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.resx">
       <DependentUpon>202103221636483_AddCreateModifyDeleteDateToMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.resx">
+      <DependentUpon>202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

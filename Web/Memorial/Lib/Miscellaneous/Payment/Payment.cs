@@ -51,9 +51,15 @@ namespace Memorial.Lib.Miscellaneous
             {
                 if (_invoice.HasInvoiceByAF(_transaction.GetTransactionAF()))
                 {
-                    _invoice.DeleteByApplication(_transaction.GetTransactionAF());
+                    var invoices = _invoice.GetInvoicesByAF(_transaction.GetTransactionAF());
 
-                    _receipt.DeleteOrderReceiptsByInvoiceIV(_invoice.GetIV());
+                    foreach(var invoice in invoices)
+                    {
+                        _receipt.DeleteOrderReceiptsByInvoiceIV(invoice.IV);
+
+                        _invoice.SetInvoice(invoice.IV);
+                        _invoice.Delete();
+                    }
                 }
             }
             else

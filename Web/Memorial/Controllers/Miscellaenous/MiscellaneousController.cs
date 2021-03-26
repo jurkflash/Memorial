@@ -4,27 +4,40 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Memorial.Core;
-using Memorial.ViewModels;
 using Memorial.Lib;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Miscellaneous;
+using Memorial.Lib.Site;
+using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
+using Memorial.ViewModels;
 
-namespace Memorial.Controllers.Miscellaenous
+namespace Memorial.Controllers
 {
     public class MiscellaneousController : Controller
     {
+        private readonly IApplicant _applicant;
         private readonly IMiscellaneous _miscellaneous;
-        private readonly IMiscellaneousItem _miscellaneousItem;
+        private readonly IItem _item;
+        private readonly ISite _site;
 
-        public MiscellaneousController(IMiscellaneous miscellaneous, IMiscellaneousItem miscellaneousItem)
+        public MiscellaneousController(
+            IApplicant applicant,
+            IMiscellaneous miscellaneous,
+            IItem item,
+            ISite site)
         {
+            _applicant = applicant;
             _miscellaneous = miscellaneous;
-            _miscellaneousItem = miscellaneousItem;
+            _item = item;
+            _site = site;
         }
 
         public ActionResult Index(byte siteId, int applicantId)
         {
             var viewModel = new MiscellaneousIndexesViewModel()
             {
-                MiscellaneousDtos = _miscellaneous.DtosGetBySite(siteId),
+                MiscellaneousDtos = _miscellaneous.GetMiscellaneousDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -34,15 +47,10 @@ namespace Memorial.Controllers.Miscellaenous
         {
             var viewModel = new MiscellaneousItemsViewModel()
             {
-                MiscellaneousItemDtos = _miscellaneousItem.DtosGetByMiscellaneous(miscellaneousId),
+                MiscellaneousItemDtos = _item.GetItemDtosByMiscellaneous(miscellaneousId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
-        }
-
-        public ActionResult Item(int miscellaneousItemId, int applicantId)
-        {
-            return RedirectToAction("Index", "MiscellaneousTransactions", new { miscellaneousItemId = miscellaneousItemId, applicantId = applicantId });
         }
 
     }

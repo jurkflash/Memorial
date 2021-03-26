@@ -89,7 +89,7 @@
 
         $(document).ready(function () {
 
-            $.validator.addMethod("AtLeastZero", function (value, element, arg) {
+            $.validator.addMethod("AtLeastOne", function (value, element, arg) {
                 if (value >= 1)
                     return true;
                 return false;

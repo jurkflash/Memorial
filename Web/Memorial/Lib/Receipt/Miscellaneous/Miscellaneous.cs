@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Urn;
+using Memorial.Lib.Miscellaneous;
 using AutoMapper;
 
 namespace Memorial.Lib.Receipt

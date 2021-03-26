@@ -15,6 +15,8 @@ namespace Memorial.ViewModels
 
         public int ApplicantId { get; set; }
 
+        public bool AllowNew { get; set; }
+
         public bool OrderFlag { get; set; }
     }
 }

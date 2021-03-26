@@ -7,6 +7,10 @@ namespace Memorial.Core.Repositories
     {
         CremationTransaction GetActive(string AF);
 
+        IEnumerable<CremationTransaction> GetByItem(int itemId);
+
+        IEnumerable<CremationTransaction> GetByItemAndDeceased(int itemId, int deceasedId);
+
         IEnumerable<CremationTransaction> GetByApplicant(int id);
 
         IEnumerable<CremationTransaction> GetByItemAndApplicant(int itemId, int applicantId);

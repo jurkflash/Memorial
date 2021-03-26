@@ -1,0 +1,55 @@
+﻿@model Memorial.ViewModels.CremationItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId })
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Cremation</th>
+            <th>Applicant</th>
+            <th>Deceased</th>
+            <th>Price</th>
+            <th>Cremate Date</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cremationTransaction in Model.CremationTransactionDtos)
+        {
+        <tr>
+            <td>@Html.ActionLink(cremationTransaction.AF, "Info", new { AF = cremationTransaction.AF }, new { target = "CremationTransactionInfo" })</td>
+            <td>@cremationTransaction.CremationItem.Name</td>
+            <td>@cremationTransaction.Applicant.Name &nbsp; @cremationTransaction.Applicant.Name2</td>
+            <td>@cremationTransaction.Deceased.Name &nbsp; @cremationTransaction.Deceased.Name2</td>
+            <td>@cremationTransaction.Price</td>
+            <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete",
+                new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId },
+                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+

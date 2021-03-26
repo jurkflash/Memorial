@@ -1,0 +1,53 @@
+﻿@model Memorial.ViewModels.MiscellaneousItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.MiscellaneousItemId, applicantId = Model.ApplicantId })
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Miscellaneous</th>
+            <th>Applicant</th>
+            <th>Amount</th>
+            <th>Remark</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var miscellaneousTransaction in Model.MiscellaneousTransactionDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(miscellaneousTransaction.AF, "Info", new { AF = miscellaneousTransaction.AF }, new { target = "MiscellaneousTransactionInfo" })</td>
+                <td>@miscellaneousTransaction.MiscellaneousItem.Name</td>
+                <td>@miscellaneousTransaction.Applicant.Name &nbsp; @miscellaneousTransaction.Applicant.Name2</td>
+                <td>@miscellaneousTransaction.Amount</td>
+                <td>@miscellaneousTransaction.Remark</td>
+                <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = miscellaneousTransaction.AF })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

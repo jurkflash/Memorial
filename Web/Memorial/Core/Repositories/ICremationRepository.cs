@@ -5,6 +5,8 @@ namespace Memorial.Core.Repositories
 {
     public interface ICremationRepository : IRepository<Cremation>
     {
+        Cremation GetActive(int id);
+
         IEnumerable<Cremation> GetBySite(byte siteId);
     }
 }
