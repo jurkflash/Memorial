@@ -68,6 +68,13 @@ namespace Memorial.Persistence.Repositories
                     d.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<Deceased> GetByAncestor(int ancestorId)
+        {
+            return MemorialContext.Deceaseds
+                    .Where(d => d.AncestorId == ancestorId &&
+                    d.DeleteDate == null).ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

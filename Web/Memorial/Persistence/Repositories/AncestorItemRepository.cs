@@ -12,6 +12,13 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public AncestorItem GetActive(int id)
+        {
+            return MemorialContext.AncestorItems
+                .Where(ai => ai.Id == id && ai.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<AncestorItem> GetByArea(int areaId)
         {
             return MemorialContext.AncestorItems

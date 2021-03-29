@@ -12,6 +12,8 @@ namespace Memorial.Core.Domain
         {
             ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
 
+            Ancestors = new HashSet<Ancestor>();
+
             Quadrangles = new HashSet<Quadrangle>();
 
             Plots = new HashSet<Plot>();
@@ -31,6 +33,10 @@ namespace Memorial.Core.Domain
             AncestorTransactions = new HashSet<AncestorTransaction>();
 
             QuadrangleTrackings = new HashSet<QuadrangleTracking>();
+
+            QuadrangleTrackings = new HashSet<QuadrangleTracking>();
+
+            AncestorTrackings = new HashSet<AncestorTracking>();
         }
 
         public int Id { get; set; }
@@ -61,6 +67,8 @@ namespace Memorial.Core.Domain
 
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
+        public ICollection<Ancestor> Ancestors { get; set; }
+
         public ICollection<Quadrangle> Quadrangles { get; set; }
 
         public ICollection<Plot> Plots { get; set; }
@@ -80,5 +88,7 @@ namespace Memorial.Core.Domain
         public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
 
         public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
+
+        public ICollection<AncestorTracking> AncestorTrackings { get; set; }
     }
 }

@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Memorial.Core;
+﻿using System.Web.Mvc;
 using Memorial.ViewModels;
-using Memorial.Lib;
+using Memorial.Lib.Space;
 
 namespace Memorial.Controllers
 {
     public class SpaceController : Controller
     {
         private readonly ISpace _space;
-        private readonly ISpaceItem _spaceItem;
+        private readonly IItem _item;
 
-        public SpaceController(ISpace space, ISpaceItem spaceItem)
+        public SpaceController(
+            ISpace space,
+            IItem item)
         {
             _space = space;
-            _spaceItem = spaceItem;
+            _item = item;
         }
 
         public ActionResult Index(byte siteId, int applicantId)
@@ -34,16 +31,11 @@ namespace Memorial.Controllers
         {
             var viewModel = new SpaceItemsViewModel()
             {
-                SpaceItemDtos = _spaceItem.DtosGetBySpace(spaceId),
+                SpaceItemDtos = _item.GetItemDtosBySpace(spaceId),
                 ApplicantId = applicantId
             };
 
             return View(viewModel);
-        }
-
-        public ActionResult Item(int spaceItemId, int applicantId)
-        {
-            return RedirectToAction("Index", "SpaceTransactions", new { spaceItemId = spaceItemId, applicantId = applicantId });
         }
 
     }

@@ -65,8 +65,9 @@ namespace Memorial.Persistence
             AncestorAreas = new AncestorAreaRepository(_context);
             AncestorItems = new AncestorItemRepository(_context);
             AncestorNumbers = new AncestorNumberRepository(_context);
-            AncestorTransactions = new AncestorTransactionRepository(_context);            
-            
+            AncestorTransactions = new AncestorTransactionRepository(_context);
+            AncestorTrackings = new AncestorTrackingRepository(_context);
+
             Invoices = new InvoiceRepository(_context);
             Receipts = new ReceiptRepository(_context);
             
@@ -119,6 +120,8 @@ namespace Memorial.Persistence
         public IAncestorAreaRepository AncestorAreas { get; private set; }
         public IAncestorItemRepository AncestorItems { get; private set; }
         public IAncestorNumberRepository AncestorNumbers { get; private set; }
+        public IAncestorTransactionRepository AncestorTransactions { get; private set; }
+        public IAncestorTrackingRepository AncestorTrackings { get; private set; }
 
         public IUrnItemRepository UrnItems { get; private set; }
         public IUrnNumberRepository UrnNumbers { get; private set; }
@@ -132,7 +135,6 @@ namespace Memorial.Persistence
         public IInvoiceRepository Invoices { get; private set; }
         public IReceiptRepository Receipts { get; private set; }
         
-        public IAncestorTransactionRepository AncestorTransactions { get; private set; }
         public ICatalogRepository Catalogs { get; private set; }
 
         public int Complete()

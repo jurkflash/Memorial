@@ -26,9 +26,22 @@ namespace Memorial.Persistence.Repositories
                                             && st.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<SpaceTransaction> GetByItem(int itemId)
+        {
+            return MemorialContext.SpaceTransactions.Where(st => st.SpaceItemId == itemId
+                                            && st.DeleteDate == null).ToList();
+        }
+
         public IEnumerable<SpaceTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
             return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == applicantId
+                                            && st.SpaceItemId == itemId
+                                            && st.DeleteDate == null).ToList();
+        }
+
+        public IEnumerable<SpaceTransaction> GetByItemAndDeceased(int itemId, int deceasedId)
+        {
+            return MemorialContext.SpaceTransactions.Where(st => st.DeceasedId == deceasedId
                                             && st.SpaceItemId == itemId
                                             && st.DeleteDate == null).ToList();
         }
@@ -51,6 +64,26 @@ namespace Memorial.Persistence.Repositories
                 || (st.FromDate <= to && to <= st.ToDate)
                 || (from <= st.FromDate && st.FromDate <= to)
                 || (from <= st.ToDate && st.ToDate <= to))).Any();
+        }
+
+        public bool GetAvailability(DateTime from, DateTime to, string AF)
+        {
+            var transaction = MemorialContext.SpaceTransactions.Where(st => st.AF == AF).FirstOrDefault();
+
+            if (transaction == null)
+                return false;
+
+            return !MemorialContext.SpaceTransactions
+                .Include(st => st.SpaceItem)
+                .Where(st => st.DeleteDate == null
+                && st.SpaceItemId == transaction.SpaceItemId
+                && st.SpaceItem.AllowDoubleBook == false
+                && (
+                (st.FromDate <= from && from <= st.ToDate)
+                || (st.FromDate <= to && to <= st.ToDate)
+                || (from <= st.FromDate && st.FromDate <= to)
+                || (from <= st.ToDate && st.ToDate <= to))
+                && st.AF != AF).Any();
         }
 
         public MemorialContext MemorialContext

@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Memorial.Core.Domain;
+using Memorial.Core.Dtos;
+
+namespace Memorial.ViewModels
+{
+    public class AnccestorInfoViewModel
+    {
+        public SiteDto SiteDto { get; set; }
+
+        public AncestorAreaDto AncestorAreaDto { get; set; }
+
+        public AncestorDto AncestorDto { get; set; }
+
+        public ApplicantDto ApplicantDto { get; set; }
+
+        public ApplicantDeceasedFlattenDto DeceasedFlattenDto { get; set; }
+
+    }
+}

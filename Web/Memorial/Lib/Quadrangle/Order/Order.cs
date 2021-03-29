@@ -129,13 +129,17 @@ namespace Memorial.Lib.Quadrangle
 
             var quadrangleTransactionInDb = GetTransaction(quadrangleTransactionDto.AF);
 
+            var deceased1InDb = quadrangleTransactionInDb.Deceased1Id;
+
+            var deceased2InDb = quadrangleTransactionInDb.Deceased2Id;
+
             if (UpdateTransaction(quadrangleTransactionDto))
             {
                 _quadrangle.SetQuadrangle(quadrangleTransactionDto.QuadrangleId);
 
-                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased1Id, quadrangleTransactionInDb.Deceased1Id);
+                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased1Id, deceased1InDb);
 
-                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased2Id, quadrangleTransactionInDb.Deceased2Id);
+                QuadrangleApplicantDeceaseds(quadrangleTransactionDto.Deceased2Id, deceased2InDb);
 
                 if (quadrangleTransactionDto.Deceased1Id == null && quadrangleTransactionDto.Deceased2Id == null)
                     _quadrangle.SetHasDeceased(false);

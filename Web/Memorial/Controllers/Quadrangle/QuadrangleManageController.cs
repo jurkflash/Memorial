@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
-using Memorial.Lib.Deceased;
-using Memorial.Lib.FuneralCo;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
@@ -18,23 +16,20 @@ namespace Memorial.Controllers
 {
     public class QuadrangleManageController : Controller
     {
-        private IQuadrangle _quadrangle;
-        private IDeceased _deceased;
-        private IManage _manage;
-        private IApplicant _applicant;
-        private Lib.Invoice.IQuadrangle _invoice;
+        private readonly IQuadrangle _quadrangle;
+        private readonly IManage _manage;
+        private readonly IApplicant _applicant;
+        private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleManageController(
             IQuadrangle quadrangle,
             IApplicant applicant,
-            IDeceased deceased,
             IManage manage,
             Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
             _applicant = applicant;
-            _deceased = deceased;
             _manage = manage;
             _invoice = invoice;
         }

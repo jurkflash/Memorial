@@ -10,8 +10,6 @@ namespace Memorial.Core.Domain
         public RelationshipType()
         {
             ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
-
-            AncestorTransactions = new HashSet<AncestorTransaction>();
         }
 
         public byte Id { get; set; }
@@ -19,8 +17,6 @@ namespace Memorial.Core.Domain
         public string Name { get; set; }
 
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
-
-        public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
 
         public DateTime CreateDate { get; set; }
 

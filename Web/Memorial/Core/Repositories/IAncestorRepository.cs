@@ -5,6 +5,12 @@ namespace Memorial.Core.Repositories
 {
     public interface IAncestorRepository : IRepository<Ancestor>
     {
-        IEnumerable<Ancestor> GetByArea(int areaId);
+        Ancestor GetActive(int id);
+
+        IEnumerable<Ancestor> GetByArea(int ancestorAreaId);
+
+        IEnumerable<Ancestor> GetAvailableByArea(int ancestorAreaId);
+
+        IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestorAreaId);
     }
 }

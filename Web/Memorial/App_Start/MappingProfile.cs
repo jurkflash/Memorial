@@ -114,7 +114,10 @@ namespace Memorial.App_Start
             CreateMap<SpaceItemDto, SpaceItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<SpaceTransactionDto, SpaceTransaction>()
-                .ForMember(c => c.AF, opt => opt.Ignore());
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore())
+                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
+                .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<UrnDto, Urn>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -152,7 +155,14 @@ namespace Memorial.App_Start
             CreateMap<AncestorItemDto, AncestorItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<AncestorTransactionDto, AncestorTransaction>()
-                .ForMember(c => c.AF, opt => opt.Ignore());
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.AncestorItem, opt => opt.Ignore())
+                .ForMember(c => c.Ancestor, opt => opt.Ignore())
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore())
+                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
+                .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<CremationDto, Cremation>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

@@ -6,8 +6,6 @@ using System.Web.Mvc;
 using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
-using Memorial.Lib.Deceased;
-using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -17,30 +15,21 @@ namespace Memorial.Controllers
 {
     public class QuadrangleShiftController : Controller
     {
-        private IQuadrangle _quadrangle;
-        private IDeceased _deceased;
-        private IShift _shift;
-        private IApplicant _applicant;
-        private ITracking _tracking;
-        private IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
-        private Lib.Invoice.IQuadrangle _invoice;
+        private readonly IQuadrangle _quadrangle;
+        private readonly IShift _shift;
+        private readonly ITracking _tracking;
+        private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleShiftController(
             IQuadrangle quadrangle,
-            IApplicant applicant,
-            IDeceased deceased,
             IShift shift,
             ITracking tracking,
-            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
             Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
-            _applicant = applicant;
-            _deceased = deceased;
             _shift = shift;
             _tracking = tracking;
-            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
             _invoice = invoice;
         }
 

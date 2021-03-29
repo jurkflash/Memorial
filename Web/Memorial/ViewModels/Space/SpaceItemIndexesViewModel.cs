@@ -10,7 +10,11 @@ namespace Memorial.ViewModels
     public class SpaceItemIndexesViewModel
     {
         public IEnumerable<SpaceTransactionDto> SpaceTransactionDtos { get; set; }
+
         public int SpaceItemId { get; set; }
+
         public int ApplicantId { get; set; }
+
+        public bool AllowNew { get; set; }
     }
 }

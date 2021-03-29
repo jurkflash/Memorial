@@ -10,7 +10,7 @@ namespace Memorial.Core.Dtos
 
         public byte PositionY { get; set; }
 
-        public string Code { get; set; }
+        public string Name { get; set; }
 
         public float Price { get; set; }
 
@@ -18,11 +18,11 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public bool isPurchased { get; set; }
-
-        public AncestorArea AncestorArea { get; set; }
+        public int? ApplicantId { get; set; }
 
         public int AncestorAreaId { get; set; }
+
+        public bool hasDeceased { get; set; }
 
     }
 }

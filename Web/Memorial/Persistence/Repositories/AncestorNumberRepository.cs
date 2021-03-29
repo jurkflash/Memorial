@@ -14,7 +14,7 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewAF(AncestorItemId, year);
+            var number = numberRepository.GetAncestorNewAF(AncestorItemId, year);
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)
@@ -32,7 +32,7 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewIV(AncestorItemId, year);
+            var number = numberRepository.GetAncestorNewIV(AncestorItemId, year);
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)
@@ -50,7 +50,7 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewRE(AncestorItemId, year);
+            var number = numberRepository.GetAncestorNewRE(AncestorItemId, year);
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)

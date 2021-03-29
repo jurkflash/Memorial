@@ -12,10 +12,17 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public SpaceItem GetActive(int id)
+        {
+            return MemorialContext.SpaceItems
+                .Where(si => si.Id == id && si.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<SpaceItem> GetBySpace(int spaceId)
         {
             return MemorialContext.SpaceItems
-                .Where(si => si.SpaceId == spaceId).ToList();
+                .Where(si => si.SpaceId == spaceId && si.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

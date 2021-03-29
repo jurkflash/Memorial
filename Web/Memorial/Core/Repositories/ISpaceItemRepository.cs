@@ -5,6 +5,8 @@ namespace Memorial.Core.Repositories
 {
     public interface ISpaceItemRepository : IRepository<SpaceItem>
     {
+        SpaceItem GetActive(int id);
+
         IEnumerable<SpaceItem> GetBySpace(int spaceId);
     }
 }

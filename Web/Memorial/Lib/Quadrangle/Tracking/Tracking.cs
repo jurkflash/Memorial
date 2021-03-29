@@ -63,6 +63,7 @@ namespace Memorial.Lib.Quadrangle
 
             tracking.Deceased2Id = deceased2Id;
 
+            tracking.ActionDate = System.DateTime.Now;
         }
 
         public void Remove(int quadrangleId, string quadrangleTransactionAF)

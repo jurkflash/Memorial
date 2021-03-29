@@ -26,6 +26,8 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
 
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId);
+
         int Create(DeceasedDto deceasedDto);
 
         bool Update(DeceasedDto deceasedDto);
@@ -35,6 +37,12 @@ namespace Memorial.Lib.Deceased
         bool SetQuadrangle(int quadrangleId);
 
         bool RemoveQuadrangle();
+
+        Core.Domain.Ancestor GetAncestor();
+
+        bool SetAncestor(int ancestorId);
+
+        bool RemoveAncestor();
 
         IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
     }

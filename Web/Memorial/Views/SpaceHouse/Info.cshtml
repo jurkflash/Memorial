@@ -1,0 +1,26 @@
+﻿@model Memorial.ViewModels.SpaceTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Info</h2>
+
+@{Html.RenderAction("Info", "Applicants", new { id = Model.SpaceTransactionDto.ApplicantId });}
+
+<div class="row">
+    <div class="col-md-3">
+        Amount
+    </div>
+    <div class="col-md-3">
+        @Model.SpaceTransactionDto.Amount
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.SpaceTransactionDto.Remark
+    </div>
+</div>

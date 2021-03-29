@@ -32,8 +32,6 @@ namespace Memorial.Core.Dtos
 
         public int QuadrangleAreaDtoId { get; set; }
 
-        public ApplicantDto ApplicantDto { get; set; }
-
         public int? ApplicantDtoId { get; set; }
 
         public bool hasDeceased { get; set; }

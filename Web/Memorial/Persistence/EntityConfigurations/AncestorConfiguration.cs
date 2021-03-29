@@ -7,12 +7,22 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public AncestorConfiguration()
         {
-            Property(a => a.Code)
+            Property(a => a.Name)
                 .IsRequired()
                 .HasMaxLength(50);
 
             Property(a => a.Remark)
                 .HasMaxLength(255);
+
+            HasOptional(a => a.Applicant)
+                .WithMany(a => a.Ancestors)
+                .HasForeignKey(a => a.ApplicantId)
+                .WillCascadeOnDelete(false);
+
+            HasMany(a => a.Deceaseds)
+                .WithOptional(d => d.Ancestor)
+                .HasForeignKey(a => a.AncestorId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(a => a.AncestorArea)
                 .WithMany(aa => aa.Ancestors)

@@ -83,7 +83,5 @@ namespace Memorial.Lib.Receipt
             return true;
         }
 
-
-
     }
 }

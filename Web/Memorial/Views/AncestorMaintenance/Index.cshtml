@@ -1,8 +1,55 @@
-﻿
+﻿@model Memorial.ViewModels.AncestorItemIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.AncestorItemId, applicantId = Model.ApplicantId, id = Model.AncestorId })
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Ancestor</th>
+            <th>Applicant</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ancestorTransaction in Model.AncestorTransactionDtos)
+        {
+        <tr>
+            <td>@Html.ActionLink(ancestorTransaction.AF, "Info", new { AF = ancestorTransaction.AF }, new { target = "AncestorTransactionInfo" })</td>
+            <td>@ancestorTransaction.Ancestor.Name</td>
+            <td>@ancestorTransaction.Ancestor.Applicant.Name &nbsp; @ancestorTransaction.Ancestor.Applicant.Name2</td>
+            <td>@Convert.ToDateTime(ancestorTransaction.FromDate).ToString("yyyy-MMM")</td>
+            <td>@Convert.ToDateTime(ancestorTransaction.ToDate).ToString("yyyy-MMM")</td>
+            <td>@ancestorTransaction.Price</td>
+            <td>@ancestorTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@Html.ActionLink("Invoice", "Invoice", new { AF = ancestorTransaction.AF })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = ancestorTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete",
+                new { AF = ancestorTransaction.AF, itemId = Model.AncestorItemId, id = Model.AncestorId, applicantId = Model.ApplicantId },
+                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
 

@@ -6,6 +6,7 @@ using Memorial.Core;
 using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Ancestor;
 using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
@@ -15,14 +16,19 @@ namespace Memorial.Lib.Deceased
     {
         private readonly IUnitOfWork _unitOfWork;
         private IQuadrangle _quadrangle;
+        private IAncestor _ancestor;
         private IApplicantDeceased _appplicantDeceased;
 
         private Core.Domain.Deceased _deceased;
 
-        public Deceased(IUnitOfWork unitOfWork, IQuadrangle quadrangle, IApplicantDeceased appplicantDeceased)
+        public Deceased(IUnitOfWork unitOfWork, 
+            IQuadrangle quadrangle, 
+            IAncestor ancestor, 
+            IApplicantDeceased appplicantDeceased)
         {
             _unitOfWork = unitOfWork;
             _quadrangle = quadrangle;
+            _ancestor = ancestor;
             _appplicantDeceased = appplicantDeceased;
         }
 
@@ -69,6 +75,11 @@ namespace Memorial.Lib.Deceased
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
         {
             return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
+        }
+
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId)
+        {
+            return _unitOfWork.Deceaseds.GetByAncestor(ancestorId);
         }
 
         public int Create(DeceasedDto deceasedDto)
@@ -130,6 +141,42 @@ namespace Memorial.Lib.Deceased
             {
                 _deceased.Quadrangle = null;
                 _deceased.QuadrangleId = null;
+                return true;
+            }
+            return false;
+        }
+
+        public Core.Domain.Ancestor GetAncestor()
+        {
+            if (_deceased.AncestorId != null)
+            {
+                _ancestor.SetAncestor((int)_deceased.AncestorId);
+                return _ancestor.GetAncestor();
+            }
+            return null;
+        }
+
+        public bool SetAncestor(int ancestorId)
+        {
+            if (_deceased != null)
+            {
+                var ancestor = _ancestor.GetAncestor(ancestorId);
+                if (ancestor != null)
+                {
+                    _deceased.Ancestor = ancestor;
+                    _deceased.AncestorId = ancestorId;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveAncestor()
+        {
+            if (_deceased != null)
+            {
+                _deceased.Ancestor = null;
+                _deceased.AncestorId = null;
                 return true;
             }
             return false;

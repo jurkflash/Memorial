@@ -29,5 +29,11 @@ namespace Memorial.Core.Domain
         public ICollection<Ancestor> Ancestors { get; set; }
 
         public ICollection<AncestorItem> AncestorItems { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
     }
 }

@@ -615,6 +615,15 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorMaintenanceController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorOrderController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorInvoicesController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorReceiptsController.cs" />
+    <Compile Include="Controllers\Ancestor\AncestorShiftController.cs" />
+    <Compile Include="Controllers\Api\AncestorMaintenanceController.cs" />
+    <Compile Include="Controllers\Api\AncestorsController.cs" />
     <Compile Include="Controllers\Api\SitesController.cs" />
     <Compile Include="Controllers\Api\QuadranglesController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
@@ -622,6 +631,7 @@
     <Compile Include="Controllers\Api\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
     <Compile Include="Controllers\Api\QuadrangleManagesController.cs" />
+    <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Controllers\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\Cremation\CremationController.cs" />
@@ -649,6 +659,14 @@
     <Compile Include="Controllers\Quadrangle\QuadranglePhotoController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleShiftController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleTransferController.cs" />
+    <Compile Include="Controllers\Space\SpaceHouseController.cs" />
+    <Compile Include="Controllers\Space\SpaceElectricController.cs" />
+    <Compile Include="Controllers\Space\SpaceChairController.cs" />
+    <Compile Include="Controllers\Space\SpaceNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Space\SpaceReceiptsController.cs" />
+    <Compile Include="Controllers\Space\SpaceInvoicesController.cs" />
+    <Compile Include="Controllers\Space\SpaceBookingController.cs" />
+    <Compile Include="Controllers\Space\SpaceController.cs" />
     <Compile Include="Controllers\Urn\UrnReceiptsController.cs" />
     <Compile Include="Controllers\Urn\UrnInvoicesController.cs" />
     <Compile Include="Controllers\Urn\UrnPurchaseController.cs" />
@@ -661,6 +679,7 @@
     <Compile Include="Core\Domain\CremationTransaction.cs" />
     <Compile Include="Core\Domain\MasterCatalog.cs" />
     <Compile Include="Core\Domain\PlotTransaction.cs" />
+    <Compile Include="Core\Domain\AncestorTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
@@ -754,6 +773,7 @@
     <Compile Include="Core\Repositories\INumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestorTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
@@ -808,6 +828,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib\Ancestor\Ancestor\Ancestor.cs" />
+    <Compile Include="Lib\Ancestor\Ancestor\IAncestor.cs" />
+    <Compile Include="Lib\Ancestor\Area\Area.cs" />
+    <Compile Include="Lib\Ancestor\Area\IArea.cs" />
+    <Compile Include="Lib\Ancestor\Item\IItem.cs" />
+    <Compile Include="Lib\Ancestor\Item\Item.cs" />
+    <Compile Include="Lib\Ancestor\Maintenance\IMaintenance.cs" />
+    <Compile Include="Lib\Ancestor\Maintenance\Maintenance.cs" />
+    <Compile Include="Lib\Ancestor\Number\Number.cs" />
+    <Compile Include="Lib\Ancestor\Number\INumber.cs" />
+    <Compile Include="Lib\Ancestor\Order\IOrder.cs" />
+    <Compile Include="Lib\Ancestor\Order\Order.cs" />
+    <Compile Include="Lib\Ancestor\Payment\IPayment.cs" />
+    <Compile Include="Lib\Ancestor\Payment\Payment.cs" />
+    <Compile Include="Lib\Ancestor\Shift\IShift.cs" />
+    <Compile Include="Lib\Ancestor\Shift\Shift.cs" />
+    <Compile Include="Lib\Ancestor\Tracking\IAncestorApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Ancestor\Tracking\ITracking.cs" />
+    <Compile Include="Lib\Ancestor\Tracking\AncestorApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Ancestor\Tracking\Tracking.cs" />
+    <Compile Include="Lib\Ancestor\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Ancestor\Transaction\Transaction.cs" />
     <Compile Include="Lib\ApplicantDeceased\ApplicantDeceased.cs" />
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
@@ -830,12 +872,16 @@
     <Compile Include="Lib\FuneralCo\IFuneralCo.cs" />
     <Compile Include="Lib\GenderType\GenderType.cs" />
     <Compile Include="Lib\GenderType\IGenderType.cs" />
+    <Compile Include="Lib\Invoice\Ancestor\Ancestor.cs" />
+    <Compile Include="Lib\Invoice\Ancestor\IAncestor.cs" />
     <Compile Include="Lib\Invoice\Cremation\Cremation.cs" />
     <Compile Include="Lib\Invoice\Cremation\ICremation.cs" />
     <Compile Include="Lib\Invoice\IInvoice.cs" />
     <Compile Include="Lib\Invoice\Invoice.cs" />
     <Compile Include="Lib\Invoice\Miscellaneous\IMiscellaneous.cs" />
     <Compile Include="Lib\Invoice\Miscellaneous\Miscellaneous.cs" />
+    <Compile Include="Lib\Invoice\Space\ISpace.cs" />
+    <Compile Include="Lib\Invoice\Space\Space.cs" />
     <Compile Include="Lib\Invoice\Urn\IUrn.cs" />
     <Compile Include="Lib\Invoice\Urn\Urn.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\ICompensate.cs" />
@@ -890,6 +936,8 @@
     <Compile Include="Lib\Quadrangle\Number\Number.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Receipt\Ancestor\Ancestor.cs" />
+    <Compile Include="Lib\Receipt\Ancestor\IAncestor.cs" />
     <Compile Include="Lib\Receipt\Cremation\Cremation.cs" />
     <Compile Include="Lib\Receipt\Cremation\ICremation.cs" />
     <Compile Include="Lib\Receipt\IReceipt.cs" />
@@ -898,6 +946,8 @@
     <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
+    <Compile Include="Lib\Receipt\Space\ISpace.cs" />
+    <Compile Include="Lib\Receipt\Space\Space.cs" />
     <Compile Include="Lib\Receipt\Urn\IUrn.cs" />
     <Compile Include="Lib\Receipt\Urn\Urn.cs" />
     <Compile Include="Lib\RelationshipType\IRelationshipType.cs" />
@@ -906,6 +956,24 @@
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
     <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
+    <Compile Include="Lib\Space\House\House.cs" />
+    <Compile Include="Lib\Space\House\IHouse.cs" />
+    <Compile Include="Lib\Space\Electric\Electric.cs" />
+    <Compile Include="Lib\Space\Electric\IElectric.cs" />
+    <Compile Include="Lib\Space\Chair\Chair.cs" />
+    <Compile Include="Lib\Space\Chair\IChair.cs" />
+    <Compile Include="Lib\Space\Booking\IBooking.cs" />
+    <Compile Include="Lib\Space\Booking\Booking.cs" />
+    <Compile Include="Lib\Space\Item\IItem.cs" />
+    <Compile Include="Lib\Space\Item\Item.cs" />
+    <Compile Include="Lib\Space\Number\INumber.cs" />
+    <Compile Include="Lib\Space\Number\Number.cs" />
+    <Compile Include="Lib\Space\Payment\IPayment.cs" />
+    <Compile Include="Lib\Space\Payment\Payment.cs" />
+    <Compile Include="Lib\Space\Space\ISpace.cs" />
+    <Compile Include="Lib\Space\Space\Space.cs" />
+    <Compile Include="Lib\Space\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Space\Transaction\Transaction.cs" />
     <Compile Include="Lib\Urn\Item\IItem.cs" />
     <Compile Include="Lib\Urn\Item\Item.cs" />
     <Compile Include="Lib\Urn\Payment\IPayment.cs" />
@@ -1778,12 +1846,41 @@
     <Compile Include="Migrations\202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.designer.cs">
       <DependentUpon>202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103290911448_ChangeIsPurchasedToApplicantAndCodeToNameForAncestorsTable.cs" />
+    <Compile Include="Migrations\202103290911448_ChangeIsPurchasedToApplicantAndCodeToNameForAncestorsTable.designer.cs">
+      <DependentUpon>202103290911448_ChangeIsPurchasedToApplicantAndCodeToNameForAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103290947275_AddCreateModifyAndDeleteDateToAncestorAreasTable.cs" />
+    <Compile Include="Migrations\202103290947275_AddCreateModifyAndDeleteDateToAncestorAreasTable.designer.cs">
+      <DependentUpon>202103290947275_AddCreateModifyAndDeleteDateToAncestorAreasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103291101100_AddHasDeceasedAndRemoveRelationshipTypeForAncestorsTable.cs" />
+    <Compile Include="Migrations\202103291101100_AddHasDeceasedAndRemoveRelationshipTypeForAncestorsTable.designer.cs">
+      <DependentUpon>202103291101100_AddHasDeceasedAndRemoveRelationshipTypeForAncestorsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103291123342_AddFromToDateAndShiftedAncestorIdToAncestorTransactionsTable.cs" />
+    <Compile Include="Migrations\202103291123342_AddFromToDateAndShiftedAncestorIdToAncestorTransactionsTable.designer.cs">
+      <DependentUpon>202103291123342_AddFromToDateAndShiftedAncestorIdToAncestorTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103291133315_AddShiftedAncestorToAncestorTransactionsTable.cs" />
+    <Compile Include="Migrations\202103291133315_AddShiftedAncestorToAncestorTransactionsTable.designer.cs">
+      <DependentUpon>202103291133315_AddShiftedAncestorToAncestorTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103291137056_ChangeShiftedQuadrangleForeignKeyForQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202103291137056_ChangeShiftedQuadrangleForeignKeyForQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202103291137056_ChangeShiftedQuadrangleForeignKeyForQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103291419321_AddAncestorTrackingsTableAndEtcChanges.cs" />
+    <Compile Include="Migrations\202103291419321_AddAncestorTrackingsTableAndEtcChanges.designer.cs">
+      <DependentUpon>202103291419321_AddAncestorTrackingsTableAndEtcChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
@@ -1840,6 +1937,7 @@
     <Compile Include="Persistence\Repositories\NumberRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestorTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
@@ -1886,6 +1984,13 @@
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorAreaIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorInfoViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorItemsViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorTransactionsFormViewModel.cs" />
+    <Compile Include="ViewModels\Ancestor\AncestorTransactionsInfoViewModel.cs" />
     <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsInfoViewModel.cs" />
     <Compile Include="ViewModels\ApplicantDeceaseds\AppplicantDeceasedsIndexViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationItemIndexesViewModel.cs" />
@@ -1917,10 +2022,11 @@
     <Compile Include="ViewModels\Deceased\DeceasedFormViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleItemsViewModel.cs" />
     <Compile Include="ViewModels\ListUrnTransactionViewModel.cs" />
-    <Compile Include="ViewModels\ListAncestorItemsViewModel.cs" />
     <Compile Include="ViewModels\Miscellaneous\MiscellaneousItemIndexesViewModel.cs" />
     <Compile Include="ViewModels\Miscellaneous\MiscellaneousItemsViewModel.cs" />
     <Compile Include="ViewModels\Miscellaneous\MiscellaneousIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Space\SpaceTransactionsFormViewModel.cs" />
+    <Compile Include="ViewModels\Space\SpaceTransactionsInfoViewModel.cs" />
     <Compile Include="ViewModels\Space\SpaceItemIndexesViewModel.cs" />
     <Compile Include="ViewModels\Space\SpaceItemsViewModel.cs" />
     <Compile Include="ViewModels\Space\SpaceIndexesViewModel.cs" />
@@ -1939,7 +2045,6 @@
     <Content Include="Views\Applicants\Index.cshtml" />
     <Content Include="Views\Space\Index.cshtml" />
     <Content Include="Views\Space\Items.cshtml" />
-    <Content Include="Views\SpaceTransactions\Index.cshtml" />
     <Content Include="Views\Urn\Items.cshtml" />
     <Content Include="Views\Miscellaneous\Index.cshtml" />
     <Content Include="Views\Miscellaneous\Items.cshtml" />
@@ -1947,9 +2052,6 @@
     <Content Include="Views\Ancestor\Ancestor.cshtml" />
     <Content Include="Views\Ancestor\Items.cshtml" />
     <Content Include="Views\AncestorFree\Index.cshtml" />
-    <Content Include="Views\AncestorMaintenance\Index.cshtml" />
-    <Content Include="Views\AncestorOrder\Index.cshtml" />
-    <Content Include="Views\AncestorShift\Index.cshtml" />
     <Content Include="Views\Cremation\Index.cshtml" />
     <Content Include="Views\Cremation\Items.cshtml" />
     <Content Include="Views\QuadrangleTransactions\Index.cshtml" />
@@ -1976,11 +2078,6 @@
     <Content Include="Views\Shared\_DeceasedInfo.cshtml" />
     <Content Include="Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Views\NonOrderReceipts\Form.cshtml" />
-    <Content Include="Views\MiscellaneousNonOrders\Form.cshtml" />
-    <Content Include="Views\MiscellaneousNonOrders\Index.cshtml" />
-    <Content Include="Views\MiscellaneousNonOrders\Info.cshtml" />
-    <Content Include="Views\SpaceTransactions\Form.cshtml" />
-    <Content Include="Views\SpaceTransactions\Info.cshtml" />
     <Content Include="Views\OrderReceipts\Index.cshtml" />
     <Content Include="Views\OrderReceipts\Form.cshtml" />
     <Content Include="Views\Invoices\Form.cshtml" />
@@ -2056,6 +2153,40 @@
     <Content Include="Views\CremationOrders\Form.cshtml" />
     <Content Include="Views\CremationOrders\Index.cshtml" />
     <Content Include="Views\CremationOrders\Info.cshtml" />
+    <Content Include="Views\SpaceBooking\Index.cshtml" />
+    <Content Include="Views\SpaceBooking\Form.cshtml" />
+    <Content Include="Views\SpaceBooking\Info.cshtml" />
+    <Content Include="Views\SpaceInvoices\Form.cshtml" />
+    <Content Include="Views\SpaceInvoices\Index.cshtml" />
+    <Content Include="Views\SpaceReceipts\Form.cshtml" />
+    <Content Include="Views\SpaceReceipts\Index.cshtml" />
+    <Content Include="Views\SpaceNonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\SpaceNonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\SpaceChair\Form.cshtml" />
+    <Content Include="Views\SpaceChair\Index.cshtml" />
+    <Content Include="Views\SpaceChair\Info.cshtml" />
+    <Content Include="Views\SpaceElectric\Form.cshtml" />
+    <Content Include="Views\SpaceElectric\Index.cshtml" />
+    <Content Include="Views\SpaceElectric\Info.cshtml" />
+    <Content Include="Views\SpaceHouse\Form.cshtml" />
+    <Content Include="Views\SpaceHouse\Index.cshtml" />
+    <Content Include="Views\SpaceHouse\Info.cshtml" />
+    <Content Include="Views\AncestorNonOrderReceipts\Form.cshtml" />
+    <Content Include="Views\AncestorNonOrderReceipts\Index.cshtml" />
+    <Content Include="Views\AncestorReceipts\Form.cshtml" />
+    <Content Include="Views\AncestorReceipts\Index.cshtml" />
+    <Content Include="Views\AncestorInvoices\Form.cshtml" />
+    <Content Include="Views\AncestorInvoices\Index.cshtml" />
+    <Content Include="Views\AncestorOrder\Form.cshtml" />
+    <Content Include="Views\AncestorOrder\Index.cshtml" />
+    <Content Include="Views\AncestorOrder\Info.cshtml" />
+    <Content Include="Views\AncestorMaintenance\Form.cshtml" />
+    <Content Include="Views\AncestorMaintenance\Index.cshtml" />
+    <Content Include="Views\AncestorMaintenance\Info.cshtml" />
+    <Content Include="Views\AncestorShift\Form.cshtml" />
+    <Content Include="Views\AncestorShift\Info.cshtml" />
+    <Content Include="Views\AncestorShift\ShiftedFromIndex.cshtml" />
+    <Content Include="Views\AncestorShift\ShiftedToIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2721,6 +2852,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.resx">
       <DependentUpon>202103241638373_AddCreateModifyDeleteDateColumnToCremationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103290911448_ChangeIsPurchasedToApplicantAndCodeToNameForAncestorsTable.resx">
+      <DependentUpon>202103290911448_ChangeIsPurchasedToApplicantAndCodeToNameForAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103290947275_AddCreateModifyAndDeleteDateToAncestorAreasTable.resx">
+      <DependentUpon>202103290947275_AddCreateModifyAndDeleteDateToAncestorAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291101100_AddHasDeceasedAndRemoveRelationshipTypeForAncestorsTable.resx">
+      <DependentUpon>202103291101100_AddHasDeceasedAndRemoveRelationshipTypeForAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291123342_AddFromToDateAndShiftedAncestorIdToAncestorTransactionsTable.resx">
+      <DependentUpon>202103291123342_AddFromToDateAndShiftedAncestorIdToAncestorTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291133315_AddShiftedAncestorToAncestorTransactionsTable.resx">
+      <DependentUpon>202103291133315_AddShiftedAncestorToAncestorTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291137056_ChangeShiftedQuadrangleForeignKeyForQuadrangleTransactionsTable.resx">
+      <DependentUpon>202103291137056_ChangeShiftedQuadrangleForeignKeyForQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103291419321_AddAncestorTrackingsTableAndEtcChanges.resx">
+      <DependentUpon>202103291419321_AddAncestorTrackingsTableAndEtcChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

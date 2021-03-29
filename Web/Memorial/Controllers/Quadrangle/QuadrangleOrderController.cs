@@ -18,14 +18,14 @@ namespace Memorial.Controllers
 {
     public class QuadrangleOrderController : Controller
     {
-        private IQuadrangle _quadrangle;
-        private IDeceased _deceased;
-        private IFuneralCo _funeralCo;
-        private IOrder _order;
-        private IApplicant _applicant;
-        private ITracking _tracking;
-        private IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
-        private Lib.Invoice.IQuadrangle _invoice;
+        private readonly IQuadrangle _quadrangle;
+        private readonly IDeceased _deceased;
+        private readonly IFuneralCo _funeralCo;
+        private readonly IOrder _order;
+        private readonly IApplicant _applicant;
+        private readonly ITracking _tracking;
+        private readonly IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
+        private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public QuadrangleOrderController(
             IQuadrangle quadrangle,

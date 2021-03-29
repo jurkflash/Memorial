@@ -12,6 +12,8 @@ namespace Memorial.Core.Domain
             Invoices = new HashSet<Invoice>();
 
             Receipts = new HashSet<Receipt>();
+
+            AncestorTrackings = new HashSet<AncestorTracking>();
         }
 
         public string AF { get; set; }
@@ -30,17 +32,23 @@ namespace Memorial.Core.Domain
 
         public float Price { get; set; }
 
+        public float? Maintenance { get; set; }
+
         public Applicant Applicant { get; set; }
 
         public int ApplicantId { get; set; }
 
-        public RelationshipType RelationshipType { get; set; }
-
-        public byte RelationshipTypeId { get; set; }
-
         public Deceased Deceased { get; set; }
 
         public int? DeceasedId { get; set; }
+
+        public DateTime? FromDate { get; set; }
+
+        public DateTime? ToDate { get; set; }
+
+        public Ancestor ShiftedAncestor { get; set; }
+
+        public int? ShiftedAncestorId { get; set; }
 
         public DateTime CreateDate { get; set; }
 
@@ -51,5 +59,7 @@ namespace Memorial.Core.Domain
         public ICollection<Invoice> Invoices { get; set; }
 
         public ICollection<Receipt> Receipts { get; set; }
+
+        public ICollection<AncestorTracking> AncestorTrackings { get; set; }
     }
 }

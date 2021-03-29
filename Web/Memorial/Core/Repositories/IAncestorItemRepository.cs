@@ -5,6 +5,8 @@ namespace Memorial.Core.Repositories
 {
     public interface IAncestorItemRepository : IRepository<AncestorItem>
     {
+        AncestorItem GetActive(int id);
+
         IEnumerable<AncestorItem> GetByArea(int areaId);
     }
 }

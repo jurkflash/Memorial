@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Memorial.Core;
+using Memorial.Core.Dtos;
+using AutoMapper;
+
+namespace Memorial.Lib.Space
+{
+    public class Item : IItem
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private Core.Domain.SpaceItem _item;
+
+        public Item(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public void SetItem(int id)
+        {
+            _item = _unitOfWork.SpaceItems.GetActive(id);
+        }
+
+        public Core.Domain.SpaceItem GetItem()
+        {
+            return _item;
+        }
+
+        public SpaceItemDto GetItemDto()
+        {
+            return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem());
+        }
+
+        public Core.Domain.SpaceItem GetItem(int id)
+        {
+            return _unitOfWork.SpaceItems.GetActive(id);
+        }
+
+        public SpaceItemDto GetItemDto(int id)
+        {
+            return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem(id));
+        }
+
+        public int GetId()
+        {
+            return _item.Id;
+        }
+
+        public string GetName()
+        {
+            return _item.Name;
+        }
+
+        public string GetDescription()
+        {
+            return _item.Description;
+        }
+
+        public float GetPrice()
+        {
+            return _item.Price;
+        }
+
+        public string GetSystemCode()
+        {
+            return _item.SystemCode;
+        }
+
+        public bool IsOrder()
+        {
+            return _item.isOrder;
+        }
+
+        public bool AllowDoubleBook()
+        {
+            return _item.AllowDoubleBook;
+        }
+
+        public IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId)
+        {
+            return _unitOfWork.SpaceItems.GetBySpace(spaceId);
+        }
+
+        public IEnumerable<SpaceItemDto> GetItemDtosBySpace(int spaceId)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(GetItemBySpace(spaceId));
+        }
+        
+    }
+}

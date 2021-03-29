@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Quadrangle;
 
 namespace Memorial.Lib.Receipt
 {

@@ -1,0 +1,42 @@
+﻿@model Memorial.ViewModels.AncestorItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.AncestorItemId, applicantId = Model.ApplicantId, id = Model.AncestorId })
+    </p>
+}
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Ancestor</th>
+            <th>Shifted To</th>
+            <th>Applicant</th>
+            <th>Price</th>
+            <th>Create Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ancestorTransaction in Model.AncestorTransactionDtos)
+        {
+        <tr>
+            <td>@Html.ActionLink(ancestorTransaction.AF, "Info", new { AF = ancestorTransaction.AF }, new { target = "AncestorTransactionInfo" })</td>
+            <td>@ancestorTransaction.Ancestor.Name</td>
+            <td>@Html.ActionLink(@ancestorTransaction.ShiftedAncestor.Name, "Index", new { itemId = ancestorTransaction.AncestorItemId, id= ancestorTransaction.ShiftedAncestorId, applicantId = ancestorTransaction.ApplicantId })</td>
+            <td>@ancestorTransaction.Applicant.Name &nbsp; @ancestorTransaction.Applicant.Name2</td>
+            <td>@ancestorTransaction.Price</td>
+            <td>@ancestorTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+

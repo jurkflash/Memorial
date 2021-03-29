@@ -1,32 +1,24 @@
-﻿@model IEnumerable<Memorial.Core.Domain.Ancestor>
+﻿@model Memorial.ViewModels.AncestorIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Ancestor</h2>
+
 <table class="table table-bordered table-hover">
-    <thead>
+    @foreach (var position in Model.Positions)
+    {
         <tr>
-            <th>Code</th>
-            <th>Price</th>
-            <th>Maintenance</th>
-            <th>Remark</th>
-            <th>PositionX</th>
-            <th>PositionY</th>
+            @foreach (var c in Model.Positions[position.Key])
+            {
+                foreach (var ancestor in Model.AncestorDtos.Where(q => q.PositionY == position.Key && q.PositionX == c))
+                {
+                    <td>
+                        @Html.ActionLink(ancestor.Name, "Items", new { id = ancestor.Id, applicantId = Model.ApplicantId })
+                    </td>
+                }
+            }
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var ancestor in Model)
-        {
-        <tr>
-            <td>@Html.ActionLink(ancestor.Code, "Item", new { ancestorId = ancestor.Id, ancestorAreaId = ancestor.AncestorAreaId })</td>
-            <td>@ancestor.Price</td>
-            <td>@ancestor.Maintenance</td>
-            <td>@ancestor.Remark</td>
-            <td>@ancestor.PositionX</td>
-            <td>@ancestor.PositionY</td>
-        </tr>
-        }
-    </tbody>
+    }
 </table>

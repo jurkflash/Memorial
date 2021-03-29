@@ -5,6 +5,18 @@ namespace Memorial.Core.Dtos
 {
     public class AncestorTransactionDto
     {
+        public AncestorTransactionDto()
+        {
+
+        }
+
+        public AncestorTransactionDto(int ancestorItemId, int ancestorId, int applicantId)
+        {
+            AncestorItemId = ancestorItemId;
+            AncestorId = ancestorId;
+            ApplicantId = applicantId;
+        }
+
         public string AF { get; set; }
 
         public AncestorItem AncestorItem { get; set; }
@@ -21,17 +33,23 @@ namespace Memorial.Core.Dtos
 
         public float Price { get; set; }
 
+        public float? Maintenance { get; set; }
+
         public Applicant Applicant { get; set; }
 
         public int ApplicantId { get; set; }
 
-        public RelationshipType RelationshipType { get; set; }
-
-        public byte RelationshipTypeId { get; set; }
-
         public Deceased Deceased { get; set; }
 
         public int? DeceasedId { get; set; }
+
+        public DateTime? FromDate { get; set; }
+
+        public DateTime? ToDate { get; set; }
+
+        public Ancestor ShiftedAncestor { get; set; }
+
+        public int? ShiftedAncestorId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

@@ -1,0 +1,16 @@
+﻿@model Memorial.ViewModels.AncestorTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId });}
+
+<div class="row">
+    <div class="col-md-3">
+        AF
+    </div>
+    <div class="col-md-3">
+        @Model.AncestorTransactionDto.AF
+    </div>
+</div>

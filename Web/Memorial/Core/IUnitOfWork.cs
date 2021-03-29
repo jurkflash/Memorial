@@ -28,6 +28,7 @@ namespace Memorial.Core
         IPlotTransactionRepository PlotTransactions { get; }
 
         IAncestorRepository Ancestors { get; }
+        IAncestorTrackingRepository AncestorTrackings { get; }
         IAncestorAreaRepository AncestorAreas { get; }
         IAncestorItemRepository AncestorItems { get; }
         IAncestorNumberRepository AncestorNumbers { get; }

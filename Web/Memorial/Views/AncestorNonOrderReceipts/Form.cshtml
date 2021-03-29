@@ -1,0 +1,105 @@
+﻿@model Memorial.ViewModels.NewNonOrderReceiptFormViewModel
+@{
+    ViewBag.Title = "OrderNew";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Receipt Form</h2>
+
+AF: @Model.AF
+<br />
+Amount: @Model.Amount
+<br />
+Remaining Amount: @Model.RemainingAmount
+
+@using (Html.BeginForm("Save", "AncestorNonOrderReceipts", FormMethod.Post, new { @id = "receiptForm" }))
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            Amount
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(r => r.ReceiptDto.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(r => r.ReceiptDto.Amount)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Payment Method
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row" id="divPaymentRemark" style="display:none">
+        <div class="col-md-3">
+            Payment Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(r => r.ReceiptDto.PaymentRemark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(r => r.ReceiptDto.PaymentRemark)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(r => r.ReceiptDto.Remark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(r => r.ReceiptDto.Remark)
+        </div>
+    </div>
+
+    @Html.HiddenFor(r => r.ReceiptDto.RE)
+    @Html.HiddenFor(r => r.AF)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("#ReceiptDto_PaymentMethodId").change(function () {
+            checkPaymentMethod();
+        });
+
+        function checkPaymentMethod(ddlPaymentMethod) {
+            var t = $("#ReceiptDto_PaymentMethodId").val();
+            if (t !== "") {
+                var url = '/api/PaymentMethods/GetPaymentMethod';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: { id: t }
+                }).done(function (data) {
+                    if (data.requireRemark) {
+                        $("#divPaymentRemark").show();
+                    }
+                    else {
+                        $("#divPaymentRemark").hide();
+                    }
+                }).fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+            }
+            else {
+                $("#divPaymentRemark").hide();
+            }
+        }
+
+        $(document).ready(function () {
+            checkPaymentMethod();
+
+            $.validator.addMethod("paymentMethodRemark", function (value, element, arg) {
+                if ($("#divPaymentRemark").is(":visible") && value == "")
+                    return false;
+                return true;
+            }, "Please enter payment remark");
+
+            $("#ReceiptDto_PaymentRemark").rules("add",
+                {
+                    paymentMethodRemark: true
+                });
+
+        });
+    </script>
+}
