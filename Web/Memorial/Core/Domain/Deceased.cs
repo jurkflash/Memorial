@@ -17,8 +17,6 @@ namespace Memorial.Core.Domain
 
             AncestorTransactions = new HashSet<AncestorTransaction>();
 
-            PlotTransactions = new HashSet<PlotTransaction>();
-
             QuadrangleTransactions1 = new HashSet<QuadrangleTransaction>();
 
             QuadrangleTransactions2 = new HashSet<QuadrangleTransaction>();
@@ -28,6 +26,14 @@ namespace Memorial.Core.Domain
             QuadrangleTrackings2 = new HashSet<QuadrangleTracking>();
 
             AncestorTrackings = new HashSet<AncestorTracking>();
+
+            PlotTransactions1 = new HashSet<PlotTransaction>();
+
+            PlotTransactions2 = new HashSet<PlotTransaction>();
+
+            PlotTrackings1 = new HashSet<PlotTracking>();
+
+            PlotTrackings2 = new HashSet<PlotTracking>();
         }
 
         public int Id { get; set; }
@@ -100,8 +106,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions { get; set; }
-
         public ICollection<QuadrangleTransaction> QuadrangleTransactions1 { get; set; }
 
         public ICollection<QuadrangleTransaction> QuadrangleTransactions2 { get; set; }
@@ -111,6 +115,14 @@ namespace Memorial.Core.Domain
         public ICollection<QuadrangleTracking> QuadrangleTrackings2 { get; set; }
 
         public ICollection<AncestorTracking> AncestorTrackings { get; set; }
+
+        public ICollection<PlotTransaction> PlotTransactions1 { get; set; }
+
+        public ICollection<PlotTransaction> PlotTransactions2 { get; set; }
+
+        public ICollection<PlotTracking> PlotTrackings1 { get; set; }
+
+        public ICollection<PlotTracking> PlotTrackings2 { get; set; }
 
     }
 }

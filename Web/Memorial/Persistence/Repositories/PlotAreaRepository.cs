@@ -12,10 +12,18 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public PlotArea GetActive(int id)
+        {
+            return MemorialContext.PlotAreas
+                .Where(pa => pa.Id == id && pa.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
         public IEnumerable<PlotArea> GetBySite(byte siteId)
         {
             return MemorialContext.PlotAreas
-                .Where(pa => pa.SiteId == siteId).ToList();
+                .Where(pa => pa.SiteId == siteId
+                && pa.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

@@ -9,8 +9,8 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface INumber
     {
-        string GetNewAF(int urnItemId, int year);
+        string GetNewAF(int quadrangleItemId, int year);
 
-        string GetNewIV(int urnItemId, int year);
+        string GetNewIV(int quadrangleItemId, int year);
     }
 }

@@ -7,6 +7,7 @@ using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
 using Memorial.Lib.Ancestor;
+using Memorial.Lib.Plot;
 using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
@@ -15,8 +16,9 @@ namespace Memorial.Lib.Deceased
     public class Deceased : IDeceased
     {
         private readonly IUnitOfWork _unitOfWork;
-        private IQuadrangle _quadrangle;
-        private IAncestor _ancestor;
+        private readonly IQuadrangle _quadrangle;
+        private readonly IAncestor _ancestor;
+        private readonly IPlot _plot;
         private IApplicantDeceased _appplicantDeceased;
 
         private Core.Domain.Deceased _deceased;
@@ -24,11 +26,13 @@ namespace Memorial.Lib.Deceased
         public Deceased(IUnitOfWork unitOfWork, 
             IQuadrangle quadrangle, 
             IAncestor ancestor, 
+            IPlot plot, 
             IApplicantDeceased appplicantDeceased)
         {
             _unitOfWork = unitOfWork;
             _quadrangle = quadrangle;
             _ancestor = ancestor;
+            _plot = plot;
             _appplicantDeceased = appplicantDeceased;
         }
 
@@ -80,6 +84,11 @@ namespace Memorial.Lib.Deceased
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId)
         {
             return _unitOfWork.Deceaseds.GetByAncestor(ancestorId);
+        }
+
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByPlotId(int plotId)
+        {
+            return _unitOfWork.Deceaseds.GetByPlot(plotId);
         }
 
         public int Create(DeceasedDto deceasedDto)
@@ -177,6 +186,42 @@ namespace Memorial.Lib.Deceased
             {
                 _deceased.Ancestor = null;
                 _deceased.AncestorId = null;
+                return true;
+            }
+            return false;
+        }
+
+        public Core.Domain.Plot GetPlot()
+        {
+            if (_deceased.PlotId != null)
+            {
+                _plot.SetPlot((int)_deceased.PlotId);
+                return _plot.GetPlot();
+            }
+            return null;
+        }
+
+        public bool SetPlot(int plotId)
+        {
+            if (_deceased != null)
+            {
+                var plot = _plot.GetPlot(plotId);
+                if (plot != null)
+                {
+                    _deceased.Plot = plot;
+                    _deceased.PlotId = plotId;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemovePlot()
+        {
+            if (_deceased != null)
+            {
+                _deceased.Plot = null;
+                _deceased.PlotId = null;
                 return true;
             }
             return false;

@@ -10,10 +10,6 @@ namespace Memorial.Persistence.EntityConfigurations
             Property(pt => pt.Name)
             .IsRequired()
             .HasMaxLength(255);
-
-            Property(pt => pt.Code)
-            .IsRequired()
-            .HasMaxLength(10);
         }
     }
 }

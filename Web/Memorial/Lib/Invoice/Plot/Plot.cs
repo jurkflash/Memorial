@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Memorial.Lib.Plot;
+using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Lib.Invoice
 {
@@ -10,52 +12,74 @@ namespace Memorial.Lib.Invoice
     {
         private readonly IUnitOfWork _unitOfWork;
         protected INumber _number;
-        protected ITransaction _transaction;
 
-        public Plot(IUnitOfWork unitOfWork, INumber number, ITransaction transaction) : base(unitOfWork)
+        public Plot(IUnitOfWork unitOfWork, INumber number) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _number = number;
-            _transaction = transaction;
+        }
+
+        public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
+        {
+            return _unitOfWork.Invoices.GetByActivePlotAF(AF);
+        }
+
+        public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByAF(AF));
+        }
+
+        public bool HasInvoiceByAF(string AF)
+        {
+            return _unitOfWork.Invoices.GetByActivePlotAF(AF).Any();
         }
 
         override
-        protected void NewNumber()
+        public string GetAF()
         {
-            _ivNumber = _number.GetNewIV(_transaction.GetItemId(), System.DateTime.Now.Year);
+            return _invoice.PlotTransactionAF;
         }
 
-        public bool Create(string AF, float amount, string remark)
+        override
+        public void NewNumber(int itemId)
         {
-            SetNew();
+            _ivNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
+        }
 
-            NewNumber();
+        public bool Create(int itemId, InvoiceDto invoiceDto)
+        {
+            NewNumber(itemId);
 
-            _invoice.PlotTransactionAF = AF;
-
-            CreateNewInvoice(amount, remark);
-
-            _unitOfWork.Complete();
+            CreateNewInvoice(invoiceDto);
 
             return true;
         }
 
-        public bool Update(float amount, string remark)
+        public bool Update(InvoiceDto invoiceDto)
         {
-            _invoice.Remark = remark;
-            _invoice.Amount = amount;
-            _unitOfWork.Complete();
+            UpdateInvoice(invoiceDto);
+
             return true;
         }
 
-        public IEnumerable<Core.Domain.Invoice> GetInvoices(string AF)
+        public bool Delete()
         {
-            return GetInvoicesByPlotAF(AF);
+            DeleteInvoice();
+
+            return true;
         }
 
-        public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtos(string AF)
+        public bool DeleteByApplication(string AF)
         {
-            return GetInvoiceDtosByPlotAF(AF);
+            var invoices = GetInvoicesByAF(AF);
+            foreach (var invoice in invoices)
+            {
+                invoice.DeleteDate = System.DateTime.Now;
+            }
+
+            return true;
         }
+
+
     }
 }

@@ -19,6 +19,7 @@ namespace Memorial.Persistence.Repositories
         private const string _urn = "Urn";
         private const string _quadrangle = "Quadrangle";
         private const string _ancestor = "Ancestor";
+        private const string _plot = "Plot";
 
         private MemorialContext _context;
 
@@ -120,6 +121,21 @@ namespace Memorial.Persistence.Repositories
         public int GetAncestorNewRE(int itemId, int year)
         {
             return GetNumber(_ancestor, _RE, itemId, year);
+        }
+
+        public int GetPlotNewAF(int itemId, int year)
+        {
+            return GetNumber(_plot, _AF, itemId, year);
+        }
+
+        public int GetPlotNewIV(int itemId, int year)
+        {
+            return GetNumber(_plot, _IV, itemId, year);
+        }
+
+        public int GetPlotNewRE(int itemId, int year)
+        {
+            return GetNumber(_plot, _RE, itemId, year);
         }
 
         private int GetNumber(string catalog, string type, int itemId, int year)

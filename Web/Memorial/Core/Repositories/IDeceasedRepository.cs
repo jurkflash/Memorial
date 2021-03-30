@@ -16,5 +16,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<Deceased> GetByQuadrangle(int quadrangleId);
 
         IEnumerable<Deceased> GetByAncestor(int ancestorId);
+
+        IEnumerable<Deceased> GetByPlot(int plotId);
     }
 }

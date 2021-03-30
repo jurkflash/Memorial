@@ -1,10 +1,8 @@
-﻿@model IEnumerable<Memorial.Core.Domain.PlotItem>
+﻿@model Memorial.ViewModels.PlotItemsViewModel
 @{
     ViewBag.Title = "Item";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Item</h2>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -14,10 +12,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var plotItem in Model)
+        @foreach (var plotItem in Model.PlotItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotItem.Name, "Item", new { item = plotItem.SystemCode, plotItemId = plotItem.Id })</td>
+                <td>@Html.ActionLink(plotItem.Name, "Index", "Plot" + plotItem.SystemCode, new { itemId = plotItem.Id, id = Model.PlotDto.Id, applicantId = Model.ApplicantDto.Id }, null)</td>
                 <td>@plotItem.Description</td>
             </tr>
         }

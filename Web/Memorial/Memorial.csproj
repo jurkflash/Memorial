@@ -649,6 +649,10 @@
     <Compile Include="Controllers\Miscellaenous\MiscellaneousInvoicesController.cs" />
     <Compile Include="Controllers\Miscellaenous\MiscellaneousReceiptsController.cs" />
     <Compile Include="Controllers\Miscellaenous\MiscellaneousNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Plot\PlotController.cs" />
+    <Compile Include="Controllers\Plot\PlotSingleOrderController.cs" />
+    <Compile Include="Controllers\Plot\PlotInvoicesController.cs" />
+    <Compile Include="Controllers\Plot\PlotReceiptsController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleNonOrderReceiptsController.cs" />
@@ -680,6 +684,7 @@
     <Compile Include="Core\Domain\MasterCatalog.cs" />
     <Compile Include="Core\Domain\PlotTransaction.cs" />
     <Compile Include="Core\Domain\AncestorTracking.cs" />
+    <Compile Include="Core\Domain\PlotTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
@@ -747,6 +752,12 @@
     <Compile Include="Core\Dtos\DeceasedDto.cs" />
     <Compile Include="Core\Dtos\FuneralCompanyDto.cs" />
     <Compile Include="Core\Dtos\InvoiceDto.cs" />
+    <Compile Include="Core\Dtos\PlotDto.cs" />
+    <Compile Include="Core\Dtos\PlotAreaDto.cs" />
+    <Compile Include="Core\Dtos\PlotItemDto.cs" />
+    <Compile Include="Core\Dtos\PlotLandscapeCompanyDto.cs" />
+    <Compile Include="Core\Dtos\PlotTransactionDto.cs" />
+    <Compile Include="Core\Dtos\PlotTypeDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleAreaDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleCentreDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleDto.cs" />
@@ -774,6 +785,7 @@
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorTrackingRepository.cs" />
+    <Compile Include="Core\Repositories\IPlotTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
@@ -880,6 +892,8 @@
     <Compile Include="Lib\Invoice\Invoice.cs" />
     <Compile Include="Lib\Invoice\Miscellaneous\IMiscellaneous.cs" />
     <Compile Include="Lib\Invoice\Miscellaneous\Miscellaneous.cs" />
+    <Compile Include="Lib\Invoice\Plot\IPlot.cs" />
+    <Compile Include="Lib\Invoice\Plot\Plot.cs" />
     <Compile Include="Lib\Invoice\Space\ISpace.cs" />
     <Compile Include="Lib\Invoice\Space\Space.cs" />
     <Compile Include="Lib\Invoice\Urn\IUrn.cs" />
@@ -900,6 +914,24 @@
     <Compile Include="Lib\Miscellaneous\RentAirCooler\IRentAirCooler.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Plot\Area\Area.cs" />
+    <Compile Include="Lib\Plot\Area\IArea.cs" />
+    <Compile Include="Lib\Plot\Item\IItem.cs" />
+    <Compile Include="Lib\Plot\Item\Item.cs" />
+    <Compile Include="Lib\Plot\Number\INumber.cs" />
+    <Compile Include="Lib\Plot\Number\Number.cs" />
+    <Compile Include="Lib\Plot\Order\SingleOrder\ISingleOrder.cs" />
+    <Compile Include="Lib\Plot\Order\SingleOrder\SingleOrder.cs" />
+    <Compile Include="Lib\Plot\Payment\IPayment.cs" />
+    <Compile Include="Lib\Plot\Payment\Payment.cs" />
+    <Compile Include="Lib\Plot\Plot\IPlot.cs" />
+    <Compile Include="Lib\Plot\Plot\Plot.cs" />
+    <Compile Include="Lib\Plot\Tracking\IPlotApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Plot\Tracking\ITracking.cs" />
+    <Compile Include="Lib\Plot\Tracking\PlotApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Plot\Tracking\Tracking.cs" />
+    <Compile Include="Lib\Plot\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
     <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
     <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
     <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
@@ -943,6 +975,8 @@
     <Compile Include="Lib\Receipt\IReceipt.cs" />
     <Compile Include="Lib\Receipt\Miscellaneous\IMiscellaneous.cs" />
     <Compile Include="Lib\Receipt\Miscellaneous\Miscellaneous.cs" />
+    <Compile Include="Lib\Receipt\Plot\IPlot.cs" />
+    <Compile Include="Lib\Receipt\Plot\Plot.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Receipt\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\Receipt\Receipt.cs" />
@@ -1874,6 +1908,50 @@
     <Compile Include="Migrations\202103291419321_AddAncestorTrackingsTableAndEtcChanges.designer.cs">
       <DependentUpon>202103291419321_AddAncestorTrackingsTableAndEtcChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103300844315_AddCreateModifyDeleteDateToPlotModulesTable.cs" />
+    <Compile Include="Migrations\202103300844315_AddCreateModifyDeleteDateToPlotModulesTable.designer.cs">
+      <DependentUpon>202103300844315_AddCreateModifyDeleteDateToPlotModulesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103300846369_AddCreateModifyDeleteDateToPlotlandscapeCompaniesTable.cs" />
+    <Compile Include="Migrations\202103300846369_AddCreateModifyDeleteDateToPlotlandscapeCompaniesTable.designer.cs">
+      <DependentUpon>202103300846369_AddCreateModifyDeleteDateToPlotlandscapeCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301002267_AddPlotTrackingsTable.cs" />
+    <Compile Include="Migrations\202103301002267_AddPlotTrackingsTable.designer.cs">
+      <DependentUpon>202103301002267_AddPlotTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301004182_RemovePriceFromPlotTypesTable.cs" />
+    <Compile Include="Migrations\202103301004182_RemovePriceFromPlotTypesTable.designer.cs">
+      <DependentUpon>202103301004182_RemovePriceFromPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301013265_RemoveCodeFromPlotTypesTable.cs" />
+    <Compile Include="Migrations\202103301013265_RemoveCodeFromPlotTypesTable.designer.cs">
+      <DependentUpon>202103301013265_RemoveCodeFromPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301135418_AddSecondDeceasedToPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202103301135418_AddSecondDeceasedToPlotTransactionsTable.designer.cs">
+      <DependentUpon>202103301135418_AddSecondDeceasedToPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301136559_PopulateDataToPlotItemsTable3.cs" />
+    <Compile Include="Migrations\202103301136559_PopulateDataToPlotItemsTable3.designer.cs">
+      <DependentUpon>202103301136559_PopulateDataToPlotItemsTable3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301200061_AddFengShuiMasterIdToPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202103301200061_AddFengShuiMasterIdToPlotTransactionsTable.designer.cs">
+      <DependentUpon>202103301200061_AddFengShuiMasterIdToPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301343211_AddPlotTypeIdToPlotItemsTable.cs" />
+    <Compile Include="Migrations\202103301343211_AddPlotTypeIdToPlotItemsTable.designer.cs">
+      <DependentUpon>202103301343211_AddPlotTypeIdToPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301526173_ChangePlotAreaIdToPlotIdForPlotItemsTable.cs" />
+    <Compile Include="Migrations\202103301526173_ChangePlotAreaIdToPlotIdForPlotItemsTable.designer.cs">
+      <DependentUpon>202103301526173_ChangePlotAreaIdToPlotIdForPlotItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103301534431_RemovePlotTypeFromPlotItemsTable.cs" />
+    <Compile Include="Migrations\202103301534431_RemovePlotTypeFromPlotItemsTable.designer.cs">
+      <DependentUpon>202103301534431_RemovePlotTypeFromPlotItemsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -1881,6 +1959,7 @@
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\PlotTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
@@ -1938,6 +2017,7 @@
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorTrackingRepository.cs" />
+    <Compile Include="Persistence\Repositories\PlotTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
@@ -1999,6 +2079,12 @@
     <Compile Include="ViewModels\InvoiceFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNonOrderReceiptsViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotAreaIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotItemsViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotItemIndexesViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotTransactionsInfoViewModel.cs" />
+    <Compile Include="ViewModels\Plot\PlotTransactionsFormViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleCentreIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleAreaIndexesViewModel.cs" />
     <Compile Include="ViewModels\Quadrangle\QuadrangleIndexesViewModel.cs" />
@@ -2061,7 +2147,6 @@
     <Content Include="Views\Quadrangle\Items.cshtml" />
     <Content Include="Views\Plot\Index.cshtml" />
     <Content Include="Views\Plot\Items.cshtml" />
-    <Content Include="Views\PlotSingle\Index.cshtml" />
     <Content Include="Views\PlotDouble\Index.cshtml" />
     <Content Include="Views\PlotFengShui\Index.cshtml" />
     <Content Include="Views\PlotClearance\Index.cshtml" />
@@ -2187,6 +2272,14 @@
     <Content Include="Views\AncestorShift\Info.cshtml" />
     <Content Include="Views\AncestorShift\ShiftedFromIndex.cshtml" />
     <Content Include="Views\AncestorShift\ShiftedToIndex.cshtml" />
+    <Content Include="Views\Plot\Plot.cshtml" />
+    <Content Include="Views\PlotSingleOrder\Form.cshtml" />
+    <Content Include="Views\PlotSingleOrder\Index.cshtml" />
+    <Content Include="Views\PlotSingleOrder\Info.cshtml" />
+    <Content Include="Views\PlotReceipts\Form.cshtml" />
+    <Content Include="Views\PlotReceipts\Index.cshtml" />
+    <Content Include="Views\PlotInvoices\Form.cshtml" />
+    <Content Include="Views\PlotInvoices\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2873,6 +2966,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103291419321_AddAncestorTrackingsTableAndEtcChanges.resx">
       <DependentUpon>202103291419321_AddAncestorTrackingsTableAndEtcChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103300844315_AddCreateModifyDeleteDateToPlotModulesTable.resx">
+      <DependentUpon>202103300844315_AddCreateModifyDeleteDateToPlotModulesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103300846369_AddCreateModifyDeleteDateToPlotlandscapeCompaniesTable.resx">
+      <DependentUpon>202103300846369_AddCreateModifyDeleteDateToPlotlandscapeCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301002267_AddPlotTrackingsTable.resx">
+      <DependentUpon>202103301002267_AddPlotTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301004182_RemovePriceFromPlotTypesTable.resx">
+      <DependentUpon>202103301004182_RemovePriceFromPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301013265_RemoveCodeFromPlotTypesTable.resx">
+      <DependentUpon>202103301013265_RemoveCodeFromPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301135418_AddSecondDeceasedToPlotTransactionsTable.resx">
+      <DependentUpon>202103301135418_AddSecondDeceasedToPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301136559_PopulateDataToPlotItemsTable3.resx">
+      <DependentUpon>202103301136559_PopulateDataToPlotItemsTable3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301200061_AddFengShuiMasterIdToPlotTransactionsTable.resx">
+      <DependentUpon>202103301200061_AddFengShuiMasterIdToPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301343211_AddPlotTypeIdToPlotItemsTable.resx">
+      <DependentUpon>202103301343211_AddPlotTypeIdToPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301526173_ChangePlotAreaIdToPlotIdForPlotItemsTable.resx">
+      <DependentUpon>202103301526173_ChangePlotAreaIdToPlotIdForPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103301534431_RemovePlotTypeFromPlotItemsTable.resx">
+      <DependentUpon>202103301534431_RemovePlotTypeFromPlotItemsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

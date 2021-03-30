@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Memorial.Core.Domain.PlotArea>
+﻿@model Memorial.ViewModels.PlotAreaIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Area</h2>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -14,10 +14,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var plotArea in Model)
+        @foreach (var plotArea in Model.PlotAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotArea.Name, "Items", new { plotAreaId = plotArea.Id })</td>
+                <td>@Html.ActionLink(plotArea.Name, "Plot", new { areaId = plotArea.Id, applicantId = Model.ApplicantId })</td>
                 <td>@plotArea.Description</td>
             </tr>
         }

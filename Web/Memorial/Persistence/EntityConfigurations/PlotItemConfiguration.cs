@@ -18,9 +18,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(10);
 
-            HasRequired(pi => pi.PlotArea)
+            HasRequired(pi => pi.Plot)
                 .WithMany(pa => pa.PlotItems)
-                .HasForeignKey(pi => pi.PlotAreaId)
+                .HasForeignKey(pi => pi.PlotId)
                 .WillCascadeOnDelete(false);
         }
     }

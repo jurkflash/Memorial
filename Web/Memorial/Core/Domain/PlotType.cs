@@ -20,19 +20,13 @@ namespace Memorial.Core.Domain
 
         public Boolean isFengShuiPlot { get; set; }
 
-        public ICollection<Plot> Plots { get; set; }
-
-        public float SecondBurialPrice { get; set; }
-
-        public float ClearancePrice { get; set; }
-
-        public string Code { get; set; }
-
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
+
+        public ICollection<Plot> Plots { get; set; }
 
     }
 }

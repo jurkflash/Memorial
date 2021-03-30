@@ -26,15 +26,26 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(pt => pt.PlotId)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(pt => pt.FengShuiMaster)
+                .WithMany(d => d.PlotTransactions)
+                .HasForeignKey(pt => pt.FengShuiMasterId)
+                .WillCascadeOnDelete(false);
+
             HasRequired(pt => pt.Applicant)
                 .WithMany(a => a.PlotTransactions)
                 .HasForeignKey(pt => pt.ApplicantId)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(pt => pt.Deceased)
-                .WithMany(d => d.PlotTransactions)
-                .HasForeignKey(pt => pt.DeceasedId)
+            HasOptional(pt => pt.Deceased1)
+                .WithMany(d => d.PlotTransactions1)
+                .HasForeignKey(pt => pt.Deceased1Id)
                 .WillCascadeOnDelete(false);
+
+            HasOptional(pt => pt.Deceased2)
+                .WithMany(d => d.PlotTransactions2)
+                .HasForeignKey(pt => pt.Deceased2Id)
+                .WillCascadeOnDelete(false);
+
         }
     }
 }

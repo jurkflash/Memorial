@@ -12,16 +12,44 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public Plot GetActive(int id)
+        {
+            return MemorialContext.Plots
+                .Include(p => p.Applicant)
+                .Include(p => p.PlotType)
+                .Include(p => p.PlotArea)
+                .Where(p => p.Id == id && p.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public IEnumerable<Plot> GetByArea(int plotAreaId)
+        {
+            return MemorialContext.Plots
+                .Include(p => p.PlotType)
+                .Where(p => p.PlotAreaId == plotAreaId).ToList();
+        }
+
         public IEnumerable<Plot> GetByTypeAndArea(int plotTypeId, int plotAreaId)
         {
             return MemorialContext.Plots
+                .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId && 
                         p.PlotAreaId == plotAreaId).ToList();
+        }
+
+        public IEnumerable<Plot> GetAvailableByTypeAndArea(int plotTypeId, int plotAreaId)
+        {
+            return MemorialContext.Plots
+                .Include(p => p.PlotType)
+                .Where(p => p.PlotTypeId == plotTypeId && 
+                        p.PlotAreaId == plotAreaId && 
+                        p.ApplicantId == null).ToList();
         }
 
         public IEnumerable<Plot> GetBuriedByWithTypeAndArea(int plotTypeId, int plotAreaId)
         {
             return MemorialContext.Plots
+                .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId &&
                         p.PlotAreaId == plotAreaId &&
                         p.Deceaseds.Count > 0 ).ToList();
@@ -30,6 +58,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Plot> GetSecondBurialByWithTypeAndArea(int plotTypeId, int plotAreaId)
         {
             return MemorialContext.Plots
+                .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId &&
                         p.PlotAreaId == plotAreaId &&
                         p.Deceaseds.Count < p.PlotType.NumberOfPlacement &&

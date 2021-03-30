@@ -37,6 +37,8 @@ namespace Memorial.Core.Domain
             QuadrangleTrackings = new HashSet<QuadrangleTracking>();
 
             AncestorTrackings = new HashSet<AncestorTracking>();
+
+            PlotTrackings = new HashSet<PlotTracking>();
         }
 
         public int Id { get; set; }
@@ -90,5 +92,7 @@ namespace Memorial.Core.Domain
         public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
 
         public ICollection<AncestorTracking> AncestorTrackings { get; set; }
+
+        public ICollection<PlotTracking> PlotTrackings { get; set; }
     }
 }

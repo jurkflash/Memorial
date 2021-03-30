@@ -28,6 +28,8 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId);
 
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByPlotId(int plotId);
+
         int Create(DeceasedDto deceasedDto);
 
         bool Update(DeceasedDto deceasedDto);
@@ -43,6 +45,12 @@ namespace Memorial.Lib.Deceased
         bool SetAncestor(int ancestorId);
 
         bool RemoveAncestor();
+
+        Core.Domain.Plot GetPlot();
+
+        bool SetPlot(int plotId);
+
+        bool RemovePlot();
 
         IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
     }

@@ -75,6 +75,13 @@ namespace Memorial.Persistence.Repositories
                     d.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<Deceased> GetByPlot(int plotId)
+        {
+            return MemorialContext.Deceaseds
+                    .Where(d => d.PlotId == plotId &&
+                    d.DeleteDate == null).ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

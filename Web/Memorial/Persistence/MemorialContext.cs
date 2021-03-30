@@ -32,6 +32,7 @@ namespace Memorial.Persistence
         public DbSet<PlotNumber> PlotNumbers { get; set; }
         public DbSet<PlotLandscapeCompany> PlotLandscapeCompanies { get; set; }
         public DbSet<PlotTransaction> PlotTransactions { get; set; }
+        public DbSet<PlotTracking> PlotTrackings { get; set; }
 
         public DbSet<QuadrangleArea> QuadrangleAreas { get; set; }
         public DbSet<QuadrangleType> QuadrangleTypes { get; set; }
@@ -97,6 +98,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new PlotLandscapeCompanyConfiguration());
             modelBuilder.Configurations.Add(new PlotItemConfiguration());
             modelBuilder.Configurations.Add(new PlotNumberConfiguration());
+            modelBuilder.Configurations.Add(new PlotTrackingConfiguration());
 
             modelBuilder.Configurations.Add(new AncestorConfiguration());
             modelBuilder.Configurations.Add(new AncestorTrackingConfiguration());

@@ -40,6 +40,19 @@ namespace Memorial.App_Start
             CreateMap<UrnItem, UrnItemDto>();
             CreateMap<UrnTransaction, UrnTransactionDto>();
 
+            CreateMap<Plot, PlotDto>()
+                .ForMember(c => c.PlotTypeDto, opt => opt.MapFrom(x => x.PlotType))
+                .ForMember(c => c.PlotTypeDtoId, opt => opt.MapFrom(x => x.PlotTypeId));
+            CreateMap<PlotArea, PlotAreaDto>();
+            CreateMap<PlotItem, PlotItemDto>();
+            CreateMap<PlotLandscapeCompany, PlotLandscapeCompanyDto>();
+            CreateMap<PlotTransaction, PlotTransactionDto>()
+                .ForMember(c => c.PlotDto, opt => opt.MapFrom(x => x.Plot))
+                .ForMember(c => c.PlotDtoId, opt => opt.MapFrom(x => x.PlotId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId));
+            CreateMap<PlotType, PlotTypeDto>();
+
             CreateMap<Quadrangle, QuadrangleDto>()
                 .ForMember(c => c.QuadrangleTypeDto, opt => opt.MapFrom(x => x.QuadrangleType))
                 .ForMember(c => c.QuadrangleTypeDtoId, opt => opt.MapFrom(x => x.QuadrangleTypeId))
@@ -125,6 +138,20 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<UrnTransactionDto, UrnTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore());
+
+            CreateMap<PlotDto, Plot>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<PlotAreaDto, PlotArea>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<PlotItemDto, PlotItem>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<PlotTypeDto, PlotType>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<PlotLandscapeCompanyDto, PlotLandscapeCompany>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<PlotTransactionDto, PlotTransaction>()
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<QuadrangleDto, Quadrangle>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

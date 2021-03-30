@@ -39,5 +39,11 @@ namespace Memorial.Core.Repositories
         int GetAncestorNewIV(int itemId, int year);
 
         int GetAncestorNewRE(int itemId, int year);
+
+        int GetPlotNewAF(int itemId, int year);
+
+        int GetPlotNewIV(int itemId, int year);
+
+        int GetPlotNewRE(int itemId, int year);
     }
 }

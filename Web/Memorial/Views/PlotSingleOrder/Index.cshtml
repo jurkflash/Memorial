@@ -1,0 +1,61 @@
+﻿@model Memorial.ViewModels.PlotItemIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId })
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Plot</th>
+            <th>Applicant</th>
+            <th>Has Deceased</th>
+            <th>Price</th>
+            <th>Maintenance</th>
+            <th>Dig</th>
+            <th>Brick</th>
+            <th>Wall</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotTransaction in Model.PlotTransactionDtos)
+        {
+        <tr>
+            <td>@Html.ActionLink(plotTransaction.AF, "Info", new { AF = plotTransaction.AF }, new { target = "PlotTransactionInfo" })</td>
+            <td>@plotTransaction.PlotDto.Name</td>
+            <td>@plotTransaction.ApplicantDto.Name &nbsp; @plotTransaction.ApplicantDto.Name2</td>
+            <td>@plotTransaction.PlotDto.hasDeceased</td>
+            <td>@plotTransaction.Price</td>
+            <td>@plotTransaction.Maintenance</td>
+            <td>@plotTransaction.Dig</td>
+            <td>@plotTransaction.Brick</td>
+            <td>@plotTransaction.Wall</td>
+            <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = plotTransaction.AF })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete",
+                new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId },
+                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+

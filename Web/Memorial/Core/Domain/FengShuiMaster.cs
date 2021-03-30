@@ -7,6 +7,11 @@ namespace Memorial.Core.Domain
 {
     public class FengShuiMaster
     {
+        public FengShuiMaster()
+        {
+            PlotTransactions = new HashSet<PlotTransaction>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -16,5 +21,7 @@ namespace Memorial.Core.Domain
         public string ContactNumber { get; set; }
 
         public string Remark { get; set; }
+
+        public ICollection<PlotTransaction> PlotTransactions { get; set; }
     }
 }

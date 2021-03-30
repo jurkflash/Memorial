@@ -28,9 +28,15 @@ namespace Memorial.Core.Domain
 
         public bool isOrder { get; set; }
 
-        public PlotArea PlotArea { get; set; }
+        public Plot Plot { get; set; }
 
-        public int PlotAreaId { get; set; }
+        public int PlotId { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
 
         public ICollection<PlotNumber> PlotNumbers { get; set; }
 

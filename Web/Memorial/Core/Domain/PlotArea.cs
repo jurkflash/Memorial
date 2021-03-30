@@ -10,8 +10,6 @@ namespace Memorial.Core.Domain
         public PlotArea()
         {
             Plots = new HashSet<Plot>();
-
-            PlotItems = new HashSet<PlotItem>();
         }
 
         public int Id { get; set; }
@@ -24,8 +22,13 @@ namespace Memorial.Core.Domain
 
         public byte SiteId { get; set; }
 
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
+
         public ICollection<Plot> Plots { get; set; }
 
-        public ICollection<PlotItem> PlotItems { get; set; }
     }
 }

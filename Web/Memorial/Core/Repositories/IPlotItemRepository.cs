@@ -5,6 +5,8 @@ namespace Memorial.Core.Repositories
 {
     public interface IPlotItemRepository : IRepository<PlotItem>
     {
-        IEnumerable<PlotItem> GetByArea(int plotAreaId);
+        PlotItem GetActive(int id);
+
+        IEnumerable<PlotItem> GetByPlot(int plotId);
     }
 }

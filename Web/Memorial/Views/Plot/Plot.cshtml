@@ -1,0 +1,31 @@
+﻿@model Memorial.ViewModels.PlotIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Plot</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotDto in Model.PlotDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId })</td>
+                <td>@plotDto.Description</td>
+                <td>@plotDto.Size</td>
+                <td>@plotDto.Price</td>
+                <td>@plotDto.PlotTypeDto.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
