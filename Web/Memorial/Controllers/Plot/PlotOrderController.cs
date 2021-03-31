@@ -15,21 +15,21 @@ using AutoMapper;
 
 namespace Memorial.Controllers
 {
-    public class PlotSecondBurialController : Controller
+    public class PlotOrderController : Controller
     {
         private readonly IPlot _plot;
         private readonly IDeceased _deceased;
-        private readonly ISecondBurial _secondBurial;
+        private readonly IOrder _order;
         private readonly IApplicant _applicant;
         private readonly ITracking _tracking;
         private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
         private readonly Lib.Invoice.IPlot _invoice;
 
-        public PlotSecondBurialController(
+        public PlotOrderController(
             IPlot plot,
             IApplicant applicant,
             IDeceased deceased,
-            ISecondBurial secondBurial,
+            IOrder order,
             ITracking tracking,
             IPlotApplicantDeceaseds plotApplicantDeceaseds,
             Lib.Invoice.IPlot invoice
@@ -38,7 +38,7 @@ namespace Memorial.Controllers
             _plot = plot;
             _applicant = applicant;
             _deceased = deceased;
-            _secondBurial = secondBurial;
+            _order = order;
             _tracking = tracking;
             _plotApplicantDeceaseds = plotApplicantDeceaseds;
             _invoice = invoice;
@@ -54,33 +54,33 @@ namespace Memorial.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId),
+                PlotTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId),
             };
 
-            if (_plot.HasApplicant() && _deceased.GetDeceasedsByPlotId(id).Count() == 1)
-            {
-                viewModel.AllowNew = true;
-            }
-            else
+            if (_plot.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }
+            else
+            {
+                viewModel.AllowNew = true;
+            }
 
-            return View("Index", viewModel);
+            return View(viewModel);
         }
 
         public ActionResult Info(string AF)
         {
-            _secondBurial.SetTransaction(AF);
-            _plot.SetPlot(_secondBurial.GetTransactionPlotId());
+            _order.SetTransaction(AF);
+            _plot.SetPlot(_order.GetTransactionPlotId());
 
             var viewModel = new PlotTransactionsInfoViewModel()
             {
-                ApplicantId = _secondBurial.GetTransactionApplicantId(),
-                DeceasedId = _secondBurial.GetTransactionDeceased1Id(),
+                ApplicantId = _order.GetTransactionApplicantId(),
+                DeceasedId = _order.GetTransactionDeceased1Id(),
                 PlotDto = _plot.GetPlotDto(),
-                ItemName = _secondBurial.GetItemName(),
-                PlotTransactionDto = _secondBurial.GetTransactionDto()
+                ItemName = _order.GetItemName(),
+                PlotTransactionDto = _order.GetTransactionDto()
             };
             return View(viewModel);
         }
@@ -100,11 +100,15 @@ namespace Memorial.Controllers
                 plotTransactionDto.PlotDtoId = id;
                 viewModel.PlotTransactionDto = plotTransactionDto;
                 viewModel.PlotTransactionDto.Price = _plot.GetPrice();
+                viewModel.PlotTransactionDto.Maintenance = _plot.GetMaintenance();
+                viewModel.PlotTransactionDto.Brick = _plot.GetBrick();
+                viewModel.PlotTransactionDto.Dig = _plot.GetDig();
+                viewModel.PlotTransactionDto.Wall = _plot.GetWall();
             }
             else
             {
-                _secondBurial.SetTransaction(AF);
-                viewModel.PlotTransactionDto = _secondBurial.GetTransactionDto(AF);
+                _order.SetTransaction(AF);
+                viewModel.PlotTransactionDto = _order.GetTransactionDto(AF);
             }
 
             return View(viewModel);
@@ -112,7 +116,8 @@ namespace Memorial.Controllers
 
         public ActionResult Save(PlotTransactionsFormViewModel viewModel)
         {
-            if (viewModel.PlotTransactionDto.DeceasedDto1Id == null)
+            _plot.SetPlot(viewModel.PlotTransactionDto.PlotDtoId);
+            if (viewModel.PlotTransactionDto.DeceasedDto1Id == null && !_plot.IsFengShuiPlot())
             {
                 ModelState.AddModelError("PlotTransactionDto.DeceasedDto1Id", "Please Select");
                 return FormForResubmit(viewModel);
@@ -121,8 +126,7 @@ namespace Memorial.Controllers
             if (viewModel.PlotTransactionDto.DeceasedDto1Id != null)
             {
                 _deceased.SetDeceased((int)viewModel.PlotTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetPlot() != null && (_deceased.GetPlot().Id != viewModel.PlotTransactionDto.PlotDtoId ||
-                    _secondBurial.GetTransactionsByPlotIdAndDeceased1Id(viewModel.PlotTransactionDto.PlotDtoId, (int)viewModel.PlotTransactionDto.DeceasedDto1Id).AF != viewModel.PlotTransactionDto.AF))
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != viewModel.PlotTransactionDto.PlotDtoId)
                 {
                     ModelState.AddModelError("PlotTransactionDto.DeceasedDto1Id", "Invalid");
                     return FormForResubmit(viewModel);
@@ -131,7 +135,7 @@ namespace Memorial.Controllers
 
             if (viewModel.PlotTransactionDto.AF == null)
             {
-                if (_secondBurial.Create(viewModel.PlotTransactionDto))
+                if (_order.Create(viewModel.PlotTransactionDto))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -148,15 +152,24 @@ namespace Memorial.Controllers
             else
             {
                 if (_invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Any() &&
-                    viewModel.PlotTransactionDto.Price <
+                    viewModel.PlotTransactionDto.Price + 
+                    (float)viewModel.PlotTransactionDto.Maintenance + 
+                    (float)viewModel.PlotTransactionDto.Brick + 
+                    (float)viewModel.PlotTransactionDto.Dig + 
+                    (float)viewModel.PlotTransactionDto.Wall
+                    <
                 _invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Max(i => i.Amount))
                 {
                     ModelState.AddModelError("PlotTransactionDto.Price", "* Exceed invoice amount");
+                    ModelState.AddModelError("PlotTransactionDto.Maintenance", "* Exceed invoice amount");
+                    ModelState.AddModelError("PlotTransactionDto.Brick", "* Exceed invoice amount");
+                    ModelState.AddModelError("PlotTransactionDto.Dig", "* Exceed invoice amount");
+                    ModelState.AddModelError("PlotTransactionDto.Wall", "* Exceed invoice amount");
 
                     return FormForResubmit(viewModel);
                 }
 
-                _secondBurial.Update(viewModel.PlotTransactionDto);
+                _order.Update(viewModel.PlotTransactionDto);
             }
 
             return RedirectToAction("Index", new
@@ -178,8 +191,8 @@ namespace Memorial.Controllers
         {
             if (_tracking.IsLatestTransaction(id, AF))
             {
-                _secondBurial.SetTransaction(AF);
-                _secondBurial.Delete();
+                _order.SetTransaction(AF);
+                _order.Delete();
             }
 
             return RedirectToAction("Index", new

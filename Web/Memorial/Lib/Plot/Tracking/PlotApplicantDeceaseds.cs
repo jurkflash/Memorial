@@ -15,23 +15,25 @@ namespace Memorial.Lib.Plot
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITracking _tracking;
         private readonly IDeceased _deceased;
-        private readonly IPlot _quadrangle;
+        private readonly IPlot _plot;
 
         public PlotApplicantDeceaseds(
             IUnitOfWork unitOfWork,
             ITracking tracking,
             IDeceased deceased,
-            IPlot quadrangle)
+            IPlot plot)
         {
             _unitOfWork = unitOfWork;
             _tracking = tracking;
             _deceased = deceased;
-            _quadrangle = quadrangle;
+            _plot = plot;
         }
 
-        public void ClearPlotApplicantAndDeceased()
+        public void ClearPlotApplicantAndDeceased(int plotId)
         {
-            var deceaseds = _deceased.GetDeceasedsByPlotId(_quadrangle.GetPlot().Id);
+            _plot.SetPlot(plotId);
+
+            var deceaseds = _deceased.GetDeceasedsByPlotId(plotId);
 
             foreach (var deceased in deceaseds)
             {
@@ -39,22 +41,22 @@ namespace Memorial.Lib.Plot
                 _deceased.RemovePlot();
             }
 
-            _quadrangle.SetHasDeceased(false);
+            _plot.SetHasDeceased(false);
 
-            _quadrangle.RemoveApplicant();
+            _plot.RemoveApplicant();
         }
 
         public bool SetPlotApplicantDeceaseds(int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
         {
             if (applicantId != null)
-                _quadrangle.SetApplicant((int)applicantId);
+                _plot.SetApplicant((int)applicantId);
 
             if (deceased1Id != null)
             {
                 _deceased.SetDeceased((int)deceased1Id);
-                if (_deceased.SetPlot(_quadrangle.GetPlot().Id))
+                if (_deceased.SetPlot(_plot.GetPlot().Id))
                 {
-                    _quadrangle.SetHasDeceased(true);
+                    _plot.SetHasDeceased(true);
                 }
                 else
                     return false;
@@ -63,9 +65,9 @@ namespace Memorial.Lib.Plot
             if (deceased2Id != null)
             {
                 _deceased.SetDeceased((int)deceased2Id);
-                if (_deceased.SetPlot(_quadrangle.GetPlot().Id))
+                if (_deceased.SetPlot(_plot.GetPlot().Id))
                 {
-                    _quadrangle.SetHasDeceased(true);
+                    _plot.SetHasDeceased(true);
                 }
                 else
                     return false;
@@ -74,31 +76,21 @@ namespace Memorial.Lib.Plot
             return true;
         }
 
-        public bool RollbackPlotApplicantDeceaseds(string quadrangleTransactionAF, int quadrangleId)
+        public bool RollbackPlotApplicantDeceaseds(string plotTransactionAF, int plotId)
         {
-            _quadrangle.SetPlot(quadrangleId);
-            ClearPlotApplicantAndDeceased();
-
-            if (!_tracking.IsLatestTransaction(quadrangleId, quadrangleTransactionAF))
+            if (!_tracking.IsLatestTransaction(plotId, plotTransactionAF))
                 return false;
 
-            var trackings = _tracking.GetTrackingByTransactionAF(quadrangleTransactionAF);
+            ClearPlotApplicantAndDeceased(plotId);
 
-            if (trackings.Count() > 1)
-            {
-                //Shifted
-                _quadrangle.SetPlot(trackings.ElementAt(1).PlotId);
-                ClearPlotApplicantAndDeceased();
-                SetPlotApplicantDeceaseds(trackings.ElementAt(0).ApplicantId, trackings.ElementAt(0).Deceased1Id, trackings.ElementAt(0).Deceased2Id);
-            }
+            var trackingsByPlotId = _tracking.GetTrackingByPlotId(plotId);
 
-            if (trackings.Count() == 1)
+            if(trackingsByPlotId.Count() > 1)
             {
-                var trackingsByPlotId = _tracking.GetTrackingByPlotId(quadrangleId);
                 SetPlotApplicantDeceaseds(trackingsByPlotId.ElementAt(1).ApplicantId, trackingsByPlotId.ElementAt(1).Deceased1Id, trackingsByPlotId.ElementAt(1).Deceased2Id);
             }
 
-            _tracking.Delete(quadrangleTransactionAF);
+            _tracking.Delete(plotTransactionAF);
 
             return true;
         }

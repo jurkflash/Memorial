@@ -46,9 +46,13 @@ namespace Memorial.Core.Dtos
 
         public int ApplicantDtoId { get; set; }
 
-        public int? Deceased1Id { get; set; }
+        public DeceasedDto DeceasedDto1 { get; set; }
 
-        public int? Deceased2Id { get; set; }
+        public int? DeceasedDto1Id { get; set; }
+
+        public DeceasedDto DeceasedDto2 { get; set; }
+
+        public int? DeceasedDto2Id { get; set; }
 
         public DateTime CreateDate { get; set; }
 

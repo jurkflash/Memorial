@@ -184,32 +184,7 @@ namespace Memorial.Lib.Quadrangle
             if (!_tracking.IsLatestTransaction(_transaction.QuadrangleId, _transaction.AF))
                 return false;
 
-            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
-            if (_quadrangle.HasDeceased())
-                return false;
-
-            var lastTransactionOfQuadrangle = GetLastQuadrangleTransactionByQuadrangleId(_transaction.QuadrangleId);
-
             DeleteTransaction();
-
-            if (lastTransactionOfQuadrangle.AF == _transaction.AF)
-            {
-                if (_transaction.Deceased1Id != null)
-                {
-                    SetDeceased((int)_transaction.Deceased1Id);
-                    _deceased.RemoveQuadrangle();
-                }
-
-                if (_transaction.Deceased2Id != null)
-                {
-                    SetDeceased((int)_transaction.Deceased2Id);
-                    _deceased.RemoveQuadrangle();
-                }
-
-                _quadrangle.SetHasDeceased(false);
-
-                _quadrangle.RemoveApplicant();
-            }
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();

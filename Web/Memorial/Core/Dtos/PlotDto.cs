@@ -33,7 +33,9 @@ namespace Memorial.Core.Dtos
 
         public int PlotAreaId { get; set; }
 
-        public int? ApplicantId { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
+
+        public int? ApplicantDtoId { get; set; }
 
         public bool hasDeceased { get; set; }
 

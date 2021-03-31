@@ -6,9 +6,9 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Plot
 {
-    public interface ISingleOrder : ITransaction
+    public interface ISecondBurial : ITransaction
     {
-        void SetSingleOrder(string AF);
+        void SetSecondBurial(string AF);
 
         bool Create(PlotTransactionDto plotTransactionDto);
 

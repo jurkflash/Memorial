@@ -41,6 +41,8 @@ namespace Memorial.App_Start
             CreateMap<UrnTransaction, UrnTransactionDto>();
 
             CreateMap<Plot, PlotDto>()
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
                 .ForMember(c => c.PlotTypeDto, opt => opt.MapFrom(x => x.PlotType))
                 .ForMember(c => c.PlotTypeDtoId, opt => opt.MapFrom(x => x.PlotTypeId));
             CreateMap<PlotArea, PlotAreaDto>();
@@ -50,7 +52,11 @@ namespace Memorial.App_Start
                 .ForMember(c => c.PlotDto, opt => opt.MapFrom(x => x.Plot))
                 .ForMember(c => c.PlotDtoId, opt => opt.MapFrom(x => x.PlotId))
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
-                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId));
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.DeceasedDto1, opt => opt.MapFrom(x => x.Deceased1))
+                .ForMember(c => c.DeceasedDto1Id, opt => opt.MapFrom(x => x.Deceased1Id))
+                .ForMember(c => c.DeceasedDto2, opt => opt.MapFrom(x => x.Deceased2))
+                .ForMember(c => c.DeceasedDto2Id, opt => opt.MapFrom(x => x.Deceased2Id));
             CreateMap<PlotType, PlotTypeDto>();
 
             CreateMap<Quadrangle, QuadrangleDto>()
@@ -140,7 +146,11 @@ namespace Memorial.App_Start
                 .ForMember(c => c.AF, opt => opt.Ignore());
 
             CreateMap<PlotDto, Plot>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Applicant, opt => opt.MapFrom(x => x.ApplicantDto))
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.PlotType, opt => opt.MapFrom(x => x.PlotTypeDto))
+                .ForMember(c => c.PlotTypeId, opt => opt.MapFrom(x => x.PlotTypeDtoId));
             CreateMap<PlotAreaDto, PlotArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<PlotItemDto, PlotItem>()
@@ -151,6 +161,12 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<PlotTransactionDto, PlotTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.Deceased1, opt => opt.MapFrom(x => x.DeceasedDto1))
+                .ForMember(c => c.Deceased1Id, opt => opt.MapFrom(x => x.DeceasedDto1Id))
+                .ForMember(c => c.Deceased2, opt => opt.MapFrom(x => x.DeceasedDto2))
+                .ForMember(c => c.Deceased2Id, opt => opt.MapFrom(x => x.DeceasedDto2Id))
+                .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<QuadrangleDto, Quadrangle>()

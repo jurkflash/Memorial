@@ -29,9 +29,11 @@ namespace Memorial.Lib.Quadrangle
             _quadrangle = quadrangle;
         }
 
-        public void ClearQuadrangleApplicantAndDeceased()
+        public void ClearQuadrangleApplicantAndDeceased(int quadrangleId)
         {
-            var deceaseds = _deceased.GetDeceasedsByQuadrangleId(_quadrangle.GetQuadrangle().Id);
+            _quadrangle.SetQuadrangle(quadrangleId);
+
+            var deceaseds = _deceased.GetDeceasedsByQuadrangleId(quadrangleId);
 
             foreach (var deceased in deceaseds)
             {
@@ -76,26 +78,29 @@ namespace Memorial.Lib.Quadrangle
 
         public bool RollbackQuadrangleApplicantDeceaseds(string quadrangleTransactionAF, int quadrangleId)
         {
-            _quadrangle.SetQuadrangle(quadrangleId);
-            ClearQuadrangleApplicantAndDeceased();
-
             if (!_tracking.IsLatestTransaction(quadrangleId, quadrangleTransactionAF))
                 return false;
+
+            ClearQuadrangleApplicantAndDeceased(quadrangleId);           
 
             var trackings = _tracking.GetTrackingByTransactionAF(quadrangleTransactionAF);
 
             if (trackings.Count() > 1)
             {
                 //Shifted
-                _quadrangle.SetQuadrangle(trackings.ElementAt(1).QuadrangleId);
-                ClearQuadrangleApplicantAndDeceased();
+                ClearQuadrangleApplicantAndDeceased(trackings.ElementAt(1).QuadrangleId);
+
                 SetQuadrangleApplicantDeceaseds(trackings.ElementAt(0).ApplicantId, trackings.ElementAt(0).Deceased1Id, trackings.ElementAt(0).Deceased2Id);
             }
 
             if (trackings.Count() == 1)
             {
                 var trackingsByQuadrangleId = _tracking.GetTrackingByQuadrangleId(quadrangleId);
-                SetQuadrangleApplicantDeceaseds(trackingsByQuadrangleId.ElementAt(1).ApplicantId, trackingsByQuadrangleId.ElementAt(1).Deceased1Id, trackingsByQuadrangleId.ElementAt(1).Deceased2Id);
+
+                if (trackingsByQuadrangleId.Count() > 1)
+                {
+                    SetQuadrangleApplicantDeceaseds(trackingsByQuadrangleId.ElementAt(1).ApplicantId, trackingsByQuadrangleId.ElementAt(1).Deceased1Id, trackingsByQuadrangleId.ElementAt(1).Deceased2Id);
+                }
             }
 
             _tracking.Delete(quadrangleTransactionAF);

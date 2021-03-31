@@ -8,6 +8,7 @@ using Memorial.Lib;
 using Memorial.Lib.Plot;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.Applicant;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -15,21 +16,23 @@ using AutoMapper;
 
 namespace Memorial.Controllers
 {
-    public class PlotSingleOrderController : Controller
+    public class PlotFengShuiTransferController : Controller
     {
-        private readonly IPlot _plot;
-        private readonly IDeceased _deceased;
-        private readonly ISingleOrder _order;
-        private readonly IApplicant _applicant;
-        private readonly ITracking _tracking;
-        private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
-        private readonly Lib.Invoice.IPlot _invoice;
+        private IPlot _plot;
+        private IDeceased _deceased;
+        private IApplicantDeceased _applicantDeceased;
+        private ITransfer _transfer;
+        private IApplicant _applicant;
+        private ITracking _tracking;
+        private IPlotApplicantDeceaseds _plotApplicantDeceaseds;
+        private Lib.Invoice.IPlot _invoice;
 
-        public PlotSingleOrderController(
+        public PlotFengShuiTransferController(
             IPlot plot,
             IApplicant applicant,
+            IApplicantDeceased applicantDeceased,
             IDeceased deceased,
-            ISingleOrder order,
+            ITransfer transfer,
             ITracking tracking,
             IPlotApplicantDeceaseds plotApplicantDeceaseds,
             Lib.Invoice.IPlot invoice
@@ -37,8 +40,9 @@ namespace Memorial.Controllers
         {
             _plot = plot;
             _applicant = applicant;
+            _applicantDeceased = applicantDeceased;
             _deceased = deceased;
-            _order = order;
+            _transfer = transfer;
             _tracking = tracking;
             _plotApplicantDeceaseds = plotApplicantDeceaseds;
             _invoice = invoice;
@@ -54,61 +58,49 @@ namespace Memorial.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId),
+                PlotTransactionDtos = _transfer.GetTransactionDtosByPlotIdAndItemId(id, itemId)
             };
 
-            if (_plot.HasApplicant())
-            {
-                viewModel.AllowNew = false;
-            }
-            else
-            {
-                viewModel.AllowNew = true;
-            }
+            viewModel.AllowNew = _plot.HasApplicant() && _plot.GetApplicantId() != applicantId && _transfer.AllowPlotDeceasePairing(_plot, applicantId);
 
             return View(viewModel);
         }
 
         public ActionResult Info(string AF)
         {
-            _order.SetTransaction(AF);
-            _plot.SetPlot(_order.GetTransactionPlotId());
+            _transfer.SetTransaction(AF);
+            _plot.SetPlot(_transfer.GetTransactionPlotId());
 
             var viewModel = new PlotTransactionsInfoViewModel()
             {
-                ApplicantId = _order.GetTransactionApplicantId(),
-                DeceasedId = _order.GetTransactionDeceased1Id(),
+                ApplicantId = _transfer.GetTransactionApplicantId(),
+                DeceasedId = _transfer.GetTransactionDeceased1Id(),
                 PlotDto = _plot.GetPlotDto(),
-                ItemName = _order.GetItemName(),
-                PlotTransactionDto = _order.GetTransactionDto()
+                ItemName = _transfer.GetItemName(),
+                PlotTransactionDto = _transfer.GetTransactionDto()
             };
             return View(viewModel);
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            var viewModel = new PlotTransactionsFormViewModel()
-            {
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
-            };
+            var viewModel = new PlotTransactionsFormViewModel();
 
             if (AF == null)
             {
                 _plot.SetPlot(id);
 
                 var plotTransactionDto = new PlotTransactionDto(itemId, id, applicantId);
-                plotTransactionDto.PlotDtoId = id;
+                plotTransactionDto.ApplicantDto = _applicant.GetApplicantDto(applicantId);
+                plotTransactionDto.PlotDto = _plot.GetPlotDto();
+
                 viewModel.PlotTransactionDto = plotTransactionDto;
-                viewModel.PlotTransactionDto.Price = _plot.GetPrice();
-                viewModel.PlotTransactionDto.Maintenance = _plot.GetMaintenance();
-                viewModel.PlotTransactionDto.Brick = _plot.GetBrick();
-                viewModel.PlotTransactionDto.Dig = _plot.GetDig();
-                viewModel.PlotTransactionDto.Wall = _plot.GetWall();
+                viewModel.PlotTransactionDto.Price = _transfer.GetItemPrice(itemId);
             }
             else
             {
-                _order.SetTransaction(AF);
-                viewModel.PlotTransactionDto = _order.GetTransactionDto(AF);
+                _transfer.SetTransaction(AF);
+                viewModel.PlotTransactionDto = _transfer.GetTransactionDto(AF);
             }
 
             return View(viewModel);
@@ -116,19 +108,23 @@ namespace Memorial.Controllers
 
         public ActionResult Save(PlotTransactionsFormViewModel viewModel)
         {
-            if (viewModel.PlotTransactionDto.Deceased1Id != null)
-            {
-                _deceased.SetDeceased((int)viewModel.PlotTransactionDto.Deceased1Id);
-                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != viewModel.PlotTransactionDto.PlotDtoId)
-                {
-                    ModelState.AddModelError("PlotTransactionDto.Deceased1Id", "Invalid");
-                    return FormForResubmit(viewModel);
-                }
-            }
-
             if (viewModel.PlotTransactionDto.AF == null)
             {
-                if (_order.Create(viewModel.PlotTransactionDto))
+                _plot.SetPlot(viewModel.PlotTransactionDto.PlotDtoId);
+
+                if (_plot.GetApplicantId() == viewModel.PlotTransactionDto.ApplicantDtoId)
+                {
+                    ModelState.AddModelError("PlotTransactionDto.Applicant.Name", "Not allow to be same applicant");
+                    return FormForResubmit(viewModel);
+                }
+
+                if(!_transfer.AllowPlotDeceasePairing(_plot, viewModel.PlotTransactionDto.ApplicantDtoId))
+                {
+                    ModelState.AddModelError("PlotTransactionDto.Applicant.Name", "Deceased not linked with new applicant");
+                    return FormForResubmit(viewModel);
+                }
+
+                if (_transfer.Create(viewModel.PlotTransactionDto))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -145,24 +141,15 @@ namespace Memorial.Controllers
             else
             {
                 if (_invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Any() &&
-                    viewModel.PlotTransactionDto.Price + 
-                    (float)viewModel.PlotTransactionDto.Maintenance + 
-                    (float)viewModel.PlotTransactionDto.Brick + 
-                    (float)viewModel.PlotTransactionDto.Dig + 
-                    (float)viewModel.PlotTransactionDto.Wall
-                    <
+                    viewModel.PlotTransactionDto.Price <
                 _invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Max(i => i.Amount))
                 {
                     ModelState.AddModelError("PlotTransactionDto.Price", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Maintenance", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Brick", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Dig", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Wall", "* Exceed invoice amount");
-
                     return FormForResubmit(viewModel);
                 }
 
-                _order.Update(viewModel.PlotTransactionDto);
+
+                _transfer.Update(viewModel.PlotTransactionDto);
             }
 
             return RedirectToAction("Index", new
@@ -175,7 +162,8 @@ namespace Memorial.Controllers
 
         public ActionResult FormForResubmit(PlotTransactionsFormViewModel viewModel)
         {
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.PlotTransactionDto.ApplicantDtoId);
+            viewModel.PlotTransactionDto.ApplicantDto = _applicant.GetApplicantDto(viewModel.PlotTransactionDto.ApplicantDtoId);
+            viewModel.PlotTransactionDto.PlotDto = _plot.GetPlotDto(viewModel.PlotTransactionDto.PlotDtoId);
 
             return View("Form", viewModel);
         }
@@ -184,22 +172,21 @@ namespace Memorial.Controllers
         {
             if (_tracking.IsLatestTransaction(id, AF))
             {
-                _order.SetTransaction(AF);
-                _order.Delete();
+                _transfer.SetTransaction(AF);
+                _transfer.Delete();
             }
 
             return RedirectToAction("Index", new
             {
-                itemId,
-                id,
-                applicantId
+                itemId = itemId,
+                id = id,
+                applicantId = applicantId
             });
         }
 
-        public ActionResult Invoices(string AF)
+        public ActionResult Invoice(string AF)
         {
             return RedirectToAction("Index", "PlotInvoices", new { AF = AF });
         }
-
     }
 }

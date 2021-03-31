@@ -11,6 +11,8 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId);
 
+        PlotTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id);
+
         PlotTransaction GetLastPlotTransactionByPlotId(int plotId);
 
         PlotTransaction GetLastPlotTransactionByShiftedPlotId(int plotId);

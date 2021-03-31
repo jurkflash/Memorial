@@ -4,9 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });}
+@if (Model.ApplicantId != 0)
+{
+    Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });
+}
 
-<h4>Item</h4>
+<h4>Items</h4>
+
 @foreach (var catalog in Model.Catalogs)
 {
     @Html.ActionLink(catalog.Name, "Item", new { catalog = catalog.Code, siteId = catalog.SiteId, applicantId = Model.ApplicantId })

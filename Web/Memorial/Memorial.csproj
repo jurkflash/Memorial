@@ -650,9 +650,11 @@
     <Compile Include="Controllers\Miscellaenous\MiscellaneousReceiptsController.cs" />
     <Compile Include="Controllers\Miscellaenous\MiscellaneousNonOrderReceiptsController.cs" />
     <Compile Include="Controllers\Plot\PlotController.cs" />
-    <Compile Include="Controllers\Plot\PlotSingleOrderController.cs" />
+    <Compile Include="Controllers\Plot\PlotOrderController.cs" />
     <Compile Include="Controllers\Plot\PlotInvoicesController.cs" />
     <Compile Include="Controllers\Plot\PlotReceiptsController.cs" />
+    <Compile Include="Controllers\Plot\PlotSecondBurialController.cs" />
+    <Compile Include="Controllers\Plot\PlotFengShuiTransferController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleInvoicesController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\Quadrangle\QuadrangleNonOrderReceiptsController.cs" />
@@ -920,8 +922,10 @@
     <Compile Include="Lib\Plot\Item\Item.cs" />
     <Compile Include="Lib\Plot\Number\INumber.cs" />
     <Compile Include="Lib\Plot\Number\Number.cs" />
-    <Compile Include="Lib\Plot\Order\SingleOrder\ISingleOrder.cs" />
-    <Compile Include="Lib\Plot\Order\SingleOrder\SingleOrder.cs" />
+    <Compile Include="Lib\Plot\SecondBurial\ISecondBurial.cs" />
+    <Compile Include="Lib\Plot\SecondBurial\SecondBurial.cs" />
+    <Compile Include="Lib\Plot\Order\IOrder.cs" />
+    <Compile Include="Lib\Plot\Order\Order.cs" />
     <Compile Include="Lib\Plot\Payment\IPayment.cs" />
     <Compile Include="Lib\Plot\Payment\Payment.cs" />
     <Compile Include="Lib\Plot\Plot\IPlot.cs" />
@@ -932,6 +936,8 @@
     <Compile Include="Lib\Plot\Tracking\Tracking.cs" />
     <Compile Include="Lib\Plot\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Plot\Transfer\ITransfer.cs" />
+    <Compile Include="Lib\Plot\Transfer\Transfer.cs" />
     <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
     <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
     <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
@@ -2273,13 +2279,18 @@
     <Content Include="Views\AncestorShift\ShiftedFromIndex.cshtml" />
     <Content Include="Views\AncestorShift\ShiftedToIndex.cshtml" />
     <Content Include="Views\Plot\Plot.cshtml" />
-    <Content Include="Views\PlotSingleOrder\Form.cshtml" />
-    <Content Include="Views\PlotSingleOrder\Index.cshtml" />
-    <Content Include="Views\PlotSingleOrder\Info.cshtml" />
+    <Content Include="Views\PlotOrder\Form.cshtml" />
+    <Content Include="Views\PlotOrder\Index.cshtml" />
+    <Content Include="Views\PlotOrder\Info.cshtml" />
     <Content Include="Views\PlotReceipts\Form.cshtml" />
     <Content Include="Views\PlotReceipts\Index.cshtml" />
     <Content Include="Views\PlotInvoices\Form.cshtml" />
     <Content Include="Views\PlotInvoices\Index.cshtml" />
+    <Content Include="Views\PlotSecondBurial\Form.cshtml" />
+    <Content Include="Views\PlotSecondBurial\Info.cshtml" />
+    <Content Include="Views\PlotFengShuiTransfer\Form.cshtml" />
+    <Content Include="Views\PlotFengShuiTransfer\Index.cshtml" />
+    <Content Include="Views\PlotFengShuiTransfer\Info.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

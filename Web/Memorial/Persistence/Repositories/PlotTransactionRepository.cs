@@ -34,6 +34,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
                 .Include(pt => pt.PlotItem)
+                .Include(pt => pt.Deceased1)
                 .Where(pt => pt.PlotItemId == itemId
                                             && pt.PlotId == plotId
                                             && pt.DeleteDate == null).ToList();
@@ -49,6 +50,17 @@ namespace Memorial.Persistence.Repositories
                                             && pt.PlotItemId == itemId
                                             && pt.PlotId == plotId
                                             && pt.DeleteDate == null).ToList();
+        }
+
+        public PlotTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id)
+        {
+            return MemorialContext.PlotTransactions
+                .Include(pt => pt.Applicant)
+                .Include(pt => pt.Plot)
+                .Include(pt => pt.PlotItem)
+                .Where(pt => pt.Deceased1Id == deceased1Id
+                                            && pt.PlotId == plotId
+                                            && pt.DeleteDate == null).SingleOrDefault();
         }
 
         public PlotTransaction GetLastPlotTransactionByPlotId(int plotId)

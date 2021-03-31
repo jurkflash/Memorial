@@ -10,15 +10,14 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Plot
 {
-    public class SingleOrder : Transaction, ISingleOrder
+    public class SecondBurial : Transaction, ISecondBurial
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IPlot _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
 
-        public SingleOrder(
+        public SecondBurial(
             IUnitOfWork unitOfWork,
             IItem item,
             IPlot plot,
@@ -28,8 +27,7 @@ namespace Memorial.Lib.Plot
             INumber number,
             Invoice.IPlot invoice,
             IPayment payment,
-            ITracking tracking,
-            IPlotApplicantDeceaseds plotApplicantDeceaseds
+            ITracking tracking
             ) : 
             base(
                 unitOfWork, 
@@ -51,10 +49,9 @@ namespace Memorial.Lib.Plot
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
-            _plotApplicantDeceaseds = plotApplicantDeceaseds;
         }
 
-        public void SetSingleOrder(string AF)
+        public void SetSecondBurial(string AF)
         {
             SetTransaction(AF);
         }
@@ -71,9 +68,9 @@ namespace Memorial.Lib.Plot
 
         public bool Create(PlotTransactionDto plotTransactionDto)
         {
-            if (plotTransactionDto.Deceased1Id != null)
+            if (plotTransactionDto.DeceasedDto1Id != null)
             {
-                SetDeceased((int)plotTransactionDto.Deceased1Id);
+                SetDeceased((int)plotTransactionDto.DeceasedDto1Id);
                 if (_deceased.GetPlot() != null)
                     return false;
             }
@@ -83,20 +80,17 @@ namespace Memorial.Lib.Plot
             if (CreateNewTransaction(plotTransactionDto))
             {
                 _plot.SetPlot(plotTransactionDto.PlotDtoId);
-                _plot.SetApplicant(plotTransactionDto.ApplicantDtoId);
 
-                if (plotTransactionDto.Deceased1Id != null)
+                if (plotTransactionDto.DeceasedDto1Id != null)
                 {
-                    SetDeceased((int)plotTransactionDto.Deceased1Id);
-                    if (_deceased.SetPlot(plotTransactionDto.PlotDtoId))
+                    SetDeceased((int)plotTransactionDto.DeceasedDto1Id);
+                    if (!_deceased.SetPlot(plotTransactionDto.PlotDtoId))
                     {
-                        _plot.SetHasDeceased(true);
-                    }
-                    else
                         return false;
+                    }                        
                 }
 
-                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.Deceased1Id);
+                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id);
 
                 _unitOfWork.Complete();
             }
@@ -110,13 +104,7 @@ namespace Memorial.Lib.Plot
 
         public bool Update(PlotTransactionDto plotTransactionDto)
         {
-            if (_invoice.GetInvoicesByAF(plotTransactionDto.AF).Any() && 
-                plotTransactionDto.Price + 
-                (float)plotTransactionDto.Maintenance + 
-                (float)plotTransactionDto.Dig + 
-                (float)plotTransactionDto.Brick + 
-                (float)plotTransactionDto.Wall 
-                <
+            if (_invoice.GetInvoicesByAF(plotTransactionDto.AF).Any() && plotTransactionDto.Price <
                 _invoice.GetInvoicesByAF(plotTransactionDto.AF).Max(i => i.Amount))
             {
                 return false;
@@ -130,12 +118,9 @@ namespace Memorial.Lib.Plot
             {
                 _plot.SetPlot(plotTransactionDto.PlotDtoId);
 
-                PlotApplicantDeceaseds(plotTransactionDto.Deceased1Id, deceased1InDb);
+                PlotApplicantDeceaseds(plotTransactionDto.DeceasedDto1Id, deceased1InDb);
 
-                if (plotTransactionDto.Deceased1Id == null)
-                    _plot.SetHasDeceased(false);
-
-                _tracking.Change(plotTransactionDto.PlotDtoId, plotTransactionDto.AF, plotTransactionDto.ApplicantDtoId, plotTransactionDto.Deceased1Id);
+                _tracking.Change(plotTransactionDto.PlotDtoId, plotTransactionDto.AF, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id);
 
                 _unitOfWork.Complete();
             }
@@ -151,20 +136,26 @@ namespace Memorial.Lib.Plot
                 {
                     _deceased.SetDeceased((int)dbDeceasedId);
                     _deceased.RemovePlot();
+
+                    return true;
                 }
-                else
+
+                _deceased.SetDeceased((int)deceasedId);
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _plot.GetPlot().Id)
                 {
-                    _deceased.SetDeceased((int)deceasedId);
-                    if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _plot.GetPlot().Id)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        _deceased.SetPlot(_plot.GetPlot().Id);
-                        _plot.SetHasDeceased(true);
-                    }
+                    return false;
                 }
+
+                if(dbDeceasedId != null)
+                {
+                    _deceased.SetDeceased((int)dbDeceasedId);
+                    _deceased.RemovePlot();
+                }
+
+                _deceased.SetDeceased((int)deceasedId);
+                _deceased.SetPlot(_plot.GetPlot().Id);
+                _plot.SetHasDeceased(true);
+
             }
 
             return true;
@@ -176,8 +167,6 @@ namespace Memorial.Lib.Plot
                 return false;
 
             _plot.SetPlot(_transaction.PlotId);
-            if (_plot.HasDeceased())
-                return false;
 
             var lastTransactionOfPlot = GetLastPlotTransactionByPlotId(_transaction.PlotId);
 
@@ -190,16 +179,12 @@ namespace Memorial.Lib.Plot
                     SetDeceased((int)_transaction.Deceased1Id);
                     _deceased.RemovePlot();
                 }
-
-                _plot.SetHasDeceased(false);
-
-                _plot.RemoveApplicant();
             }
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _plotApplicantDeceaseds.RollbackPlotApplicantDeceaseds(_transaction.AF, _transaction.PlotId);
+            _tracking.Remove(_transaction.PlotId, _transaction.AF);
 
             _unitOfWork.Complete();
 

@@ -48,7 +48,7 @@ namespace Memorial.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId)
+        public ActionResult Index(int itemId, int id, int applicantId = 0)
         {
             _quadrangle.SetQuadrangle(id);
 
@@ -61,7 +61,7 @@ namespace Memorial.Controllers
                 QuadrangleTransactionDtos = _order.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId),
             };
 
-            if(_quadrangle.HasApplicant())
+            if(applicantId == 0 || _quadrangle.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }

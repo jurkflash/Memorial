@@ -147,6 +147,11 @@ namespace Memorial.Lib.Plot
             return Mapper.Map<IEnumerable<Core.Domain.PlotTransaction>, IEnumerable<PlotTransactionDto>>(GetTransactionsByPlotIdAndItemId(plotId, itemId));
         }
 
+        public Core.Domain.PlotTransaction GetTransactionsByPlotIdAndDeceased1Id(int plotId, int deceased1Id)
+        {
+            return _unitOfWork.PlotTransactions.GetByPlotIdAndDeceased(plotId, deceased1Id);
+        }
+
         public IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotIdAndItemIdAndApplicantId(int plotId, int itemId, int applicantId)
         {
             return _unitOfWork.PlotTransactions.GetByPlotIdAndItemAndApplicant(plotId, itemId, applicantId);
@@ -207,12 +212,6 @@ namespace Memorial.Lib.Plot
                 {
                     SetDeceasedIdBasedOnPlotLastTransaction(lastTransactionOfPlot, plotTransactionDto);
                 }
-                //else
-                //{
-                //    var lastTransactionOfShiftedPlot = GetLastPlotTransactionByShiftedPlotId(_plot.GetPlot().Id);
-
-                //    SetDeceasedIdBasedOnPlotLastTransaction(lastTransactionOfShiftedPlot, plotTransactionDto);
-                //}
             }
 
             return true;
@@ -234,9 +233,9 @@ namespace Memorial.Lib.Plot
                     return false;
                 }
 
-                plotTransactionDto.Deceased1Id = lastPlotTransaction.Deceased1Id;
+                plotTransactionDto.DeceasedDto1Id = lastPlotTransaction.Deceased1Id;
 
-                plotTransactionDto.Deceased2Id = lastPlotTransaction.Deceased2Id;
+                plotTransactionDto.DeceasedDto1Id = lastPlotTransaction.Deceased2Id;
             }
 
             return true;
