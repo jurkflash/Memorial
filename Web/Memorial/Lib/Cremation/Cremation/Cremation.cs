@@ -44,6 +44,11 @@ namespace Memorial.Lib.Cremation
             return Mapper.Map<Core.Domain.Cremation, CremationDto>(GetCremation(id));
         }
 
+        public IEnumerable<CremationDto> GetCremationDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Cremation>, IEnumerable<CremationDto>>(_unitOfWork.Cremations.GetAllActive());
+        }
+
         public IEnumerable<Core.Domain.Cremation> GetCremationBySite(byte siteId)
         {
             return _unitOfWork.Cremations.GetBySite(siteId);
@@ -63,6 +68,35 @@ namespace Memorial.Lib.Cremation
         {
             return _cremation.Description;
         }
+
+        public bool Create(CremationDto cremationDto)
+        {
+            _cremation = new Core.Domain.Cremation();
+            Mapper.Map(cremationDto, _cremation);
+
+            _cremation.CreateDate = DateTime.Now;
+
+            _unitOfWork.Cremations.Add(_cremation);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.Cremation cremation)
+        {
+            cremation.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetCremation(id);
+
+            _cremation.DeleteDate = DateTime.Now;
+
+            return true;
+        }
+
 
     }
 }

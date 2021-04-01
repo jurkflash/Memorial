@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
@@ -120,45 +117,34 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.Ancestors.GetPositionsByArea(areaId);
         }
 
+        public bool Create(AncestorDto ancestorDto)
+        {
+            _ancestor = new Core.Domain.Ancestor();
+            Mapper.Map(ancestorDto, _ancestor);
 
+            _ancestor.CreateDate = DateTime.Now;
 
+            _unitOfWork.Ancestors.Add(_ancestor);
 
+            return true;
+        }
 
+        public bool Update(Core.Domain.Ancestor ancestor)
+        {
+            ancestor.ModifyDate = DateTime.Now;
 
+            return true;
+        }
 
+        public bool Delete(int id)
+        {
+            SetAncestor(id);
 
+            _ancestor.DeleteDate = DateTime.Now;
 
+            return true;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-        //public IEnumerable<AncestorDto> DtosGetByArea(int areaId)
-        //{
-        //    return Mapper.Map<IEnumerable<Core.Domain.Ancestor>, IEnumerable<AncestorDto>>(_unitOfWork.Ancestors.GetByArea(areaId));
-        //}
-
-        //public IEnumerable<AncestorAreaDto> AreaDtosGetBySite(byte siteId)
-        //{
-        //    return Mapper.Map<IEnumerable<Core.Domain.AncestorArea>, IEnumerable<AncestorAreaDto>>(_unitOfWork.AncestorAreas.GetBySite(siteId));
-        //}
-
-        //public IEnumerable<AncestorItemDto> ItemDtosGetByArea(int areaId)
-        //{
-        //    return Mapper.Map<IEnumerable<Core.Domain.AncestorItem>, IEnumerable<AncestorItemDto>>(_unitOfWork.AncestorItems.GetByArea(areaId));
-        //}
-
-        //public IEnumerable<AncestorTransactionDto> TransactionDtosGetByItemAndApplicant(int ancestorItemId, int applicantId)
-        //{
-        //    return Mapper.Map<IEnumerable<Core.Domain.AncestorTransaction>, IEnumerable<AncestorTransactionDto>>(_unitOfWork.AncestorTransactions.GetByItemAndApplicant(ancestorItemId, applicantId));
-        //}
 
     }
 }

@@ -1,0 +1,25 @@
+﻿@model Memorial.ViewModels.MiscellaneousItemsViewModel
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var miscellaneousItem in Model.MiscellaneousItemDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(miscellaneousItem.Name, "Index", miscellaneousItem.SystemCode, new { itemId = miscellaneousItem.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@miscellaneousItem.Description</td>
+                <td>@miscellaneousItem.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

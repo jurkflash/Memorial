@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Ancestor
@@ -47,5 +44,11 @@ namespace Memorial.Lib.Ancestor
         int GetAreaId();
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
+
+        bool Create(AncestorDto ancestorDto);
+
+        bool Update(Core.Domain.Ancestor ancestor);
+
+        bool Delete(int id);
     }
 }

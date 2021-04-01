@@ -14,6 +14,8 @@ namespace Memorial.Lib.Cremation
 
         CremationDto GetCremationDto();
 
+        IEnumerable<CremationDto> GetCremationDtos();
+
         Core.Domain.Cremation GetCremation(int id);
 
         CremationDto GetCremationDto(int id);
@@ -25,5 +27,11 @@ namespace Memorial.Lib.Cremation
         string GetName();
 
         string GetDescription();
+
+        bool Create(CremationDto cremationDto);
+
+        bool Update(Core.Domain.Cremation cremation);
+
+        bool Delete(int id);
     }
 }

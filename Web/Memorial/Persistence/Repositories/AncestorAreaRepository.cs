@@ -19,6 +19,14 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<AncestorArea> GetAllActive()
+        {
+            MemorialContext.Configuration.LazyLoadingEnabled = false;
+            return MemorialContext.AncestorAreas
+                .Where(aa => aa.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<AncestorArea> GetBySite(byte siteId)
         {
             return MemorialContext.AncestorAreas

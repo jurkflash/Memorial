@@ -19,6 +19,13 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<CremationItem> GetAllActive()
+        {
+            return MemorialContext.CremationItems
+                .Where(ci => ci.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<CremationItem> GetByCremation(int cremationId)
         {
             return MemorialContext.CremationItems

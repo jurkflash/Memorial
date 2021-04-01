@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -43,6 +41,16 @@ namespace Memorial.Lib.Ancestor
             return Mapper.Map<Core.Domain.AncestorItem, AncestorItemDto>(GetItem(id));
         }
 
+        public IEnumerable<Core.Domain.AncestorItem> GetItems()
+        {
+            return _unitOfWork.AncestorItems.GetAllActive();
+        }
+
+        public IEnumerable<AncestorItemDto> GetItemDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.AncestorItem>, IEnumerable<AncestorItemDto>>(GetItems());
+        }
+
         public int GetId()
         {
             return _item.Id;
@@ -81,6 +89,34 @@ namespace Memorial.Lib.Ancestor
         public IEnumerable<AncestorItemDto> GetItemDtosByArea(int areaId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.AncestorItem>, IEnumerable<AncestorItemDto>>(GetItemByArea(areaId));
+        }
+
+        public bool Create(AncestorItemDto ancestorItemDto)
+        {
+            _item = new Core.Domain.AncestorItem();
+            Mapper.Map(ancestorItemDto, _item);
+
+            _item.CreateDate = DateTime.Now;
+
+            _unitOfWork.AncestorItems.Add(_item);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.AncestorItem ancestorItem)
+        {
+            ancestorItem.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetItem(id);
+
+            _item.DeleteDate = DateTime.Now;
+
+            return true;
         }
 
     }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Ancestor
@@ -22,14 +19,23 @@ namespace Memorial.Lib.Ancestor
 
         AncestorAreaDto GetAreaDto();
 
-
         Core.Domain.AncestorArea GetArea(int areaId);
 
         AncestorAreaDto GetAreaDto(int areaId);
 
+        IEnumerable<Core.Domain.AncestorArea> GetAreas();
+
+        IEnumerable<AncestorAreaDto> GetAreaDtos();
+
         IEnumerable<Core.Domain.AncestorArea> GetAreaBySite(byte siteId);
 
         IEnumerable<AncestorAreaDto> GetAreaDtosBySite(byte siteId);
+
+        bool Create(AncestorAreaDto ancestorAreaDto);
+
+        bool Update(Core.Domain.AncestorArea ancestorArea);
+
+        bool Delete(int id);
 
     }
 }

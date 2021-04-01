@@ -1,0 +1,14 @@
+﻿@model Memorial.ViewModels.ApplicantInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantId });}
+
+<h5>Site</h5>
+@foreach (var site in Model.SiteDtos)
+{
+    @Html.ActionLink(site.Name, "Site", new { siteId = site.Id, applicantId = Model.ApplicantId })
+    <br />
+}

@@ -134,9 +134,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<SpaceTransactionDto, SpaceTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore())
-                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
-                .ForMember(c => c.DeleteDate, opt => opt.Ignore());
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<UrnDto, Urn>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -187,9 +185,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.Deceased1, opt => opt.Ignore())
                 .ForMember(c => c.Deceased2, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore())
-                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
-                .ForMember(c => c.DeleteDate, opt => opt.Ignore());
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<AncestorDto, Ancestor>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -222,9 +218,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.QuadrangleTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
-                .ForMember(i => i.CreateDate, opt => opt.Ignore())
-                .ForMember(i => i.ModifyDate, opt => opt.Ignore())
-                .ForMember(i => i.DeleteDate, opt => opt.Ignore());
+                .ForMember(i => i.CreateDate, opt => opt.Ignore());
 
             CreateMap<ReceiptDto, Receipt>()
                 .ForMember(i => i.RE, opt => opt.Ignore())
@@ -236,9 +230,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.QuadrangleTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
-                .ForMember(i => i.CreateDate, opt => opt.Ignore())
-                .ForMember(i => i.ModifyDate, opt => opt.Ignore())
-                .ForMember(i => i.DeleteDate, opt => opt.Ignore());
+                .ForMember(i => i.CreateDate, opt => opt.Ignore());
 
             CreateMap<PaymentMethodDto, PaymentMethod>()
                 .ForMember(pm => pm.Id, opt => opt.Ignore());

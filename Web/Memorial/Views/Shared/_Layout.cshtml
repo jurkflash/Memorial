@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @Html.Action("Navigation", "Navigation")
+    @Html.Action("Navigation", "Navigation", new { area = "Navigation" })
 
     <div class="container body-content">
         @RenderBody()

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -63,6 +61,16 @@ namespace Memorial.Lib.Ancestor
             return Mapper.Map<Core.Domain.AncestorArea, AncestorAreaDto>(GetArea(areaId));
         }
 
+        public IEnumerable<Core.Domain.AncestorArea> GetAreas()
+        {
+            return _unitOfWork.AncestorAreas.GetAllActive();
+        }
+
+        public IEnumerable<AncestorAreaDto> GetAreaDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.AncestorArea>, IEnumerable<AncestorAreaDto>>(GetAreas());
+        }
+
         public IEnumerable<Core.Domain.AncestorArea> GetAreaBySite(byte siteId)
         {
             return _unitOfWork.AncestorAreas.GetBySite(siteId);
@@ -71,6 +79,34 @@ namespace Memorial.Lib.Ancestor
         public IEnumerable<AncestorAreaDto> GetAreaDtosBySite(byte siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.AncestorArea>, IEnumerable<AncestorAreaDto>>(GetAreaBySite(siteId));
+        }
+
+        public bool Create(AncestorAreaDto ancestorAreaDto)
+        {
+            _area = new Core.Domain.AncestorArea();
+            Mapper.Map(ancestorAreaDto, _area);
+
+            _area.CreateDate = DateTime.Now;
+
+            _unitOfWork.AncestorAreas.Add(_area);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.AncestorArea ancestorArea)
+        {
+            ancestorArea.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetArea(id);
+
+            _area.DeleteDate = DateTime.Now;
+
+            return true;
         }
     }
 }
