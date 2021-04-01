@@ -4,7 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });}
+@if (Model.ApplicantId != 0)
+{
+    Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });
+}
 
 <table class="table table-bordered table-hover">
     <thead>

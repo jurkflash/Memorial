@@ -14,12 +14,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetAncestorNewAF(AncestorItemId, year);
+            
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetAncestorNewAF(ancestorItem.Code, year);
 
             if (number == -1 || ancestorItem == null)
                 return "";
@@ -32,12 +34,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetAncestorNewIV(AncestorItemId, year);
+            
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetAncestorNewIV(ancestorItem.Code, year);
 
             if (number == -1 || ancestorItem == null)
                 return "";
@@ -50,12 +54,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int AncestorItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetAncestorNewRE(AncestorItemId, year);
+            
             var ancestorItem = MemorialContext.AncestorItems
                                 .Include(a => a.AncestorArea)
                                 .Include(a => a.AncestorArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetAncestorNewRE(ancestorItem.Code, year);
 
             if (number == -1 || ancestorItem == null)
                 return "";

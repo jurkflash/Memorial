@@ -45,7 +45,7 @@ namespace Memorial.Controllers
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
                 QuadrangleTransactionDtos = _manage.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId),
-                AllowNew = _quadrangle.HasApplicant()
+                AllowNew = applicantId != 0 && _quadrangle.HasApplicant()
             };
             return View(viewModel);
         }

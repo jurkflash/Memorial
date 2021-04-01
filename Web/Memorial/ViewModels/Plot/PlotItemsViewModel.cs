@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public PlotDto PlotDto { get; set; }
 
-        public ApplicantDto ApplicantDto { get; set; }
+        public int ApplicantId { get; set; }
 
     }
 }

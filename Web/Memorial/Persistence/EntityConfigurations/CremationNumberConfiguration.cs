@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public CremationNumberConfiguration()
         {
-            HasRequired(cn => cn.CremationItem)
-                .WithMany(ci => ci.CremationNumbers)
-                .HasForeignKey(cn => cn.CremationItemId)
-                .WillCascadeOnDelete(false);
+            Property(cn => cn.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

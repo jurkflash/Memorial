@@ -41,7 +41,7 @@ namespace Memorial.Controllers
                 AncestorDto = _ancestor.GetAncestorDto(),
                 AncestorId = id,
                 AncestorTransactionDtos = _maintenance.GetTransactionDtosByAncestorIdAndItemId(id, itemId),
-                AllowNew = _ancestor.HasApplicant()
+                AllowNew = applicantId != 0 && _ancestor.HasApplicant()
             };
             return View(viewModel);
         }

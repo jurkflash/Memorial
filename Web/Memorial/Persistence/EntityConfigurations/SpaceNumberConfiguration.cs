@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public SpaceNumberConfiguration()
         {
-            HasRequired(sn => sn.SpaceItem)
-                .WithMany(si => si.SpaceNumbers)
-                .HasForeignKey(sn => sn.SpaceItemId)
-                .WillCascadeOnDelete(false);
+            Property(sn => sn.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public AncestorNumberConfiguration()
         {
-            HasRequired(an => an.AncestorItem)
-                .WithMany(ai => ai.AncestorNumbers)
-                .HasForeignKey(an => an.AncestorItemId)
-                .WillCascadeOnDelete(false);
+            Property(an => an.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

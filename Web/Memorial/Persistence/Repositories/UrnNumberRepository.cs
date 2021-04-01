@@ -14,12 +14,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int UrnItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetUrnNewAF(UrnItemId, year);
+            
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetUrnNewAF(urnItem.Code, year);
 
             if (number == -1 || urnItem == null)
                 return "";
@@ -32,12 +34,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int UrnItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetUrnNewIV(UrnItemId, year);
+            
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetUrnNewIV(urnItem.Code, year);
 
             if (number == -1 || urnItem == null)
                 return "";
@@ -50,12 +54,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int UrnItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetUrnNewRE(UrnItemId, year);
+            
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetUrnNewRE(urnItem.Code, year);
 
             if (number == -1 || urnItem == null)
                 return "";

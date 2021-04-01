@@ -61,7 +61,7 @@ namespace Memorial.Controllers
                 PlotTransactionDtos = _transfer.GetTransactionDtosByPlotIdAndItemId(id, itemId)
             };
 
-            viewModel.AllowNew = _plot.HasApplicant() && _plot.GetApplicantId() != applicantId && _transfer.AllowPlotDeceasePairing(_plot, applicantId);
+            viewModel.AllowNew = applicantId != 0 && _plot.HasApplicant() && _plot.GetApplicantId() != applicantId && _transfer.AllowPlotDeceasePairing(_plot, applicantId);
 
             return View(viewModel);
         }

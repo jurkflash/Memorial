@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public QuadrangleNumberConfiguration()
         {
-            HasRequired(qn => qn.QuadrangleItem)
-                .WithMany(qi => qi.QuadrangleNumbers)
-                .HasForeignKey(qn => qn.QuadrangleItemId)
-                .WillCascadeOnDelete(false);
+            Property(qn => qn.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

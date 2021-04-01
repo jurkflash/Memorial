@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public MiscellaneousItem()
         {
-            MiscellaneousNumbers = new HashSet<MiscellaneousNumber>();
-
             MiscellaneousTransactions = new HashSet<MiscellaneousTransaction>();
         }
 
@@ -37,8 +35,6 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<MiscellaneousNumber> MiscellaneousNumbers { get; set; }
 
         public ICollection<MiscellaneousTransaction> MiscellaneousTransactions { get; set; }
     }

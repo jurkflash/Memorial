@@ -44,7 +44,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 UrnItemId = itemId,
                 UrnTransactionDtos = _purchase.GetTransactionDtosByItemId(itemId),
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
 
             return View(viewModel);

@@ -46,7 +46,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 CremationItemId = itemId,
                 CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId),
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
 
             return View(viewModel);

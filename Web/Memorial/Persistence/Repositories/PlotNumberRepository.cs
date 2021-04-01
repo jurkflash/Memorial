@@ -14,13 +14,15 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int PlotItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetPlotNewAF(PlotItemId, year);
+            
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.PlotArea)
                                 .Include(p => p.Plot.PlotArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetPlotNewAF(plotItem.Code, year);
 
             if (number == -1 || plotItem == null)
                 return "";
@@ -33,13 +35,15 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int PlotItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetPlotNewIV(PlotItemId, year);
+            
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.PlotArea)
                                 .Include(p => p.Plot.PlotArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetPlotNewIV(plotItem.Code, year);
 
             if (number == -1 || plotItem == null)
                 return "";
@@ -52,13 +56,15 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int PlotItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetPlotNewRE(PlotItemId, year);
+            
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.PlotArea)
                                 .Include(p => p.Plot.PlotArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetPlotNewRE(plotItem.Code, year);
 
             if (number == -1 || plotItem == null)
                 return "";

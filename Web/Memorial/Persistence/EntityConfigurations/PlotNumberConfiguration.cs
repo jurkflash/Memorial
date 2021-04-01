@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public PlotNumberConfiguration()
         {
-            HasRequired(pn => pn.PlotItem)
-                .WithMany(pi => pi.PlotNumbers)
-                .HasForeignKey(pn => pn.PlotItemId)
-                .WillCascadeOnDelete(false);
+            Property(pn => pn.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

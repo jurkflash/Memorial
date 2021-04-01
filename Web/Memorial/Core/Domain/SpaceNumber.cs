@@ -9,9 +9,7 @@ namespace Memorial.Core.Domain
     {
         public int Id { get; set; }
 
-        public SpaceItem SpaceItem { get; set; }
-
-        public int SpaceItemId { get; set; }
+        public string ItemCode { get; set; }
 
         public int Year { get; set; }
 

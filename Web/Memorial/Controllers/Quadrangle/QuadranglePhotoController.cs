@@ -49,7 +49,7 @@ namespace Memorial.Controllers
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
                 QuadrangleTransactionDtos = _photo.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId),
-                AllowNew = _quadrangle.HasApplicant() && _quadrangle.HasDeceased()
+                AllowNew = applicantId != 0 && _quadrangle.HasApplicant() && _quadrangle.HasDeceased()
             };
             return View(viewModel);
         }

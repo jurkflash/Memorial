@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public SpaceItem()
         {
-            SpaceNumbers = new HashSet<SpaceNumber>();
-
             SpaceTransactions = new HashSet<SpaceTransaction>();
         }
 
@@ -43,8 +41,6 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<SpaceNumber> SpaceNumbers { get; set; }
 
         public ICollection<SpaceTransaction> SpaceTransactions { get; set; }
     }

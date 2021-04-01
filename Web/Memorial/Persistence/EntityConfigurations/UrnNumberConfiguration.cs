@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public UrnNumberConfiguration()
         {
-            HasRequired(un => un.UrnItem)
-                .WithMany(ui => ui.UrnNumbers)
-                .HasForeignKey(un => un.UrnItemId)
-                .WillCascadeOnDelete(false);
+            Property(un => un.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Memorial.Controllers.Ancestor
                 AncestorTransactionDtos = _order.GetTransactionDtosByAncestorIdAndItemId(id, itemId),
             };
 
-            if (_ancestor.HasApplicant())
+            if (applicantId == 0 || _ancestor.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }

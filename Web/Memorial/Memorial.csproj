@@ -649,6 +649,7 @@
     <Compile Include="Controllers\Miscellaenous\MiscellaneousInvoicesController.cs" />
     <Compile Include="Controllers\Miscellaenous\MiscellaneousReceiptsController.cs" />
     <Compile Include="Controllers\Miscellaenous\MiscellaneousNonOrderReceiptsController.cs" />
+    <Compile Include="Controllers\Navigation\NavigationController.cs" />
     <Compile Include="Controllers\Plot\PlotController.cs" />
     <Compile Include="Controllers\Plot\PlotOrderController.cs" />
     <Compile Include="Controllers\Plot\PlotInvoicesController.cs" />
@@ -734,13 +735,11 @@
     <Compile Include="Core\Dtos\AncestorDto.cs" />
     <Compile Include="Core\Dtos\AncestorAreaDto.cs" />
     <Compile Include="Core\Dtos\AncestorItemDto.cs" />
-    <Compile Include="Core\Dtos\AncestorNumberDto.cs" />
     <Compile Include="Core\Dtos\AncestorTransactionDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedFlattenDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedDto.cs" />
     <Compile Include="Core\Dtos\CremationDto.cs" />
     <Compile Include="Core\Dtos\CremationItemDto.cs" />
-    <Compile Include="Core\Dtos\CremationNumberDto.cs" />
     <Compile Include="Core\Dtos\GenderTypeDto.cs" />
     <Compile Include="Core\Dtos\MaritalTypeDto.cs" />
     <Compile Include="Core\Dtos\MiscellaneousDto.cs" />
@@ -1958,6 +1957,10 @@
     <Compile Include="Migrations\202103301534431_RemovePlotTypeFromPlotItemsTable.designer.cs">
       <DependentUpon>202103301534431_RemovePlotTypeFromPlotItemsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs" />
+    <Compile Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.designer.cs">
+      <DependentUpon>202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2085,6 +2088,7 @@
     <Compile Include="ViewModels\InvoiceFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="ViewModels\Cremation\CremationNonOrderReceiptsViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationViewModel.cs" />
     <Compile Include="ViewModels\Plot\PlotAreaIndexesViewModel.cs" />
     <Compile Include="ViewModels\Plot\PlotIndexesViewModel.cs" />
     <Compile Include="ViewModels\Plot\PlotItemsViewModel.cs" />
@@ -2291,6 +2295,7 @@
     <Content Include="Views\PlotFengShuiTransfer\Form.cshtml" />
     <Content Include="Views\PlotFengShuiTransfer\Index.cshtml" />
     <Content Include="Views\PlotFengShuiTransfer\Info.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3010,6 +3015,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103301534431_RemovePlotTypeFromPlotItemsTable.resx">
       <DependentUpon>202103301534431_RemovePlotTypeFromPlotItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.resx">
+      <DependentUpon>202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

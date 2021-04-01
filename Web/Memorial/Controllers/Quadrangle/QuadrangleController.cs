@@ -91,7 +91,7 @@ namespace Memorial.Controllers
             {
                 QuadrangleItemDtos = _item.GetItemDtosByCentre(_centre.GetID()),
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
-                ApplicantDto = _applicant.GetApplicantDto(applicantId)
+                ApplicantId = applicantId
             };
             return View(viewModel);
         }

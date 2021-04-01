@@ -14,12 +14,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int QuadrangleItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetQuadrangleNewAF(QuadrangleItemId, year);
+            
             var quadrangleItem = MemorialContext.QuadrangleItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetQuadrangleNewAF(quadrangleItem.Code, year);
 
             if (number == -1 || quadrangleItem == null)
                 return "";
@@ -32,12 +34,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int QuadrangleItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetQuadrangleNewIV(QuadrangleItemId, year);
+            
             var quadrangleItem = MemorialContext.QuadrangleItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetQuadrangleNewIV(quadrangleItem.Code, year);
 
             if (number == -1 || quadrangleItem == null)
                 return "";
@@ -50,12 +54,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int QuadrangleItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetQuadrangleNewRE(QuadrangleItemId, year);
+            
             var quadrangleItem = MemorialContext.QuadrangleItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetQuadrangleNewRE(quadrangleItem.Code, year);
 
             if (number == -1 || quadrangleItem == null)
                 return "";

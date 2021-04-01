@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public PlotItem()
         {
-            PlotNumbers = new HashSet<PlotNumber>();
-
             PlotTransactions = new HashSet<PlotTransaction>();
         }
 
@@ -37,8 +35,6 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<PlotNumber> PlotNumbers { get; set; }
 
         public ICollection<PlotTransaction> PlotTransactions { get; set; }
     }

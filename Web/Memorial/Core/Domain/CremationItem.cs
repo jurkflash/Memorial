@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public CremationItem()
         {
-            CremationNumbers = new HashSet<CremationNumber>();
-
             CremationTransactions = new HashSet<CremationTransaction>();
         }
 
@@ -37,8 +35,6 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<CremationNumber> CremationNumbers { get; set; }
 
         public ICollection<CremationTransaction> CremationTransactions { get; set; }
     }

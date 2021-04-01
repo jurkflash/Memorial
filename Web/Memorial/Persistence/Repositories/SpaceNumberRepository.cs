@@ -14,12 +14,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int SpaceItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewAF(SpaceItemId, year);
+            
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetSpaceNewAF(spaceItem.Code, year);
 
             if (number == -1 || spaceItem == null)
                 return "";
@@ -32,12 +34,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int SpaceItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewIV(SpaceItemId, year);
+            
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetSpaceNewIV(spaceItem.Code, year);
 
             if (number == -1 || spaceItem == null)
                 return "";
@@ -50,12 +54,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int SpaceItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetSpaceNewRE(SpaceItemId, year);
+            
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetSpaceNewRE(spaceItem.Code, year);
 
             if (number == -1 || spaceItem == null)
                 return "";

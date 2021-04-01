@@ -15,12 +15,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int MiscellaneousItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetMiscellaneousNewAF(MiscellaneousItemId, year);
+            
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetMiscellaneousNewAF(miscellaneousItem.Code, year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";
@@ -33,12 +35,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int MiscellaneousItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetMiscellaneousNewIV(MiscellaneousItemId, year);
+            
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetMiscellaneousNewIV(miscellaneousItem.Code, year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";
@@ -51,12 +55,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int MiscellaneousItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetMiscellaneousNewRE(MiscellaneousItemId, year);
+            
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetMiscellaneousNewRE(miscellaneousItem.Code, year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";

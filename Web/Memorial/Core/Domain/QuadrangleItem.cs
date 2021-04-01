@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public QuadrangleItem()
         {
-            QuadrangleNumbers = new HashSet<QuadrangleNumber>();
-
             QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
         }
 
@@ -31,8 +29,6 @@ namespace Memorial.Core.Domain
         public QuadrangleCentre QuadrangleCentre { get; set; }
 
         public int QuadrangleCentreId { get; set; }
-
-        public ICollection<QuadrangleNumber> QuadrangleNumbers { get; set; }
 
         public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
 

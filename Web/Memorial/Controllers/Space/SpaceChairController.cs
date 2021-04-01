@@ -44,7 +44,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 SpaceItemId = itemId,
                 SpaceTransactionDtos = _chair.GetTransactionDtosByItemId(itemId),
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
 
             return View(viewModel);

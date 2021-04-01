@@ -57,7 +57,7 @@ namespace Memorial.Controllers
                 PlotTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId),
             };
 
-            if (_plot.HasApplicant())
+            if (applicantId == 0 || _plot.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }

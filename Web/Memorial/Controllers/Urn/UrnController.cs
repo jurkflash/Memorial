@@ -33,7 +33,7 @@ namespace Memorial.Controllers
             _site = site;
         }
 
-        public ActionResult Index(byte siteId, int applicantId)
+        public ActionResult Index(byte siteId, int applicantId = 0)
         {
             var viewModel = new UrnIndexesViewModel()
             {

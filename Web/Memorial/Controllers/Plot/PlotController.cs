@@ -44,7 +44,7 @@ namespace Memorial.Controllers
         }
 
 
-        public ActionResult Index(byte siteId, int applicantId)
+        public ActionResult Index(byte siteId, int applicantId = 0)
         {
             var viewModel = new PlotAreaIndexesViewModel()
             {
@@ -71,7 +71,7 @@ namespace Memorial.Controllers
             {
                 PlotItemDtos = _item.GetItemDtosByPlot(id),
                 PlotDto = _plot.GetPlotDto(),
-                ApplicantDto = _applicant.GetApplicantDto(applicantId)
+                ApplicantId = applicantId
             };
             return View(viewModel);
         }

@@ -4,46 +4,46 @@ namespace Memorial.Core.Repositories
 {
     public interface INumberRepository
     {
-        int GetCremationNewAF(int itemId, int year);
+        int GetCremationNewAF(string itemCode, int year);
 
-        int GetCremationNewIV(int itemId, int year);
+        int GetCremationNewIV(string itemCode, int year);
 
-        int GetCremationNewRE(int itemId, int year);
+        int GetCremationNewRE(string itemCode, int year);
 
-        int GetMiscellaneousNewAF(int itemId, int year);
+        int GetMiscellaneousNewAF(string itemCode, int year);
 
-        int GetMiscellaneousNewIV(int itemId, int year);
+        int GetMiscellaneousNewIV(string itemCode, int year);
 
-        int GetMiscellaneousNewRE(int itemId, int year);
+        int GetMiscellaneousNewRE(string itemCode, int year);
 
-        int GetSpaceNewAF(int itemId, int year);
+        int GetSpaceNewAF(string itemCode, int year);
 
-        int GetSpaceNewIV(int itemId, int year);
+        int GetSpaceNewIV(string itemCode, int year);
 
-        int GetSpaceNewRE(int itemId, int year);
+        int GetSpaceNewRE(string itemCode, int year);
 
-        int GetUrnNewAF(int itemId, int year);
+        int GetUrnNewAF(string itemCode, int year);
 
-        int GetUrnNewIV(int itemId, int year);
+        int GetUrnNewIV(string itemCode, int year);
 
-        int GetUrnNewRE(int itemId, int year);
+        int GetUrnNewRE(string itemCode, int year);
 
-        int GetQuadrangleNewAF(int itemId, int year);
+        int GetQuadrangleNewAF(string itemCode, int year);
 
-        int GetQuadrangleNewIV(int itemId, int year);
+        int GetQuadrangleNewIV(string itemCode, int year);
 
-        int GetQuadrangleNewRE(int itemId, int year);
+        int GetQuadrangleNewRE(string itemCode, int year);
 
-        int GetAncestorNewAF(int itemId, int year);
+        int GetAncestorNewAF(string itemCode, int year);
 
-        int GetAncestorNewIV(int itemId, int year);
+        int GetAncestorNewIV(string itemCode, int year);
 
-        int GetAncestorNewRE(int itemId, int year);
+        int GetAncestorNewRE(string itemCode, int year);
 
-        int GetPlotNewAF(int itemId, int year);
+        int GetPlotNewAF(string itemCode, int year);
 
-        int GetPlotNewIV(int itemId, int year);
+        int GetPlotNewIV(string itemCode, int year);
 
-        int GetPlotNewRE(int itemId, int year);
+        int GetPlotNewRE(string itemCode, int year);
     }
 }

@@ -7,10 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public MiscellaneousNumberConfiguration()
         {
-            HasRequired(mn => mn.MiscellaneousItem)
-                .WithMany(mi => mi.MiscellaneousNumbers)
-                .HasForeignKey(mn => mn.MiscellaneousItemId)
-                .WillCascadeOnDelete(false);
+            Property(mn => mn.ItemCode)
+                .IsRequired()
+                .HasMaxLength(10);
         }
     }
 }

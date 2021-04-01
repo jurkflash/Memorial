@@ -18,7 +18,7 @@
         @foreach (var ancestorItem in Model.AncestorItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestorItem.Name, "Index", "Ancestor" + ancestorItem.SystemCode, new { itemId = ancestorItem.Id, id = Model.AncestorDto.Id, applicantId = Model.ApplicantDto.Id }, null)</td>
+                <td>@Html.ActionLink(ancestorItem.Name, "Index", "Ancestor" + ancestorItem.SystemCode, new { itemId = ancestorItem.Id, id = Model.AncestorDto.Id, applicantId = Model.ApplicantId }, null)</td>
                 <td>@ancestorItem.Description</td>
                 <td>@ancestorItem.Price</td>
             </tr>

@@ -33,120 +33,120 @@ namespace Memorial.Persistence.Repositories
             _context.Dispose();
         }
 
-        public int GetCremationNewAF(int itemId, int year)
+        public int GetCremationNewAF(string itemCode, int year)
         {
-            return GetNumber(_cremation, _AF, itemId, year);
+            return GetNumber(_cremation, _AF, itemCode, year);
         }
 
-        public int GetCremationNewIV(int itemId, int year)
+        public int GetCremationNewIV(string itemCode, int year)
         {
-            return GetNumber(_cremation, _IV, itemId, year);
+            return GetNumber(_cremation, _IV, itemCode, year);
         }
 
-        public int GetCremationNewRE(int itemId, int year)
+        public int GetCremationNewRE(string itemCode, int year)
         {
-            return GetNumber(_cremation, _RE, itemId, year);
+            return GetNumber(_cremation, _RE, itemCode, year);
         }
 
-        public int GetMiscellaneousNewAF(int itemId, int year)
+        public int GetMiscellaneousNewAF(string itemCode, int year)
         {
-            return GetNumber(_miscellaneous, _AF, itemId, year);
+            return GetNumber(_miscellaneous, _AF, itemCode, year);
         }
 
-        public int GetMiscellaneousNewIV(int itemId, int year)
+        public int GetMiscellaneousNewIV(string itemCode, int year)
         {
-            return GetNumber(_miscellaneous, _IV, itemId, year);
+            return GetNumber(_miscellaneous, _IV, itemCode, year);
         }
 
-        public int GetMiscellaneousNewRE(int itemId, int year)
+        public int GetMiscellaneousNewRE(string itemCode, int year)
         {
-            return GetNumber(_miscellaneous, _RE, itemId, year);
+            return GetNumber(_miscellaneous, _RE, itemCode, year);
         }
 
-        public int GetSpaceNewAF(int itemId, int year)
+        public int GetSpaceNewAF(string itemCode, int year)
         {
-            return GetNumber(_space, _AF, itemId, year);
+            return GetNumber(_space, _AF, itemCode, year);
         }
 
-        public int GetSpaceNewIV(int itemId, int year)
+        public int GetSpaceNewIV(string itemCode, int year)
         {
-            return GetNumber(_space, _IV, itemId, year);
+            return GetNumber(_space, _IV, itemCode, year);
         }
 
-        public int GetSpaceNewRE(int itemId, int year)
+        public int GetSpaceNewRE(string itemCode, int year)
         {
-            return GetNumber(_space, _RE, itemId, year);
+            return GetNumber(_space, _RE, itemCode, year);
         }
 
-        public int GetUrnNewAF(int itemId, int year)
+        public int GetUrnNewAF(string itemCode, int year)
         {
-            return GetNumber(_urn, _AF, itemId, year);
+            return GetNumber(_urn, _AF, itemCode, year);
         }
 
-        public int GetUrnNewIV(int itemId, int year)
+        public int GetUrnNewIV(string itemCode, int year)
         {
-            return GetNumber(_urn, _IV, itemId, year);
+            return GetNumber(_urn, _IV, itemCode, year);
         }
 
-        public int GetUrnNewRE(int itemId, int year)
+        public int GetUrnNewRE(string itemCode, int year)
         {
-            return GetNumber(_urn, _RE, itemId, year);
+            return GetNumber(_urn, _RE, itemCode, year);
         }
 
-        public int GetQuadrangleNewAF(int itemId, int year)
+        public int GetQuadrangleNewAF(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _AF, itemId, year);
+            return GetNumber(_quadrangle, _AF, itemCode, year);
         }
 
-        public int GetQuadrangleNewIV(int itemId, int year)
+        public int GetQuadrangleNewIV(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _IV, itemId, year);
+            return GetNumber(_quadrangle, _IV, itemCode, year);
         }
 
-        public int GetQuadrangleNewRE(int itemId, int year)
+        public int GetQuadrangleNewRE(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _RE, itemId, year);
+            return GetNumber(_quadrangle, _RE, itemCode, year);
         }
 
-        public int GetAncestorNewAF(int itemId, int year)
+        public int GetAncestorNewAF(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _AF, itemId, year);
+            return GetNumber(_ancestor, _AF, itemCode, year);
         }
 
-        public int GetAncestorNewIV(int itemId, int year)
+        public int GetAncestorNewIV(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _IV, itemId, year);
+            return GetNumber(_ancestor, _IV, itemCode, year);
         }
 
-        public int GetAncestorNewRE(int itemId, int year)
+        public int GetAncestorNewRE(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _RE, itemId, year);
+            return GetNumber(_ancestor, _RE, itemCode, year);
         }
 
-        public int GetPlotNewAF(int itemId, int year)
+        public int GetPlotNewAF(string itemCode, int year)
         {
-            return GetNumber(_plot, _AF, itemId, year);
+            return GetNumber(_plot, _AF, itemCode, year);
         }
 
-        public int GetPlotNewIV(int itemId, int year)
+        public int GetPlotNewIV(string itemCode, int year)
         {
-            return GetNumber(_plot, _IV, itemId, year);
+            return GetNumber(_plot, _IV, itemCode, year);
         }
 
-        public int GetPlotNewRE(int itemId, int year)
+        public int GetPlotNewRE(string itemCode, int year)
         {
-            return GetNumber(_plot, _RE, itemId, year);
+            return GetNumber(_plot, _RE, itemCode, year);
         }
 
-        private int GetNumber(string catalog, string type, int itemId, int year)
+        private int GetNumber(string catalog, string type, string itemCode, int year)
         {
             var outId = new SqlParameter();
             outId.ParameterName = "@NewId";
             outId.Direction = ParameterDirection.Output;
             outId.SqlDbType = SqlDbType.Int;
-            var authors = _context.Database.ExecuteSqlCommand("procNumbering @Catalog, @ItemID, @Type, @Year, @NewId OUT",
+            var authors = _context.Database.ExecuteSqlCommand("procNumbering @Catalog, @ItemCode, @Type, @Year, @NewId OUT",
                 new SqlParameter("@Catalog", catalog),
-                new SqlParameter("@ItemID", itemId),
+                new SqlParameter("@ItemCode", itemCode),
                 new SqlParameter("@Type", type),
                 new SqlParameter("@Year", year),
                 outId);

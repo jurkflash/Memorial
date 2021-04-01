@@ -17,7 +17,7 @@ namespace Memorial.Controllers
             _item = item;
         }
 
-        public ActionResult Index(byte siteId, int applicantId)
+        public ActionResult Index(byte siteId, int applicantId = 0)
         {
             var viewModel = new SpaceIndexesViewModel()
             {

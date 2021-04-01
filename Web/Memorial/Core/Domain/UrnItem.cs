@@ -9,8 +9,6 @@ namespace Memorial.Core.Domain
     {
         public UrnItem()
         {
-            UrnNumbers = new HashSet<UrnNumber>();
-
             UrnTransactions = new HashSet<UrnTransaction>();
         }
 
@@ -37,8 +35,6 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<UrnNumber> UrnNumbers { get; set; }
 
         public ICollection<UrnTransaction> UrnTransactions { get; set; }
     }

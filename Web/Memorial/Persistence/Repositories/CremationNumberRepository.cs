@@ -15,12 +15,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewAF(int CremationItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetCremationNewAF(CremationItemId, year);
+            
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetCremationNewAF(cremationItem.Code, year);
 
             if (number == -1 || cremationItem == null)
                 return "";
@@ -33,12 +35,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewIV(int CremationItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetCremationNewIV(CremationItemId, year);
+            
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetCremationNewIV(cremationItem.Code, year);
 
             if (number == -1 || cremationItem == null)
                 return "";
@@ -51,12 +55,14 @@ namespace Memorial.Persistence.Repositories
         public string GetNewRE(int CremationItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
-            var number = numberRepository.GetCremationNewRE(CremationItemId, year);
+            
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
+
+            var number = numberRepository.GetCremationNewRE(cremationItem.Code, year);
 
             if (number == -1 || cremationItem == null)
                 return "";

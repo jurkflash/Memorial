@@ -38,7 +38,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
                 MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId),
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
 
             return View(viewModel);

@@ -42,7 +42,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
                 QuadrangleTransactionDtos = quadrangleTransactionDtos,
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
             
             var shifted = quadrangleTransactionDtos.Where(s => s.ShiftedQuadrangleId == id);

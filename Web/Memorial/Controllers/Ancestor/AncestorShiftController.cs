@@ -42,7 +42,7 @@ namespace Memorial.Controllers
                 ApplicantId = applicantId,
                 AncestorItemId = itemId,
                 AncestorTransactionDtos = ancestorTransactionDtos,
-                AllowNew = true
+                AllowNew = applicantId != 0
             };
 
             var shifted = ancestorTransactionDtos.Where(s => s.ShiftedAncestorId == id);

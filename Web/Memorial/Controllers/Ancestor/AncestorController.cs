@@ -28,7 +28,7 @@ namespace Memorial.Controllers.Ancestor
             _item = item;
         }
 
-        public ActionResult Index(byte siteId, int applicantId)
+        public ActionResult Index(byte siteId, int applicantId = 0)
         {
             var viewModel = new AncestorAreaIndexesViewModel()
             {
@@ -57,7 +57,7 @@ namespace Memorial.Controllers.Ancestor
             {
                 AncestorItemDtos = _item.GetItemDtosByArea(_area.GetId()),
                 AncestorDto = _ancestor.GetAncestorDto(),
-                ApplicantDto = _applicant.GetApplicantDto(applicantId)
+                ApplicantId = applicantId
             };
             return View(viewModel);
         }
