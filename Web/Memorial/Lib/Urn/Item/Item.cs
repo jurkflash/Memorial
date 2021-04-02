@@ -43,6 +43,11 @@ namespace Memorial.Lib.Urn
             return Mapper.Map<Core.Domain.UrnItem, UrnItemDto>(GetItem(id));
         }
 
+        public IEnumerable<UrnItemDto> GetItemDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.UrnItem>, IEnumerable<UrnItemDto>>(_unitOfWork.UrnItems.GetAllActive());
+        }
+
         public int GetId()
         {
             return _item.Id;
@@ -88,5 +93,32 @@ namespace Memorial.Lib.Urn
             return Mapper.Map<IEnumerable<Core.Domain.UrnItem>, IEnumerable<UrnItemDto>>(GetItemByUrn(urnId));
         }
 
+        public bool Create(UrnItemDto urnItemDto)
+        {
+            _item = new Core.Domain.UrnItem();
+            Mapper.Map(urnItemDto, _item);
+
+            _item.CreateDate = DateTime.Now;
+
+            _unitOfWork.UrnItems.Add(_item);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.UrnItem urnItem)
+        {
+            urnItem.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetItem(id);
+
+            _item.DeleteDate = DateTime.Now;
+
+            return true;
+        }
     }
 }

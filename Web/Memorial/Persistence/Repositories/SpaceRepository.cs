@@ -12,10 +12,24 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public Space GetActive(int id)
+        {
+            return MemorialContext.Spaces
+                .Include(s => s.Site)
+                .Where(s => s.Id == id && s.DeleteDate == null).SingleOrDefault();
+        }
+
+        public IEnumerable<Space> GetAllActive()
+        {
+            return MemorialContext.Spaces
+                .Include(s => s.Site)
+                .Where(s => s.DeleteDate == null).ToList();
+        }
+
         public IEnumerable<Space> GetBySite(byte siteId)
         {
             return MemorialContext.Spaces
-                .Where(s => s.SiteId == siteId).ToList();
+                .Where(s => s.SiteId == siteId && s.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

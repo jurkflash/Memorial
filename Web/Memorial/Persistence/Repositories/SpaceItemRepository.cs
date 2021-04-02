@@ -19,6 +19,14 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<SpaceItem> GetAllActive()
+        {
+            return MemorialContext.SpaceItems
+                .Include(si => si.Space)
+                .Where(si => si.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<SpaceItem> GetBySpace(int spaceId)
         {
             return MemorialContext.SpaceItems

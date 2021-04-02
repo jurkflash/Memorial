@@ -7,7 +7,7 @@ namespace Memorial.Core.Repositories
     {
         AncestorArea GetActive(int id);
 
-        IEnumerable<AncestorArea> GetAllActive()
+        IEnumerable<AncestorArea> GetAllActive();
 
         IEnumerable<AncestorArea> GetBySite(byte siteId);
     }

@@ -30,7 +30,6 @@ namespace Memorial.Core.Domain
 
         public DateTime? DeleteDate { get; set; }
 
-
         public ICollection<MiscellaneousItem> MiscellaneousItems { get; set; }
     }
 }

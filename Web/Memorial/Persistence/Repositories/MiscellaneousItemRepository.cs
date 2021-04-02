@@ -19,6 +19,13 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<MiscellaneousItem> GetAllActive()
+        {
+            return MemorialContext.MiscellaneousItems
+                .Where(mi => mi.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<MiscellaneousItem> GetByMiscellaneous(int miscellaneousId)
         {
             return MemorialContext.MiscellaneousItems

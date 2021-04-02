@@ -20,6 +20,14 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<Miscellaneous> GetAllActive()
+        {
+            return MemorialContext.Miscellaneous
+                .Include(m => m.Site)
+                .Where(m => m.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<Miscellaneous> GetBySite(byte siteId)
         {
             return MemorialContext.Miscellaneous

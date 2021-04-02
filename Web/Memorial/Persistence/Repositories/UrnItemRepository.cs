@@ -15,8 +15,17 @@ namespace Memorial.Persistence.Repositories
         public UrnItem GetActive(int id)
         {
             return MemorialContext.UrnItems
+                .Include(ui => ui.Urn)
                 .Where(ui => ui.Id == id && ui.DeleteDate == null)
                 .SingleOrDefault();
+        }
+
+        public IEnumerable<UrnItem> GetAllActive()
+        {
+            return MemorialContext.UrnItems
+                .Include(ui => ui.Urn)
+                .Where(ui => ui.DeleteDate == null)
+                .ToList();
         }
 
         public IEnumerable<UrnItem> GetByUrn(int urnId)

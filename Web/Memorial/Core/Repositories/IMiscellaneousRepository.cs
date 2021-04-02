@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         Miscellaneous GetActive(int id);
 
+        IEnumerable<Miscellaneous> GetAllActive();
+
         IEnumerable<Miscellaneous> GetBySite(byte siteId);
     }
 }

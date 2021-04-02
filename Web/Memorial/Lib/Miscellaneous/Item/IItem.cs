@@ -18,6 +18,8 @@ namespace Memorial.Lib.Miscellaneous
 
         MiscellaneousItemDto GetItemDto(int id);
 
+        IEnumerable<MiscellaneousItemDto> GetItemDtos();
+
         int GetId();
 
         int GetMiscellaneousId();
@@ -35,5 +37,11 @@ namespace Memorial.Lib.Miscellaneous
         IEnumerable<Core.Domain.MiscellaneousItem> GetItemByMiscellaneous(int miscellaneousId);
 
         IEnumerable<MiscellaneousItemDto> GetItemDtosByMiscellaneous(int miscellaneousId);
+
+        bool Create(MiscellaneousItemDto miscellaneousItemDto);
+
+        bool Update(Core.Domain.MiscellaneousItem miscellaneousItem);
+
+        bool Delete(int id);
     }
 }

@@ -18,6 +18,8 @@ namespace Memorial.Lib.Space
 
         SpaceItemDto GetItemDto(int id);
 
+        IEnumerable<SpaceItemDto> GetItemDtos();
+
         int GetId();
 
         string GetName();
@@ -36,5 +38,10 @@ namespace Memorial.Lib.Space
 
         IEnumerable<SpaceItemDto> GetItemDtosBySpace(int spaceId);
 
+        bool Create(SpaceItemDto spaceItemDto);
+
+        bool Update(Core.Domain.SpaceItem spaceItem);
+
+        bool Delete(int id);
     }
 }

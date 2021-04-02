@@ -43,6 +43,11 @@ namespace Memorial.Lib.Space
             return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem(id));
         }
 
+        public IEnumerable<SpaceItemDto> GetItemDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(_unitOfWork.SpaceItems.GetAllActive());
+        }
+
         public int GetId()
         {
             return _item.Id;
@@ -87,6 +92,34 @@ namespace Memorial.Lib.Space
         {
             return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(GetItemBySpace(spaceId));
         }
-        
+
+        public bool Create(SpaceItemDto spaceItemDto)
+        {
+            _item = new Core.Domain.SpaceItem();
+            Mapper.Map(spaceItemDto, _item);
+
+            _item.CreateDate = DateTime.Now;
+
+            _unitOfWork.SpaceItems.Add(_item);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.SpaceItem spaceItem)
+        {
+            spaceItem.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetItem(id);
+
+            _item.DeleteDate = DateTime.Now;
+
+            return true;
+        }
+
     }
 }

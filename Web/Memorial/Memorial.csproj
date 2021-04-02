@@ -896,6 +896,7 @@
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
     <Compile Include="Lib\Cremation\Config\Config.cs" />
+    <Compile Include="Lib\Cremation\Config\IConfig.cs" />
     <Compile Include="Lib\Cremation\Cremation\ICremation.cs" />
     <Compile Include="Lib\Cremation\Cremation\Cremation.cs" />
     <Compile Include="Lib\Cremation\Item\IItem.cs" />
@@ -930,6 +931,8 @@
     <Compile Include="Lib\Invoice\Urn\Urn.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\ICompensate.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\Compensate.cs" />
+    <Compile Include="Lib\Miscellaneous\Config\Config.cs" />
+    <Compile Include="Lib\Miscellaneous\Config\IConfig.cs" />
     <Compile Include="Lib\Miscellaneous\Donation\Donation.cs" />
     <Compile Include="Lib\Miscellaneous\Donation\IDonation.cs" />
     <Compile Include="Lib\Miscellaneous\Item\IItem.cs" />
@@ -1024,6 +1027,8 @@
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
     <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
+    <Compile Include="Lib\Space\Config\Config.cs" />
+    <Compile Include="Lib\Space\Config\IConfig.cs" />
     <Compile Include="Lib\Space\House\House.cs" />
     <Compile Include="Lib\Space\House\IHouse.cs" />
     <Compile Include="Lib\Space\Electric\Electric.cs" />
@@ -1042,6 +1047,8 @@
     <Compile Include="Lib\Space\Space\Space.cs" />
     <Compile Include="Lib\Space\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Space\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Urn\Config\Config.cs" />
+    <Compile Include="Lib\Urn\Config\IConfig.cs" />
     <Compile Include="Lib\Urn\Item\IItem.cs" />
     <Compile Include="Lib\Urn\Item\Item.cs" />
     <Compile Include="Lib\Urn\Payment\IPayment.cs" />
@@ -1989,6 +1996,10 @@
     <Compile Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs" />
     <Compile Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.designer.cs">
       <DependentUpon>202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104021541328_AddCreateModifyDeleteDateToSpacesTable.cs" />
+    <Compile Include="Migrations\202104021541328_AddCreateModifyDeleteDateToSpacesTable.designer.cs">
+      <DependentUpon>202104021541328_AddCreateModifyDeleteDateToSpacesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
@@ -3050,6 +3061,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.resx">
       <DependentUpon>202104010215593_ChangeItemIdToItemCodeForAllNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104021541328_AddCreateModifyDeleteDateToSpacesTable.resx">
+      <DependentUpon>202104021541328_AddCreateModifyDeleteDateToSpacesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

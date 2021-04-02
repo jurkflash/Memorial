@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         SpaceItem GetActive(int id);
 
+        IEnumerable<SpaceItem> GetAllActive();
+
         IEnumerable<SpaceItem> GetBySpace(int spaceId);
     }
 }

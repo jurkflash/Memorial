@@ -44,6 +44,11 @@ namespace Memorial.Lib.Miscellaneous
             return Mapper.Map<Core.Domain.Miscellaneous, MiscellaneousDto>(GetMiscellaneous(id));
         }
 
+        public IEnumerable<MiscellaneousDto> GetMiscellaneousDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Miscellaneous>, IEnumerable<MiscellaneousDto>>(_unitOfWork.Miscellaneous.GetAllActive());
+        }
+
         public IEnumerable<Core.Domain.Miscellaneous> GetMiscellaneousBySite(byte siteId)
         {
             return _unitOfWork.Miscellaneous.GetBySite(siteId);
@@ -67,6 +72,34 @@ namespace Memorial.Lib.Miscellaneous
         public string GetRemark()
         {
             return _miscellaneous.Remark;
+        }
+
+        public bool Create(MiscellaneousDto miscellaneousDto)
+        {
+            _miscellaneous = new Core.Domain.Miscellaneous();
+            Mapper.Map(miscellaneousDto, _miscellaneous);
+
+            _miscellaneous.CreateDate = DateTime.Now;
+
+            _unitOfWork.Miscellaneous.Add(_miscellaneous);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.Miscellaneous miscellaneous)
+        {
+            miscellaneous.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetMiscellaneous(id);
+
+            _miscellaneous.DeleteDate = DateTime.Now;
+
+            return true;
         }
 
     }

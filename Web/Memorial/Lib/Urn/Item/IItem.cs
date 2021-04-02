@@ -18,6 +18,8 @@ namespace Memorial.Lib.Urn
 
         UrnItemDto GetItemDto(int id);
 
+        IEnumerable<UrnItemDto> GetItemDtos();
+
         int GetId();
 
         int GetUrnId();
@@ -35,5 +37,11 @@ namespace Memorial.Lib.Urn
         IEnumerable<Core.Domain.UrnItem> GetItemByUrn(int urnId);
 
         IEnumerable<UrnItemDto> GetItemDtosByUrn(int urnId);
+
+        bool Create(UrnItemDto urnItemDto);
+
+        bool Update(Core.Domain.UrnItem urnItem);
+
+        bool Delete(int id);
     }
 }

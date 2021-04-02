@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace Memorial.Lib.Cremation
 {
-    public class Config
+    public class Config : IConfig
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IItem _item;
@@ -70,7 +70,7 @@ namespace Memorial.Lib.Cremation
             Mapper.Map(cremationDto, cremationInDB);
 
             if (cremationInDB.SiteId != cremationDto.SiteId
-                && _unitOfWork.CremationTransactions.Find(ct=>ct.CremationItem.Cremation.SiteId==cremationInDB.SiteId).Any())
+                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -86,7 +86,7 @@ namespace Memorial.Lib.Cremation
 
         public bool DeleteCremation(int id)
         {
-            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.Id == id).Any())
+            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.Id == id && ct.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -151,6 +151,6 @@ namespace Memorial.Lib.Cremation
 
 
 
-        
+
     }
 }

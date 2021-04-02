@@ -20,6 +20,14 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<Urn> GetAllActive()
+        {
+            return MemorialContext.Urns
+                .Include(u => u.Site)
+                .Where(u => u.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<Urn> GetBySite(byte siteId)
         {
             return MemorialContext.Urns
