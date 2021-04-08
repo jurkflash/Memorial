@@ -204,7 +204,7 @@ namespace Memorial.Lib.Ancestor
 
         public bool DeleteAncestor(int id)
         {
-            if (_unitOfWork.AncestorTransactions.Find(at => at.AncestorId == id && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestorTransactions.Find(at => (at.AncestorId == id || at.ShiftedAncestorId == id) && at.DeleteDate == null).Any())
             {
                 return false;
             }

@@ -971,6 +971,8 @@
     <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
     <Compile Include="Lib\Plot\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Plot\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Quadrangle\Config\Config.cs" />
+    <Compile Include="Lib\Quadrangle\Config\IConfig.cs" />
     <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
     <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
     <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
@@ -1027,8 +1029,8 @@
     <Compile Include="Lib\RelationshipType\RelationshipType.cs" />
     <Compile Include="Lib\ReligionType\IReligionType.cs" />
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
-    <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
+    <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Space\Config\Config.cs" />
     <Compile Include="Lib\Space\Config\IConfig.cs" />
     <Compile Include="Lib\Space\House\House.cs" />

@@ -24,8 +24,16 @@ namespace Memorial.Lib.Quadrangle
 
         QuadrangleCentreDto GetCentreDto(int id);
 
+        IEnumerable<QuadrangleCentreDto> GetCentreDtos();
+
         IEnumerable<Core.Domain.QuadrangleCentre> GetCentreBySite(byte sitId);
 
         IEnumerable<QuadrangleCentreDto> GetCentreDtosBySite(byte siteId);
+
+        bool Create(QuadrangleCentreDto quadrangleCentreDto);
+
+        bool Update(Core.Domain.QuadrangleCentre quadrangleCentre);
+
+        bool Delete(int id);
     }
 }

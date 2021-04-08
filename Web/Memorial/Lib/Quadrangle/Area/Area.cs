@@ -72,5 +72,33 @@ namespace Memorial.Lib.Quadrangle
         {
             return Mapper.Map<IEnumerable<Core.Domain.QuadrangleArea>, IEnumerable<QuadrangleAreaDto>>(GetAreaByCentre(centreId));
         }
+
+        public bool Create(QuadrangleAreaDto quadrangleAreaDto)
+        {
+            _area = new Core.Domain.QuadrangleArea();
+            Mapper.Map(quadrangleAreaDto, _area);
+
+            _area.CreateDate = DateTime.Now;
+
+            _unitOfWork.QuadrangleAreas.Add(_area);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.QuadrangleArea quadrangleArea)
+        {
+            quadrangleArea.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetArea(id);
+
+            _area.DeleteDate = DateTime.Now;
+
+            return true;
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Memorial.Lib.Plot
         bool DeleteItem(int id);
         bool DeletePlot(int id);
         PlotItemDto GetItemDto(int id);
-        IEnumerable<PlotItemDto> GetItemDtos();
+        IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId);
         IEnumerable<PlotNumber> GetNumbers();
         PlotAreaDto GetPlotAreaDto(int id);
         IEnumerable<PlotAreaDto> GetPlotAreaDtos();

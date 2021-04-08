@@ -90,9 +90,9 @@ namespace Memorial.Lib.Plot
             return Mapper.Map<Core.Domain.PlotItem, PlotItemDto>(GetItem(id));
         }
 
-        public IEnumerable<PlotItemDto> GetItemDtos()
+        public IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(_unitOfWork.PlotItems.GetAllActive());
+            return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(_unitOfWork.PlotItems.GetByPlot(plotId));
         }
 
         public int GetId()
@@ -123,16 +123,6 @@ namespace Memorial.Lib.Plot
         public bool IsOrder()
         {
             return _item.isOrder;
-        }
-
-        public IEnumerable<Core.Domain.PlotItem> GetItemByPlot(int plotId)
-        {
-            return _unitOfWork.PlotItems.GetByPlot(plotId);
-        }
-
-        public IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(GetItemByPlot(plotId));
         }
 
         public bool Create(PlotItemDto plotItemDto)
@@ -172,7 +162,7 @@ namespace Memorial.Lib.Plot
 
         public void AutoCreateItem(int plotTypeId, int plotId)
         {
-            if(plotTypeId == 1)
+            if (plotTypeId == 1)
             {
                 Single(plotId);
             }

@@ -54,5 +54,55 @@ namespace Memorial.Lib.Site
         {
             return Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>(GetSites());
         }
+
+        public bool CreateSite(SiteDto siteDto)
+        {
+            _site = new Core.Domain.Site();
+            Mapper.Map(siteDto, _site);
+
+            _site.CreateDate = DateTime.Now;
+
+            _unitOfWork.Sites.Add(_site);
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool UpdateSite(SiteDto siteDto)
+        {
+            var siteInDB = GetSite(siteDto.Id);
+
+            Mapper.Map(siteDto, siteInDB);
+
+            siteInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool DeleteSite(byte id)
+        {
+            if (
+                _unitOfWork.AncestorTransactions.Find(at => at.AncestorItem.AncestorArea.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.PlotTransactions.Find(at => at.Plot.PlotArea.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.QuadrangleTransactions.Find(at => at.QuadrangleItem.QuadrangleCentre.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == id && at.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            SetSite(id);
+
+            _site.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
     }
 }

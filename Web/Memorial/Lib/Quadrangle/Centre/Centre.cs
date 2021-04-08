@@ -58,6 +58,11 @@ namespace Memorial.Lib.Quadrangle
             return Mapper.Map<Core.Domain.QuadrangleCentre, QuadrangleCentreDto>(GetCentre(id));
         }
 
+        public IEnumerable<QuadrangleCentreDto> GetCentreDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleCentre>, IEnumerable<QuadrangleCentreDto>>(_unitOfWork.QuadrangleCentres.GetAllActive());
+        }
+
         public IEnumerable<Core.Domain.QuadrangleCentre> GetCentreBySite(byte sitId)
         {
             return _unitOfWork.QuadrangleCentres.GetBySite(sitId);
@@ -66,6 +71,34 @@ namespace Memorial.Lib.Quadrangle
         public IEnumerable<QuadrangleCentreDto> GetCentreDtosBySite(byte siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.QuadrangleCentre>, IEnumerable<QuadrangleCentreDto>>(GetCentreBySite(siteId));
+        }
+
+        public bool Create(QuadrangleCentreDto quadrangleCentreDto)
+        {
+            _centre = new Core.Domain.QuadrangleCentre();
+            Mapper.Map(quadrangleCentreDto, _centre);
+
+            _centre.CreateDate = DateTime.Now;
+
+            _unitOfWork.QuadrangleCentres.Add(_centre);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.QuadrangleCentre quadrangleCentre)
+        {
+            quadrangleCentre.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetCentre(id);
+
+            _centre.DeleteDate = DateTime.Now;
+
+            return true;
         }
     }
 }

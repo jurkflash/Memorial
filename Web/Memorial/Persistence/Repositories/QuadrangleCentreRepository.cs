@@ -15,8 +15,17 @@ namespace Memorial.Persistence.Repositories
         public QuadrangleCentre GetActive(int id)
         {
             return MemorialContext.QuadrangleCentres
+                .Include(qc => qc.Site)
                 .Where(qc => qc.Id == id && qc.DeleteDate == null)
                 .SingleOrDefault();
+        }
+
+        public IEnumerable<QuadrangleCentre> GetAllActive()
+        {
+            return MemorialContext.QuadrangleCentres
+                .Include(qc => qc.Site)
+                .Where(qc => qc.DeleteDate == null)
+                .ToList();
         }
 
         public IEnumerable<QuadrangleCentre> GetBySite(byte siteId)

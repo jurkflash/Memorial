@@ -133,5 +133,33 @@ namespace Memorial.Lib.Quadrangle
         {
             return _unitOfWork.Quadrangles.GetPositionsByArea(areaId);
         }
+
+        public bool Create(QuadrangleDto quadrangleDto)
+        {
+            _quadrangle = new Core.Domain.Quadrangle();
+            Mapper.Map(quadrangleDto, _quadrangle);
+
+            _quadrangle.CreateDate = DateTime.Now;
+
+            _unitOfWork.Quadrangles.Add(_quadrangle);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.Quadrangle quadrangle)
+        {
+            quadrangle.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetQuadrangle(id);
+
+            _quadrangle.DeleteDate = DateTime.Now;
+
+            return true;
+        }
     }
 }

@@ -55,9 +55,9 @@ namespace Memorial.Lib.Plot
             return _item.GetItemDto(id);
         }
 
-        public IEnumerable<PlotItemDto> GetItemDtos()
+        public IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId)
         {
-            return _item.GetItemDtos();
+            return _item.GetItemDtosByPlot(plotId);
         }
 
         public IEnumerable<PlotNumber> GetNumbers()

@@ -33,5 +33,11 @@ namespace Memorial.Lib.Quadrangle
         IEnumerable<Core.Domain.QuadrangleItem> GetItemByCentre(int centreId);
 
         IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId);
+
+        bool Create(QuadrangleItemDto quadrangleItemDto);
+
+        bool Update(Core.Domain.QuadrangleItem quadrangleItem);
+
+        bool Delete(int id);
     }
 }

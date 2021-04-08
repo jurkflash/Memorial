@@ -1,25 +1,19 @@
-﻿using System;
+﻿using Memorial.Core.Dtos;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Site
 {
     public interface ISite
     {
-        void SetSite(int id);
-
+        bool CreateSite(SiteDto siteDto);
+        bool DeleteSite(byte id);
         Core.Domain.Site GetSite();
-
-        SiteDto GetSiteDto();
-
         Core.Domain.Site GetSite(byte id);
-
+        SiteDto GetSiteDto();
         SiteDto GetSiteDto(byte id);
-
-        IEnumerable<Core.Domain.Site> GetSites();
-
         IEnumerable<SiteDto> GetSiteDtos();
+        IEnumerable<Core.Domain.Site> GetSites();
+        void SetSite(int id);
+        bool UpdateSite(SiteDto siteDto);
     }
 }

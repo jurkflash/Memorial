@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         QuadrangleCentre GetActive(int id);
 
+        IEnumerable<QuadrangleCentre> GetAllActive();
+
         IEnumerable<QuadrangleCentre> GetBySite(byte siteId);
     }
 }

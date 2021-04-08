@@ -54,5 +54,11 @@ namespace Memorial.Lib.Quadrangle
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
 
+        bool Create(QuadrangleDto quadrangleDto);
+
+        bool Update(Core.Domain.Quadrangle quadrangle);
+
+        bool Delete(int id);
+
     }
 }
