@@ -63,6 +63,11 @@ namespace Memorial.Lib.Plot
             return Mapper.Map<Core.Domain.PlotArea, PlotAreaDto>(GetArea(areaId));
         }
 
+        public IEnumerable<PlotAreaDto> GetAreaDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.PlotArea>, IEnumerable<PlotAreaDto>>(_unitOfWork.PlotAreas.GetAllActive());
+        }
+
         public IEnumerable<Core.Domain.PlotArea> GetAreaBySite(byte siteId)
         {
             return _unitOfWork.PlotAreas.GetBySite(siteId);
@@ -71,6 +76,34 @@ namespace Memorial.Lib.Plot
         public IEnumerable<PlotAreaDto> GetAreaDtosBySite(byte siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.PlotArea>, IEnumerable<PlotAreaDto>>(GetAreaBySite(siteId));
+        }
+
+        public bool Create(PlotAreaDto plotAreaDto)
+        {
+            _area = new Core.Domain.PlotArea();
+            Mapper.Map(plotAreaDto, _area);
+
+            _area.CreateDate = DateTime.Now;
+
+            _unitOfWork.PlotAreas.Add(_area);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.PlotArea plotArea)
+        {
+            plotArea.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetArea(id);
+
+            _area.DeleteDate = DateTime.Now;
+
+            return true;
         }
     }
 }

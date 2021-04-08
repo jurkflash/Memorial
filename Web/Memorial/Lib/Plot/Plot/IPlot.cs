@@ -61,5 +61,11 @@ namespace Memorial.Lib.Plot
         int GetNumberOfPlacement();
 
         bool IsFengShuiPlot();
+
+        bool Create(PlotDto plotDto);
+
+        bool Update(Core.Domain.Plot plot);
+
+        bool Delete(int id);
     }
 }

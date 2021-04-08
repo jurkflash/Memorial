@@ -26,9 +26,17 @@ namespace Memorial.Lib.Plot
 
         PlotAreaDto GetAreaDto(int areaId);
 
+        IEnumerable<PlotAreaDto> GetAreaDtos();
+
         IEnumerable<Core.Domain.PlotArea> GetAreaBySite(byte siteId);
 
         IEnumerable<PlotAreaDto> GetAreaDtosBySite(byte siteId);
+
+        bool Create(PlotAreaDto plotAreaDto);
+
+        bool Update(Core.Domain.PlotArea plotArea);
+
+        bool Delete(int id);
 
     }
 }

@@ -67,13 +67,14 @@ namespace Memorial.Lib.Cremation
         public bool UpdateCremation(CremationDto cremationDto)
         {
             var cremationInDB = _cremation.GetCremation(cremationDto.Id);
-            Mapper.Map(cremationDto, cremationInDB);
 
             if (cremationInDB.SiteId != cremationDto.SiteId
                 && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
             }
+
+            Mapper.Map(cremationDto, cremationInDB);
 
             if (_cremation.Update(cremationInDB))
             {
@@ -115,7 +116,6 @@ namespace Memorial.Lib.Cremation
         public bool UpdateItem(CremationItemDto cremationItemDto)
         {
             var cremationItemInDB = _item.GetItem(cremationItemDto.Id);
-            Mapper.Map(cremationItemDto, cremationItemInDB);
 
             if ((cremationItemInDB.CremationId != cremationItemDto.CremationId
                 || cremationItemInDB.isOrder != cremationItemDto.isOrder)
@@ -123,6 +123,8 @@ namespace Memorial.Lib.Cremation
             {
                 return false;
             }
+
+            Mapper.Map(cremationItemDto, cremationItemInDB);
 
             if (_item.Update(cremationItemInDB))
             {

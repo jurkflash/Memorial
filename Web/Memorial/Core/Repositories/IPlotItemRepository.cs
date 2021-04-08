@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         PlotItem GetActive(int id);
 
+        IEnumerable<PlotItem> GetAllActive();
+
         IEnumerable<PlotItem> GetByPlot(int plotId);
     }
 }

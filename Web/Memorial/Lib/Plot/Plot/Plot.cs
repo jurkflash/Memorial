@@ -154,5 +154,33 @@ namespace Memorial.Lib.Plot
             return _plot.PlotType.isFengShuiPlot;
         }
 
+        public bool Create(PlotDto plotDto)
+        {
+            _plot = new Core.Domain.Plot();
+            Mapper.Map(plotDto, _plot);
+
+            _plot.CreateDate = DateTime.Now;
+
+            _unitOfWork.Plots.Add(_plot);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.Plot plot)
+        {
+            plot.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetPlot(id);
+
+            _plot.DeleteDate = DateTime.Now;
+
+            return true;
+        }
+
     }
 }

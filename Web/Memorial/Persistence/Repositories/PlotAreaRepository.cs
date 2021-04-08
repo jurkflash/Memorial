@@ -19,6 +19,14 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<PlotArea> GetAllActive()
+        {
+            return MemorialContext.PlotAreas
+                .Include(pa => pa.Site)
+                .Where(pa => pa.DeleteDate == null)
+                .ToList();
+        }
+
         public IEnumerable<PlotArea> GetBySite(byte siteId)
         {
             return MemorialContext.PlotAreas

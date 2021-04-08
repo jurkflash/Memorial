@@ -18,6 +18,8 @@ namespace Memorial.Lib.Plot
 
         PlotItemDto GetItemDto(int id);
 
+        IEnumerable<PlotItemDto> GetItemDtos();
+
         int GetId();
 
         string GetName();
@@ -33,5 +35,13 @@ namespace Memorial.Lib.Plot
         IEnumerable<Core.Domain.PlotItem> GetItemByPlot(int plotId);
 
         IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId);
+
+        bool Create(PlotItemDto plotItemDto);
+
+        bool Update(Core.Domain.PlotItem plotItem);
+
+        bool Delete(int id);
+
+        void AutoCreateItem(int plotTypeId, int plotId);
     }
 }

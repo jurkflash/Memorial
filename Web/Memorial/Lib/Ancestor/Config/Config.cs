@@ -79,14 +79,15 @@ namespace Memorial.Lib.Ancestor
         public bool UpdateItem(AncestorItemDto ancestorItemDto)
         {
             var ancestorItemInDB = _item.GetItem(ancestorItemDto.Id);
-            Mapper.Map(ancestorItemDto, ancestorItemInDB);
-
+            
             if ((ancestorItemInDB.AncestorAreaId != ancestorItemDto.AncestorAreaId
                 || ancestorItemInDB.isOrder != ancestorItemDto.isOrder)
                 && _unitOfWork.AncestorTransactions.Find(at => at.AncestorItemId == ancestorItemInDB.Id && at.DeleteDate == null).Any())
             {
                 return false;
             }
+
+            Mapper.Map(ancestorItemDto, ancestorItemInDB);
 
             if (_item.Update(ancestorItemInDB))
             {

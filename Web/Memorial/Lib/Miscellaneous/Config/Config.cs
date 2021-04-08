@@ -67,13 +67,14 @@ namespace Memorial.Lib.Miscellaneous
         public bool UpdateMiscellaneous(MiscellaneousDto miscellaneousDto)
         {
             var miscellaneousInDB = _miscellaneous.GetMiscellaneous(miscellaneousDto.Id);
-            Mapper.Map(miscellaneousDto, miscellaneousInDB);
 
             if (miscellaneousInDB.SiteId != miscellaneousDto.SiteId
                 && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.SiteId == miscellaneousInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
             }
+
+            Mapper.Map(miscellaneousDto, miscellaneousInDB);
 
             if (_miscellaneous.Update(miscellaneousInDB))
             {
@@ -115,7 +116,6 @@ namespace Memorial.Lib.Miscellaneous
         public bool UpdateItem(MiscellaneousItemDto miscellaneousItemDto)
         {
             var miscellaneousItemInDB = _item.GetItem(miscellaneousItemDto.Id);
-            Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
 
             if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousId
                 || miscellaneousItemInDB.isOrder != miscellaneousItemDto.isOrder)
@@ -123,6 +123,8 @@ namespace Memorial.Lib.Miscellaneous
             {
                 return false;
             }
+
+            Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
 
             if (_item.Update(miscellaneousItemInDB))
             {

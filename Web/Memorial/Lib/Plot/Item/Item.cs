@@ -12,6 +12,53 @@ namespace Memorial.Lib.Plot
     {
         private readonly IUnitOfWork _unitOfWork;
         private Core.Domain.PlotItem _item;
+        private const string _singleOrder = "CYSP1";
+        private const float _singleOrderPrice = 0;
+
+        private const string _doubleOrder = "CYDP2";
+        private const float _doubleOrderPrice = 0;
+
+        private const string _newDoubleOrder = "CYDP3";
+        private const float _newDoubleOrderPrice = 0;
+
+        private const string _fengShuiOrder = "CYFSD";
+        private const float _fengShuiOrderPrice = 0;
+
+        private const string _fengShuiTransfer = "CYFSF";
+        private const float _fengShuiTransferPrice = 0;
+
+        private const string _doubleSecondBurial = "SBDP2";
+        private const float _doubleSecondBurialPrice = 0;
+
+        private const string _newDoubleSecondBurial = "SBDP3";
+        private const float _newDoubleSecondBurialPrice = 0;
+
+        private const string _fengShuiSecondBurial = "SBFSD";
+        private const float _fengShuiSecondBurialPrice = 0;
+
+        private const string _singleClearance = "SJSP1";
+        private const float _singleClearancePrice = 0;
+
+        private const string _doubleClearance = "SJDP2";
+        private const float _doubleClearancePrice = 0;
+
+        private const string _newDoubleClearance = "SJDP3";
+        private const float _newDoubleClearancePrice = 0;
+
+        private const string _fengShuiClearance = "SJFSD";
+        private const float _fengShuiClearancePrice = 0;
+
+        private const string _orderName = "單 Order";
+        private const string _orderSystemCode = "Order";
+
+        private const string _fengshuiTransferName = "轉讓 Transfer";
+        private const string _fengshuiTransferSystemCode = "FengShuiTransfer";
+
+        private const string _secondBurialName = "附葬 Second Burial";
+        private const string _secondBurialSystemCode = "SecondBurial";
+
+        private const string _clearanceName = "拾金 Clearance";
+        private const string _clearanceSystemCode = "Clearance";
 
         public Item(IUnitOfWork unitOfWork)
         {
@@ -41,6 +88,11 @@ namespace Memorial.Lib.Plot
         public PlotItemDto GetItemDto(int id)
         {
             return Mapper.Map<Core.Domain.PlotItem, PlotItemDto>(GetItem(id));
+        }
+
+        public IEnumerable<PlotItemDto> GetItemDtos()
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(_unitOfWork.PlotItems.GetAllActive());
         }
 
         public int GetId()
@@ -83,5 +135,191 @@ namespace Memorial.Lib.Plot
             return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(GetItemByPlot(plotId));
         }
 
+        public bool Create(PlotItemDto plotItemDto)
+        {
+            _item = new Core.Domain.PlotItem();
+            Mapper.Map(plotItemDto, _item);
+
+            Create(_item);
+
+            return true;
+        }
+
+        private bool Create(Core.Domain.PlotItem plotItem)
+        {
+            plotItem.CreateDate = DateTime.Now;
+
+            _unitOfWork.PlotItems.Add(plotItem);
+
+            return true;
+        }
+
+        public bool Update(Core.Domain.PlotItem plotItem)
+        {
+            plotItem.ModifyDate = DateTime.Now;
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            SetItem(id);
+
+            _item.DeleteDate = DateTime.Now;
+
+            return true;
+        }
+
+        public void AutoCreateItem(int plotTypeId, int plotId)
+        {
+            if(plotTypeId == 1)
+            {
+                Single(plotId);
+            }
+            else if (plotTypeId == 2)
+            {
+                Double(plotId);
+            }
+            else if (plotTypeId == 3)
+            {
+                NewDouble(plotId);
+            }
+            else if (plotTypeId == 4)
+            {
+                FengShui(plotId);
+            }
+        }
+
+        private void Single(int plotId)
+        {
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _singleOrder,
+                Price = _singleOrderPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _orderName,
+                SystemCode = _orderSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _singleClearance,
+                Price = _singleClearancePrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _clearanceName,
+                SystemCode = _clearanceSystemCode
+            });
+        }
+
+        private void Double(int plotId)
+        {
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _doubleOrder,
+                Price = _doubleOrderPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _orderName,
+                SystemCode = _orderSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _doubleClearance,
+                Price = _doubleClearancePrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _clearanceName,
+                SystemCode = _clearanceSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _doubleSecondBurial,
+                Price = _doubleSecondBurialPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _secondBurialName,
+                SystemCode = _secondBurialSystemCode
+            });
+        }
+
+        private void NewDouble(int plotId)
+        {
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _newDoubleOrder,
+                Price = _newDoubleOrderPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _orderName,
+                SystemCode = _orderSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _newDoubleClearance,
+                Price = _newDoubleClearancePrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _clearanceName,
+                SystemCode = _clearanceSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _newDoubleSecondBurial,
+                Price = _newDoubleSecondBurialPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _secondBurialName,
+                SystemCode = _secondBurialSystemCode
+            });
+        }
+
+        private void FengShui(int plotId)
+        {
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _fengShuiOrder,
+                Price = _fengShuiOrderPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _orderName,
+                SystemCode = _orderSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _fengShuiClearance,
+                Price = _fengShuiClearancePrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _clearanceName,
+                SystemCode = _clearanceSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _fengShuiSecondBurial,
+                Price = _fengShuiSecondBurialPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _secondBurialName,
+                SystemCode = _secondBurialSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _fengShuiTransfer,
+                Price = _fengShuiTransferPrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _fengshuiTransferName,
+                SystemCode = _fengshuiTransferSystemCode
+            });
+        }
     }
 }

@@ -67,13 +67,14 @@ namespace Memorial.Lib.Urn
         public bool UpdateUrn(UrnDto urnDto)
         {
             var urnInDB = _urn.GetUrn(urnDto.Id);
-            Mapper.Map(urnDto, urnInDB);
 
             if (urnInDB.SiteId != urnDto.SiteId
                 && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.SiteId == urnInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
             }
+
+            Mapper.Map(urnDto, urnInDB);
 
             if (_urn.Update(urnInDB))
             {
@@ -115,7 +116,6 @@ namespace Memorial.Lib.Urn
         public bool UpdateItem(UrnItemDto urnItemDto)
         {
             var urnItemInDB = _item.GetItem(urnItemDto.Id);
-            Mapper.Map(urnItemDto, urnItemInDB);
 
             if ((urnItemInDB.UrnId != urnItemDto.UrnId
                 || urnItemInDB.isOrder != urnItemDto.isOrder)
@@ -123,6 +123,8 @@ namespace Memorial.Lib.Urn
             {
                 return false;
             }
+
+            Mapper.Map(urnItemDto, urnItemInDB);
 
             if (_item.Update(urnItemInDB))
             {

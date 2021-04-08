@@ -949,6 +949,8 @@
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
     <Compile Include="Lib\Plot\Area\Area.cs" />
     <Compile Include="Lib\Plot\Area\IArea.cs" />
+    <Compile Include="Lib\Plot\Config\Config.cs" />
+    <Compile Include="Lib\Plot\Config\IConfig.cs" />
     <Compile Include="Lib\Plot\Item\IItem.cs" />
     <Compile Include="Lib\Plot\Item\Item.cs" />
     <Compile Include="Lib\Plot\Number\INumber.cs" />

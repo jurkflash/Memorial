@@ -67,13 +67,14 @@ namespace Memorial.Lib.Space
         public bool UpdateSpace(SpaceDto spaceDto)
         {
             var spaceInDB = _space.GetSpace(spaceDto.Id);
-            Mapper.Map(spaceDto, spaceInDB);
 
             if (spaceInDB.SiteId != spaceDto.SiteId
                 && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
             }
+
+            Mapper.Map(spaceDto, spaceInDB);
 
             if (_space.Update(spaceInDB))
             {
@@ -115,7 +116,6 @@ namespace Memorial.Lib.Space
         public bool UpdateItem(SpaceItemDto spaceItemDto)
         {
             var spaceItemInDB = _item.GetItem(spaceItemDto.Id);
-            Mapper.Map(spaceItemDto, spaceItemInDB);
 
             if ((spaceItemInDB.SpaceId != spaceItemDto.SpaceId
                 || spaceItemInDB.isOrder != spaceItemDto.isOrder
@@ -125,6 +125,8 @@ namespace Memorial.Lib.Space
             {
                 return false;
             }
+
+            Mapper.Map(spaceItemDto, spaceItemInDB);
 
             if (_item.Update(spaceItemInDB))
             {

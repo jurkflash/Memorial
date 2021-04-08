@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         PlotArea GetActive(int id);
 
+        IEnumerable<PlotArea> GetAllActive();
+
         IEnumerable<PlotArea> GetBySite(byte siteId);
     }
 }
