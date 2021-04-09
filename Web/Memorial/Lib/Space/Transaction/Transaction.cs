@@ -123,6 +123,12 @@ namespace Memorial.Lib.Space
             return _item.IsOrder();
         }
 
+        public bool IsItemAllowDeposit()
+        {
+            _item.SetItem(_transaction.SpaceItemId);
+            return _item.AllowDeposit();
+        }
+
         public int GetTransactionApplicantId()
         {
             return _transaction.ApplicantId;

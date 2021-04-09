@@ -83,6 +83,11 @@ namespace Memorial.Lib.Space
             return _item.AllowDoubleBook;
         }
 
+        public bool AllowDeposit()
+        {
+            return _item.AllowDeposit;
+        }
+
         public IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId)
         {
             return _unitOfWork.SpaceItems.GetBySpace(spaceId);

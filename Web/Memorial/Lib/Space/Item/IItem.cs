@@ -32,6 +32,8 @@ namespace Memorial.Lib.Space
 
         bool IsOrder();
 
+        bool AllowDeposit();
+
         bool AllowDoubleBook();
 
         IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId);

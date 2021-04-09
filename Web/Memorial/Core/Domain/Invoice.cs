@@ -50,6 +50,8 @@ namespace Memorial.Core.Domain
 
         public string UrnTransactionAF { get; set; }
 
+        public bool AllowDeposit { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

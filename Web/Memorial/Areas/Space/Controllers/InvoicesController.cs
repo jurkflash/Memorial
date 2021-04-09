@@ -47,6 +47,7 @@ namespace Memorial.Areas.Space.Controllers
             var viewModel = new InvoiceFormViewModel()
             {
                 AF = AF,
+                AllowDeposit = _transaction.IsItemAllowDeposit(),
                 Amount = _transaction.GetTransactionAmount()
             };
 

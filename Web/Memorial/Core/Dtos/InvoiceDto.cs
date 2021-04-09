@@ -46,6 +46,8 @@ namespace Memorial.Core.Dtos
 
         public string UrnTransactionAF { get; set; }
 
+        public bool AllowDeposit { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

@@ -51,6 +51,8 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
+        public bool isDeposit { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

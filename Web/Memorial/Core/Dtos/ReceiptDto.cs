@@ -46,6 +46,8 @@ namespace Memorial.Core.Dtos
 
         public string PaymentRemark { get; set; }
 
+        public bool isDeposit { get; set; }
+
         [Required]
         public float Amount { get; set; }
 

@@ -39,6 +39,8 @@ namespace Memorial.Lib.Space
 
         bool IsItemOrder();
 
+        bool IsItemAllowDeposit();
+
         int GetTransactionApplicantId();
 
         int? GetTransactionDeceasedId();
