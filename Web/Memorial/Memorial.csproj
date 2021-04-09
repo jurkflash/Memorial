@@ -2007,6 +2007,10 @@
     <Compile Include="Migrations\202104021541328_AddCreateModifyDeleteDateToSpacesTable.designer.cs">
       <DependentUpon>202104021541328_AddCreateModifyDeleteDateToSpacesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104091515104_AddCreateDeleteModifyDateToFengShuiMastersTable.cs" />
+    <Compile Include="Migrations\202104091515104_AddCreateDeleteModifyDateToFengShuiMastersTable.designer.cs">
+      <DependentUpon>202104091515104_AddCreateDeleteModifyDateToFengShuiMastersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -3070,6 +3074,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104021541328_AddCreateModifyDeleteDateToSpacesTable.resx">
       <DependentUpon>202104021541328_AddCreateModifyDeleteDateToSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104091515104_AddCreateDeleteModifyDateToFengShuiMastersTable.resx">
+      <DependentUpon>202104091515104_AddCreateDeleteModifyDateToFengShuiMastersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
