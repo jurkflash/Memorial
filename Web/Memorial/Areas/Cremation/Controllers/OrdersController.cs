@@ -8,7 +8,7 @@ using Memorial.Lib;
 using Memorial.Lib.Cremation;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.FuneralCo;
+using Memorial.Lib.FuneralCompany;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -21,21 +21,21 @@ namespace Memorial.Areas.Cremation.Controllers
         private readonly ICremation _cremation;
         private readonly IItem _item;
         private readonly IOrder _order;
-        private readonly IFuneralCo _funeralCo;
+        private readonly IFuneralCompany _funeralCompany;
         private readonly IDeceased _deceased;
 
         public OrdersController(
             ICremation cremation,
             IItem item,
             IOrder order,
-            IFuneralCo funeralCo,
+            IFuneralCompany funeralCompany,
             IDeceased deceased
             )
         {
             _cremation = cremation;
             _item = item;
             _order = order;
-            _funeralCo = funeralCo;
+            _funeralCompany = funeralCompany;
             _deceased = deceased;
         }
 
@@ -63,7 +63,7 @@ namespace Memorial.Areas.Cremation.Controllers
 
             var viewModel = new CremationTransactionsFormViewModel()
             {
-                FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos(),
+                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
 
@@ -117,7 +117,7 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult FormForResubmit(CremationTransactionsFormViewModel viewModel)
         {
-            viewModel.FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos();
+            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
             viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.CremationTransactionDto.ApplicantId);
 
             return View("Form", viewModel);

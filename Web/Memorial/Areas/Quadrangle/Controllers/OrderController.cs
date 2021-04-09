@@ -7,7 +7,7 @@ using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.FuneralCo;
+using Memorial.Lib.FuneralCompany;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
@@ -20,7 +20,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
     {
         private readonly IQuadrangle _quadrangle;
         private readonly IDeceased _deceased;
-        private readonly IFuneralCo _funeralCo;
+        private readonly IFuneralCompany _funeralCompany;
         private readonly IOrder _order;
         private readonly IApplicant _applicant;
         private readonly ITracking _tracking;
@@ -31,7 +31,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
             IQuadrangle quadrangle,
             IApplicant applicant,
             IDeceased deceased, 
-            IFuneralCo funeralCo, 
+            IFuneralCompany funeralCompany, 
             IOrder order,
             ITracking tracking,
             IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
@@ -41,7 +41,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
             _quadrangle = quadrangle;
             _applicant = applicant;
             _deceased = deceased;
-            _funeralCo = funeralCo;
+            _funeralCompany = funeralCompany;
             _order = order;
             _tracking = tracking;
             _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
@@ -93,7 +93,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
         {
             var viewModel = new QuadrangleTransactionsFormViewModel()
             {
-                FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos(),
+                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
             
@@ -187,7 +187,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
 
         public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
-            viewModel.FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos();
+            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
             viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.QuadrangleTransactionDto.ApplicantId);
 
             return View("Form", viewModel);

@@ -2,6 +2,7 @@
 using Memorial.Core.Repositories;
 using System.Data.Entity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
@@ -10,6 +11,20 @@ namespace Memorial.Persistence.Repositories
         public FengShuiMasterRepository(MemorialContext context) : base(context)
         {
         }
+
+        public FengShuiMaster GetActive(int id)
+        {
+            return MemorialContext.FengShuiMasters
+                .Where(fs => fs.DeleteDate == null &&
+                        fs.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<FengShuiMaster> GetAllActive()
+        {
+            return MemorialContext.FengShuiMasters
+                .Where(fs => fs.DeleteDate == null).ToList();
+        }
+
 
         public MemorialContext MemorialContext
         {

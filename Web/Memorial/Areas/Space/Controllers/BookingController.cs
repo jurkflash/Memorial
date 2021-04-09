@@ -7,7 +7,7 @@ using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Space;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.FuneralCo;
+using Memorial.Lib.FuneralCompany;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
@@ -20,7 +20,7 @@ namespace Memorial.Areas.Space.Controllers
     {
         private readonly ISpace _space;
         private readonly IDeceased _deceased;
-        private readonly IFuneralCo _funeralCo;
+        private readonly IFuneralCompany _funeralCompany;
         private readonly IItem _item;
         private readonly IBooking _booking;
         private readonly IApplicant _applicant;
@@ -31,7 +31,7 @@ namespace Memorial.Areas.Space.Controllers
             IItem item,
             IApplicant applicant,
             IDeceased deceased,
-            IFuneralCo funeralCo,
+            IFuneralCompany funeralCompany,
             IBooking booking,
             Lib.Invoice.ISpace invoice
             )
@@ -40,7 +40,7 @@ namespace Memorial.Areas.Space.Controllers
             _item = item;
             _applicant = applicant;
             _deceased = deceased;
-            _funeralCo = funeralCo;
+            _funeralCompany = funeralCompany;
             _booking = booking;
             _invoice = invoice;
         }
@@ -75,7 +75,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceTransactionsFormViewModel()
             {
-                FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos(),
+                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
 
@@ -99,7 +99,7 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult FormForResubmit(SpaceTransactionsFormViewModel viewModel)
         {
-            viewModel.FuneralCompanyDtos = _funeralCo.GetFuneralCompanyDtos();
+            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
             viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.SpaceTransactionDto.ApplicantId);
 
             return View("Form", viewModel);
