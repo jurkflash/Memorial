@@ -7,7 +7,7 @@
 <h2>Invoices</h2>
 
 <p>
-    @Html.ActionLink("New", "Form", new { AF = Model.AF })
+    @Html.ActionLink("New", "Form", new { AF = Model.AF, area = "Space" })
 </p>
 <h5>Form: @Model.AF</h5>
 <table class="table table-bordered table-hover">
@@ -34,9 +34,9 @@
             <td>@invoice.isPaid</td>
             <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@invoice.hasReceipt</td>
-            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { IV = invoice.IV, AF = Model.AF })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Space" })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { IV = invoice.IV, AF = Model.AF, area = "Space" })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Space" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
         </tr>
         }
     </tbody>

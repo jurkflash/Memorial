@@ -6,7 +6,7 @@
 
 @if (Model.ApplicantId != 0)
 {
-    Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId });
+    Html.RenderAction("Index", "ApplicantDeceaseds", new { id = Model.ApplicantId, area = "ApplicantDeceaseds" });
 }
 
 <table class="table table-bordered table-hover">
@@ -21,7 +21,7 @@
         @foreach (var cremationItem in Model.CremationItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(cremationItem.Name, "Index", cremationItem.SystemCode, new { itemId = cremationItem.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@Html.ActionLink(cremationItem.Name, "Index", cremationItem.SystemCode, new { itemId = cremationItem.Id, applicantId = Model.ApplicantId, area = "Cremation" }, null)</td>
                 <td>@cremationItem.Description</td>
                 <td>@cremationItem.Price</td>
             </tr>

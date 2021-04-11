@@ -157,7 +157,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
 
         public ActionResult Invoice(string AF)
         {
-            return RedirectToAction("Index", "QuadrangleInvoices", new { AF = AF });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "Quadrangle" });
         }
     }
 }

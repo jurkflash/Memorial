@@ -17,7 +17,7 @@
         @foreach (var plotArea in Model.PlotAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotArea.Name, "Plot", new { areaId = plotArea.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(plotArea.Name, "Plot", new { areaId = plotArea.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
                 <td>@plotArea.Description</td>
             </tr>
         }

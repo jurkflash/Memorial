@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.QuadrangleTransactionDto.ApplicantId });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.QuadrangleTransactionDto.ApplicantI, area = "Applicant" });}
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "QuadranglePhoto"))
+@using (Html.BeginForm("Save", "QuadranglePhoto", new { area = "Quadrangle" }))
 {
     @Html.LabelFor(c => c.QuadrangleTransactionDto.AF)
     <div class="form-group row">

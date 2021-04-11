@@ -15,7 +15,7 @@
                 foreach (var quadrangle in Model.QuadrangleDtos.Where(q => q.PositionY == position.Key && q.PositionX == c))
                 {
                     <td>
-                        @Html.ActionLink(quadrangle.Name, "Items", new { id = quadrangle.Id, applicantId = Model.ApplicantId })
+                        @Html.ActionLink(quadrangle.Name, "Items", new { id = quadrangle.Id, applicantId = Model.ApplicantId, area = "Quadrangle" })
                     </td>
                 }
             }

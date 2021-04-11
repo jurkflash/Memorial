@@ -7,7 +7,7 @@
 <h2>Applicants</h2>
 
 <p>
-    @Html.ActionLink("New", "New")
+    @Html.ActionLink("New", "New", new { area = "Applicant" })
 </p>
 
 <table class="table table-bordered table-hover">
@@ -23,10 +23,10 @@
         @foreach (var applicant in Model)
         {
             <tr>
-                <td>@Html.ActionLink(applicant.Name, "Catalog", new { id = applicant.Id })</td>
+                <td>@Html.ActionLink(applicant.Name, "Catalog", new { id = applicant.Id, area = "Applicant" })</td>
                 <td>@applicant.Name2</td>
                 <td>@applicant.IC</td>
-                <td>@Html.ActionLink("Edit", "Edit", new { id = applicant.Id })</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = applicant.Id, area = "Applicant" })</td>
             </tr>
         }
     </tbody>

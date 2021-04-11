@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
     </p>
 }
 
@@ -33,11 +33,11 @@
                 <td>@plotTransaction.PlotDto.Name</td>
                 <td>@plotTransaction.PlotDto.ApplicantDto.Name &nbsp; @plotTransaction.PlotDto.ApplicantDto.Name2</td>
                 <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = plotTransaction.AF })</td>
-                <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = plotTransaction.AF, area = "Plot" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
                 <td>
                     @Html.ActionLink("Delete", "Delete",
-                    new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId },
+                    new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>

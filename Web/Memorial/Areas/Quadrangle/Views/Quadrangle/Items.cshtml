@@ -6,7 +6,7 @@
 
 <h2>Item</h2>
 
-@{Html.RenderAction("QuadrangleInfo", "Quadrangle", new { id = Model.QuadrangleDto.Id });}
+@{Html.RenderAction("QuadrangleInfo", "Quadrangle", new { id = Model.QuadrangleDto.Id, area = "Quadrangle" });}
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -19,7 +19,7 @@
         @foreach (var quadrangleItem in Model.QuadrangleItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(quadrangleItem.Name, "Index", quadrangleItem.SystemCode, new { itemId = quadrangleItem.Id, id = Model.QuadrangleDto.Id, applicantId = Model.ApplicantDto.Id }, null)</td>
+                <td>@Html.ActionLink(quadrangleItem.Name, "Index", quadrangleItem.SystemCode, new { itemId = quadrangleItem.Id, id = Model.QuadrangleDto.Id, applicantId = Model.ApplicantId, area = "Quadrangle" }, null)</td>
                 <td>@quadrangleItem.Description</td>
             </tr>
         }

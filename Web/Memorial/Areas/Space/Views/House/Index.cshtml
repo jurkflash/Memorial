@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.SpaceItemId, applicantId = Model.ApplicantId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" })
     </p>
 }
 
@@ -37,11 +37,11 @@
             <td>@spaceTransaction.Remark</td>
             <td>@spaceTransaction.Amount</td>
             <td>@spaceTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = spaceTransaction.AF })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId, area = "Space" })</td>
             <td>
                 @Html.ActionLink("Delete", "Delete",
-                new { AF = spaceTransaction.AF, itemId = Model.SpaceItemId, applicantId = Model.ApplicantId },
+                new { AF = spaceTransaction.AF, itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" },
                 new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
             </td>
         </tr>

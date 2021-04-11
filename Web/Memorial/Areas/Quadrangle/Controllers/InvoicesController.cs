@@ -98,8 +98,8 @@ namespace Memorial.Areas.Quadrangle.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "QuadrangleReceipts", new { IV = IV, AF = AF });
-        }
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Quadrangle" });
+            }
 
         public ActionResult Delete(string IV, string AF)
         {

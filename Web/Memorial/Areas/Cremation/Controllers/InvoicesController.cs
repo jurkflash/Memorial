@@ -98,8 +98,8 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "CremationReceipts", new { IV = IV, AF = AF });
-        }
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Cremation" });
+            }
 
         public ActionResult Delete(string IV, string AF)
         {

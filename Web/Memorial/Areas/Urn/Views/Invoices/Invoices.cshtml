@@ -7,7 +7,7 @@
 <h2></h2>
 
 <p>
-    @Html.ActionLink("New", "New", new { AF = Model.AF })
+    @Html.ActionLink("New", "New", new { AF = Model.AF, area = "Urn" })
 </p>
 
 <table class="table table-bordered table-hover">
@@ -33,8 +33,8 @@
             <td>@invoice.isPaid</td>
             <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@invoice.hasReceipt</td>
-            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, AF = Model.AF })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, AF = Model.AF, area = "Urn" })</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Urn" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
         </tr>
         }
     </tbody>

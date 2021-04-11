@@ -98,7 +98,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "MiscellaneousReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Miscellaneous" });
         }
 
         public ActionResult Delete(string IV, string AF)

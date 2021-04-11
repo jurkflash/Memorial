@@ -16,7 +16,7 @@
         @foreach (var miscellaneousItem in Model.MiscellaneousItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(miscellaneousItem.Name, "Index", miscellaneousItem.SystemCode, new { itemId = miscellaneousItem.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@Html.ActionLink(miscellaneousItem.Name, "Index", miscellaneousItem.SystemCode, new { itemId = miscellaneousItem.Id, applicantId = Model.ApplicantId, area = "Miscellaneous" }, null)</td>
                 <td>@miscellaneousItem.Description</td>
                 <td>@miscellaneousItem.Price</td>
             </tr>

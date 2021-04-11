@@ -6,7 +6,7 @@
 
 <h2>New Applicant</h2>
 
-@using (Html.BeginForm("Save", "Applicants"))
+@using (Html.BeginForm("Save", "Applicants", new { area = "Applicant" }))
 {
     <div class="form-group row">
         <div class="col-md-3">

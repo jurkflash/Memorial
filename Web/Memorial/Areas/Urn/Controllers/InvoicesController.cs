@@ -98,7 +98,7 @@ namespace Memorial.Areas.Urn.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "UrnReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Urn" });
         }
 
         public ActionResult Delete(string IV, string AF)

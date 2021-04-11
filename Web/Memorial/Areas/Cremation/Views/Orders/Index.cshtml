@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" })
     </p>
 }
 
@@ -39,11 +39,11 @@
             <td>@cremationTransaction.Price</td>
             <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF, area = "Cremation" })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId, area = "Cremation" })</td>
             <td>
                 @Html.ActionLink("Delete", "Delete",
-                new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId },
+                new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" },
                 new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
             </td>
         </tr>

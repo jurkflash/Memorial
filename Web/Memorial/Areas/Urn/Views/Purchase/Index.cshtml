@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.UrnItemId, applicantId = Model.ApplicantId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })
     </p>
 }
 
@@ -37,11 +37,11 @@
                 <td>@urnTransaction.Price</td>
                 <td>@urnTransaction.Remark</td>
                 <td>@urnTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = urnTransaction.AF })</td>
-                <td>@Html.ActionLink("Edit", "Form", new { AF = urnTransaction.AF, itemId = urnTransaction.UrnItemId, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = urnTransaction.AF, area = "Urn" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = urnTransaction.AF, itemId = urnTransaction.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })</td>
                 <td>
                     @Html.ActionLink("Delete", "Delete",
-                    new { AF = urnTransaction.AF, itemId = urnTransaction.UrnItemId, applicantId = Model.ApplicantId },
+                    new { AF = urnTransaction.AF, itemId = urnTransaction.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>

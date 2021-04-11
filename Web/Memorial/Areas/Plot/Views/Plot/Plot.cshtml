@@ -20,7 +20,7 @@
         @foreach (var plotDto in Model.PlotDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
                 <td>@plotDto.Description</td>
                 <td>@plotDto.Size</td>
                 <td>@plotDto.Price</td>

@@ -17,7 +17,7 @@ Remaining Amount: @Model.RemainingAmount
 @if (!Model.InvoiceDto.isPaid)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF })
+        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Plot" })
     </p>
 }
 
@@ -45,8 +45,8 @@ Remaining Amount: @Model.RemainingAmount
                 <td>@receipt.PaymentMethod.Name</td>
                 <td>@receipt.PaymentRemark</td>
                 <td>@receipt.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Edit", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE })</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE, area = "Plot" })</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Plot" })</td>
             </tr>
         }
     </tbody>

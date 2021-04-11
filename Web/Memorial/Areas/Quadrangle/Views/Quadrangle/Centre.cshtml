@@ -17,7 +17,7 @@
         @foreach (var quadrangleCentre in Model.QuadrangleCentreDtos)
         {
             <tr>
-                <td>@Html.ActionLink(quadrangleCentre.Name, "Area", new { centreId = quadrangleCentre.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(quadrangleCentre.Name, "Area", new { centreId = quadrangleCentre.Id, applicantId = Model.ApplicantId, area = "Quadrangle" })</td>
                 <td>@quadrangleCentre.Description</td>
             </tr>
         }

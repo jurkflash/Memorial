@@ -9,6 +9,6 @@
 <h5>Site</h5>
 @foreach (var site in Model.SiteDtos)
 {
-    @Html.ActionLink(site.Name, "Site", new { siteId = site.Id, applicantId = Model.ApplicantId })
+    @Html.ActionLink(site.Name, "Site", new { siteId = site.Id, applicantId = Model.ApplicantId, area = "Applicant" })
     <br />
 }

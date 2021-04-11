@@ -138,7 +138,7 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Invoices(string AF)
         {
-            return RedirectToAction("Index", "CremationInvoices", new { AF = AF });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "Cremation" });
         }
 
     }

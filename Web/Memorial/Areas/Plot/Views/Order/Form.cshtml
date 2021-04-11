@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.PlotTransactionDto.ApplicantDtoId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.PlotTransactionDto.ApplicantDtoId, area = "ApplicantDeceaseds" });}
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "PlotOrder"))
+@using (Html.BeginForm("Save", "Order", new { area = "Plot" }))
 {
     @Model.PlotTransactionDto.AF
     <div class="form-group row">

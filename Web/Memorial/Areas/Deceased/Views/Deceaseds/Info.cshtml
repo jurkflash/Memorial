@@ -4,4 +4,4 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId });}
+@{Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId, area = "Deceaseds" });}

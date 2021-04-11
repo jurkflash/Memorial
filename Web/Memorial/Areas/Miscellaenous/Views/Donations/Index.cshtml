@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.MiscellaneousItemId, applicantId = Model.ApplicantId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.MiscellaneousItemId, applicantId = Model.ApplicantId, area = "Miscellaneous" })
     </p>
 }
 
@@ -37,11 +37,11 @@
                 <td>@miscellaneousTransaction.Amount</td>
                 <td>@miscellaneousTransaction.Remark</td>
                 <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Receipt", "Receipts", new { AF = miscellaneousTransaction.AF })</td>
-                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink("Receipt", "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
                 <td>
                     @Html.ActionLink("Delete", "Delete",
-                    new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId },
+                    new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId, area = "Miscellaneous" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>

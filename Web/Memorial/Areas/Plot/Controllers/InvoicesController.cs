@@ -98,7 +98,7 @@ namespace Memorial.Areas.Plot.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "PlotReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Plot" });
         }
 
         public ActionResult Delete(string IV, string AF)

@@ -17,7 +17,7 @@ Remaining Amount: @Model.RemainingAmount
 @if (!Model.InvoiceDto.isPaid)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF })
+        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Space" })
     </p>
 }
 
@@ -26,6 +26,7 @@ Remaining Amount: @Model.RemainingAmount
     <thead>
         <tr>
             <th>Receipt</th>
+            <th>Is Deposit</th>
             <th>Amount</th>
             <th>Remark</th>
             <th>Payment Method</th>
@@ -40,6 +41,7 @@ Remaining Amount: @Model.RemainingAmount
         {
             <tr>
                 <td>@receipt.RE</td>
+                <td>@receipt.isDeposit</td>
                 <td>@receipt.Amount</td>
                 <td>@receipt.Remark</td>
                 <td>@receipt.PaymentMethod.Name</td>

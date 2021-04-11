@@ -109,7 +109,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
         public ActionResult Receipts(string AF)
         {
-            return RedirectToAction("Index", "MiscellaneousNonOrderReceipts", new { AF = AF });
+            return RedirectToAction("Index", "NonOrderReceipts", new { AF = AF, area = "Miscellaneous" });
         }
 
     }

@@ -80,6 +80,7 @@ namespace Memorial.Areas.Space.Controllers
 
             if (viewModel.InvoiceDto.IV == null)
             {
+                viewModel.InvoiceDto.AllowDeposit = viewModel.AllowDeposit;
                 if (_payment.CreateInvoice(viewModel.InvoiceDto))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
@@ -99,7 +100,7 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "SpaceReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Space" });
         }
 
         public ActionResult Delete(string IV, string AF)

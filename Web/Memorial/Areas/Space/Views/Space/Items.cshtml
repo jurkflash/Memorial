@@ -16,7 +16,7 @@
         @foreach (var spaceItem in Model.SpaceItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(spaceItem.Name, "Index", spaceItem.SystemCode, new { itemId = spaceItem.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@Html.ActionLink(spaceItem.Name, "Index", spaceItem.SystemCode, new { itemId = spaceItem.Id, applicantId = Model.ApplicantId, area = "Space" }, null)</td>
                 <td>@spaceItem.Description</td>
                 <td>@spaceItem.Price</td>
             </tr>

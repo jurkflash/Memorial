@@ -108,7 +108,7 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Invoices(string AF)
         {
-            return RedirectToAction("Index", "SpaceInvoices", new { AF = AF });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "Space" });
         }
 
     }

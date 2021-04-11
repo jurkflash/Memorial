@@ -8,7 +8,7 @@
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "SpaceBooking"))
+@using (Html.BeginForm("Save", "Booking", new { area = "Space"}))
 {
     @Model.SpaceTransactionDto.AF
     <div class="form-group row">

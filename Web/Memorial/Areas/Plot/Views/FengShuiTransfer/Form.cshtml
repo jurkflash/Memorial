@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.PlotTransactionDto.ApplicantDtoId });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.PlotTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "PlotFengShuiTransfer"))
+@using (Html.BeginForm("Save", "FengShuiTransfer", new { area = "Plot" }))
 {
     @Html.DisplayTextFor(a=>a.PlotTransactionDto.AF)
 

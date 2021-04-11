@@ -12,7 +12,7 @@ Amount : @Model.InvoiceDto.Amount
 <br />
 Remaining Amount: @Model.RemainingAmount
 
-@using (Html.BeginForm("Save", "MiscellaneousReceipts", FormMethod.Post, new { @id = "receiptForm" }))
+@using (Html.BeginForm("Save", "Receipts", FormMethod.Post, new { @id = "receiptForm", area = "Miscellaneous" }))
 {
     <div class="form-group row">
         <div class="col-md-3">

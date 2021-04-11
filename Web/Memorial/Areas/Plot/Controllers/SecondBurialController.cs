@@ -186,7 +186,7 @@ namespace Memorial.Areas.Plot.Controllers
 
         public ActionResult Invoices(string AF)
         {
-            return RedirectToAction("Index", "PlotInvoices", new { AF = AF });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "Plot" });
         }
 
     }

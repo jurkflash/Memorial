@@ -17,7 +17,7 @@
         @foreach (var cremation in Model.CremationDtos)
         {
             <tr>
-                <td>@Html.ActionLink(cremation.Name, "Items", new { cremationId = cremation.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(cremation.Name, "Items", new { cremationId = cremation.Id, applicantId = Model.ApplicantId, area = "Cremation" })</td>
                 <td>@cremation.Description</td>
             </tr>
         }

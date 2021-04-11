@@ -23,7 +23,7 @@
         @foreach (var plot in Model)
         {
             <tr>
-                <td>@Html.ActionLink(plot.Name, "Order", new { plotId = plot.Id })</td>
+                <td>@Html.ActionLink(plot.Name, "Order", new { plotId = plot.Id, area = "Plot" })</td>
                 <td>@plot.Description</td>
                 <td>@plot.Size</td>
                 <td>@plot.Price</td>
