@@ -15,5 +15,7 @@ namespace Memorial.Lib.Quadrangle
         bool Update(QuadrangleTransactionDto quadrangleTransactionDto);
 
         bool Delete();
+
+        bool ChangeQuadrangle(int oldQuadrangleId, int newQuadrangleId);
     }
 }

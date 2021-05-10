@@ -15,7 +15,9 @@ namespace Memorial.Core.Domain
 
             QuadrangleTransactions2 = new HashSet<QuadrangleTransaction>();
 
-            QuadrangleTrackings = new HashSet<QuadrangleTracking>();
+            QuadrangleTrackings1 = new HashSet<QuadrangleTracking>();
+
+            QuadrangleTrackings2 = new HashSet<QuadrangleTracking>();
         }
 
         public int Id { get; set; }
@@ -50,6 +52,8 @@ namespace Memorial.Core.Domain
 
         public bool hasDeceased { get; set; }
 
+        public bool hasFreeOrder { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }
@@ -62,6 +66,8 @@ namespace Memorial.Core.Domain
 
         public ICollection<QuadrangleTransaction> QuadrangleTransactions2 { get; set; }
 
-        public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
+        public ICollection<QuadrangleTracking> QuadrangleTrackings1 { get; set; }
+
+        public ICollection<QuadrangleTracking> QuadrangleTrackings2 { get; set; }
     }
 }

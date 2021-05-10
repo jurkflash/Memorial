@@ -17,19 +17,16 @@ namespace Memorial.Areas.Quadrangle.Controllers
     {
         private readonly IQuadrangle _quadrangle;
         private readonly IShift _shift;
-        private readonly ITracking _tracking;
         private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public ShiftController(
             IQuadrangle quadrangle,
             IShift shift,
-            ITracking tracking,
             Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
             _shift = shift;
-            _tracking = tracking;
             _invoice = invoice;
         }
 
@@ -41,32 +38,19 @@ namespace Memorial.Areas.Quadrangle.Controllers
             {
                 ApplicantId = applicantId,
                 QuadrangleItemId = itemId,
-                QuadrangleTransactionDtos = quadrangleTransactionDtos,
-                AllowNew = applicantId != 0
+                QuadrangleTransactionDtos = quadrangleTransactionDtos
             };
-            
-            var shifted = quadrangleTransactionDtos.Where(s => s.ShiftedQuadrangleId == id);
 
-            if (shifted.Count() == 0)
-            {
-                _quadrangle.SetQuadrangle(id);
+            _quadrangle.SetQuadrangle(id);
 
-                viewModel.QuadrangleDto = _quadrangle.GetQuadrangleDto();
+            viewModel.AllowNew = applicantId != 0 && !_quadrangle.HasFreeOrder();
 
-                viewModel.QuadrangleId = id;
+            viewModel.QuadrangleDto = _quadrangle.GetQuadrangleDto();
 
-                return View("ShiftedFromIndex", viewModel);
-            }
-            else
-            {
-                _quadrangle.SetQuadrangle((int)shifted.First().ShiftedQuadrangleId);
+            viewModel.QuadrangleId = id;
 
-                viewModel.QuadrangleDto = _quadrangle.GetQuadrangleDto();
+            return View("ShiftedToIndex", viewModel);
 
-                viewModel.QuadrangleId = (int)shifted.First().ShiftedQuadrangleId;
-
-                return View("ShiftedToIndex", viewModel);
-            }
         }
 
         public ActionResult Info(string AF)
@@ -93,18 +77,24 @@ namespace Memorial.Areas.Quadrangle.Controllers
             {
                 _quadrangle.SetQuadrangle(id);
 
-                var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+                var quadrangleTransactionDto = new QuadrangleTransactionDto();
 
-                quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
+                quadrangleTransactionDto.ApplicantId = applicantId;
+
+                quadrangleTransactionDto.QuadrangleItemId = itemId;
+
+                quadrangleTransactionDto.ShiftedQuadrangleId = id;
+                quadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
+
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
-                viewModel.QuadrangleTransactionDto.Price = _shift.GetItemPrice(itemId);
             }
             else
             {
                 viewModel.QuadrangleTransactionDto = _shift.GetTransactionDto(AF);
 
                 _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId);
-                viewModel.QuadrangleDto = _quadrangle.GetQuadrangleDto();
+
+                viewModel.QuadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
             }
 
             return View(viewModel);
@@ -151,16 +141,20 @@ namespace Memorial.Areas.Quadrangle.Controllers
 
         public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
+            if(viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId != null)
+            {
+                _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId);
+
+                viewModel.QuadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
+            }
+
             return View("Form", viewModel);
         }
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            if (_tracking.IsLatestTransaction(id, AF))
-            {
-                _shift.SetTransaction(AF);
-                _shift.Delete();
-            }
+            _shift.SetTransaction(AF);
+            _shift.Delete();
 
             return RedirectToAction("Index", new
             {

@@ -8,11 +8,8 @@ using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.FuneralCompany;
-using Memorial.Lib.Applicant;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
 
 namespace Memorial.Areas.Quadrangle.Controllers
 {
@@ -22,29 +19,23 @@ namespace Memorial.Areas.Quadrangle.Controllers
         private readonly IDeceased _deceased;
         private readonly IFuneralCompany _funeralCompany;
         private readonly IOrder _order;
-        private readonly IApplicant _applicant;
         private readonly ITracking _tracking;
-        private readonly IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
         private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public OrderController(
             IQuadrangle quadrangle,
-            IApplicant applicant,
             IDeceased deceased, 
             IFuneralCompany funeralCompany, 
             IOrder order,
             ITracking tracking,
-            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
             Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
-            _applicant = applicant;
             _deceased = deceased;
             _funeralCompany = funeralCompany;
             _order = order;
             _tracking = tracking;
-            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
             _invoice = invoice;
         }
 

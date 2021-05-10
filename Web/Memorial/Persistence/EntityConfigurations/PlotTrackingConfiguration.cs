@@ -32,6 +32,11 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.Deceased2Id)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(qt => qt.Deceased3)
+                .WithMany(d => d.PlotTrackings3)
+                .HasForeignKey(qt => qt.Deceased3Id)
+                .WillCascadeOnDelete(false);
+
         }
     }
 }

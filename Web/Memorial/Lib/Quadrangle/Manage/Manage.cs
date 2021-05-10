@@ -12,6 +12,7 @@ namespace Memorial.Lib.Quadrangle
 {
     public class Manage : Transaction, IManage
     {
+        private const string _systemCode = "Manage";
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IQuadrangle _invoice;
         private readonly IPayment _payment;
@@ -103,6 +104,14 @@ namespace Memorial.Lib.Quadrangle
             _payment.DeleteTransaction();
 
             _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool ChangeQuadrangle(int oldQuadrangleId, int newQuadrangleId)
+        {
+            if (!ChangeQuadrangle(_systemCode, oldQuadrangleId, newQuadrangleId))
+                return false;
 
             return true;
         }

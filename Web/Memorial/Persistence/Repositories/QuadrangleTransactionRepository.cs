@@ -17,8 +17,20 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.QuadrangleTransactions
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.ShiftedQuadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.AF == AF && qt.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public QuadrangleTransaction GetExclusive(string AF)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.ShiftedQuadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -52,6 +64,16 @@ namespace Memorial.Persistence.Repositories
                                             && qt.DeleteDate == null).ToList();
         }
 
+        public QuadrangleTransaction GetByShiftedQuadrangleTransactionAF(string AF)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.ShiftedQuadrangleTransactionAF == AF)
+                .SingleOrDefault();
+        }
+
         public QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId)
         {
             return MemorialContext.QuadrangleTransactions
@@ -70,6 +92,16 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.ShiftedQuadrangleId == quadrangleId
                                             && qt.DeleteDate == null).OrderByDescending(qt => qt.CreateDate).FirstOrDefault();
+        }
+
+        public IEnumerable<QuadrangleTransaction> GetQuadrangleTransactionsByMaintenanceShiftedQuadrangleId(int quadrangleId)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.QuadrangleId == quadrangleId
+                                            && qt.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

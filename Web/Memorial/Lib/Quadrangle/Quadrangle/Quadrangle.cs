@@ -103,6 +103,11 @@ namespace Memorial.Lib.Quadrangle
             return _quadrangle.ApplicantId == null ? false : true;
         }
 
+        public bool HasFreeOrder()
+        {
+            return _quadrangle.hasFreeOrder;
+        }
+
         public int? GetApplicantId()
         {
             return _quadrangle.ApplicantId;

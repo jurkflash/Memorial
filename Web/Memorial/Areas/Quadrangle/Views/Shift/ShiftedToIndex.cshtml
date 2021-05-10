@@ -16,7 +16,7 @@
     <thead>
         <tr>
             <th>AF</th>
-            <th>Quadrangle</th>
+            @*<th>Quadrangle</th>*@
             <th>From Quadrangle</th>
             <th>Applicant</th>
             <th>Price</th>
@@ -31,7 +31,7 @@
         {
         <tr>
             <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo", area = "Quadrangle" })</td>
-            <td>@quadrangleTransaction.ShiftedQuadrangle.Name</td>
+            @*<td>@quadrangleTransaction.ShiftedQuadrangle.Name</td>*@
             <td>@quadrangleTransaction.Quadrangle.Name</td>
             <td>@quadrangleTransaction.Applicant.Name &nbsp; @quadrangleTransaction.Applicant.Name2</td>
             <td>@quadrangleTransaction.Price</td>

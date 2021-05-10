@@ -17,7 +17,7 @@
             Quadrangle
         </div>
         <div class="col-md-6">
-            @Model.QuadrangleTransactionDto.Quadrangle.Name
+            @Model.QuadrangleTransactionDto.ShiftedQuadrangle.Name
         </div>
     </div>
     if (Model.QuadrangleTransactionDto.AF == null)
@@ -27,7 +27,7 @@
                 HasDeceased
             </div>
             <div class="col-md-6">
-                @Model.QuadrangleTransactionDto.Quadrangle.hasDeceased
+                @Model.QuadrangleTransactionDto.ShiftedQuadrangle.hasDeceased
             </div>
         </div>
         <div class="form-group row">
@@ -48,7 +48,7 @@
                 Quadrangle
             </div>
             <div class="col-md-6">
-                @Model.QuadrangleDto.Name
+                @Model.QuadrangleTransactionDto.Quadrangle.Name
             </div>
         </div>
         <hr />
@@ -113,20 +113,18 @@
         <div class="col-md-2" id="qName"></div>
         <div class="col-md-1" id="qDescription"></div>
         <div class="col-md-2" id="qQuadrangleType"></div>
-        <div class="col-md-2" id="qPrice"></div>
-        <div class="col-md-2" id="qMaintenance"></div>
-        <div class="col-md-2" id="qLifeTimeMaintenance"></div>
+        <div class="col-md-2" id="qPrice">
+            @Html.TextBoxFor(c => c.QuadrangleTransactionDto.Price, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-2" id="qMaintenance">
+            @Html.TextBoxFor(c => c.QuadrangleTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-2" id="qLifeTimeMaintenance">
+            @Html.TextBoxFor(c => c.QuadrangleTransactionDto.LifeTimeMaintenance, new { @class = "form-control", @required = "required" })
+        </div>
         <div class="col-md-1" id="qRemark"></div>
     </div>
 
-    <div class="form-group row">
-        <div class="col-md-3">
-            Price
-        </div>
-        <div class="col-md-6">
-            @Html.TextBoxFor(c => c.QuadrangleTransactionDto.Price, new { @class = "form-control", @required = "required" })
-        </div>
-    </div>
     <div class="form-group row">
         <div class="col-md-3">
             Remark
@@ -137,9 +135,10 @@
     </div>
 
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleItemId)
+    @Html.HiddenFor(c => c.QuadrangleTransactionDto.ShiftedQuadrangleId)
+    @Html.HiddenFor(c => c.QuadrangleTransactionDto.ShiftedQuadrangleTransactionAF)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.ApplicantId)
-    @Html.HiddenFor(c => c.QuadrangleTransactionDto.ShiftedQuadrangleId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
 }
@@ -234,9 +233,10 @@
         function clearQuadrangle() {
             $("#qName").empty();
             $("#qDescription").empty();
-            $("#qPrice").empty();
-            $("#qMaintenance").empty();
-            $("#qLifeTimeMaintenance").empty();
+            $("#QuadrangleTransactionDto_Price").val('');
+            $("#QuadrangleTransactionDto_Maintenance").val('');
+            $("#QuadrangleTransactionDto_LifeTimeMaintenance").val('');
+            $("#QuadrangleTransactionDto_QuadrangleId").val('');
             $("#qRemark").empty();
             $("#qQuadrangleType").empty();
         }
@@ -252,12 +252,12 @@
                     if (response != null) {
                         $("#qName").html(response['name']);
                         $("#qDescription").html(response['description']);
-                        $("#qPrice").html(response['price']);
-                        $("#qMaintenance").html(response['maintenance']);
-                        $("#qLifeTimeMaintenance").html(response['lifeTimeMaintenance']);
+                        $("#QuadrangleTransactionDto_Maintenance").val(response['maintenance']);
+                        $("#QuadrangleTransactionDto_LifeTimeMaintenance").val(response['lifeTimeMaintenance']);
                         $("#qRemark").html(response['remark']);
                         $("#qQuadrangleType").html(response['quadrangleTypeDto.name']);
-                        $("#QuadrangleTransactionDto_ShiftedQuadrangleId").val(response['id']);
+                        $("#QuadrangleTransactionDto_Price").val(response['price']);
+                        $("#QuadrangleTransactionDto_QuadrangleId").val(response['id']);
                     }
                 })
                 .fail(function () {

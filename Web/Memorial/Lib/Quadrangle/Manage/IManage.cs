@@ -18,6 +18,8 @@ namespace Memorial.Lib.Quadrangle
 
         bool Delete();
 
+        bool ChangeQuadrangle(int oldQuadrangleId, int newQuadrangleId);
+
         float GetAmount(int itemId, DateTime from, DateTime to);
     }
 }

@@ -16,7 +16,11 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.CremationTransactions
                 .Where(ct => ct.AF == AF && ct.DeleteDate == null)                                            
-                .Include(ct => ct.FuneralCompany).SingleOrDefault();
+                .Include(ct => ct.FuneralCompany)
+                .Include(ct => ct.CremationItem)
+                .Include(ct => ct.CremationItem.Cremation)
+                .Include(ct => ct.CremationItem.Cremation.Site)
+                .SingleOrDefault();
         }
 
         public IEnumerable<CremationTransaction> GetByItem(int itemId)

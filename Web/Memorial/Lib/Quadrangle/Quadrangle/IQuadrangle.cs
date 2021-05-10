@@ -40,6 +40,8 @@ namespace Memorial.Lib.Quadrangle
 
         void SetHasDeceased(bool flag);
 
+        bool HasFreeOrder();
+
         bool HasApplicant();
 
         int? GetApplicantId();

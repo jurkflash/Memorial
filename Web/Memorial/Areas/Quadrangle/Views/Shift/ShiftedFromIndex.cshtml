@@ -17,7 +17,7 @@
         <tr>
             <th>AF</th>
             <th>Quadrangle</th>
-            <th>Shifted To</th>
+            @*<th>Shifted To</th>*@
             <th>Applicant</th>
             <th>Price</th>
             <th>Create Date</th>
@@ -29,7 +29,7 @@
         <tr>
             <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo", area = "Quadrangle" })</td>
             <td>@quadrangleTransaction.Quadrangle.Name</td>
-            <td>@Html.ActionLink(@quadrangleTransaction.ShiftedQuadrangle.Name, "Index", new { itemId = quadrangleTransaction.QuadrangleItemId, id= quadrangleTransaction.ShiftedQuadrangleId, applicantId = quadrangleTransaction.ApplicantId, area = "Quadrangle" })</td>
+            @*<td>@Html.ActionLink(@quadrangleTransaction.ShiftedQuadrangle.Name, "Index", new { itemId = quadrangleTransaction.QuadrangleItemId, id= quadrangleTransaction.ShiftedQuadrangleId, applicantId = quadrangleTransaction.ApplicantId, area = "Quadrangle" })</td>*@
             <td>@quadrangleTransaction.Applicant.Name &nbsp; @quadrangleTransaction.Applicant.Name2</td>
             <td>@quadrangleTransaction.Price</td>
             <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>

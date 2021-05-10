@@ -22,9 +22,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleId == quadrangleId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public IEnumerable<QuadrangleTracking> GetTrackingByTransactionAF(string quadrangleTransactionAF)
+        public QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
         {
-            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == quadrangleTransactionAF).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == quadrangleTransactionAF).SingleOrDefault();
         }
 
         public QuadrangleTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string quadrangleTransactionAF)

@@ -31,9 +31,13 @@ namespace Memorial.Core.Domain
 
             PlotTransactions2 = new HashSet<PlotTransaction>();
 
+            PlotTransactions3 = new HashSet<PlotTransaction>();
+
             PlotTrackings1 = new HashSet<PlotTracking>();
 
             PlotTrackings2 = new HashSet<PlotTracking>();
+
+            PlotTrackings3 = new HashSet<PlotTracking>();
         }
 
         public int Id { get; set; }
@@ -120,9 +124,13 @@ namespace Memorial.Core.Domain
 
         public ICollection<PlotTransaction> PlotTransactions2 { get; set; }
 
+        public ICollection<PlotTransaction> PlotTransactions3 { get; set; }
+
         public ICollection<PlotTracking> PlotTrackings1 { get; set; }
 
         public ICollection<PlotTracking> PlotTrackings2 { get; set; }
+
+        public ICollection<PlotTracking> PlotTrackings3 { get; set; }
 
     }
 }

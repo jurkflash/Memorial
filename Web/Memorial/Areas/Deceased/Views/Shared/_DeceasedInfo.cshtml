@@ -1,106 +1,121 @@
 ﻿@model Memorial.Core.Dtos.DeceasedDto
 
-<div class="form-group row">
-    <div class="col-md-3">
-        IC
+<div class="row flexrow">
+    <div class="col-md-1">
+        身份證<br />
+        NRIC No
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
         @Model.IC
     </div>
-</div>
-<div class="form-group row">
-    <div class="col-md-3">
-        Name
+    <div class="col-md-1">
+        姓名（英）<br />
+        English Name
     </div>
     <div class="col-md-3">
         @Model.Name
     </div>
-    <div class="col-md-3">
-        Name2
+    <div class="col-md-1">
+        （中）<br />
+        Chinese Name
     </div>
     <div class="col-md-3">
         @Model.Name2
     </div>
 </div>
-<div class="form-group row">
-    <div class="col-md-3">
+<div class="row flexrow">
+    <div class="col-md-1">
+        年齡<br />
         Age
     </div>
     <div class="col-md-3">
         @Model.Age
     </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
+        性別<br />
         Gender
     </div>
     <div class="col-md-3">
         @Model.GenderType.Name
     </div>
-</div>
-<div class="form-group row">
-    <div class="col-md-3">
+    <div class="col-md-1">
+        婚姻<br />
         Marital
     </div>
     <div class="col-md-3">
         @Model.MaritalType.Name
     </div>
-    <div class="col-md-3">
+</div>
+<div class="row flexrow">
+    <div class="col-md-1">
+        信仰<br />
         Religion
     </div>
     <div class="col-md-3">
         @Model.ReligionType.Name
     </div>
-</div>
-<div class="form-group row">
-    <div class="col-md-3">
-        Address
-    </div>
-    <div class="col-md-3">
-        @Model.Address
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-1">
+        國籍<br />
         Nationality
     </div>
     <div class="col-md-3">
         @Model.NationalityType.Name
     </div>
+    <div class="col-md-1">
+        備註<br />
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.Remark
+    </div>
 </div>
-<div class="form-group row">
-    <div class="col-md-2">
+<div class="row flexrow">
+    <div class="col-md-1">
+        住址<br />
+        Address
+    </div>
+    <div class="col-md-11">
+        @Model.Address
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-1">
+        逝世日期<br />
         Death Date
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         @Model.DeathDate.ToString("yyyy-MM-dd HH:mm")
     </div>
-    <div class="col-md-2">
-        Death Registration Centre
-    </div>
-    <div class="col-md-2">
-        @Model.DeathRegistrationCentre
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
+        生死局號碼<br />
         Death Certificate
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         @Model.DeathCertificate
     </div>
 </div>
-<div class="form-group row">
+<div class="row flexrow">
     <div class="col-md-2">
+        逝世登記處<br />
+        Death Registration Centre
+    </div>
+    <div class="col-md-3">
+        @Model.DeathRegistrationCentre
+    </div>
+    <div class="col-md-2">
+        葬紙准證號碼<br />
         Burial Certificate
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         @Model.BurialCertificate
     </div>
+</div>
+<div class="row flexrow">
     <div class="col-md-2">
+        政府入口準字號數（如由外運棺來檳）<br />
         Import Permit Number
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         @Model.ImportPermitNumber
-    </div>
-    <div class="col-md-2">
-        Remark
-    </div>
-    <div class="col-md-2">
-        @Model.Remark
     </div>
 </div>

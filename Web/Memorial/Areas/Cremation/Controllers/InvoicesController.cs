@@ -96,6 +96,17 @@ namespace Memorial.Areas.Cremation.Controllers
             }
         }
 
+        //public ActionResult Info(string IV)
+        //{
+        //    var viewModel = new InvoicesViewModel()
+        //    {
+        //        AF = AF,
+        //        InvoiceDtos = _invoice.GetInvoiceDtosByAF(AF)
+        //    };
+
+        //    return View(viewModel);
+        //}
+
         public ActionResult Receipt(string IV, string AF)
         {
             return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Cremation" });

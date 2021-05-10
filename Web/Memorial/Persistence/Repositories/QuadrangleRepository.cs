@@ -32,6 +32,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Quadrangle> GetAvailableByArea(int quadrangleAreaId)
         {
             return MemorialContext.Quadrangles
+                .Include(q => q.QuadrangleType)
                 .Where(q => q.QuadrangleAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
         }
 

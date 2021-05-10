@@ -118,6 +118,16 @@ namespace Memorial.Lib.Plot
             _plot.hasDeceased = flag;
         }
 
+        public bool HasCleared()
+        {
+            return _plot.hasCleared;
+        }
+
+        public void SetHasCleared(bool flag)
+        {
+            _plot.hasCleared = flag;
+        }
+
         public bool HasApplicant()
         {
             return _plot.ApplicantId == null ? false : true;

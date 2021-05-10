@@ -32,7 +32,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WillCascadeOnDelete(false);
 
             HasRequired(pt => pt.Applicant)
-                .WithMany(a => a.PlotTransactions)
+                .WithMany(a => a.PlotTransactions1)
                 .HasForeignKey(pt => pt.ApplicantId)
                 .WillCascadeOnDelete(false);
 
@@ -44,6 +44,16 @@ namespace Memorial.Persistence.EntityConfigurations
             HasOptional(pt => pt.Deceased2)
                 .WithMany(d => d.PlotTransactions2)
                 .HasForeignKey(pt => pt.Deceased2Id)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(pt => pt.Deceased3)
+                .WithMany(d => d.PlotTransactions3)
+                .HasForeignKey(pt => pt.Deceased3Id)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(pt => pt.ClearedApplicant)
+                .WithMany(a => a.PlotTransactions2)
+                .HasForeignKey(pt => pt.ClearedApplicantId)
                 .WillCascadeOnDelete(false);
 
         }

@@ -8,7 +8,7 @@ namespace Memorial.Persistence.EntityConfigurations
         public QuadrangleTrackingConfiguration()
         {
             HasRequired(qt => qt.Quadrangle)
-                .WithMany(q => q.QuadrangleTrackings)
+                .WithMany(q => q.QuadrangleTrackings1)
                 .HasForeignKey(qt => qt.QuadrangleId)
                 .WillCascadeOnDelete(false);
 
@@ -30,6 +30,16 @@ namespace Memorial.Persistence.EntityConfigurations
             HasOptional(qt => qt.Deceased2)
                 .WithMany(d => d.QuadrangleTrackings2)
                 .HasForeignKey(qt => qt.Deceased2Id)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(qt => qt.ShiftedFromQuadrangle)
+                .WithMany(qts => qts.QuadrangleTrackings2)
+                .HasForeignKey(qt => qt.ShiftedFromQuadrangleId)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(qt => qt.QuadrangleTrackingParent)
+                .WithMany()
+                .HasForeignKey(qt => qt.QuadrangleTrackingParentId)
                 .WillCascadeOnDelete(false);
 
         }

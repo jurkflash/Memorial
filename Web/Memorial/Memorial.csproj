@@ -68,6 +68,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
     </Reference>
@@ -351,6 +354,11 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\cemeterylogo.jpg" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -516,6 +524,8 @@
     <Content Include="Areas\Navigation\Views\web.config" />
     <Content Include="Areas\Menu\Views\web.config" />
     <Content Include="Areas\Setting\Views\web.config" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Quadrangle\Views\QuadrangleDeceaseds\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -643,6 +653,8 @@
     <Compile Include="Areas\Miscellaenous\MiscellaenousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
     <Compile Include="Areas\Plot\PlotAreaRegistration.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\QuadrangleDeceasedsController.cs" />
+    <Compile Include="Areas\Quadrangle\Data\QuadrangleDeceasedsViewModel.cs" />
     <Compile Include="Areas\Quadrangle\QuadrangleAreaRegistration.cs" />
     <Compile Include="Areas\Setting\Controllers\Ancestor\AncestorAreaController.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
@@ -951,6 +963,8 @@
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
     <Compile Include="Lib\Plot\Area\Area.cs" />
     <Compile Include="Lib\Plot\Area\IArea.cs" />
+    <Compile Include="Lib\Plot\Clearance\Clearance.cs" />
+    <Compile Include="Lib\Plot\Clearance\IClearance.cs" />
     <Compile Include="Lib\Plot\Config\Config.cs" />
     <Compile Include="Lib\Plot\Config\IConfig.cs" />
     <Compile Include="Lib\Plot\Item\IItem.cs" />
@@ -973,6 +987,8 @@
     <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
     <Compile Include="Lib\Plot\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Plot\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleDeceased\IQuadrangleDeceased.cs" />
+    <Compile Include="Lib\Quadrangle\QuadrangleDeceased\QuadrangleDeceased.cs" />
     <Compile Include="Lib\Quadrangle\Config\Config.cs" />
     <Compile Include="Lib\Quadrangle\Config\IConfig.cs" />
     <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
@@ -2015,6 +2031,70 @@
     <Compile Include="Migrations\202104091523486_AddDepositFlagToInvoicesAndReceiptsTable.designer.cs">
       <DependentUpon>202104091523486_AddDepositFlagToInvoicesAndReceiptsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104131638337_AddHeaderToSitesTable.cs" />
+    <Compile Include="Migrations\202104131638337_AddHeaderToSitesTable.designer.cs">
+      <DependentUpon>202104131638337_AddHeaderToSitesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104170204334_CreateDeceased3ForPlotTrackingAndTransactionsTable.cs" />
+    <Compile Include="Migrations\202104170204334_CreateDeceased3ForPlotTrackingAndTransactionsTable.designer.cs">
+      <DependentUpon>202104170204334_CreateDeceased3ForPlotTrackingAndTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104171536014_AddhasClearedColumnToPlotsTable.cs" />
+    <Compile Include="Migrations\202104171536014_AddhasClearedColumnToPlotsTable.designer.cs">
+      <DependentUpon>202104171536014_AddhasClearedColumnToPlotsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104171633301_AddClearedApplicantIdToPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202104171633301_AddClearedApplicantIdToPlotTransactionsTable.designer.cs">
+      <DependentUpon>202104171633301_AddClearedApplicantIdToPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104180225011_AddMaintenanceShiftedQuadrangleToQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202104180225011_AddMaintenanceShiftedQuadrangleToQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202104180225011_AddMaintenanceShiftedQuadrangleToQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104180648061_AddShiftedQuadrangleIdToQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202104180648061_AddShiftedQuadrangleIdToQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202104180648061_AddShiftedQuadrangleIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181020558_ChangeRenameToShiftedFromQuadrangleIdForQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202104181020558_ChangeRenameToShiftedFromQuadrangleIdForQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202104181020558_ChangeRenameToShiftedFromQuadrangleIdForQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181111330_AddTransferredFromApplicantFieldToQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202104181111330_AddTransferredFromApplicantFieldToQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202104181111330_AddTransferredFromApplicantFieldToQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181136478_ChangeTransferredFormApplicantToAllowNullForQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202104181136478_ChangeTransferredFormApplicantToAllowNullForQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202104181136478_ChangeTransferredFormApplicantToAllowNullForQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181322388_RemoveMaintenanceQuadrangleIdFromQuadrangeTransactionsTable.cs" />
+    <Compile Include="Migrations\202104181322388_RemoveMaintenanceQuadrangleIdFromQuadrangeTransactionsTable.designer.cs">
+      <DependentUpon>202104181322388_RemoveMaintenanceQuadrangleIdFromQuadrangeTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181347486_AddTransferredFromApplicantIdToQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202104181347486_AddTransferredFromApplicantIdToQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202104181347486_AddTransferredFromApplicantIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181405003_RemoveTransferredFromApplicantIdToQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202104181405003_RemoveTransferredFromApplicantIdToQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202104181405003_RemoveTransferredFromApplicantIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105011430021_AddQuadrangleTrackingParentToQuadrangleTrackingTable.cs" />
+    <Compile Include="Migrations\202105011430021_AddQuadrangleTrackingParentToQuadrangleTrackingTable.designer.cs">
+      <DependentUpon>202105011430021_AddQuadrangleTrackingParentToQuadrangleTrackingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105020713389_AddShiftedQuadrangleTransactionToQuadrangleTransactionTable.cs" />
+    <Compile Include="Migrations\202105020713389_AddShiftedQuadrangleTransactionToQuadrangleTransactionTable.designer.cs">
+      <DependentUpon>202105020713389_AddShiftedQuadrangleTransactionToQuadrangleTransactionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105051407209_AddTransferredApplicantAndTransactionToQuadrangleTransactionsTable.cs" />
+    <Compile Include="Migrations\202105051407209_AddTransferredApplicantAndTransactionToQuadrangleTransactionsTable.designer.cs">
+      <DependentUpon>202105051407209_AddTransferredApplicantAndTransactionToQuadrangleTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs" />
+    <Compile Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.designer.cs">
+      <DependentUpon>202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2332,6 +2412,7 @@
     <Content Include="Areas\Plot\Views\FengShuiTransfer\Index.cshtml" />
     <Content Include="Areas\Plot\Views\FengShuiTransfer\Info.cshtml" />
     <Content Include="Areas\Navigation\Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Shared\_Print.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3073,6 +3154,54 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104091523486_AddDepositFlagToInvoicesAndReceiptsTable.resx">
       <DependentUpon>202104091523486_AddDepositFlagToInvoicesAndReceiptsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104131638337_AddHeaderToSitesTable.resx">
+      <DependentUpon>202104131638337_AddHeaderToSitesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104170204334_CreateDeceased3ForPlotTrackingAndTransactionsTable.resx">
+      <DependentUpon>202104170204334_CreateDeceased3ForPlotTrackingAndTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104171536014_AddhasClearedColumnToPlotsTable.resx">
+      <DependentUpon>202104171536014_AddhasClearedColumnToPlotsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104171633301_AddClearedApplicantIdToPlotTransactionsTable.resx">
+      <DependentUpon>202104171633301_AddClearedApplicantIdToPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104180225011_AddMaintenanceShiftedQuadrangleToQuadrangleTransactionsTable.resx">
+      <DependentUpon>202104180225011_AddMaintenanceShiftedQuadrangleToQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104180648061_AddShiftedQuadrangleIdToQuadrangleTrackingsTable.resx">
+      <DependentUpon>202104180648061_AddShiftedQuadrangleIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181020558_ChangeRenameToShiftedFromQuadrangleIdForQuadrangleTrackingsTable.resx">
+      <DependentUpon>202104181020558_ChangeRenameToShiftedFromQuadrangleIdForQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181111330_AddTransferredFromApplicantFieldToQuadrangleTransactionsTable.resx">
+      <DependentUpon>202104181111330_AddTransferredFromApplicantFieldToQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181136478_ChangeTransferredFormApplicantToAllowNullForQuadrangleTransactionsTable.resx">
+      <DependentUpon>202104181136478_ChangeTransferredFormApplicantToAllowNullForQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181322388_RemoveMaintenanceQuadrangleIdFromQuadrangeTransactionsTable.resx">
+      <DependentUpon>202104181322388_RemoveMaintenanceQuadrangleIdFromQuadrangeTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181347486_AddTransferredFromApplicantIdToQuadrangleTrackingsTable.resx">
+      <DependentUpon>202104181347486_AddTransferredFromApplicantIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181405003_RemoveTransferredFromApplicantIdToQuadrangleTrackingsTable.resx">
+      <DependentUpon>202104181405003_RemoveTransferredFromApplicantIdToQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105011430021_AddQuadrangleTrackingParentToQuadrangleTrackingTable.resx">
+      <DependentUpon>202105011430021_AddQuadrangleTrackingParentToQuadrangleTrackingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105020713389_AddShiftedQuadrangleTransactionToQuadrangleTransactionTable.resx">
+      <DependentUpon>202105020713389_AddShiftedQuadrangleTransactionToQuadrangleTransactionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105051407209_AddTransferredApplicantAndTransactionToQuadrangleTransactionsTable.resx">
+      <DependentUpon>202105051407209_AddTransferredApplicantAndTransactionToQuadrangleTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.resx">
+      <DependentUpon>202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

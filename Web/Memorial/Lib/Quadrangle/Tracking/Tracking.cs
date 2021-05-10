@@ -19,27 +19,32 @@ namespace Memorial.Lib.Quadrangle
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int? quadrangleTrackingParentId)
         {
-            Create(quadrangleId, quadrangleTransactionAF);
+            Create(quadrangleId, quadrangleTransactionAF, quadrangleTrackingParentId);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? quadrangleTrackingParentId)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, quadrangleTrackingParentId);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? quadrangleTrackingParentId)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, quadrangleTrackingParentId);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? quadrangleTrackingParentId)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id, quadrangleTrackingParentId);
         }
 
-        private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? shiftedFromQuadrangleId, int? quadrangleTrackingParentId)
+        {
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id, shiftedFromQuadrangleId, quadrangleTrackingParentId);
+        }
+
+        private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null, int? shiftedFromQuadrangleId = null, int? quadrangleTrackingParentId = null)
         {
             _unitOfWork.QuadrangleTrackings.Add(new Core.Domain.QuadrangleTracking()
             {
@@ -48,9 +53,10 @@ namespace Memorial.Lib.Quadrangle
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
+                ShiftedFromQuadrangleId = shiftedFromQuadrangleId,
+                QuadrangleTrackingParentId = quadrangleTrackingParentId,
                 ActionDate = System.DateTime.Now
             });
-
         }
 
         public void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id)
@@ -66,12 +72,18 @@ namespace Memorial.Lib.Quadrangle
             tracking.ActionDate = System.DateTime.Now;
         }
 
+        public void ChangeQuadrangleId(int trackingId, int quadrangleId)
+        {
+            var tracking = _unitOfWork.QuadrangleTrackings.Get(trackingId);
+
+            tracking.QuadrangleId = quadrangleId;
+        }
+
         public void Remove(int quadrangleId, string quadrangleTransactionAF)
         {
             var tracking = _unitOfWork.QuadrangleTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
 
             _unitOfWork.QuadrangleTrackings.Remove(tracking);
-
         }
 
         public Core.Domain.QuadrangleTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
@@ -84,18 +96,16 @@ namespace Memorial.Lib.Quadrangle
             return _unitOfWork.QuadrangleTrackings.GetTrackingByQuadrangleId(quadrangleId);
         }
 
-        public IEnumerable<Core.Domain.QuadrangleTracking> GetTrackingByTransactionAF(string quadrangleTransactionAF)
+        public Core.Domain.QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
         {
             return _unitOfWork.QuadrangleTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
         }
 
         public void Delete(string quadrangleTransactionAF)
         {
-            var trackings = _unitOfWork.QuadrangleTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
-            foreach(var tracking in trackings)
-            {
+            var tracking = _unitOfWork.QuadrangleTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
+            if (tracking != null)
                 _unitOfWork.QuadrangleTrackings.Remove(tracking);
-            }
         }
 
         public bool IsLatestTransaction(int quadrangleId, string quadrangleTransactionAF)

@@ -39,6 +39,8 @@ namespace Memorial.Core.Dtos
 
         public bool hasDeceased { get; set; }
 
+        public bool hasCleared { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

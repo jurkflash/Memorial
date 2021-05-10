@@ -185,6 +185,10 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.Deceased1, opt => opt.Ignore())
                 .ForMember(c => c.Deceased2, opt => opt.Ignore())
+                .ForMember(c => c.ShiftedQuadrangle, opt => opt.Ignore())
+                .ForMember(c => c.ShiftedQuadrangleTransaction, opt => opt.Ignore())
+                .ForMember(c => c.TransferredApplicant, opt => opt.Ignore())
+                .ForMember(c => c.TransferredQuadrangleTransaction, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<AncestorDto, Ancestor>()

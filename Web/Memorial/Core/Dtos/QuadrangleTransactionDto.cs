@@ -67,6 +67,14 @@ namespace Memorial.Core.Dtos
 
         public int? ShiftedQuadrangleId { get; set; }
 
+        public int? TransferredFromApplicantId { get; set; }
+
+        public string ShiftedQuadrangleTransactionAF { get; set; }
+
+        public int? TransferredApplicantId { get; set; }
+
+        public string TransferredQuadrangleTransactionAF { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

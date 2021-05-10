@@ -22,6 +22,8 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId);
 
+        IEnumerable<DeceasedDto> GetDeceasedDtosByApplicantId(int applicantId);
+
         IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
@@ -53,5 +55,9 @@ namespace Memorial.Lib.Deceased
         bool RemovePlot();
 
         IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
+
+        bool InstallQuadrangleDeceased(int quadrangleId);
+
+        bool RemoveQuadrangleDeceased();
     }
 }

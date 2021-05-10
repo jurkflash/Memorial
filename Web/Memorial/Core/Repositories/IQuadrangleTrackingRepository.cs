@@ -9,7 +9,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<QuadrangleTracking> GetTrackingByQuadrangleId(int quadrangleId);
 
-        IEnumerable<QuadrangleTracking> GetTrackingByTransactionAF(string quadrangleTransactionAF);
+        QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF);
 
         QuadrangleTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string quadrangleTransactionAF);
     }

@@ -76,7 +76,7 @@ namespace Memorial.Areas.Applicant.Controllers
         public ActionResult Site(byte siteId, int applicantId)
         {
             return RedirectToAction("Catalog", "Menu", new { area = "Menu", siteId = siteId, applicantId = applicantId });
-            }
+        }
 
         [ChildActionOnly]
         public PartialViewResult PartialViewInfo(int id)

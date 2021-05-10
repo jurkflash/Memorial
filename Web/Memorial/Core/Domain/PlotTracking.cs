@@ -30,6 +30,10 @@ namespace Memorial.Core.Domain
 
         public int? Deceased2Id { get; set; }
 
+        public Deceased Deceased3 { get; set; }
+
+        public int? Deceased3Id { get; set; }
+
         public DateTime ActionDate { get; set; }
 
     }

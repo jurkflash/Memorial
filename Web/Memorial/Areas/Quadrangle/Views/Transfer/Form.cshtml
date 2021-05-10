@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.QuadrangleTransactionDto.ApplicantId });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.QuadrangleTransactionDto.ApplicantId, area = "Applicant" });}
 
 <h2>Form</h2>
 
@@ -57,6 +57,7 @@
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.QuadrangleId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.ApplicantId)
     @Html.HiddenFor(c => c.QuadrangleTransactionDto.AF)
+    @Html.HiddenFor(c => c.QuadrangleTransactionDto.TransferredFromApplicantId)
     <button type="submit" class="btn btn-primary">Save</button>
 }
 

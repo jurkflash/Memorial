@@ -1,18 +1,84 @@
 ﻿@model Memorial.ViewModels.CremationTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Print.cshtml";
 }
 
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CremationTransactionDto.AF })
+}
 
-<div class="row">
-    <div class="col-md-3">
-        AF
+@*<table style="width:100%">
+    <tr>
+        <td style="text-align:right">
+            <img src="~/Images/cemeterylogo.jpg" style="height:200px"/>
+        </td>
+        <td style="float:left">
+            <div style="text-align:center">
+                <span style="font-size:30pt; font-family: KaiTi; font-weight:bold">
+                    甲洞華人義山機構<br />
+                </span>
+                <span style="font-size: 15pt; font-family: 'Times New Roman'; font-weight: bold">
+                    CHINESE CEMETERY ASSOCIATION OF<br />
+                </span>
+                <span style="font-size: 15pt; font-family: 'Times New Roman'; font-weight: bold">
+                    KEPONG, JINJANG & BATU VILLAGE.<br />
+                </span>
+                <span style="font-size: 10pt; font-family: 'Times New Roman'">
+                    LOT 182, JALAN JAMBU ARANG DUA,<br />
+                </span>
+                <span style="font-size: 10pt; font-family: 'Times New Roman'">
+                    JINJANG SELATAN, 5200 KUALA LUMPUR.<br />
+                </span>
+                <span style="font-size: 10pt; font-family: 'Times New Roman'">Tel: 03-6251 9771&nbsp;&nbsp;&nbsp;Fax: 03-6257 5293&nbsp;&nbsp;&nbsp;E-MAIL: cca8402@gmail.com</span>
+            </div>
+        </td>
+    </tr>
+</table>*@
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.CremationTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
     </div>
-    <div class="col-md-3">
-        @Model.QuadrangleTransactionDto.AF
+    <div class="col-md-6" style="text-align:center">
+        火葬申請表格<br />
+        Cremation Application Form
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.CremationTransactionDto.AF
     </div>
 </div>
 
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
+
+<h5 style="padding-top:5px"><u>火葬 Cremation</u></h5>
+<div class="row flexrow">
+    <div class="col-md-3">
+        火葬日期及時間<br />
+        Cremate Date Time
+    </div>
+    <div class="col-md-3">
+        @Model.CremationTransactionDto.CremateDate.ToString("yyyy-MMM-dd hh:mm:ss tt")
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        出葬手續交興壽板承包商<br />
+        Funeral Arrangement entrusted to the following company
+    </div>
+    <div class="col-md-6">
+        @Model.CremationTransactionDto.FuneralCompany.Name
+    </div>
+</div>
+<br />
+<p>
+    We, the above-named signatories hereby declared and confirm that the above information given by us is to be true and we
+    voluntarily executed this document<br />We hereby agree to indemnify and keep indemnified CHINESE CEMETERY ASSOCIATION OF KEPONG, JINJANG &amp; BATU VILLAGE (herein aftered reffered to as the "Committee" against all expenses, loses liability. (whether criminal or civil)
+    damages and costs that the Committee may suffer, sustain or incur as a result, whether directly or indirectly of any breach by us
+    and/or any negligent act, omission or default)
+</p>
 

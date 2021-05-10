@@ -51,7 +51,7 @@ namespace Memorial.Areas.Plot.Controllers
                 PlotTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId),
             };
 
-            if (applicantId != 0 && _plot.HasApplicant() && _deceased.GetDeceasedsByPlotId(id).Count() == 1)
+            if (applicantId != 0 && _plot.HasApplicant() && _deceased.GetDeceasedsByPlotId(id).Count() < _plot.GetNumberOfPlacement())
             {
                 viewModel.AllowNew = true;
             }

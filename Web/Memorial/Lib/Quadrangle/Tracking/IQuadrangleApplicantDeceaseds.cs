@@ -8,8 +8,12 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface IQuadrangleApplicantDeceaseds
     {
-        bool SetQuadrangleApplicantDeceaseds(int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null);
+        //bool SetQuadrangleApplicantDeceaseds(int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null);
 
-        bool RollbackQuadrangleApplicantDeceaseds(string quadrangleTransactionAF, int quadrangleId);
+        bool RollbackTransferredQuadrangleApplicantDeceaseds(string quadrangleTransactionAF, int quadrangleId, int beforeTransferredApplicantId);
+
+        bool RollbackShiftedQuadrangleApplicantDeceaseds(string quadrangleTransactionAF, int beforeShiftedQuadrangleId, int afterShiftedQuadrangleId);
+
+        //bool RollbackQuadrangleApplicantDeceaseds(string quadrangleTransactionAF, int quadrangleId);
     }
 }

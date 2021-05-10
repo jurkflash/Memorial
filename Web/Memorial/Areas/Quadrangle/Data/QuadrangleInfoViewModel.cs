@@ -19,6 +19,8 @@ namespace Memorial.ViewModels
 
         public ApplicantDto ApplicantDto { get; set; }
 
+        public int NumberOfPlacements { get; set; }
+
         public ApplicantDeceasedFlattenDto DeceasedFlatten1Dto { get; set; }
 
         public ApplicantDeceasedFlattenDto DeceasedFlatten2Dto { get; set; }

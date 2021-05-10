@@ -1,31 +1,46 @@
 ﻿@model Memorial.ViewModels.AppplicantDeceasedsInfoViewModel
 
-<h2>Applicant</h2>
+<h5 style="padding-top:5px"><u>申請者 Applicant</u></h5>
 @if (Model.ApplicantId == null)
 {
-    <div>No record</div>
+    <span>
+        沒記錄 <br />
+        No record
+    </span>
 }
 else
 {
-    Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId });
+    Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });
 }
 
-<h2>Relationship</h2>
-@if (Model.DeceasedId == null)
-{
-    <div>No record</div>
-}
-else
-{
-    @Model.RelationshipTypeName
-}
 
-<h2>Deceased</h2>
+<div class="row flexrow">
+    <div class="col-md-1">
+    申请人与逝世者关系<br />
+    Relationship
+    </div>
+    <div class="col-md-11">
+    @if (Model.DeceasedId == null)
+    {
+        <span>
+            沒記錄 <br />
+            No record
+        </span>
+    }
+    else
+    {
+        @Model.RelationshipTypeName
+    }
+    </div>
+</div>
+
+
+<h5 style="padding-top:5px"><u>逝世者 Deceased</u></h5>
 @if (Model.DeceasedId == null)
 {
-    <div>No record</div>
+    <div>沒記錄<br />No record</div>
 }
 else
 {
-    Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId });
+    Html.RenderAction("PartialViewInfo", "Deceaseds", new { id = Model.DeceasedId, area = "Deceased" });
 }

@@ -64,6 +64,22 @@ namespace Memorial.Core.Domain
 
         public int? ShiftedQuadrangleId { get; set; }
 
+        public Applicant TransferredFromApplicant { get; set; }
+
+        public int? TransferredFromApplicantId { get; set; }
+
+        public QuadrangleTransaction ShiftedQuadrangleTransaction { get; set; }
+
+        public string ShiftedQuadrangleTransactionAF { get; set; }
+
+        public Applicant TransferredApplicant { get; set; }
+
+        public int? TransferredApplicantId { get; set; }
+
+        public QuadrangleTransaction TransferredQuadrangleTransaction { get; set; }
+
+        public string TransferredQuadrangleTransactionAF { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

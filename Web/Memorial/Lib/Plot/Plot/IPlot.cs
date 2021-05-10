@@ -48,6 +48,10 @@ namespace Memorial.Lib.Plot
 
         void SetHasDeceased(bool flag);
 
+        bool HasCleared();
+
+        void SetHasCleared(bool flag);
+
         bool HasApplicant();
 
         int? GetApplicantId();

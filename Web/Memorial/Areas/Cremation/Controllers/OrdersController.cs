@@ -52,9 +52,23 @@ namespace Memorial.Areas.Cremation.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            return View(_order.GetTransactionDto(AF));
+            _order.SetOrder(AF);
+
+            var viewModel = new CremationTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.CremationTransactionDto = _order.GetCremationDto();
+            viewModel.ApplicantId = _order.GetCremationDto().ApplicantId;
+            viewModel.DeceasedId = _order.GetCremationDto().DeceasedId;
+            viewModel.Header = _order.GetTransaction().CremationItem.Cremation.Site.Header;
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)

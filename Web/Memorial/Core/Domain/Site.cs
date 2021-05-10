@@ -32,6 +32,8 @@ namespace Memorial.Core.Domain
 
         public string Address { get; set; }
 
+        public string Header { get; set; }
+
         public string Remark { get; set; }
 
         public ICollection<PlotArea> PlotAreas { get; set; }

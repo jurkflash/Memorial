@@ -16,7 +16,6 @@ namespace Memorial.Lib.Quadrangle
         private readonly Invoice.IQuadrangle _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -28,8 +27,7 @@ namespace Memorial.Lib.Quadrangle
             INumber number,
             Invoice.IQuadrangle invoice,
             IPayment payment,
-            ITracking tracking,
-            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds
+            ITracking tracking
             ) : 
             base(
                 unitOfWork, 
@@ -51,7 +49,6 @@ namespace Memorial.Lib.Quadrangle
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
-            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
         }
 
         public void SetOrder(string AF)
@@ -189,7 +186,22 @@ namespace Memorial.Lib.Quadrangle
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _quadrangleApplicantDeceaseds.RollbackQuadrangleApplicantDeceaseds(_transaction.AF, _transaction.QuadrangleId);
+
+            _quadrangle.SetQuadrangle(_transaction.QuadrangleId);
+
+            var deceaseds = _deceased.GetDeceasedsByQuadrangleId(_transaction.QuadrangleId);
+
+            foreach (var deceased in deceaseds)
+            {
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.RemoveQuadrangle();
+            }
+
+            _quadrangle.SetHasDeceased(false);
+
+            _quadrangle.RemoveApplicant();
+
+            _tracking.Delete(_transaction.AF);
 
             _unitOfWork.Complete();
 

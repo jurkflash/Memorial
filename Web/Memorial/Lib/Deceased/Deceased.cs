@@ -71,6 +71,11 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
         }
 
+        public IEnumerable<DeceasedDto> GetDeceasedDtosByApplicantId(int applicantId)
+        {
+            return Mapper.Map< IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(GetDeceasedsByApplicantId(applicantId));
+        }
+
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName)
         {
             return _unitOfWork.Deceaseds.GetAllExcludeFilter(applicantId, deceasedName);
@@ -232,5 +237,32 @@ namespace Memorial.Lib.Deceased
             return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetDeceasedsByApplicantId(applicantId));
         }
 
+        public bool InstallQuadrangleDeceased(int quadrangleId)
+        {
+            if (_deceased == null)
+                return false;
+
+            _quadrangle.SetQuadrangle(quadrangleId);
+            if (_quadrangle.GetQuadrangle() == null)
+                return false;
+
+            SetQuadrangle(quadrangleId);
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool RemoveQuadrangleDeceased()
+        {
+            if (_deceased == null)
+                return false;
+
+            RemoveQuadrangle();
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
     }
 }

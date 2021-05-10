@@ -14,6 +14,8 @@ namespace Memorial.Lib.Quadrangle
 
         Core.Domain.QuadrangleTransaction GetTransaction();
 
+        Core.Domain.QuadrangleTransaction GetTransactionExclusive(string AF);
+
         QuadrangleTransactionDto GetTransactionDto();
 
         Core.Domain.QuadrangleTransaction GetTransaction(string AF);
@@ -49,6 +51,8 @@ namespace Memorial.Lib.Quadrangle
         IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
 
         IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
+
+        Core.Domain.QuadrangleTransaction GetTransactionsByShiftedQuadrangleTransactionAF(string AF);
 
         Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId);
 

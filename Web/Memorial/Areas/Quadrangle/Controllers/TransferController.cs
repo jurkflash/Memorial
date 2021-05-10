@@ -18,33 +18,24 @@ namespace Memorial.Areas.Quadrangle.Controllers
 {
     public class TransferController : Controller
     {
-        private IQuadrangle _quadrangle;
-        private IDeceased _deceased;
-        private IApplicantDeceased _applicantDeceased;
-        private ITransfer _transfer;
-        private IApplicant _applicant;
-        private ITracking _tracking;
-        private IQuadrangleApplicantDeceaseds _quadrangleApplicantDeceaseds;
-        private Lib.Invoice.IQuadrangle _invoice;
+        private readonly IQuadrangle _quadrangle;
+        private readonly ITransfer _transfer;
+        private readonly IApplicant _applicant;
+        private readonly ITracking _tracking;
+        private readonly Lib.Invoice.IQuadrangle _invoice;
 
         public TransferController(
             IQuadrangle quadrangle,
             IApplicant applicant,
-            IApplicantDeceased applicantDeceased,
-            IDeceased deceased,
             ITransfer transfer,
             ITracking tracking,
-            IQuadrangleApplicantDeceaseds quadrangleApplicantDeceaseds,
             Lib.Invoice.IQuadrangle invoice
             )
         {
             _quadrangle = quadrangle;
             _applicant = applicant;
-            _applicantDeceased = applicantDeceased;
-            _deceased = deceased;
             _transfer = transfer;
             _tracking = tracking;
-            _quadrangleApplicantDeceaseds = quadrangleApplicantDeceaseds;
             _invoice = invoice;
         }
 
@@ -61,7 +52,11 @@ namespace Memorial.Areas.Quadrangle.Controllers
                 QuadrangleTransactionDtos = _transfer.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId)
             };
 
-            viewModel.AllowNew = applicantId != 0 && _quadrangle.HasApplicant() && _quadrangle.GetApplicantId() != applicantId && _transfer.AllowQuadrangleDeceasePairing(_quadrangle, applicantId);
+            viewModel.AllowNew = applicantId != 0
+                && _quadrangle.HasApplicant()
+                && _quadrangle.GetApplicantId() != applicantId
+                && _transfer.AllowQuadrangleDeceasePairing(id, applicantId)
+                && !_quadrangle.HasFreeOrder();
 
             return View(viewModel);
         }
@@ -93,6 +88,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
                 var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
                 quadrangleTransactionDto.Applicant = _applicant.GetApplicant(applicantId);
                 quadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle();
+                quadrangleTransactionDto.TransferredApplicantId = quadrangleTransactionDto.Quadrangle.ApplicantId;
 
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
                 viewModel.QuadrangleTransactionDto.Price = _transfer.GetItemPrice(itemId);
@@ -118,7 +114,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
                     return FormForResubmit(viewModel);
                 }
 
-                if(!_transfer.AllowQuadrangleDeceasePairing(_quadrangle, viewModel.QuadrangleTransactionDto.ApplicantId))
+                if(!_transfer.AllowQuadrangleDeceasePairing(viewModel.QuadrangleTransactionDto.QuadrangleId, viewModel.QuadrangleTransactionDto.ApplicantId))
                 {
                     ModelState.AddModelError("QuadrangleTransactionDto.Applicant.Name", "Deceased not linked with new applicant");
                     return FormForResubmit(viewModel);

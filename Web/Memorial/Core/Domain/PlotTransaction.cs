@@ -56,6 +56,14 @@ namespace Memorial.Core.Domain
 
         public int? Deceased2Id { get; set; }
 
+        public Deceased Deceased3 { get; set; }
+
+        public int? Deceased3Id { get; set; }
+
+        public Applicant ClearedApplicant { get; set; }
+
+        public int? ClearedApplicantId { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }
