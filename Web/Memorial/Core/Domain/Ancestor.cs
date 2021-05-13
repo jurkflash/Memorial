@@ -42,6 +42,8 @@ namespace Memorial.Core.Domain
 
         public bool hasDeceased { get; set; }
 
+        public bool hasFreeOrder { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

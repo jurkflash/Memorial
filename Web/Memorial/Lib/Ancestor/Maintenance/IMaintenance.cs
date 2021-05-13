@@ -18,6 +18,8 @@ namespace Memorial.Lib.Ancestor
 
         bool Delete();
 
+        bool ChangeAncestor(int oldAncestorId, int newAncestorId);
+
         float GetAmount(int itemId, DateTime from, DateTime to);
     }
 }

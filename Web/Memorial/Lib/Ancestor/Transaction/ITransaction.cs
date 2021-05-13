@@ -14,6 +14,8 @@ namespace Memorial.Lib.Ancestor
 
         Core.Domain.AncestorTransaction GetTransaction();
 
+        Core.Domain.AncestorTransaction GetTransactionExclusive(string AF);
+
         AncestorTransactionDto GetTransactionDto();
 
         Core.Domain.AncestorTransaction GetTransaction(string AF);
@@ -50,8 +52,6 @@ namespace Memorial.Lib.Ancestor
 
         IEnumerable<AncestorTransactionDto> GetTransactionDtosByAncestorIdAndItemIdAndApplicantId(int ancestorId, int itemId, int applicantId);
 
-        Core.Domain.AncestorTransaction GetLastAncestorTransactionByAncestorId(int ancestorId);
-
-        Core.Domain.AncestorTransaction GetLastAncestorTransactionByShiftedAncestorId(int ancestorId);
+        Core.Domain.AncestorTransaction GetTransactionsByShiftedAncestorTransactionAF(string AF);
     }
 }

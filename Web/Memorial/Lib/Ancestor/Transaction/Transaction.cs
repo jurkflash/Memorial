@@ -68,6 +68,11 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.AncestorTransactions.GetActive(AF);
         }
 
+        public Core.Domain.AncestorTransaction GetTransactionExclusive(string AF)
+        {
+            return _unitOfWork.AncestorTransactions.GetExclusive(AF);
+        }
+
         public AncestorTransactionDto GetTransactionDto(string AF)
         {
             return Mapper.Map<Core.Domain.AncestorTransaction, AncestorTransactionDto>(GetTransaction(AF));
@@ -154,14 +159,9 @@ namespace Memorial.Lib.Ancestor
             return Mapper.Map<IEnumerable<Core.Domain.AncestorTransaction>, IEnumerable<AncestorTransactionDto>>(GetTransactionsByAncestorIdAndItemIdAndApplicantId(ancestorId, itemId, applicantId));
         }
 
-        public Core.Domain.AncestorTransaction GetLastAncestorTransactionByAncestorId(int ancestorId)
+        public Core.Domain.AncestorTransaction GetTransactionsByShiftedAncestorTransactionAF(string AF)
         {
-            return _unitOfWork.AncestorTransactions.GetLastAncestorTransactionByAncestorId(ancestorId);
-        }
-
-        public Core.Domain.AncestorTransaction GetLastAncestorTransactionByShiftedAncestorId(int ancestorId)
-        {
-            return _unitOfWork.AncestorTransactions.GetLastAncestorTransactionByShiftedAncestorId(ancestorId);
+            return _unitOfWork.AncestorTransactions.GetByShiftedAncestorTransactionAF(AF);
         }
 
         protected bool CreateNewTransaction(AncestorTransactionDto ancestorTransactionDto)
@@ -199,45 +199,45 @@ namespace Memorial.Lib.Ancestor
             return true;
         }
 
-        protected bool SetDeceasedIdBasedOnAncestorLastTransaction(AncestorTransactionDto ancestorTransactionDto)
+        protected bool SetTransactionDeceasedIdBasedOnAncestor(AncestorTransactionDto ancestorTransactionDto, int ancestorId)
         {
+            _ancestor.SetAncestor(ancestorId);
+
             if (_ancestor.HasDeceased())
             {
-                var lastTransactionOfAncestor = GetLastAncestorTransactionByAncestorId(_ancestor.GetAncestor().Id);
+                var deceaseds = _deceased.GetDeceasedsByAncestorId(ancestorId);
 
-                if (lastTransactionOfAncestor != null)
+                if (deceaseds.Count() == 1)
                 {
-                    SetDeceasedIdBasedOnAncestorLastTransaction(lastTransactionOfAncestor, ancestorTransactionDto);
-                }
-                else
-                {
-                    var lastTransactionOfShiftedAncestor = GetLastAncestorTransactionByShiftedAncestorId(_ancestor.GetAncestor().Id);
+                    if (_applicantDeceased.GetApplicantDeceased(ancestorTransactionDto.ApplicantId, deceaseds.ElementAt(0).Id) == null)
+                    {
+                        return false;
+                    }
 
-                    SetDeceasedIdBasedOnAncestorLastTransaction(lastTransactionOfShiftedAncestor, ancestorTransactionDto);
+                    ancestorTransactionDto.DeceasedId = deceaseds.ElementAt(0).Id;
                 }
             }
 
             return true;
         }
 
-        private bool SetDeceasedIdBasedOnAncestorLastTransaction(Core.Domain.AncestorTransaction lastAncestorTransaction, AncestorTransactionDto ancestorTransactionDto)
+        protected bool ChangeAncestor(string systemCode, int oldAncestorId, int newAncestorId)
         {
-            if (lastAncestorTransaction != null)
-            {
-                if (lastAncestorTransaction.DeceasedId != null &&
-                    _applicantDeceased.GetApplicantDeceased(ancestorTransactionDto.ApplicantId, (int)lastAncestorTransaction.DeceasedId) == null)
-                {
-                    return false;
-                }
+            var areaId = _ancestor.GetAncestor(oldAncestorId).AncestorAreaId;
 
-                ancestorTransactionDto.DeceasedId = lastAncestorTransaction.DeceasedId;
+            var itemId = _item.GetItemByArea(areaId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
+
+            if (itemId == null)
+                return false;
+
+            var transactions = GetTransactionsByAncestorIdAndItemId(oldAncestorId, itemId.Id);
+
+            foreach (var transaction in transactions)
+            {
+                transaction.AncestorId = newAncestorId;
             }
 
             return true;
         }
-
-
-
-
     }
 }

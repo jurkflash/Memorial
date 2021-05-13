@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Ancestor;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
 
 namespace Memorial.Areas.Ancestor.Controllers
 {
@@ -139,7 +133,7 @@ namespace Memorial.Areas.Ancestor.Controllers
 
         public ActionResult Invoice(string AF)
         {
-            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF });
+            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF, area = "Ancestor" });
         }
     }
 }

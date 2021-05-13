@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestorTransactionDto.ApplicantId });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestorTransactionDto.ApplicantId, area = "Applicant" });}
 
 <h2>Form</h2>
 
-@using (Html.BeginForm("Save", "AncestorShift"))
+@using (Html.BeginForm("Save", "Shift", new { area = "Ancestor" }))
 {
     @Model.AncestorTransactionDto.AF
 
@@ -48,7 +48,7 @@
                 Ancestor
             </div>
             <div class="col-md-6">
-                @Model.AncestorDto.Name
+                @Model.AncestorTransactionDto.Ancestor.Name
             </div>
         </div>
         <hr />
@@ -94,19 +94,15 @@
     </div>
     <div class="form-group row">
         <div class="col-md-2" id="qName"></div>
-        <div class="col-md-2" id="qPrice"></div>
-        <div class="col-md-2" id="qMaintenance"></div>
+        <div class="col-md-2" id="qPrice">
+            @Html.TextBoxFor(c => c.AncestorTransactionDto.Price, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-2" id="qMaintenance">
+            @Html.TextBoxFor(c => c.AncestorTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+        </div>
         <div class="col-md-1" id="qRemark"></div>
     </div>
 
-    <div class="form-group row">
-        <div class="col-md-3">
-            Price
-        </div>
-        <div class="col-md-6">
-            @Html.TextBoxFor(c => c.AncestorTransactionDto.Price, new { @class = "form-control", @required = "required" })
-        </div>
-    </div>
     <div class="form-group row">
         <div class="col-md-3">
             Remark
@@ -117,9 +113,10 @@
     </div>
 
     @Html.HiddenFor(c => c.AncestorTransactionDto.AncestorItemId)
+    @Html.HiddenFor(c => c.AncestorTransactionDto.ShiftedAncestorId)
+    @Html.HiddenFor(c => c.AncestorTransactionDto.ShiftedAncestorTransactionAF)
     @Html.HiddenFor(c => c.AncestorTransactionDto.AncestorId)
     @Html.HiddenFor(c => c.AncestorTransactionDto.ApplicantId)
-    @Html.HiddenFor(c => c.AncestorTransactionDto.ShiftedAncestorId)
     @Html.HiddenFor(c => c.AncestorTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
 }
@@ -193,8 +190,9 @@
 
         function clearAncestor() {
             $("#qName").empty();
-            $("#qPrice").empty();
-            $("#qMaintenance").empty();
+            $("#AncestorTransactionDto_Price").val('');
+            $("#AncestorTransactionDto_Maintenance").val('');
+            $("#AncestorTransactionDto_AncestorId").val('');
             $("#qRemark").empty();
         }
 
@@ -208,10 +206,10 @@
                 .done(function (response) {
                     if (response != null) {
                         $("#qName").html(response['name']);
-                        $("#qPrice").html(response['price']);
-                        $("#qMaintenance").html(response['maintenance']);
+                        $("#AncestorTransactionDto_Price").val(response['price']);
+                        $("#AncestorTransactionDto_Maintenance").val(response['maintenance']);
                         $("#qRemark").html(response['remark']);
-                        $("#AncestorTransactionDto_ShiftedAncestorId").val(response['id']);
+                        $("#AncestorTransactionDto_AncestorId").val(response['id']);
                     }
                 })
                 .fail(function () {

@@ -9,7 +9,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestorTracking> GetTrackingByAncestorId(int ancestorId);
 
-        IEnumerable<AncestorTracking> GetTrackingByTransactionAF(string ancestorTransactionAF);
+        AncestorTracking GetTrackingByTransactionAF(string ancestorTransactionAF);
 
         AncestorTracking GetTrackingByAncestorIdAndTransactionAF(int ancestorId, string ancestorTransactionAF);
     }

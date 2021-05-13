@@ -91,6 +91,11 @@ namespace Memorial.Lib.Ancestor
             return _ancestor.ApplicantId == null ? false : true;
         }
 
+        public bool HasFreeOrder()
+        {
+            return _ancestor.hasFreeOrder;
+        }
+
         public int? GetApplicantId()
         {
             return _ancestor.ApplicantId;

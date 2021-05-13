@@ -103,7 +103,7 @@ namespace Memorial.Lib.Quadrangle
 
         public void Delete(string quadrangleTransactionAF)
         {
-            var tracking = _unitOfWork.QuadrangleTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
+            var tracking = GetTrackingByTransactionAF(quadrangleTransactionAF);
             if (tracking != null)
                 _unitOfWork.QuadrangleTrackings.Remove(tracking);
         }

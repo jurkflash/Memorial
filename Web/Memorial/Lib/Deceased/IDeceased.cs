@@ -59,5 +59,7 @@ namespace Memorial.Lib.Deceased
         bool InstallQuadrangleDeceased(int quadrangleId);
 
         bool RemoveQuadrangleDeceased();
+
+        bool RemoveAncestorDeceased();
     }
 }

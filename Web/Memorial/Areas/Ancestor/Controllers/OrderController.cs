@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Ancestor;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.Applicant;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
 
 namespace Memorial.Areas.Ancestor.Controllers
 {
@@ -20,27 +13,21 @@ namespace Memorial.Areas.Ancestor.Controllers
         private readonly IAncestor _ancestor;
         private readonly IDeceased _deceased;
         private readonly IOrder _order;
-        private readonly IApplicant _applicant;
         private readonly ITracking _tracking;
-        private readonly IAncestorApplicantDeceaseds _ancestorApplicantDeceaseds;
         private readonly Lib.Invoice.IAncestor _invoice;
 
         public OrderController(
             IAncestor ancestor,
-            IApplicant applicant,
             IDeceased deceased,
             IOrder order,
             ITracking tracking,
-            IAncestorApplicantDeceaseds ancestorApplicantDeceaseds,
             Lib.Invoice.IAncestor invoice
             )
         {
             _ancestor = ancestor;
-            _applicant = applicant;
             _deceased = deceased;
             _order = order;
             _tracking = tracking;
-            _ancestorApplicantDeceaseds = ancestorApplicantDeceaseds;
             _invoice = invoice;
         }
 
@@ -118,7 +105,7 @@ namespace Memorial.Areas.Ancestor.Controllers
                 _deceased.SetDeceased((int)viewModel.AncestorTransactionDto.DeceasedId);
                 if (_deceased.GetAncestor() != null && _deceased.GetAncestor().Id != viewModel.AncestorTransactionDto.AncestorId)
                 {
-                    ModelState.AddModelError("AncestorTransactionDto.Deceased1Id", "Invalid");
+                    ModelState.AddModelError("AncestorTransactionDto.DeceasedId", "Invalid");
                     return FormForResubmit(viewModel);
                 }
             }
@@ -186,7 +173,7 @@ namespace Memorial.Areas.Ancestor.Controllers
 
         public ActionResult Invoices(string AF)
         {
-            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF });
+            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF, area = "Ancestor" });
         }
 
     }

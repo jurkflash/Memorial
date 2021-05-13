@@ -35,6 +35,8 @@ namespace Memorial.Lib.Ancestor
 
         bool HasApplicant();
 
+        bool HasFreeOrder();
+
         int? GetApplicantId();
 
         void SetApplicant(int applicantId);

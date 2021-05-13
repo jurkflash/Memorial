@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Ancestor;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
 
 namespace Memorial.Areas.Ancestor.Controllers
 {
@@ -42,31 +37,18 @@ namespace Memorial.Areas.Ancestor.Controllers
                 ApplicantId = applicantId,
                 AncestorItemId = itemId,
                 AncestorTransactionDtos = ancestorTransactionDtos,
-                AllowNew = applicantId != 0
             };
 
-            var shifted = ancestorTransactionDtos.Where(s => s.ShiftedAncestorId == id);
+            _ancestor.SetAncestor(id);
 
-            if (shifted.Count() == 0)
-            {
-                _ancestor.SetAncestor(id);
+            viewModel.AllowNew = applicantId != 0 && !_ancestor.HasFreeOrder();
 
-                viewModel.AncestorDto = _ancestor.GetAncestorDto();
+            viewModel.AncestorDto = _ancestor.GetAncestorDto();
 
-                viewModel.AncestorId = id;
+            viewModel.AncestorId = id;
 
-                return View("ShiftedFromIndex", viewModel);
-            }
-            else
-            {
-                _ancestor.SetAncestor((int)shifted.First().ShiftedAncestorId);
+            return View("ShiftedToIndex", viewModel);
 
-                viewModel.AncestorDto = _ancestor.GetAncestorDto();
-
-                viewModel.AncestorId = (int)shifted.First().ShiftedAncestorId;
-
-                return View("ShiftedToIndex", viewModel);
-            }
         }
 
         public ActionResult Info(string AF)
@@ -93,18 +75,24 @@ namespace Memorial.Areas.Ancestor.Controllers
             {
                 _ancestor.SetAncestor(id);
 
-                var ancestorTransactionDto = new AncestorTransactionDto(itemId, id, applicantId);
+                var ancestorTransactionDto = new AncestorTransactionDto();
 
-                ancestorTransactionDto.Ancestor = _ancestor.GetAncestor();
+                ancestorTransactionDto.ApplicantId = applicantId;
+
+                ancestorTransactionDto.AncestorItemId = itemId;
+
+                ancestorTransactionDto.ShiftedAncestorId = id;
+                ancestorTransactionDto.ShiftedAncestor = _ancestor.GetAncestor();
+
                 viewModel.AncestorTransactionDto = ancestorTransactionDto;
-                viewModel.AncestorTransactionDto.Price = _shift.GetItemPrice(itemId);
             }
             else
             {
                 viewModel.AncestorTransactionDto = _shift.GetTransactionDto(AF);
 
                 _ancestor.SetAncestor((int)viewModel.AncestorTransactionDto.ShiftedAncestorId);
-                viewModel.AncestorDto = _ancestor.GetAncestorDto();
+
+                viewModel.AncestorTransactionDto.ShiftedAncestor = _ancestor.GetAncestor();
             }
 
             return View(viewModel);
@@ -156,11 +144,8 @@ namespace Memorial.Areas.Ancestor.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            if (_tracking.IsLatestTransaction(id, AF))
-            {
-                _shift.SetTransaction(AF);
-                _shift.Delete();
-            }
+            _shift.SetTransaction(AF);
+            _shift.Delete();
 
             return RedirectToAction("Index", new
             {
@@ -172,7 +157,7 @@ namespace Memorial.Areas.Ancestor.Controllers
 
         public ActionResult Invoice(string AF)
         {
-            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF });
+            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF, area = "Ancestor" });
         }
     }
 }

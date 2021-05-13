@@ -7,16 +7,14 @@ namespace Memorial.Core.Repositories
     {
         AncestorTransaction GetActive(string AF);
 
+        AncestorTransaction GetExclusive(string AF);
+
         IEnumerable<AncestorTransaction> GetByApplicant(int id);
 
         IEnumerable<AncestorTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId);
 
-        IEnumerable<AncestorTransaction> GetByItemAndApplicant(int itemId, int applicantId);
+        AncestorTransaction GetByShiftedAncestorTransactionAF(string AF);
 
         IEnumerable<AncestorTransaction> GetByAncestorIdAndItemAndApplicant(int ancestorId, int itemId, int applicantId);
-
-        AncestorTransaction GetLastAncestorTransactionByAncestorId(int ancestorId);
-
-        AncestorTransaction GetLastAncestorTransactionByShiftedAncestorId(int ancestorId);
     }
 }

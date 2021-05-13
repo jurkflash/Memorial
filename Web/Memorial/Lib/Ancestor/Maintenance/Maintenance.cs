@@ -12,6 +12,7 @@ namespace Memorial.Lib.Ancestor
 {
     public class Maintenance : Transaction, IMaintenance
     {
+        private const string _systemCode = "Maintenance";
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IAncestor _invoice;
         private readonly IPayment _payment;
@@ -103,6 +104,14 @@ namespace Memorial.Lib.Ancestor
             _payment.DeleteTransaction();
 
             _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool ChangeAncestor(int oldAncestorId, int newAncestorId)
+        {
+            if (!ChangeAncestor(_systemCode, oldAncestorId, newAncestorId))
+                return false;
 
             return true;
         }

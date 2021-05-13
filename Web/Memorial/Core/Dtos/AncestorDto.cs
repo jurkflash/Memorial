@@ -24,5 +24,7 @@ namespace Memorial.Core.Dtos
 
         public bool hasDeceased { get; set; }
 
+        public bool hasFreeOrder { get; set; }
+
     }
 }

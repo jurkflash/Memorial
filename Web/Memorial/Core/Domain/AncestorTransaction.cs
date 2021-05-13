@@ -50,6 +50,10 @@ namespace Memorial.Core.Domain
 
         public int? ShiftedAncestorId { get; set; }
 
+        public AncestorTransaction ShiftedAncestorTransaction { get; set; }
+
+        public string ShiftedAncestorTransactionAF { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

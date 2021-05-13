@@ -40,6 +40,11 @@ namespace Memorial.Persistence.EntityConfigurations
                .WithMany(q => q.ShiftedAncestorTransactions)
                .HasForeignKey(at => at.ShiftedAncestorId)
                .WillCascadeOnDelete(false);
+
+            HasOptional(at => at.ShiftedAncestorTransaction)
+                .WithMany()
+                .HasForeignKey(at => at.ShiftedAncestorTransactionAF)
+                .WillCascadeOnDelete(false);
         }
     }
 }

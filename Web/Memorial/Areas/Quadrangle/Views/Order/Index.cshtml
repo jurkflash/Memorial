@@ -33,7 +33,7 @@
         @foreach (var quadrangleTransaction in Model.QuadrangleTransactionDtos)
         {
         <tr>
-            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
+            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo", area = "Quadrangle" })</td>
             <td>@quadrangleTransaction.Quadrangle.Name</td>
             <td>@quadrangleTransaction.Applicant.Name &nbsp; @quadrangleTransaction.Applicant.Name2</td>
             <td>@quadrangleTransaction.Quadrangle.hasDeceased</td>

@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.AncestorItemId, applicantId = Model.ApplicantId, id = Model.AncestorId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.AncestorItemId, applicantId = Model.ApplicantId, id = Model.AncestorId, area = "Ancestor" })
     </p>
 }
 
@@ -17,7 +17,7 @@
     <thead>
         <tr>
             <th>AF</th>
-            <th>Ancestor</th>
+            @*<th>Ancestor</th>*@
             <th>From Ancestor</th>
             <th>Applicant</th>
             <th>Price</th>
@@ -31,17 +31,17 @@
         @foreach (var ancestorTransaction in Model.AncestorTransactionDtos)
         {
         <tr>
-            <td>@Html.ActionLink(ancestorTransaction.AF, "Info", new { AF = ancestorTransaction.AF }, new { target = "AncestorTransactionInfo" })</td>
-            <td>@ancestorTransaction.ShiftedAncestor.Name</td>
+            <td>@Html.ActionLink(ancestorTransaction.AF, "Info", new { AF = ancestorTransaction.AF }, new { target = "AncestorTransactionInfo", area = "Ancestor" })</td>
+            @*<td>@ancestorTransaction.ShiftedAncestor.Name</td>*@
             <td>@ancestorTransaction.Ancestor.Name</td>
             <td>@ancestorTransaction.Applicant.Name &nbsp; @ancestorTransaction.Applicant.Name2</td>
             <td>@ancestorTransaction.Price</td>
             <td>@ancestorTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@Html.ActionLink("Invoice", "Invoice", new { AF = ancestorTransaction.AF })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = ancestorTransaction.AF, applicantId = Model.ApplicantId })</td>
+            <td>@Html.ActionLink("Edit", "Form", new { AF = ancestorTransaction.AF, applicantId = Model.ApplicantId, area = "Ancestor" })</td>
             <td>
                 @Html.ActionLink("Delete", "Delete",
-                new { AF = ancestorTransaction.AF, itemId = Model.AncestorItemId, id = Model.AncestorId, applicantId = Model.ApplicantId },
+                new { AF = ancestorTransaction.AF, itemId = Model.AncestorItemId, id = Model.AncestorId, applicantId = Model.ApplicantId, area = "Ancestor" },
                 new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
             </td>
         </tr>

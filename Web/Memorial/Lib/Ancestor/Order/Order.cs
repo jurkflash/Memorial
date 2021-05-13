@@ -16,7 +16,6 @@ namespace Memorial.Lib.Ancestor
         private readonly Invoice.IAncestor _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IAncestorApplicantDeceaseds _ancestorApplicantDeceaseds;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -28,8 +27,7 @@ namespace Memorial.Lib.Ancestor
             INumber number,
             Invoice.IAncestor invoice,
             IPayment payment,
-            ITracking tracking,
-            IAncestorApplicantDeceaseds ancestorApplicantDeceaseds
+            ITracking tracking
             ) : 
             base(
                 unitOfWork, 
@@ -51,7 +49,6 @@ namespace Memorial.Lib.Ancestor
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
-            _ancestorApplicantDeceaseds = ancestorApplicantDeceaseds;
         }
 
         public void SetOrder(string AF)
@@ -169,31 +166,26 @@ namespace Memorial.Lib.Ancestor
             if (!_tracking.IsLatestTransaction(_transaction.AncestorId, _transaction.AF))
                 return false;
 
-            _ancestor.SetAncestor(_transaction.AncestorId);
-            if (_ancestor.HasDeceased())
-                return false;
-
-            var lastTransactionOfAncestor = GetLastAncestorTransactionByAncestorId(_transaction.AncestorId);
-
             DeleteTransaction();
 
-            if (lastTransactionOfAncestor.AF == _transaction.AF)
+            _ancestor.SetAncestor(_transaction.AncestorId);
+
+            var deceaseds = _deceased.GetDeceasedsByAncestorId(_transaction.AncestorId);
+
+            foreach (var deceased in deceaseds)
             {
-                if (_transaction.DeceasedId != null)
-                {
-                    SetDeceased((int)_transaction.DeceasedId);
-                    _deceased.RemoveAncestor();
-                }
-
-                _ancestor.SetHasDeceased(false);
-
-                _ancestor.RemoveApplicant();
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.RemoveAncestor();
             }
+
+            _ancestor.SetHasDeceased(false);
+
+            _ancestor.RemoveApplicant();
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _ancestorApplicantDeceaseds.RollbackAncestorApplicantDeceaseds(_transaction.AF, _transaction.AncestorId);
+            _tracking.Delete(_transaction.AF);
 
             _unitOfWork.Complete();
 

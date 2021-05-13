@@ -264,5 +264,17 @@ namespace Memorial.Lib.Deceased
 
             return true;
         }
+
+        public bool RemoveAncestorDeceased()
+        {
+            if (_deceased == null)
+                return false;
+
+            RemoveAncestor();
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
     }
 }

@@ -9,7 +9,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId })
+        @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId, area = "Quadrangle" })
     </p>
 }
 
@@ -32,7 +32,7 @@
         @foreach (var quadrangleTransaction in Model.QuadrangleTransactionDtos)
         {
         <tr>
-            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo" })</td>
+            <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo", area = "Quadrangle" })</td>
             <td>@quadrangleTransaction.Quadrangle.Name</td>
             <td>@quadrangleTransaction.Quadrangle.Applicant.Name &nbsp; @quadrangleTransaction.Quadrangle.Applicant.Name2</td>
             <td>@Convert.ToDateTime(quadrangleTransaction.FromDate).ToString("yyyy-MMM")</td>

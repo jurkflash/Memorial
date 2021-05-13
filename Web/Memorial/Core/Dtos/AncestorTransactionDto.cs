@@ -51,6 +51,8 @@ namespace Memorial.Core.Dtos
 
         public int? ShiftedAncestorId { get; set; }
 
+        public string ShiftedAncestorTransactionAF { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

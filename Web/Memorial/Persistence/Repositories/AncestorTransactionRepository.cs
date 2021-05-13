@@ -17,8 +17,20 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestorTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
+                .Include(at => at.ShiftedAncestor)
                 .Include(at => at.AncestorItem)
                 .Where(at => at.AF == AF && at.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public AncestorTransaction GetExclusive(string AF)
+        {
+            return MemorialContext.AncestorTransactions
+                .Include(at => at.Applicant)
+                .Include(at => at.Ancestor)
+                .Include(at => at.ShiftedAncestor)
+                .Include(at => at.AncestorItem)
+                .Where(at => at.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -52,31 +64,14 @@ namespace Memorial.Persistence.Repositories
                                             && at.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<AncestorTransaction> GetByItemAndApplicant(int itemId, int applicantId)
-        {
-            return MemorialContext.AncestorTransactions.Where(at => at.ApplicantId == applicantId
-                                            && at.AncestorItemId == itemId
-                                            && at.DeleteDate == null).ToList();
-        }
-
-        public AncestorTransaction GetLastAncestorTransactionByAncestorId(int ancestorId)
+        public AncestorTransaction GetByShiftedAncestorTransactionAF(string AF)
         {
             return MemorialContext.AncestorTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
                 .Include(at => at.AncestorItem)
-                .Where(at => at.AncestorId == ancestorId
-                                            && at.DeleteDate == null).OrderByDescending(at => at.CreateDate).FirstOrDefault();
-        }
-
-        public AncestorTransaction GetLastAncestorTransactionByShiftedAncestorId(int ancestorId)
-        {
-            return MemorialContext.AncestorTransactions
-                .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
-                .Include(at => at.AncestorItem)
-                .Where(at => at.ShiftedAncestorId == ancestorId
-                                            && at.DeleteDate == null).OrderByDescending(at => at.CreateDate).FirstOrDefault();
+                .Where(at => at.ShiftedAncestorTransactionAF == AF)
+                .SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

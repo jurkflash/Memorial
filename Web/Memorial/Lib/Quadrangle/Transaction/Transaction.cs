@@ -165,21 +165,6 @@ namespace Memorial.Lib.Quadrangle
             return _unitOfWork.QuadrangleTransactions.GetByShiftedQuadrangleTransactionAF(AF);
         }
 
-        public Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByQuadrangleId(int quadrangleId)
-        {
-            return _unitOfWork.QuadrangleTransactions.GetLastQuadrangleTransactionByQuadrangleId(quadrangleId);
-        }
-
-        public Core.Domain.QuadrangleTransaction GetLastQuadrangleTransactionByShiftedQuadrangleId(int quadrangleId)
-        {
-            return _unitOfWork.QuadrangleTransactions.GetLastQuadrangleTransactionByShiftedQuadrangleId(quadrangleId);
-        }
-
-        public IEnumerable<Core.Domain.QuadrangleTransaction> GetQuadrangleTransactionsByMaintenanceShiftedQuadrangleId(int quadrangleId)
-        {
-            return _unitOfWork.QuadrangleTransactions.GetQuadrangleTransactionsByMaintenanceShiftedQuadrangleId(quadrangleId);
-        }
-
         protected bool CreateNewTransaction(QuadrangleTransactionDto quadrangleTransactionDto)
         {
             if (_AFnumber == "")
@@ -268,54 +253,5 @@ namespace Memorial.Lib.Quadrangle
 
             return true;
         }
-
-
-
-        protected bool SetDeceasedIdBasedOnQuadrangleLastTransaction(QuadrangleTransactionDto quadrangleTransactionDto)
-        {
-            if (_quadrangle.HasDeceased())
-            {
-                var lastTransactionOfQuadrangle = GetLastQuadrangleTransactionByQuadrangleId(_quadrangle.GetQuadrangle().Id);
-
-                if (lastTransactionOfQuadrangle != null)
-                {
-                    SetDeceasedIdBasedOnQuadrangleLastTransaction(lastTransactionOfQuadrangle, quadrangleTransactionDto);
-                }
-                else
-                {
-                    var lastTransactionOfShiftedQuadrangle = GetLastQuadrangleTransactionByShiftedQuadrangleId(_quadrangle.GetQuadrangle().Id);
-
-                    SetDeceasedIdBasedOnQuadrangleLastTransaction(lastTransactionOfShiftedQuadrangle, quadrangleTransactionDto);
-                }
-            }
-
-            return true;
-        }
-
-        private bool SetDeceasedIdBasedOnQuadrangleLastTransaction(Core.Domain.QuadrangleTransaction lastQuadrangleTransaction, QuadrangleTransactionDto quadrangleTransactionDto)
-        {
-            if (lastQuadrangleTransaction != null)
-            {
-                if (lastQuadrangleTransaction.Deceased1Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, (int)lastQuadrangleTransaction.Deceased1Id) == null)
-                {
-                    return false;
-                }
-
-                if (lastQuadrangleTransaction.Deceased2Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, (int)lastQuadrangleTransaction.Deceased2Id) == null)
-                {
-                    return false;
-                }
-
-                quadrangleTransactionDto.Deceased1Id = lastQuadrangleTransaction.Deceased1Id;
-
-                quadrangleTransactionDto.Deceased2Id = lastQuadrangleTransaction.Deceased2Id;
-            }
-
-            return true;
-        }
-
-
     }
 }

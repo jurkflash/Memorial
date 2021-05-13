@@ -16,7 +16,7 @@ namespace Memorial.Lib.Ancestor
         private readonly Invoice.IAncestor _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IAncestorApplicantDeceaseds _ancestorApplicantDeceaseds;
+        private readonly IMaintenance _maintenance;
 
         public Shift(
             IUnitOfWork unitOfWork,
@@ -29,7 +29,7 @@ namespace Memorial.Lib.Ancestor
             Invoice.IAncestor invoice,
             IPayment payment,
             ITracking tracking,
-            IAncestorApplicantDeceaseds ancestorApplicantDeceaseds
+            IMaintenance maintenance
             ) :
             base(
                 unitOfWork,
@@ -51,7 +51,7 @@ namespace Memorial.Lib.Ancestor
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
-            _ancestorApplicantDeceaseds = ancestorApplicantDeceaseds;
+            _maintenance = maintenance;
         }
 
         public void SetShift(string AF)
@@ -75,15 +75,18 @@ namespace Memorial.Lib.Ancestor
             _ancestor.SetAncestor(oldQuadranlgeId);
 
             var deceaseds = _deceased.GetDeceasedsByAncestorId(oldQuadranlgeId);
-            if (_ancestor.HasDeceased())
+
+            foreach (var deceased in deceaseds)
             {
-                foreach (var deceased in deceaseds)
-                {
-                    _deceased.SetDeceased(deceased.Id);
-                    _deceased.SetAncestor(newAncestorId);
-                }
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.SetAncestor(newAncestorId);
+            }
+
+            if (deceaseds.Any())
+            {
                 _ancestor.SetHasDeceased(false);
             }
+
             _ancestor.RemoveApplicant();
 
             _ancestor.SetAncestor(newAncestorId);
@@ -99,10 +102,14 @@ namespace Memorial.Lib.Ancestor
             if (_ancestor.HasApplicant())
                 return false;
 
-
-            _ancestor.SetAncestor(ancestorTransactionDto.AncestorId);
-            if (!SetDeceasedIdBasedOnAncestorLastTransaction(ancestorTransactionDto))
+            if (!SetTransactionDeceasedIdBasedOnAncestor(ancestorTransactionDto, (int)ancestorTransactionDto.ShiftedAncestorId))
                 return false;
+
+            ancestorTransactionDto.ShiftedAncestorTransactionAF = _tracking.GetLatestFirstTransactionByAncestorId((int)ancestorTransactionDto.ShiftedAncestorId).AncestorTransactionAF;
+
+            GetTransaction(ancestorTransactionDto.ShiftedAncestorTransactionAF).DeleteDate = System.DateTime.Now;
+
+            _tracking.Remove((int)ancestorTransactionDto.ShiftedAncestorId, ancestorTransactionDto.ShiftedAncestorTransactionAF);
 
             NewNumber(ancestorTransactionDto.AncestorItemId);
 
@@ -110,9 +117,9 @@ namespace Memorial.Lib.Ancestor
             {
                 ShiftAncestorApplicantDeceaseds(ancestorTransactionDto.AncestorId, (int)ancestorTransactionDto.ShiftedAncestorId, ancestorTransactionDto.ApplicantId);
 
-                _tracking.Add(ancestorTransactionDto.AncestorId, _AFnumber);
+                _maintenance.ChangeAncestor((int)ancestorTransactionDto.ShiftedAncestorId, ancestorTransactionDto.AncestorId);
 
-                _tracking.Add((int)ancestorTransactionDto.ShiftedAncestorId, _AFnumber, ancestorTransactionDto.ApplicantId, ancestorTransactionDto.DeceasedId);
+                _tracking.Add(ancestorTransactionDto.AncestorId, _AFnumber, ancestorTransactionDto.ApplicantId, ancestorTransactionDto.DeceasedId);
 
                 _unitOfWork.Complete();
             }
@@ -136,31 +143,83 @@ namespace Memorial.Lib.Ancestor
 
             if(ancestorTransactionInDb.ShiftedAncestorId != ancestorTransactionDto.ShiftedAncestorId)
             {
-                _tracking.Remove((int)ancestorTransactionInDb.ShiftedAncestorId, ancestorTransactionDto.AF);
+                if (!SetTransactionDeceasedIdBasedOnAncestor(ancestorTransactionDto, ancestorTransactionInDb.AncestorId))
+                    return false;
 
-                _tracking.Add((int)ancestorTransactionDto.ShiftedAncestorId, ancestorTransactionDto.AF, ancestorTransactionDto.ApplicantId, ancestorTransactionDto.DeceasedId);
+                _tracking.Remove(ancestorTransactionInDb.AncestorId, ancestorTransactionDto.AF);
 
-                ShiftAncestorApplicantDeceaseds((int)ancestorTransactionInDb.ShiftedAncestorId, (int)ancestorTransactionDto.ShiftedAncestorId, ancestorTransactionDto.ApplicantId);
+                _tracking.Add(ancestorTransactionDto.AncestorId, ancestorTransactionDto.AF, ancestorTransactionDto.ApplicantId, ancestorTransactionDto.DeceasedId);
+
+                ShiftAncestorApplicantDeceaseds(ancestorTransactionInDb.AncestorId, ancestorTransactionDto.AncestorId, ancestorTransactionDto.ApplicantId);
+
+                _maintenance.ChangeAncestor(ancestorTransactionInDb.AncestorId, ancestorTransactionDto.AncestorId);
+
+                UpdateTransaction(ancestorTransactionDto);
+
+                _unitOfWork.Complete();
             }
-
-            UpdateTransaction(ancestorTransactionDto);
-
-            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete()
         {
+            if (GetTransactionsByShiftedAncestorTransactionAF(_transaction.AF) != null)
+                return false;
+
             if (!_tracking.IsLatestTransaction((int)_transaction.ShiftedAncestorId, _transaction.AF))
+                return false;
+
+            _ancestor.SetAncestor((int)_transaction.ShiftedAncestorId);
+            if (_ancestor.HasApplicant())
                 return false;
 
             DeleteTransaction();
 
+
+            _ancestor.SetAncestor(_transaction.AncestorId);
+
+            _ancestor.RemoveApplicant();
+
+            _ancestor.SetHasDeceased(false);
+
+            var deceaseds = _deceased.GetDeceasedsByAncestorId(_transaction.AncestorId);
+
+            foreach (var deceased in deceaseds)
+            {
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.RemoveQuadrangle();
+            }
+
+            _tracking.Remove(_transaction.AncestorId, _transaction.AF);
+
+
+            var previousTransaction = GetTransactionExclusive(_transaction.ShiftedAncestorTransactionAF);
+
+            _ancestor.SetAncestor(previousTransaction.AncestorId);
+
+            _ancestor.SetApplicant(previousTransaction.ApplicantId);
+
+            if (previousTransaction.DeceasedId != null)
+            {
+                _deceased.SetDeceased((int)previousTransaction.DeceasedId);
+
+                if (_deceased.GetAncestor() != null && _deceased.GetAncestor().Id != _transaction.AncestorId)
+                    return false;
+
+                _deceased.SetAncestor(previousTransaction.AncestorId);
+
+                _ancestor.SetHasDeceased(true);
+            }
+
+            previousTransaction.DeleteDate = null;
+
+            _tracking.Add(previousTransaction.AncestorId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.DeceasedId);
+
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _ancestorApplicantDeceaseds.RollbackAncestorApplicantDeceaseds(_transaction.AF, (int)_transaction.ShiftedAncestorId);
+            _maintenance.ChangeAncestor(_transaction.AncestorId, previousTransaction.AncestorId);
 
             _unitOfWork.Complete();
 

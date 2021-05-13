@@ -880,6 +880,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib\Ancestor\AncestorDeceased\IAncestorDeceased.cs" />
+    <Compile Include="Lib\Ancestor\AncestorDeceased\AncestorDeceased.cs" />
     <Compile Include="Lib\Ancestor\Ancestor\Ancestor.cs" />
     <Compile Include="Lib\Ancestor\Ancestor\IAncestor.cs" />
     <Compile Include="Lib\Ancestor\Area\Area.cs" />
@@ -898,9 +900,7 @@
     <Compile Include="Lib\Ancestor\Payment\Payment.cs" />
     <Compile Include="Lib\Ancestor\Shift\IShift.cs" />
     <Compile Include="Lib\Ancestor\Shift\Shift.cs" />
-    <Compile Include="Lib\Ancestor\Tracking\IAncestorApplicantDeceaseds.cs" />
     <Compile Include="Lib\Ancestor\Tracking\ITracking.cs" />
-    <Compile Include="Lib\Ancestor\Tracking\AncestorApplicantDeceaseds.cs" />
     <Compile Include="Lib\Ancestor\Tracking\Tracking.cs" />
     <Compile Include="Lib\Ancestor\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Ancestor\Transaction\Transaction.cs" />
@@ -1008,9 +1008,7 @@
     <Compile Include="Lib\Quadrangle\Order\IOrder.cs" />
     <Compile Include="Lib\Quadrangle\Shift\IShift.cs" />
     <Compile Include="Lib\Quadrangle\Shift\Shift.cs" />
-    <Compile Include="Lib\Quadrangle\Tracking\IQuadrangleApplicantDeceaseds.cs" />
     <Compile Include="Lib\Quadrangle\Tracking\ITracking.cs" />
-    <Compile Include="Lib\Quadrangle\Tracking\QuadrangleApplicantDeceaseds.cs" />
     <Compile Include="Lib\Quadrangle\Tracking\Tracking.cs" />
     <Compile Include="Lib\Quadrangle\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Quadrangle\Centre\ICentre.cs" />
@@ -2094,6 +2092,10 @@
     <Compile Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs" />
     <Compile Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.designer.cs">
       <DependentUpon>202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105121414318_AddHasFreeOrderToAncestorsTable.cs" />
+    <Compile Include="Migrations\202105121414318_AddHasFreeOrderToAncestorsTable.designer.cs">
+      <DependentUpon>202105121414318_AddHasFreeOrderToAncestorsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
@@ -3202,6 +3204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105101459574_AddHasFreeOrderColumnToQuadranglesTable.resx">
       <DependentUpon>202105101459574_AddHasFreeOrderColumnToQuadranglesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105121414318_AddHasFreeOrderToAncestorsTable.resx">
+      <DependentUpon>202105121414318_AddHasFreeOrderToAncestorsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

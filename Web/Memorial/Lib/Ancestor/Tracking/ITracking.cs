@@ -22,7 +22,7 @@ namespace Memorial.Lib.Ancestor
 
         IEnumerable<Core.Domain.AncestorTracking> GetTrackingByAncestorId(int ancestorId);
 
-        IEnumerable<Core.Domain.AncestorTracking> GetTrackingByTransactionAF(string ancestorTransactionAF);
+        Core.Domain.AncestorTracking GetTrackingByTransactionAF(string ancestorTransactionAF);
 
         void Delete(string ancestorTransactionAF);
 

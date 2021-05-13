@@ -77,18 +77,16 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.AncestorTrackings.GetTrackingByAncestorId(ancestorId);
         }
 
-        public IEnumerable<Core.Domain.AncestorTracking> GetTrackingByTransactionAF(string ancestorTransactionAF)
+        public Core.Domain.AncestorTracking GetTrackingByTransactionAF(string ancestorTransactionAF)
         {
             return _unitOfWork.AncestorTrackings.GetTrackingByTransactionAF(ancestorTransactionAF);
         }
 
         public void Delete(string ancestorTransactionAF)
         {
-            var trackings = _unitOfWork.AncestorTrackings.GetTrackingByTransactionAF(ancestorTransactionAF);
-            foreach(var tracking in trackings)
-            {
+            var tracking = GetTrackingByTransactionAF(ancestorTransactionAF);
+            if (tracking != null)
                 _unitOfWork.AncestorTrackings.Remove(tracking);
-            }
         }
 
         public bool IsLatestTransaction(int ancestorId, string ancestorTransactionAF)
