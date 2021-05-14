@@ -32,7 +32,7 @@ namespace Memorial.Lib.Plot
 
         IEnumerable<Core.Domain.PlotTracking> GetTrackingByPlotId(int plotId);
 
-        IEnumerable<Core.Domain.PlotTracking> GetTrackingByTransactionAF(string plotTransactionAF);
+        Core.Domain.PlotTracking GetTrackingByTransactionAF(string plotTransactionAF);
 
         void Delete(string plotTransactionAF);
 

@@ -22,7 +22,11 @@ namespace Memorial.Core.Dtos
 
         public Applicant Applicant { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
+
+        public PlotLandscapeCompanyDto PlotLandscapeCompanyDto { get; set; }
+
+        public int? PlotLandscapeCompanyId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

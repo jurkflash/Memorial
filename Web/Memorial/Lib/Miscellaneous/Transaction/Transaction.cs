@@ -109,7 +109,7 @@ namespace Memorial.Lib.Miscellaneous
             return _item.IsOrder();
         }
 
-        public int GetTransactionApplicantId()
+        public int? GetTransactionApplicantId()
         {
             return _transaction.ApplicantId;
         }

@@ -36,7 +36,7 @@ namespace Memorial.Lib.Miscellaneous
 
         bool IsItemOrder();
 
-        int GetTransactionApplicantId();
+        int? GetTransactionApplicantId();
 
         IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId);
 

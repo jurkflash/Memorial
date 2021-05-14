@@ -6,6 +6,6 @@ namespace Memorial.ViewModels
     public class MiscellaneousIndexesViewModel
     {
         public IEnumerable<MiscellaneousDto> MiscellaneousDtos { get; set; }
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
     }
 }

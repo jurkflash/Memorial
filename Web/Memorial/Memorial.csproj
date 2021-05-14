@@ -536,6 +536,9 @@
     <Content Include="Areas\Plot\Views\Reciprocate\Index.cshtml" />
     <Content Include="Areas\Plot\Views\Reciprocate\Info.cshtml" />
     <Content Include="Areas\Plot\Views\Reciprocate\Form.cshtml" />
+    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Form.cshtml" />
+    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Index.cshtml" />
+    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Info.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -662,6 +665,8 @@
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
+    <Compile Include="Areas\Miscellaenous\Controllers\ReciprocateController.cs" />
+    <Compile Include="Areas\Miscellaenous\Data\MiscellaneousTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Miscellaenous\MiscellaenousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
     <Compile Include="Areas\Plot\Controllers\ClearanceController.cs" />
@@ -942,6 +947,10 @@
     <Compile Include="Lib\Deceased\IDeceased.cs" />
     <Compile Include="Lib\FengShuiMaster\FengShuiMaster.cs" />
     <Compile Include="Lib\FengShuiMaster\IFengShuiMaster.cs" />
+    <Compile Include="Lib\Miscellaneous\Reciprocate\IReciprocate.cs" />
+    <Compile Include="Lib\Miscellaneous\Reciprocate\Reciprocate.cs" />
+    <Compile Include="Lib\PlotLandscapeCompany\PlotLandscapeCompany.cs" />
+    <Compile Include="Lib\PlotLandscapeCompany\IPlotLandscapeCompany.cs" />
     <Compile Include="Lib\FuneralCompany\FuneralCompany.cs" />
     <Compile Include="Lib\FuneralCompany\IFuneralCompany.cs" />
     <Compile Include="Lib\GenderType\GenderType.cs" />
@@ -2132,6 +2141,22 @@
     <Compile Include="Migrations\202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.designer.cs">
       <DependentUpon>202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105141104396_AddPlotLandscapeCompanyIdToMiscellaneousTransactionsTable.cs" />
+    <Compile Include="Migrations\202105141104396_AddPlotLandscapeCompanyIdToMiscellaneousTransactionsTable.designer.cs">
+      <DependentUpon>202105141104396_AddPlotLandscapeCompanyIdToMiscellaneousTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105141109593_ChangeApplicantIdToAllowNullForMiscellaneousTransactionsTable.cs" />
+    <Compile Include="Migrations\202105141109593_ChangeApplicantIdToAllowNullForMiscellaneousTransactionsTable.designer.cs">
+      <DependentUpon>202105141109593_ChangeApplicantIdToAllowNullForMiscellaneousTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105141117274_AddDataForMiscellaneousTable.cs" />
+    <Compile Include="Migrations\202105141117274_AddDataForMiscellaneousTable.designer.cs">
+      <DependentUpon>202105141117274_AddDataForMiscellaneousTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105141118457_AddDataForMiscellaneousItemTable.cs" />
+    <Compile Include="Migrations\202105141118457_AddDataForMiscellaneousItemTable.designer.cs">
+      <DependentUpon>202105141118457_AddDataForMiscellaneousItemTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -3252,6 +3277,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.resx">
       <DependentUpon>202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105141104396_AddPlotLandscapeCompanyIdToMiscellaneousTransactionsTable.resx">
+      <DependentUpon>202105141104396_AddPlotLandscapeCompanyIdToMiscellaneousTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105141109593_ChangeApplicantIdToAllowNullForMiscellaneousTransactionsTable.resx">
+      <DependentUpon>202105141109593_ChangeApplicantIdToAllowNullForMiscellaneousTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105141117274_AddDataForMiscellaneousTable.resx">
+      <DependentUpon>202105141117274_AddDataForMiscellaneousTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105141118457_AddDataForMiscellaneousItemTable.resx">
+      <DependentUpon>202105141118457_AddDataForMiscellaneousItemTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
