@@ -22,9 +22,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.PlotTrackings.Where(qt => qt.PlotId == plotId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public IEnumerable<PlotTracking> GetTrackingByTransactionAF(string plotTransactionAF)
+        public PlotTracking GetTrackingByTransactionAF(string plotTransactionAF)
         {
-            return MemorialContext.PlotTrackings.Where(qt => qt.PlotTransactionAF == plotTransactionAF).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.PlotTrackings.Where(qt => qt.PlotTransactionAF == plotTransactionAF).OrderByDescending(qt => qt.ActionDate).SingleOrDefault();
         }
 
         public PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string plotTransactionAF)

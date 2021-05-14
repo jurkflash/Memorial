@@ -5,11 +5,10 @@ namespace Memorial.Lib.Quadrangle
 {
     public interface ITracking
     {
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? quadrangleTrackingParentId);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? quadrangleTrackingParentId);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? quadrangleTrackingParentId);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? shiftedFromQuadrangleId, int? quadrangleTrackingParentId);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int? quadrangleTrackingParentId);
+        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId);
+        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id);
+        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id);
+        void Add(int quadrangleId, string quadrangleTransactionAF);
         void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id);
         void ChangeQuadrangleId(int trackingId, int quadrangleId);
         void Delete(string quadrangleTransactionAF);

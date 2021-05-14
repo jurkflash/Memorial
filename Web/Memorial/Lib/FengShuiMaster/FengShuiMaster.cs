@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace Memorial.Lib.FengShuiMaster
 {
-    public class FengShuiMaster
+    public class FengShuiMaster : IFengShuiMaster
     {
         private readonly IUnitOfWork _unitOfWork;
         private Core.Domain.FengShuiMaster _fengShuiMaster;
@@ -18,35 +18,35 @@ namespace Memorial.Lib.FengShuiMaster
             _unitOfWork = unitOfWork;
         }
 
-        public void SetFuneralCompany(int id)
+        public void SetFengShuiMaster(int id)
         {
             _fengShuiMaster = _unitOfWork.FengShuiMasters.GetActive(id);
         }
 
-        public Core.Domain.FengShuiMaster GetFuneralCompany()
+        public Core.Domain.FengShuiMaster GetFengShuiMaster()
         {
             return _fengShuiMaster;
         }
 
-        public Core.Domain.FengShuiMaster GetFuneralCompany(int id)
+        public Core.Domain.FengShuiMaster GetFengShuiMaster(int id)
         {
             return _unitOfWork.FengShuiMasters.GetActive(id);
         }
 
-        public FuneralCompanyDto GetFuneralCompanyDto(int id)
+        public FengShuiMasterDto GetFengShuiMasterDto(int id)
         {
-            return Mapper.Map<Core.Domain.FengShuiMaster, FuneralCompanyDto>(GetFuneralCompany(id));
+            return Mapper.Map<Core.Domain.FengShuiMaster, FengShuiMasterDto>(GetFengShuiMaster(id));
         }
 
-        public IEnumerable<FuneralCompanyDto> GetFuneralCompanyDtos()
+        public IEnumerable<FengShuiMasterDto> GetFengShuiMasterDtos()
         {
-            return Mapper.Map<IEnumerable<Core.Domain.FengShuiMaster>, IEnumerable<FuneralCompanyDto>>(_unitOfWork.FengShuiMasters.GetAllActive());
+            return Mapper.Map<IEnumerable<Core.Domain.FengShuiMaster>, IEnumerable<FengShuiMasterDto>>(_unitOfWork.FengShuiMasters.GetAllActive());
         }
 
-        public bool CreateFuneralCompany(FuneralCompanyDto funeralCompanyDto)
+        public bool CreateFengShuiMaster(FengShuiMasterDto FengShuiMasterDto)
         {
             _fengShuiMaster = new Core.Domain.FengShuiMaster();
-            Mapper.Map(funeralCompanyDto, _fengShuiMaster);
+            Mapper.Map(FengShuiMasterDto, _fengShuiMaster);
 
             _fengShuiMaster.CreateDate = DateTime.Now;
 
@@ -57,30 +57,30 @@ namespace Memorial.Lib.FengShuiMaster
             return true;
         }
 
-        public bool UpdateFuneralCompany(FuneralCompanyDto funeralCompanyDto)
+        public bool UpdateFengShuiMaster(FengShuiMasterDto FengShuiMasterDto)
         {
-            var funeralCompanyInDB = GetFuneralCompany(funeralCompanyDto.Id);
+            var FengShuiMasterInDB = GetFengShuiMaster(FengShuiMasterDto.Id);
 
-            Mapper.Map(funeralCompanyDto, funeralCompanyInDB);
+            Mapper.Map(FengShuiMasterDto, FengShuiMasterInDB);
 
-            funeralCompanyInDB.ModifyDate = DateTime.Now;
+            FengShuiMasterInDB.ModifyDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool DeleteFuneralCompany(int id)
+        public bool DeleteFengShuiMaster(int id)
         {
             //if (
-            //    _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-            //    _unitOfWork.QuadrangleTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-            //    _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any())
+            //    _unitOfWork.CremationTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any() ||
+            //    _unitOfWork.QuadrangleTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any() ||
+            //    _unitOfWork.SpaceTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any())
             //{
             //    return false;
             //}
 
-            SetFuneralCompany(id);
+            SetFengShuiMaster(id);
 
             _fengShuiMaster.DeleteDate = DateTime.Now;
 

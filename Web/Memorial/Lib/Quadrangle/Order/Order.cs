@@ -181,7 +181,7 @@ namespace Memorial.Lib.Quadrangle
             if (!_tracking.IsLatestTransaction(_transaction.QuadrangleId, _transaction.AF))
                 return false;
 
-            DeleteTransaction();
+            DeleteAllTransactionWithSameQuadrangleId();
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();

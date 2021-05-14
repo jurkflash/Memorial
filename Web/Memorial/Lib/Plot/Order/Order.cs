@@ -181,12 +181,27 @@ namespace Memorial.Lib.Plot
             if (!_tracking.IsLatestTransaction(_transaction.PlotId, _transaction.AF))
                 return false;
 
-            DeleteTransaction();
+            DeleteAllTransactionWithSamePlotId();
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _plotApplicantDeceaseds.RollbackPlotApplicantDeceaseds(_transaction.AF, _transaction.PlotId);
+
+            _plot.SetPlot(_transaction.PlotId);
+
+            var deceaseds = _deceased.GetDeceasedsByPlotId(_transaction.PlotId);
+
+            foreach (var deceased in deceaseds)
+            {
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.RemovePlot();
+            }
+
+            _plot.SetHasDeceased(false);
+
+            _plot.RemoveApplicant();
+
+            _tracking.Delete(_transaction.AF);
 
             _unitOfWork.Complete();
 

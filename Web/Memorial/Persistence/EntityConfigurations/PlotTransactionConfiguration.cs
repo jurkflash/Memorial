@@ -56,6 +56,16 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(pt => pt.ClearedApplicantId)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(pt => pt.TransferredApplicant)
+                .WithMany(a => a.PlotTransactions3)
+                .HasForeignKey(pt => pt.TransferredApplicantId)
+                .WillCascadeOnDelete(false);
+
+            HasOptional(pt => pt.TransferredPlotTransaction)
+                .WithMany()
+                .HasForeignKey(pt => pt.TransferredPlotTransactionAF)
+                .WillCascadeOnDelete(false);
+
         }
     }
 }

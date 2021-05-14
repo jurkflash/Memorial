@@ -15,6 +15,8 @@ namespace Memorial.Core.Repositories
 
         QuadrangleTransaction GetByShiftedQuadrangleTransactionAF(string AF);
 
+        IEnumerable<QuadrangleTransaction> GetByQuadrangleId(int quadrangleId);
+
         IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId);
     }
 }

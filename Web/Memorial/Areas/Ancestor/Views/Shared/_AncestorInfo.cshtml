@@ -1,0 +1,116 @@
+﻿@model Memorial.ViewModels.AncestorInfoViewModel
+
+<div class="form-group row">
+    <div class="col-md-3">
+        Site
+    </div>
+    <div class="col-md-3">
+        @Model.SiteDto.Name
+    </div>
+    <div class="col-md-3">
+        Area
+    </div>
+    <div class="col-md-3">
+        @Model.AncestorAreaDto.Name
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-2">
+        Name
+    </div>
+    <div class="col-md-2">
+        @Model.AncestorDto.Name
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        Position X
+    </div>
+    <div class="col-md-3">
+        @Model.AncestorDto.PositionX
+    </div>
+    <div class="col-md-3">
+        Position Y
+    </div>
+    <div class="col-md-3">
+        @Model.AncestorDto.PositionY
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-1">
+        Price
+    </div>
+    <div class="col-md-1">
+        @Model.AncestorDto.Price
+    </div>
+    <div class="col-md-1">
+        Maintenance
+    </div>
+    <div class="col-md-1">
+        @Model.AncestorDto.Maintenance
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.AncestorDto.Remark
+    </div>
+</div>
+<hr />
+<h5>Owner</h5>
+@if (Model.ApplicantDto == null)
+{
+    <div>no owner</div>
+}
+else
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            English Name
+        </div>
+        <div class="col-md-3">
+            @Html.ActionLink(Model.ApplicantDto.Name, "Info", "Applicants", new { id = Model.ApplicantDto.Id }, null)
+        </div>
+        <div class="col-md-3">
+            Chinese Name
+        </div>
+        <div class="col-md-3">
+            @Model.ApplicantDto.Name2
+        </div>
+    </div>
+    <h5>Deceased</h5>
+    if (Model.DeceasedFlattenDto == null)
+    {
+        <div>no deceased</div>
+    }
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-1">
+                English Name
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink(Model.DeceasedFlattenDto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlattenDto.DeceasedId }, null)
+            </div>
+            <div class="col-md-1">
+                Chinese Name
+            </div>
+            <div class="col-md-2">
+                @Model.DeceasedFlattenDto.DeceasedName2
+            </div>
+            <div class="col-md-2">
+                Relationship
+            </div>
+            <div class="col-md-2">
+                @Model.DeceasedFlattenDto.RelationshipTypeName
+            </div>
+        </div>
+    }
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.ActionLink("Install/Remove", "Index", "AncestorDeceaseds", new { id = Model.AncestorDto.Id }, null)
+        </div>
+    </div>
+}

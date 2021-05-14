@@ -1,12 +1,5 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Lib.Applicant;
-using Memorial.Lib.Deceased;
-using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Plot
 {
@@ -34,7 +27,39 @@ namespace Memorial.Lib.Plot
             Create(plotId, plotTransactionAF, applicantId, deceased1Id);
         }
 
-        private void Create(int plotId, string plotTransactionAF, int? applicantId = null, int? deceased1Id = null)
+        public void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
+        {
+            Create(plotId, plotTransactionAF, applicantId, deceased1Id, deceased2Id);
+        }
+
+        public void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? deceased3Id)
+        {
+            Create(plotId, plotTransactionAF, applicantId, deceased1Id, deceased2Id, deceased3Id);
+        }
+
+        public void AddDeceased(int plotId, int deceasedId)
+        {
+            var tracking = GetLatestFirstTransactionByPlotId(plotId);
+
+            if (tracking.Deceased1Id == null)
+            {
+                tracking.Deceased1Id = deceasedId;
+            }
+            else if (tracking.Deceased2Id == null)
+            {
+                tracking.Deceased2Id = deceasedId;
+            }
+            else if (tracking.Deceased3Id == null)
+            {
+                tracking.Deceased3Id = deceasedId;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void Create(int plotId, string plotTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null, int? deceased3Id = null)
         {
             _unitOfWork.PlotTrackings.Add(new Core.Domain.PlotTracking()
             {
@@ -42,6 +67,8 @@ namespace Memorial.Lib.Plot
                 PlotTransactionAF = plotTransactionAF,
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
+                Deceased2Id = deceased2Id,
+                Deceased3Id = deceased3Id,
                 ActionDate = System.DateTime.Now
             });
 
@@ -58,12 +85,58 @@ namespace Memorial.Lib.Plot
             tracking.ActionDate = System.DateTime.Now;
         }
 
+        public void ChangeDeceased(int plotId, string plotTransactionAF, int oldDeceasedId, int newDeceasedId)
+        {
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+
+            if(tracking.Deceased1Id == oldDeceasedId)
+            {
+                tracking.Deceased1Id = newDeceasedId;
+            }
+            else if (tracking.Deceased2Id == oldDeceasedId)
+            {
+                tracking.Deceased2Id = newDeceasedId;
+            }
+            else if (tracking.Deceased3Id == oldDeceasedId)
+            {
+                tracking.Deceased3Id = newDeceasedId;
+            }
+            else
+            {
+                return;
+            }
+
+            tracking.ActionDate = System.DateTime.Now;
+        }
+
         public void Remove(int plotId, string plotTransactionAF)
         {
             var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
 
             _unitOfWork.PlotTrackings.Remove(tracking);
 
+        }
+
+        public void RemoveDeceased(int plotId, string plotTransactionAF, int deceasedId)
+        {
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+
+            if (tracking.Deceased1Id == deceasedId)
+            {
+                tracking.Deceased1Id = null;
+            }
+            else if (tracking.Deceased2Id == deceasedId)
+            {
+                tracking.Deceased2Id = null;
+            }
+            else if (tracking.Deceased3Id == deceasedId)
+            {
+                tracking.Deceased3Id = null;
+            }
+            else
+            {
+                return;
+            }
         }
 
         public Core.Domain.PlotTracking GetLatestFirstTransactionByPlotId(int plotId)
@@ -76,18 +149,16 @@ namespace Memorial.Lib.Plot
             return _unitOfWork.PlotTrackings.GetTrackingByPlotId(plotId);
         }
 
-        public IEnumerable<Core.Domain.PlotTracking> GetTrackingByTransactionAF(string plotTransactionAF)
+        public Core.Domain.PlotTracking GetTrackingByTransactionAF(string plotTransactionAF)
         {
             return _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(plotTransactionAF);
         }
 
         public void Delete(string plotTransactionAF)
         {
-            var trackings = _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(plotTransactionAF);
-            foreach(var tracking in trackings)
-            {
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(plotTransactionAF);
+            if (tracking != null)
                 _unitOfWork.PlotTrackings.Remove(tracking);
-            }
         }
 
         public bool IsLatestTransaction(int plotId, string plotTransactionAF)

@@ -3,29 +3,40 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Memorial.ViewModels;
-using Memorial.Lib;
+using Memorial.Lib.Site;
 using Memorial.Lib.Applicant;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Ancestor;
 
 namespace Memorial.Areas.Ancestor.Controllers
 {
     public class AncestorController : Controller
     {
-        private readonly IApplicant _applicant;
         private readonly IAncestor _ancestor;
+        private readonly ISite _site;
         private readonly IArea _area;
         private readonly IItem _item;
+        private readonly IApplicant _applicant;
+        private readonly IDeceased _deceased;
+        private readonly IApplicantDeceased _applicantDeceased;
 
         public AncestorController(
-            IApplicant applicant,
             IAncestor ancestor,
+            ISite site,
             IArea area,
-            IItem item)
+            IItem item,
+            IApplicant applicant,
+            IDeceased deceased,
+            IApplicantDeceased applicantDeceased)
         {
-            _applicant = applicant;
             _ancestor = ancestor;
+            _site = site;
             _area = area;
             _item = item;
+            _applicant = applicant;
+            _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -60,6 +71,33 @@ namespace Memorial.Areas.Ancestor.Controllers
                 ApplicantId = applicantId
             };
             return View(viewModel);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult AncestorInfo(int id)
+        {
+            var viewModel = new AncestorInfoViewModel();
+            _ancestor.SetAncestor(id);
+
+            if (_ancestor.GetAncestorDto() != null)
+            {
+                viewModel.AncestorDto = _ancestor.GetAncestorDto();
+                viewModel.AncestorAreaDto = _area.GetAreaDto(_ancestor.GetAreaId());
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestorAreaDto.SiteId);
+
+                if (_ancestor.HasApplicant())
+                {
+                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestor.GetApplicantId());
+                    var deceaseds = _deceased.GetDeceasedsByAncestorId(_ancestor.GetAncestor().Id).ToList();
+                    if (deceaseds.Count > 0)
+                    {
+                        viewModel.DeceasedFlattenDto =
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestor.GetApplicantId(), deceaseds[0].Id);
+                    }
+                }
+            }
+
+            return PartialView("_AncestorInfo", viewModel);
         }
 
     }

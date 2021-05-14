@@ -526,6 +526,16 @@
     <Content Include="Areas\Setting\Views\web.config" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Quadrangle\Views\QuadrangleDeceaseds\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Clearance\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\Clearance\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\Shared\_PlotInfo.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Shared\_AncestorInfo.cshtml" />
+    <Content Include="Areas\Ancestor\Views\AncestorDeceaseds\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\NonOrderReceipts\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\NonOrderReceipts\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocate\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocate\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocate\Form.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -643,8 +653,10 @@
     <Compile Include="Areas\Ancestor\Controllers\OrderController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\NonOrderReceiptsController.cs" />
+    <Compile Include="Areas\Ancestor\Controllers\AncestorDeceasedsController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\ShiftController.cs" />
+    <Compile Include="Areas\Ancestor\Data\AncestorDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
@@ -652,6 +664,10 @@
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
     <Compile Include="Areas\Miscellaenous\MiscellaenousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
+    <Compile Include="Areas\Plot\Controllers\ClearanceController.cs" />
+    <Compile Include="Areas\Plot\Controllers\NonOrderReceiptsController.cs" />
+    <Compile Include="Areas\Plot\Controllers\ReciprocateController.cs" />
+    <Compile Include="Areas\Plot\Data\PlotInfoViewModel.cs" />
     <Compile Include="Areas\Plot\PlotAreaRegistration.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\QuadrangleDeceasedsController.cs" />
     <Compile Include="Areas\Quadrangle\Data\QuadrangleDeceasedsViewModel.cs" />
@@ -925,6 +941,7 @@
     <Compile Include="Lib\Deceased\Deceased.cs" />
     <Compile Include="Lib\Deceased\IDeceased.cs" />
     <Compile Include="Lib\FengShuiMaster\FengShuiMaster.cs" />
+    <Compile Include="Lib\FengShuiMaster\IFengShuiMaster.cs" />
     <Compile Include="Lib\FuneralCompany\FuneralCompany.cs" />
     <Compile Include="Lib\FuneralCompany\IFuneralCompany.cs" />
     <Compile Include="Lib\GenderType\GenderType.cs" />
@@ -971,6 +988,8 @@
     <Compile Include="Lib\Plot\Item\Item.cs" />
     <Compile Include="Lib\Plot\Number\INumber.cs" />
     <Compile Include="Lib\Plot\Number\Number.cs" />
+    <Compile Include="Lib\Plot\Reciprocate\IReciprocate.cs" />
+    <Compile Include="Lib\Plot\Reciprocate\Reciprocate.cs" />
     <Compile Include="Lib\Plot\SecondBurial\ISecondBurial.cs" />
     <Compile Include="Lib\Plot\SecondBurial\SecondBurial.cs" />
     <Compile Include="Lib\Plot\Order\IOrder.cs" />
@@ -2097,6 +2116,22 @@
     <Compile Include="Migrations\202105121414318_AddHasFreeOrderToAncestorsTable.designer.cs">
       <DependentUpon>202105121414318_AddHasFreeOrderToAncestorsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105131357379_AddShiftedAncestorTransactionToAncestorTransactionsTable.cs" />
+    <Compile Include="Migrations\202105131357379_AddShiftedAncestorTransactionToAncestorTransactionsTable.designer.cs">
+      <DependentUpon>202105131357379_AddShiftedAncestorTransactionToAncestorTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105140613295_RemoveQuadrangleTrackingParentFromQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202105140613295_RemoveQuadrangleTrackingParentFromQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202105140613295_RemoveQuadrangleTrackingParentFromQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105140626310_RemoveShiftedFromQuadrangleFromQuadrangleTrackingsTable.cs" />
+    <Compile Include="Migrations\202105140626310_RemoveShiftedFromQuadrangleFromQuadrangleTrackingsTable.designer.cs">
+      <DependentUpon>202105140626310_RemoveShiftedFromQuadrangleFromQuadrangleTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.cs" />
+    <Compile Include="Migrations\202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.designer.cs">
+      <DependentUpon>202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2424,11 +2459,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Ancestor\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Miscellaenous\Views\Shared\" />
-    <Folder Include="Areas\Plot\Views\Shared\" />
     <Folder Include="Areas\Setting\Data\" />
     <Folder Include="Areas\Setting\Views\AncestorArea\" />
     <Folder Include="Areas\Setting\Views\Shared\" />
@@ -3207,6 +3240,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105121414318_AddHasFreeOrderToAncestorsTable.resx">
       <DependentUpon>202105121414318_AddHasFreeOrderToAncestorsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105131357379_AddShiftedAncestorTransactionToAncestorTransactionsTable.resx">
+      <DependentUpon>202105131357379_AddShiftedAncestorTransactionToAncestorTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105140613295_RemoveQuadrangleTrackingParentFromQuadrangleTrackingsTable.resx">
+      <DependentUpon>202105140613295_RemoveQuadrangleTrackingParentFromQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105140626310_RemoveShiftedFromQuadrangleFromQuadrangleTrackingsTable.resx">
+      <DependentUpon>202105140626310_RemoveShiftedFromQuadrangleFromQuadrangleTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.resx">
+      <DependentUpon>202105140851126_AddTransferredApplicantAndPlotTransactionToPlotTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

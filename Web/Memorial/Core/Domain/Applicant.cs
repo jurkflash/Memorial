@@ -32,6 +32,8 @@ namespace Memorial.Core.Domain
 
             PlotTransactions2 = new HashSet<PlotTransaction>();
 
+            PlotTransactions3 = new HashSet<PlotTransaction>();
+
             UrnTransactions = new HashSet<UrnTransaction>();
 
             CremationTransactions = new HashSet<CremationTransaction>();
@@ -92,6 +94,8 @@ namespace Memorial.Core.Domain
         public ICollection<PlotTransaction> PlotTransactions1 { get; set; }
 
         public ICollection<PlotTransaction> PlotTransactions2 { get; set; }
+
+        public ICollection<PlotTransaction> PlotTransactions3 { get; set; }
 
         public ICollection<UrnTransaction> UrnTransactions { get; set; }
 

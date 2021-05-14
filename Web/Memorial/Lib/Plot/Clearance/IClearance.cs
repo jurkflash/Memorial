@@ -2,11 +2,10 @@
 
 namespace Memorial.Lib.Plot
 {
-    public interface IClearance
+    public interface IClearance : ITransaction
     {
         bool Create(PlotTransactionDto plotTransactionDto);
         bool Delete();
-        void NewNumber(int itemId);
         void SetClearance(string AF);
         bool Update(PlotTransactionDto plotTransactionDto);
     }

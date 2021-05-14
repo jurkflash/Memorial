@@ -30,14 +30,6 @@ namespace Memorial.Core.Domain
 
         public int? Deceased2Id { get; set; }
 
-        public Quadrangle ShiftedFromQuadrangle { get; set; }
-
-        public int? ShiftedFromQuadrangleId { get; set; }
-
-        public QuadrangleTracking QuadrangleTrackingParent { get; set; }
-
-        public int? QuadrangleTrackingParentId { get; set; }
-
         public DateTime ActionDate { get; set; }
 
     }

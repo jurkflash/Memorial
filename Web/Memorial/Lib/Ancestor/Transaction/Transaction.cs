@@ -164,6 +164,11 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.AncestorTransactions.GetByShiftedAncestorTransactionAF(AF);
         }
 
+        public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorId(int quadrangleId)
+        {
+            return _unitOfWork.AncestorTransactions.GetByAncestorId(quadrangleId);
+        }
+
         protected bool CreateNewTransaction(AncestorTransactionDto ancestorTransactionDto)
         {
             if (_AFnumber == "")
@@ -195,6 +200,20 @@ namespace Memorial.Lib.Ancestor
         protected bool DeleteTransaction()
         {
             _transaction.DeleteDate = System.DateTime.Now;
+
+            return true;
+        }
+
+        protected bool DeleteAllTransactionWithSameAncestorId()
+        {
+            var datetimeNow = System.DateTime.Now;
+
+            var transactions = GetTransactionsByAncestorId(_transaction.AncestorId);
+
+            foreach (var transaction in transactions)
+            {
+                transaction.DeleteDate = datetimeNow;
+            }
 
             return true;
         }

@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         PlotTransaction GetActive(string AF);
 
+        PlotTransaction GetExclusive(string AF);
+
         IEnumerable<PlotTransaction> GetByApplicant(int id);
 
         IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId);
@@ -16,6 +18,8 @@ namespace Memorial.Core.Repositories
         PlotTransaction GetLastPlotTransactionByPlotId(int plotId);
 
         PlotTransaction GetLastPlotTransactionByShiftedPlotId(int plotId);
+
+        IEnumerable<PlotTransaction> GetByPlotId(int plotId);
 
         IEnumerable<PlotTransaction> GetByPlotIdAndItemAndApplicant(int plotId, int itemId, int applicantId);
 

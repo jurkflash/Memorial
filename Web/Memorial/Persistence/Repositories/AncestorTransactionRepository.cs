@@ -74,6 +74,16 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<AncestorTransaction> GetByAncestorId(int ancestorId)
+        {
+            return MemorialContext.AncestorTransactions
+                .Include(at => at.Applicant)
+                .Include(at => at.Ancestor)
+                .Include(at => at.AncestorItem)
+                .Where(at => at.AncestorId == ancestorId && at.DeleteDate == null)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

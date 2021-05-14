@@ -13,6 +13,8 @@ namespace Memorial.ViewModels
 
         public IEnumerable<DeceasedBriefDto> DeceasedBriefDtos { get; set; }
 
+        public IEnumerable<FengShuiMasterDto> FengShuiMasterDtos { get; set; }
+
         public PlotTransactionDto PlotTransactionDto { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }

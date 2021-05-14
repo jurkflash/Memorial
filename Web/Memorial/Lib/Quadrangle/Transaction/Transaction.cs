@@ -165,6 +165,11 @@ namespace Memorial.Lib.Quadrangle
             return _unitOfWork.QuadrangleTransactions.GetByShiftedQuadrangleTransactionAF(AF);
         }
 
+        public IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleId (int quadrangleId)
+        {
+            return _unitOfWork.QuadrangleTransactions.GetByQuadrangleId(quadrangleId);
+        }
+
         protected bool CreateNewTransaction(QuadrangleTransactionDto quadrangleTransactionDto)
         {
             if (_AFnumber == "")
@@ -196,6 +201,20 @@ namespace Memorial.Lib.Quadrangle
         protected bool DeleteTransaction()
         {
             _transaction.DeleteDate = System.DateTime.Now;
+
+            return true;
+        }
+
+        protected bool DeleteAllTransactionWithSameQuadrangleId()
+        {
+            var datetimeNow = System.DateTime.Now;
+
+            var transactions = GetTransactionsByQuadrangleId(_transaction.QuadrangleId);
+
+            foreach(var transaction in transactions)
+            {
+                transaction.DeleteDate = datetimeNow;
+            }
 
             return true;
         }

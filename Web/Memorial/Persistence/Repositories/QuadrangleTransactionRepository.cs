@@ -74,6 +74,16 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
+        public IEnumerable<QuadrangleTransaction> GetByQuadrangleId(int quadrangleId)
+        {
+            return MemorialContext.QuadrangleTransactions
+                .Include(qt => qt.Applicant)
+                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.QuadrangleItem)
+                .Where(qt => qt.QuadrangleId == quadrangleId && qt.DeleteDate == null)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -1,0 +1,190 @@
+﻿@model Memorial.ViewModels.PlotInfoViewModel
+
+<div class="form-group row">
+    <div class="col-md-3">
+        Site
+    </div>
+    <div class="col-md-3">
+        @Model.SiteDto.Name
+    </div>
+    <div class="col-md-3">
+        Area
+    </div>
+    <div class="col-md-3">
+        @Model.PlotAreaDto.Name
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-2">
+        Name
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.Name
+    </div>
+    <div class="col-md-2">
+        Description
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.Description
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-1">
+        Price
+    </div>
+    <div class="col-md-1">
+        @Model.PlotDto.Price
+    </div>
+    <div class="col-md-1">
+        Maintenance
+    </div>
+    <div class="col-md-1">
+        @Model.PlotDto.Maintenance
+    </div>
+    <div class="col-md-1">
+        Brick
+    </div>
+    <div class="col-md-1">
+        @Model.PlotDto.Brick
+    </div>
+    <div class="col-md-1">
+        Dig
+    </div>
+    <div class="col-md-1">
+        @Model.PlotDto.Dig
+    </div>
+    <div class="col-md-1">
+        Wall
+    </div>
+    <div class="col-md-1">
+        @Model.PlotDto.Wall
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        Remark
+    </div>
+    <div class="col-md-3">
+        @Model.PlotDto.Remark
+    </div>
+</div>
+<hr />
+<h5>Owner</h5>
+@if (Model.ApplicantDto == null)
+{
+    <div>no owner</div>
+}
+else
+{
+    <div class="form-group row">
+        <div class="col-md-3">
+            English Name
+        </div>
+        <div class="col-md-3">
+            @Html.ActionLink(Model.ApplicantDto.Name, "Info", "Applicants", new { id = Model.ApplicantDto.Id }, null)
+        </div>
+        <div class="col-md-3">
+            Chinese Name
+        </div>
+        <div class="col-md-3">
+            @Model.ApplicantDto.Name2
+        </div>
+    </div>
+    if (Model.NumberOfPlacements == 1)
+    {
+        <h5>Deceased</h5>
+    }
+    else
+    {
+        <h5>Deceased1</h5>
+    }
+    if (Model.DeceasedFlatten1Dto == null)
+    {
+        <div>no deceased</div>
+    }
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-1">
+                English Name
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink(Model.DeceasedFlatten1Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten1Dto.DeceasedId }, null)
+            </div>
+            <div class="col-md-1">
+                Chinese Name
+            </div>
+            <div class="col-md-2">
+                @Model.DeceasedFlatten1Dto.DeceasedName2
+            </div>
+            <div class="col-md-2">
+                Relationship
+            </div>
+            <div class="col-md-2">
+                @Model.DeceasedFlatten1Dto.RelationshipTypeName
+            </div>
+        </div>
+    }
+    if (Model.NumberOfPlacements == 2)
+    {
+        <h5>Deceased2</h5>
+        if (Model.DeceasedFlatten2Dto == null)
+        {
+            <div>no deceased</div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-1">
+                    English Name
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink(Model.DeceasedFlatten2Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten2Dto.DeceasedId }, null)
+                </div>
+                <div class="col-md-2">
+                    Chinese Name
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten2Dto.DeceasedName2
+                </div>
+                <div class="col-md-2">
+                    Relationship
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten2Dto.RelationshipTypeName
+                </div>
+            </div>
+        }
+    }
+    if (Model.NumberOfPlacements == 3)
+    {
+        <h5>Deceased3</h5>
+        if (Model.DeceasedFlatten3Dto == null)
+        {
+            <div>no deceased</div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-1">
+                    English Name
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink(Model.DeceasedFlatten3Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten3Dto.DeceasedId }, null)
+                </div>
+                <div class="col-md-2">
+                    Chinese Name
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten2Dto.DeceasedName2
+                </div>
+                <div class="col-md-2">
+                    Relationship
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten2Dto.RelationshipTypeName
+                </div>
+            </div>
+        }
+    }
+}

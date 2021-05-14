@@ -166,7 +166,7 @@ namespace Memorial.Lib.Ancestor
             if (!_tracking.IsLatestTransaction(_transaction.AncestorId, _transaction.AF))
                 return false;
 
-            DeleteTransaction();
+            DeleteAllTransactionWithSameAncestorId();
 
             _ancestor.SetAncestor(_transaction.AncestorId);
 

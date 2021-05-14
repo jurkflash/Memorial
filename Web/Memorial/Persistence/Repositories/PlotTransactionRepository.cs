@@ -18,7 +18,19 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
                 .Include(pt => pt.PlotItem)
+                .Include(pt => pt.FengShuiMaster)
                 .Where(pt => pt.AF == AF && pt.DeleteDate == null)
+                .SingleOrDefault();
+        }
+
+        public PlotTransaction GetExclusive(string AF)
+        {
+            return MemorialContext.PlotTransactions
+                .Include(pt => pt.Applicant)
+                .Include(pt => pt.Plot)
+                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.FengShuiMaster)
+                .Where(pt => pt.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -34,6 +46,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
                 .Include(pt => pt.PlotItem)
+                .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.Deceased1)
                 .Where(pt => pt.PlotItemId == itemId
                                             && pt.PlotId == plotId
@@ -82,7 +95,15 @@ namespace Memorial.Persistence.Repositories
                 .Where(pt => pt.DeleteDate == null).OrderByDescending(pt => pt.CreateDate).FirstOrDefault();
         }
 
-
+        public IEnumerable<PlotTransaction> GetByPlotId(int plotId)
+        {
+            return MemorialContext.PlotTransactions
+                .Include(pt => pt.Plot)
+                .Include(pt => pt.Plot)
+                .Include(pt => pt.PlotItem)
+                .Where(pt => pt.PlotId == plotId && pt.DeleteDate == null)
+                .ToList();
+        }
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -18,6 +18,8 @@ namespace Memorial.Lib.Plot
 
         Core.Domain.PlotTransaction GetTransaction(string AF);
 
+        Core.Domain.PlotTransaction GetTransactionExclusive(string AF);
+
         PlotTransactionDto GetTransactionDto(string AF);
 
         string GetTransactionAF();

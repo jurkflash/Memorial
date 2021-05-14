@@ -1,30 +1,41 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Web.Mvc;
-using Memorial.Core;
 using Memorial.ViewModels;
 using Memorial.Lib.Plot;
+using Memorial.Lib.Applicant;
+using Memorial.Lib.Deceased;
+using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Site;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Areas.Plot.Controllers
 {
     public class PlotController : Controller
     {
         private readonly IPlot _plot;
+        private readonly ISite _site;
         private readonly IArea _area;
         private readonly IItem _item;
+        private readonly IApplicant _applicant;
+        private readonly IDeceased _deceased;
+        private readonly IApplicantDeceased _applicantDeceased;
 
         public PlotController(
             IPlot plot,
+            ISite site,
             IArea area,
-            IItem item)
+            IItem item,
+            IApplicant applicant,
+            IDeceased deceased,
+            IApplicantDeceased applicantDeceased)
         {
             _plot = plot;
+            _site = site;
             _area = area;
             _item = item;
+            _applicant = applicant;
+            _deceased = deceased;
+            _applicantDeceased = applicantDeceased;
         }
 
 
@@ -58,6 +69,44 @@ namespace Memorial.Areas.Plot.Controllers
                 ApplicantId = applicantId
             };
             return View(viewModel);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult PlotInfo(int id)
+        {
+            var viewModel = new PlotInfoViewModel();
+            _plot.SetPlot(id);
+
+            if (_plot.GetPlotDto() != null)
+            {
+                viewModel.PlotDto = _plot.GetPlotDto();
+                viewModel.NumberOfPlacements = _plot.GetNumberOfPlacement();
+                viewModel.PlotAreaDto = _area.GetAreaDto(_plot.GetAreaId());
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.PlotAreaDto.SiteId);
+
+                if (_plot.HasApplicant())
+                {
+                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_plot.GetApplicantId());
+                    var deceaseds = _deceased.GetDeceasedsByPlotId(_plot.GetPlot().Id).ToList();
+                    if (deceaseds.Count > 0)
+                    {
+                        viewModel.DeceasedFlatten1Dto =
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[0].Id);
+                    }
+                    if (deceaseds.Count > 1)
+                    {
+                        viewModel.DeceasedFlatten2Dto =
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[1].Id);
+                    }
+                    if (deceaseds.Count > 2)
+                    {
+                        viewModel.DeceasedFlatten3Dto =
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[2].Id);
+                    }
+                }
+            }
+
+            return PartialView("_PlotInfo", viewModel);
         }
 
     }

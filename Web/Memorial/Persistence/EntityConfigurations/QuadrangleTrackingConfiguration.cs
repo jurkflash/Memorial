@@ -32,16 +32,6 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.Deceased2Id)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(qt => qt.ShiftedFromQuadrangle)
-                .WithMany(qts => qts.QuadrangleTrackings2)
-                .HasForeignKey(qt => qt.ShiftedFromQuadrangleId)
-                .WillCascadeOnDelete(false);
-
-            HasOptional(qt => qt.QuadrangleTrackingParent)
-                .WithMany()
-                .HasForeignKey(qt => qt.QuadrangleTrackingParentId)
-                .WillCascadeOnDelete(false);
-
         }
     }
 }

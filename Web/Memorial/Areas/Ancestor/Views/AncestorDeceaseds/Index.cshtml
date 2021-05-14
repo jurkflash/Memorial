@@ -1,0 +1,81 @@
+﻿@model Memorial.ViewModels.AncestorDeceasedsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Save", "AncestorDeceaseds", new { area = "Ancestor" }))
+{
+    <div class="form-group row">
+        <div class="col-md-2">
+            Name
+        </div>
+        <div class="col-md-2">
+            @Model.AncestorDto.Name
+        </div>
+    </div>
+    <hr />
+    <h5>Owner</h5>
+    if (Model.ApplicantDto == null)
+    {
+        <div>no owner</div>
+    }
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                English Name
+            </div>
+            <div class="col-md-3">
+                @Html.ActionLink(Model.ApplicantDto.Name, "Info", "Applicants", new { id = Model.ApplicantDto.Id }, null)
+            </div>
+            <div class="col-md-3">
+                Chinese Name
+            </div>
+            <div class="col-md-3">
+                @Model.ApplicantDto.Name2
+            </div>
+        </div>
+        <h5>Deceased</h5>
+        if (Model.DeceasedFlatten1Dto == null)
+        {
+            @Html.DropDownListFor(q => q.Deceased1Id, new SelectList(Model.AvailableDeceaseds, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(q => q.Deceased1Id)
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-1">
+                    English Name
+                </div>
+                <div class="col-md-2">
+                    @Html.ActionLink(Model.DeceasedFlatten1Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten1Dto.DeceasedId }, null)
+                </div>
+                <div class="col-md-1">
+                    Chinese Name
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten1Dto.DeceasedName2
+                </div>
+                <div class="col-md-2">
+                    Relationship
+                </div>
+                <div class="col-md-2">
+                    @Model.DeceasedFlatten1Dto.RelationshipTypeName
+                </div>
+                <div class="col-md-2">
+                    @Html.ActionLink("Remove", "Remove", "AncestorDeceaseds", new { id = Model.AncestorDto.Id, deceasedId = Model.DeceasedFlatten1Dto.DeceasedId }, null)
+                </div>
+            </div>
+        }
+    }
+    <div class="form-group row">
+        <div class="col-md-6">
+            @Html.HiddenFor(qd => qd.AncestorDto.Id)
+            @Html.HiddenFor(qd => qd.Deceased1Id)
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}

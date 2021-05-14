@@ -96,7 +96,6 @@ namespace Memorial.Lib.Quadrangle
             if (!AllowQuadrangleDeceasePairing(quadrangleTransactionDto.QuadrangleId, quadrangleTransactionDto.ApplicantId))
                 return false;
 
-
             if (!SetTransactionDeceasedIdBasedOnQuadrangle(quadrangleTransactionDto, quadrangleTransactionDto.QuadrangleId))
                 return false;
 

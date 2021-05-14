@@ -64,6 +64,14 @@ namespace Memorial.Core.Domain
 
         public int? ClearedApplicantId { get; set; }
 
+        public Applicant TransferredApplicant { get; set; }
+
+        public int? TransferredApplicantId { get; set; }
+
+        public PlotTransaction TransferredPlotTransaction { get; set; }
+
+        public string TransferredPlotTransactionAF { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

@@ -1,12 +1,5 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Lib.Applicant;
-using Memorial.Lib.Deceased;
-using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Quadrangle
 {
@@ -19,32 +12,27 @@ namespace Memorial.Lib.Quadrangle
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int? quadrangleTrackingParentId)
+        public void Add(int quadrangleId, string quadrangleTransactionAF)
         {
-            Create(quadrangleId, quadrangleTransactionAF, quadrangleTrackingParentId);
+            Create(quadrangleId, quadrangleTransactionAF);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? quadrangleTrackingParentId)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, quadrangleTrackingParentId);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? quadrangleTrackingParentId)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, quadrangleTrackingParentId);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? quadrangleTrackingParentId)
+        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id, quadrangleTrackingParentId);
+            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? shiftedFromQuadrangleId, int? quadrangleTrackingParentId)
-        {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id, shiftedFromQuadrangleId, quadrangleTrackingParentId);
-        }
-
-        private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null, int? shiftedFromQuadrangleId = null, int? quadrangleTrackingParentId = null)
+        private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
         {
             _unitOfWork.QuadrangleTrackings.Add(new Core.Domain.QuadrangleTracking()
             {
@@ -53,8 +41,6 @@ namespace Memorial.Lib.Quadrangle
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
-                ShiftedFromQuadrangleId = shiftedFromQuadrangleId,
-                QuadrangleTrackingParentId = quadrangleTrackingParentId,
                 ActionDate = System.DateTime.Now
             });
         }

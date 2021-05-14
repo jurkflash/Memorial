@@ -5,12 +5,12 @@ namespace Memorial.Core.Repositories
 {
     public interface IPlotTrackingRepository : IRepository<PlotTracking>
     {
-        PlotTracking GetLatestFirstTransactionByPlotId(int quadrangleId);
+        PlotTracking GetLatestFirstTransactionByPlotId(int plotId);
 
-        IEnumerable<PlotTracking> GetTrackingByPlotId(int quadrangleId);
+        IEnumerable<PlotTracking> GetTrackingByPlotId(int plotId);
 
-        IEnumerable<PlotTracking> GetTrackingByTransactionAF(string quadrangleTransactionAF);
+        PlotTracking GetTrackingByTransactionAF(string plotTransactionAF);
 
-        PlotTracking GetTrackingByPlotIdAndTransactionAF(int quadrangleId, string quadrangleTransactionAF);
+        PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string plotTransactionAF);
     }
 }

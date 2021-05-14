@@ -90,7 +90,7 @@ namespace Memorial.Lib.Plot
                     }                        
                 }
 
-                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id);
+                _tracking.AddDeceased(plotTransactionDto.PlotDtoId, (int)plotTransactionDto.DeceasedDto1Id);
 
                 _unitOfWork.Complete();
             }
@@ -120,7 +120,7 @@ namespace Memorial.Lib.Plot
 
                 PlotApplicantDeceaseds(plotTransactionDto.DeceasedDto1Id, deceased1InDb);
 
-                _tracking.Change(plotTransactionDto.PlotDtoId, plotTransactionDto.AF, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id);
+                _tracking.ChangeDeceased(plotTransactionDto.PlotDtoId, plotTransactionDto.AF, (int)deceased1InDb, (int)plotTransactionDto.DeceasedDto1Id);
 
                 _unitOfWork.Complete();
             }
@@ -163,28 +163,20 @@ namespace Memorial.Lib.Plot
 
         public bool Delete()
         {
-            if (!_tracking.IsLatestTransaction(_transaction.PlotId, _transaction.AF))
-                return false;
-
             _plot.SetPlot(_transaction.PlotId);
-
-            var lastTransactionOfPlot = GetLastPlotTransactionByPlotId(_transaction.PlotId);
 
             DeleteTransaction();
 
-            if (lastTransactionOfPlot.AF == _transaction.AF)
+            if (_transaction.Deceased1Id != null)
             {
-                if (_transaction.Deceased1Id != null)
-                {
-                    SetDeceased((int)_transaction.Deceased1Id);
-                    _deceased.RemovePlot();
-                }
+                SetDeceased((int)_transaction.Deceased1Id);
+                _deceased.RemovePlot();
             }
+
+            _tracking.RemoveDeceased(_transaction.PlotId, _transaction.AF, (int)_transaction.Deceased1Id);
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
-
-            _tracking.Remove(_transaction.PlotId, _transaction.AF);
 
             _unitOfWork.Complete();
 

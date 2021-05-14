@@ -24,9 +24,6 @@ namespace Memorial.Lib.Plot
         private const string _fengShuiOrder = "CYFSD";
         private const float _fengShuiOrderPrice = 0;
 
-        private const string _fengShuiTransfer = "CYFSF";
-        private const float _fengShuiTransferPrice = 0;
-
         private const string _doubleSecondBurial = "SBDP2";
         private const float _doubleSecondBurialPrice = 0;
 
@@ -48,11 +45,20 @@ namespace Memorial.Lib.Plot
         private const string _fengShuiClearance = "SJFSD";
         private const float _fengShuiClearancePrice = 0;
 
+        private const string _fengShuiTransfer = "CYFSF";
+        private const float _fengShuiTransferPrice = 0;
+
+        private const string _fengShuiReciprocate = "CYFSG";
+        private const float _fengShuiReciprocatePrice = 0;
+
         private const string _orderName = "單 Order";
         private const string _orderSystemCode = "Order";
 
-        private const string _fengshuiTransferName = "轉讓 Transfer";
-        private const string _fengshuiTransferSystemCode = "FengShuiTransfer";
+        private const string _fengShuiTransferName = "轉讓 Transfer";
+        private const string _fengShuiTransferSystemCode = "FengShuiTransfer";
+
+        private const string _fengShuiReciprocateName = "回饋 Reciprocate";
+        private const string _fengShuiReciprocateSystemCode = "FengShuiReciprocate";
 
         private const string _secondBurialName = "附葬 Second Burial";
         private const string _secondBurialSystemCode = "SecondBurial";
@@ -307,8 +313,18 @@ namespace Memorial.Lib.Plot
                 Price = _fengShuiTransferPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _fengshuiTransferName,
-                SystemCode = _fengshuiTransferSystemCode
+                Name = _fengShuiTransferName,
+                SystemCode = _fengShuiTransferSystemCode
+            });
+
+            Create(new Core.Domain.PlotItem()
+            {
+                Code = _fengShuiReciprocate,
+                Price = _fengShuiReciprocatePrice,
+                isOrder = true,
+                PlotId = plotId,
+                Name = _fengShuiReciprocateName,
+                SystemCode = _fengShuiReciprocateSystemCode
             });
         }
     }

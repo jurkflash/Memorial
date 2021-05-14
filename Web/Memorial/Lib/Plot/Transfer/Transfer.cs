@@ -16,7 +16,6 @@ namespace Memorial.Lib.Plot
         private readonly Invoice.IPlot _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
 
         public Transfer(
             IUnitOfWork unitOfWork,
@@ -28,8 +27,7 @@ namespace Memorial.Lib.Plot
             INumber number,
             Invoice.IPlot invoice,
             IPayment payment,
-            ITracking tracking,
-            IPlotApplicantDeceaseds plotApplicantDeceaseds
+            ITracking tracking
             ) :
             base(
                 unitOfWork,
@@ -51,7 +49,6 @@ namespace Memorial.Lib.Plot
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
-            _plotApplicantDeceaseds = plotApplicantDeceaseds;
         }
 
         public void SetTransfer(string AF)
@@ -91,15 +88,20 @@ namespace Memorial.Lib.Plot
         public bool Create(PlotTransactionDto plotTransactionDto)
         {
             _plot.SetPlot(plotTransactionDto.PlotDtoId);
+            if (_plot.GetApplicantId() == plotTransactionDto.ApplicantDtoId)
+                return false;
 
             if (!AllowPlotDeceasePairing(_plot, plotTransactionDto.ApplicantDtoId))
                 return false;
 
-            if(!SetDeceasedIdBasedOnPlotLastTransaction(plotTransactionDto))
+            if (!SetTransactionDeceasedIdBasedOnPlot(plotTransactionDto, plotTransactionDto.PlotDtoId))
                 return false;
 
-            if (_plot.GetApplicantId() == plotTransactionDto.ApplicantDtoId)
-                return false;
+            plotTransactionDto.TransferredPlotTransactionAF = _tracking.GetLatestFirstTransactionByPlotId(plotTransactionDto.PlotDtoId).PlotTransactionAF;
+
+            GetTransaction(plotTransactionDto.TransferredPlotTransactionAF).DeleteDate = System.DateTime.Now;
+
+            _tracking.Remove(plotTransactionDto.PlotDtoId, plotTransactionDto.TransferredPlotTransactionAF);
 
             NewNumber(plotTransactionDto.PlotItemId);
 
@@ -107,7 +109,7 @@ namespace Memorial.Lib.Plot
             {
                 _plot.SetApplicant(plotTransactionDto.ApplicantDtoId);
 
-                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id);
+                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id, plotTransactionDto.DeceasedDto2Id, plotTransactionDto.DeceasedDto3Id);
 
                 _unitOfWork.Complete();
             }
@@ -140,12 +142,69 @@ namespace Memorial.Lib.Plot
             if (!_tracking.IsLatestTransaction(_transaction.PlotId, _transaction.AF))
                 return false;
 
+            _plot.SetPlot(_transaction.PlotId);
+
+            _plot.RemoveApplicant();
+
+            _plot.SetHasDeceased(false);
+
+            var deceaseds = _deceased.GetDeceasedsByPlotId(_transaction.PlotId);
+
+            foreach (var deceased in deceaseds)
+            {
+                _deceased.SetDeceased(deceased.Id);
+                _deceased.RemoveQuadrangle();
+            }
+
+            _tracking.Remove(_transaction.PlotId, _transaction.AF);
+
+
+            var previousTransaction = GetTransactionExclusive(_transaction.TransferredPlotTransactionAF);
+
+            _plot.SetPlot(previousTransaction.PlotId);
+
+            _plot.SetApplicant(previousTransaction.ApplicantId);
+
+            if (previousTransaction.Deceased1Id != null)
+            {
+                _deceased.SetDeceased((int)previousTransaction.Deceased1Id);
+
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
+                    return false;
+
+                _deceased.SetQuadrangle(previousTransaction.PlotId);
+
+                _plot.SetHasDeceased(true);
+            }
+
+            if (previousTransaction.Deceased2Id != null)
+            {
+                _deceased.SetDeceased((int)previousTransaction.Deceased2Id);
+
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
+                    return false;
+
+                _deceased.SetQuadrangle(previousTransaction.PlotId);
+
+                _plot.SetHasDeceased(true);
+            }
+
+            if (previousTransaction.Deceased3Id != null)
+            {
+                _deceased.SetDeceased((int)previousTransaction.Deceased3Id);
+
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
+                    return false;
+
+                _deceased.SetQuadrangle(previousTransaction.PlotId);
+
+                _plot.SetHasDeceased(true);
+            }
+
             DeleteTransaction();
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
-
-            _plotApplicantDeceaseds.RollbackPlotApplicantDeceaseds(_transaction.AF, _transaction.PlotId);
 
             _unitOfWork.Complete();
 

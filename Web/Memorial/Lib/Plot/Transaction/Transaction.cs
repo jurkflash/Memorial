@@ -68,9 +68,19 @@ namespace Memorial.Lib.Plot
             return _unitOfWork.PlotTransactions.GetActive(AF);
         }
 
+        public Core.Domain.PlotTransaction GetTransactionExclusive(string AF)
+        {
+            return _unitOfWork.PlotTransactions.GetExclusive(AF);
+        }
+
         public PlotTransactionDto GetTransactionDto(string AF)
         {
             return Mapper.Map<Core.Domain.PlotTransaction, PlotTransactionDto>(GetTransaction(AF));
+        }
+
+        public IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotId(int plotId)
+        {
+            return _unitOfWork.PlotTransactions.GetByPlotId(plotId);
         }
 
         public string GetTransactionAF()
@@ -200,7 +210,66 @@ namespace Memorial.Lib.Plot
             _transaction.DeleteDate = System.DateTime.Now;
 
             return true;
-        }      
+        }
+
+        protected bool DeleteAllTransactionWithSamePlotId()
+        {
+            var datetimeNow = System.DateTime.Now;
+
+            var transactions = GetTransactionsByPlotId(_transaction.PlotId);
+
+            foreach (var transaction in transactions)
+            {
+                transaction.DeleteDate = datetimeNow;
+            }
+
+            return true;
+        }
+
+        protected bool SetTransactionDeceasedIdBasedOnPlot(PlotTransactionDto plotTransactionDto, int plotId)
+        {
+            _plot.SetPlot(plotId);
+
+            if (_plot.HasDeceased())
+            {
+                var deceaseds = _deceased.GetDeceasedsByPlotId(plotId);
+
+                if (_plot.GetNumberOfPlacement() < deceaseds.Count())
+                    return false;
+
+                if (deceaseds.Count() > 2)
+                {
+                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
+                    {
+                        return false;
+                    }
+
+                    plotTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
+                }
+
+                if (deceaseds.Count() > 1)
+                {
+                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
+                    {
+                        return false;
+                    }
+
+                    plotTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
+                }
+
+                if (deceaseds.Count() == 1)
+                {
+                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    {
+                        return false;
+                    }
+
+                    plotTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
+                }
+            }
+
+            return true;
+        }
 
         protected bool SetDeceasedIdBasedOnPlotLastTransaction(PlotTransactionDto plotTransactionDto)
         {

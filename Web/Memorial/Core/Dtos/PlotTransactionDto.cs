@@ -40,6 +40,8 @@ namespace Memorial.Core.Dtos
 
         public int PlotDtoId { get; set; }
 
+        public FengShuiMasterDto FengShuiMasterDto { get; set; }
+
         public int? FengShuiMasterId { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
@@ -59,6 +61,10 @@ namespace Memorial.Core.Dtos
         public int? DeceasedDto3Id { get; set; }
 
         public int? ClearedApplicantId { get; set; }
+
+        public int? TransferredApplicantId { get; set; }
+
+        public string TransferredPlotTransactionAF { get; set; }
 
         public DateTime CreateDate { get; set; }
 

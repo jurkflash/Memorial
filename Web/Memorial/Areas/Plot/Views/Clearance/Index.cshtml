@@ -1,38 +1,53 @@
-﻿@model IEnumerable<Memorial.Core.Domain.Plot>
+﻿@model Memorial.ViewModels.PlotItemIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
+    </p>
+}
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Size</th>
+            <th>AF</th>
+            <th>Plot</th>
+            <th>Applicant</th>
+            <th>Deceased</th>
             <th>Price</th>
-            <th>Maintenance</th>
-            <th>Wall</th>
-            <th>Dig</th>
-            <th>Brick</th>
-            <th>Remark</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var plot in Model)
+        @foreach (var plotTransaction in Model.PlotTransactionDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plot.Name, "Order", new { plotId = plot.Id, area = "Plot" })</td>
-                <td>@plot.Description</td>
-                <td>@plot.Size</td>
-                <td>@plot.Price</td>
-                <td>@plot.Maintenance</td>
-                <td>@plot.Wall</td>
-                <td>@plot.Dig</td>
-                <td>@plot.Brick</td>
-                <td>@plot.Remark</td>
+                <td>@Html.ActionLink(plotTransaction.AF, "Info", new { AF = plotTransaction.AF }, new { target = "PlotTransactionInfo" })</td>
+                <td>@plotTransaction.PlotDto.Name</td>
+                <td>@plotTransaction.ApplicantDto.Name &nbsp; @plotTransaction.ApplicantDto.Name2</td>
+                <td>@plotTransaction.DeceasedDto1.Name &nbsp; @plotTransaction.DeceasedDto1.Name2</td>
+                <td>@plotTransaction.Price</td>
+                <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = plotTransaction.AF, area = "Plot" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+

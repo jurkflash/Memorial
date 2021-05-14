@@ -7,7 +7,7 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class AnccestorInfoViewModel
+    public class AncestorInfoViewModel
     {
         public SiteDto SiteDto { get; set; }
 
