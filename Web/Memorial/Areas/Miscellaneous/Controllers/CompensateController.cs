@@ -3,32 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Miscellaneous;
-using Memorial.Lib.Applicant;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
 
-namespace Memorial.Areas.Miscellaenous.Controllers
+namespace Memorial.Areas.Miscellaneous.Controllers
 {
-    public class RentAirCoolerController : Controller
+    public class CompensateController : Controller
     {
         private readonly IMiscellaneous _miscellaneous;
         private readonly IItem _item;
-        private readonly IRentAirCooler _rentAirCooler;
+        private readonly ICompensate _compensate;
 
-        public RentAirCoolerController(
+        public CompensateController(
             IMiscellaneous miscellaneous,
             IItem item,
-            IRentAirCooler rentAirCooler
+            ICompensate compensate
             )
         {
             _miscellaneous = miscellaneous;
             _item = item;
-            _rentAirCooler = rentAirCooler;
+            _compensate = compensate;
         }
 
         public ActionResult Index(int itemId, int applicantId)
@@ -37,7 +32,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
-                MiscellaneousTransactionDtos = _rentAirCooler.GetTransactionDtosByItemId(itemId),
+                MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId),
                 AllowNew = applicantId != 0
             };
 
@@ -46,7 +41,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
         public ActionResult Info(string AF)
         {
-            return View(_rentAirCooler.GetTransactionDto(AF));
+            return View(_compensate.GetTransactionDto(AF));
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)
@@ -58,13 +53,13 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
             if (AF == null)
             {
-                miscellaneousTransactionDto.ApplicantId = applicantId;
-                miscellaneousTransactionDto.MiscellaneousItemId = itemId;
+                miscellaneousTransactionDto.ApplicantDtoId = applicantId;
+                miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
                 miscellaneousTransactionDto.Amount = _item.GetPrice();
             }
             else
             {
-                miscellaneousTransactionDto = _rentAirCooler.GetTransactionDto(AF);
+                miscellaneousTransactionDto = _compensate.GetTransactionDto(AF);
             }
 
             return View(miscellaneousTransactionDto);
@@ -74,14 +69,14 @@ namespace Memorial.Areas.Miscellaenous.Controllers
         {
             if (miscellaneousTransactionDto.AF == null)
             {
-                if (!_rentAirCooler.Create(miscellaneousTransactionDto))
+                if (!_compensate.Create(miscellaneousTransactionDto))
                 {
                     return View("Form", miscellaneousTransactionDto);
                 }
             }
             else
             {
-                if (!_rentAirCooler.Update(miscellaneousTransactionDto))
+                if (!_compensate.Update(miscellaneousTransactionDto))
                 {
                     return View("Form", miscellaneousTransactionDto);
                 }
@@ -89,16 +84,16 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = miscellaneousTransactionDto.MiscellaneousItemId,
-                applicantId = miscellaneousTransactionDto.ApplicantId
+                itemId = miscellaneousTransactionDto.MiscellaneousItemDtoId,
+                applicantId = miscellaneousTransactionDto.ApplicantDtoId
             });
         }
 
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _rentAirCooler.SetTransaction(AF);
-            _rentAirCooler.Delete();
+            _compensate.SetTransaction(AF);
+            _compensate.Delete();
 
             return RedirectToAction("Index", new
             {

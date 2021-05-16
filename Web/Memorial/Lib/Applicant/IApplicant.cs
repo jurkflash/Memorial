@@ -20,9 +20,9 @@ namespace Memorial.Lib.Applicant
 
         ApplicantDto GetApplicantDto(int id);
 
-        IEnumerable<Core.Domain.Applicant> GetApplicants();
+        IEnumerable<Core.Domain.Applicant> GetApplicants(string filter);
 
-        IEnumerable<ApplicantDto> GetApplicantDtos();
+        IEnumerable<ApplicantDto> GetApplicantDtos(string filter);
 
         bool Create(Core.Domain.Applicant applicant);
 

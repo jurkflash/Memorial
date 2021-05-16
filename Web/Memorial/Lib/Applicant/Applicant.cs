@@ -50,14 +50,21 @@ namespace Memorial.Lib.Applicant
             return Mapper.Map<Core.Domain.Applicant, ApplicantDto>(GetApplicant(id));
         }
 
-        public IEnumerable<Core.Domain.Applicant> GetApplicants()
+        public IEnumerable<Core.Domain.Applicant> GetApplicants(string filter = null)
         {
-            return _unitOfWork.Applicants.GetAll();
+            if (string.IsNullOrEmpty(filter))
+            {
+                return _unitOfWork.Applicants.GetAll();
+            }
+            else
+            {
+                return _unitOfWork.Applicants.Find(a => a.Name.Contains(filter) || a.IC.Contains(filter) || a.Name2.Contains(filter));
+            }
         }
 
-        public IEnumerable<ApplicantDto> GetApplicantDtos()
+        public IEnumerable<ApplicantDto> GetApplicantDtos(string filter)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Applicant>, IEnumerable<ApplicantDto>>(GetApplicants());
+            return Mapper.Map<IEnumerable<Core.Domain.Applicant>, IEnumerable<ApplicantDto>>(GetApplicants(filter));
         }
 
         public bool Create(Core.Domain.Applicant applicant)

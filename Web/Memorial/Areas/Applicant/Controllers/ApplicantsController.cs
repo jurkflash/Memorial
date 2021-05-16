@@ -27,9 +27,9 @@ namespace Memorial.Areas.Applicant.Controllers
             _site = site;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            var applicants = _applicant.GetApplicantDtos();
+            var applicants = _applicant.GetApplicantDtos(filter);
             return View(applicants);
         }
 

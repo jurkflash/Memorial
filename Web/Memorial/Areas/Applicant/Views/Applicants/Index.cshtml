@@ -10,6 +10,14 @@
     @Html.ActionLink("New", "New", new { area = "Applicant" })
 </p>
 
+@using (Html.BeginForm("Index", "Applicants", new { area = "Applicant" }))
+{
+    <p>
+        Find by Name/IC: @Html.TextBox("filter")
+        <input type="submit" value="Search" class="btn btn-secondary" />
+    </p>
+}
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>

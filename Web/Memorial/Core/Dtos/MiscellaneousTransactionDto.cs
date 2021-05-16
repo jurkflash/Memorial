@@ -16,17 +16,17 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public MiscellaneousItem MiscellaneousItem { get; set; }
+        public MiscellaneousItemDto MiscellaneousItemDto { get; set; }
 
-        public int MiscellaneousItemId { get; set; }
+        public int MiscellaneousItemDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int? ApplicantId { get; set; }
+        public int? ApplicantDtoId { get; set; }
 
         public PlotLandscapeCompanyDto PlotLandscapeCompanyDto { get; set; }
 
-        public int? PlotLandscapeCompanyId { get; set; }
+        public int? PlotLandscapeCompanyDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

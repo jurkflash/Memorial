@@ -52,7 +52,7 @@ namespace Memorial.Lib.Miscellaneous
 
         public bool Create(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            NewNumber(miscellaneousTransactionDto.MiscellaneousItemId);
+            NewNumber(miscellaneousTransactionDto.MiscellaneousItemDtoId);
 
             if (CreateNewTransaction(miscellaneousTransactionDto))
             {

@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace Memorial.Areas.Miscellaenous
+namespace Memorial.Areas.Miscellaneous
 {
-    public class MiscellaenousAreaRegistration : AreaRegistration 
+    public class MiscellaneousAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Miscellaenous";
+                return "Miscellaneous";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Miscellaenous_default",
-                "Miscellaenous/{controller}/{action}/{id}",
+                "Miscellaneous_default",
+                "Miscellaneous/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

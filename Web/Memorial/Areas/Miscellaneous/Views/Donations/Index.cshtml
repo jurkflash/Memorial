@@ -32,16 +32,16 @@
         {
             <tr>
                 <td>@Html.ActionLink(miscellaneousTransaction.AF, "Info", new { AF = miscellaneousTransaction.AF }, new { target = "MiscellaneousTransactionInfo", area = "Miscellaneous" })</td>
-                <td>@miscellaneousTransaction.MiscellaneousItem.Name</td>
-                <td>@miscellaneousTransaction.Applicant.Name &nbsp; @miscellaneousTransaction.Applicant.Name2</td>
+                <td>@miscellaneousTransaction.MiscellaneousItemDto.Name</td>
+                <td>@miscellaneousTransaction.ApplicantDto.Name &nbsp; @miscellaneousTransaction.ApplicantDto.Name2</td>
                 <td>@miscellaneousTransaction.Amount</td>
                 <td>@miscellaneousTransaction.Remark</td>
                 <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink("Receipt", "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
-                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
                 <td>
                     @Html.ActionLink("Delete", "Delete",
-                    new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = Model.ApplicantId, area = "Miscellaneous" },
+                    new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>

@@ -513,7 +513,7 @@
     <Content Include="Content\toastr.less" />
     <Content Include="Areas\Ancestor\Views\web.config" />
     <Content Include="Areas\Cremation\Views\web.config" />
-    <Content Include="Areas\Miscellaenous\Views\web.config" />
+    <Content Include="Areas\Miscellaneous\Views\web.config" />
     <Content Include="Areas\Plot\Views\web.config" />
     <Content Include="Areas\Quadrangle\Views\web.config" />
     <Content Include="Areas\Space\Views\web.config" />
@@ -536,9 +536,9 @@
     <Content Include="Areas\Plot\Views\Reciprocate\Index.cshtml" />
     <Content Include="Areas\Plot\Views\Reciprocate\Info.cshtml" />
     <Content Include="Areas\Plot\Views\Reciprocate\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Reciprocate\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Info.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -665,9 +665,9 @@
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\ReciprocateController.cs" />
-    <Compile Include="Areas\Miscellaenous\Data\MiscellaneousTransactionsFormViewModel.cs" />
-    <Compile Include="Areas\Miscellaenous\MiscellaenousAreaRegistration.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\ReciprocateController.cs" />
+    <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsFormViewModel.cs" />
+    <Compile Include="Areas\Miscellaneous\MiscellaneousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
     <Compile Include="Areas\Plot\Controllers\ClearanceController.cs" />
     <Compile Include="Areas\Plot\Controllers\NonOrderReceiptsController.cs" />
@@ -701,13 +701,13 @@
     <Compile Include="Areas\Deceased\Controllers\DeceasedsController.cs" />
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\DonationsController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\RentAirCoolerController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\MiscellaneousController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\CompensateController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\InvoicesController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Miscellaenous\Controllers\NonOrderReceiptsController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\DonationsController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\RentAirCoolerController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\MiscellaneousController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\CompensateController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\InvoicesController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\ReceiptsController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Navigation\Controllers\NavigationController.cs" />
     <Compile Include="Areas\Plot\Controllers\PlotController.cs" />
     <Compile Include="Areas\Plot\Controllers\OrderController.cs" />
@@ -2157,6 +2157,14 @@
     <Compile Include="Migrations\202105141118457_AddDataForMiscellaneousItemTable.designer.cs">
       <DependentUpon>202105141118457_AddDataForMiscellaneousItemTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105151409357_PopulateDataToCatalogsTable2.cs" />
+    <Compile Include="Migrations\202105151409357_PopulateDataToCatalogsTable2.designer.cs">
+      <DependentUpon>202105151409357_PopulateDataToCatalogsTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105160813408_UpdateMiscellaneousItemsTableData3.cs" />
+    <Compile Include="Migrations\202105160813408_UpdateMiscellaneousItemsTableData3.designer.cs">
+      <DependentUpon>202105160813408_UpdateMiscellaneousItemsTableData3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2313,9 +2321,9 @@
     <Compile Include="Areas\Cremation\Data\CremationTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Deceased\Data\DeceasedFormViewModel.cs" />
     <Compile Include="Areas\Quadrangle\Data\QuadrangleItemsViewModel.cs" />
-    <Compile Include="Areas\Miscellaenous\Data\MiscellaneousItemIndexesViewModel.cs" />
-    <Compile Include="Areas\Miscellaenous\Data\MiscellaneousItemsViewModel.cs" />
-    <Compile Include="Areas\Miscellaenous\Data\MiscellaneousIndexesViewModel.cs" />
+    <Compile Include="Areas\Miscellaneous\Data\MiscellaneousItemIndexesViewModel.cs" />
+    <Compile Include="Areas\Miscellaneous\Data\MiscellaneousItemsViewModel.cs" />
+    <Compile Include="Areas\Miscellaneous\Data\MiscellaneousIndexesViewModel.cs" />
     <Compile Include="Areas\Space\Data\SpaceTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Space\Data\SpaceTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Space\Data\SpaceItemIndexesViewModel.cs" />
@@ -2337,8 +2345,8 @@
     <Content Include="Areas\Space\Views\Space\Index.cshtml" />
     <Content Include="Areas\Space\Views\Space\Items.cshtml" />
     <Content Include="Areas\Urn\Views\Urn\Items.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Miscellaneous\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Miscellaneous\Items.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Items.cshtml" />
     <Content Include="Areas\Ancestor\Views\Ancestor\Index.cshtml" />
     <Content Include="Areas\Ancestor\Views\Ancestor\Ancestor.cshtml" />
     <Content Include="Areas\Ancestor\Views\Ancestor\Items.cshtml" />
@@ -2402,21 +2410,21 @@
     <Content Include="Areas\Urn\Views\Invoices\Invoices.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Compensate\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Compensate\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Compensate\Info.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Receipts\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Invoices\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Receipts\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\RentAirCooler\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\RentAirCooler\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\RentAirCooler\Info.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Donations\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Donations\Index.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\Donations\Info.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\NonOrderReceipts\Form.cshtml" />
-    <Content Include="Areas\Miscellaenous\Views\NonOrderReceipts\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensate\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensate\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensate\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Receipts\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Invoices\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Invoices\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Receipts\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Donations\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Donations\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Donations\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\NonOrderReceipts\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Cremation\Views\Invoices\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\NonOrderReceipts\Form.cshtml" />
@@ -2486,7 +2494,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
-    <Folder Include="Areas\Miscellaenous\Views\Shared\" />
+    <Folder Include="Areas\Miscellaneous\Views\Shared\" />
     <Folder Include="Areas\Setting\Data\" />
     <Folder Include="Areas\Setting\Views\AncestorArea\" />
     <Folder Include="Areas\Setting\Views\Shared\" />
@@ -3289,6 +3297,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105141118457_AddDataForMiscellaneousItemTable.resx">
       <DependentUpon>202105141118457_AddDataForMiscellaneousItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105151409357_PopulateDataToCatalogsTable2.resx">
+      <DependentUpon>202105151409357_PopulateDataToCatalogsTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105160813408_UpdateMiscellaneousItemsTableData3.resx">
+      <DependentUpon>202105160813408_UpdateMiscellaneousItemsTableData3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

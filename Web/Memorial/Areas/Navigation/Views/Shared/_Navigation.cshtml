@@ -21,7 +21,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @foreach (var siteDto in Model.SiteDtos)
                     {
-                        @Html.ActionLink(siteDto.Name, "Catalog", "Menu", new { siteId = siteDto.Id, applicantId = Model.ApplicantId }, new { @class = "dropdown-item" })
+                        @Html.ActionLink(siteDto.Name, "Catalog", "Menu", new { siteId = siteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, new { @class = "dropdown-item" })
                     }
                 </div>
             </li>

@@ -30,7 +30,13 @@ namespace Memorial.App_Start
 
             CreateMap<Miscellaneous, MiscellaneousDto>();
             CreateMap<MiscellaneousItem, MiscellaneousItemDto>();
-            CreateMap<MiscellaneousTransaction, MiscellaneousTransactionDto>();
+            CreateMap<MiscellaneousTransaction, MiscellaneousTransactionDto>()
+                .ForMember(c => c.MiscellaneousItemDto, opt => opt.MapFrom(x => x.MiscellaneousItem))
+                .ForMember(c => c.MiscellaneousItemDtoId, opt => opt.MapFrom(x => x.MiscellaneousItemId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.PlotLandscapeCompanyDto, opt => opt.MapFrom(x => x.PlotLandscapeCompany))
+                .ForMember(c => c.PlotLandscapeCompanyDtoId, opt => opt.MapFrom(x => x.PlotLandscapeCompanyId));
 
             CreateMap<Space, SpaceDto>();
             CreateMap<SpaceItem, SpaceItemDto>();
@@ -126,7 +132,14 @@ namespace Memorial.App_Start
             CreateMap<MiscellaneousItemDto, MiscellaneousItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<MiscellaneousTransactionDto, MiscellaneousTransaction>()
-                .ForMember(c => c.AF, opt => opt.Ignore());
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.MiscellaneousItem, opt => opt.Ignore())
+                .ForMember(c => c.MiscellaneousItemId, opt => opt.MapFrom(x => x.MiscellaneousItemDtoId))
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.PlotLandscapeCompany, opt => opt.Ignore())
+                .ForMember(c => c.PlotLandscapeCompanyId, opt => opt.MapFrom(x => x.PlotLandscapeCompanyDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<SpaceDto, Space>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

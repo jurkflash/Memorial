@@ -12,7 +12,7 @@ using Memorial.Core.Domain;
 using Memorial.ViewModels;
 using AutoMapper;
 
-namespace Memorial.Areas.Miscellaenous.Controllers
+namespace Memorial.Areas.Miscellaneous.Controllers
 {
     public class NonOrderReceiptsController : Controller
     {

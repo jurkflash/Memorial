@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Memorial.Lib.Miscellaneous;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 
-namespace Memorial.Areas.Miscellaenous.Controllers
+namespace Memorial.Areas.Miscellaneous.Controllers
 {
-    public class CompensateController : Controller
+    public class DonationsController : Controller
     {
         private readonly IMiscellaneous _miscellaneous;
         private readonly IItem _item;
-        private readonly ICompensate _compensate;
+        private readonly IDonation _donation;
 
-        public CompensateController(
+        public DonationsController(
             IMiscellaneous miscellaneous,
             IItem item,
-            ICompensate compensate
+            IDonation donation
             )
         {
             _miscellaneous = miscellaneous;
             _item = item;
-            _compensate = compensate;
+            _donation = donation;
         }
 
         public ActionResult Index(int itemId, int applicantId)
@@ -32,7 +28,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
-                MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId),
+                MiscellaneousTransactionDtos = _donation.GetTransactionDtosByItemId(itemId),
                 AllowNew = applicantId != 0
             };
 
@@ -41,7 +37,7 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
         public ActionResult Info(string AF)
         {
-            return View(_compensate.GetTransactionDto(AF));
+            return View(_donation.GetTransactionDto(AF));
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)
@@ -53,13 +49,13 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
             if (AF == null)
             {
-                miscellaneousTransactionDto.ApplicantId = applicantId;
-                miscellaneousTransactionDto.MiscellaneousItemId = itemId;
+                miscellaneousTransactionDto.ApplicantDtoId = applicantId;
+                miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
                 miscellaneousTransactionDto.Amount = _item.GetPrice();
             }
             else
             {
-                miscellaneousTransactionDto = _compensate.GetTransactionDto(AF);
+                miscellaneousTransactionDto = _donation.GetTransactionDto(AF);
             }
 
             return View(miscellaneousTransactionDto);
@@ -69,14 +65,14 @@ namespace Memorial.Areas.Miscellaenous.Controllers
         {
             if (miscellaneousTransactionDto.AF == null)
             {
-                if (!_compensate.Create(miscellaneousTransactionDto))
+                if (!_donation.Create(miscellaneousTransactionDto))
                 {
                     return View("Form", miscellaneousTransactionDto);
                 }
             }
             else
             {
-                if (!_compensate.Update(miscellaneousTransactionDto))
+                if (!_donation.Update(miscellaneousTransactionDto))
                 {
                     return View("Form", miscellaneousTransactionDto);
                 }
@@ -84,16 +80,16 @@ namespace Memorial.Areas.Miscellaenous.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = miscellaneousTransactionDto.MiscellaneousItemId,
-                applicantId = miscellaneousTransactionDto.ApplicantId
+                itemId = miscellaneousTransactionDto.MiscellaneousItemDtoId,
+                applicantId = miscellaneousTransactionDto.ApplicantDtoId
             });
         }
 
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _compensate.SetTransaction(AF);
-            _compensate.Delete();
+            _donation.SetTransaction(AF);
+            _donation.Delete();
 
             return RedirectToAction("Index", new
             {
@@ -102,9 +98,9 @@ namespace Memorial.Areas.Miscellaenous.Controllers
             });
         }
 
-        public ActionResult Invoices(string AF)
+        public ActionResult Receipts(string AF)
         {
-            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "Miscellaneous" });
+            return RedirectToAction("Index", "NonOrderReceipts", new { AF = AF, area = "Miscellaneous" });
         }
 
     }

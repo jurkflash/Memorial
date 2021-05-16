@@ -50,15 +50,12 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 PlotLandscapeCompanyDtos = _plotLandscapeCompany.GetPlotLandscapeCompanyDtos()
             };
 
-            _item.SetItem(itemId);
-            _miscellaneous.SetMiscellaneous(_item.GetMiscellaneousId());
-
             if (AF == null)
             {
                 var miscellanousTransactionDto = new MiscellaneousTransactionDto();
-                miscellanousTransactionDto.MiscellaneousItemId = itemId;
+                miscellanousTransactionDto.MiscellaneousItemDtoId = itemId;
                 viewModel.MiscellaneousTransactionDto = miscellanousTransactionDto;
-                viewModel.MiscellaneousTransactionDto.Amount = _reciprocate.GetItemPrice();
+                viewModel.MiscellaneousTransactionDto.Amount = _reciprocate.GetItemPrice(itemId);
             }
             else
             {
@@ -90,7 +87,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.MiscellaneousTransactionDto.MiscellaneousItemId
+                itemId = viewModel.MiscellaneousTransactionDto.MiscellaneousItemDtoId
             });
         }
 

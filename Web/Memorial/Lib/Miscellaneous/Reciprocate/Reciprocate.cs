@@ -55,9 +55,9 @@ namespace Memorial.Lib.Miscellaneous
 
         public bool Create(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            NewNumber(miscellaneousTransactionDto.MiscellaneousItemId);
+            NewNumber(miscellaneousTransactionDto.MiscellaneousItemDtoId);
 
-            _miscellaneous.SetMiscellaneous(miscellaneousTransactionDto.MiscellaneousItemId);
+            _miscellaneous.SetMiscellaneous(miscellaneousTransactionDto.MiscellaneousItemDtoId);
 
             if (CreateNewTransaction(miscellaneousTransactionDto))
             {

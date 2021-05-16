@@ -14,7 +14,7 @@
             FengShui Master
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(m => m.MiscellaneousTransactionDto.PlotLandscapeCompanyId, new SelectList(Model.PlotLandscapeCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.MiscellaneousTransactionDto.PlotLandscapeCompanyDtoId, new SelectList(Model.PlotLandscapeCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -34,6 +34,29 @@
         </div>
     </div>
 
-    @Html.HiddenFor(m => m.MiscellaneousTransactionDto.MiscellaneousItemId)
+    @Html.HiddenFor(m => m.MiscellaneousTransactionDto.MiscellaneousItemDtoId)
+    @Html.HiddenFor(m => m.MiscellaneousTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validator.addMethod("AtLeastOne", function (value, element, arg) {
+                if (value >= 1)
+                    return true;
+                return false;
+            }, "At least 1");
+
+            $("#MiscellaneousTransactionDto_Price").rules("add",
+                {
+                    AtLeastOne: true
+                });
+        });
+    </script>
 }
