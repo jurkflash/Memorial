@@ -114,14 +114,14 @@ namespace Memorial.Lib.Miscellaneous
             return _transaction.ApplicantId;
         }
 
-        public IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId)
+        public IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId, string filter)
         {
-            return _unitOfWork.MiscellaneousTransactions.GetByItem(itemId);
+            return _unitOfWork.MiscellaneousTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<MiscellaneousTransactionDto> GetTransactionDtosByItemId(int itemId)
+        public IEnumerable<MiscellaneousTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(GetTransactionsByItemId(itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
         protected bool CreateNewTransaction(MiscellaneousTransactionDto miscellaneousTransactionDto)

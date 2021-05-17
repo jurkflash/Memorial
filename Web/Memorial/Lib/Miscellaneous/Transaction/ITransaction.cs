@@ -38,8 +38,8 @@ namespace Memorial.Lib.Miscellaneous
 
         int? GetTransactionApplicantId();
 
-        IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId);
+        IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId, string filter);
 
-        IEnumerable<MiscellaneousTransactionDto> GetTransactionDtosByItemId(int itemId);
+        IEnumerable<MiscellaneousTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
     }
 }

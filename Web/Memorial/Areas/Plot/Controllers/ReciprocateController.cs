@@ -3,6 +3,8 @@ using Memorial.Lib.Plot;
 using Memorial.Lib.FengShuiMaster;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Plot.Controllers
 {
@@ -23,8 +25,13 @@ namespace Memorial.Areas.Plot.Controllers
             _reciprocate = reciprocate;
         }
 
-        public ActionResult Index(int itemId, int id)
+        public ActionResult Index(int itemId, int id, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             _plot.SetPlot(id);
 
             var viewModel = new PlotItemIndexesViewModel()
@@ -32,7 +39,7 @@ namespace Memorial.Areas.Plot.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId),
+                PlotTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
             if (!_plot.HasApplicant() || _plot.HasCleared())

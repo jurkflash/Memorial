@@ -45,9 +45,9 @@ namespace Memorial.Lib.Space
 
         int? GetTransactionDeceasedId();
 
-        IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemId(int itemId);
+        IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemId(int itemId, string filter);
 
-        IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemId(int itemId);
+        IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
 
         IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemIdAndApplicantId(int applicantId, int itemId);
 

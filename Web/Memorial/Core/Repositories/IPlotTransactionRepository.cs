@@ -11,7 +11,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<PlotTransaction> GetByApplicant(int id);
 
-        IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId);
+        IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId, string filter);
 
         PlotTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id);
 

@@ -40,9 +40,9 @@ namespace Memorial.Persistence.Repositories
                                             && pt.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId)
+        public IEnumerable<PlotTransaction> GetByPlotIdAndItem(int plotId, int itemId, string filter)
         {
-            return MemorialContext.PlotTransactions
+            var transactions = MemorialContext.PlotTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
                 .Include(pt => pt.PlotItem)
@@ -50,7 +50,16 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.Deceased1)
                 .Where(pt => pt.PlotItemId == itemId
                                             && pt.PlotId == plotId
-                                            && pt.DeleteDate == null).ToList();
+                                            && pt.DeleteDate == null);
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(t=>t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || t.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<PlotTransaction> GetByPlotIdAndItemAndApplicant(int plotId, int itemId, int applicantId)

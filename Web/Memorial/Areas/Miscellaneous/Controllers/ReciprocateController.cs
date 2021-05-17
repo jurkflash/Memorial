@@ -3,6 +3,8 @@ using Memorial.Lib.Miscellaneous;
 using Memorial.Lib.PlotLandscapeCompany;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -26,21 +28,21 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             _reciprocate = reciprocate;
         }
 
-        public ActionResult Index(int itemId)
+        public ActionResult Index(int itemId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 MiscellaneousItemId = itemId,
-                MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId),
+                MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = true
             };
 
             return View(viewModel);
-        }
-
-        public ActionResult Info(string AF)
-        {
-            return View(_reciprocate.GetTransactionDto(AF));
         }
 
         public ActionResult Form(int itemId = 0, string AF = null)

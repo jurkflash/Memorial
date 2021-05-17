@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Memorial.Lib.Ancestor;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Ancestor.Controllers
 {
@@ -28,9 +28,14 @@ namespace Memorial.Areas.Ancestor.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId)
+        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
         {
-            var ancestorTransactionDtos = _shift.GetTransactionDtosByAncestorIdAndItemId(id, itemId);
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
+            var ancestorTransactionDtos = _shift.GetTransactionDtosByAncestorIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
 
             var viewModel = new AncestorItemIndexesViewModel()
             {

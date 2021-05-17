@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Cremation;
-using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.FuneralCompany;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Cremation.Controllers
 {
@@ -39,13 +33,18 @@ namespace Memorial.Areas.Cremation.Controllers
             _deceased = deceased;
         }
 
-        public ActionResult Index(int itemId, int applicantId)
+        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new CremationItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 CremationItemId = itemId,
-                CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId),
+                CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
 

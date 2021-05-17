@@ -26,10 +26,19 @@ namespace Memorial.Persistence.Repositories
                                             && st.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<SpaceTransaction> GetByItem(int itemId)
+        public IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter)
         {
-            return MemorialContext.SpaceTransactions.Where(st => st.SpaceItemId == itemId
+            var transactions = MemorialContext.SpaceTransactions.Where(st => st.SpaceItemId == itemId
                                             && st.DeleteDate == null).ToList();
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(t => t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || t.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<SpaceTransaction> GetByItemAndApplicant(int itemId, int applicantId)

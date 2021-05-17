@@ -1,4 +1,5 @@
 ﻿@model Memorial.ViewModels.CremationItemIndexesViewModel
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,6 +11,16 @@
 {
     <p>
         @Html.ActionLink("New", "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Orders", new { area = "Cremation" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.CremationItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
     </p>
 }
 
@@ -31,25 +42,27 @@
     <tbody>
         @foreach (var cremationTransaction in Model.CremationTransactionDtos)
         {
-        <tr>
-            <td>@Html.ActionLink(cremationTransaction.AF, "Info", new { AF = cremationTransaction.AF }, new { target = "CremationTransactionInfo" })</td>
-            <td>@cremationTransaction.CremationItem.Name</td>
-            <td>@cremationTransaction.Applicant.Name &nbsp; @cremationTransaction.Applicant.Name2</td>
-            <td>@cremationTransaction.Deceased.Name &nbsp; @cremationTransaction.Deceased.Name2</td>
-            <td>@cremationTransaction.Price</td>
-            <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF, area = "Cremation" })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId, area = "Cremation" })</td>
-            <td>
-                @Html.ActionLink("Delete", "Delete",
-                new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" },
-                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(cremationTransaction.AF, "Info", new { AF = cremationTransaction.AF }, new { target = "CremationTransactionInfo" })</td>
+                <td>@cremationTransaction.CremationItem.Name</td>
+                <td>@cremationTransaction.Applicant.Name &nbsp; @cremationTransaction.Applicant.Name2</td>
+                <td>@cremationTransaction.Deceased.Name &nbsp; @cremationTransaction.Deceased.Name2</td>
+                <td>@cremationTransaction.Price</td>
+                <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF, area = "Cremation" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId, area = "Cremation" })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-
+Page @(Model.CremationTransactionDtos.PageCount < Model.CremationTransactionDtos.PageNumber ? 0 : Model.CremationTransactionDtos.PageNumber) of @Model.CremationTransactionDtos.PageCount
+@Html.PagedListPager(Model.CremationTransactionDtos, page => Url.Action("Index",
+    new { page, itemId = Model.CremationItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

@@ -10,7 +10,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<SpaceTransaction> GetByApplicant(int id);
 
-        IEnumerable<SpaceTransaction> GetByItem(int itemId);
+        IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter);
 
         IEnumerable<SpaceTransaction> GetByItemAndApplicant(int itemId, int applicantId);
 

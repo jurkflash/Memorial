@@ -1,4 +1,5 @@
 ﻿@model Memorial.ViewModels.PlotItemIndexesViewModel
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,6 +11,17 @@
 {
     <p>
         @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Order", new { area = "Plot" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.PlotItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        @Html.Hidden("id", Model.PlotId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
     </p>
 }
 
@@ -34,28 +46,31 @@
     <tbody>
         @foreach (var plotTransaction in Model.PlotTransactionDtos)
         {
-        <tr>
-            <td>@Html.ActionLink(plotTransaction.AF, "Info", new { AF = plotTransaction.AF }, new { target = "PlotTransactionInfo" })</td>
-            <td>@plotTransaction.PlotDto.Name</td>
-            <td>@plotTransaction.ApplicantDto.Name &nbsp; @plotTransaction.ApplicantDto.Name2</td>
-            <td>@plotTransaction.PlotDto.hasDeceased</td>
-            <td>@plotTransaction.Price</td>
-            <td>@plotTransaction.Maintenance</td>
-            <td>@plotTransaction.Dig</td>
-            <td>@plotTransaction.Brick</td>
-            <td>@plotTransaction.Wall</td>
-            <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = plotTransaction.AF, area = "Plot" })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
-            <td>
-                @Html.ActionLink("Delete", "Delete",
-                new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
-                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(plotTransaction.AF, "Info", new { AF = plotTransaction.AF }, new { target = "PlotTransactionInfo" })</td>
+                <td>@plotTransaction.PlotDto.Name</td>
+                <td>@plotTransaction.ApplicantDto.Name &nbsp; @plotTransaction.ApplicantDto.Name2</td>
+                <td>@plotTransaction.PlotDto.hasDeceased</td>
+                <td>@plotTransaction.Price</td>
+                <td>@plotTransaction.Maintenance</td>
+                <td>@plotTransaction.Dig</td>
+                <td>@plotTransaction.Brick</td>
+                <td>@plotTransaction.Wall</td>
+                <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = plotTransaction.AF, area = "Plot" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+Page @(Model.PlotTransactionDtos.PageCount < Model.PlotTransactionDtos.PageNumber ? 0 : Model.PlotTransactionDtos.PageNumber) of @Model.PlotTransactionDtos.PageCount
+@Html.PagedListPager(Model.PlotTransactionDtos, page => Url.Action("Index",
+    new { page, id = Model.PlotId.ToString(), itemId = Model.PlotItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 
 

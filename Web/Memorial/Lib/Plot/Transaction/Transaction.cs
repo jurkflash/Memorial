@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Receipt;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -147,14 +144,14 @@ namespace Memorial.Lib.Plot
             return _transaction.Deceased1Id;
         }
 
-        public IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId)
+        public IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId, string filter)
         {
-            return _unitOfWork.PlotTransactions.GetByPlotIdAndItem(plotId, itemId);
+            return _unitOfWork.PlotTransactions.GetByPlotIdAndItem(plotId, itemId, filter);
         }
 
-        public IEnumerable<PlotTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId)
+        public IEnumerable<PlotTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotTransaction>, IEnumerable<PlotTransactionDto>>(GetTransactionsByPlotIdAndItemId(plotId, itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.PlotTransaction>, IEnumerable<PlotTransactionDto>>(GetTransactionsByPlotIdAndItemId(plotId, itemId, filter));
         }
 
         public Core.Domain.PlotTransaction GetTransactionsByPlotIdAndDeceased1Id(int plotId, int deceased1Id)

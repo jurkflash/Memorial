@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class SpaceItemIndexesViewModel
     {
-        public IEnumerable<SpaceTransactionDto> SpaceTransactionDtos { get; set; }
+        public IPagedList<SpaceTransactionDto> SpaceTransactionDtos { get; set; }
 
         public int SpaceItemId { get; set; }
 

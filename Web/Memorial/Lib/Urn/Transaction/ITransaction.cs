@@ -38,8 +38,8 @@ namespace Memorial.Lib.Urn
 
         int GetTransactionApplicantId();
 
-        IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId);
+        IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId, string filter);
 
-        IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId);
+        IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
     }
 }

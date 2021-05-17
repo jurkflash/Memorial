@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Memorial.Lib.Plot;
 using Memorial.Lib.Deceased;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Plot.Controllers
 {
@@ -31,8 +32,13 @@ namespace Memorial.Areas.Plot.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId)
+        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             _plot.SetPlot(id);
 
             var viewModel = new PlotItemIndexesViewModel()
@@ -41,7 +47,7 @@ namespace Memorial.Areas.Plot.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId),
+                PlotTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
             if (applicantId != 0 && _plot.HasApplicant() && _deceased.GetDeceasedsByPlotId(id).Count() < _plot.GetNumberOfPlacement())

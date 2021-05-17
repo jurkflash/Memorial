@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Memorial.Core;
 using Memorial.Lib;
 using Memorial.Lib.Quadrangle;
-using Memorial.Lib.Deceased;
 using Memorial.Lib.Applicant;
-using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
+using PagedList;
 
 namespace Memorial.Areas.Quadrangle.Controllers
 {
@@ -39,7 +32,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId)
+        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
         {
             _quadrangle.SetQuadrangle(id);
 
@@ -49,7 +42,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
                 QuadrangleItemId = itemId,
                 QuadrangleDto = _quadrangle.GetQuadrangleDto(),
                 QuadrangleId = id,
-                QuadrangleTransactionDtos = _transfer.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId)
+                QuadrangleTransactionDtos = _transfer.GetTransactionDtosByQuadrangleIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
             };
 
             viewModel.AllowNew = applicantId != 0

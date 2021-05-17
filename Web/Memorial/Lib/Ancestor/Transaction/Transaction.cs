@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Receipt;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -139,14 +136,14 @@ namespace Memorial.Lib.Ancestor
             return _transaction.DeceasedId;
         }
 
-        public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorIdAndItemId(int ancestorId, int itemId)
+        public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorIdAndItemId(int ancestorId, int itemId, string filter)
         {
-            return _unitOfWork.AncestorTransactions.GetByAncestorIdAndItem(ancestorId, itemId);
+            return _unitOfWork.AncestorTransactions.GetByAncestorIdAndItem(ancestorId, itemId, filter);
         }
 
-        public IEnumerable<AncestorTransactionDto> GetTransactionDtosByAncestorIdAndItemId(int ancestorId, int itemId)
+        public IEnumerable<AncestorTransactionDto> GetTransactionDtosByAncestorIdAndItemId(int ancestorId, int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestorTransaction>, IEnumerable<AncestorTransactionDto>>(GetTransactionsByAncestorIdAndItemId(ancestorId, itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.AncestorTransaction>, IEnumerable<AncestorTransactionDto>>(GetTransactionsByAncestorIdAndItemId(ancestorId, itemId, filter));
         }
 
         public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorIdAndItemIdAndApplicantId(int ancestorId, int itemId, int applicantId)

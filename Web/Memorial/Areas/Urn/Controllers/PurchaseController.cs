@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Memorial.Core;
+﻿using System.Web.Mvc;
 using Memorial.Lib;
 using Memorial.Lib.Urn;
 using Memorial.Lib.Applicant;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
+using PagedList;
 
 namespace Memorial.Areas.Urn.Controllers
 {
@@ -37,13 +31,18 @@ namespace Memorial.Areas.Urn.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int applicantId)
+        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new UrnItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 UrnItemId = itemId,
-                UrnTransactionDtos = _purchase.GetTransactionDtosByItemId(itemId),
+                UrnTransactionDtos = _purchase.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
 

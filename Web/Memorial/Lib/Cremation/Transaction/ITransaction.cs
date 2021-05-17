@@ -38,9 +38,9 @@ namespace Memorial.Lib.Cremation
 
         int GetTransactionApplicantId();
 
-        IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemId(int itemId);
+        IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemId(int itemId, string filter);
 
-        IEnumerable<CremationTransactionDto> GetTransactionDtosByItemId(int itemId);
+        IEnumerable<CremationTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
 
         IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemIdAndDeceasedId(int itemId, int deceasedId);
     }

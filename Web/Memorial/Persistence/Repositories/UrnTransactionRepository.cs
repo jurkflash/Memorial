@@ -21,12 +21,21 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
-        public IEnumerable<UrnTransaction> GetByItem(int itemId)
+        public IEnumerable<UrnTransaction> GetByItem(int itemId, string filter)
         {
-            return MemorialContext.UrnTransactions
+            var transactions = MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)
                 .Include(ut => ut.Applicant)
                 .Where(ut => ut.UrnItemId == itemId && ut.DeleteDate == null).ToList();
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(ut => ut.AF.Contains(filter) || ut.Applicant.Name.Contains(filter) || ut.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<UrnTransaction> GetByItemAndApplicant(int itemId, int applicantId)

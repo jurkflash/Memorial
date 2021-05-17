@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class CremationItemIndexesViewModel
     {
-        public IEnumerable<CremationTransactionDto> CremationTransactionDtos { get; set; }
+        public IPagedList<CremationTransactionDto> CremationTransactionDtos { get; set; }
 
         public int CremationItemId { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿@model Memorial.ViewModels.SpaceItemIndexesViewModel
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,6 +11,16 @@
 {
     <p>
         @Html.ActionLink("New", "Form", new { itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Chair", new { area = "Space" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.SpaceItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
     </p>
 }
 
@@ -30,24 +41,26 @@
     <tbody>
         @foreach (var spaceTransaction in Model.SpaceTransactionDtos)
         {
-        <tr>
-            <td>@Html.ActionLink(spaceTransaction.AF, "Info", new { AF = spaceTransaction.AF }, new { target = "SpaceTransactionInfo" })</td>
-            <td>@spaceTransaction.FromDate</td>
-            <td>@spaceTransaction.ToDate</td>
-            <td>@spaceTransaction.Remark</td>
-            <td>@spaceTransaction.Amount</td>
-            <td>@spaceTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-            <td>@Html.ActionLink("Invoice", "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId, area = "Space" })</td>
-            <td>
-                @Html.ActionLink("Delete", "Delete",
-                new { AF = spaceTransaction.AF, itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" },
-                new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(spaceTransaction.AF, "Info", new { AF = spaceTransaction.AF }, new { target = "SpaceTransactionInfo" })</td>
+                <td>@spaceTransaction.FromDate</td>
+                <td>@spaceTransaction.ToDate</td>
+                <td>@spaceTransaction.Remark</td>
+                <td>@spaceTransaction.Amount</td>
+                <td>@spaceTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
+                <td>@Html.ActionLink("Edit", "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId, area = "Space" })</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete",
+                    new { AF = spaceTransaction.AF, itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
-
+Page @(Model.SpaceTransactionDtos.PageCount < Model.SpaceTransactionDtos.PageNumber ? 0 : Model.SpaceTransactionDtos.PageNumber) of @Model.SpaceTransactionDtos.PageCount
+@Html.PagedListPager(Model.SpaceTransactionDtos, page => Url.Action("Index",
+    new { page, itemId = Model.SpaceItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

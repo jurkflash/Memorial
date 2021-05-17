@@ -1,57 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Memorial.Core;
-using Memorial.Lib;
 using Memorial.Lib.Space;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.FuneralCompany;
-using Memorial.Lib.Applicant;
-using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
-using AutoMapper;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Space.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly ISpace _space;
         private readonly IDeceased _deceased;
         private readonly IFuneralCompany _funeralCompany;
         private readonly IItem _item;
         private readonly IBooking _booking;
-        private readonly IApplicant _applicant;
-        private readonly Lib.Invoice.ISpace _invoice;
 
         public BookingController(
-            ISpace space,
             IItem item,
-            IApplicant applicant,
             IDeceased deceased,
             IFuneralCompany funeralCompany,
-            IBooking booking,
-            Lib.Invoice.ISpace invoice
+            IBooking booking
             )
         {
-            _space = space;
             _item = item;
-            _applicant = applicant;
             _deceased = deceased;
             _funeralCompany = funeralCompany;
             _booking = booking;
-            _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int applicantId)
+        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new SpaceItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 SpaceItemId = itemId,
-                SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId),
+                SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
 

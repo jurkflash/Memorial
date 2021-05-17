@@ -2,6 +2,8 @@
 using Memorial.Lib.Miscellaneous;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -22,22 +24,22 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             _donation = donation;
         }
 
-        public ActionResult Index(int itemId, int applicantId)
+        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
-                MiscellaneousTransactionDtos = _donation.GetTransactionDtosByItemId(itemId),
+                MiscellaneousTransactionDtos = _donation.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
 
             return View(viewModel);
-        }
-
-        public ActionResult Info(string AF)
-        {
-            return View(_donation.GetTransactionDto(AF));
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)

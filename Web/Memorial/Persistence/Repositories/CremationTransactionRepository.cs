@@ -23,14 +23,23 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
-        public IEnumerable<CremationTransaction> GetByItem(int itemId)
+        public IEnumerable<CremationTransaction> GetByItem(int itemId, string filter)
         {
-            return MemorialContext.CremationTransactions
+            var transactions = MemorialContext.CremationTransactions
                 .Include(ct => ct.CremationItem)
                 .Include(ct => ct.Applicant)
                 .Include(ct => ct.Deceased)
                 .Include(ct => ct.FuneralCompany)
-                .Where(ct => ct.CremationItemId == itemId && ct.DeleteDate == null).ToList();
+                .Where(ct => ct.CremationItemId == itemId && ct.DeleteDate == null);
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(ct => ct.AF.Contains(filter) || ct.Applicant.Name.Contains(filter) || ct.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<CremationTransaction> GetByItemAndDeceased(int itemId, int deceasedId)

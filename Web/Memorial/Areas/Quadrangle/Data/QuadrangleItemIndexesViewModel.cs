@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class QuadrangleItemIndexesViewModel
     {
-        public IEnumerable<QuadrangleTransactionDto> QuadrangleTransactionDtos { get; set; }
+        public IPagedList<QuadrangleTransactionDto> QuadrangleTransactionDtos { get; set; }
 
         public int QuadrangleItemId { get; set; }
 

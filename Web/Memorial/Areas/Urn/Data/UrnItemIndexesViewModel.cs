@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class UrnItemIndexesViewModel
     {
-        public IEnumerable<UrnTransactionDto> UrnTransactionDtos { get; set; }
+        public IPagedList<UrnTransactionDto> UrnTransactionDtos { get; set; }
 
         public int UrnItemId { get; set; }
 

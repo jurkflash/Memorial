@@ -7,7 +7,7 @@ namespace Memorial.Core.Repositories
     {
         UrnTransaction GetActive(string AF);
 
-        IEnumerable<UrnTransaction> GetByItem(int itemId);
+        IEnumerable<UrnTransaction> GetByItem(int itemId, string filter);
 
         IEnumerable<UrnTransaction> GetByItemAndApplicant(int itemId, int applicantId);
     }

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Memorial.Lib.Miscellaneous;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -26,13 +28,18 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             _compensate = compensate;
         }
 
-        public ActionResult Index(int itemId, int applicantId)
+        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
-                MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId),
+                MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
 

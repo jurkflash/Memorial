@@ -22,13 +22,22 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
-        public IEnumerable<MiscellaneousTransaction> GetByItem(int itemId)
+        public IEnumerable<MiscellaneousTransaction> GetByItem(int itemId, string filter)
         {
-            return MemorialContext.MiscellaneousTransactions
+            var miscellaneousTransactions = MemorialContext.MiscellaneousTransactions
                 .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.Applicant)
                 .Include(mt => mt.PlotLandscapeCompany)
-                .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null).ToList();
+                .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null);
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return miscellaneousTransactions.ToList();
+            }
+            else
+            {
+                return miscellaneousTransactions.Where(mt=>mt.AF.Contains(filter) || mt.Applicant.Name.Contains(filter) || mt.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId)

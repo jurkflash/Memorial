@@ -40,16 +40,25 @@ namespace Memorial.Persistence.Repositories
                                             && qt.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItem(int quadrangleId, int itemId)
+        public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItem(int quadrangleId, int itemId, string filter)
         {
-            return MemorialContext.QuadrangleTransactions
+            var transactions = MemorialContext.QuadrangleTransactions
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Quadrangle)
                 .Include(qt => qt.ShiftedQuadrangle)
                 .Include(qt => qt.QuadrangleItem)
                 .Where(qt => qt.QuadrangleItemId == itemId
                                             && (qt.QuadrangleId == quadrangleId || qt.ShiftedQuadrangleId == quadrangleId)
-                                            && qt.DeleteDate == null).ToList();
+                                            && qt.DeleteDate == null);
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(t=>t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || t.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<QuadrangleTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId)

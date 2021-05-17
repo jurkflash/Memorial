@@ -40,16 +40,25 @@ namespace Memorial.Persistence.Repositories
                                             && at.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<AncestorTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId)
+        public IEnumerable<AncestorTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId, string filter)
         {
-            return MemorialContext.AncestorTransactions
+            var transactions = MemorialContext.AncestorTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
                 .Include(at => at.ShiftedAncestor)
                 .Include(at => at.AncestorItem)
                 .Where(at => at.AncestorItemId == itemId
                                             && (at.AncestorId == ancestorId || at.ShiftedAncestorId == ancestorId)
-                                            && at.DeleteDate == null).ToList();
+                                            && at.DeleteDate == null);
+
+            if(string.IsNullOrEmpty(filter))
+            {
+                return transactions.ToList();
+            }
+            else
+            {
+                return transactions.Where(t => t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || t.Applicant.Name2.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<AncestorTransaction> GetByAncestorIdAndItemAndApplicant(int ancestorId, int itemId, int applicantId)

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
@@ -119,14 +116,14 @@ namespace Memorial.Lib.Urn
             return _transaction.ApplicantId;
         }
 
-        public IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId)
+        public IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId, string filter)
         {
-            return _unitOfWork.UrnTransactions.GetByItem(itemId);
+            return _unitOfWork.UrnTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId)
+        public IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(GetTransactionsByItemId(itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
         protected bool CreateNewTransaction(UrnTransactionDto urnTransactionDto)

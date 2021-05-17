@@ -114,14 +114,14 @@ namespace Memorial.Lib.Cremation
             return _transaction.ApplicantId;
         }
 
-        public IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemId(int itemId)
+        public IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemId(int itemId, string filter)
         {
-            return _unitOfWork.CremationTransactions.GetByItem(itemId);
+            return _unitOfWork.CremationTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<CremationTransactionDto> GetTransactionDtosByItemId(int itemId)
+        public IEnumerable<CremationTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(GetTransactionsByItemId(itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
         public IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemIdAndDeceasedId(int itemId, int deceasedId)

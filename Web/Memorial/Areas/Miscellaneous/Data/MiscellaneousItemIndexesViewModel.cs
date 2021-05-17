@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class MiscellaneousItemIndexesViewModel
     {
-        public IEnumerable<MiscellaneousTransactionDto> MiscellaneousTransactionDtos { get; set; }
+        public IPagedList<MiscellaneousTransactionDto> MiscellaneousTransactionDtos { get; set; }
 
         public int MiscellaneousItemId { get; set; }
 

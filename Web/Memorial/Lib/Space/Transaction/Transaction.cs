@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Receipt;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -139,14 +135,14 @@ namespace Memorial.Lib.Space
             return _transaction.DeceasedId;
         }
 
-        public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemId(int itemId)
+        public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemId(int itemId, string filter)
         {
-            return _unitOfWork.SpaceTransactions.GetByItem(itemId);
+            return _unitOfWork.SpaceTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemId(int itemId)
+        public IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(GetTransactionsByItemId(itemId));
+            return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
         public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemIdAndApplicantId(int applicantId, int itemId)

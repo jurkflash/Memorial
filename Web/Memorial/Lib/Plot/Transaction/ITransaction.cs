@@ -44,9 +44,9 @@ namespace Memorial.Lib.Plot
 
         int? GetTransactionDeceased1Id();
 
-        IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId);
+        IEnumerable<Core.Domain.PlotTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId, string filter);
 
-        IEnumerable<PlotTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId);
+        IEnumerable<PlotTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId, string filter);
 
         Core.Domain.PlotTransaction GetTransactionsByPlotIdAndDeceased1Id(int plotId, int deceased1Id);
 

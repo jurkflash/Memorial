@@ -1,7 +1,8 @@
 ﻿@model Memorial.ViewModels.PlotItemIndexesViewModel
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
-     Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -10,6 +11,17 @@
 {
     <p>
         @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "FengShuiTransfer", new { area = "Plot" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.PlotItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        @Html.Hidden("id", Model.PlotId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
     </p>
 }
 
@@ -44,6 +56,8 @@
         }
     </tbody>
 </table>
-
+Page @(Model.PlotTransactionDtos.PageCount < Model.PlotTransactionDtos.PageNumber ? 0 : Model.PlotTransactionDtos.PageNumber) of @Model.PlotTransactionDtos.PageCount
+@Html.PagedListPager(Model.PlotTransactionDtos, page => Url.Action("Index",
+    new { page, id = Model.PlotId.ToString(), itemId = Model.PlotItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

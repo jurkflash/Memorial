@@ -545,7 +545,6 @@
     <Content Include="Areas\Plot\Views\Reciprocate\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Reciprocate\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Reciprocate\Index.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Info.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2430,7 +2429,6 @@
     <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Info.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Donations\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Donations\Index.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Donations\Info.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Invoices\Form.cshtml" />

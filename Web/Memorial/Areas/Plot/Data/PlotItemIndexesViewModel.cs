@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
+using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class PlotItemIndexesViewModel
     {
-        public IEnumerable<PlotTransactionDto> PlotTransactionDtos { get; set; }
+        public IPagedList<PlotTransactionDto> PlotTransactionDtos { get; set; }
 
         public int PlotItemId { get; set; }
 

@@ -11,7 +11,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestorTransaction> GetByApplicant(int id);
 
-        IEnumerable<AncestorTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId);
+        IEnumerable<AncestorTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId, string filter);
 
         AncestorTransaction GetByShiftedAncestorTransactionAF(string AF);
 
