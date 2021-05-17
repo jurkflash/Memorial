@@ -45,9 +45,9 @@ namespace Memorial.Lib.Plot
             return _plot.GetPlotDto(id);
         }
 
-        public IEnumerable<PlotDto> GetPlotDtosByArea(int areaId)
+        public IEnumerable<PlotDto> GetPlotDtosByArea(int areaId, string filter)
         {
-            return _plot.GetPlotDtosByAreaId(areaId);
+            return _plot.GetPlotDtosByAreaId(areaId, filter);
         }
 
         public PlotItemDto GetItemDto(int id)

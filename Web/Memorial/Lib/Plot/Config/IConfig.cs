@@ -18,7 +18,7 @@ namespace Memorial.Lib.Plot
         PlotAreaDto GetPlotAreaDto(int id);
         IEnumerable<PlotAreaDto> GetPlotAreaDtos();
         PlotDto GetPlotDto(int id);
-        IEnumerable<PlotDto> GetPlotDtosByArea(int areaId);
+        IEnumerable<PlotDto> GetPlotDtosByArea(int areaId, string filter);
         bool UpdateArea(PlotAreaDto plotAreaDto);
         bool UpdateItem(PlotItemDto plotItemDto);
         bool UpdatePlot(PlotDto plotDto);

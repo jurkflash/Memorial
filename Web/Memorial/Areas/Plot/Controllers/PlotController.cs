@@ -7,6 +7,8 @@ using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Site;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Plot.Controllers
 {
@@ -49,13 +51,30 @@ namespace Memorial.Areas.Plot.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Plot(int areaId, int applicantId)
+        public ActionResult Plot(int areaId, int applicantId, int? plotTypeId, string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var viewModel = new PlotIndexesViewModel()
             {
-                PlotDtos = _plot.GetPlotDtosByAreaId(areaId),
-                ApplicantId = applicantId
+                PlotTypeDtos = _plot.GetPlotTypeDtosByAreaId(areaId),
+                SelectedPlotTypeId = plotTypeId,
+                ApplicantId = applicantId,
+                AreaId = areaId
             };
+
+            if(plotTypeId == null)
+            {
+                viewModel.PlotDtos = _plot.GetPlotDtosByAreaId(areaId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
+            }
+            else
+            {
+                viewModel.PlotDtos = _plot.GetPlotDtosByAreaIdAndTypeId(areaId, (int)plotTypeId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
+            }
+
             return View(viewModel);
         }
 

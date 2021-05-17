@@ -26,10 +26,19 @@ namespace Memorial.Persistence.Repositories
                         a.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<Applicant> GetAllActive()
+        public IEnumerable<Applicant> GetAllActive(string filter)
         {
-            return MemorialContext.Applicants
-                .Where(a => a.DeleteDate == null).ToList();
+            var applicants = MemorialContext.Applicants
+                .Where(a => a.DeleteDate == null);
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                return applicants.ToList();
+            }
+            else
+            {
+                return applicants.Where(a => a.Name.Contains(filter) || a.IC.Contains(filter) || a.Name2.Contains(filter)).ToList();
+            }
         }
 
         public MemorialContext MemorialContext

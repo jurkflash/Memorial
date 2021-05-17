@@ -18,9 +18,17 @@ namespace Memorial.Lib.Plot
 
         PlotDto GetPlotDto(int id);
 
-        IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id);
+        IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id, string filter);
 
-        IEnumerable<PlotDto> GetPlotDtosByAreaId(int id);
+        IEnumerable<PlotDto> GetPlotDtosByAreaId(int id, string filter);
+
+        IEnumerable<Core.Domain.PlotType> GetPlotTypesByAreaId(int id);
+
+        IEnumerable<PlotTypeDto> GetPlotTypeDtosByAreaId(int id);
+
+        IEnumerable<Core.Domain.Plot> GetPlotsByAreaIdAndTypeId(int areaId, int typeId, string filter);
+
+        IEnumerable<PlotDto> GetPlotDtosByAreaIdAndTypeId(int areaId, int typeId, string filter);
 
         IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId);
 

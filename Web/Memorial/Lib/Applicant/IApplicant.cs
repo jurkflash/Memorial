@@ -24,8 +24,8 @@ namespace Memorial.Lib.Applicant
 
         IEnumerable<ApplicantDto> GetApplicantDtos(string filter);
 
-        bool Create(Core.Domain.Applicant applicant);
+        bool Create(ApplicantDto applicantDto);
 
-        bool Update(Core.Domain.Applicant applicant);
+        bool Update(ApplicantDto applicantDto);
     }
 }

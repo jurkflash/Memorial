@@ -7,9 +7,11 @@ namespace Memorial.Core.Repositories
     {
         Plot GetActive(int id);
 
-        IEnumerable<Plot> GetByArea(int plotAreaId);
+        IEnumerable<Plot> GetByArea(int plotAreaId, string filter);
 
-        IEnumerable<Plot> GetByTypeAndArea(int plotTypeID, int plotAreaId);
+        IEnumerable<PlotType> GetTypesByArea(int plotAreaId);
+
+        IEnumerable<Plot> GetByTypeAndArea(int plotAreaId, int plotTypeId, string filter);
 
         IEnumerable<Plot> GetAvailableByTypeAndArea(int plotTypeId, int plotAreaId);
 

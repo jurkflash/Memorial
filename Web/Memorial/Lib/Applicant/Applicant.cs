@@ -50,16 +50,9 @@ namespace Memorial.Lib.Applicant
             return Mapper.Map<Core.Domain.Applicant, ApplicantDto>(GetApplicant(id));
         }
 
-        public IEnumerable<Core.Domain.Applicant> GetApplicants(string filter = null)
+        public IEnumerable<Core.Domain.Applicant> GetApplicants(string filter)
         {
-            if (string.IsNullOrEmpty(filter))
-            {
-                return _unitOfWork.Applicants.GetAll();
-            }
-            else
-            {
-                return _unitOfWork.Applicants.Find(a => a.Name.Contains(filter) || a.IC.Contains(filter) || a.Name2.Contains(filter));
-            }
+            return _unitOfWork.Applicants.GetAllActive(filter);
         }
 
         public IEnumerable<ApplicantDto> GetApplicantDtos(string filter)
@@ -67,16 +60,18 @@ namespace Memorial.Lib.Applicant
             return Mapper.Map<IEnumerable<Core.Domain.Applicant>, IEnumerable<ApplicantDto>>(GetApplicants(filter));
         }
 
-        public bool Create(Core.Domain.Applicant applicant)
+        public bool Create(ApplicantDto applicantDto)
         {
+            var applicant = Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto);
             applicant.CreateDate = System.DateTime.Now;
             _unitOfWork.Applicants.Add(applicant);
             _unitOfWork.Complete();
             return true;
         }
 
-        public bool Update(Core.Domain.Applicant applicant)
+        public bool Update(ApplicantDto applicantDto)
         {
+            var applicant = Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto);
             SetApplicant(applicant.Id);
             Mapper.Map(applicant, GetApplicant());
             applicant.ModifyDate = System.DateTime.Now;

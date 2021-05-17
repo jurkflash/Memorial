@@ -22,19 +22,47 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Plot> GetByArea(int plotAreaId)
+        public IEnumerable<Plot> GetByArea(int plotAreaId, string filter = null)
         {
-            return MemorialContext.Plots
-                .Include(p => p.PlotType)
-                .Where(p => p.PlotAreaId == plotAreaId).ToList();
+            var plots = MemorialContext.Plots
+                    .Include(p => p.PlotType)
+                    .Where(p => p.PlotAreaId == plotAreaId);
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                return plots.ToList();
+            }
+            else
+            {
+                return plots.Where(p => p.Name.Contains(filter)).ToList();
+            }
         }
 
-        public IEnumerable<Plot> GetByTypeAndArea(int plotTypeId, int plotAreaId)
+        public IEnumerable<PlotType> GetTypesByArea(int plotAreaId)
         {
-            return MemorialContext.Plots
+            var plotTypes = MemorialContext.Plots
+                    .Include(p => p.PlotType)
+                    .Where(p => p.PlotAreaId == plotAreaId)
+                    .Select(p => p.PlotType);
+
+            return plotTypes.ToList();
+        }
+
+        public IEnumerable<Plot> GetByTypeAndArea(int plotAreaId, int plotTypeId, string filter = null)
+        {
+            var plots = MemorialContext.Plots
                 .Include(p => p.PlotType)
-                .Where(p => p.PlotTypeId == plotTypeId && 
-                        p.PlotAreaId == plotAreaId).ToList();
+                .Where(p => p.PlotTypeId == plotTypeId &&
+                        p.PlotAreaId == plotAreaId);
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                return plots.ToList();
+            }
+            else
+            {
+                return plots.Where(p => p.Name.Contains(filter)).ToList();
+            }
         }
 
         public IEnumerable<Plot> GetAvailableByTypeAndArea(int plotTypeId, int plotAreaId)

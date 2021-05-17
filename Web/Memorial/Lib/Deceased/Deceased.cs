@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Quadrangle;
 using Memorial.Lib.Ancestor;
 using Memorial.Lib.Plot;
-using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
 
 namespace Memorial.Lib.Deceased
@@ -19,21 +17,18 @@ namespace Memorial.Lib.Deceased
         private readonly IQuadrangle _quadrangle;
         private readonly IAncestor _ancestor;
         private readonly IPlot _plot;
-        private IApplicantDeceased _appplicantDeceased;
 
         private Core.Domain.Deceased _deceased;
 
         public Deceased(IUnitOfWork unitOfWork, 
             IQuadrangle quadrangle, 
             IAncestor ancestor, 
-            IPlot plot, 
-            IApplicantDeceased appplicantDeceased)
+            IPlot plot)
         {
             _unitOfWork = unitOfWork;
             _quadrangle = quadrangle;
             _ancestor = ancestor;
             _plot = plot;
-            _appplicantDeceased = appplicantDeceased;
         }
 
         public void SetDeceased(int id)
@@ -74,6 +69,11 @@ namespace Memorial.Lib.Deceased
         public IEnumerable<DeceasedDto> GetDeceasedDtosByApplicantId(int applicantId)
         {
             return Mapper.Map< IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(GetDeceasedsByApplicantId(applicantId));
+        }
+
+        public IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetDeceasedsByApplicantId(applicantId));
         }
 
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName)
@@ -230,11 +230,6 @@ namespace Memorial.Lib.Deceased
                 return true;
             }
             return false;
-        }
-
-        public IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(GetDeceasedsByApplicantId(applicantId));
         }
 
         public bool InstallQuadrangleDeceased(int quadrangleId)

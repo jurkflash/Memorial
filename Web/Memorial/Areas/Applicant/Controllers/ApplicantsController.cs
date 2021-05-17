@@ -5,32 +5,35 @@ using Memorial.Core.Dtos;
 using System.Web.Mvc;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Site;
 using Memorial.ViewModels;
-using AutoMapper;
+using Memorial.Lib;
+using PagedList;
 
 namespace Memorial.Areas.Applicant.Controllers
 {
     public class ApplicantsController : Controller
     {
-        private IApplicant _applicant;
-        private IDeceased _deceased;
-        private IApplicantDeceased _applicantDeceased;
-        private ISite _site;
+        private readonly IApplicant _applicant;
+        private readonly IDeceased _deceased;
+        private readonly ISite _site;
 
-        public ApplicantsController(IApplicant applicant, IDeceased deceased, IApplicantDeceased applicantDeceased, ISite site)
+        public ApplicantsController(IApplicant applicant, IDeceased deceased, ISite site)
         {
             _applicant = applicant;
             _deceased = deceased;
-            _applicantDeceased = applicantDeceased;
             _site = site;
         }
 
-        public ActionResult Index(string filter)
+        public ActionResult Index(string filter, int? page)
         {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewBag.CurrentFilter = filter;
+            }
+
             var applicants = _applicant.GetApplicantDtos(filter);
-            return View(applicants);
+            return View(applicants.ToPagedList(page ?? 1, Constant.MaxRowPerPage));
         }
 
         public ActionResult New()
@@ -48,10 +51,10 @@ namespace Memorial.Areas.Applicant.Controllers
                 return View("Form", applicantDto);
             }
 
-            if (applicantDto.Id == 0 && !_applicant.Create(Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto)))
+            if (applicantDto.Id == 0 && !_applicant.Create(applicantDto))
                 return View("Form", applicantDto);
 
-            if (applicantDto.Id != 0 && !_applicant.Update(Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto)))
+            if (applicantDto.Id != 0 && !_applicant.Update(applicantDto))
                 return View("Form", applicantDto);
 
 
@@ -60,7 +63,7 @@ namespace Memorial.Areas.Applicant.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View("Form", Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id)));
+            return View("Form", _applicant.GetApplicantDto(id));
         }
 
         public ActionResult Catalog(int id)
@@ -81,7 +84,7 @@ namespace Memorial.Areas.Applicant.Controllers
         [ChildActionOnly]
         public PartialViewResult PartialViewInfo(int id)
         {
-            var applicantDto = Mapper.Map<Core.Domain.Applicant, ApplicantDto>(_applicant.GetApplicant(id));
+            var applicantDto = _applicant.GetApplicantDto(id);
             return PartialView("_ApplicantInfo", applicantDto);
         }
 
@@ -89,7 +92,7 @@ namespace Memorial.Areas.Applicant.Controllers
         public PartialViewResult ApplicantBrief(int id)
         {
             var applicant = _applicant.GetApplicant(id);
-            var deceaseds = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedBriefDto>>(_deceased.GetDeceasedsByApplicantId(id));
+            var deceaseds = _deceased.GetDeceasedBriefDtosByApplicantId(id);
             var applicantBriefViewModel = new ApplicantBriefViewModel()
             {
                 Id = applicant.Id,

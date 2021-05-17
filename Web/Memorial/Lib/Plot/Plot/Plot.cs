@@ -43,14 +43,34 @@ namespace Memorial.Lib.Plot
             return Mapper.Map<Core.Domain.Plot, PlotDto>(GetPlot(id));
         }
 
-        public IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id)
+        public IEnumerable<Core.Domain.PlotType> GetPlotTypesByAreaId(int id)
         {
-            return _unitOfWork.Plots.GetByArea(id);
+            return _unitOfWork.Plots.GetTypesByArea(id);
         }
 
-        public IEnumerable<PlotDto> GetPlotDtosByAreaId(int id)
+        public IEnumerable<PlotTypeDto> GetPlotTypeDtosByAreaId(int id)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetPlotsByAreaId(id));
+            return Mapper.Map< IEnumerable<Core.Domain.PlotType>, IEnumerable<PlotTypeDto>>(GetPlotTypesByAreaId(id));
+        }
+
+        public IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id, string filter)
+        {
+            return _unitOfWork.Plots.GetByArea(id, filter);
+        }
+
+        public IEnumerable<PlotDto> GetPlotDtosByAreaId(int id, string filter)
+        {
+            return Mapper.Map< IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetPlotsByAreaId(id, filter));
+        }
+
+        public IEnumerable<Core.Domain.Plot> GetPlotsByAreaIdAndTypeId(int areaId, int typeId, string filter)
+        {
+            return _unitOfWork.Plots.GetByTypeAndArea(areaId, typeId, filter);
+        }
+
+        public IEnumerable<PlotDto> GetPlotDtosByAreaIdAndTypeId(int areaId, int typeId, string filter)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetPlotsByAreaIdAndTypeId(areaId, typeId, filter));
         }
 
         public IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId)

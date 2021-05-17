@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Deceased
@@ -23,6 +21,8 @@ namespace Memorial.Lib.Deceased
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId);
 
         IEnumerable<DeceasedDto> GetDeceasedDtosByApplicantId(int applicantId);
+
+        IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
@@ -53,8 +53,6 @@ namespace Memorial.Lib.Deceased
         bool SetPlot(int plotId);
 
         bool RemovePlot();
-
-        IEnumerable<DeceasedBriefDto> GetDeceasedBriefDtosByApplicantId(int applicantId);
 
         bool InstallQuadrangleDeceased(int quadrangleId);
 

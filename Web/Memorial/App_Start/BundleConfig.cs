@@ -32,7 +32,8 @@ namespace Memorial
                       "~/Content/bootstrap.css",
                       "~/Content/DataTables/css/dataTables.bootstrap4.css",
                       "~/Content/site.css",
-                      "~/Content/toastr.css"));
+                      "~/Content/toastr.css",
+                      "~/Content/PagedList.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                     "~/Scripts/jquery-ui-{version}.js"));

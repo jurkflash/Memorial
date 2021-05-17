@@ -9,6 +9,6 @@ namespace Memorial.Core.Repositories
 
         Applicant GetActive(int id);
 
-        IEnumerable<Applicant> GetAllActive();
+        IEnumerable<Applicant> GetAllActive(string filter);
     }
 }
