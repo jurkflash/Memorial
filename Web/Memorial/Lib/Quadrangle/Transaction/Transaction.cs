@@ -263,7 +263,7 @@ namespace Memorial.Lib.Quadrangle
             if (itemId == null)
                 return false;
 
-            var transactions = GetTransactionsByQuadrangleIdAndItemId(oldQuadrangleId, itemId.Id);
+            var transactions = GetTransactionsByQuadrangleIdAndItemId(oldQuadrangleId, itemId.Id, null);
 
             foreach (var transaction in transactions)
             {

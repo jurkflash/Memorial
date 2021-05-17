@@ -44,7 +44,7 @@ namespace Memorial.Lib.Quadrangle
 
         int? GetTransactionDeceased1Id();
 
-        IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId);
+        IEnumerable<Core.Domain.QuadrangleTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter);
 
         IEnumerable<QuadrangleTransactionDto> GetTransactionDtosByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter);
 

@@ -246,7 +246,7 @@ namespace Memorial.Lib.Ancestor
             if (itemId == null)
                 return false;
 
-            var transactions = GetTransactionsByAncestorIdAndItemId(oldAncestorId, itemId.Id);
+            var transactions = GetTransactionsByAncestorIdAndItemId(oldAncestorId, itemId.Id, null);
 
             foreach (var transaction in transactions)
             {
