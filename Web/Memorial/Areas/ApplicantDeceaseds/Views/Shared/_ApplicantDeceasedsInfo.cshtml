@@ -1,12 +1,9 @@
 ﻿@model Memorial.ViewModels.AppplicantDeceasedsInfoViewModel
 
-<h5 style="padding-top:5px"><u>申請者 Applicant</u></h5>
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Applicant)</u></h5>
 @if (Model.ApplicantId == null)
 {
-    <span>
-        沒記錄 <br />
-        No record
-    </span>
+    <div>@Html.Raw(Resources.Mix.NoRecord)</div>
 }
 else
 {
@@ -16,16 +13,12 @@ else
 
 <div class="row flexrow">
     <div class="col-md-1">
-    申请人与逝世者关系<br />
-    Relationship
+    @Html.Raw(Resources.Mix.Relationship)
     </div>
     <div class="col-md-11">
     @if (Model.DeceasedId == null)
     {
-        <span>
-            沒記錄 <br />
-            No record
-        </span>
+        <div>@Html.Raw(Resources.Mix.NoRecord)</div>
     }
     else
     {
@@ -35,10 +28,10 @@ else
 </div>
 
 
-<h5 style="padding-top:5px"><u>逝世者 Deceased</u></h5>
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Deceased)</u></h5>
 @if (Model.DeceasedId == null)
 {
-    <div>沒記錄<br />No record</div>
+    <div>@Html.Raw(Resources.Mix.NoRecord)</div>
 }
 else
 {

@@ -13,7 +13,9 @@ namespace Memorial.Core.Domain
 
         public string Description { get; set; }
 
-        public string Code { get; set; }
+        public string Area { get; set; }
+
+        public string Controller { get; set; }
 
         public Site Site { get; set; }
 

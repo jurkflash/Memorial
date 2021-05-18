@@ -533,18 +533,18 @@
     <Content Include="Areas\Setting\Views\web.config" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Quadrangle\Views\QuadrangleDeceaseds\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearance\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearance\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\Clearances\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\Clearances\Info.cshtml" />
     <Content Include="Areas\Plot\Views\Shared\_PlotInfo.cshtml" />
     <Content Include="Areas\Ancestor\Views\Shared\_AncestorInfo.cshtml" />
     <Content Include="Areas\Ancestor\Views\AncestorDeceaseds\Index.cshtml" />
     <Content Include="Areas\Plot\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Plot\Views\NonOrderReceipts\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocate\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocate\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocate\Form.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Form.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Reciprocate\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocates\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocates\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\Reciprocates\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Reciprocates\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Reciprocates\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -657,27 +657,27 @@
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Ancestor\AncestorAreaRegistration.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\AncestorController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\MaintenanceController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Ancestor\Controllers\AncestorsController.cs" />
+    <Compile Include="Areas\Ancestor\Controllers\MaintenancesController.cs" />
+    <Compile Include="Areas\Ancestor\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\AncestorDeceasedsController.cs" />
     <Compile Include="Areas\Ancestor\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\ShiftController.cs" />
+    <Compile Include="Areas\Ancestor\Controllers\ShiftsController.cs" />
     <Compile Include="Areas\Ancestor\Data\AncestorDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
-    <Compile Include="Areas\Miscellaneous\Controllers\ReciprocateController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\ReciprocatesController.cs" />
     <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Miscellaneous\MiscellaneousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
-    <Compile Include="Areas\Plot\Controllers\ClearanceController.cs" />
+    <Compile Include="Areas\Plot\Controllers\ClearancesController.cs" />
     <Compile Include="Areas\Plot\Controllers\NonOrderReceiptsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\ReciprocateController.cs" />
+    <Compile Include="Areas\Plot\Controllers\ReciprocatesController.cs" />
     <Compile Include="Areas\Plot\Data\PlotInfoViewModel.cs" />
     <Compile Include="Areas\Plot\PlotAreaRegistration.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\QuadrangleDeceasedsController.cs" />
@@ -699,7 +699,7 @@
     <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\Controllers\ApplicantDeceasedsController.cs" />
     <Compile Include="Areas\Applicant\Controllers\ApplicantsController.cs" />
-    <Compile Include="Areas\Cremation\Controllers\CremationController.cs" />
+    <Compile Include="Areas\Cremation\Controllers\CremationsController.cs" />
     <Compile Include="Areas\Cremation\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Cremation\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Cremation\Controllers\NonOrderReceiptsController.cs" />
@@ -708,41 +708,41 @@
     <Compile Include="Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\DonationsController.cs" />
-    <Compile Include="Areas\Miscellaneous\Controllers\RentAirCoolerController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\RentAirCoolersController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\MiscellaneousController.cs" />
-    <Compile Include="Areas\Miscellaneous\Controllers\CompensateController.cs" />
+    <Compile Include="Areas\Miscellaneous\Controllers\CompensatesController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Navigation\Controllers\NavigationController.cs" />
-    <Compile Include="Areas\Plot\Controllers\PlotController.cs" />
+    <Compile Include="Areas\Plot\Controllers\PlotsController.cs" />
     <Compile Include="Areas\Plot\Controllers\OrderController.cs" />
     <Compile Include="Areas\Plot\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Plot\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\SecondBurialController.cs" />
-    <Compile Include="Areas\Plot\Controllers\FengShuiTransferController.cs" />
+    <Compile Include="Areas\Plot\Controllers\SecondBurialsController.cs" />
+    <Compile Include="Areas\Plot\Controllers\FengShuiTransfersController.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Menu\Controllers\MenuController.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Quadrangle\Controllers\QuadrangleController.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\QuadranglesController.cs" />
     <Compile Include="Areas\Quadrangle\Controllers\ManageController.cs" />
-    <Compile Include="Areas\Quadrangle\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Quadrangle\Controllers\PhotoController.cs" />
-    <Compile Include="Areas\Quadrangle\Controllers\ShiftController.cs" />
-    <Compile Include="Areas\Quadrangle\Controllers\TransferController.cs" />
-    <Compile Include="Areas\Space\Controllers\HouseController.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\PhotosController.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\ShiftsController.cs" />
+    <Compile Include="Areas\Quadrangle\Controllers\TransfersController.cs" />
+    <Compile Include="Areas\Space\Controllers\HousesController.cs" />
     <Compile Include="Areas\Space\Controllers\ElectricController.cs" />
-    <Compile Include="Areas\Space\Controllers\ChairController.cs" />
+    <Compile Include="Areas\Space\Controllers\ChairsController.cs" />
     <Compile Include="Areas\Space\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Space\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Space\Controllers\InvoicesController.cs" />
-    <Compile Include="Areas\Space\Controllers\BookingController.cs" />
-    <Compile Include="Areas\Space\Controllers\SpaceController.cs" />
+    <Compile Include="Areas\Space\Controllers\BookingsController.cs" />
+    <Compile Include="Areas\Space\Controllers\SpacesController.cs" />
     <Compile Include="Areas\Urn\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Urn\Controllers\InvoicesController.cs" />
-    <Compile Include="Areas\Urn\Controllers\PurchaseController.cs" />
-    <Compile Include="Areas\Urn\Controllers\UrnController.cs" />
+    <Compile Include="Areas\Urn\Controllers\PurchasesController.cs" />
+    <Compile Include="Areas\Urn\Controllers\UrnsController.cs" />
     <Compile Include="Core\Domain\AncestorTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
     <Compile Include="Core\Domain\AncestorItem.cs" />
@@ -2172,7 +2172,56 @@
     <Compile Include="Migrations\202105160813408_UpdateMiscellaneousItemsTableData3.designer.cs">
       <DependentUpon>202105160813408_UpdateMiscellaneousItemsTableData3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105181302482_UpdateMiscellaneousItemsTableData4.cs" />
+    <Compile Include="Migrations\202105181302482_UpdateMiscellaneousItemsTableData4.designer.cs">
+      <DependentUpon>202105181302482_UpdateMiscellaneousItemsTableData4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181308069_UpdateAncestorItemsTableData1.cs" />
+    <Compile Include="Migrations\202105181308069_UpdateAncestorItemsTableData1.designer.cs">
+      <DependentUpon>202105181308069_UpdateAncestorItemsTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181311312_UpdateUrnItemsTableData.cs" />
+    <Compile Include="Migrations\202105181311312_UpdateUrnItemsTableData.designer.cs">
+      <DependentUpon>202105181311312_UpdateUrnItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181319521_UpdatePlotItemsTableData1.cs" />
+    <Compile Include="Migrations\202105181319521_UpdatePlotItemsTableData1.designer.cs">
+      <DependentUpon>202105181319521_UpdatePlotItemsTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181339430_UpdateQuadrangleItemsTableData2.cs" />
+    <Compile Include="Migrations\202105181339430_UpdateQuadrangleItemsTableData2.designer.cs">
+      <DependentUpon>202105181339430_UpdateQuadrangleItemsTableData2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181357017_UpdateCatalogsTableData.cs" />
+    <Compile Include="Migrations\202105181357017_UpdateCatalogsTableData.designer.cs">
+      <DependentUpon>202105181357017_UpdateCatalogsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181413472_UpdateSpaceItemsTableData.cs" />
+    <Compile Include="Migrations\202105181413472_UpdateSpaceItemsTableData.designer.cs">
+      <DependentUpon>202105181413472_UpdateSpaceItemsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181422541_AddAreaAndControllerToCatalogsTable.cs" />
+    <Compile Include="Migrations\202105181422541_AddAreaAndControllerToCatalogsTable.designer.cs">
+      <DependentUpon>202105181422541_AddAreaAndControllerToCatalogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181425337_UpdateCatalogsTableData1.cs" />
+    <Compile Include="Migrations\202105181425337_UpdateCatalogsTableData1.designer.cs">
+      <DependentUpon>202105181425337_UpdateCatalogsTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181429407_UpdateCatalogsTableData2.cs" />
+    <Compile Include="Migrations\202105181429407_UpdateCatalogsTableData2.designer.cs">
+      <DependentUpon>202105181429407_UpdateCatalogsTableData2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105181435482_RemoveCodeFromCatalogsTable.cs" />
+    <Compile Include="Migrations\202105181435482_RemoveCodeFromCatalogsTable.designer.cs">
+      <DependentUpon>202105181435482_RemoveCodeFromCatalogsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Mix.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mix.resx</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
@@ -2347,29 +2396,29 @@
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
-    <Content Include="Areas\Urn\Views\Urn\Index.cshtml" />
+    <Content Include="Areas\Urn\Views\Urns\Index.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Space\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Space\Items.cshtml" />
-    <Content Include="Areas\Urn\Views\Urn\Items.cshtml" />
+    <Content Include="Areas\Space\Views\Spaces\Index.cshtml" />
+    <Content Include="Areas\Space\Views\Spaces\Items.cshtml" />
+    <Content Include="Areas\Urn\Views\Urns\Items.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Items.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestor\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestor\Ancestor.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestor\Items.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Ancestors\Index.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Ancestors\Ancestors.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Ancestors\Items.cshtml" />
     <Content Include="Areas\Ancestor\Views\Free\Index.cshtml" />
-    <Content Include="Areas\Cremation\Views\Cremation\Index.cshtml" />
-    <Content Include="Areas\Cremation\Views\Cremation\Items.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Quadrangle\Centre.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Quadrangle\Area.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Quadrangle\Quadrangle.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Quadrangle\Items.cshtml" />
-    <Content Include="Areas\Plot\Views\Plot\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Plot\Items.cshtml" />
+    <Content Include="Areas\Cremation\Views\Cremations\Index.cshtml" />
+    <Content Include="Areas\Cremation\Views\Cremations\Items.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Quadrangles\Centre.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Quadrangles\Area.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Quadrangles\Quadrangles.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Quadrangles\Items.cshtml" />
+    <Content Include="Areas\Plot\Views\Plots\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Plots\Items.cshtml" />
     <Content Include="Areas\Plot\Views\Double\Index.cshtml" />
     <Content Include="Areas\Plot\Views\FengShui\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearance\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurial\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Clearances\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\SecondBurials\Index.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Form.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Catalog.cshtml" />
     <Content Include="Areas\Deceased\Views\Deceaseds\Form.cshtml" />
@@ -2380,22 +2429,22 @@
     <Content Include="Areas\Applicant\Views\Shared\_ApplicantBrief.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Info.cshtml" />
     <Content Include="Areas\Deceased\Views\Shared\_DeceasedInfo.cshtml" />
-    <Content Include="Areas\Urn\Views\Purchase\Form.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Order\Form.cshtml" />
+    <Content Include="Areas\Urn\Views\Purchases\Form.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Orders\Form.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Manage\Index.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Shift\ShiftedToIndex.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Photo\Index.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Transfer\Index.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Shifts\ShiftedToIndex.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Photos\Index.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Transfers\Index.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Manage\Form.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Photo\Form.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Shift\Form.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Transfer\Form.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Order\Info.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Photos\Form.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Shifts\Form.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Transfers\Form.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Orders\Info.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Manage\Info.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Photo\Info.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Shift\Info.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Transfer\Info.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Photos\Info.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Shifts\Info.cshtml" />
+    <Content Include="Areas\Quadrangle\Views\Transfers\Info.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Invoices\InvoiceForm.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Invoices\Invoices.cshtml" />
     <Content Include="Areas\Quadrangle\Views\Receipts\Form.cshtml" />
@@ -2408,25 +2457,24 @@
     <Content Include="Areas\Quadrangle\Views\Shared\_QuadrangleInfo.cshtml" />
     <Content Include="Areas\ApplicantDeceaseds\Views\Shared\_ApplicantDeceasedsIndex.cshtml" />
     <Content Include="Areas\ApplicantDeceaseds\Views\Shared\_ApplicantDeceasedsInfo.cshtml" />
-    <Content Include="Areas\Quadrangle\Views\Shift\ShiftedFromIndex.cshtml" />
-    <Content Include="Areas\Urn\Views\Purchase\Index.cshtml" />
-    <Content Include="Areas\Urn\Views\Purchase\Info.cshtml" />
+    <Content Include="Areas\Urn\Views\Purchases\Index.cshtml" />
+    <Content Include="Areas\Urn\Views\Purchases\Info.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\Index.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\InvoiceForm.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\Invoices.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Index.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Compensate\Index.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Compensate\Form.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\Compensate\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensates\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensates\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Compensates\Info.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Invoices\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Receipts\Form.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Form.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Index.cshtml" />
-    <Content Include="Areas\Miscellaneous\Views\RentAirCooler\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCoolers\Form.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCoolers\Index.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\RentAirCoolers\Info.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Donations\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Donations\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\NonOrderReceipts\Form.cshtml" />
@@ -2440,53 +2488,52 @@
     <Content Include="Areas\Cremation\Views\Orders\Form.cshtml" />
     <Content Include="Areas\Cremation\Views\Orders\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Orders\Info.cshtml" />
-    <Content Include="Areas\Space\Views\Booking\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Booking\Form.cshtml" />
-    <Content Include="Areas\Space\Views\Booking\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\Index.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\Form.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\Info.cshtml" />
     <Content Include="Areas\Space\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Space\Views\Invoices\Index.cshtml" />
     <Content Include="Areas\Space\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Space\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Space\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Space\Views\NonOrderReceipts\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Chair\Form.cshtml" />
-    <Content Include="Areas\Space\Views\Chair\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Chair\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Chairs\Form.cshtml" />
+    <Content Include="Areas\Space\Views\Chairs\Index.cshtml" />
+    <Content Include="Areas\Space\Views\Chairs\Info.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Form.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Index.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Info.cshtml" />
-    <Content Include="Areas\Space\Views\House\Form.cshtml" />
-    <Content Include="Areas\Space\Views\House\Index.cshtml" />
-    <Content Include="Areas\Space\Views\House\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Houses\Form.cshtml" />
+    <Content Include="Areas\Space\Views\Houses\Index.cshtml" />
+    <Content Include="Areas\Space\Views\Houses\Info.cshtml" />
     <Content Include="Areas\Ancestor\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Ancestor\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Ancestor\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Ancestor\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Ancestor\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Ancestor\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Order\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Order\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenance\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenance\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenance\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shift\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shift\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shift\ShiftedFromIndex.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shift\ShiftedToIndex.cshtml" />
-    <Content Include="Areas\Plot\Views\Plot\Plot.cshtml" />
-    <Content Include="Areas\Plot\Views\Order\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Order\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Order\Info.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Orders\Form.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Orders\Info.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Maintenances\Form.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Maintenances\Index.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Maintenances\Info.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Shifts\Form.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Shifts\Info.cshtml" />
+    <Content Include="Areas\Ancestor\Views\Shifts\ShiftedToIndex.cshtml" />
+    <Content Include="Areas\Plot\Views\Plots\Plots.cshtml" />
+    <Content Include="Areas\Plot\Views\Orders\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\Orders\Info.cshtml" />
     <Content Include="Areas\Plot\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Plot\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Plot\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Plot\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurial\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurial\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfer\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfer\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfer\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\SecondBurials\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\SecondBurials\Info.cshtml" />
+    <Content Include="Areas\Plot\Views\FengShuiTransfers\Form.cshtml" />
+    <Content Include="Areas\Plot\Views\FengShuiTransfers\Index.cshtml" />
+    <Content Include="Areas\Plot\Views\FengShuiTransfers\Info.cshtml" />
     <Content Include="Areas\Navigation\Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Print.cshtml" />
     <None Include="Web.Debug.config">
@@ -3309,6 +3356,44 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105160813408_UpdateMiscellaneousItemsTableData3.resx">
       <DependentUpon>202105160813408_UpdateMiscellaneousItemsTableData3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181302482_UpdateMiscellaneousItemsTableData4.resx">
+      <DependentUpon>202105181302482_UpdateMiscellaneousItemsTableData4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181308069_UpdateAncestorItemsTableData1.resx">
+      <DependentUpon>202105181308069_UpdateAncestorItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181311312_UpdateUrnItemsTableData.resx">
+      <DependentUpon>202105181311312_UpdateUrnItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181319521_UpdatePlotItemsTableData1.resx">
+      <DependentUpon>202105181319521_UpdatePlotItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181339430_UpdateQuadrangleItemsTableData2.resx">
+      <DependentUpon>202105181339430_UpdateQuadrangleItemsTableData2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181357017_UpdateCatalogsTableData.resx">
+      <DependentUpon>202105181357017_UpdateCatalogsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181413472_UpdateSpaceItemsTableData.resx">
+      <DependentUpon>202105181413472_UpdateSpaceItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181422541_AddAreaAndControllerToCatalogsTable.resx">
+      <DependentUpon>202105181422541_AddAreaAndControllerToCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181425337_UpdateCatalogsTableData1.resx">
+      <DependentUpon>202105181425337_UpdateCatalogsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181429407_UpdateCatalogsTableData2.resx">
+      <DependentUpon>202105181429407_UpdateCatalogsTableData2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105181435482_RemoveCodeFromCatalogsTable.resx">
+      <DependentUpon>202105181435482_RemoveCodeFromCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mix.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Mix.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

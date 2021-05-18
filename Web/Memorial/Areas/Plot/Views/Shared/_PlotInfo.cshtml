@@ -1,73 +1,72 @@
 ﻿@model Memorial.ViewModels.PlotInfoViewModel
 
 <div class="form-group row">
-    <div class="col-md-3">
+    <div class="col-md-2 font-weight-bold">
         Site
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         @Model.SiteDto.Name
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2 font-weight-bold">
         Area
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         @Model.PlotAreaDto.Name
     </div>
 </div>
 <div class="form-group row">
-    <div class="col-md-2">
+    <div class="col-md-2 font-weight-bold">
         Name
     </div>
     <div class="col-md-2">
         @Model.PlotDto.Name
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 font-weight-bold">
         Description
     </div>
     <div class="col-md-2">
         @Model.PlotDto.Description
     </div>
+    <div class="col-md-2 font-weight-bold">
+        Remark
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.Remark
+    </div>
 </div>
 <div class="form-group row">
-    <div class="col-md-1">
+    <div class="col-md-1 font-weight-bold">
         Price
     </div>
     <div class="col-md-1">
         @Model.PlotDto.Price
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 font-weight-bold">
         Maintenance
     </div>
     <div class="col-md-1">
         @Model.PlotDto.Maintenance
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 font-weight-bold">
         Brick
     </div>
     <div class="col-md-1">
         @Model.PlotDto.Brick
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 font-weight-bold">
         Dig
     </div>
     <div class="col-md-1">
         @Model.PlotDto.Dig
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 font-weight-bold">
         Wall
     </div>
     <div class="col-md-1">
         @Model.PlotDto.Wall
     </div>
 </div>
-<div class="form-group row">
-    <div class="col-md-3">
-        Remark
-    </div>
-    <div class="col-md-3">
-        @Model.PlotDto.Remark
-    </div>
-</div>
+
 <hr />
 <h5>Owner</h5>
 @if (Model.ApplicantDto == null)

@@ -18,6 +18,12 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(s => s.Catalogs)
                 .HasForeignKey(c => c.SiteId)
                 .WillCascadeOnDelete(false);
+
+            Property(c => c.Area)
+                .HasMaxLength(255);
+
+            Property(c => c.Controller)
+                .HasMaxLength(255);
         }
     }
 }

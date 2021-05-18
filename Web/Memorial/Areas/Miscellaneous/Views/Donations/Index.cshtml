@@ -34,8 +34,8 @@
             <th>Remark</th>
             <th>Create Date</th>
             <th>Receipt</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
         </tr>
     </thead>
     <tbody>
@@ -49,9 +49,9 @@
                 <td>@miscellaneousTransaction.Remark</td>
                 <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink("Receipt", "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
-                <td>@Html.ActionLink("Edit", "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete",
+                    @Html.ActionLink(Resources.Mix.Delete, "Delete",
                     new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>

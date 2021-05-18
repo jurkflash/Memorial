@@ -7,10 +7,10 @@
 
 <div class="form-group row">
     <div class="col-md-3">
-        IC
+        @Html.Raw(Resources.Mix.IC)
     </div>
     <div class="col-md-6">
-        @Html.LabelFor(a => a.IC)
+        @Model.IC
     </div>
 </div>
 <div class="form-group row">
@@ -18,7 +18,7 @@
         Name
     </div>
     <div class="col-md-6">
-        @Html.LabelFor(a => a.Name)
+        @Html.Raw(Resources.Mix.EnglishName)
     </div>
 </div>
 <div class="form-group row">
@@ -26,13 +26,13 @@
         Name2
     </div>
     <div class="col-md-6">
-        @Html.LabelFor(a => a.Name2)
+        @Html.Raw(Resources.Mix.ChineseName)
     </div>
 </div>
 
 <p>
     @Html.ActionLink("New Deceased", "NewDeceased", new { id = Model.Id })
-</p>_ApplicantBrief
+</p>
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -40,7 +40,7 @@
             <th>English Name</th>
             <th>Chinese Name</th>
             @*<th>Relationship</th>*@
-            <th>Edit</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
         </tr>
     </thead>
     <tbody>
@@ -50,7 +50,7 @@
                 <td>@Html.ActionLink(deceased.Name, "Info", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
                 <td>@deceased.Name2</td>
                 @*<td>@deceased.RelationshipType.Name</td>*@
-                <td>@Html.ActionLink("Edit", "EditDeceased", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "EditDeceased", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
             </tr>
         }
     </tbody>

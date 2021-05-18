@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.PlotAreaIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Area</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotArea in Model.PlotAreaDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(plotArea.Name, "Plots", new { areaId = plotArea.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>@plotArea.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

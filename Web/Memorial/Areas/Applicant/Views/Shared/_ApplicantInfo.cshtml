@@ -2,22 +2,19 @@
 
 <div class="row flexrow">
     <div class="col-md-1">
-        身份證<br />
-        NRIC No
+        @Html.Raw(Resources.Mix.IC)
     </div>
     <div class="col-md-3">
         @Model.IC
     </div>
     <div class="col-md-1">
-        姓名（英）<br />
-        English Name
+        @Html.Raw(Resources.Mix.EnglishName)
     </div>
     <div class="col-md-3">
         @Model.Name
     </div>
     <div class="col-md-1">
-        （中）<br />
-        Chinese Name
+        @Html.Raw(Resources.Mix.ChineseName)
     </div>
     <div class="col-md-3">
         @Model.Name2
@@ -25,22 +22,19 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        住家電話<br />
-        House Phone
+        @Html.Raw(Resources.Mix.HousePhone)
     </div>
     <div class="col-md-3">
         @Model.HousePhone
     </div>
     <div class="col-md-1">
-        流動電話<br />
-        Mobile Number
+        @Html.Raw(Resources.Mix.MobileNumber)
     </div>
     <div class="col-md-3">
         @Model.MobileNumber
     </div>
     <div class="col-md-1">
-        備註<br />
-        Remark
+        @Html.Raw(Resources.Mix.Remark)
     </div>
     <div class="col-md-3">
         @Model.Remark
@@ -48,8 +42,7 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        住址<br />
-        Address
+        @Html.Raw(Resources.Mix.Address)
     </div>
     <div class="col-md-11">
         @Model.Address

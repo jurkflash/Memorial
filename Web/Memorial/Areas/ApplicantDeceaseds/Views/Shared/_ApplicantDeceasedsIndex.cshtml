@@ -1,9 +1,9 @@
 ﻿@model Memorial.ViewModels.AppplicantDeceasedsIndexViewModel
-<h4>Applicant</h4>
+<h4>@Html.Raw(Resources.Mix.Applicant)</h4>
 
 <div class="form-group row">
     <div class="col-md-3">
-        IC
+        @Html.Raw(Resources.Mix.IC)
     </div>
     <div class="col-md-6">
         @Model.ApplicantDto.IC
@@ -11,13 +11,13 @@
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        Name
+        @Html.Raw(Resources.Mix.EnglishName)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.Name
     </div>
     <div class="col-md-3">
-        Name2
+        @Html.Raw(Resources.Mix.ChineseName)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.Name2
@@ -25,13 +25,13 @@
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        Address
+        @Html.Raw(Resources.Mix.Address)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.Address
     </div>
     <div class="col-md-3">
-        Remark
+        @Html.Raw(Resources.Mix.Remark)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.Remark
@@ -39,45 +39,45 @@
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        Mobile Number
+        @Html.Raw(Resources.Mix.MobileNumber)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.MobileNumber
     </div>
     <div class="col-md-3">
-        House Phone
+        @Html.Raw(Resources.Mix.HousePhone)
     </div>
     <div class="col-md-3">
         @Model.ApplicantDto.HousePhone
     </div>
 </div>
-
-<h4>Deceased</h4>
+<hr />
+<h4>@Html.Raw(Resources.Mix.Deceased)</h4>
 
 <div class="form-group row">
     <div class="col-md-12">
-        @Html.ActionLink("New", "New", "Deceaseds", new { id = Model.ApplicantDto.Id }, new { @class = "btn btn-secondary btn-sm" })
-        @Html.ActionLink("Link", "LinkDeceased", new { id = Model.ApplicantDto.Id }, new { @class = "btn btn-secondary btn-sm", @style = "padding-left:5px" })
+        @Html.ActionLink(@Resources.Mix.New, "New", "Deceaseds", new { applicantId = Model.ApplicantDto.Id, area = "Deceased" }, new { @class = "btn btn-secondary btn-sm" })
+        @Html.ActionLink(@Resources.Mix.Link, "LinkDeceased", new { id = Model.ApplicantDto.Id, area = "ApplicantDeceaseds" }, new { @class = "btn btn-secondary btn-sm", @style = "padding-left:5px" })
     </div>
 </div>
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>English Name</th>
-            <th>Chinese Name</th>
-            <th>Relationship</th>
-            <th>Edit</th>
+            <th>@Html.Raw(Resources.Mix.EnglishName)</th>
+            <th>@Html.Raw(Resources.Mix.ChineseName)</th>
+            <th>@Html.Raw(Resources.Mix.Relationship)</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var deceased in Model.DeceasedDtos)
         {
             <tr>
-                <td>@Html.ActionLink(deceased.Name, "Info", "Deceaseds", new { id = deceased.Id }, null)</td>
+                <td>@Html.ActionLink(deceased.Name, "Info", "Deceaseds", new { id = deceased.Id, area = "Deceased" }, null)</td>
                 <td>@deceased.Name2</td>
                 <td>@Model.ApplicantDeceasedDtos.Where(a => a.DeceasedId == deceased.Id).FirstOrDefault().RelationshipType.Name</td>
-                <td>@Html.ActionLink("Edit", "Edit", "Deceaseds", new { id = deceased.Id, applicantId = Model.ApplicantDto.Id }, null)</td>
+                <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", "Deceaseds", new { id = deceased.Id, applicantId = Model.ApplicantDto.Id, area = "Deceased" }, null)</td>
             </tr>
         }
     </tbody>

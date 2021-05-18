@@ -1,0 +1,47 @@
+﻿@model Memorial.ViewModels.PlotIndexesViewModel
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Plot</h2>
+
+@using (Html.BeginForm("Plots", "Plots", new { area = "Plot" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("areaId", Model.AreaId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        <br />
+        Plot Type: @Html.DropDownList("plotTypeId", new SelectList(Model.PlotTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        <input type="submit" value="Search" class="btn btn-secondary" />
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plotDto in Model.PlotDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>@plotDto.Description</td>
+                <td>@plotDto.Size</td>
+                <td>@plotDto.Price</td>
+                <td>@plotDto.PlotTypeDto.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+Page @(Model.PlotDtos.PageCount < Model.PlotDtos.PageNumber ? 0 : Model.PlotDtos.PageNumber) of @Model.PlotDtos.PageCount
+@Html.PagedListPager(Model.PlotDtos, page => Url.Action("Plots",
+    new { page, areaId = Model.AreaId.ToString(), plotTypeId = Model.SelectedPlotTypeId, applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))

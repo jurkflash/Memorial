@@ -35,10 +35,5 @@ namespace Memorial.Areas.Menu.Controllers
             };
             return View(viewModel);
         }
-
-        public ActionResult Item(string catalog, byte siteId, int applicantId)
-        {
-            return RedirectToAction("Index", catalog, new { area = catalog, siteId = siteId, applicantId = applicantId });
-        }
     }
 }

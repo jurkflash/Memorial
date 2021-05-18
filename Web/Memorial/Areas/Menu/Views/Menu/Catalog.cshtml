@@ -13,6 +13,6 @@
 
 @foreach (var catalog in Model.Catalogs)
 {
-    @Html.ActionLink(catalog.Name, "Item", new { catalog = catalog.Code, siteId = catalog.SiteId, applicantId = Model.ApplicantId })
+    @Html.ActionLink(catalog.Name, "Index", catalog.Controller, new { siteId = catalog.SiteId, applicantId = Model.ApplicantId, area = catalog.Area }, null)
     <br />
 }

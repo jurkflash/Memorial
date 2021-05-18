@@ -20,8 +20,8 @@
             <th>Create Date</th>
             <th>Receipt Issued</th>
             <th>Receipt</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +35,8 @@
             <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@invoice.hasReceipt</td>
             <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Urn" })</td>
-            <td>@Html.ActionLink("Edit", "Form", new { IV = invoice.IV, AF = Model.AF, area = "Urn" })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Urn" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF, area = "Urn" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Urn" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
         </tr>
         }
     </tbody>

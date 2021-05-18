@@ -10,7 +10,7 @@
 {
     <div class="form-group row">
         <div class="col-md-3">
-            IC
+            @Html.Raw(Resources.Mix.IC)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.IC, new { @class = "form-control" })
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            English Name
+            @Html.Raw(Resources.Mix.EnglishName)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Name, new { @class = "form-control" })
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Chinese Name
+            @Html.Raw(Resources.Mix.ChineseName)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Name2, new { @class = "form-control" })
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Age
+            @Html.Raw(Resources.Mix.Age)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Age, new { @class = "form-control", type = "number" })
@@ -46,7 +46,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Address
+            @Html.Raw(Resources.Mix.Address)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(d => d.DeceasedDto.Address, new { @class = "form-control" })
@@ -54,7 +54,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Gender
+            @Html.Raw(Resources.Mix.Gender)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.GenderTypeId, new SelectList(Model.GenderTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -62,7 +62,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Marital
+            @Html.Raw(Resources.Mix.Marital)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.MaritalTypeId, new SelectList(Model.MaritalTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -70,7 +70,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Religion
+            @Html.Raw(Resources.Mix.Religion)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.ReligionTypeId, new SelectList(Model.ReligionTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -78,7 +78,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Nationality
+            @Html.Raw(Resources.Mix.Nationality)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.NationalityTypeId, new SelectList(Model.NationalityTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -86,7 +86,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Death Date
+            @Html.Raw(Resources.Mix.DeathDate)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
@@ -95,7 +95,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Death Registration Centre
+            @Html.Raw(Resources.Mix.DeathRegistrationCentre)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.DeathRegistrationCentre, new { @class = "form-control" })
@@ -103,7 +103,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Death Certificate
+            @Html.Raw(Resources.Mix.DeathCertificate)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.DeathCertificate, new { @class = "form-control" })
@@ -111,7 +111,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Burial Certificate
+            @Html.Raw(Resources.Mix.BurialCertificate)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.BurialCertificate, new { @class = "form-control" })
@@ -119,7 +119,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Import Permit Number
+            @Html.Raw(Resources.Mix.ImportPermitNumber)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.ImportPermitNumber, new { @class = "form-control" })
@@ -127,7 +127,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.Remark)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(d => d.DeceasedDto.Remark, new { @class = "form-control" })
@@ -136,7 +136,7 @@
 
     @Html.HiddenFor(d => d.ApplicantId)
     @Html.HiddenFor(d => d.DeceasedDto.Id)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts
@@ -151,12 +151,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {   // will trigger when the document is ready
-            var dateNow = new Date();
             $('.datetimepicker').datetimepicker({
                 dateFormat: 'yy-mm-dd',
                 timeFormat: 'HH:mm',
-                useCurrent: true,
-                defaultDate: dateNow
+                useCurrent: true
             }); //Initialise any date pickers
         });
     </script>

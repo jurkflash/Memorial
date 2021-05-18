@@ -1,0 +1,67 @@
+﻿@model Memorial.ViewModels.QuadrangleItemIndexesViewModel
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.QuadrangleItemId, applicantId = Model.ApplicantId, id = Model.QuadrangleId, area = "Quadrangle" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Shifts", new { area = "Quadrangle" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.QuadrangleItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        @Html.Hidden("id", Model.QuadrangleId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            @*<th>Quadrangle</th>*@
+            <th>From Quadrangle</th>
+            <th>Applicant</th>
+            <th>Price</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quadrangleTransaction in Model.QuadrangleTransactionDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(quadrangleTransaction.AF, "Info", new { AF = quadrangleTransaction.AF }, new { target = "QuadrangleTransactionInfo", area = "Quadrangle" })</td>
+                @*<td>@quadrangleTransaction.ShiftedQuadrangle.Name</td>*@
+                <td>@quadrangleTransaction.Quadrangle.Name</td>
+                <td>@quadrangleTransaction.Applicant.Name &nbsp; @quadrangleTransaction.Applicant.Name2</td>
+                <td>@quadrangleTransaction.Price</td>
+                <td>@quadrangleTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = quadrangleTransaction.AF, area = "Quadrangle" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = quadrangleTransaction.AF, applicantId = Model.ApplicantId, area = "Quadrangle" })</td>
+                <td>
+                    @Html.ActionLink(Resources.Mix.Delete, "Delete",
+                    new { AF = quadrangleTransaction.AF, itemId = Model.QuadrangleItemId, id = Model.QuadrangleId, applicantId = Model.ApplicantId, area = "Quadrangle" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+Page @(Model.QuadrangleTransactionDtos.PageCount < Model.QuadrangleTransactionDtos.PageNumber ? 0 : Model.QuadrangleTransactionDtos.PageNumber) of @Model.QuadrangleTransactionDtos.PageCount
+@Html.PagedListPager(Model.QuadrangleTransactionDtos, page => Url.Action("Index",
+    new { page, id = Model.QuadrangleId, itemId = Model.QuadrangleItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+
+

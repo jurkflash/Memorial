@@ -2,22 +2,19 @@
 
 <div class="row flexrow">
     <div class="col-md-1">
-        身份證<br />
-        NRIC No
+        @Html.Raw(Resources.Mix.IC)
     </div>
     <div class="col-md-3">
         @Model.IC
     </div>
     <div class="col-md-1">
-        姓名（英）<br />
-        English Name
+        @Html.Raw(Resources.Mix.EnglishName)
     </div>
     <div class="col-md-3">
         @Model.Name
     </div>
     <div class="col-md-1">
-        （中）<br />
-        Chinese Name
+        @Html.Raw(Resources.Mix.ChineseName)
     </div>
     <div class="col-md-3">
         @Model.Name2
@@ -25,22 +22,19 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        年齡<br />
-        Age
+        @Html.Raw(Resources.Mix.Age)
     </div>
     <div class="col-md-3">
         @Model.Age
     </div>
     <div class="col-md-1">
-        性別<br />
-        Gender
+        @Html.Raw(Resources.Mix.Gender)
     </div>
     <div class="col-md-3">
         @Model.GenderType.Name
     </div>
     <div class="col-md-1">
-        婚姻<br />
-        Marital
+        @Html.Raw(Resources.Mix.Marital)
     </div>
     <div class="col-md-3">
         @Model.MaritalType.Name
@@ -48,22 +42,19 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        信仰<br />
-        Religion
+        @Html.Raw(Resources.Mix.Religion)
     </div>
     <div class="col-md-3">
         @Model.ReligionType.Name
     </div>
     <div class="col-md-1">
-        國籍<br />
-        Nationality
+        @Html.Raw(Resources.Mix.Nationality)
     </div>
     <div class="col-md-3">
         @Model.NationalityType.Name
     </div>
     <div class="col-md-1">
-        備註<br />
-        Remark
+        @Html.Raw(Resources.Mix.Remark)
     </div>
     <div class="col-md-3">
         @Model.Remark
@@ -71,8 +62,7 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        住址<br />
-        Address
+        @Html.Raw(Resources.Mix.Address)
     </div>
     <div class="col-md-11">
         @Model.Address
@@ -80,15 +70,13 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-1">
-        逝世日期<br />
-        Death Date
+        @Html.Raw(Resources.Mix.DeathDate)
     </div>
     <div class="col-md-3">
         @Model.DeathDate.ToString("yyyy-MM-dd HH:mm")
     </div>
     <div class="col-md-1">
-        生死局號碼<br />
-        Death Certificate
+        @Html.Raw(Resources.Mix.DeathCertificate)
     </div>
     <div class="col-md-3">
         @Model.DeathCertificate
@@ -96,15 +84,13 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-2">
-        逝世登記處<br />
-        Death Registration Centre
+        @Html.Raw(Resources.Mix.DeathRegistrationCentre)
     </div>
     <div class="col-md-3">
         @Model.DeathRegistrationCentre
     </div>
     <div class="col-md-2">
-        葬紙准證號碼<br />
-        Burial Certificate
+        @Html.Raw(Resources.Mix.BurialCertificate)
     </div>
     <div class="col-md-3">
         @Model.BurialCertificate
@@ -112,8 +98,7 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-2">
-        政府入口準字號數（如由外運棺來檳）<br />
-        Import Permit Number
+        @Html.Raw(Resources.Mix.ImportPermitNumber)
     </div>
     <div class="col-md-4">
         @Model.ImportPermitNumber

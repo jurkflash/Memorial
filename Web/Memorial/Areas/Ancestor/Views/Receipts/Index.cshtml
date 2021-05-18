@@ -31,8 +31,8 @@ Remaining Amount: @Model.RemainingAmount
             <th>Payment Method</th>
             <th>Payment Remark</th>
             <th>Create Date</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
         </tr>
     </thead>
     <tbody>
@@ -45,8 +45,8 @@ Remaining Amount: @Model.RemainingAmount
                 <td>@receipt.PaymentMethod.Name</td>
                 <td>@receipt.PaymentRemark</td>
                 <td>@receipt.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Edit", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE })</td>
-                <td>@Html.ActionLink("Delete", "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE })</td>
+                <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF })</td>
             </tr>
         }
     </tbody>

@@ -16,8 +16,8 @@
             <th>Name</th>
             <th>Contact Person</th>
             <th>Contact Name</th>
-            <th>Remark</th>
-            <th>Edit</th>
+            <th>@Html.Raw(Resources.Mix.Remark)</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
             <td>@funeralCompany.ContactPerson</td>
             <td>@funeralCompany.ContactNumber</td>
             <td>@funeralCompany.Remark</td>
-            <td>@Html.ActionLink("Edit", "Edit", new { id = funeralCompany.Id })</td>
+            <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", new { id = funeralCompany.Id })</td>
         </tr>
         }
     </tbody>

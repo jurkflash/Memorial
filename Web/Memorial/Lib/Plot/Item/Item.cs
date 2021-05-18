@@ -52,19 +52,19 @@ namespace Memorial.Lib.Plot
         private const float _fengShuiReciprocatePrice = 0;
 
         private const string _orderName = "單 Order";
-        private const string _orderSystemCode = "Order";
+        private const string _orderSystemCode = "Orders";
 
         private const string _fengShuiTransferName = "轉讓 Transfer";
-        private const string _fengShuiTransferSystemCode = "FengShuiTransfer";
+        private const string _fengShuiTransferSystemCode = "FengShuiTransfers";
 
         private const string _fengShuiReciprocateName = "回饋 Reciprocate";
-        private const string _fengShuiReciprocateSystemCode = "FengShuiReciprocate";
+        private const string _fengShuiReciprocateSystemCode = "FengShuiReciprocates";
 
         private const string _secondBurialName = "附葬 Second Burial";
-        private const string _secondBurialSystemCode = "SecondBurial";
+        private const string _secondBurialSystemCode = "SecondBurials";
 
         private const string _clearanceName = "拾金 Clearance";
-        private const string _clearanceSystemCode = "Clearance";
+        private const string _clearanceSystemCode = "Clearances";
 
         public Item(IUnitOfWork unitOfWork)
         {

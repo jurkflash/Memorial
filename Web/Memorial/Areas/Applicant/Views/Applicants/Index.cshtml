@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Applicants</h2>
+<h2>@Html.Raw(@Resources.Mix.Applicants)</h2>
 
 <p>
-    @Html.ActionLink("New", "New", new { area = "Applicant" })
+    @Html.ActionLink(@Resources.Mix.New, "New", new { area = "Applicant" })
 </p>
 
 @using (Html.BeginForm("Index", "Applicants", new { area = "Applicant" }))
@@ -22,10 +22,10 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>English Name</th>
-            <th>Chinese Name</th>
-            <th>IC</th>
-            <th>Edit</th>
+            <th>@Html.Raw(Resources.Mix.EnglishName)</th>
+            <th>@Html.Raw(Resources.Mix.ChineseName)</th>
+            <th>@Html.Raw(Resources.Mix.IC)</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,7 @@
                 <td>@Html.ActionLink(applicant.Name, "Catalog", new { id = applicant.Id, area = "Applicant" })</td>
                 <td>@applicant.Name2</td>
                 <td>@applicant.IC</td>
-                <td>@Html.ActionLink("Edit", "Edit", new { id = applicant.Id, area = "Applicant" })</td>
+                <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", new { id = applicant.Id, area = "Applicant" })</td>
             </tr>
         }
     </tbody>
