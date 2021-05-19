@@ -66,8 +66,8 @@ namespace Memorial.App_Start
             CreateMap<PlotType, PlotTypeDto>();
 
             CreateMap<Niche, NicheDto>()
-                .ForMember(c => c.QuadrangleTypeDto, opt => opt.MapFrom(x => x.QuadrangleType))
-                .ForMember(c => c.QuadrangleTypeDtoId, opt => opt.MapFrom(x => x.QuadrangleTypeId))
+                .ForMember(c => c.NicheTypeDto, opt => opt.MapFrom(x => x.NicheType))
+                .ForMember(c => c.NicheTypeDtoId, opt => opt.MapFrom(x => x.NicheTypeId))
                 .ForMember(c => c.ColumbariumAreaDto, opt => opt.MapFrom(x => x.ColumbariumArea))
                 .ForMember(c => c.ColumbariumAreaDtoId, opt => opt.MapFrom(x => x.ColumbariumAreaId));
 
@@ -76,7 +76,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ColumbariumCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
 
             CreateMap<ColumbariumCentre, ColumbariumCentreDto>();
-            CreateMap<QuadrangleType, QuadrangleTypeDto>();
+            CreateMap<NicheType, NicheTypeDto>();
             CreateMap<ColumbariumItem, ColumbariumItemDto>();
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
 
@@ -188,7 +188,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<QuadrangleTypeDto, QuadrangleType>()
+            CreateMap<NicheTypeDto, NicheType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())

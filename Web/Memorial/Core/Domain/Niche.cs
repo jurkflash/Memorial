@@ -38,9 +38,9 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public QuadrangleType QuadrangleType { get; set; }
+        public NicheType NicheType { get; set; }
 
-        public byte QuadrangleTypeId { get; set; }
+        public byte NicheTypeId { get; set; }
 
         public ColumbariumArea ColumbariumArea { get; set; }
 

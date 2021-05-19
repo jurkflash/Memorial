@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class QuadrangleTypeConfiguration : EntityTypeConfiguration<QuadrangleType>
+    public class NicheTypeConfiguration : EntityTypeConfiguration<NicheType>
     {
-        public QuadrangleTypeConfiguration()
+        public NicheTypeConfiguration()
         {
             Property(qt => qt.Name)
             .IsRequired()

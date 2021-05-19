@@ -35,7 +35,7 @@ namespace Memorial.Persistence
         public DbSet<PlotTracking> PlotTrackings { get; set; }
 
         public DbSet<ColumbariumArea> ColumbariumAreas { get; set; }
-        public DbSet<QuadrangleType> QuadrangleTypes { get; set; }
+        public DbSet<NicheType> NicheTypes { get; set; }
         public DbSet<Niche> Niches { get; set; }
         public DbSet<ColumbariumTracking> ColumbariumTrackings { get; set; }
         public DbSet<ColumbariumCentre> ColumbariumCentres { get; set; }
@@ -108,7 +108,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new AncestorTransactionConfiguration());
 
             modelBuilder.Configurations.Add(new ColumbariumAreaConfiguration());
-            modelBuilder.Configurations.Add(new QuadrangleTypeConfiguration());
+            modelBuilder.Configurations.Add(new NicheTypeConfiguration());
             modelBuilder.Configurations.Add(new NicheConfiguration());
             modelBuilder.Configurations.Add(new ColumbariumCentreConfiguration());
             modelBuilder.Configurations.Add(new ColumbariumItemConfiguration());

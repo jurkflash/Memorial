@@ -24,9 +24,9 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public QuadrangleTypeDto QuadrangleTypeDto { get; set; }
+        public NicheTypeDto NicheTypeDto { get; set; }
 
-        public byte QuadrangleTypeDtoId { get; set; }
+        public byte NicheTypeDtoId { get; set; }
 
         public ColumbariumAreaDto ColumbariumAreaDto { get; set; }
 

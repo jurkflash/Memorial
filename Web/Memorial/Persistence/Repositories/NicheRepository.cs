@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Niches
                 .Include(q => q.Applicant)
-                .Include(q => q.QuadrangleType)
+                .Include(q => q.NicheType)
                 .Include(q => q.ColumbariumArea)
                 //.Include(q => q.QuadrangleArea.QuadrangleCentre)
                 .Where(q => q.Id == id && q.DeleteDate == null)
@@ -32,7 +32,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Niche> GetAvailableByArea(int quadrangleAreaId)
         {
             return MemorialContext.Niches
-                .Include(q => q.QuadrangleType)
+                .Include(q => q.NicheType)
                 .Where(q => q.ColumbariumAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
         }
 

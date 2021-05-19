@@ -22,9 +22,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(d => d.NicheId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(q => q.QuadrangleType)
+            HasRequired(q => q.NicheType)
                 .WithMany(qt => qt.Niches)
-                .HasForeignKey(q => q.QuadrangleTypeId)
+                .HasForeignKey(q => q.NicheTypeId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(q => q.ColumbariumArea)

@@ -131,7 +131,7 @@ namespace Memorial.Lib.Columbarium
 
         public int GetNumberOfPlacement()
         {
-            return _quadrangle.QuadrangleType.NumberOfPlacement;
+            return _quadrangle.NicheType.NumberOfPlacement;
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId)

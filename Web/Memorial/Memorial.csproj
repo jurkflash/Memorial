@@ -791,7 +791,7 @@
     <Compile Include="Core\Domain\ColumbariumArea.cs" />
     <Compile Include="Core\Domain\PlotType.cs" />
     <Compile Include="Core\Domain\FengShuiMaster.cs" />
-    <Compile Include="Core\Domain\QuadrangleType.cs" />
+    <Compile Include="Core\Domain\NicheType.cs" />
     <Compile Include="Core\Domain\Site.cs" />
     <Compile Include="Core\Domain\ReligionType.cs" />
     <Compile Include="Core\Domain\RelationshipType.cs" />
@@ -830,7 +830,7 @@
     <Compile Include="Core\Dtos\NicheDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumItemDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumTransactionDto.cs" />
-    <Compile Include="Core\Dtos\QuadrangleTypeDto.cs" />
+    <Compile Include="Core\Dtos\NicheTypeDto.cs" />
     <Compile Include="Core\Dtos\ReceiptDto.cs" />
     <Compile Include="Core\Dtos\RelationshipTypeDto.cs" />
     <Compile Include="Core\Dtos\ReligionTypeDto.cs" />
@@ -887,7 +887,7 @@
     <Compile Include="Core\Repositories\IAncestorRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumCentreRepository.cs" />
     <Compile Include="Core\Repositories\INicheRepository.cs" />
-    <Compile Include="Core\Repositories\IQuadrangleTypeRepository.cs" />
+    <Compile Include="Core\Repositories\INicheTypeRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumAreaRepository.cs" />
     <Compile Include="Core\Repositories\IMiscellaneousRepository.cs" />
     <Compile Include="Core\Repositories\ISpaceRepository.cs" />
@@ -2248,6 +2248,10 @@
     <Compile Include="Migrations\202105191033006_RenameQuadrangleToNicheTableColumns.designer.cs">
       <DependentUpon>202105191033006_RenameQuadrangleToNicheTableColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.cs" />
+    <Compile Include="Migrations\202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.designer.cs">
+      <DependentUpon>202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2297,7 +2301,7 @@
     <Compile Include="Persistence\EntityConfigurations\AncestorConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumCentreConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\NicheConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\QuadrangleTypeConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\NicheTypeConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumAreaConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\MiscellaneousConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationConfiguration.cs" />
@@ -2342,7 +2346,7 @@
     <Compile Include="Persistence\Repositories\ColumbariumCentreRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumNumberRepository.cs" />
-    <Compile Include="Persistence\Repositories\QuadrangleTypeRepository.cs" />
+    <Compile Include="Persistence\Repositories\NicheTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\NicheRepository.cs" />
     <Compile Include="Persistence\Repositories\MiscellaneousRepository.cs" />
@@ -3445,6 +3449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105191033006_RenameQuadrangleToNicheTableColumns.resx">
       <DependentUpon>202105191033006_RenameQuadrangleToNicheTableColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.resx">
+      <DependentUpon>202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

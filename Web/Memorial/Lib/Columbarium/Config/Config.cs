@@ -95,7 +95,7 @@ namespace Memorial.Lib.Columbarium
         {
             var quadrangleInDB = _quadrangle.GetQuadrangle(quadrangleDto.Id);
 
-            if ((quadrangleInDB.QuadrangleTypeId != quadrangleDto.QuadrangleTypeDtoId
+            if ((quadrangleInDB.NicheTypeId != quadrangleDto.NicheTypeDtoId
                 || quadrangleInDB.ColumbariumAreaId != quadrangleDto.ColumbariumAreaDtoId)
                 && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == quadrangleDto.Id || qt.ShiftedNicheId == quadrangleDto.Id) && qt.DeleteDate == null).Any())
             {

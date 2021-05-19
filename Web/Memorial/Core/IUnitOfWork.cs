@@ -55,7 +55,7 @@ namespace Memorial.Core
         INicheRepository Niches { get; }
         IColumbariumTrackingRepository ColumbariumTrackings { get; }
         IColumbariumAreaRepository ColumbariumAreas { get; }
-        IQuadrangleTypeRepository QuadrangleTypes { get; }
+        INicheTypeRepository NicheTypes { get; }
         IColumbariumItemRepository ColumbariumItems { get; }
         IColumbariumCentreRepository ColumbariumCentres { get; }
         IColumbariumNumberRepository ColumbariumNumbers { get; }

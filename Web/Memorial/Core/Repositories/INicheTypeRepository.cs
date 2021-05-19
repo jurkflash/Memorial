@@ -2,7 +2,7 @@
 
 namespace Memorial.Core.Repositories
 {
-    public interface IQuadrangleTypeRepository : IRepository<QuadrangleType>
+    public interface INicheTypeRepository : IRepository<NicheType>
     {
     }
 }
