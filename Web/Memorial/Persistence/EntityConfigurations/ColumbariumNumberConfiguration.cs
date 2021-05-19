@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class QuadrangleNumberConfiguration : EntityTypeConfiguration<QuadrangleNumber>
+    public class ColumbariumNumberConfiguration : EntityTypeConfiguration<ColumbariumNumber>
     {
-        public QuadrangleNumberConfiguration()
+        public ColumbariumNumberConfiguration()
         {
             Property(qn => qn.ItemCode)
                 .IsRequired()

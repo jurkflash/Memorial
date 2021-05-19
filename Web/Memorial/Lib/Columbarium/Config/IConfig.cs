@@ -17,7 +17,7 @@ namespace Memorial.Lib.Columbarium
         IEnumerable<QuadrangleAreaDto> GetAreaDtosByCentre(int centreId);
         ColumbariumItemDto GetItemDto(int id);
         IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId);
-        IEnumerable<QuadrangleNumber> GetNumbers();
+        IEnumerable<ColumbariumNumber> GetNumbers();
         QuadrangleAreaDto GetQuadrangleAreaDto(int id);
         QuadrangleCentreDto GetQuadrangleCentreDto(int id);
         IEnumerable<QuadrangleCentreDto> GetQuadrangleCentreDtos();

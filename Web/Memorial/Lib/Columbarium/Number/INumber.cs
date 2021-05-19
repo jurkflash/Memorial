@@ -9,8 +9,8 @@ namespace Memorial.Lib.Columbarium
 {
     public interface INumber
     {
-        string GetNewAF(int quadrangleItemId, int year);
+        string GetNewAF(int columbariumItemId, int year);
 
-        string GetNewIV(int quadrangleItemId, int year);
+        string GetNewIV(int columbariumItemId, int year);
     }
 }

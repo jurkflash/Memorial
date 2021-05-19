@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class QuadrangleNumberRepository : Repository<QuadrangleNumber>, IQuadrangleNumberRepository
+    public class ColumbariumNumberRepository : Repository<ColumbariumNumber>, IColumbariumNumberRepository
     {
-        public QuadrangleNumberRepository(MemorialContext context) : base(context)
+        public ColumbariumNumberRepository(MemorialContext context) : base(context)
         {
         }
 

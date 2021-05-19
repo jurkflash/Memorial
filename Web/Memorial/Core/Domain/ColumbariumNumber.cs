@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class QuadrangleNumber
+    public class ColumbariumNumber
     {
         public int Id { get; set; }
 

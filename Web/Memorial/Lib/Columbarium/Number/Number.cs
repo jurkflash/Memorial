@@ -19,14 +19,14 @@ namespace Memorial.Lib.Columbarium
             _unitOfWork = unitOfWork;
         }
 
-        public string GetNewAF(int quadrangleItemId, int year)
+        public string GetNewAF(int columbariumItemId, int year)
         {
-            return _unitOfWork.QuadrangleNumbers.GetNewAF(quadrangleItemId, year);
+            return _unitOfWork.ColumbariumNumbers.GetNewAF(columbariumItemId, year);
         }
 
-        public string GetNewIV(int quadrangleItemId, int year)
+        public string GetNewIV(int columbariumItemId, int year)
         {
-            return _unitOfWork.QuadrangleNumbers.GetNewIV(quadrangleItemId, year);
+            return _unitOfWork.ColumbariumNumbers.GetNewIV(columbariumItemId, year);
         }
 
     }

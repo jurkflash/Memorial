@@ -73,9 +73,9 @@ namespace Memorial.Lib.Columbarium
             return _item.GetItemDtosByCentre(centreId);
         }
 
-        public IEnumerable<QuadrangleNumber> GetNumbers()
+        public IEnumerable<ColumbariumNumber> GetNumbers()
         {
-            return _unitOfWork.QuadrangleNumbers.GetAll();
+            return _unitOfWork.ColumbariumNumbers.GetAll();
         }
 
 

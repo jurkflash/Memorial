@@ -773,7 +773,7 @@
     <Compile Include="Core\Domain\PlotNumber.cs" />
     <Compile Include="Core\Domain\CremationNumber.cs" />
     <Compile Include="Core\Domain\SpaceItem.cs" />
-    <Compile Include="Core\Domain\QuadrangleNumber.cs" />
+    <Compile Include="Core\Domain\ColumbariumNumber.cs" />
     <Compile Include="Core\Domain\SpaceNumber.cs" />
     <Compile Include="Core\Domain\Urn.cs" />
     <Compile Include="Core\Domain\QuadrangleCentre.cs" />
@@ -863,7 +863,7 @@
     <Compile Include="Core\Repositories\IMiscellaneousNumberRepository.cs" />
     <Compile Include="Core\Repositories\IPlotNumberRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumItemRepository.cs" />
-    <Compile Include="Core\Repositories\IQuadrangleNumberRepository.cs" />
+    <Compile Include="Core\Repositories\IColumbariumNumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationItemRepository.cs" />
     <Compile Include="Core\Repositories\ISpaceNumberRepository.cs" />
     <Compile Include="Core\Repositories\ISpaceItemRepository.cs" />
@@ -2228,6 +2228,10 @@
     <Compile Include="Migrations\202105190948324_RenameQuadrangleToColumbariumItemTableColumns.designer.cs">
       <DependentUpon>202105190948324_RenameQuadrangleToColumbariumItemTableColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105190955430_RenameQuadrangleToColumbariumNumberTableColumns.cs" />
+    <Compile Include="Migrations\202105190955430_RenameQuadrangleToColumbariumNumberTableColumns.designer.cs">
+      <DependentUpon>202105190955430_RenameQuadrangleToColumbariumNumberTableColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2262,7 +2266,7 @@
     <Compile Include="Persistence\EntityConfigurations\UrnItemConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\SpaceItemConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\SpaceNumberConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\QuadrangleNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ColumbariumNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\UrnConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\DeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotLandscapeCompanyConfiguration.cs" />
@@ -2321,7 +2325,7 @@
     <Compile Include="Persistence\Repositories\AncestorRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleCentreRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
-    <Compile Include="Persistence\Repositories\QuadrangleNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\ColumbariumNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleRepository.cs" />
@@ -3410,6 +3414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105190948324_RenameQuadrangleToColumbariumItemTableColumns.resx">
       <DependentUpon>202105190948324_RenameQuadrangleToColumbariumItemTableColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105190955430_RenameQuadrangleToColumbariumNumberTableColumns.resx">
+      <DependentUpon>202105190955430_RenameQuadrangleToColumbariumNumberTableColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
