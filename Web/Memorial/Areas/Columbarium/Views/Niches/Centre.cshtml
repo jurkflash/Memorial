@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.ColumbariumCentreIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var columbariumCentre in Model.ColumbariumCentreDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(columbariumCentre.Name, "Area", new { centreId = columbariumCentre.Id, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
+                <td>@columbariumCentre.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

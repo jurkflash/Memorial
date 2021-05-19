@@ -11,63 +11,63 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public string GetNewAF(int QuadrangleItemId, int year)
+        public string GetNewAF(int columbariumItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.ColumbariumItems
-                                .Include(q => q.QuadrangleCentre)
-                                .Include(q => q.QuadrangleCentre.Site)
-                                .Where(q => q.Id == QuadrangleItemId &&
+            var columbariumItem = MemorialContext.ColumbariumItems
+                                .Include(q => q.ColumbariumCentre)
+                                .Include(q => q.ColumbariumCentre.Site)
+                                .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetQuadrangleNewAF(quadrangleItem.Code, year);
+            var number = numberRepository.GetColumbariumNewAF(columbariumItem.Code, year);
 
-            if (number == -1 || quadrangleItem == null)
+            if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return quadrangleItem.QuadrangleCentre.Site.Code + "/" + quadrangleItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
-        public string GetNewIV(int QuadrangleItemId, int year)
+        public string GetNewIV(int columbariumItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.ColumbariumItems
-                                .Include(q => q.QuadrangleCentre)
-                                .Include(q => q.QuadrangleCentre.Site)
-                                .Where(q => q.Id == QuadrangleItemId &&
+            var columbariumItem = MemorialContext.ColumbariumItems
+                                .Include(q => q.ColumbariumCentre)
+                                .Include(q => q.ColumbariumCentre.Site)
+                                .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetQuadrangleNewIV(quadrangleItem.Code, year);
+            var number = numberRepository.GetColumbariumNewIV(columbariumItem.Code, year);
 
-            if (number == -1 || quadrangleItem == null)
+            if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return quadrangleItem.QuadrangleCentre.Site.Code + "/" + quadrangleItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
-        public string GetNewRE(int QuadrangleItemId, int year)
+        public string GetNewRE(int columbariumItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.ColumbariumItems
-                                .Include(q => q.QuadrangleCentre)
-                                .Include(q => q.QuadrangleCentre.Site)
-                                .Where(q => q.Id == QuadrangleItemId &&
+            var columbariumItem = MemorialContext.ColumbariumItems
+                                .Include(q => q.ColumbariumCentre)
+                                .Include(q => q.ColumbariumCentre.Site)
+                                .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetQuadrangleNewRE(quadrangleItem.Code, year);
+            var number = numberRepository.GetColumbariumNewRE(columbariumItem.Code, year);
 
-            if (number == -1 || quadrangleItem == null)
+            if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return quadrangleItem.QuadrangleCentre.Site.Code + "/" + quadrangleItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

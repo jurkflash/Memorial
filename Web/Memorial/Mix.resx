@@ -139,7 +139,7 @@
     <value>（中）&lt;br /&gt;Chinese Name</value>
   </data>
   <data name="Columbarium" xml:space="preserve">
-    <value />
+    <value>骨灰殿 Columbarium</value>
   </data>
   <data name="Cremation" xml:space="preserve">
     <value>火化 Cremation</value>
@@ -160,7 +160,7 @@
     <value>全逝世者 Deceaseds</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>删除 Delete</value>
+    <value>刪除 Delete</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>修改 Edit</value>
@@ -181,13 +181,13 @@
     <value>政府入口準字號數（如由外運棺來檳）&lt;br /&gt;Import Permit Number</value>
   </data>
   <data name="Link" xml:space="preserve">
-    <value>联系 Link</value>
+    <value>聯繫 Link</value>
   </data>
   <data name="Marital" xml:space="preserve">
     <value>婚姻&lt;br /&gt;Marital</value>
   </data>
   <data name="Miscellaneous" xml:space="preserve">
-    <value>杂费 Miscellaneous</value>
+    <value>雜費 Miscellaneous</value>
   </data>
   <data name="MobileNumber" xml:space="preserve">
     <value>流動電話&lt;br /&gt;Mobile Number</value>
@@ -196,7 +196,10 @@
     <value>國籍&lt;br /&gt;Nationality</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>新纪录 New</value>
+    <value>新紀錄 New</value>
+  </data>
+  <data name="Niche" xml:space="preserve">
+    <value>骨灰閣 Niche</value>
   </data>
   <data name="NoRecord" xml:space="preserve">
     <value>沒記錄 No record</value>
@@ -204,11 +207,8 @@
   <data name="Plot" xml:space="preserve">
     <value />
   </data>
-  <data name="Quadrangle" xml:space="preserve">
-    <value>骨灰阁 Quadrangle</value>
-  </data>
   <data name="Relationship" xml:space="preserve">
-    <value>申请人与逝世者关系&lt;br /&gt;Relationship</value>
+    <value>申請人與逝世者關係&lt;br /&gt;Relationship</value>
   </data>
   <data name="Religion" xml:space="preserve">
     <value>信仰&lt;br /&gt;Religion</value>
@@ -220,12 +220,12 @@
     <value>保存 Save</value>
   </data>
   <data name="Space" xml:space="preserve">
-    <value>空间 Space</value>
+    <value>空間 Space</value>
   </data>
   <data name="Unlink" xml:space="preserve">
-    <value>删除联系 Unlink</value>
+    <value>刪除聯繫 Unlink</value>
   </data>
   <data name="Urn" xml:space="preserve">
-    <value>骨灰瓮 Urn</value>
+    <value>骨灰甕 Urn</value>
   </data>
 </root>

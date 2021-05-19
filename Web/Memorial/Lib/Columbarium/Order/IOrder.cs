@@ -10,9 +10,9 @@ namespace Memorial.Lib.Columbarium
     {
         void SetOrder(string AF);
 
-        bool Create(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool Create(ColumbariumTransactionDto columbariumTransactionDto);
 
-        bool Update(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool Update(ColumbariumTransactionDto columbariumTransactionDto);
 
         bool Delete();
     }

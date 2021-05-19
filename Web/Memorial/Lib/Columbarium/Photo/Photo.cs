@@ -14,24 +14,24 @@ namespace Memorial.Lib.Columbarium
     {
         private const string _systemCode = "Photo";
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IQuadrangle _invoice;
+        private readonly Invoice.IColumbarium _invoice;
         private readonly IPayment _payment;
 
         public Photo(
             IUnitOfWork unitOfWork,
             IItem item,
-            IQuadrangle quadrangle,
+            INiche niche,
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             INumber number,
-            Invoice.IQuadrangle invoice,
+            Invoice.IColumbarium invoice,
             IPayment payment
             ) :
             base(
                 unitOfWork,
                 item,
-                quadrangle,
+                niche,
                 applicant,
                 deceased,
                 applicantDeceased,
@@ -40,7 +40,7 @@ namespace Memorial.Lib.Columbarium
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _quadrangle = quadrangle;
+            _niche = niche;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -64,18 +64,18 @@ namespace Memorial.Lib.Columbarium
             _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(ColumbariumTransactionDto quadrangleTransactionDto)
+        public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            if (quadrangleTransactionDto.Deceased1Id != null)
+            if (columbariumTransactionDto.Deceased1Id != null)
             {
-                SetDeceased((int)quadrangleTransactionDto.Deceased1Id);
-                if (_deceased.GetQuadrangle() != null)
+                SetDeceased((int)columbariumTransactionDto.Deceased1Id);
+                if (_deceased.GetNiche() != null)
                     return false;
             }
 
-            NewNumber(quadrangleTransactionDto.ColumbariumItemId);
+            NewNumber(columbariumTransactionDto.ColumbariumItemId);
 
-            if (CreateNewTransaction(quadrangleTransactionDto))
+            if (CreateNewTransaction(columbariumTransactionDto))
             {
                 _unitOfWork.Complete();
             }
@@ -87,15 +87,15 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool Update(ColumbariumTransactionDto quadrangleTransactionDto)
+        public bool Update(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            if (_invoice.GetInvoicesByAF(quadrangleTransactionDto.AF).Any() && quadrangleTransactionDto.Price <
-                _invoice.GetInvoicesByAF(quadrangleTransactionDto.AF).Max(i => i.Amount))
+            if (_invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Any() && columbariumTransactionDto.Price <
+                _invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Max(i => i.Amount))
             {
                 return false;
             }
 
-            UpdateTransaction(quadrangleTransactionDto);
+            UpdateTransaction(columbariumTransactionDto);
 
             _unitOfWork.Complete();
 
@@ -114,9 +114,9 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool ChangeQuadrangle(int oldQuadrangleId, int newQuadrangleId)
+        public bool ChangeNiche(int oldNicheId, int newNicheId)
         {
-            if (!ChangeQuadrangle(_systemCode, oldQuadrangleId, newQuadrangleId))
+            if (!ChangeNiche(_systemCode, oldNicheId, newNicheId))
                 return false;
 
             return true;

@@ -188,7 +188,7 @@ namespace Memorial.Lib.Ancestor
             foreach (var deceased in deceaseds)
             {
                 _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveQuadrangle();
+                _deceased.RemoveNiche();
             }
 
             _tracking.Remove(_transaction.AncestorId, _transaction.AF);

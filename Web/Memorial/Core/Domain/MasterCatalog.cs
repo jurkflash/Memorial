@@ -12,7 +12,7 @@ namespace Memorial.Core.Domain
         Miscellaneous = 3,
         Urn = 4,
         Space = 5,
-        Quadrangle = 6,
+        Columbarium = 6,
         Plot = 7
     }
 }

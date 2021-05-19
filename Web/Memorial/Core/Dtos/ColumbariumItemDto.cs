@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
@@ -20,9 +19,9 @@ namespace Memorial.Core.Dtos
 
         public bool isOrder { get; set; }
 
-        public ColumbariumCentre QuadrangleCentre { get; set; }
+        public ColumbariumCentre ColumbariumCentre { get; set; }
 
-        public int QuadrangleCentreId { get; set; }
+        public int ColumbariumCentreId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

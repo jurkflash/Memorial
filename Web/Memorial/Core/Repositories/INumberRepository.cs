@@ -28,11 +28,11 @@ namespace Memorial.Core.Repositories
 
         int GetUrnNewRE(string itemCode, int year);
 
-        int GetQuadrangleNewAF(string itemCode, int year);
+        int GetColumbariumNewAF(string itemCode, int year);
 
-        int GetQuadrangleNewIV(string itemCode, int year);
+        int GetColumbariumNewIV(string itemCode, int year);
 
-        int GetQuadrangleNewRE(string itemCode, int year);
+        int GetColumbariumNewRE(string itemCode, int year);
 
         int GetAncestorNewAF(string itemCode, int year);
 

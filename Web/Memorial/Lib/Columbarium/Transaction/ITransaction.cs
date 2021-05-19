@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Columbarium
@@ -26,7 +23,7 @@ namespace Memorial.Lib.Columbarium
 
         float GetTransactionAmount();
 
-        int GetTransactionQuadrangleId();
+        int GetTransactionNicheId();
 
         int GetItemId();
 
@@ -44,14 +41,14 @@ namespace Memorial.Lib.Columbarium
 
         int? GetTransactionDeceased1Id();
 
-        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter);
+        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemId(int nicheId, int itemId, string filter);
 
-        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter);
+        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemId(int nicheId, int itemId, string filter);
 
-        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
+        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId);
 
-        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId);
+        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId);
 
-        Core.Domain.ColumbariumTransaction GetTransactionsByShiftedQuadrangleTransactionAF(string AF);
+        Core.Domain.ColumbariumTransaction GetTransactionsByShiftedColumbariumTransactionAF(string AF);
     }
 }

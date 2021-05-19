@@ -1,6 +1,4 @@
-﻿using Memorial.Core.Domain;
-using Memorial.Core.Repositories;
-using System.Data.Entity;
+﻿using Memorial.Core.Repositories;
 using System.Data;
 using System.Data.SqlClient;
 using System;
@@ -17,7 +15,7 @@ namespace Memorial.Persistence.Repositories
         private const string _miscellaneous = "Miscellaneous";
         private const string _space = "Space";
         private const string _urn = "Urn";
-        private const string _quadrangle = "Quadrangle";
+        private const string _columbarium = "Columbarium";
         private const string _ancestor = "Ancestor";
         private const string _plot = "Plot";
 
@@ -93,19 +91,19 @@ namespace Memorial.Persistence.Repositories
             return GetNumber(_urn, _RE, itemCode, year);
         }
 
-        public int GetQuadrangleNewAF(string itemCode, int year)
+        public int GetColumbariumNewAF(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _AF, itemCode, year);
+            return GetNumber(_columbarium, _AF, itemCode, year);
         }
 
-        public int GetQuadrangleNewIV(string itemCode, int year)
+        public int GetColumbariumNewIV(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _IV, itemCode, year);
+            return GetNumber(_columbarium, _IV, itemCode, year);
         }
 
-        public int GetQuadrangleNewRE(string itemCode, int year)
+        public int GetColumbariumNewRE(string itemCode, int year)
         {
-            return GetNumber(_quadrangle, _RE, itemCode, year);
+            return GetNumber(_columbarium, _RE, itemCode, year);
         }
 
         public int GetAncestorNewAF(string itemCode, int year)

@@ -153,7 +153,7 @@ namespace Memorial.Lib.Plot
             foreach (var deceased in deceaseds)
             {
                 _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveQuadrangle();
+                _deceased.RemoveNiche();
             }
 
             _tracking.Remove(_transaction.PlotId, _transaction.AF);
@@ -172,7 +172,7 @@ namespace Memorial.Lib.Plot
                 if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
                     return false;
 
-                _deceased.SetQuadrangle(previousTransaction.PlotId);
+                _deceased.SetNiche(previousTransaction.PlotId);
 
                 _plot.SetHasDeceased(true);
             }
@@ -184,7 +184,7 @@ namespace Memorial.Lib.Plot
                 if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
                     return false;
 
-                _deceased.SetQuadrangle(previousTransaction.PlotId);
+                _deceased.SetNiche(previousTransaction.PlotId);
 
                 _plot.SetHasDeceased(true);
             }
@@ -196,7 +196,7 @@ namespace Memorial.Lib.Plot
                 if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _transaction.PlotId)
                     return false;
 
-                _deceased.SetQuadrangle(previousTransaction.PlotId);
+                _deceased.SetNiche(previousTransaction.PlotId);
 
                 _plot.SetHasDeceased(true);
             }

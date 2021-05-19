@@ -5,17 +5,17 @@ namespace Memorial.Lib.Columbarium
 {
     public interface ITracking
     {
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id);
-        void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id);
-        void Add(int quadrangleId, string quadrangleTransactionAF);
-        void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id);
-        void ChangeQuadrangleId(int trackingId, int quadrangleId);
-        void Delete(string quadrangleTransactionAF);
-        ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId);
-        IEnumerable<ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId);
-        ColumbariumTracking GetTrackingByTransactionAF(string quadrangleTransactionAF);
-        bool IsLatestTransaction(int quadrangleId, string quadrangleTransactionAF);
-        void Remove(int quadrangleId, string quadrangleTransactionAF);
+        void Add(int nicheId, string columbariumTransactionAF, int applicantId);
+        void Add(int nicheId, string columbariumTransactionAF, int applicantId, int? deceased1Id);
+        void Add(int nicheId, string columbariumTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id);
+        void Add(int nicheId, string columbariumTransactionAF);
+        void Change(int nicheId, string columbariumTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id);
+        void ChangeNicheId(int trackingId, int nicheId);
+        void Delete(string columbariumTransactionAF);
+        ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId);
+        IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId);
+        ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF);
+        bool IsLatestTransaction(int nicheId, string columbariumTransactionAF);
+        void Remove(int nicheId, string columbariumTransactionAF);
     }
 }

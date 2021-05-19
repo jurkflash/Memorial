@@ -18,9 +18,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(10);
 
-            HasRequired(qi => qi.QuadrangleCentre)
+            HasRequired(qi => qi.ColumbariumCentre)
                 .WithMany(qc => qc.ColumbariumItems)
-                .HasForeignKey(qi => qi.QuadrangleCentreId)
+                .HasForeignKey(qi => qi.ColumbariumCentreId)
                 .WillCascadeOnDelete(false);
         }
     }

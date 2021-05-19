@@ -12,32 +12,32 @@ namespace Memorial.Lib.Columbarium
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF)
+        public void Add(int nicheId, string columbariumTransactionAF)
         {
-            Create(quadrangleId, quadrangleTransactionAF);
+            Create(nicheId, columbariumTransactionAF);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId)
+        public void Add(int nicheId, string columbariumTransactionAF, int applicantId)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId);
+            Create(nicheId, columbariumTransactionAF, applicantId);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id)
+        public void Add(int nicheId, string columbariumTransactionAF, int applicantId, int? deceased1Id)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id);
+            Create(nicheId, columbariumTransactionAF, applicantId, deceased1Id);
         }
 
-        public void Add(int quadrangleId, string quadrangleTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
+        public void Add(int nicheId, string columbariumTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
         {
-            Create(quadrangleId, quadrangleTransactionAF, applicantId, deceased1Id, deceased2Id);
+            Create(nicheId, columbariumTransactionAF, applicantId, deceased1Id, deceased2Id);
         }
 
-        private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
+        private void Create(int nicheId, string columbariumTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
         {
             _unitOfWork.ColumbariumTrackings.Add(new Core.Domain.ColumbariumTracking()
             {
-                NicheId = quadrangleId,
-                ColumbariumTransactionAF = quadrangleTransactionAF,
+                NicheId = nicheId,
+                ColumbariumTransactionAF = columbariumTransactionAF,
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
@@ -45,9 +45,9 @@ namespace Memorial.Lib.Columbarium
             });
         }
 
-        public void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id)
+        public void Change(int nicheId, string columbariumTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id)
         {
-            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(nicheId, columbariumTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -58,45 +58,45 @@ namespace Memorial.Lib.Columbarium
             tracking.ActionDate = System.DateTime.Now;
         }
 
-        public void ChangeQuadrangleId(int trackingId, int quadrangleId)
+        public void ChangeNicheId(int trackingId, int nicheId)
         {
             var tracking = _unitOfWork.ColumbariumTrackings.Get(trackingId);
 
-            tracking.NicheId = quadrangleId;
+            tracking.NicheId = nicheId;
         }
 
-        public void Remove(int quadrangleId, string quadrangleTransactionAF)
+        public void Remove(int nicheId, string columbariumTransactionAF)
         {
-            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(nicheId, columbariumTransactionAF);
 
             _unitOfWork.ColumbariumTrackings.Remove(tracking);
         }
 
-        public Core.Domain.ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
+        public Core.Domain.ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId)
         {
-            return _unitOfWork.ColumbariumTrackings.GetLatestFirstTransactionByNicheId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetLatestFirstTransactionByNicheId(nicheId);
         }
 
-        public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId)
+        public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByNicheId(int nicheId)
         {
-            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(nicheId);
         }
 
-        public Core.Domain.ColumbariumTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
+        public Core.Domain.ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF)
         {
-            return _unitOfWork.ColumbariumTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByTransactionAF(columbariumTransactionAF);
         }
 
-        public void Delete(string quadrangleTransactionAF)
+        public void Delete(string columbariumTransactionAF)
         {
-            var tracking = GetTrackingByTransactionAF(quadrangleTransactionAF);
+            var tracking = GetTrackingByTransactionAF(columbariumTransactionAF);
             if (tracking != null)
                 _unitOfWork.ColumbariumTrackings.Remove(tracking);
         }
 
-        public bool IsLatestTransaction(int quadrangleId, string quadrangleTransactionAF)
+        public bool IsLatestTransaction(int nicheId, string columbariumTransactionAF)
         {
-            return GetLatestFirstTransactionByQuadrangleId(quadrangleId).ColumbariumTransactionAF == quadrangleTransactionAF;
+            return GetLatestFirstTransactionByNicheId(nicheId).ColumbariumTransactionAF == columbariumTransactionAF;
         }
     }
 }

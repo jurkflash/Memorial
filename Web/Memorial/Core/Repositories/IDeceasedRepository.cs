@@ -13,7 +13,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Deceased> GetAllExcludeFilter(int applicantId, string deceasedName);
 
-        IEnumerable<Deceased> GetByNiche(int quadrangleId);
+        IEnumerable<Deceased> GetByNiche(int nicheId);
 
         IEnumerable<Deceased> GetByAncestor(int ancestorId);
 

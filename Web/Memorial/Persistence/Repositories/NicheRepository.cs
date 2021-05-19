@@ -18,29 +18,28 @@ namespace Memorial.Persistence.Repositories
                 .Include(q => q.Applicant)
                 .Include(q => q.NicheType)
                 .Include(q => q.ColumbariumArea)
-                //.Include(q => q.QuadrangleArea.QuadrangleCentre)
                 .Where(q => q.Id == id && q.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Niche> GetByArea(int quadrangleAreaId)
+        public IEnumerable<Niche> GetByArea(int columbariumAreaId)
         {
             return MemorialContext.Niches
-                .Where(q => q.ColumbariumAreaId == quadrangleAreaId).ToList();
+                .Where(q => q.ColumbariumAreaId == columbariumAreaId).ToList();
         }
 
-        public IEnumerable<Niche> GetAvailableByArea(int quadrangleAreaId)
+        public IEnumerable<Niche> GetAvailableByArea(int columbariumAreaId)
         {
             return MemorialContext.Niches
                 .Include(q => q.NicheType)
-                .Where(q => q.ColumbariumAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
+                .Where(q => q.ColumbariumAreaId == columbariumAreaId && q.ApplicantId == null).ToList();
         }
 
-        public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int quadrangleAreaId)
+        public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int columbariumAreaId)
         {
             var d = new Dictionary<byte, IEnumerable<byte>>();
             var t = MemorialContext.Niches
-                .Where(q => q.ColumbariumAreaId == quadrangleAreaId)
+                .Where(q => q.ColumbariumAreaId == columbariumAreaId)
                 .Select(q => new { q.PositionY, q.PositionX })
                 .Distinct()
                 .OrderBy(a => a.PositionY).ThenBy(a => a.PositionX).ToList();

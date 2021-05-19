@@ -26,9 +26,9 @@ namespace Memorial.Core.Domain
 
         public bool isOrder { get; set; }
 
-        public ColumbariumCentre QuadrangleCentre { get; set; }
+        public ColumbariumCentre ColumbariumCentre { get; set; }
 
-        public int QuadrangleCentreId { get; set; }
+        public int ColumbariumCentreId { get; set; }
 
         public ICollection<ColumbariumTransaction> ColumbariumTransactions { get; set; }
 

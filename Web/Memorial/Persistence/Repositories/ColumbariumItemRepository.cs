@@ -19,10 +19,10 @@ namespace Memorial.Persistence.Repositories
                 .SingleOrDefault();
         }
 
-        public IEnumerable<ColumbariumItem> GetByCentre(int quadrangleCentreId)
+        public IEnumerable<ColumbariumItem> GetByCentre(int columbariumCentreId)
         {
             return MemorialContext.ColumbariumItems
-                .Where(qi => qi.QuadrangleCentreId == quadrangleCentreId
+                .Where(qi => qi.ColumbariumCentreId == columbariumCentreId
                 && qi.DeleteDate == null).ToList();
         }
 

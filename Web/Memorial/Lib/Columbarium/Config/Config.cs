@@ -1,9 +1,6 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Memorial.Lib;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -16,34 +13,34 @@ namespace Memorial.Lib.Columbarium
         private readonly ICentre _centre;
         private readonly IArea _area;
         private readonly IItem _item;
-        private readonly IQuadrangle _quadrangle;
+        private readonly INiche _niche;
 
         public Config(
             IUnitOfWork unitOfWork,
             ICentre centre,
             IArea area,
             IItem item,
-            IQuadrangle quadrangle
+            INiche niche
             )
         {
             _unitOfWork = unitOfWork;
             _centre = centre;
             _area = area;
             _item = item;
-            _quadrangle = quadrangle;
+            _niche = niche;
         }
 
-        public ColumbariumCentreDto GetQuadrangleCentreDto(int id)
+        public ColumbariumCentreDto GetColumbariumCentreDto(int id)
         {
             return _centre.GetCentreDto(id);
         }
 
-        public IEnumerable<ColumbariumCentreDto> GetQuadrangleCentreDtos()
+        public IEnumerable<ColumbariumCentreDto> GetColumbariumCentreDtos()
         {
             return _centre.GetCentreDtos();
         }
 
-        public ColumbariumAreaDto GetQuadrangleAreaDto(int id)
+        public ColumbariumAreaDto GetColumbariumAreaDto(int id)
         {
             return _area.GetAreaDto(id);
         }
@@ -53,14 +50,14 @@ namespace Memorial.Lib.Columbarium
             return _area.GetAreaDtosByCentre(centreId);
         }
 
-        public NicheDto GetQuadrangleDto(int id)
+        public NicheDto GetNicheDto(int id)
         {
-            return _quadrangle.GetQuadrangleDto(id);
+            return _niche.GetNicheDto(id);
         }
 
-        public IEnumerable<NicheDto> GetQuadrangleDtosByAreaId(int areaId)
+        public IEnumerable<NicheDto> GetNicheDtosByAreaId(int areaId)
         {
-            return _quadrangle.GetQuadrangleDtosByAreaId(areaId);
+            return _niche.GetNicheDtosByAreaId(areaId);
         }
 
         public ColumbariumItemDto GetItemDto(int id)
@@ -79,9 +76,9 @@ namespace Memorial.Lib.Columbarium
         }
 
 
-        public bool CreateQuadrangle(NicheDto quadrangleDto)
+        public bool CreateNiche(NicheDto nicheDto)
         {
-            if (_quadrangle.Create(quadrangleDto))
+            if (_niche.Create(nicheDto))
             {
                 _unitOfWork.Complete();
 
@@ -91,20 +88,20 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateQuadrangle(NicheDto quadrangleDto)
+        public bool UpdateNiche(NicheDto nicheDto)
         {
-            var quadrangleInDB = _quadrangle.GetQuadrangle(quadrangleDto.Id);
+            var nicheInDB = _niche.GetNiche(nicheDto.Id);
 
-            if ((quadrangleInDB.NicheTypeId != quadrangleDto.NicheTypeDtoId
-                || quadrangleInDB.ColumbariumAreaId != quadrangleDto.ColumbariumAreaDtoId)
-                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == quadrangleDto.Id || qt.ShiftedNicheId == quadrangleDto.Id) && qt.DeleteDate == null).Any())
+            if ((nicheInDB.NicheTypeId != nicheDto.NicheTypeDtoId
+                || nicheInDB.ColumbariumAreaId != nicheDto.ColumbariumAreaDtoId)
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == nicheDto.Id || qt.ShiftedNicheId == nicheDto.Id) && qt.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(quadrangleDto, quadrangleInDB);
+            Mapper.Map(nicheDto, nicheInDB);
 
-            if (_quadrangle.Update(quadrangleInDB))
+            if (_niche.Update(nicheInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -113,14 +110,14 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool DeleteQuadrangle(int id)
+        public bool DeleteNiche(int id)
         {
             if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == id || qt.ShiftedNicheId == id) && qt.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            if (_quadrangle.Delete(id))
+            if (_niche.Delete(id))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -129,9 +126,9 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool CreateItem(ColumbariumItemDto quadrangleItemDto)
+        public bool CreateItem(ColumbariumItemDto columbariumItemDto)
         {
-            if (_item.Create(quadrangleItemDto))
+            if (_item.Create(columbariumItemDto))
             {
                 _unitOfWork.Complete();
 
@@ -141,20 +138,20 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateItem(ColumbariumItemDto quadrangleItemDto)
+        public bool UpdateItem(ColumbariumItemDto columbariumItemDto)
         {
-            var quadrangleItemInDB = _item.GetItem(quadrangleItemDto.Id);
+            var columbariumItemInDB = _item.GetItem(columbariumItemDto.Id);
 
-            if ((quadrangleItemInDB.isOrder != quadrangleItemDto.isOrder
-                || quadrangleItemInDB.QuadrangleCentreId != quadrangleItemDto.QuadrangleCentreId)
-                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == quadrangleItemDto.Id && qi.DeleteDate == null).Any())
+            if ((columbariumItemInDB.isOrder != columbariumItemDto.isOrder
+                || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreId)
+                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id && qi.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(quadrangleItemDto, quadrangleItemInDB);
+            Mapper.Map(columbariumItemDto, columbariumItemInDB);
 
-            if (_item.Update(quadrangleItemInDB))
+            if (_item.Update(columbariumItemInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -179,9 +176,9 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool CreateCentre(ColumbariumCentreDto quadrangleCentreDto)
+        public bool CreateCentre(ColumbariumCentreDto columbariumCentreDto)
         {
-            if (_centre.Create(quadrangleCentreDto))
+            if (_centre.Create(columbariumCentreDto))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -190,19 +187,19 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateCentre(ColumbariumCentreDto quadrangleCentreDto)
+        public bool UpdateCentre(ColumbariumCentreDto columbariumCentreDto)
         {
-            var quadrangleCentreInDB = _centre.GetCentre(quadrangleCentreDto.Id);
+            var columbariumCentreInDB = _centre.GetCentre(columbariumCentreDto.Id);
 
-            if (quadrangleCentreInDB.SiteId != quadrangleCentreDto.SiteId
-                && _unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.QuadrangleCentreId == quadrangleCentreInDB.Id && qt.DeleteDate == null).Any())
+            if (columbariumCentreInDB.SiteId != columbariumCentreDto.SiteId
+                && _unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.ColumbariumCentreId == columbariumCentreInDB.Id && qt.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(quadrangleCentreDto, quadrangleCentreInDB);
+            Mapper.Map(columbariumCentreDto, columbariumCentreInDB);
 
-            if (_centre.Update(quadrangleCentreInDB))
+            if (_centre.Update(columbariumCentreInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -213,7 +210,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool DeleteCentre(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.QuadrangleCentreId == id && qt.DeleteDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.ColumbariumCentreId == id && qt.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -228,9 +225,9 @@ namespace Memorial.Lib.Columbarium
         }
 
 
-        public bool CreateArea(ColumbariumAreaDto quadrangleAreaDto)
+        public bool CreateArea(ColumbariumAreaDto columbariumAreaDto)
         {
-            if (_area.Create(quadrangleAreaDto))
+            if (_area.Create(columbariumAreaDto))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -239,19 +236,19 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateArea(ColumbariumAreaDto quadrangleAreaDto)
+        public bool UpdateArea(ColumbariumAreaDto columbariumAreaDto)
         {
-            var quadrangleAreaInDB = _area.GetArea(quadrangleAreaDto.Id);
+            var columbariumAreaInDB = _area.GetArea(columbariumAreaDto.Id);
 
-            if (quadrangleAreaInDB.ColumbariumCentreId != quadrangleAreaDto.ColumbariumCentreDtoId
-                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == quadrangleAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == quadrangleAreaInDB.Id) && qt.DeleteDate == null).Any())
+            if (columbariumAreaInDB.ColumbariumCentreId != columbariumAreaDto.ColumbariumCentreDtoId
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == columbariumAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == columbariumAreaInDB.Id) && qt.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(quadrangleAreaDto, quadrangleAreaInDB);
+            Mapper.Map(columbariumAreaDto, columbariumAreaInDB);
 
-            if (_area.Update(quadrangleAreaInDB))
+            if (_area.Update(columbariumAreaInDB))
             {
                 _unitOfWork.Complete();
                 return true;

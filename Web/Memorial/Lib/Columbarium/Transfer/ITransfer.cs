@@ -4,12 +4,12 @@ namespace Memorial.Lib.Columbarium
 {
     public interface ITransfer : ITransaction
     {
-        bool AllowQuadrangleDeceasePairing(int quadrangleId, int applicantId);
-        bool Create(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool AllowNicheDeceasePairing(int nicheId, int applicantId);
+        bool Create(ColumbariumTransactionDto columbariumTransactionDto);
         bool Delete();
         float GetPrice(int itemId);
         void NewNumber(int itemId);
         void SetTransfer(string AF);
-        bool Update(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool Update(ColumbariumTransactionDto columbariumTransactionDto);
     }
 }

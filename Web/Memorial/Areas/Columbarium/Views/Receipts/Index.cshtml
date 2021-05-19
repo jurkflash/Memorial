@@ -1,0 +1,54 @@
+﻿@model Memorial.ViewModels.OrderReceiptsViewModel
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Receipts</h2>
+
+Form: @Model.AF
+<br />
+Invoice : @Model.InvoiceDto.IV
+<br />
+Amount : @Model.InvoiceDto.Amount
+<br />
+Remaining Amount: @Model.RemainingAmount
+
+@if (!Model.InvoiceDto.isPaid)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Columbarium" })
+    </p>
+}
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Receipt</th>
+            <th>Amount</th>
+            <th>Remark</th>
+            <th>Payment Method</th>
+            <th>Payment Remark</th>
+            <th>Create Date</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var receipt in Model.ReceiptDtos)
+        {
+            <tr>
+                <td>@receipt.RE</td>
+                <td>@receipt.Amount</td>
+                <td>@receipt.Remark</td>
+                <td>@receipt.PaymentMethod.Name</td>
+                <td>@receipt.PaymentRemark</td>
+                <td>@receipt.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE, area = "Columbarium" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Columbarium" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

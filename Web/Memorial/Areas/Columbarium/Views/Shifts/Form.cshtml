@@ -1,0 +1,312 @@
+﻿@model Memorial.ViewModels.ColumbariumTransactionsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantId, area = "Applicant" });}
+
+<h2>Form</h2>
+
+@using (Html.BeginForm("Save", "Shifts", new { area = "Columbarium" }))
+{
+    @Model.ColumbariumTransactionDto.AF
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            Niche
+        </div>
+        <div class="col-md-6">
+            @Model.ColumbariumTransactionDto.ShiftedNiche.Name
+        </div>
+    </div>
+    if (Model.ColumbariumTransactionDto.AF == null)
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                HasDeceased
+            </div>
+            <div class="col-md-6">
+                @Model.ColumbariumTransactionDto.ShiftedNiche.hasDeceased
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-9">
+                Shift To
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-9">
+                Shifted To
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                Niche
+            </div>
+            <div class="col-md-6">
+                @Model.ColumbariumTransactionDto.Niche.Name
+            </div>
+        </div>
+        <hr />
+        <div>Change To</div>
+    }
+    <div class="form-group row">
+        <div class="col-md-3">
+            Site
+        </div>
+        <div class="col-md-6">
+            <select id="Sites" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Centre
+        </div>
+        <div class="col-md-6">
+            <select id="Centres" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Area
+        </div>
+        <div class="col-md-6">
+            <select id="Areas" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Niche
+        </div>
+        <div class="col-md-6">
+            <select id="Niches" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2">
+            Name
+        </div>
+        <div class="col-md-1">
+            Description
+        </div>
+        <div class="col-md-2">
+            Type
+        </div>
+        <div class="col-md-2">
+            Price
+        </div>
+        <div class="col-md-2">
+            Maintenance
+        </div>
+        <div class="col-md-2">
+            LifeTimeMaintenance
+        </div>
+        <div class="col-md-1">
+            Remark
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-2" id="qName"></div>
+        <div class="col-md-1" id="qDescription"></div>
+        <div class="col-md-2" id="qNicheType"></div>
+        <div class="col-md-2" id="qPrice">
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Price, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-2" id="qMaintenance">
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-2" id="qLifeTimeMaintenance">
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.LifeTimeMaintenance, new { @class = "form-control", @required = "required" })
+        </div>
+        <div class="col-md-1" id="qRemark"></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            Remark
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.ColumbariumTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedNicheId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedColumbariumTransactionAF)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+
+    <script>
+        function sites() {
+            $.ajax({
+                url: "/api/Sites/GetSites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+        }
+
+        function centres() {
+            $.ajax({
+                url: "/api/Niches/GetCentre",
+                data: { siteId: $("#Sites").val() }
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Centres").empty();
+                    $("#Centres").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Centres").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/Niches/GetArea",
+                data: { centreId: $("#Centres").val() }
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+        }
+
+        function niches() {
+            $.ajax({
+                url: "/api/Niches/GetAvailableNicheByAreaId",
+                data: { areaId: $("#Areas").val() }
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Niches").empty();
+                    $("#Niches").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Niches").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+        }
+
+        function clearNiche() {
+            $("#qName").empty();
+            $("#qDescription").empty();
+            $("#ColumbariumTransactionDto_Price").val('');
+            $("#ColumbariumTransactionDto_Maintenance").val('');
+            $("#ColumbariumTransactionDto_LifeTimeMaintenance").val('');
+            $("#ColumbariumTransactionDto_NicheId").val('');
+            $("#qRemark").empty();
+            $("#qNicheType").empty();
+        }
+
+        function niche() {
+            clearNiche();
+
+            $.ajax({
+                url: "/api/Niches/GetNiche",
+                data: { id: $("#Niches").val() }
+            })
+                .done(function (response) {
+                    if (response != null) {
+                        $("#qName").html(response['name']);
+                        $("#qDescription").html(response['description']);
+                        $("#ColumbariumTransactionDto_Maintenance").val(response['maintenance']);
+                        $("#ColumbariumTransactionDto_LifeTimeMaintenance").val(response['lifeTimeMaintenance']);
+                        $("#qRemark").html(response['remark']);
+                        $("#qNicheType").html(response['nicheTypeDto.name']);
+                        $("#ColumbariumTransactionDto_Price").val(response['price']);
+                        $("#ColumbariumTransactionDto_NicheId").val(response['id']);
+                    }
+                })
+                .fail(function () {
+                    toastr.error("Something unexpected happened.");
+                });
+        }
+
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                $("#Centres").empty();
+                $("#Areas").empty();
+                $("#Niches").empty();
+                clearNiche();
+
+                if ($(this).val() != 0) {
+                    centres();
+                }
+            })
+
+            $("#Centres").change(function () {
+                $("#Areas").empty();
+                $("#Niches").empty();
+                clearNiche();
+
+                if ($(this).val() != 0) {
+                    areas();
+                }
+            })
+
+            $("#Areas").change(function () {
+                $("#Niches").empty();
+                clearNiche();
+
+                if ($(this).val() != 0) {
+                    niches();
+                }
+            });
+
+            $("#Niches").change(function () {
+                clearNiche();
+
+                if ($(this).val() != 0) {
+                    niche();
+                }
+            });
+        });
+
+    </script>
+
+}

@@ -42,7 +42,7 @@ namespace Memorial.Persistence.Repositories
                             .ToList().OrderBy(i => i.CreateDate);
         }
 
-        public IEnumerable<Invoice> GetByActiveQuadrangleAF(string AF)
+        public IEnumerable<Invoice> GetByActiveColumbariumAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.ColumbariumTransactionAF == AF && i.DeleteDate == null)
                             .ToList().OrderBy(i => i.CreateDate);

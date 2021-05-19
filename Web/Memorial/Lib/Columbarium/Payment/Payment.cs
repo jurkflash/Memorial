@@ -8,15 +8,15 @@ namespace Memorial.Lib.Columbarium
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransaction _transaction;
-        private readonly Invoice.IQuadrangle _invoice;
-        private readonly Receipt.IQuadrangle _receipt;
+        private readonly Invoice.IColumbarium _invoice;
+        private readonly Receipt.IColumbarium _receipt;
         private readonly IPaymentMethod _paymentMethod;
 
         public Payment(
             IUnitOfWork unitOfWork, 
             ITransaction transaction, 
-            Invoice.IQuadrangle invoice, 
-            Receipt.IQuadrangle receipt,
+            Invoice.IColumbarium invoice, 
+            Receipt.IColumbarium receipt,
             IPaymentMethod paymentMethod
             )
         {

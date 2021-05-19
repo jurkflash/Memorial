@@ -14,19 +14,19 @@ namespace Memorial.Lib.Deceased
     public class Deceased : IDeceased
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IQuadrangle _quadrangle;
+        private readonly INiche _niche;
         private readonly IAncestor _ancestor;
         private readonly IPlot _plot;
 
         private Core.Domain.Deceased _deceased;
 
         public Deceased(IUnitOfWork unitOfWork, 
-            IQuadrangle quadrangle, 
+            INiche niche, 
             IAncestor ancestor, 
             IPlot plot)
         {
             _unitOfWork = unitOfWork;
-            _quadrangle = quadrangle;
+            _niche = niche;
             _ancestor = ancestor;
             _plot = plot;
         }
@@ -81,9 +81,9 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetAllExcludeFilter(applicantId, deceasedName);
         }
 
-        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByNicheId(int nicheId)
         {
-            return _unitOfWork.Deceaseds.GetByNiche(quadrangleId);
+            return _unitOfWork.Deceaseds.GetByNiche(nicheId);
         }
 
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId)
@@ -124,32 +124,32 @@ namespace Memorial.Lib.Deceased
             return true;
         }
 
-        public Core.Domain.Niche GetQuadrangle()
+        public Core.Domain.Niche GetNiche()
         {
             if (_deceased.NicheId != null)
             {
-                _quadrangle.SetQuadrangle((int)_deceased.NicheId);
-                return _quadrangle.GetQuadrangle();
+                _niche.SetNiche((int)_deceased.NicheId);
+                return _niche.GetNiche();
             }
             return null;
         }
 
-        public bool SetQuadrangle(int quadrangleId)
+        public bool SetNiche(int nicheId)
         {
             if (_deceased != null)
             {
-                var quadrangle = _quadrangle.GetQuadrangle(quadrangleId);
-                if (quadrangle != null)
+                var niche = _niche.GetNiche(nicheId);
+                if (niche != null)
                 {
-                    _deceased.Niche = quadrangle;
-                    _deceased.NicheId = quadrangleId;
+                    _deceased.Niche = niche;
+                    _deceased.NicheId = nicheId;
                     return true;
                 }
             }
             return false;
         }
 
-        public bool RemoveQuadrangle()
+        public bool RemoveNiche()
         {
             if (_deceased != null)
             {
@@ -232,28 +232,28 @@ namespace Memorial.Lib.Deceased
             return false;
         }
 
-        public bool InstallQuadrangleDeceased(int quadrangleId)
+        public bool InstallNicheDeceased(int nicheId)
         {
             if (_deceased == null)
                 return false;
 
-            _quadrangle.SetQuadrangle(quadrangleId);
-            if (_quadrangle.GetQuadrangle() == null)
+            _niche.SetNiche(nicheId);
+            if (_niche.GetNiche() == null)
                 return false;
 
-            SetQuadrangle(quadrangleId);
+            SetNiche(nicheId);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool RemoveQuadrangleDeceased()
+        public bool RemoveNicheDeceased()
         {
             if (_deceased == null)
                 return false;
 
-            RemoveQuadrangle();
+            RemoveNiche();
 
             _unitOfWork.Complete();
 

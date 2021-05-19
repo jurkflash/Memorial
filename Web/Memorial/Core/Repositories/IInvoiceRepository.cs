@@ -15,7 +15,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Invoice> GetByActiveUrnAF(string AF);
 
-        IEnumerable<Invoice> GetByActiveQuadrangleAF(string AF);
+        IEnumerable<Invoice> GetByActiveColumbariumAF(string AF);
 
         IEnumerable<Invoice> GetByActiveMiscellaneousAF(string AF);
 

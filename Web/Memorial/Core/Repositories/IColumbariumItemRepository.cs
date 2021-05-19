@@ -7,6 +7,6 @@ namespace Memorial.Core.Repositories
     {
         ColumbariumItem GetActive(int id);
 
-        IEnumerable<ColumbariumItem> GetByCentre(int quadrangleCentreId);
+        IEnumerable<ColumbariumItem> GetByCentre(int columbariumCentreId);
     }
 }

@@ -1,0 +1,27 @@
+﻿@model Memorial.ViewModels.ColumbariumItemsViewModel
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Item</h2>
+
+@{Html.RenderAction("NicheInfo", "Niches", new { id = Model.NicheDto.Id, area = "Columbarium" });}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var columbariumItem in Model.ColumbariumItemDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(columbariumItem.Name, "Index", columbariumItem.SystemCode, new { itemId = columbariumItem.Id, id = Model.NicheDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)</td>
+                <td>@columbariumItem.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

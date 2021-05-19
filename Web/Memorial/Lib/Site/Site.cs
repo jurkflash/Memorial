@@ -89,7 +89,7 @@ namespace Memorial.Lib.Site
                 _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.PlotTransactions.Find(at => at.Plot.PlotArea.SiteId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.QuadrangleCentre.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.ColumbariumCentre.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == id && at.DeleteDate == null).Any())
             {

@@ -10,7 +10,7 @@ namespace Memorial.Lib.Columbarium
     {
         void SetCentre(int id);
 
-        void SetCentre(Core.Domain.ColumbariumCentre quadrangleCentre);
+        void SetCentre(Core.Domain.ColumbariumCentre nicheCentre);
 
         int GetID();
 
@@ -30,9 +30,9 @@ namespace Memorial.Lib.Columbarium
 
         IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(byte siteId);
 
-        bool Create(ColumbariumCentreDto quadrangleCentreDto);
+        bool Create(ColumbariumCentreDto columbariumCentreDto);
 
-        bool Update(Core.Domain.ColumbariumCentre quadrangleCentre);
+        bool Update(Core.Domain.ColumbariumCentre columbariumCentre);
 
         bool Delete(int id);
     }

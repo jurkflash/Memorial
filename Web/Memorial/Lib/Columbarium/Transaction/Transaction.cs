@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Receipt;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -15,7 +12,7 @@ namespace Memorial.Lib.Columbarium
     public class Transaction : ITransaction
     {
         private readonly IUnitOfWork _unitOfWork;
-        protected IQuadrangle _quadrangle;
+        protected INiche _niche;
         protected IItem _item;
         protected IApplicant _applicant;
         protected IDeceased _deceased;
@@ -27,7 +24,7 @@ namespace Memorial.Lib.Columbarium
         public Transaction(
             IUnitOfWork unitOfWork, 
             IItem item, 
-            IQuadrangle quadrangle, 
+            INiche niche, 
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
@@ -36,7 +33,7 @@ namespace Memorial.Lib.Columbarium
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _quadrangle = quadrangle;
+            _niche = niche;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -90,7 +87,7 @@ namespace Memorial.Lib.Columbarium
                 (_transaction.LifeTimeMaintenance == null ? 0 : (float)_transaction.LifeTimeMaintenance);
         }
 
-        public int GetTransactionQuadrangleId()
+        public int GetTransactionNicheId()
         {
             return _transaction.NicheId;
         }
@@ -140,44 +137,44 @@ namespace Memorial.Lib.Columbarium
             return _transaction.Deceased1Id;
         }
 
-        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter)
+        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemId(int nicheId, int itemId, string filter)
         {
-            return _unitOfWork.ColumbariumTransactions.GetByQuadrangleIdAndItem(quadrangleId, itemId, filter);
+            return _unitOfWork.ColumbariumTransactions.GetByNicheIdAndItem(nicheId, itemId, filter);
         }
 
-        public IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByQuadrangleIdAndItemId(int quadrangleId, int itemId, string filter)
+        public IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemId(int nicheId, int itemId, string filter)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(GetTransactionsByQuadrangleIdAndItemId(quadrangleId, itemId, filter));
+            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(GetTransactionsByNicheIdAndItemId(nicheId, itemId, filter));
         }
 
-        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId)
+        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId)
         {
-            return _unitOfWork.ColumbariumTransactions.GetByQuadrangleIdAndItemAndApplicant(quadrangleId, itemId, applicantId);
+            return _unitOfWork.ColumbariumTransactions.GetByNicheIdAndItemAndApplicant(nicheId, itemId, applicantId);
         }
 
-        public IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByQuadrangleIdAndItemIdAndApplicantId(int quadrangleId, int itemId, int applicantId)
+        public IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(GetTransactionsByQuadrangleIdAndItemIdAndApplicantId(quadrangleId, itemId, applicantId));
+            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(GetTransactionsByNicheIdAndItemIdAndApplicantId(nicheId, itemId, applicantId));
         }
 
-        public Core.Domain.ColumbariumTransaction GetTransactionsByShiftedQuadrangleTransactionAF(string AF)
+        public Core.Domain.ColumbariumTransaction GetTransactionsByShiftedColumbariumTransactionAF(string AF)
         {
             return _unitOfWork.ColumbariumTransactions.GetByShiftedColumbariumTransactionAF(AF);
         }
 
-        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByQuadrangleId (int quadrangleId)
+        public IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheId (int nicheId)
         {
-            return _unitOfWork.ColumbariumTransactions.GetByQuadrangleId(quadrangleId);
+            return _unitOfWork.ColumbariumTransactions.GetByNicheId(nicheId);
         }
 
-        protected bool CreateNewTransaction(ColumbariumTransactionDto quadrangleTransactionDto)
+        protected bool CreateNewTransaction(ColumbariumTransactionDto columbariumTransactionDto)
         {
             if (_AFnumber == "")
                 return false;
 
             _transaction = new Core.Domain.ColumbariumTransaction();
 
-            Mapper.Map(quadrangleTransactionDto, _transaction);
+            Mapper.Map(columbariumTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
             _transaction.CreateDate = System.DateTime.Now;
@@ -187,13 +184,13 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        protected bool UpdateTransaction(ColumbariumTransactionDto quadrangleTransactionDto)
+        protected bool UpdateTransaction(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            var quadrangleTransactionInDb = GetTransaction(quadrangleTransactionDto.AF);
+            var columbariumTransactionInDb = GetTransaction(columbariumTransactionDto.AF);
 
-            Mapper.Map(quadrangleTransactionDto, quadrangleTransactionInDb);
+            Mapper.Map(columbariumTransactionDto, columbariumTransactionInDb);
 
-            quadrangleTransactionInDb.ModifyDate = System.DateTime.Now;
+            columbariumTransactionInDb.ModifyDate = System.DateTime.Now;
 
             return true;
         }
@@ -205,11 +202,11 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        protected bool DeleteAllTransactionWithSameQuadrangleId()
+        protected bool DeleteAllTransactionWithSameNicheId()
         {
             var datetimeNow = System.DateTime.Now;
 
-            var transactions = GetTransactionsByQuadrangleId(_transaction.NicheId);
+            var transactions = GetTransactionsByNicheId(_transaction.NicheId);
 
             foreach(var transaction in transactions)
             {
@@ -219,55 +216,55 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        protected bool SetTransactionDeceasedIdBasedOnQuadrangle(ColumbariumTransactionDto quadrangleTransactionDto, int quadrangleId)
+        protected bool SetTransactionDeceasedIdBasedOnNiche(ColumbariumTransactionDto columbariumTransactionDto, int nicheId)
         {
-            _quadrangle.SetQuadrangle(quadrangleId);
+            _niche.SetNiche(nicheId);
 
-            if (_quadrangle.HasDeceased())
+            if (_niche.HasDeceased())
             {
-                var deceaseds = _deceased.GetDeceasedsByQuadrangleId(quadrangleId);
+                var deceaseds = _deceased.GetDeceasedsByNicheId(nicheId);
 
-                if (_quadrangle.GetNumberOfPlacement() < deceaseds.Count())
+                if (_niche.GetNumberOfPlacement() < deceaseds.Count())
                     return false;
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
 
-                    quadrangleTransactionDto.Deceased2Id = deceaseds.ElementAt(1).Id;
+                    columbariumTransactionDto.Deceased2Id = deceaseds.ElementAt(1).Id;
                 }
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(quadrangleTransactionDto.ApplicantId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    quadrangleTransactionDto.Deceased1Id = deceaseds.ElementAt(0).Id;
+                    columbariumTransactionDto.Deceased1Id = deceaseds.ElementAt(0).Id;
                 }
             }
 
             return true;
         }
 
-        protected bool ChangeQuadrangle(string systemCode, int oldQuadrangleId, int newQuadrangleId)
+        protected bool ChangeNiche(string systemCode, int oldNicheId, int newNicheId)
         {
-            var centreId = _quadrangle.GetQuadrangle(oldQuadrangleId).ColumbariumArea.ColumbariumCentreId;
+            var centreId = _niche.GetNiche(oldNicheId).ColumbariumArea.ColumbariumCentreId;
 
             var itemId = _item.GetItemByCentre(centreId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
 
             if (itemId == null)
                 return false;
 
-            var transactions = GetTransactionsByQuadrangleIdAndItemId(oldQuadrangleId, itemId.Id, null);
+            var transactions = GetTransactionsByNicheIdAndItemId(oldNicheId, itemId.Id, null);
 
             foreach (var transaction in transactions)
             {
-                transaction.NicheId = newQuadrangleId;
+                transaction.NicheId = newNicheId;
             }
 
             return true;

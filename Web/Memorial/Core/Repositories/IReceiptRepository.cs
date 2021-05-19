@@ -15,7 +15,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Receipt> GetByNonOrderActiveUrnAF(string AF);
 
-        IEnumerable<Receipt> GetByNonOrderActiveQuadrangleAF(string AF);
+        IEnumerable<Receipt> GetByNonOrderActiveColumbariumAF(string AF);
 
         IEnumerable<Receipt> GetByNonOrderActiveMiscellaneousAF(string AF);
 

@@ -26,7 +26,7 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
-        IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId);
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByNicheId(int nicheId);
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId);
 
@@ -36,11 +36,11 @@ namespace Memorial.Lib.Deceased
 
         bool Update(DeceasedDto deceasedDto);
 
-        Core.Domain.Niche GetQuadrangle();
+        Core.Domain.Niche GetNiche();
 
-        bool SetQuadrangle(int quadrangleId);
+        bool SetNiche(int nicheId);
 
-        bool RemoveQuadrangle();
+        bool RemoveNiche();
 
         Core.Domain.Ancestor GetAncestor();
 
@@ -54,9 +54,9 @@ namespace Memorial.Lib.Deceased
 
         bool RemovePlot();
 
-        bool InstallQuadrangleDeceased(int quadrangleId);
+        bool InstallNicheDeceased(int nicheId);
 
-        bool RemoveQuadrangleDeceased();
+        bool RemoveNicheDeceased();
 
         bool RemoveAncestorDeceased();
     }

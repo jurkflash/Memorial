@@ -73,10 +73,10 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumArea>, IEnumerable<ColumbariumAreaDto>>(GetAreaByCentre(centreId));
         }
 
-        public bool Create(ColumbariumAreaDto quadrangleAreaDto)
+        public bool Create(ColumbariumAreaDto columbariumAreaDto)
         {
             _area = new Core.Domain.ColumbariumArea();
-            Mapper.Map(quadrangleAreaDto, _area);
+            Mapper.Map(columbariumAreaDto, _area);
 
             _area.CreateDate = DateTime.Now;
 
@@ -85,9 +85,9 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool Update(Core.Domain.ColumbariumArea quadrangleArea)
+        public bool Update(Core.Domain.ColumbariumArea columbariumArea)
         {
-            quadrangleArea.ModifyDate = DateTime.Now;
+            columbariumArea.ModifyDate = DateTime.Now;
 
             return true;
         }

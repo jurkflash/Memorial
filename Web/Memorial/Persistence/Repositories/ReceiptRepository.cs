@@ -62,7 +62,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList().OrderBy(r => r.CreateDate);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveQuadrangleAF(string AF)
+        public IEnumerable<Receipt> GetByNonOrderActiveColumbariumAF(string AF)
         {
             return MemorialContext.Receipts
                 .Where(r => r.ColumbariumTransactionAF == AF &&

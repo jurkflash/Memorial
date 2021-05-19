@@ -1,0 +1,69 @@
+﻿@model Memorial.ViewModels.ColumbariumItemIndexesViewModel
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.AllowNew)
+{
+    <p>
+        @Html.ActionLink("New", "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Manage", new { area = "Columbarium" }))
+{
+    <p>
+        Find by Name: @Html.TextBox("filter")
+        @Html.Hidden("itemId", Model.ColumbariumItemId.ToString())
+        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+        @Html.Hidden("id", Model.NicheId.ToString())
+        <input type="submit" value="Search" class="btn btn-secondary" />
+    </p>
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>AF</th>
+            <th>Niche</th>
+            <th>Applicant</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Create Date</th>
+            <th>Invoice</th>
+            <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var columbariumTransaction in Model.ColumbariumTransactionDtos)
+        {
+            <tr>
+                <td>@Html.ActionLink(columbariumTransaction.AF, "Info", new { AF = columbariumTransaction.AF }, new { target = "ColumbariumTransactionInfo", area = "Columbarium" })</td>
+                <td>@columbariumTransaction.Niche.Name</td>
+                <td>@columbariumTransaction.Niche.Applicant.Name &nbsp; @columbariumTransaction.Niche.Applicant.Name2</td>
+                <td>@Convert.ToDateTime(columbariumTransaction.FromDate).ToString("yyyy-MMM")</td>
+                <td>@Convert.ToDateTime(columbariumTransaction.ToDate).ToString("yyyy-MMM")</td>
+                <td>@columbariumTransaction.Price</td>
+                <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
+                <td>
+                    @Html.ActionLink(Resources.Mix.Delete, "Delete",
+                    new { AF = columbariumTransaction.AF, itemId = Model.ColumbariumItemId, id = Model.NicheId, applicantId = Model.ApplicantId, area = "Columbarium" },
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+Page @(Model.ColumbariumTransactionDtos.PageCount < Model.ColumbariumTransactionDtos.PageNumber ? 0 : Model.ColumbariumTransactionDtos.PageNumber) of @Model.ColumbariumTransactionDtos.PageCount
+@Html.PagedListPager(Model.ColumbariumTransactionDtos, page => Url.Action("Index",
+    new { page, id = Model.NicheId, itemId = Model.ColumbariumItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+
+

@@ -15,13 +15,13 @@ namespace Memorial.Lib.Ancestor
         public AncestorDeceased(
             IUnitOfWork unitOfWork,
             IDeceased deceased,
-            IAncestor quadrangle,
+            IAncestor ancestor,
             ITransaction transaction,
             ITracking tracking)
         {
             _unitOfWork = unitOfWork;
             _deceased = deceased;
-            _ancestor = quadrangle;
+            _ancestor = ancestor;
             _transaction = transaction;
             _tracking = tracking;
 

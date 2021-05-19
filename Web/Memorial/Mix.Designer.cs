@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 骨灰殿 Columbarium.
         /// </summary>
         public static string Columbarium {
             get {
@@ -187,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 删除 Delete.
+        ///   Looks up a localized string similar to 刪除 Delete.
         /// </summary>
         public static string Delete {
             get {
@@ -250,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 联系 Link.
+        ///   Looks up a localized string similar to 聯繫 Link.
         /// </summary>
         public static string Link {
             get {
@@ -268,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 杂费 Miscellaneous.
+        ///   Looks up a localized string similar to 雜費 Miscellaneous.
         /// </summary>
         public static string Miscellaneous {
             get {
@@ -295,11 +295,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 新纪录 New.
+        ///   Looks up a localized string similar to 新紀錄 New.
         /// </summary>
         public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰閣 Niche.
+        /// </summary>
+        public static string Niche {
+            get {
+                return ResourceManager.GetString("Niche", resourceCulture);
             }
         }
         
@@ -322,16 +331,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 骨灰阁 Quadrangle.
-        /// </summary>
-        public static string Quadrangle {
-            get {
-                return ResourceManager.GetString("Quadrangle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 申请人与逝世者关系&lt;br /&gt;Relationship.
+        ///   Looks up a localized string similar to 申請人與逝世者關係&lt;br /&gt;Relationship.
         /// </summary>
         public static string Relationship {
             get {
@@ -367,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 空间 Space.
+        ///   Looks up a localized string similar to 空間 Space.
         /// </summary>
         public static string Space {
             get {
@@ -376,7 +376,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 删除联系 Unlink.
+        ///   Looks up a localized string similar to 刪除聯繫 Unlink.
         /// </summary>
         public static string Unlink {
             get {
@@ -385,7 +385,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 骨灰瓮 Urn.
+        ///   Looks up a localized string similar to 骨灰甕 Urn.
         /// </summary>
         public static string Urn {
             get {

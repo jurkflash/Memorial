@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Columbarium
@@ -12,13 +9,13 @@ namespace Memorial.Lib.Columbarium
 
         float GetPrice(int itemId);
 
-        bool Create(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool Create(ColumbariumTransactionDto columbariumTransactionDto);
 
-        bool Update(ColumbariumTransactionDto quadrangleTransactionDto);
+        bool Update(ColumbariumTransactionDto columbariumTransactionDto);
 
         bool Delete();
 
-        bool ChangeQuadrangle(int oldQuadrangleId, int newQuadrangleId);
+        bool ChangeNiche(int oldNicheId, int newNicheId);
 
         float GetAmount(int itemId, DateTime from, DateTime to);
     }

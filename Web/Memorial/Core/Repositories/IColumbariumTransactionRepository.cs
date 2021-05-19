@@ -11,12 +11,12 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<ColumbariumTransaction> GetByApplicant(int id);
 
-        IEnumerable<ColumbariumTransaction> GetByQuadrangleIdAndItem(int quadrangleId, int itemId, string filter);
+        IEnumerable<ColumbariumTransaction> GetByNicheIdAndItem(int nicheId, int itemId, string filter);
 
         ColumbariumTransaction GetByShiftedColumbariumTransactionAF(string AF);
 
-        IEnumerable<ColumbariumTransaction> GetByQuadrangleId(int quadrangleId);
+        IEnumerable<ColumbariumTransaction> GetByNicheId(int nicheId);
 
-        IEnumerable<ColumbariumTransaction> GetByQuadrangleIdAndItemAndApplicant(int quadrangleId, int itemId, int applicantId);
+        IEnumerable<ColumbariumTransaction> GetByNicheIdAndItemAndApplicant(int nicheId, int itemId, int applicantId);
     }
 }

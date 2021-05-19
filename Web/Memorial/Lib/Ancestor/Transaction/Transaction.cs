@@ -161,9 +161,9 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.AncestorTransactions.GetByShiftedAncestorTransactionAF(AF);
         }
 
-        public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorId(int quadrangleId)
+        public IEnumerable<Core.Domain.AncestorTransaction> GetTransactionsByAncestorId(int nicheId)
         {
-            return _unitOfWork.AncestorTransactions.GetByAncestorId(quadrangleId);
+            return _unitOfWork.AncestorTransactions.GetByAncestorId(nicheId);
         }
 
         protected bool CreateNewTransaction(AncestorTransactionDto ancestorTransactionDto)

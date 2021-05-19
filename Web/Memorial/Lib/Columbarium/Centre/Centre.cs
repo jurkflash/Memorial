@@ -23,9 +23,9 @@ namespace Memorial.Lib.Columbarium
             _centre = _unitOfWork.ColumbariumCentres.GetActive(id);
         }
 
-        public void SetCentre(Core.Domain.ColumbariumCentre quadrangleCentre)
+        public void SetCentre(Core.Domain.ColumbariumCentre columbariumCentre)
         {
-            _centre = quadrangleCentre;
+            _centre = columbariumCentre;
         }
 
         public int GetID()
@@ -73,10 +73,10 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumCentre>, IEnumerable<ColumbariumCentreDto>>(GetCentreBySite(siteId));
         }
 
-        public bool Create(ColumbariumCentreDto quadrangleCentreDto)
+        public bool Create(ColumbariumCentreDto columbariumCentreDto)
         {
             _centre = new Core.Domain.ColumbariumCentre();
-            Mapper.Map(quadrangleCentreDto, _centre);
+            Mapper.Map(columbariumCentreDto, _centre);
 
             _centre.CreateDate = DateTime.Now;
 
@@ -85,9 +85,9 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool Update(Core.Domain.ColumbariumCentre quadrangleCentre)
+        public bool Update(Core.Domain.ColumbariumCentre columbariumCentre)
         {
-            quadrangleCentre.ModifyDate = DateTime.Now;
+            columbariumCentre.ModifyDate = DateTime.Now;
 
             return true;
         }

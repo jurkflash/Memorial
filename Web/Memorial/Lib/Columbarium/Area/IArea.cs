@@ -31,9 +31,9 @@ namespace Memorial.Lib.Columbarium
 
         IEnumerable<ColumbariumAreaDto> GetAreaDtosByCentre(int centreId);
 
-        bool Create(ColumbariumAreaDto quadrangleAreaDto);
+        bool Create(ColumbariumAreaDto columbariumAreaDto);
 
-        bool Update(Core.Domain.ColumbariumArea quadrangleArea);
+        bool Update(Core.Domain.ColumbariumArea columbariumArea);
 
         bool Delete(int id);
 

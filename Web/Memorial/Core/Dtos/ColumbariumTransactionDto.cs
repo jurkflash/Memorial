@@ -43,7 +43,7 @@ namespace Memorial.Core.Dtos
 
         public int ColumbariumItemId { get; set; }
 
-        public Niche Quadrangle { get; set; }
+        public Niche Niche { get; set; }
 
         public int NicheId { get; set; }
 

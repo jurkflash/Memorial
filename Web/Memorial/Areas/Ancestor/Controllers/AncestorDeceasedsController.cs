@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Ancestor;
-using System.Web;
 using System.Web.Mvc;
 using Memorial.ViewModels;
 
@@ -22,14 +19,14 @@ namespace Memorial.Areas.Ancestor.Controllers
         public AncestorDeceasedsController(
             IApplicant applicant,
             IDeceased deceased,
-            IAncestorDeceased quadrangleDeceased,
+            IAncestorDeceased ancestorDeceased,
             IApplicantDeceased applicantDeceased,
             IAncestor ancestor
             )
         {
             _applicant = applicant;
             _deceased = deceased;
-            _ancestorDeceased = quadrangleDeceased;
+            _ancestorDeceased = ancestorDeceased;
             _applicantDeceased = applicantDeceased;
             _ancestor = ancestor;
         }

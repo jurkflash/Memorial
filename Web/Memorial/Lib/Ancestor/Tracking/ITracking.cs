@@ -8,15 +8,15 @@ namespace Memorial.Lib.Ancestor
 {
     public interface ITracking
     {
-        void Add(int quadrangleId, string ancestorTransactionAF);
+        void Add(int nicheId, string ancestorTransactionAF);
 
-        void Add(int quadrangleId, string ancestorTransactionAF, int applicantId);
+        void Add(int nicheId, string ancestorTransactionAF, int applicantId);
 
-        void Add(int quadrangleId, string ancestorTransactionAF, int applicantId, int? deceasedId);
+        void Add(int nicheId, string ancestorTransactionAF, int applicantId, int? deceasedId);
 
-        void Change(int quadrangleId, string ancestorTransactionAF, int? applicantId, int? deceasedId);
+        void Change(int nicheId, string ancestorTransactionAF, int? applicantId, int? deceasedId);
 
-        void Remove(int quadrangleId, string ancestorTransactionAF);
+        void Remove(int nicheId, string ancestorTransactionAF);
 
         Core.Domain.AncestorTracking GetLatestFirstTransactionByAncestorId(int ancestorId);
 
