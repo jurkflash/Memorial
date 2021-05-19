@@ -78,7 +78,7 @@ namespace Memorial.App_Start
             CreateMap<QuadrangleCentre, QuadrangleCentreDto>();
             CreateMap<QuadrangleType, QuadrangleTypeDto>();
             CreateMap<QuadrangleItem, QuadrangleItemDto>();
-            CreateMap<QuadrangleTransaction, QuadrangleTransactionDto>();
+            CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
 
             CreateMap<Ancestor, AncestorDto>();
             CreateMap<AncestorArea, AncestorAreaDto>();
@@ -190,7 +190,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleTypeDto, QuadrangleType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<QuadrangleTransactionDto, QuadrangleTransaction>()
+            CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.QuadrangleItem, opt => opt.Ignore())
                 .ForMember(c => c.Quadrangle, opt => opt.Ignore())
@@ -199,9 +199,9 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Deceased1, opt => opt.Ignore())
                 .ForMember(c => c.Deceased2, opt => opt.Ignore())
                 .ForMember(c => c.ShiftedQuadrangle, opt => opt.Ignore())
-                .ForMember(c => c.ShiftedQuadrangleTransaction, opt => opt.Ignore())
+                .ForMember(c => c.ShiftedColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.TransferredApplicant, opt => opt.Ignore())
-                .ForMember(c => c.TransferredQuadrangleTransaction, opt => opt.Ignore())
+                .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<AncestorDto, Ancestor>()
@@ -232,7 +232,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.AncestorTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CremationTransaction, opt => opt.Ignore())
                 .ForMember(i => i.MiscellaneousTransaction, opt => opt.Ignore())
-                .ForMember(i => i.QuadrangleTransaction, opt => opt.Ignore())
+                .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CreateDate, opt => opt.Ignore());
@@ -244,7 +244,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.AncestorTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CremationTransaction, opt => opt.Ignore())
                 .ForMember(i => i.MiscellaneousTransaction, opt => opt.Ignore())
-                .ForMember(i => i.QuadrangleTransaction, opt => opt.Ignore())
+                .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CreateDate, opt => opt.Ignore());

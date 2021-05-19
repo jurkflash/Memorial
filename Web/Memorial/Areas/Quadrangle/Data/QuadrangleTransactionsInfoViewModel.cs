@@ -9,7 +9,7 @@ namespace Memorial.ViewModels
 {
     public class QuadrangleTransactionsInfoViewModel
     {
-        public QuadrangleTransactionDto QuadrangleTransactionDto { get; set; }
+        public ColumbariumTransactionDto QuadrangleTransactionDto { get; set; }
 
         public string ItemName { get; set; }
 

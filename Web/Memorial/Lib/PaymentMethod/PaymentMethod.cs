@@ -6,7 +6,7 @@ using Memorial.Core;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.Core.Repositories;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using AutoMapper;
 
 namespace Memorial.Lib.PaymentMethod

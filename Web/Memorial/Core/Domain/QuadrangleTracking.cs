@@ -14,7 +14,7 @@ namespace Memorial.Core.Domain
 
         public int QuadrangleId { get; set; }
 
-        public QuadrangleTransaction QuadrangleTransaction { get; set; }
+        public ColumbariumTransaction ColumbariumTransaction { get; set; }
 
         public string QuadrangleTransactionAF { get; set; }
 

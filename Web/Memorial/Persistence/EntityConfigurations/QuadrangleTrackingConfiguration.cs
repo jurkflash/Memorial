@@ -12,7 +12,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.QuadrangleId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(qt => qt.QuadrangleTransaction)
+            HasRequired(qt => qt.ColumbariumTransaction)
                 .WithMany(qts => qts.QuadrangleTrackings)
                 .HasForeignKey(qt => qt.QuadrangleTransactionAF)
                 .WillCascadeOnDelete(false);

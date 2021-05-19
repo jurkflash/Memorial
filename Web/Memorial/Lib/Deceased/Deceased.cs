@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using Memorial.Lib.Ancestor;
 using Memorial.Lib.Plot;
 using AutoMapper;

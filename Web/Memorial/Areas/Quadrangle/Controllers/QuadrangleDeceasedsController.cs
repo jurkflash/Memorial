@@ -4,12 +4,12 @@ using System.Linq;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using System.Web;
 using System.Web.Mvc;
 using Memorial.ViewModels;
 
-namespace Memorial.Areas.Quadrangle.Controllers
+namespace Memorial.Areas.Columbarium.Controllers
 {
     public class QuadrangleDeceasedsController : Controller
     {

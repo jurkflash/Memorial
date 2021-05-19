@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
@@ -37,7 +37,7 @@ namespace Memorial.Lib.Invoice
         override
         public string GetAF()
         {
-            return _invoice.QuadrangleTransactionAF;
+            return _invoice.ColumbariumTransactionAF;
         }
 
         override

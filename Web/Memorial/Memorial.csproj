@@ -754,7 +754,7 @@
     <Compile Include="Core\Domain\AncestorTracking.cs" />
     <Compile Include="Core\Domain\PlotTracking.cs" />
     <Compile Include="Core\Domain\QuadrangleTracking.cs" />
-    <Compile Include="Core\Domain\QuadrangleTransaction.cs" />
+    <Compile Include="Core\Domain\ColumbariumTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
     <Compile Include="Core\Domain\MiscellaneousNumber.cs" />
     <Compile Include="Core\Domain\Miscellaneous.cs" />
@@ -829,7 +829,7 @@
     <Compile Include="Core\Dtos\QuadrangleCentreDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleItemDto.cs" />
-    <Compile Include="Core\Dtos\QuadrangleTransactionDto.cs" />
+    <Compile Include="Core\Dtos\ColumbariumTransactionDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleTypeDto.cs" />
     <Compile Include="Core\Dtos\ReceiptDto.cs" />
     <Compile Include="Core\Dtos\RelationshipTypeDto.cs" />
@@ -854,7 +854,7 @@
     <Compile Include="Core\Repositories\IAncestorTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTrackingRepository.cs" />
-    <Compile Include="Core\Repositories\IQuadrangleTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IColumbariumTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
     <Compile Include="Core\Repositories\IInvoiceRepository.cs" />
     <Compile Include="Core\Repositories\ICremationNumberRepository.cs" />
@@ -1022,16 +1022,16 @@
     <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
     <Compile Include="Lib\Plot\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Plot\Transfer\Transfer.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleDeceased\IQuadrangleDeceased.cs" />
-    <Compile Include="Lib\Quadrangle\QuadrangleDeceased\QuadrangleDeceased.cs" />
-    <Compile Include="Lib\Quadrangle\Config\Config.cs" />
-    <Compile Include="Lib\Quadrangle\Config\IConfig.cs" />
-    <Compile Include="Lib\Quadrangle\Payment\IPayment.cs" />
-    <Compile Include="Lib\Quadrangle\Manage\IManage.cs" />
-    <Compile Include="Lib\Quadrangle\Manage\Manage.cs" />
-    <Compile Include="Lib\Quadrangle\Photo\IPhoto.cs" />
-    <Compile Include="Lib\Quadrangle\Photo\Photo.cs" />
-    <Compile Include="Lib\Quadrangle\Payment\Payment.cs" />
+    <Compile Include="Lib\Columbarium\QuadrangleDeceased\IQuadrangleDeceased.cs" />
+    <Compile Include="Lib\Columbarium\QuadrangleDeceased\QuadrangleDeceased.cs" />
+    <Compile Include="Lib\Columbarium\Config\Config.cs" />
+    <Compile Include="Lib\Columbarium\Config\IConfig.cs" />
+    <Compile Include="Lib\Columbarium\Payment\IPayment.cs" />
+    <Compile Include="Lib\Columbarium\Manage\IManage.cs" />
+    <Compile Include="Lib\Columbarium\Manage\Manage.cs" />
+    <Compile Include="Lib\Columbarium\Photo\IPhoto.cs" />
+    <Compile Include="Lib\Columbarium\Photo\Photo.cs" />
+    <Compile Include="Lib\Columbarium\Payment\Payment.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\IQuadrangle.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\Quadrangle.cs" />
     <Compile Include="Lib\MaritalType\MaritalType.cs" />
@@ -1040,26 +1040,26 @@
     <Compile Include="Lib\NationalityType\NationalityType.cs" />
     <Compile Include="Lib\PaymentMethod\IPaymentMethod.cs" />
     <Compile Include="Lib\PaymentMethod\PaymentMethod.cs" />
-    <Compile Include="Lib\Quadrangle\Order\IOrder.cs" />
-    <Compile Include="Lib\Quadrangle\Shift\IShift.cs" />
-    <Compile Include="Lib\Quadrangle\Shift\Shift.cs" />
-    <Compile Include="Lib\Quadrangle\Tracking\ITracking.cs" />
-    <Compile Include="Lib\Quadrangle\Tracking\Tracking.cs" />
-    <Compile Include="Lib\Quadrangle\Transaction\ITransaction.cs" />
-    <Compile Include="Lib\Quadrangle\Centre\ICentre.cs" />
-    <Compile Include="Lib\Quadrangle\Area\IArea.cs" />
-    <Compile Include="Lib\Quadrangle\Item\IItem.cs" />
-    <Compile Include="Lib\Quadrangle\Quadrangle\IQuadrangle.cs" />
-    <Compile Include="Lib\Quadrangle\Number\INumber.cs" />
-    <Compile Include="Lib\Quadrangle\Order\Order.cs" />
-    <Compile Include="Lib\Quadrangle\Quadrangle\Quadrangle.cs" />
-    <Compile Include="Lib\Quadrangle\Transaction\Transaction.cs" />
-    <Compile Include="Lib\Quadrangle\Centre\Centre.cs" />
-    <Compile Include="Lib\Quadrangle\Area\Area.cs" />
-    <Compile Include="Lib\Quadrangle\Item\Item.cs" />
-    <Compile Include="Lib\Quadrangle\Number\Number.cs" />
-    <Compile Include="Lib\Quadrangle\Transfer\ITransfer.cs" />
-    <Compile Include="Lib\Quadrangle\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Columbarium\Order\IOrder.cs" />
+    <Compile Include="Lib\Columbarium\Shift\IShift.cs" />
+    <Compile Include="Lib\Columbarium\Shift\Shift.cs" />
+    <Compile Include="Lib\Columbarium\Tracking\ITracking.cs" />
+    <Compile Include="Lib\Columbarium\Tracking\Tracking.cs" />
+    <Compile Include="Lib\Columbarium\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Columbarium\Centre\ICentre.cs" />
+    <Compile Include="Lib\Columbarium\Area\IArea.cs" />
+    <Compile Include="Lib\Columbarium\Item\IItem.cs" />
+    <Compile Include="Lib\Columbarium\Quadrangle\IQuadrangle.cs" />
+    <Compile Include="Lib\Columbarium\Number\INumber.cs" />
+    <Compile Include="Lib\Columbarium\Order\Order.cs" />
+    <Compile Include="Lib\Columbarium\Quadrangle\Quadrangle.cs" />
+    <Compile Include="Lib\Columbarium\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Columbarium\Centre\Centre.cs" />
+    <Compile Include="Lib\Columbarium\Area\Area.cs" />
+    <Compile Include="Lib\Columbarium\Item\Item.cs" />
+    <Compile Include="Lib\Columbarium\Number\Number.cs" />
+    <Compile Include="Lib\Columbarium\Transfer\ITransfer.cs" />
+    <Compile Include="Lib\Columbarium\Transfer\Transfer.cs" />
     <Compile Include="Lib\Receipt\Ancestor\Ancestor.cs" />
     <Compile Include="Lib\Receipt\Ancestor\IAncestor.cs" />
     <Compile Include="Lib\Receipt\Cremation\Cremation.cs" />
@@ -2216,6 +2216,14 @@
     <Compile Include="Migrations\202105181435482_RemoveCodeFromCatalogsTable.designer.cs">
       <DependentUpon>202105181435482_RemoveCodeFromCatalogsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105190919537_RenameQuadrangleTransactionsToColumbariumTransactionsTable.cs" />
+    <Compile Include="Migrations\202105190919537_RenameQuadrangleTransactionsToColumbariumTransactionsTable.designer.cs">
+      <DependentUpon>202105190919537_RenameQuadrangleTransactionsToColumbariumTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105190936361_RenameQuadrangleToColumbariumTableColumns.cs" />
+    <Compile Include="Migrations\202105190936361_RenameQuadrangleToColumbariumTableColumns.designer.cs">
+      <DependentUpon>202105190936361_RenameQuadrangleToColumbariumTableColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2230,7 +2238,7 @@
     <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTrackingConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\QuadrangleTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ColumbariumTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\InvoiceConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorItemConfiguration.cs" />
@@ -2288,7 +2296,7 @@
     <Compile Include="Persistence\Repositories\AncestorTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTrackingRepository.cs" />
-    <Compile Include="Persistence\Repositories\QuadrangleTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\ColumbariumTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationItemRepository.cs" />
@@ -2553,7 +2561,7 @@
     <Folder Include="Areas\Setting\Views\Shared\" />
     <Folder Include="Areas\Space\Views\Shared\" />
     <Folder Include="Areas\Urn\Views\Shared\" />
-    <Folder Include="Lib\Quadrangle\Free\" />
+    <Folder Include="Lib\Columbarium\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -3389,6 +3397,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105181435482_RemoveCodeFromCatalogsTable.resx">
       <DependentUpon>202105181435482_RemoveCodeFromCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105190919537_RenameQuadrangleTransactionsToColumbariumTransactionsTable.resx">
+      <DependentUpon>202105190919537_RenameQuadrangleTransactionsToColumbariumTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105190936361_RenameQuadrangleToColumbariumTableColumns.resx">
+      <DependentUpon>202105190936361_RenameQuadrangleToColumbariumTableColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

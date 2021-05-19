@@ -22,14 +22,14 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleId == quadrangleId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
+        public QuadrangleTracking GetTrackingByTransactionAF(string columbariumTransactionAF)
         {
-            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == quadrangleTransactionAF).SingleOrDefault();
+            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == columbariumTransactionAF).SingleOrDefault();
         }
 
-        public QuadrangleTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string quadrangleTransactionAF)
+        public QuadrangleTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string columbariumTransactionAF)
         {
-            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == quadrangleTransactionAF && qt.QuadrangleId == quadrangleId).SingleOrDefault();
+            return MemorialContext.QuadrangleTrackings.Where(qt => qt.QuadrangleTransactionAF == columbariumTransactionAF && qt.QuadrangleId == quadrangleId).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

@@ -47,7 +47,7 @@ namespace Memorial.Persistence
             QuadrangleCentres = new QuadrangleCentreRepository(_context);
             QuadrangleItems = new QuadrangleItemRepository(_context);
             QuadrangleNumbers = new QuadrangleNumberRepository(_context);
-            QuadrangleTransactions = new QuadrangleTransactionRepository(_context);
+            ColumbariumTransactions = new ColumbariumTransactionRepository(_context);
 
             Spaces = new SpaceRepository(_context);
             SpaceItems = new SpaceItemRepository(_context);
@@ -96,7 +96,7 @@ namespace Memorial.Persistence
         public IQuadrangleTypeRepository QuadrangleTypes { get; private set; }
         public IQuadrangleRepository Quadrangles { get; private set; }
         public IQuadrangleTrackingRepository QuadrangleTrackings { get; private set; }
-        public IQuadrangleTransactionRepository QuadrangleTransactions { get; private set; }
+        public IColumbariumTransactionRepository ColumbariumTransactions { get; private set; }
 
         public IPlotAreaRepository PlotAreas { get; private set; }
         public IPlotTypeRepository PlotTypes { get; private set; }

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 
-namespace Memorial.Areas.Quadrangle.Controllers
+namespace Memorial.Areas.Columbarium.Controllers
 {
     public class ManageController : Controller
     {
@@ -70,7 +70,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
             {
                 _quadrangle.SetQuadrangle(id);
 
-                var quadrangleTransactionDto = new QuadrangleTransactionDto(itemId, id, applicantId);
+                var quadrangleTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
                 quadrangleTransactionDto.QuadrangleId = id;
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
                 viewModel.QuadrangleTransactionDto.Price = _manage.GetPrice(itemId);

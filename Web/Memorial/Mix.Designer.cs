@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Ancestor {
+            get {
+                return ResourceManager.GetString("Ancestor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 申請者 Applicant.
         /// </summary>
         public static string Applicant {
@@ -111,6 +120,24 @@ namespace Resources {
         public static string ChineseName {
             get {
                 return ResourceManager.GetString("ChineseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Columbarium {
+            get {
+                return ResourceManager.GetString("Columbarium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 火化 Cremation.
+        /// </summary>
+        public static string Cremation {
+            get {
+                return ResourceManager.GetString("Cremation", resourceCulture);
             }
         }
         
@@ -241,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 杂费 Miscellaneous.
+        /// </summary>
+        public static string Miscellaneous {
+            get {
+                return ResourceManager.GetString("Miscellaneous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 流動電話&lt;br /&gt;Mobile Number.
         /// </summary>
         public static string MobileNumber {
@@ -273,6 +309,24 @@ namespace Resources {
         public static string NoRecord {
             get {
                 return ResourceManager.GetString("NoRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Plot {
+            get {
+                return ResourceManager.GetString("Plot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰阁 Quadrangle.
+        /// </summary>
+        public static string Quadrangle {
+            get {
+                return ResourceManager.GetString("Quadrangle", resourceCulture);
             }
         }
         
@@ -313,11 +367,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 空间 Space.
+        /// </summary>
+        public static string Space {
+            get {
+                return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 删除联系 Unlink.
         /// </summary>
         public static string Unlink {
             get {
                 return ResourceManager.GetString("Unlink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰瓮 Urn.
+        /// </summary>
+        public static string Urn {
+            get {
+                return ResourceManager.GetString("Urn", resourceCulture);
             }
         }
     }

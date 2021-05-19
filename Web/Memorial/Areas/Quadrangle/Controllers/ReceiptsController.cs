@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Memorial.Lib;
-using Memorial.Lib.Receipt;
-using Memorial.Lib.Quadrangle;
-using Memorial.Core;
+using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
 using Memorial.ViewModels;
-using AutoMapper;
 
-namespace Memorial.Areas.Quadrangle.Controllers
+namespace Memorial.Areas.Columbarium.Controllers
 {
     public class ReceiptsController : Controller
     {
@@ -91,7 +84,7 @@ namespace Memorial.Areas.Quadrangle.Controllers
 
             _payment.SetTransaction(viewModel.AF);
 
-            viewModel.ReceiptDto.QuadrangleTransactionAF = viewModel.AF;
+            viewModel.ReceiptDto.ColumbariumTransactionAF = viewModel.AF;
 
             if (viewModel.ReceiptDto.RE == null)
             {

@@ -6,7 +6,7 @@ namespace Memorial.ViewModels
 {
     public class QuadrangleItemIndexesViewModel
     {
-        public IPagedList<QuadrangleTransactionDto> QuadrangleTransactionDtos { get; set; }
+        public IPagedList<ColumbariumTransactionDto> QuadrangleTransactionDtos { get; set; }
 
         public int QuadrangleItemId { get; set; }
 

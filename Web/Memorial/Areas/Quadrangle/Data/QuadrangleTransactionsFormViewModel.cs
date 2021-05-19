@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public IEnumerable<DeceasedBriefDto> DeceasedBriefDtos { get; set; }
 
-        public QuadrangleTransactionDto QuadrangleTransactionDto { get; set; }
+        public ColumbariumTransactionDto QuadrangleTransactionDto { get; set; }
 
         public int ShiftedQuadrangleId { get; set; }
 

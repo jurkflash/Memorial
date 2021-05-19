@@ -9,7 +9,7 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 
 namespace Memorial.Controllers.Api
 {

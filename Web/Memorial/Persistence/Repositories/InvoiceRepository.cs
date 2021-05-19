@@ -44,7 +44,7 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<Invoice> GetByActiveQuadrangleAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.QuadrangleTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.ColumbariumTransactionAF == AF && i.DeleteDate == null)
                             .ToList().OrderBy(i => i.CreateDate);
         }
 

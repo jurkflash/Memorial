@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public QuadrangleItem()
         {
-            QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
+            ColumbariumTransactions = new HashSet<ColumbariumTransaction>();
         }
 
         public int Id { get; set; }
@@ -30,7 +30,7 @@ namespace Memorial.Core.Domain
 
         public int QuadrangleCentreId { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
+        public ICollection<ColumbariumTransaction> ColumbariumTransactions { get; set; }
 
         public DateTime CreateDate { get; set; }
 

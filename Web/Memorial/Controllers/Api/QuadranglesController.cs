@@ -9,17 +9,17 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 
 namespace Memorial.Controllers.Api
 {
-    public class QuadranglesController : ApiController
+    public class ColumbariumsController : ApiController
     {
         private readonly IQuadrangle _quadrangle;
         private readonly IArea _area;
         private readonly ICentre _centre;
 
-        public QuadranglesController(IQuadrangle quadrangle, ICentre centre, IArea area)
+        public ColumbariumsController(IQuadrangle quadrangle, ICentre centre, IArea area)
         {
             _quadrangle = quadrangle;
             _area = area;

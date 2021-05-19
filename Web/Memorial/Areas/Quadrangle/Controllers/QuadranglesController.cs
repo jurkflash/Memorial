@@ -8,12 +8,12 @@ using Memorial.Lib;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using Memorial.Lib.Site;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Areas.Quadrangle.Controllers
+namespace Memorial.Areas.Columbarium.Controllers
 {
     public class QuadranglesController : Controller
     {

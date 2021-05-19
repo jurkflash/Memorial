@@ -22,11 +22,11 @@ namespace Memorial.Core.Domain
 
             MiscellaneousTransactions = new HashSet<MiscellaneousTransaction>();
 
-            QuadrangleTransactions1 = new HashSet<QuadrangleTransaction>();
+            ColumbariumTransactions1 = new HashSet<ColumbariumTransaction>();
 
-            QuadrangleTransactions2 = new HashSet<QuadrangleTransaction>();
+            ColumbariumTransactions2 = new HashSet<ColumbariumTransaction>();
 
-            QuadrangleTransactions3 = new HashSet<QuadrangleTransaction>();
+            ColumbariumTransactions3 = new HashSet<ColumbariumTransaction>();
 
             PlotTransactions1 = new HashSet<PlotTransaction>();
 
@@ -85,11 +85,11 @@ namespace Memorial.Core.Domain
 
         public ICollection<MiscellaneousTransaction> MiscellaneousTransactions { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions1 { get; set; }
+        public ICollection<ColumbariumTransaction> ColumbariumTransactions1 { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions2 { get; set; }
+        public ICollection<ColumbariumTransaction> ColumbariumTransactions2 { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions3 { get; set; }
+        public ICollection<ColumbariumTransaction> ColumbariumTransactions3 { get; set; }
 
         public ICollection<PlotTransaction> PlotTransactions1 { get; set; }
 

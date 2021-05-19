@@ -41,7 +41,7 @@ namespace Memorial.Persistence
         public DbSet<QuadrangleCentre> QuadrangleCentres { get; set; }
         public DbSet<QuadrangleItem> QuadrangleItems { get; set; }
         public DbSet<QuadrangleNumber> QuadrangleNumbers { get; set; }
-        public DbSet<QuadrangleTransaction> QuadrangleTransactions { get; set; }
+        public DbSet<ColumbariumTransaction> ColumbariumTransactions { get; set; }
 
         public DbSet<Space> Spaces { get; set; }
         public DbSet<SpaceItem> SpaceItems { get; set; }
@@ -113,7 +113,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new QuadrangleCentreConfiguration());
             modelBuilder.Configurations.Add(new QuadrangleItemConfiguration());
             modelBuilder.Configurations.Add(new QuadrangleNumberConfiguration());
-            modelBuilder.Configurations.Add(new QuadrangleTransactionConfiguration());
+            modelBuilder.Configurations.Add(new ColumbariumTransactionConfiguration());
             modelBuilder.Configurations.Add(new QuadrangleTrackingConfiguration());
            
             modelBuilder.Configurations.Add(new CremationConfiguration());

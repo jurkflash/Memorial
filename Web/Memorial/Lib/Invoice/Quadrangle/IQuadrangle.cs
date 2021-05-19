@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 
 namespace Memorial.Lib.Invoice
 {

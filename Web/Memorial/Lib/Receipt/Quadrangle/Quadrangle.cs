@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Quadrangle;
+using Memorial.Lib.Columbarium;
 using AutoMapper;
 
 namespace Memorial.Lib.Receipt
@@ -35,7 +35,7 @@ namespace Memorial.Lib.Receipt
 
         public string GetApplicationAF()
         {
-            return _receipt.QuadrangleTransactionAF;
+            return _receipt.ColumbariumTransactionAF;
         }
 
         override

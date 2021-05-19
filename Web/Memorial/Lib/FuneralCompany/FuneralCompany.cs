@@ -74,7 +74,7 @@ namespace Memorial.Lib.FuneralCompany
         {
             if (
                 _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.QuadrangleTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.ColumbariumTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any())
             {
                 return false;

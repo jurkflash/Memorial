@@ -12,7 +12,7 @@ namespace Memorial.Core.Domain
         {
             SpaceTransactions = new HashSet<SpaceTransaction>();
 
-            QuadrangleTransactions = new HashSet<QuadrangleTransaction>();
+            ColumbariumTransactions = new HashSet<ColumbariumTransaction>();
 
             CremationTransactions = new HashSet<CremationTransaction>();
         }
@@ -40,7 +40,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<SpaceTransaction> SpaceTransactions { get; set; }
 
-        public ICollection<QuadrangleTransaction> QuadrangleTransactions { get; set; }
+        public ICollection<ColumbariumTransaction> ColumbariumTransactions { get; set; }
 
         public ICollection<CremationTransaction> CremationTransactions { get; set; }
     }

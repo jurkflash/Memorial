@@ -65,7 +65,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Receipt> GetByNonOrderActiveQuadrangleAF(string AF)
         {
             return MemorialContext.Receipts
-                .Where(r => r.QuadrangleTransactionAF == AF &&
+                .Where(r => r.ColumbariumTransactionAF == AF &&
                     r.DeleteDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
