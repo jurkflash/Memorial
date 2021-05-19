@@ -13,7 +13,7 @@ namespace Memorial.Core.Domain
 
             Receipts = new HashSet<Receipt>();
 
-            QuadrangleTrackings = new HashSet<QuadrangleTracking>();
+            ColumbariumTrackings = new HashSet<ColumbariumTracking>();
         }
 
         public string AF { get; set; }
@@ -90,6 +90,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<Receipt> Receipts { get; set; }
 
-        public ICollection<QuadrangleTracking> QuadrangleTrackings { get; set; }
+        public ICollection<ColumbariumTracking> ColumbariumTrackings { get; set; }
     }
 }

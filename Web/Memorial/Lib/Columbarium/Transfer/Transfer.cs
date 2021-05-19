@@ -99,7 +99,7 @@ namespace Memorial.Lib.Columbarium
             if (!SetTransactionDeceasedIdBasedOnQuadrangle(quadrangleTransactionDto, quadrangleTransactionDto.QuadrangleId))
                 return false;
 
-            quadrangleTransactionDto.TransferredQuadrangleTransactionAF = _tracking.GetLatestFirstTransactionByQuadrangleId(quadrangleTransactionDto.QuadrangleId).QuadrangleTransactionAF;
+            quadrangleTransactionDto.TransferredQuadrangleTransactionAF = _tracking.GetLatestFirstTransactionByQuadrangleId(quadrangleTransactionDto.QuadrangleId).ColumbariumTransactionAF;
 
             GetTransaction(quadrangleTransactionDto.TransferredQuadrangleTransactionAF).DeleteDate = System.DateTime.Now;
 

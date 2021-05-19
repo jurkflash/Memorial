@@ -753,7 +753,7 @@
     <Compile Include="Core\Domain\PlotTransaction.cs" />
     <Compile Include="Core\Domain\AncestorTracking.cs" />
     <Compile Include="Core\Domain\PlotTracking.cs" />
-    <Compile Include="Core\Domain\QuadrangleTracking.cs" />
+    <Compile Include="Core\Domain\ColumbariumTracking.cs" />
     <Compile Include="Core\Domain\ColumbariumTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
     <Compile Include="Core\Domain\MiscellaneousNumber.cs" />
@@ -853,7 +853,7 @@
     <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTrackingRepository.cs" />
-    <Compile Include="Core\Repositories\IQuadrangleTrackingRepository.cs" />
+    <Compile Include="Core\Repositories\IColumbariumTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
     <Compile Include="Core\Repositories\IInvoiceRepository.cs" />
@@ -2240,6 +2240,10 @@
     <Compile Include="Migrations\202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.designer.cs">
       <DependentUpon>202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191018028_RenameQuadrangleToColumbariumTrackingTableColumns.cs" />
+    <Compile Include="Migrations\202105191018028_RenameQuadrangleToColumbariumTrackingTableColumns.designer.cs">
+      <DependentUpon>202105191018028_RenameQuadrangleToColumbariumTrackingTableColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2253,7 +2257,7 @@
     <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTrackingConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\QuadrangleTrackingConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ColumbariumTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\InvoiceConfiguration.cs" />
@@ -2311,7 +2315,7 @@
     <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTrackingRepository.cs" />
-    <Compile Include="Persistence\Repositories\QuadrangleTrackingRepository.cs" />
+    <Compile Include="Persistence\Repositories\ColumbariumTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationNumberRepository.cs" />
@@ -3431,6 +3435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.resx">
       <DependentUpon>202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191018028_RenameQuadrangleToColumbariumTrackingTableColumns.resx">
+      <DependentUpon>202105191018028_RenameQuadrangleToColumbariumTrackingTableColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

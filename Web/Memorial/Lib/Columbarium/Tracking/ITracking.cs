@@ -12,9 +12,9 @@ namespace Memorial.Lib.Columbarium
         void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id);
         void ChangeQuadrangleId(int trackingId, int quadrangleId);
         void Delete(string quadrangleTransactionAF);
-        QuadrangleTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId);
-        IEnumerable<QuadrangleTracking> GetTrackingByQuadrangleId(int quadrangleId);
-        QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF);
+        ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId);
+        IEnumerable<ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId);
+        ColumbariumTracking GetTrackingByTransactionAF(string quadrangleTransactionAF);
         bool IsLatestTransaction(int quadrangleId, string quadrangleTransactionAF);
         void Remove(int quadrangleId, string quadrangleTransactionAF);
     }

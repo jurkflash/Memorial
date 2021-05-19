@@ -34,10 +34,10 @@ namespace Memorial.Lib.Columbarium
 
         private void Create(int quadrangleId, string quadrangleTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
         {
-            _unitOfWork.QuadrangleTrackings.Add(new Core.Domain.QuadrangleTracking()
+            _unitOfWork.ColumbariumTrackings.Add(new Core.Domain.ColumbariumTracking()
             {
                 QuadrangleId = quadrangleId,
-                QuadrangleTransactionAF = quadrangleTransactionAF,
+                ColumbariumTransactionAF = quadrangleTransactionAF,
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
@@ -47,7 +47,7 @@ namespace Memorial.Lib.Columbarium
 
         public void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id)
         {
-            var tracking = _unitOfWork.QuadrangleTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -60,43 +60,43 @@ namespace Memorial.Lib.Columbarium
 
         public void ChangeQuadrangleId(int trackingId, int quadrangleId)
         {
-            var tracking = _unitOfWork.QuadrangleTrackings.Get(trackingId);
+            var tracking = _unitOfWork.ColumbariumTrackings.Get(trackingId);
 
             tracking.QuadrangleId = quadrangleId;
         }
 
         public void Remove(int quadrangleId, string quadrangleTransactionAF)
         {
-            var tracking = _unitOfWork.QuadrangleTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
 
-            _unitOfWork.QuadrangleTrackings.Remove(tracking);
+            _unitOfWork.ColumbariumTrackings.Remove(tracking);
         }
 
-        public Core.Domain.QuadrangleTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
+        public Core.Domain.ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
         {
-            return _unitOfWork.QuadrangleTrackings.GetLatestFirstTransactionByQuadrangleId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetLatestFirstTransactionByQuadrangleId(quadrangleId);
         }
 
-        public IEnumerable<Core.Domain.QuadrangleTracking> GetTrackingByQuadrangleId(int quadrangleId)
+        public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId)
         {
-            return _unitOfWork.QuadrangleTrackings.GetTrackingByQuadrangleId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleId(quadrangleId);
         }
 
-        public Core.Domain.QuadrangleTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
+        public Core.Domain.ColumbariumTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)
         {
-            return _unitOfWork.QuadrangleTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByTransactionAF(quadrangleTransactionAF);
         }
 
         public void Delete(string quadrangleTransactionAF)
         {
             var tracking = GetTrackingByTransactionAF(quadrangleTransactionAF);
             if (tracking != null)
-                _unitOfWork.QuadrangleTrackings.Remove(tracking);
+                _unitOfWork.ColumbariumTrackings.Remove(tracking);
         }
 
         public bool IsLatestTransaction(int quadrangleId, string quadrangleTransactionAF)
         {
-            return GetLatestFirstTransactionByQuadrangleId(quadrangleId).QuadrangleTransactionAF == quadrangleTransactionAF;
+            return GetLatestFirstTransactionByQuadrangleId(quadrangleId).ColumbariumTransactionAF == quadrangleTransactionAF;
         }
     }
 }

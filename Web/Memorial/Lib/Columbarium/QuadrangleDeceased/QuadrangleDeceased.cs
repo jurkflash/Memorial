@@ -43,7 +43,7 @@ namespace Memorial.Lib.Columbarium
 
             var tracking = _tracking.GetLatestFirstTransactionByQuadrangleId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.QuadrangleTransactionAF);
+            var transaction = _transaction.GetTransaction(tracking.ColumbariumTransactionAF);
 
             if (side == 1)
             {
@@ -93,7 +93,7 @@ namespace Memorial.Lib.Columbarium
 
             var tracking = _tracking.GetLatestFirstTransactionByQuadrangleId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.QuadrangleTransactionAF);
+            var transaction = _transaction.GetTransaction(tracking.ColumbariumTransactionAF);
 
             if (transaction.Deceased1Id == deceasedId)
             {

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class QuadrangleTracking
+    public class ColumbariumTracking
     {
         public int Id { get; set; }
 
@@ -16,7 +12,7 @@ namespace Memorial.Core.Domain
 
         public ColumbariumTransaction ColumbariumTransaction { get; set; }
 
-        public string QuadrangleTransactionAF { get; set; }
+        public string ColumbariumTransactionAF { get; set; }
 
         public Applicant Applicant { get; set; }
 

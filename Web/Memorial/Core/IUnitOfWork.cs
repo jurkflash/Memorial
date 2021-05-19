@@ -53,7 +53,7 @@ namespace Memorial.Core
         ICremationTransactionRepository CremationTransactions { get; }
 
         IQuadrangleRepository Quadrangles { get; }
-        IQuadrangleTrackingRepository QuadrangleTrackings { get; }
+        IColumbariumTrackingRepository ColumbariumTrackings { get; }
         IColumbariumAreaRepository ColumbariumAreas { get; }
         IQuadrangleTypeRepository QuadrangleTypes { get; }
         IColumbariumItemRepository ColumbariumItems { get; }
