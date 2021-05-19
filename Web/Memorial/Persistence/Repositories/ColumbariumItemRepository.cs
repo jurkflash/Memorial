@@ -6,22 +6,22 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class QuadrangleItemRepository : Repository<QuadrangleItem>, IQuadrangleItemRepository
+    public class ColumbariumItemRepository : Repository<ColumbariumItem>, IColumbariumItemRepository
     {
-        public QuadrangleItemRepository(MemorialContext context) : base(context)
+        public ColumbariumItemRepository(MemorialContext context) : base(context)
         {
         }
 
-        public QuadrangleItem GetActive(int id)
+        public ColumbariumItem GetActive(int id)
         {
-            return MemorialContext.QuadrangleItems
+            return MemorialContext.ColumbariumItems
                 .Where(qi => qi.Id == id && qi.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<QuadrangleItem> GetByCentre(int quadrangleCentreId)
+        public IEnumerable<ColumbariumItem> GetByCentre(int quadrangleCentreId)
         {
-            return MemorialContext.QuadrangleItems
+            return MemorialContext.ColumbariumItems
                 .Where(qi => qi.QuadrangleCentreId == quadrangleCentreId
                 && qi.DeleteDate == null).ToList();
         }

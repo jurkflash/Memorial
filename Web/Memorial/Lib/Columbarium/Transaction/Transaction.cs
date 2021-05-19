@@ -97,12 +97,12 @@ namespace Memorial.Lib.Columbarium
 
         public int GetItemId()
         {
-            return _transaction.QuadrangleItemId;
+            return _transaction.ColumbariumItemId;
         }
 
         public string GetItemName()
         {
-            _item.SetItem(_transaction.QuadrangleItemId);
+            _item.SetItem(_transaction.ColumbariumItemId);
             return _item.GetName();
         }
 
@@ -114,7 +114,7 @@ namespace Memorial.Lib.Columbarium
 
         public float GetItemPrice()
         {
-            _item.SetItem(_transaction.QuadrangleItemId);
+            _item.SetItem(_transaction.ColumbariumItemId);
             return _item.GetPrice();
         }
 
@@ -126,7 +126,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool IsItemOrder()
         {
-            _item.SetItem(_transaction.QuadrangleItemId);
+            _item.SetItem(_transaction.ColumbariumItemId);
             return _item.IsOrder();
         }
 

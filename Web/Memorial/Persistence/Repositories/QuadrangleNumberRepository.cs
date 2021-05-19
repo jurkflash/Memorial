@@ -15,7 +15,7 @@ namespace Memorial.Persistence.Repositories
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.QuadrangleItems
+            var quadrangleItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&
@@ -35,7 +35,7 @@ namespace Memorial.Persistence.Repositories
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.QuadrangleItems
+            var quadrangleItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&
@@ -55,7 +55,7 @@ namespace Memorial.Persistence.Repositories
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var quadrangleItem = MemorialContext.QuadrangleItems
+            var quadrangleItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.QuadrangleCentre)
                                 .Include(q => q.QuadrangleCentre.Site)
                                 .Where(q => q.Id == QuadrangleItemId &&

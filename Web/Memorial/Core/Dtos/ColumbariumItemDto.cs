@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Memorial.Core.Domain;
 
-namespace Memorial.Core.Domain
+namespace Memorial.Core.Dtos
 {
-    public class QuadrangleItem
+    public class ColumbariumItemDto
     {
-        public QuadrangleItem()
-        {
-            ColumbariumTransactions = new HashSet<ColumbariumTransaction>();
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -30,12 +24,6 @@ namespace Memorial.Core.Domain
 
         public int QuadrangleCentreId { get; set; }
 
-        public ICollection<ColumbariumTransaction> ColumbariumTransactions { get; set; }
-
         public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

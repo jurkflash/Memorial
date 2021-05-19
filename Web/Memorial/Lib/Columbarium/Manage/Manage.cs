@@ -67,7 +67,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool Create(ColumbariumTransactionDto quadrangleTransactionDto)
         {
-            NewNumber(quadrangleTransactionDto.QuadrangleItemId);
+            NewNumber(quadrangleTransactionDto.ColumbariumItemId);
 
             if (CreateNewTransaction(quadrangleTransactionDto))
             {

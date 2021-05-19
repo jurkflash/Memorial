@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class QuadrangleItemConfiguration : EntityTypeConfiguration<QuadrangleItem>
+    public class ColumbariumItemConfiguration : EntityTypeConfiguration<ColumbariumItem>
     {
-        public QuadrangleItemConfiguration()
+        public ColumbariumItemConfiguration()
         {
             Property(qi => qi.Name)
                 .IsRequired()
@@ -19,7 +19,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(10);
 
             HasRequired(qi => qi.QuadrangleCentre)
-                .WithMany(qc => qc.QuadrangleItems)
+                .WithMany(qc => qc.ColumbariumItems)
                 .HasForeignKey(qi => qi.QuadrangleCentreId)
                 .WillCascadeOnDelete(false);
         }

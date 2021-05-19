@@ -10,13 +10,13 @@ namespace Memorial.Lib.Columbarium
     {
         void SetItem(int id);
 
-        Core.Domain.QuadrangleItem GetItem();
+        Core.Domain.ColumbariumItem GetItem();
 
-        QuadrangleItemDto GetItemDto();
+        ColumbariumItemDto GetItemDto();
 
-        Core.Domain.QuadrangleItem GetItem(int id);
+        Core.Domain.ColumbariumItem GetItem(int id);
 
-        QuadrangleItemDto GetItemDto(int id);
+        ColumbariumItemDto GetItemDto(int id);
 
         int GetId();
 
@@ -30,13 +30,13 @@ namespace Memorial.Lib.Columbarium
 
         bool IsOrder();
 
-        IEnumerable<Core.Domain.QuadrangleItem> GetItemByCentre(int centreId);
+        IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId);
 
-        IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId);
+        IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId);
 
-        bool Create(QuadrangleItemDto quadrangleItemDto);
+        bool Create(ColumbariumItemDto columbariumItemDto);
 
-        bool Update(Core.Domain.QuadrangleItem quadrangleItem);
+        bool Update(Core.Domain.ColumbariumItem columbariumItem);
 
         bool Delete(int id);
     }

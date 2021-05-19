@@ -63,12 +63,12 @@ namespace Memorial.Lib.Columbarium
             return _quadrangle.GetQuadrangleDtosByAreaId(areaId);
         }
 
-        public QuadrangleItemDto GetItemDto(int id)
+        public ColumbariumItemDto GetItemDto(int id)
         {
             return _item.GetItemDto(id);
         }
 
-        public IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId)
+        public IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId)
         {
             return _item.GetItemDtosByCentre(centreId);
         }
@@ -129,7 +129,7 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool CreateItem(QuadrangleItemDto quadrangleItemDto)
+        public bool CreateItem(ColumbariumItemDto quadrangleItemDto)
         {
             if (_item.Create(quadrangleItemDto))
             {
@@ -141,13 +141,13 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateItem(QuadrangleItemDto quadrangleItemDto)
+        public bool UpdateItem(ColumbariumItemDto quadrangleItemDto)
         {
             var quadrangleItemInDB = _item.GetItem(quadrangleItemDto.Id);
 
             if ((quadrangleItemInDB.isOrder != quadrangleItemDto.isOrder
                 || quadrangleItemInDB.QuadrangleCentreId != quadrangleItemDto.QuadrangleCentreId)
-                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.QuadrangleItemId == quadrangleItemDto.Id && qi.DeleteDate == null).Any())
+                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == quadrangleItemDto.Id && qi.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -165,7 +165,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool DeleteItem(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.QuadrangleItemId == id && qt.DeleteDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItemId == id && qt.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -195,7 +195,7 @@ namespace Memorial.Lib.Columbarium
             var quadrangleCentreInDB = _centre.GetCentre(quadrangleCentreDto.Id);
 
             if (quadrangleCentreInDB.SiteId != quadrangleCentreDto.SiteId
-                && _unitOfWork.ColumbariumTransactions.Find(qt => qt.QuadrangleItem.QuadrangleCentreId == quadrangleCentreInDB.Id && qt.DeleteDate == null).Any())
+                && _unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.QuadrangleCentreId == quadrangleCentreInDB.Id && qt.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -213,7 +213,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool DeleteCentre(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.QuadrangleItem.QuadrangleCentreId == id && qt.DeleteDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.QuadrangleCentreId == id && qt.DeleteDate == null).Any())
             {
                 return false;
             }

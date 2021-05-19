@@ -103,7 +103,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                        itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
                         id = viewModel.QuadrangleTransactionDto.QuadrangleId,
                         applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
                     });
@@ -129,7 +129,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.QuadrangleTransactionDto.QuadrangleItemId,
+                itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
                 id = viewModel.QuadrangleTransactionDto.QuadrangleId,
                 applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
             });

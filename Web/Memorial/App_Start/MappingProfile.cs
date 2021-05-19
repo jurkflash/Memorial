@@ -77,7 +77,7 @@ namespace Memorial.App_Start
 
             CreateMap<QuadrangleCentre, QuadrangleCentreDto>();
             CreateMap<QuadrangleType, QuadrangleTypeDto>();
-            CreateMap<QuadrangleItem, QuadrangleItemDto>();
+            CreateMap<ColumbariumItem, ColumbariumItemDto>();
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
 
             CreateMap<Ancestor, AncestorDto>();
@@ -186,13 +186,13 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleCentreDto, QuadrangleCentre>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<QuadrangleItemDto, QuadrangleItem>()
+            CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleTypeDto, QuadrangleType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
-                .ForMember(c => c.QuadrangleItem, opt => opt.Ignore())
+                .ForMember(c => c.ColumbariumItem, opt => opt.Ignore())
                 .ForMember(c => c.Quadrangle, opt => opt.Ignore())
                 .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())

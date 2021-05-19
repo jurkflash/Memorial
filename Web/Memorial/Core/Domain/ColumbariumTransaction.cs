@@ -36,9 +36,9 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public QuadrangleItem QuadrangleItem { get; set; }
+        public ColumbariumItem ColumbariumItem { get; set; }
 
-        public int QuadrangleItemId { get; set; }
+        public int ColumbariumItemId { get; set; }
 
         public Quadrangle Quadrangle { get; set; }
 

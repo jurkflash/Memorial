@@ -16,9 +16,9 @@ namespace Memorial.Persistence.EntityConfigurations
 
             HasKey(qt => qt.AF);
 
-            HasRequired(qt => qt.QuadrangleItem)
+            HasRequired(qt => qt.ColumbariumItem)
                 .WithMany(q => q.ColumbariumTransactions)
-                .HasForeignKey(qt => qt.QuadrangleItemId)
+                .HasForeignKey(qt => qt.ColumbariumItemId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(qt => qt.Quadrangle)

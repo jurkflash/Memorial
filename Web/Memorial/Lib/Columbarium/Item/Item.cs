@@ -11,7 +11,7 @@ namespace Memorial.Lib.Columbarium
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.QuadrangleItem _item;
+        private Core.Domain.ColumbariumItem _item;
 
         public Item(IUnitOfWork unitOfWork)
         {
@@ -20,27 +20,27 @@ namespace Memorial.Lib.Columbarium
 
         public void SetItem(int id)
         {
-            _item = _unitOfWork.QuadrangleItems.GetActive(id);
+            _item = _unitOfWork.ColumbariumItems.GetActive(id);
         }
 
-        public Core.Domain.QuadrangleItem GetItem()
+        public Core.Domain.ColumbariumItem GetItem()
         {
             return _item;
         }
 
-        public QuadrangleItemDto GetItemDto()
+        public ColumbariumItemDto GetItemDto()
         {
-            return Mapper.Map<Core.Domain.QuadrangleItem, QuadrangleItemDto>(GetItem());
+            return Mapper.Map<Core.Domain.ColumbariumItem, ColumbariumItemDto>(GetItem());
         }
 
-        public Core.Domain.QuadrangleItem GetItem(int id)
+        public Core.Domain.ColumbariumItem GetItem(int id)
         {
-            return _unitOfWork.QuadrangleItems.GetActive(id);
+            return _unitOfWork.ColumbariumItems.GetActive(id);
         }
 
-        public QuadrangleItemDto GetItemDto(int id)
+        public ColumbariumItemDto GetItemDto(int id)
         {
-            return Mapper.Map<Core.Domain.QuadrangleItem, QuadrangleItemDto>(GetItem(id));
+            return Mapper.Map<Core.Domain.ColumbariumItem, ColumbariumItemDto>(GetItem(id));
         }
 
         public int GetId()
@@ -73,31 +73,31 @@ namespace Memorial.Lib.Columbarium
             return _item.isOrder;
         }
 
-        public IEnumerable<Core.Domain.QuadrangleItem> GetItemByCentre(int centreId)
+        public IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId)
         {
-            return _unitOfWork.QuadrangleItems.GetByCentre(centreId);
+            return _unitOfWork.ColumbariumItems.GetByCentre(centreId);
         }
 
-        public IEnumerable<QuadrangleItemDto> GetItemDtosByCentre(int centreId)
+        public IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.QuadrangleItem>, IEnumerable<QuadrangleItemDto>>(GetItemByCentre(centreId));
+            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumItem>, IEnumerable<ColumbariumItemDto>>(GetItemByCentre(centreId));
         }
 
-        public bool Create(QuadrangleItemDto quadrangleItemDto)
+        public bool Create(ColumbariumItemDto columbariumItemDto)
         {
-            _item = new Core.Domain.QuadrangleItem();
-            Mapper.Map(quadrangleItemDto, _item);
+            _item = new Core.Domain.ColumbariumItem();
+            Mapper.Map(columbariumItemDto, _item);
 
             _item.CreateDate = DateTime.Now;
 
-            _unitOfWork.QuadrangleItems.Add(_item);
+            _unitOfWork.ColumbariumItems.Add(_item);
 
             return true;
         }
 
-        public bool Update(Core.Domain.QuadrangleItem quadrangleItem)
+        public bool Update(Core.Domain.ColumbariumItem columbariumItem)
         {
-            quadrangleItem.ModifyDate = DateTime.Now;
+            columbariumItem.ModifyDate = DateTime.Now;
 
             return true;
         }

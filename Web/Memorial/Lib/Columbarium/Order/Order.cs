@@ -72,7 +72,7 @@ namespace Memorial.Lib.Columbarium
                     return false;
             }
 
-            NewNumber(quadrangleTransactionDto.QuadrangleItemId);
+            NewNumber(quadrangleTransactionDto.ColumbariumItemId);
 
             if (CreateNewTransaction(quadrangleTransactionDto))
             {

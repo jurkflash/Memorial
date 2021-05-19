@@ -11,7 +11,7 @@ namespace Memorial.Core.Domain
         {
             QuadrangleAreas = new HashSet<QuadrangleArea>();
 
-            QuadrangleItems = new HashSet<QuadrangleItem>();
+            ColumbariumItems = new HashSet<ColumbariumItem>();
         }
 
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<QuadrangleArea> QuadrangleAreas { get; set; }
 
-        public ICollection<QuadrangleItem> QuadrangleItems { get; set; }
+        public ICollection<ColumbariumItem> ColumbariumItems { get; set; }
 
         public DateTime CreateDate { get; set; }
 

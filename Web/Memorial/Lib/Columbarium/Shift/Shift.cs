@@ -114,7 +114,7 @@ namespace Memorial.Lib.Columbarium
 
             _tracking.Remove((int)quadrangleTransactionDto.ShiftedQuadrangleId, quadrangleTransactionDto.ShiftedQuadrangleTransactionAF);
 
-            NewNumber(quadrangleTransactionDto.QuadrangleItemId);
+            NewNumber(quadrangleTransactionDto.ColumbariumItemId);
 
             if (CreateNewTransaction(quadrangleTransactionDto))
             {

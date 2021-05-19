@@ -12,9 +12,9 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public ColumbariumTransactionDto(int quadrangleItemId, int quadrangleId, int applicantId)
+        public ColumbariumTransactionDto(int columbariumItemId, int quadrangleId, int applicantId)
         {
-            QuadrangleItemId = quadrangleItemId;
+            ColumbariumItemId = columbariumItemId;
             QuadrangleId = quadrangleId;
             ApplicantId = applicantId;
         }
@@ -39,9 +39,9 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public QuadrangleItem QuadrangleItem { get; set; }
+        public ColumbariumItem ColumbariumItem { get; set; }
 
-        public int QuadrangleItemId { get; set; }
+        public int ColumbariumItemId { get; set; }
 
         public Quadrangle Quadrangle { get; set; }
 
