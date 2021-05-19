@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public ColumbariumArea()
         {
-            Quadrangles = new HashSet<Quadrangle>();
+            Niches = new HashSet<Niche>();
         }
 
         public int Id { get; set; }
@@ -22,7 +22,7 @@ namespace Memorial.Core.Domain
 
         public int ColumbariumCentreId { get; set; }
 
-        public ICollection<Quadrangle> Quadrangles { get; set; }
+        public ICollection<Niche> Niches { get; set; }
 
         public DateTime CreateDate { get; set; }
 

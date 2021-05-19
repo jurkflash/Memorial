@@ -83,7 +83,7 @@ namespace Memorial.Lib.Deceased
 
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByQuadrangleId(int quadrangleId)
         {
-            return _unitOfWork.Deceaseds.GetByQuadrangle(quadrangleId);
+            return _unitOfWork.Deceaseds.GetByNiche(quadrangleId);
         }
 
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId)
@@ -124,11 +124,11 @@ namespace Memorial.Lib.Deceased
             return true;
         }
 
-        public Core.Domain.Quadrangle GetQuadrangle()
+        public Core.Domain.Niche GetQuadrangle()
         {
-            if (_deceased.QuadrangleId != null)
+            if (_deceased.NicheId != null)
             {
-                _quadrangle.SetQuadrangle((int)_deceased.QuadrangleId);
+                _quadrangle.SetQuadrangle((int)_deceased.NicheId);
                 return _quadrangle.GetQuadrangle();
             }
             return null;
@@ -141,8 +141,8 @@ namespace Memorial.Lib.Deceased
                 var quadrangle = _quadrangle.GetQuadrangle(quadrangleId);
                 if (quadrangle != null)
                 {
-                    _deceased.Quadrangle = quadrangle;
-                    _deceased.QuadrangleId = quadrangleId;
+                    _deceased.Niche = quadrangle;
+                    _deceased.NicheId = quadrangleId;
                     return true;
                 }
             }
@@ -153,8 +153,8 @@ namespace Memorial.Lib.Deceased
         {
             if (_deceased != null)
             {
-                _deceased.Quadrangle = null;
-                _deceased.QuadrangleId = null;
+                _deceased.Niche = null;
+                _deceased.NicheId = null;
                 return true;
             }
             return false;

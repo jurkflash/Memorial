@@ -12,14 +12,14 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
+        public ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.QuadrangleId == quadrangleId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
         }
 
-        public IEnumerable<ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId)
+        public IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.QuadrangleId == quadrangleId).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
         public ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF)
@@ -27,9 +27,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF).SingleOrDefault();
         }
 
-        public ColumbariumTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string columbariumTransactionAF)
+        public ColumbariumTracking GetTrackingByNicheIdAndTransactionAF(int nicheId, string columbariumTransactionAF)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF && qt.QuadrangleId == quadrangleId).SingleOrDefault();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF && qt.NicheId == nicheId).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

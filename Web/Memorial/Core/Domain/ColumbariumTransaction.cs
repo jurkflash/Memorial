@@ -40,9 +40,9 @@ namespace Memorial.Core.Domain
 
         public int ColumbariumItemId { get; set; }
 
-        public Quadrangle Quadrangle { get; set; }
+        public Niche Niche { get; set; }
 
-        public int QuadrangleId { get; set; }
+        public int NicheId { get; set; }
 
         public FuneralCompany FuneralCompany { get; set; }
 
@@ -60,9 +60,9 @@ namespace Memorial.Core.Domain
 
         public int? Deceased2Id { get; set; }
 
-        public Quadrangle ShiftedQuadrangle { get; set; }
+        public Niche ShiftedNiche { get; set; }
 
-        public int? ShiftedQuadrangleId { get; set; }
+        public int? ShiftedNicheId { get; set; }
 
         public Applicant TransferredFromApplicant { get; set; }
 

@@ -65,11 +65,11 @@ namespace Memorial.App_Start
                 .ForMember(c => c.DeceasedDto2Id, opt => opt.MapFrom(x => x.Deceased2Id));
             CreateMap<PlotType, PlotTypeDto>();
 
-            CreateMap<Quadrangle, QuadrangleDto>()
+            CreateMap<Niche, NicheDto>()
                 .ForMember(c => c.QuadrangleTypeDto, opt => opt.MapFrom(x => x.QuadrangleType))
                 .ForMember(c => c.QuadrangleTypeDtoId, opt => opt.MapFrom(x => x.QuadrangleTypeId))
-                .ForMember(c => c.ColumbariumAreaDto, opt => opt.MapFrom(x => x.QuadrangleArea))
-                .ForMember(c => c.ColumbariumAreaDtoId, opt => opt.MapFrom(x => x.QuadrangleAreaId));
+                .ForMember(c => c.ColumbariumAreaDto, opt => opt.MapFrom(x => x.ColumbariumArea))
+                .ForMember(c => c.ColumbariumAreaDtoId, opt => opt.MapFrom(x => x.ColumbariumAreaId));
 
             CreateMap<ColumbariumArea, ColumbariumAreaDto>()
                 .ForMember(c => c.ColumbariumCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
@@ -114,7 +114,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.NationalityType, opt => opt.Ignore())
                 .ForMember(c => c.MaritalType, opt => opt.Ignore())
                 .ForMember(c => c.ReligionType, opt => opt.Ignore())
-                .ForMember(c => c.Quadrangle, opt => opt.Ignore())
+                .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore())
                 .ForMember(c => c.ModifyDate, opt => opt.Ignore())
@@ -180,7 +180,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
-            CreateMap<QuadrangleDto, Quadrangle>()
+            CreateMap<NicheDto, Niche>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumAreaDto, ColumbariumArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -193,12 +193,12 @@ namespace Memorial.App_Start
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumItem, opt => opt.Ignore())
-                .ForMember(c => c.Quadrangle, opt => opt.Ignore())
+                .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.Deceased1, opt => opt.Ignore())
                 .ForMember(c => c.Deceased2, opt => opt.Ignore())
-                .ForMember(c => c.ShiftedQuadrangle, opt => opt.Ignore())
+                .ForMember(c => c.ShiftedNiche, opt => opt.Ignore())
                 .ForMember(c => c.ShiftedColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.TransferredApplicant, opt => opt.Ignore())
                 .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.Ignore())

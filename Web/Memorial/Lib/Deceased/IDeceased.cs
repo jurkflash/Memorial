@@ -36,7 +36,7 @@ namespace Memorial.Lib.Deceased
 
         bool Update(DeceasedDto deceasedDto);
 
-        Core.Domain.Quadrangle GetQuadrangle();
+        Core.Domain.Niche GetQuadrangle();
 
         bool SetQuadrangle(int quadrangleId);
 

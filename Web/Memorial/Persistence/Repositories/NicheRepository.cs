@@ -6,41 +6,41 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class QuadrangleRepository : Repository<Quadrangle>, IQuadrangleRepository
+    public class NicheRepository : Repository<Niche>, INicheRepository
     {
-        public QuadrangleRepository(MemorialContext context) : base(context)
+        public NicheRepository(MemorialContext context) : base(context)
         {
         }
 
-        public Quadrangle GetActive(int id)
+        public Niche GetActive(int id)
         {
-            return MemorialContext.Quadrangles
+            return MemorialContext.Niches
                 .Include(q => q.Applicant)
                 .Include(q => q.QuadrangleType)
-                .Include(q => q.QuadrangleArea)
+                .Include(q => q.ColumbariumArea)
                 //.Include(q => q.QuadrangleArea.QuadrangleCentre)
                 .Where(q => q.Id == id && q.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Quadrangle> GetByArea(int quadrangleAreaId)
+        public IEnumerable<Niche> GetByArea(int quadrangleAreaId)
         {
-            return MemorialContext.Quadrangles
-                .Where(q => q.QuadrangleAreaId == quadrangleAreaId).ToList();
+            return MemorialContext.Niches
+                .Where(q => q.ColumbariumAreaId == quadrangleAreaId).ToList();
         }
 
-        public IEnumerable<Quadrangle> GetAvailableByArea(int quadrangleAreaId)
+        public IEnumerable<Niche> GetAvailableByArea(int quadrangleAreaId)
         {
-            return MemorialContext.Quadrangles
+            return MemorialContext.Niches
                 .Include(q => q.QuadrangleType)
-                .Where(q => q.QuadrangleAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
+                .Where(q => q.ColumbariumAreaId == quadrangleAreaId && q.ApplicantId == null).ToList();
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int quadrangleAreaId)
         {
             var d = new Dictionary<byte, IEnumerable<byte>>();
-            var t = MemorialContext.Quadrangles
-                .Where(q => q.QuadrangleAreaId == quadrangleAreaId)
+            var t = MemorialContext.Niches
+                .Where(q => q.ColumbariumAreaId == quadrangleAreaId)
                 .Select(q => new { q.PositionY, q.PositionX })
                 .Distinct()
                 .OrderBy(a => a.PositionY).ThenBy(a => a.PositionX).ToList();

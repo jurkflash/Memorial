@@ -78,8 +78,8 @@ namespace Memorial.Areas.Columbarium.Controllers
 
                 quadrangleTransactionDto.ColumbariumItemId = itemId;
 
-                quadrangleTransactionDto.ShiftedQuadrangleId = id;
-                quadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
+                quadrangleTransactionDto.ShiftedNicheId = id;
+                quadrangleTransactionDto.ShiftedNiche = _quadrangle.GetQuadrangle();
 
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
             }
@@ -87,9 +87,9 @@ namespace Memorial.Areas.Columbarium.Controllers
             {
                 viewModel.QuadrangleTransactionDto = _shift.GetTransactionDto(AF);
 
-                _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId);
+                _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedNicheId);
 
-                viewModel.QuadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
+                viewModel.QuadrangleTransactionDto.ShiftedNiche = _quadrangle.GetQuadrangle();
             }
 
             return View(viewModel);
@@ -104,7 +104,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return RedirectToAction("Index", new
                     {
                         itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        id = viewModel.QuadrangleTransactionDto.NicheId,
                         applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
                     });
                 }
@@ -129,18 +129,18 @@ namespace Memorial.Areas.Columbarium.Controllers
             return RedirectToAction("Index", new
             {
                 itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                id = viewModel.QuadrangleTransactionDto.NicheId,
                 applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
             });
         }
 
         public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
-            if(viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId != null)
+            if(viewModel.QuadrangleTransactionDto.ShiftedNicheId != null)
             {
-                _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedQuadrangleId);
+                _quadrangle.SetQuadrangle((int)viewModel.QuadrangleTransactionDto.ShiftedNicheId);
 
-                viewModel.QuadrangleTransactionDto.ShiftedQuadrangle = _quadrangle.GetQuadrangle();
+                viewModel.QuadrangleTransactionDto.ShiftedNiche = _quadrangle.GetQuadrangle();
             }
 
             return View("Form", viewModel);

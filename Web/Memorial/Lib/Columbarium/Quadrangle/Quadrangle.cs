@@ -11,7 +11,7 @@ namespace Memorial.Lib.Columbarium
     public class Quadrangle : IQuadrangle
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.Quadrangle _quadrangle;
+        private Core.Domain.Niche _quadrangle;
 
         public Quadrangle(IUnitOfWork unitOfWork)
         {
@@ -20,47 +20,47 @@ namespace Memorial.Lib.Columbarium
 
         public void SetQuadrangle(int id)
         {
-            _quadrangle = _unitOfWork.Quadrangles.GetActive(id);
+            _quadrangle = _unitOfWork.Niches.GetActive(id);
         }
 
-        public Core.Domain.Quadrangle GetQuadrangle()
+        public Core.Domain.Niche GetQuadrangle()
         {
             return _quadrangle;
         }
 
-        public QuadrangleDto GetQuadrangleDto()
+        public NicheDto GetQuadrangleDto()
         {
-            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(GetQuadrangle());
+            return Mapper.Map<Core.Domain.Niche, NicheDto>(GetQuadrangle());
         }
 
-        public Core.Domain.Quadrangle GetQuadrangle(int id)
+        public Core.Domain.Niche GetQuadrangle(int id)
         {
-            return _unitOfWork.Quadrangles.GetActive(id);
+            return _unitOfWork.Niches.GetActive(id);
         }
 
-        public QuadrangleDto GetQuadrangleDto(int id)
+        public NicheDto GetQuadrangleDto(int id)
         {
-            return Mapper.Map<Core.Domain.Quadrangle, QuadrangleDto>(GetQuadrangle(id));
+            return Mapper.Map<Core.Domain.Niche, NicheDto>(GetQuadrangle(id));
         }
 
-        public IEnumerable<Core.Domain.Quadrangle> GetQuadranglesByAreaId(int id)
+        public IEnumerable<Core.Domain.Niche> GetQuadranglesByAreaId(int id)
         {
-            return _unitOfWork.Quadrangles.GetByArea(id);
+            return _unitOfWork.Niches.GetByArea(id);
         }
 
-        public IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int id)
+        public IEnumerable<NicheDto> GetQuadrangleDtosByAreaId(int id)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(GetQuadranglesByAreaId(id));
+            return Mapper.Map< IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetQuadranglesByAreaId(id));
         }
 
-        public IEnumerable<Core.Domain.Quadrangle> GetAvailableQuadranglesByAreaId(int id)
+        public IEnumerable<Core.Domain.Niche> GetAvailableQuadranglesByAreaId(int id)
         {
-            return _unitOfWork.Quadrangles.GetAvailableByArea(id);
+            return _unitOfWork.Niches.GetAvailableByArea(id);
         }
 
-        public IEnumerable<QuadrangleDto> GetAvailableQuadrangleDtosByAreaId(int id)
+        public IEnumerable<NicheDto> GetAvailableQuadrangleDtosByAreaId(int id)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Quadrangle>, IEnumerable<QuadrangleDto>>(GetAvailableQuadranglesByAreaId(id));
+            return Mapper.Map<IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetAvailableQuadranglesByAreaId(id));
         }
 
         public string GetName()
@@ -126,7 +126,7 @@ namespace Memorial.Lib.Columbarium
 
         public int GetAreaId()
         {
-            return _quadrangle.QuadrangleAreaId;
+            return _quadrangle.ColumbariumAreaId;
         }
 
         public int GetNumberOfPlacement()
@@ -136,22 +136,22 @@ namespace Memorial.Lib.Columbarium
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId)
         {
-            return _unitOfWork.Quadrangles.GetPositionsByArea(areaId);
+            return _unitOfWork.Niches.GetPositionsByArea(areaId);
         }
 
-        public bool Create(QuadrangleDto quadrangleDto)
+        public bool Create(NicheDto quadrangleDto)
         {
-            _quadrangle = new Core.Domain.Quadrangle();
+            _quadrangle = new Core.Domain.Niche();
             Mapper.Map(quadrangleDto, _quadrangle);
 
             _quadrangle.CreateDate = DateTime.Now;
 
-            _unitOfWork.Quadrangles.Add(_quadrangle);
+            _unitOfWork.Niches.Add(_quadrangle);
 
             return true;
         }
 
-        public bool Update(Core.Domain.Quadrangle quadrangle)
+        public bool Update(Core.Domain.Niche quadrangle)
         {
             quadrangle.ModifyDate = DateTime.Now;
 

@@ -16,8 +16,8 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
-                .Include(qt => qt.ShiftedQuadrangle)
+                .Include(qt => qt.Niche)
+                .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.AF == AF && qt.DeleteDate == null)
                 .SingleOrDefault();
@@ -27,8 +27,8 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
-                .Include(qt => qt.ShiftedQuadrangle)
+                .Include(qt => qt.Niche)
+                .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.AF == AF)
                 .SingleOrDefault();
@@ -44,11 +44,11 @@ namespace Memorial.Persistence.Repositories
         {
             var transactions = MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
-                .Include(qt => qt.ShiftedQuadrangle)
+                .Include(qt => qt.Niche)
+                .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ColumbariumItemId == itemId
-                                            && (qt.QuadrangleId == quadrangleId || qt.ShiftedQuadrangleId == quadrangleId)
+                                            && (qt.NicheId == quadrangleId || qt.ShiftedNicheId == quadrangleId)
                                             && qt.DeleteDate == null);
 
             if(string.IsNullOrEmpty(filter))
@@ -65,11 +65,11 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.Niche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ApplicantId == applicantId
                                             && qt.ColumbariumItemId == itemId
-                                            && qt.QuadrangleId == quadrangleId
+                                            && qt.NicheId == quadrangleId
                                             && qt.DeleteDate == null).ToList();
         }
 
@@ -77,7 +77,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.Niche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ShiftedColumbariumTransactionAF == AF)
                 .SingleOrDefault();
@@ -87,9 +87,9 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
-                .Include(qt => qt.Quadrangle)
+                .Include(qt => qt.Niche)
                 .Include(qt => qt.ColumbariumItem)
-                .Where(qt => qt.QuadrangleId == quadrangleId && qt.DeleteDate == null)
+                .Where(qt => qt.NicheId == quadrangleId && qt.DeleteDate == null)
                 .ToList();
         }
 

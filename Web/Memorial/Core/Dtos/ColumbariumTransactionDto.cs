@@ -12,10 +12,10 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public ColumbariumTransactionDto(int columbariumItemId, int quadrangleId, int applicantId)
+        public ColumbariumTransactionDto(int columbariumItemId, int nicheId, int applicantId)
         {
             ColumbariumItemId = columbariumItemId;
-            QuadrangleId = quadrangleId;
+            NicheId = nicheId;
             ApplicantId = applicantId;
         }
 
@@ -43,9 +43,9 @@ namespace Memorial.Core.Dtos
 
         public int ColumbariumItemId { get; set; }
 
-        public Quadrangle Quadrangle { get; set; }
+        public Niche Quadrangle { get; set; }
 
-        public int QuadrangleId { get; set; }
+        public int NicheId { get; set; }
 
         public FuneralCompany FuneralCompany { get; set; }
 
@@ -63,17 +63,17 @@ namespace Memorial.Core.Dtos
 
         public int? Deceased2Id { get; set; }
 
-        public Quadrangle ShiftedQuadrangle { get; set; }
+        public Niche ShiftedNiche { get; set; }
 
-        public int? ShiftedQuadrangleId { get; set; }
+        public int? ShiftedNicheId { get; set; }
 
         public int? TransferredFromApplicantId { get; set; }
 
-        public string ShiftedQuadrangleTransactionAF { get; set; }
+        public string ShiftedColumbariumTransactionAF { get; set; }
 
         public int? TransferredApplicantId { get; set; }
 
-        public string TransferredQuadrangleTransactionAF { get; set; }
+        public string TransferredColumbariumTransactionAF { get; set; }
 
         public DateTime CreateDate { get; set; }
 

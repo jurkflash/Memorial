@@ -99,7 +99,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         {
             if (viewModel.QuadrangleTransactionDto.AF == null)
             {
-                _quadrangle.SetQuadrangle(viewModel.QuadrangleTransactionDto.QuadrangleId);
+                _quadrangle.SetQuadrangle(viewModel.QuadrangleTransactionDto.NicheId);
 
                 if (_quadrangle.GetApplicantId() == viewModel.QuadrangleTransactionDto.ApplicantId)
                 {
@@ -107,7 +107,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return FormForResubmit(viewModel);
                 }
 
-                if(!_transfer.AllowQuadrangleDeceasePairing(viewModel.QuadrangleTransactionDto.QuadrangleId, viewModel.QuadrangleTransactionDto.ApplicantId))
+                if(!_transfer.AllowQuadrangleDeceasePairing(viewModel.QuadrangleTransactionDto.NicheId, viewModel.QuadrangleTransactionDto.ApplicantId))
                 {
                     ModelState.AddModelError("QuadrangleTransactionDto.Applicant.Name", "Deceased not linked with new applicant");
                     return FormForResubmit(viewModel);
@@ -118,7 +118,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return RedirectToAction("Index", new
                     {
                         itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        id = viewModel.QuadrangleTransactionDto.NicheId,
                         applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
                     });
                 }
@@ -144,7 +144,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             return RedirectToAction("Index", new
             {
                 itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                id = viewModel.QuadrangleTransactionDto.NicheId,
                 applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
             });
         }
@@ -152,7 +152,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         public ActionResult FormForResubmit(QuadrangleTransactionsFormViewModel viewModel)
         {
             viewModel.QuadrangleTransactionDto.Applicant = _applicant.GetApplicant(viewModel.QuadrangleTransactionDto.ApplicantId);
-            viewModel.QuadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle(viewModel.QuadrangleTransactionDto.QuadrangleId);
+            viewModel.QuadrangleTransactionDto.Quadrangle = _quadrangle.GetQuadrangle(viewModel.QuadrangleTransactionDto.NicheId);
 
             return View("Form", viewModel);
         }

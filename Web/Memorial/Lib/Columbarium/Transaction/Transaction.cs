@@ -92,7 +92,7 @@ namespace Memorial.Lib.Columbarium
 
         public int GetTransactionQuadrangleId()
         {
-            return _transaction.QuadrangleId;
+            return _transaction.NicheId;
         }
 
         public int GetItemId()
@@ -209,7 +209,7 @@ namespace Memorial.Lib.Columbarium
         {
             var datetimeNow = System.DateTime.Now;
 
-            var transactions = GetTransactionsByQuadrangleId(_transaction.QuadrangleId);
+            var transactions = GetTransactionsByQuadrangleId(_transaction.NicheId);
 
             foreach(var transaction in transactions)
             {
@@ -256,7 +256,7 @@ namespace Memorial.Lib.Columbarium
 
         protected bool ChangeQuadrangle(string systemCode, int oldQuadrangleId, int newQuadrangleId)
         {
-            var centreId = _quadrangle.GetQuadrangle(oldQuadrangleId).QuadrangleArea.ColumbariumCentreId;
+            var centreId = _quadrangle.GetQuadrangle(oldQuadrangleId).ColumbariumArea.ColumbariumCentreId;
 
             var itemId = _item.GetItemByCentre(centreId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
 
@@ -267,7 +267,7 @@ namespace Memorial.Lib.Columbarium
 
             foreach (var transaction in transactions)
             {
-                transaction.QuadrangleId = newQuadrangleId;
+                transaction.NicheId = newQuadrangleId;
             }
 
             return true;

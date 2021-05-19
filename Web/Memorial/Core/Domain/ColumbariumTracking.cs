@@ -6,9 +6,9 @@ namespace Memorial.Core.Domain
     {
         public int Id { get; set; }
 
-        public Quadrangle Quadrangle { get; set; }
+        public Niche Niche { get; set; }
 
-        public int QuadrangleId { get; set; }
+        public int NicheId { get; set; }
 
         public ColumbariumTransaction ColumbariumTransaction { get; set; }
 

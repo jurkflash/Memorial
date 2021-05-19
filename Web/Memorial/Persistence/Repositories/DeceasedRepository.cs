@@ -61,10 +61,10 @@ namespace Memorial.Persistence.Repositories
             return deceasedsQuery.AsEnumerable();
         }
 
-        public IEnumerable<Deceased> GetByQuadrangle(int quadrangleId)
+        public IEnumerable<Deceased> GetByNiche(int nicheId)
         {
             return MemorialContext.Deceaseds
-                    .Where(d => d.QuadrangleId == quadrangleId &&
+                    .Where(d => d.NicheId == nicheId &&
                     d.DeleteDate == null).ToList();
         }
 

@@ -21,9 +21,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.ColumbariumItemId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(qt => qt.Quadrangle)
+            HasRequired(qt => qt.Niche)
                 .WithMany(q => q.ColumbariumTransactions1)
-                .HasForeignKey(qt => qt.QuadrangleId)
+                .HasForeignKey(qt => qt.NicheId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(qt => qt.Applicant)
@@ -46,9 +46,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.FuneralCompanyId)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(qt => qt.ShiftedQuadrangle)
+            HasOptional(qt => qt.ShiftedNiche)
                 .WithMany(q => q.ColumbariumTransactions2)
-                .HasForeignKey(qt => qt.ShiftedQuadrangleId)
+                .HasForeignKey(qt => qt.ShiftedNicheId)
                 .WillCascadeOnDelete(false);
 
             HasOptional(qt => qt.TransferredFromApplicant)

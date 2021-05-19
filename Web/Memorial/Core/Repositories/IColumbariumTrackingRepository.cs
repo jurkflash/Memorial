@@ -5,12 +5,12 @@ namespace Memorial.Core.Repositories
 {
     public interface IColumbariumTrackingRepository : IRepository<ColumbariumTracking>
     {
-        ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId);
+        ColumbariumTracking GetLatestFirstTransactionByNicheId(int quadrangleId);
 
-        IEnumerable<ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId);
+        IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int quadrangleId);
 
         ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF);
 
-        ColumbariumTracking GetTrackingByQuadrangleIdAndTransactionAF(int quadrangleId, string columbariumTransactionAF);
+        ColumbariumTracking GetTrackingByNicheIdAndTransactionAF(int quadrangleId, string columbariumTransactionAF);
     }
 }

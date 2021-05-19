@@ -36,7 +36,7 @@ namespace Memorial.Persistence
 
         public DbSet<ColumbariumArea> ColumbariumAreas { get; set; }
         public DbSet<QuadrangleType> QuadrangleTypes { get; set; }
-        public DbSet<Quadrangle> Quadrangles { get; set; }
+        public DbSet<Niche> Niches { get; set; }
         public DbSet<ColumbariumTracking> ColumbariumTrackings { get; set; }
         public DbSet<ColumbariumCentre> ColumbariumCentres { get; set; }
         public DbSet<ColumbariumItem> ColumbariumItems { get; set; }
@@ -109,7 +109,7 @@ namespace Memorial.Persistence
 
             modelBuilder.Configurations.Add(new ColumbariumAreaConfiguration());
             modelBuilder.Configurations.Add(new QuadrangleTypeConfiguration());
-            modelBuilder.Configurations.Add(new QuadrangleConfiguration());
+            modelBuilder.Configurations.Add(new NicheConfiguration());
             modelBuilder.Configurations.Add(new ColumbariumCentreConfiguration());
             modelBuilder.Configurations.Add(new ColumbariumItemConfiguration());
             modelBuilder.Configurations.Add(new ColumbariumNumberConfiguration());

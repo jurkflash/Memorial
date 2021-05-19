@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public QuadrangleType()
         {
-            Quadrangles = new HashSet<Quadrangle>();
+            Niches = new HashSet<Niche>();
         }
 
         public byte Id { get; set; }
@@ -18,7 +18,7 @@ namespace Memorial.Core.Domain
 
         public byte NumberOfPlacement { get; set; }
 
-        public ICollection<Quadrangle> Quadrangles { get; set; }
+        public ICollection<Niche> Niches { get; set; }
 
         public DateTime CreateDate { get; set; }
 

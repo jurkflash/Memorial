@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class QuadrangleConfiguration : EntityTypeConfiguration<Quadrangle>
+    public class NicheConfiguration : EntityTypeConfiguration<Niche>
     {
-        public QuadrangleConfiguration()
+        public NicheConfiguration()
         {
             Property(q => q.Name)
             .IsRequired()
@@ -18,22 +18,22 @@ namespace Memorial.Persistence.EntityConfigurations
             .HasMaxLength(255);
 
             HasMany(d => d.Deceaseds)
-                .WithOptional(q => q.Quadrangle)
-                .HasForeignKey(d => d.QuadrangleId)
+                .WithOptional(q => q.Niche)
+                .HasForeignKey(d => d.NicheId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(q => q.QuadrangleType)
-                .WithMany(qt => qt.Quadrangles)
+                .WithMany(qt => qt.Niches)
                 .HasForeignKey(q => q.QuadrangleTypeId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(q => q.QuadrangleArea)
-                .WithMany(qa => qa.Quadrangles)
-                .HasForeignKey(q => q.QuadrangleAreaId)
+            HasRequired(q => q.ColumbariumArea)
+                .WithMany(qa => qa.Niches)
+                .HasForeignKey(q => q.ColumbariumAreaId)
                 .WillCascadeOnDelete(false);
 
             HasOptional(q => q.Applicant)
-                .WithMany(a => a.Quadrangles)
+                .WithMany(a => a.Niches)
                 .HasForeignKey(q => q.ApplicantId)
                 .WillCascadeOnDelete(false);
         }

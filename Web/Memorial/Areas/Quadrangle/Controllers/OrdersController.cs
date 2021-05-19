@@ -95,7 +95,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 _quadrangle.SetQuadrangle(id);
 
                 var quadrangleTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
-                quadrangleTransactionDto.QuadrangleId = id;
+                quadrangleTransactionDto.NicheId = id;
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
                 viewModel.QuadrangleTransactionDto.Price = _quadrangle.GetPrice();
                 viewModel.QuadrangleTransactionDto.Maintenance = _quadrangle.GetMaintenance();
@@ -122,7 +122,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             if (viewModel.QuadrangleTransactionDto.Deceased1Id != null)
             {
                 _deceased.SetDeceased((int)viewModel.QuadrangleTransactionDto.Deceased1Id);
-                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.QuadrangleId)
+                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.NicheId)
                 {
                     ModelState.AddModelError("QuadrangleTransactionDto.Deceased1Id", "Invalid");
                     return FormForResubmit(viewModel);
@@ -132,7 +132,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             if (viewModel.QuadrangleTransactionDto.Deceased2Id != null)
             {
                 _deceased.SetDeceased((int)viewModel.QuadrangleTransactionDto.Deceased2Id);
-                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.QuadrangleId)
+                if (_deceased.GetQuadrangle() != null && _deceased.GetQuadrangle().Id != viewModel.QuadrangleTransactionDto.NicheId)
                 {
                     ModelState.AddModelError("QuadrangleTransactionDto.Deceased2Id", "Invalid");
                     return FormForResubmit(viewModel);
@@ -146,7 +146,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return RedirectToAction("Index", new
                     {
                         itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        id = viewModel.QuadrangleTransactionDto.NicheId,
                         applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
                     });
                 }
@@ -173,7 +173,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             return RedirectToAction("Index", new
             {
                 itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                id = viewModel.QuadrangleTransactionDto.NicheId,
                 applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
             });
         }

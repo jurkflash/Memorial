@@ -36,7 +36,7 @@ namespace Memorial.Lib.Columbarium
         {
             _unitOfWork.ColumbariumTrackings.Add(new Core.Domain.ColumbariumTracking()
             {
-                QuadrangleId = quadrangleId,
+                NicheId = quadrangleId,
                 ColumbariumTransactionAF = quadrangleTransactionAF,
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
@@ -47,7 +47,7 @@ namespace Memorial.Lib.Columbarium
 
         public void Change(int quadrangleId, string quadrangleTransactionAF, int? applicantId, int? deceased1Id, int? deceased2Id)
         {
-            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -62,24 +62,24 @@ namespace Memorial.Lib.Columbarium
         {
             var tracking = _unitOfWork.ColumbariumTrackings.Get(trackingId);
 
-            tracking.QuadrangleId = quadrangleId;
+            tracking.NicheId = quadrangleId;
         }
 
         public void Remove(int quadrangleId, string quadrangleTransactionAF)
         {
-            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
+            var tracking = _unitOfWork.ColumbariumTrackings.GetTrackingByNicheIdAndTransactionAF(quadrangleId, quadrangleTransactionAF);
 
             _unitOfWork.ColumbariumTrackings.Remove(tracking);
         }
 
         public Core.Domain.ColumbariumTracking GetLatestFirstTransactionByQuadrangleId(int quadrangleId)
         {
-            return _unitOfWork.ColumbariumTrackings.GetLatestFirstTransactionByQuadrangleId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetLatestFirstTransactionByNicheId(quadrangleId);
         }
 
         public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByQuadrangleId(int quadrangleId)
         {
-            return _unitOfWork.ColumbariumTrackings.GetTrackingByQuadrangleId(quadrangleId);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(quadrangleId);
         }
 
         public Core.Domain.ColumbariumTracking GetTrackingByTransactionAF(string quadrangleTransactionAF)

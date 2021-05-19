@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public string ItemName { get; set; }
 
-        public QuadrangleDto QuadrangleDto { get; set; }
+        public NicheDto QuadrangleDto { get; set; }
 
         public int ApplicantId { get; set; }
 

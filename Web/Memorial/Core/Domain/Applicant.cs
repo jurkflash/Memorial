@@ -14,7 +14,7 @@ namespace Memorial.Core.Domain
 
             Ancestors = new HashSet<Ancestor>();
 
-            Quadrangles = new HashSet<Quadrangle>();
+            Niches = new HashSet<Niche>();
 
             Plots = new HashSet<Plot>();
 
@@ -77,7 +77,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<Ancestor> Ancestors { get; set; }
 
-        public ICollection<Quadrangle> Quadrangles { get; set; }
+        public ICollection<Niche> Niches { get; set; }
 
         public ICollection<Plot> Plots { get; set; }
 

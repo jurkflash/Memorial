@@ -19,6 +19,6 @@ namespace Memorial.ViewModels
 
         public ApplicantDto ApplicantDto { get; set; }
 
-        public QuadrangleDto QuadrangleDto { get; set; }
+        public NicheDto QuadrangleDto { get; set; }
     }
 }

@@ -10,21 +10,21 @@ namespace Memorial.Lib.Columbarium
     {
         void SetQuadrangle(int id);
 
-        Core.Domain.Quadrangle GetQuadrangle();
+        Core.Domain.Niche GetQuadrangle();
 
-        QuadrangleDto GetQuadrangleDto();
+        NicheDto GetQuadrangleDto();
 
-        Core.Domain.Quadrangle GetQuadrangle(int id);
+        Core.Domain.Niche GetQuadrangle(int id);
 
-        QuadrangleDto GetQuadrangleDto(int id);
+        NicheDto GetQuadrangleDto(int id);
 
-        IEnumerable<Core.Domain.Quadrangle> GetQuadranglesByAreaId(int id);
+        IEnumerable<Core.Domain.Niche> GetQuadranglesByAreaId(int id);
 
-        IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int id);
+        IEnumerable<NicheDto> GetQuadrangleDtosByAreaId(int id);
 
-        IEnumerable<Core.Domain.Quadrangle> GetAvailableQuadranglesByAreaId(int id);
+        IEnumerable<Core.Domain.Niche> GetAvailableQuadranglesByAreaId(int id);
 
-        IEnumerable<QuadrangleDto> GetAvailableQuadrangleDtosByAreaId(int id);
+        IEnumerable<NicheDto> GetAvailableQuadrangleDtosByAreaId(int id);
 
         string GetName();
 
@@ -56,9 +56,9 @@ namespace Memorial.Lib.Columbarium
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
 
-        bool Create(QuadrangleDto quadrangleDto);
+        bool Create(NicheDto quadrangleDto);
 
-        bool Update(Core.Domain.Quadrangle quadrangle);
+        bool Update(Core.Domain.Niche quadrangle);
 
         bool Delete(int id);
 

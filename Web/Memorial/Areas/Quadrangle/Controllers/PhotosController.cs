@@ -82,7 +82,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 _quadrangle.SetQuadrangle(id);
                 
                 var quadrangleTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
-                quadrangleTransactionDto.QuadrangleId = id;
+                quadrangleTransactionDto.NicheId = id;
                 viewModel.QuadrangleTransactionDto = quadrangleTransactionDto;
                 viewModel.QuadrangleTransactionDto.Price = _photo.GetItemPrice(itemId);
             }
@@ -104,7 +104,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return RedirectToAction("Index", new
                     {
                         itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                        id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                        id = viewModel.QuadrangleTransactionDto.NicheId,
                         applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
                     });
                 }
@@ -130,7 +130,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             return RedirectToAction("Index", new
             {
                 itemId = viewModel.QuadrangleTransactionDto.ColumbariumItemId,
-                id = viewModel.QuadrangleTransactionDto.QuadrangleId,
+                id = viewModel.QuadrangleTransactionDto.NicheId,
                 applicantId = viewModel.QuadrangleTransactionDto.ApplicantId
             });
         }

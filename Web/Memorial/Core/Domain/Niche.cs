@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Quadrangle
+    public class Niche
     {
-        public Quadrangle()
+        public Niche()
         {
             Deceaseds = new HashSet<Deceased>();
 
@@ -42,9 +42,9 @@ namespace Memorial.Core.Domain
 
         public byte QuadrangleTypeId { get; set; }
 
-        public ColumbariumArea QuadrangleArea { get; set; }
+        public ColumbariumArea ColumbariumArea { get; set; }
 
-        public int QuadrangleAreaId { get; set; }
+        public int ColumbariumAreaId { get; set; }
 
         public Applicant Applicant { get; set; }
 
