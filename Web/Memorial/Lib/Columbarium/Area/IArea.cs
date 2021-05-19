@@ -18,22 +18,22 @@ namespace Memorial.Lib.Columbarium
 
         int GetCentreId();
 
-        Core.Domain.QuadrangleArea GetArea();
+        Core.Domain.ColumbariumArea GetArea();
 
-        QuadrangleAreaDto GetAreaDto();
+        ColumbariumAreaDto GetAreaDto();
 
 
-        Core.Domain.QuadrangleArea GetArea(int areaId);
+        Core.Domain.ColumbariumArea GetArea(int areaId);
 
-        QuadrangleAreaDto GetAreaDto(int areaId);
+        ColumbariumAreaDto GetAreaDto(int areaId);
 
-        IEnumerable<Core.Domain.QuadrangleArea> GetAreaByCentre(int centreId);
+        IEnumerable<Core.Domain.ColumbariumArea> GetAreaByCentre(int centreId);
 
-        IEnumerable<QuadrangleAreaDto> GetAreaDtosByCentre(int centreId);
+        IEnumerable<ColumbariumAreaDto> GetAreaDtosByCentre(int centreId);
 
-        bool Create(QuadrangleAreaDto quadrangleAreaDto);
+        bool Create(ColumbariumAreaDto quadrangleAreaDto);
 
-        bool Update(Core.Domain.QuadrangleArea quadrangleArea);
+        bool Update(Core.Domain.ColumbariumArea quadrangleArea);
 
         bool Delete(int id);
 

@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public ColumbariumCentreDto QuadrangleCentreDto { get; set; }
 
-        public QuadrangleAreaDto QuadrangleAreaDto { get; set; }
+        public ColumbariumAreaDto QuadrangleAreaDto { get; set; }
 
         public QuadrangleDto QuadrangleDto { get; set; }
 

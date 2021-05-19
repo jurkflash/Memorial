@@ -43,12 +43,12 @@ namespace Memorial.Lib.Columbarium
             return _centre.GetCentreDtos();
         }
 
-        public QuadrangleAreaDto GetQuadrangleAreaDto(int id)
+        public ColumbariumAreaDto GetQuadrangleAreaDto(int id)
         {
             return _area.GetAreaDto(id);
         }
 
-        public IEnumerable<QuadrangleAreaDto> GetAreaDtosByCentre(int centreId)
+        public IEnumerable<ColumbariumAreaDto> GetAreaDtosByCentre(int centreId)
         {
             return _area.GetAreaDtosByCentre(centreId);
         }
@@ -96,7 +96,7 @@ namespace Memorial.Lib.Columbarium
             var quadrangleInDB = _quadrangle.GetQuadrangle(quadrangleDto.Id);
 
             if ((quadrangleInDB.QuadrangleTypeId != quadrangleDto.QuadrangleTypeDtoId
-                || quadrangleInDB.QuadrangleAreaId != quadrangleDto.QuadrangleAreaDtoId)
+                || quadrangleInDB.QuadrangleAreaId != quadrangleDto.ColumbariumAreaDtoId)
                 && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.QuadrangleId == quadrangleDto.Id || qt.ShiftedQuadrangleId == quadrangleDto.Id) && qt.DeleteDate == null).Any())
             {
                 return false;
@@ -228,7 +228,7 @@ namespace Memorial.Lib.Columbarium
         }
 
 
-        public bool CreateArea(QuadrangleAreaDto quadrangleAreaDto)
+        public bool CreateArea(ColumbariumAreaDto quadrangleAreaDto)
         {
             if (_area.Create(quadrangleAreaDto))
             {
@@ -239,11 +239,11 @@ namespace Memorial.Lib.Columbarium
             return false;
         }
 
-        public bool UpdateArea(QuadrangleAreaDto quadrangleAreaDto)
+        public bool UpdateArea(ColumbariumAreaDto quadrangleAreaDto)
         {
             var quadrangleAreaInDB = _area.GetArea(quadrangleAreaDto.Id);
 
-            if (quadrangleAreaInDB.ColumbariumCentreId != quadrangleAreaDto.QuadrangleCentreDtoId
+            if (quadrangleAreaInDB.ColumbariumCentreId != quadrangleAreaDto.ColumbariumCentreDtoId
                 && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Quadrangle.QuadrangleAreaId == quadrangleAreaInDB.Id || qt.ShiftedQuadrangle.QuadrangleAreaId == quadrangleAreaInDB.Id) && qt.DeleteDate == null).Any())
             {
                 return false;

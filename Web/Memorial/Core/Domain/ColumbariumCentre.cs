@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public ColumbariumCentre()
         {
-            QuadrangleAreas = new HashSet<QuadrangleArea>();
+            ColumbariumAreas = new HashSet<ColumbariumArea>();
 
             ColumbariumItems = new HashSet<ColumbariumItem>();
         }
@@ -24,7 +24,7 @@ namespace Memorial.Core.Domain
 
         public byte SiteId { get; set; }
 
-        public ICollection<QuadrangleArea> QuadrangleAreas { get; set; }
+        public ICollection<ColumbariumArea> ColumbariumAreas { get; set; }
 
         public ICollection<ColumbariumItem> ColumbariumItems { get; set; }
 

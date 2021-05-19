@@ -3,16 +3,16 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class QuadrangleAreaConfiguration : EntityTypeConfiguration<QuadrangleArea>
+    public class ColumbariumAreaConfiguration : EntityTypeConfiguration<ColumbariumArea>
     {
-        public QuadrangleAreaConfiguration()
+        public ColumbariumAreaConfiguration()
         {
             Property(qa => qa.Name)
                 .IsRequired()
                 .HasMaxLength(50);
 
             HasRequired(qa => qa.ColumbariumCentre)
-                .WithMany(qc => qc.QuadrangleAreas)
+                .WithMany(qc => qc.ColumbariumAreas)
                 .HasForeignKey(qa => qa.ColumbariumCentreId)
                 .WillCascadeOnDelete(false);
         }

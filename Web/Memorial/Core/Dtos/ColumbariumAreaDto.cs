@@ -4,7 +4,7 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
 {
-    public class QuadrangleAreaDto
+    public class ColumbariumAreaDto
     {
         public int Id { get; set; }
 
@@ -12,8 +12,8 @@ namespace Memorial.Core.Dtos
 
         public string Description { get; set; }
 
-        public ColumbariumCentreDto QuadrangleCentreDto { get; set; }
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
 
-        public int QuadrangleCentreDtoId { get; set; }
+        public int ColumbariumCentreDtoId { get; set; }
     }
 }

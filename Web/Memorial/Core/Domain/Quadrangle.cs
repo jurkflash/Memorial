@@ -42,7 +42,7 @@ namespace Memorial.Core.Domain
 
         public byte QuadrangleTypeId { get; set; }
 
-        public QuadrangleArea QuadrangleArea { get; set; }
+        public ColumbariumArea QuadrangleArea { get; set; }
 
         public int QuadrangleAreaId { get; set; }
 

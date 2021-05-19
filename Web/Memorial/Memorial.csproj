@@ -788,7 +788,7 @@
     <Compile Include="Core\Domain\Plot.cs" />
     <Compile Include="Core\Domain\Ancestor.cs" />
     <Compile Include="Core\Domain\PlotArea.cs" />
-    <Compile Include="Core\Domain\QuadrangleArea.cs" />
+    <Compile Include="Core\Domain\ColumbariumArea.cs" />
     <Compile Include="Core\Domain\PlotType.cs" />
     <Compile Include="Core\Domain\FengShuiMaster.cs" />
     <Compile Include="Core\Domain\QuadrangleType.cs" />
@@ -825,7 +825,7 @@
     <Compile Include="Core\Dtos\PlotLandscapeCompanyDto.cs" />
     <Compile Include="Core\Dtos\PlotTransactionDto.cs" />
     <Compile Include="Core\Dtos\PlotTypeDto.cs" />
-    <Compile Include="Core\Dtos\QuadrangleAreaDto.cs" />
+    <Compile Include="Core\Dtos\ColumbariumAreaDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumCentreDto.cs" />
     <Compile Include="Core\Dtos\QuadrangleDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumItemDto.cs" />
@@ -888,7 +888,7 @@
     <Compile Include="Core\Repositories\IColumbariumCentreRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleRepository.cs" />
     <Compile Include="Core\Repositories\IQuadrangleTypeRepository.cs" />
-    <Compile Include="Core\Repositories\IQuadrangleAreaRepository.cs" />
+    <Compile Include="Core\Repositories\IColumbariumAreaRepository.cs" />
     <Compile Include="Core\Repositories\IMiscellaneousRepository.cs" />
     <Compile Include="Core\Repositories\ISpaceRepository.cs" />
     <Compile Include="Core\Repositories\ISiteRepository.cs" />
@@ -2236,6 +2236,10 @@
     <Compile Include="Migrations\202105191004050_RenameQuadrangleToColumbariumCentreTableColumns.designer.cs">
       <DependentUpon>202105191004050_RenameQuadrangleToColumbariumCentreTableColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.cs" />
+    <Compile Include="Migrations\202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.designer.cs">
+      <DependentUpon>202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2286,7 +2290,7 @@
     <Compile Include="Persistence\EntityConfigurations\ColumbariumCentreConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\QuadrangleTypeConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\QuadrangleAreaConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ColumbariumAreaConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\MiscellaneousConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\SpaceConfiguration.cs" />
@@ -2331,7 +2335,7 @@
     <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleTypeRepository.cs" />
-    <Compile Include="Persistence\Repositories\QuadrangleAreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\ColumbariumAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\QuadrangleRepository.cs" />
     <Compile Include="Persistence\Repositories\MiscellaneousRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumItemRepository.cs" />
@@ -3424,6 +3428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105191004050_RenameQuadrangleToColumbariumCentreTableColumns.resx">
       <DependentUpon>202105191004050_RenameQuadrangleToColumbariumCentreTableColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.resx">
+      <DependentUpon>202105191010096_RenameQuadrangleToColumbariumAreaTableColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -28,9 +28,9 @@ namespace Memorial.Core.Dtos
 
         public byte QuadrangleTypeDtoId { get; set; }
 
-        public QuadrangleAreaDto QuadrangleAreaDto { get; set; }
+        public ColumbariumAreaDto ColumbariumAreaDto { get; set; }
 
-        public int QuadrangleAreaDtoId { get; set; }
+        public int ColumbariumAreaDtoId { get; set; }
 
         public int? ApplicantDtoId { get; set; }
 

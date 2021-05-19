@@ -106,8 +106,8 @@ namespace Memorial.Areas.Columbarium.Controllers
             {
                 viewModel.QuadrangleDto = _quadrangle.GetQuadrangleDto();
                 viewModel.NumberOfPlacements = _quadrangle.GetNumberOfPlacement();
-                viewModel.QuadrangleAreaDto = _area.GetAreaDto(_quadrangle.GetQuadrangleDto().QuadrangleAreaDtoId);
-                viewModel.QuadrangleCentreDto = _centre.GetCentreDto(viewModel.QuadrangleAreaDto.QuadrangleCentreDtoId);
+                viewModel.QuadrangleAreaDto = _area.GetAreaDto(_quadrangle.GetQuadrangleDto().ColumbariumAreaDtoId);
+                viewModel.QuadrangleCentreDto = _centre.GetCentreDto(viewModel.QuadrangleAreaDto.ColumbariumCentreDtoId);
                 viewModel.SiteDto = _site.GetSiteDto(viewModel.QuadrangleCentreDto.SiteId);
 
                 if(_quadrangle.HasApplicant())

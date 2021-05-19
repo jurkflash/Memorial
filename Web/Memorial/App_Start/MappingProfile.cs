@@ -68,12 +68,12 @@ namespace Memorial.App_Start
             CreateMap<Quadrangle, QuadrangleDto>()
                 .ForMember(c => c.QuadrangleTypeDto, opt => opt.MapFrom(x => x.QuadrangleType))
                 .ForMember(c => c.QuadrangleTypeDtoId, opt => opt.MapFrom(x => x.QuadrangleTypeId))
-                .ForMember(c => c.QuadrangleAreaDto, opt => opt.MapFrom(x => x.QuadrangleArea))
-                .ForMember(c => c.QuadrangleAreaDtoId, opt => opt.MapFrom(x => x.QuadrangleAreaId));
+                .ForMember(c => c.ColumbariumAreaDto, opt => opt.MapFrom(x => x.QuadrangleArea))
+                .ForMember(c => c.ColumbariumAreaDtoId, opt => opt.MapFrom(x => x.QuadrangleAreaId));
 
-            CreateMap<QuadrangleArea, QuadrangleAreaDto>()
-                .ForMember(c => c.QuadrangleCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
-                .ForMember(c => c.QuadrangleCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
+            CreateMap<ColumbariumArea, ColumbariumAreaDto>()
+                .ForMember(c => c.ColumbariumCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
+                .ForMember(c => c.ColumbariumCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
 
             CreateMap<ColumbariumCentre, ColumbariumCentreDto>();
             CreateMap<QuadrangleType, QuadrangleTypeDto>();
@@ -182,7 +182,7 @@ namespace Memorial.App_Start
 
             CreateMap<QuadrangleDto, Quadrangle>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<QuadrangleAreaDto, QuadrangleArea>()
+            CreateMap<ColumbariumAreaDto, ColumbariumArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumCentreDto, ColumbariumCentre>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

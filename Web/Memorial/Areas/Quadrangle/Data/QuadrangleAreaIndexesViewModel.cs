@@ -5,7 +5,7 @@ namespace Memorial.ViewModels
 {
     public class QuadrangleAreaIndexesViewModel
     {
-        public IEnumerable<QuadrangleAreaDto> QuadrangleAreaDtos { get; set; }
+        public IEnumerable<ColumbariumAreaDto> QuadrangleAreaDtos { get; set; }
 
         public int ApplicantId { get; set; }
     }
