@@ -8,7 +8,7 @@ namespace Memorial.Persistence.EntityConfigurations
         public ColumbariumTrackingConfiguration()
         {
             HasRequired(qt => qt.Niche)
-                .WithMany(q => q.ColumbariumTrackings1)
+                .WithMany(q => q.ColumbariumTrackings)
                 .HasForeignKey(qt => qt.NicheId)
                 .WillCascadeOnDelete(false);
 

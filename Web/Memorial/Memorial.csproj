@@ -2252,6 +2252,10 @@
     <Compile Include="Migrations\202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.designer.cs">
       <DependentUpon>202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191054171_RemoveNiche_IdColumnFromColumbariumTrackingsTable.cs" />
+    <Compile Include="Migrations\202105191054171_RemoveNiche_IdColumnFromColumbariumTrackingsTable.designer.cs">
+      <DependentUpon>202105191054171_RemoveNiche_IdColumnFromColumbariumTrackingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3452,6 +3456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.resx">
       <DependentUpon>202105191040243_RenameQuadrangleTypeToNicheTypeTableColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191054171_RemoveNiche_IdColumnFromColumbariumTrackingsTable.resx">
+      <DependentUpon>202105191054171_RemoveNiche_IdColumnFromColumbariumTrackingsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
