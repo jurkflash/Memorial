@@ -7,7 +7,7 @@ namespace Memorial.Lib.Columbarium
     public interface IConfig
     {
         bool CreateArea(QuadrangleAreaDto quadrangleAreaDto);
-        bool CreateCentre(QuadrangleCentreDto quadrangleCentreDto);
+        bool CreateCentre(ColumbariumCentreDto quadrangleCentreDto);
         bool CreateItem(ColumbariumItemDto quadrangleItemDto);
         bool CreateQuadrangle(QuadrangleDto quadrangleDto);
         bool DeleteArea(int id);
@@ -19,12 +19,12 @@ namespace Memorial.Lib.Columbarium
         IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId);
         IEnumerable<ColumbariumNumber> GetNumbers();
         QuadrangleAreaDto GetQuadrangleAreaDto(int id);
-        QuadrangleCentreDto GetQuadrangleCentreDto(int id);
-        IEnumerable<QuadrangleCentreDto> GetQuadrangleCentreDtos();
+        ColumbariumCentreDto GetQuadrangleCentreDto(int id);
+        IEnumerable<ColumbariumCentreDto> GetQuadrangleCentreDtos();
         QuadrangleDto GetQuadrangleDto(int id);
         IEnumerable<QuadrangleDto> GetQuadrangleDtosByAreaId(int areaId);
         bool UpdateArea(QuadrangleAreaDto quadrangleAreaDto);
-        bool UpdateCentre(QuadrangleCentreDto quadrangleCentreDto);
+        bool UpdateCentre(ColumbariumCentreDto quadrangleCentreDto);
         bool UpdateItem(ColumbariumItemDto quadrangleItemDto);
         bool UpdateQuadrangle(QuadrangleDto quadrangleDto);
     }

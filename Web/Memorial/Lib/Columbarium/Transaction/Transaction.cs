@@ -256,7 +256,7 @@ namespace Memorial.Lib.Columbarium
 
         protected bool ChangeQuadrangle(string systemCode, int oldQuadrangleId, int newQuadrangleId)
         {
-            var centreId = _quadrangle.GetQuadrangle(oldQuadrangleId).QuadrangleArea.QuadrangleCentreId;
+            var centreId = _quadrangle.GetQuadrangle(oldQuadrangleId).QuadrangleArea.ColumbariumCentreId;
 
             var itemId = _item.GetItemByCentre(centreId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
 

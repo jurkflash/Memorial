@@ -10,7 +10,7 @@ namespace Memorial.Lib.Columbarium
     {
         void SetCentre(int id);
 
-        void SetCentre(Core.Domain.QuadrangleCentre quadrangleCentre);
+        void SetCentre(Core.Domain.ColumbariumCentre quadrangleCentre);
 
         int GetID();
 
@@ -18,21 +18,21 @@ namespace Memorial.Lib.Columbarium
 
         string GetDescription();
 
-        Core.Domain.QuadrangleCentre GetCentre();
+        Core.Domain.ColumbariumCentre GetCentre();
 
-        Core.Domain.QuadrangleCentre GetCentre(int id);
+        Core.Domain.ColumbariumCentre GetCentre(int id);
 
-        QuadrangleCentreDto GetCentreDto(int id);
+        ColumbariumCentreDto GetCentreDto(int id);
 
-        IEnumerable<QuadrangleCentreDto> GetCentreDtos();
+        IEnumerable<ColumbariumCentreDto> GetCentreDtos();
 
-        IEnumerable<Core.Domain.QuadrangleCentre> GetCentreBySite(byte sitId);
+        IEnumerable<Core.Domain.ColumbariumCentre> GetCentreBySite(byte sitId);
 
-        IEnumerable<QuadrangleCentreDto> GetCentreDtosBySite(byte siteId);
+        IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(byte siteId);
 
-        bool Create(QuadrangleCentreDto quadrangleCentreDto);
+        bool Create(ColumbariumCentreDto quadrangleCentreDto);
 
-        bool Update(Core.Domain.QuadrangleCentre quadrangleCentre);
+        bool Update(Core.Domain.ColumbariumCentre quadrangleCentre);
 
         bool Delete(int id);
     }

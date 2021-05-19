@@ -72,10 +72,10 @@ namespace Memorial.App_Start
                 .ForMember(c => c.QuadrangleAreaDtoId, opt => opt.MapFrom(x => x.QuadrangleAreaId));
 
             CreateMap<QuadrangleArea, QuadrangleAreaDto>()
-                .ForMember(c => c.QuadrangleCentreDto, opt => opt.MapFrom(x => x.QuadrangleCentre))
-                .ForMember(c => c.QuadrangleCentreDtoId, opt => opt.MapFrom(x => x.QuadrangleCentreId));
+                .ForMember(c => c.QuadrangleCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
+                .ForMember(c => c.QuadrangleCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
 
-            CreateMap<QuadrangleCentre, QuadrangleCentreDto>();
+            CreateMap<ColumbariumCentre, ColumbariumCentreDto>();
             CreateMap<QuadrangleType, QuadrangleTypeDto>();
             CreateMap<ColumbariumItem, ColumbariumItemDto>();
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
@@ -184,7 +184,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<QuadrangleAreaDto, QuadrangleArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<QuadrangleCentreDto, QuadrangleCentre>()
+            CreateMap<ColumbariumCentreDto, ColumbariumCentre>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

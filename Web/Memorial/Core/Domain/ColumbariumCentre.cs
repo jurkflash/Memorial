@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class QuadrangleCentre
+    public class ColumbariumCentre
     {
-        public QuadrangleCentre()
+        public ColumbariumCentre()
         {
             QuadrangleAreas = new HashSet<QuadrangleArea>();
 

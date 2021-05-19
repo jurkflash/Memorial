@@ -12,7 +12,7 @@ namespace Memorial.Core.Dtos
 
         public string Description { get; set; }
 
-        public QuadrangleCentreDto QuadrangleCentreDto { get; set; }
+        public ColumbariumCentreDto QuadrangleCentreDto { get; set; }
 
         public int QuadrangleCentreDtoId { get; set; }
     }

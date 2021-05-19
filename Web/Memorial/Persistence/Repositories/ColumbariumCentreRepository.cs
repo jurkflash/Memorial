@@ -6,31 +6,31 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class QuadrangleCentreRepository : Repository<QuadrangleCentre>, IQuadrangleCentreRepository
+    public class ColumbariumCentreRepository : Repository<ColumbariumCentre>, IColumbariumCentreRepository
     {
-        public QuadrangleCentreRepository(MemorialContext context) : base(context)
+        public ColumbariumCentreRepository(MemorialContext context) : base(context)
         {
         }
 
-        public QuadrangleCentre GetActive(int id)
+        public ColumbariumCentre GetActive(int id)
         {
-            return MemorialContext.QuadrangleCentres
+            return MemorialContext.ColumbariumCentres
                 .Include(qc => qc.Site)
                 .Where(qc => qc.Id == id && qc.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<QuadrangleCentre> GetAllActive()
+        public IEnumerable<ColumbariumCentre> GetAllActive()
         {
-            return MemorialContext.QuadrangleCentres
+            return MemorialContext.ColumbariumCentres
                 .Include(qc => qc.Site)
                 .Where(qc => qc.DeleteDate == null)
                 .ToList();
         }
 
-        public IEnumerable<QuadrangleCentre> GetBySite(byte siteId)
+        public IEnumerable<ColumbariumCentre> GetBySite(byte siteId)
         {
-            return MemorialContext.QuadrangleCentres
+            return MemorialContext.ColumbariumCentres
                 .Where(qc => qc.SiteId == siteId
                 && qc.DeleteDate == null).ToList();
         }

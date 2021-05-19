@@ -17,7 +17,7 @@ namespace Memorial.Core.Domain
 
             Miscellaneous = new HashSet<Miscellaneous>();
 
-            QuadrangleCentres = new HashSet<QuadrangleCentre>();
+            ColumbariumCentres = new HashSet<ColumbariumCentre>();
 
             Urns = new HashSet<Urn>();
 
@@ -44,7 +44,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<Miscellaneous> Miscellaneous { get; set; }
 
-        public ICollection<QuadrangleCentre> QuadrangleCentres { get; set; }
+        public ICollection<ColumbariumCentre> ColumbariumCentres { get; set; }
 
         public ICollection<Cremation> Cremations { get; set; }
 

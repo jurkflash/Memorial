@@ -22,7 +22,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<QuadrangleArea> GetByCentre(int centreId)
         {
             return MemorialContext.QuadrangleAreas
-                .Where(qa => qa.QuadrangleCentreId == centreId
+                .Where(qa => qa.ColumbariumCentreId == centreId
                 && qa.DeleteDate == null).ToList();
         }
 

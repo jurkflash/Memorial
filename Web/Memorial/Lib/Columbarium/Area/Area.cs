@@ -40,7 +40,7 @@ namespace Memorial.Lib.Columbarium
 
         public int GetCentreId()
         {
-            return _area.QuadrangleCentreId;
+            return _area.ColumbariumCentreId;
         }
 
         public Core.Domain.QuadrangleArea GetArea()

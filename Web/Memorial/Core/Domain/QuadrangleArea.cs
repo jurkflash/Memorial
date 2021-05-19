@@ -18,9 +18,9 @@ namespace Memorial.Core.Domain
 
         public string Description { get; set; }
 
-        public QuadrangleCentre QuadrangleCentre { get; set; }
+        public ColumbariumCentre ColumbariumCentre { get; set; }
 
-        public int QuadrangleCentreId { get; set; }
+        public int ColumbariumCentreId { get; set; }
 
         public ICollection<Quadrangle> Quadrangles { get; set; }
 

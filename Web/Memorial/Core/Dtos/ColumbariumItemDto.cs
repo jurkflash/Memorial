@@ -20,7 +20,7 @@ namespace Memorial.Core.Dtos
 
         public bool isOrder { get; set; }
 
-        public QuadrangleCentre QuadrangleCentre { get; set; }
+        public ColumbariumCentre QuadrangleCentre { get; set; }
 
         public int QuadrangleCentreId { get; set; }
 

@@ -44,7 +44,7 @@ namespace Memorial.Persistence
             QuadrangleTypes = new QuadrangleTypeRepository(_context);
             Quadrangles = new QuadrangleRepository(_context);
             QuadrangleTrackings = new QuadrangleTrackingRepository(_context);
-            QuadrangleCentres = new QuadrangleCentreRepository(_context);
+            ColumbariumCentres = new ColumbariumCentreRepository(_context);
             ColumbariumItems = new ColumbariumItemRepository(_context);
             ColumbariumNumbers = new ColumbariumNumberRepository(_context);
             ColumbariumTransactions = new ColumbariumTransactionRepository(_context);
@@ -88,7 +88,7 @@ namespace Memorial.Persistence
         public IFengShuiMasterRepository FengShuiMasters { get; private set; }
         public IFuneralCompanyRepository FuneralCompanies { get; private set; }
         
-        public IQuadrangleCentreRepository QuadrangleCentres { get; private set; }
+        public IColumbariumCentreRepository ColumbariumCentres { get; private set; }
         public IUrnRepository Urns { get; private set; }
         public IColumbariumItemRepository ColumbariumItems { get; private set; }
         public IColumbariumNumberRepository ColumbariumNumbers { get; private set; }

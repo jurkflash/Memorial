@@ -4,7 +4,7 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
 {
-    public class QuadrangleCentreDto
+    public class ColumbariumCentreDto
     {
         public int Id { get; set; }
 
