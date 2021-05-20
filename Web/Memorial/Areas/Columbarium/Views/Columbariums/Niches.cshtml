@@ -1,0 +1,24 @@
+﻿@model Memorial.ViewModels.NicheIndexesViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Niches)</h2>
+
+<table class="table table-bordered table-hover">
+    @foreach (var position in Model.Positions)
+    {
+        <tr>
+            @foreach (var c in Model.Positions[position.Key])
+            {
+                foreach (var niche in Model.NicheDtos.Where(q => q.PositionY == position.Key && q.PositionX == c))
+                {
+                    <td>
+                        @Html.ActionLink(niche.Name, "Items", new { id = niche.Id, applicantId = Model.ApplicantId, area = "Columbarium" })
+                    </td>
+                }
+            }
+        </tr>
+    }
+</table>

@@ -32,10 +32,10 @@ namespace Memorial.Persistence.Repositories
                 .ToList().OrderBy(r => r.CreateDate);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActivePlotAF(string AF)
+        public IEnumerable<Receipt> GetByNonOrderActiveCemeteryAF(string AF)
         {
             return MemorialContext.Receipts
-                .Where(r => r.PlotTransactionAF == AF &&
+                .Where(r => r.CemeteryTransactionAF == AF &&
                     r.DeleteDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)

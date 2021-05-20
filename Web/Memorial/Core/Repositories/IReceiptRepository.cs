@@ -9,7 +9,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Receipt> GetByNonOrderActiveCremationAF(string AF);
 
-        IEnumerable<Receipt> GetByNonOrderActivePlotAF(string AF);
+        IEnumerable<Receipt> GetByNonOrderActiveCemeteryAF(string AF);
 
         IEnumerable<Receipt> GetByNonOrderActiveSpaceAF(string AF);
 

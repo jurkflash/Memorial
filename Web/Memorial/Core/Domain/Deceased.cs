@@ -27,11 +27,11 @@ namespace Memorial.Core.Domain
 
             AncestorTrackings = new HashSet<AncestorTracking>();
 
-            PlotTransactions1 = new HashSet<PlotTransaction>();
+            CemeteryTransactions1 = new HashSet<CemeteryTransaction>();
 
-            PlotTransactions2 = new HashSet<PlotTransaction>();
+            CemeteryTransactions2 = new HashSet<CemeteryTransaction>();
 
-            PlotTransactions3 = new HashSet<PlotTransaction>();
+            CemeteryTransactions3 = new HashSet<CemeteryTransaction>();
 
             PlotTrackings1 = new HashSet<PlotTracking>();
 
@@ -120,11 +120,11 @@ namespace Memorial.Core.Domain
 
         public ICollection<AncestorTracking> AncestorTrackings { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions1 { get; set; }
+        public ICollection<CemeteryTransaction> CemeteryTransactions1 { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions2 { get; set; }
+        public ICollection<CemeteryTransaction> CemeteryTransactions2 { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions3 { get; set; }
+        public ICollection<CemeteryTransaction> CemeteryTransactions3 { get; set; }
 
         public ICollection<PlotTracking> PlotTrackings1 { get; set; }
 

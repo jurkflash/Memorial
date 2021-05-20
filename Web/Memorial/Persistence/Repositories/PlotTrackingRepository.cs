@@ -22,14 +22,14 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.PlotTrackings.Where(qt => qt.PlotId == plotId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public PlotTracking GetTrackingByTransactionAF(string plotTransactionAF)
+        public PlotTracking GetTrackingByTransactionAF(string cemeteryTransactionAF)
         {
-            return MemorialContext.PlotTrackings.Where(qt => qt.PlotTransactionAF == plotTransactionAF).OrderByDescending(qt => qt.ActionDate).SingleOrDefault();
+            return MemorialContext.PlotTrackings.Where(qt => qt.CemeteryTransactionAF == cemeteryTransactionAF).OrderByDescending(qt => qt.ActionDate).SingleOrDefault();
         }
 
-        public PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string plotTransactionAF)
+        public PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string cemeteryTransactionAF)
         {
-            return MemorialContext.PlotTrackings.Where(qt => qt.PlotTransactionAF == plotTransactionAF && qt.PlotId == plotId).SingleOrDefault();
+            return MemorialContext.PlotTrackings.Where(qt => qt.CemeteryTransactionAF == cemeteryTransactionAF && qt.PlotId == plotId).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

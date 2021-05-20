@@ -9,7 +9,7 @@ using Memorial.Lib.Site;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
-    public class NichesController : Controller
+    public class ColumbariumsController : Controller
     {
         private readonly IApplicant _applicant;
         private readonly IDeceased _deceased;
@@ -20,7 +20,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         private readonly IItem _item;
         private readonly ISite _site;
 
-        public NichesController(
+        public ColumbariumsController(
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased, 

@@ -14,9 +14,9 @@ namespace Memorial.Core.Domain
 
         public int PlotId { get; set; }
 
-        public PlotTransaction PlotTransaction { get; set; }
+        public CemeteryTransaction CemeteryTransaction { get; set; }
 
-        public string PlotTransactionAF { get; set; }
+        public string CemeteryTransactionAF { get; set; }
 
         public Applicant Applicant { get; set; }
 

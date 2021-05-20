@@ -31,7 +31,7 @@ namespace Memorial.Persistence
         public DbSet<PlotItem> PlotItems { get; set; }
         public DbSet<PlotNumber> PlotNumbers { get; set; }
         public DbSet<PlotLandscapeCompany> PlotLandscapeCompanies { get; set; }
-        public DbSet<PlotTransaction> PlotTransactions { get; set; }
+        public DbSet<CemeteryTransaction> CemeteryTransactions { get; set; }
         public DbSet<PlotTracking> PlotTrackings { get; set; }
 
         public DbSet<ColumbariumArea> ColumbariumAreas { get; set; }
@@ -91,7 +91,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new FengShuiMasterConfiguration());
             modelBuilder.Configurations.Add(new FuneralCompanyConfiguration());
 
-            modelBuilder.Configurations.Add(new PlotTransactionConfiguration());
+            modelBuilder.Configurations.Add(new CemeteryTransactionConfiguration());
             modelBuilder.Configurations.Add(new PlotAreaConfiguration());
             modelBuilder.Configurations.Add(new PlotTypeConfiguration());
             modelBuilder.Configurations.Add(new PlotConfiguration());

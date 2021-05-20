@@ -36,9 +36,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(r => r.MiscellaneousTransactionAF)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(r => r.PlotTransaction)
+            HasOptional(r => r.CemeteryTransaction)
                 .WithMany(pt => pt.Receipts)
-                .HasForeignKey(r => r.PlotTransactionAF)
+                .HasForeignKey(r => r.CemeteryTransactionAF)
                 .WillCascadeOnDelete(false);
 
             HasOptional(r => r.ColumbariumTransaction)

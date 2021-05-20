@@ -22,9 +22,9 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public PlotTransaction PlotTransaction { get; set; }
+        public CemeteryTransaction CemeteryTransaction { get; set; }
 
-        public string PlotTransactionAF { get; set; }
+        public string CemeteryTransactionAF { get; set; }
 
         public CremationTransaction CremationTransaction { get; set; }
 

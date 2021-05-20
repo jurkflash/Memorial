@@ -59,7 +59,7 @@ namespace Memorial.Persistence
             Plots = new PlotRepository(_context);
             PlotItems = new PlotItemRepository(_context);
             PlotNumbers = new PlotNumberRepository(_context);
-            PlotTransactions = new PlotTransactionRepository(_context);
+            CemeteryTransactions = new CemeteryTransactionRepository(_context);
             PlotTrackings = new PlotTrackingRepository(_context);
 
             Ancestors = new AncestorRepository(_context);
@@ -103,7 +103,7 @@ namespace Memorial.Persistence
         public IPlotRepository Plots { get; private set; }
         public IPlotItemRepository PlotItems { get; private set; }
         public IPlotNumberRepository PlotNumbers { get; private set; }
-        public IPlotTransactionRepository PlotTransactions { get; private set; }
+        public ICemeteryTransactionRepository CemeteryTransactions { get; private set; }
         public IPlotTrackingRepository PlotTrackings { get; private set; }
 
         public IPlotLandscapeCompanyRepository PlotLandscapeCompanies { get; private set; }

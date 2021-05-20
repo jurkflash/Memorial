@@ -521,7 +521,7 @@
     <Content Include="Areas\Ancestor\Views\web.config" />
     <Content Include="Areas\Cremation\Views\web.config" />
     <Content Include="Areas\Miscellaneous\Views\web.config" />
-    <Content Include="Areas\Plot\Views\web.config" />
+    <Content Include="Areas\Cemetery\Views\web.config" />
     <Content Include="Areas\Columbarium\Views\web.config" />
     <Content Include="Areas\Space\Views\web.config" />
     <Content Include="Areas\Urn\Views\web.config" />
@@ -533,16 +533,16 @@
     <Content Include="Areas\Setting\Views\web.config" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Columbarium\Views\NicheDeceaseds\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearances\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearances\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\Shared\_PlotInfo.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Clearances\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Clearances\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Shared\_PlotInfo.cshtml" />
     <Content Include="Areas\Ancestor\Views\Shared\_AncestorInfo.cshtml" />
     <Content Include="Areas\Ancestor\Views\AncestorDeceaseds\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\NonOrderReceipts\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\NonOrderReceipts\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocates\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocates\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\Reciprocates\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Reciprocates\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Reciprocates\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Reciprocates\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Reciprocates\Form.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Reciprocates\Index.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
@@ -675,11 +675,11 @@
     <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Miscellaneous\MiscellaneousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
-    <Compile Include="Areas\Plot\Controllers\ClearancesController.cs" />
-    <Compile Include="Areas\Plot\Controllers\NonOrderReceiptsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\ReciprocatesController.cs" />
-    <Compile Include="Areas\Plot\Data\PlotInfoViewModel.cs" />
-    <Compile Include="Areas\Plot\PlotAreaRegistration.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\ClearancesController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\NonOrderReceiptsController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\ReciprocatesController.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotInfoViewModel.cs" />
+    <Compile Include="Areas\Cemetery\CemeteryAreaRegistration.cs" />
     <Compile Include="Areas\Columbarium\Controllers\NicheDeceasedsController.cs" />
     <Compile Include="Areas\Columbarium\Data\NicheDeceasedsViewModel.cs" />
     <Compile Include="Areas\Columbarium\ColumbariumAreaRegistration.cs" />
@@ -715,12 +715,12 @@
     <Compile Include="Areas\Miscellaneous\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Navigation\Controllers\NavigationController.cs" />
-    <Compile Include="Areas\Plot\Controllers\PlotsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\OrderController.cs" />
-    <Compile Include="Areas\Plot\Controllers\InvoicesController.cs" />
-    <Compile Include="Areas\Plot\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\SecondBurialsController.cs" />
-    <Compile Include="Areas\Plot\Controllers\FengShuiTransfersController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\PlotsController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\InvoicesController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\ReceiptsController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\SecondBurialsController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\FengShuiTransfersController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Menu\Controllers\MenuController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\NonOrderReceiptsController.cs" />
@@ -750,7 +750,7 @@
     <Compile Include="Core\Domain\Catalog.cs" />
     <Compile Include="Core\Domain\CremationTransaction.cs" />
     <Compile Include="Core\Domain\MasterCatalog.cs" />
-    <Compile Include="Core\Domain\PlotTransaction.cs" />
+    <Compile Include="Core\Domain\CemeteryTransaction.cs" />
     <Compile Include="Core\Domain\AncestorTracking.cs" />
     <Compile Include="Core\Domain\PlotTracking.cs" />
     <Compile Include="Core\Domain\ColumbariumTracking.cs" />
@@ -823,7 +823,7 @@
     <Compile Include="Core\Dtos\PlotAreaDto.cs" />
     <Compile Include="Core\Dtos\PlotItemDto.cs" />
     <Compile Include="Core\Dtos\PlotLandscapeCompanyDto.cs" />
-    <Compile Include="Core\Dtos\PlotTransactionDto.cs" />
+    <Compile Include="Core\Dtos\CemeteryTransactionDto.cs" />
     <Compile Include="Core\Dtos\PlotTypeDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumAreaDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumCentreDto.cs" />
@@ -850,7 +850,7 @@
     <Compile Include="Core\Repositories\ICatalogRepository.cs" />
     <Compile Include="Core\Repositories\INumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
-    <Compile Include="Core\Repositories\IPlotTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\ICemeteryTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumTrackingRepository.cs" />
@@ -994,34 +994,34 @@
     <Compile Include="Lib\Miscellaneous\RentAirCooler\IRentAirCooler.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
-    <Compile Include="Lib\Plot\Area\Area.cs" />
-    <Compile Include="Lib\Plot\Area\IArea.cs" />
-    <Compile Include="Lib\Plot\Clearance\Clearance.cs" />
-    <Compile Include="Lib\Plot\Clearance\IClearance.cs" />
-    <Compile Include="Lib\Plot\Config\Config.cs" />
-    <Compile Include="Lib\Plot\Config\IConfig.cs" />
-    <Compile Include="Lib\Plot\Item\IItem.cs" />
-    <Compile Include="Lib\Plot\Item\Item.cs" />
-    <Compile Include="Lib\Plot\Number\INumber.cs" />
-    <Compile Include="Lib\Plot\Number\Number.cs" />
-    <Compile Include="Lib\Plot\Reciprocate\IReciprocate.cs" />
-    <Compile Include="Lib\Plot\Reciprocate\Reciprocate.cs" />
-    <Compile Include="Lib\Plot\SecondBurial\ISecondBurial.cs" />
-    <Compile Include="Lib\Plot\SecondBurial\SecondBurial.cs" />
-    <Compile Include="Lib\Plot\Order\IOrder.cs" />
-    <Compile Include="Lib\Plot\Order\Order.cs" />
-    <Compile Include="Lib\Plot\Payment\IPayment.cs" />
-    <Compile Include="Lib\Plot\Payment\Payment.cs" />
-    <Compile Include="Lib\Plot\Plot\IPlot.cs" />
-    <Compile Include="Lib\Plot\Plot\Plot.cs" />
-    <Compile Include="Lib\Plot\Tracking\IPlotApplicantDeceaseds.cs" />
-    <Compile Include="Lib\Plot\Tracking\ITracking.cs" />
-    <Compile Include="Lib\Plot\Tracking\PlotApplicantDeceaseds.cs" />
-    <Compile Include="Lib\Plot\Tracking\Tracking.cs" />
-    <Compile Include="Lib\Plot\Transaction\ITransaction.cs" />
-    <Compile Include="Lib\Plot\Transaction\Transaction.cs" />
-    <Compile Include="Lib\Plot\Transfer\ITransfer.cs" />
-    <Compile Include="Lib\Plot\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Cemetery\Area\Area.cs" />
+    <Compile Include="Lib\Cemetery\Area\IArea.cs" />
+    <Compile Include="Lib\Cemetery\Clearance\Clearance.cs" />
+    <Compile Include="Lib\Cemetery\Clearance\IClearance.cs" />
+    <Compile Include="Lib\Cemetery\Config\Config.cs" />
+    <Compile Include="Lib\Cemetery\Config\IConfig.cs" />
+    <Compile Include="Lib\Cemetery\Item\IItem.cs" />
+    <Compile Include="Lib\Cemetery\Item\Item.cs" />
+    <Compile Include="Lib\Cemetery\Number\INumber.cs" />
+    <Compile Include="Lib\Cemetery\Number\Number.cs" />
+    <Compile Include="Lib\Cemetery\Reciprocate\IReciprocate.cs" />
+    <Compile Include="Lib\Cemetery\Reciprocate\Reciprocate.cs" />
+    <Compile Include="Lib\Cemetery\SecondBurial\ISecondBurial.cs" />
+    <Compile Include="Lib\Cemetery\SecondBurial\SecondBurial.cs" />
+    <Compile Include="Lib\Cemetery\Order\IOrder.cs" />
+    <Compile Include="Lib\Cemetery\Order\Order.cs" />
+    <Compile Include="Lib\Cemetery\Payment\IPayment.cs" />
+    <Compile Include="Lib\Cemetery\Payment\Payment.cs" />
+    <Compile Include="Lib\Cemetery\Plot\IPlot.cs" />
+    <Compile Include="Lib\Cemetery\Plot\Plot.cs" />
+    <Compile Include="Lib\Cemetery\Tracking\IPlotApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Cemetery\Tracking\ITracking.cs" />
+    <Compile Include="Lib\Cemetery\Tracking\PlotApplicantDeceaseds.cs" />
+    <Compile Include="Lib\Cemetery\Tracking\Tracking.cs" />
+    <Compile Include="Lib\Cemetery\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\Cemetery\Transaction\Transaction.cs" />
+    <Compile Include="Lib\Cemetery\Transfer\ITransfer.cs" />
+    <Compile Include="Lib\Cemetery\Transfer\Transfer.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\INicheDeceased.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\NicheDeceased.cs" />
     <Compile Include="Lib\Columbarium\Config\Config.cs" />
@@ -2260,6 +2260,14 @@
     <Compile Include="Migrations\202105191416226_RenameQuadrangleCentreIdToColumbariumCentreIdForColumbariumItemsTable.designer.cs">
       <DependentUpon>202105191416226_RenameQuadrangleCentreIdToColumbariumCentreIdForColumbariumItemsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105191422424_UpdateCatalogsTableData3.cs" />
+    <Compile Include="Migrations\202105191422424_UpdateCatalogsTableData3.designer.cs">
+      <DependentUpon>202105191422424_UpdateCatalogsTableData3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.cs" />
+    <Compile Include="Migrations\202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.designer.cs">
+      <DependentUpon>202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2270,7 +2278,7 @@
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PlotTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CemeteryTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumTrackingConfiguration.cs" />
@@ -2328,7 +2336,7 @@
     <Compile Include="Persistence\Repositories\CatalogRepository.cs" />
     <Compile Include="Persistence\Repositories\NumberRepository.cs" />
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
-    <Compile Include="Persistence\Repositories\PlotTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\CemeteryTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumTrackingRepository.cs" />
@@ -2393,12 +2401,12 @@
     <Compile Include="Areas\Cremation\Data\CremationNewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="Areas\Cremation\Data\CremationNonOrderReceiptsViewModel.cs" />
     <Compile Include="Areas\Navigation\Data\NavigationViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotAreaIndexesViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotIndexesViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotItemsViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotItemIndexesViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotTransactionsInfoViewModel.cs" />
-    <Compile Include="Areas\Plot\Data\PlotTransactionsFormViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotAreaIndexesViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotIndexesViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotItemsViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotItemIndexesViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotTransactionsInfoViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\PlotTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\ColumbariumCentreIndexesViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\ColumbariumAreaIndexesViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\NicheIndexesViewModel.cs" />
@@ -2453,16 +2461,16 @@
     <Content Include="Areas\Ancestor\Views\Free\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Items.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Niches\Centre.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Niches\Area.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Niches\Niches.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Niches\Items.cshtml" />
-    <Content Include="Areas\Plot\Views\Plots\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Plots\Items.cshtml" />
-    <Content Include="Areas\Plot\Views\Double\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShui\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Clearances\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurials\Index.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Columbariums\Centre.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Columbariums\Area.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Columbariums\Niches.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Columbariums\Items.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Plots\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Plots\Items.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Double\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\FengShui\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Clearances\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\SecondBurials\Index.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Form.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Catalog.cshtml" />
     <Content Include="Areas\Deceased\Views\Deceaseds\Form.cshtml" />
@@ -2565,19 +2573,19 @@
     <Content Include="Areas\Ancestor\Views\Shifts\Form.cshtml" />
     <Content Include="Areas\Ancestor\Views\Shifts\Info.cshtml" />
     <Content Include="Areas\Ancestor\Views\Shifts\ShiftedToIndex.cshtml" />
-    <Content Include="Areas\Plot\Views\Plots\Plots.cshtml" />
-    <Content Include="Areas\Plot\Views\Orders\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Orders\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Orders\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\Receipts\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Receipts\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\Invoices\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurials\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\SecondBurials\Info.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfers\Form.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfers\Index.cshtml" />
-    <Content Include="Areas\Plot\Views\FengShuiTransfers\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Plots\Plots.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Orders\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Orders\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Receipts\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Receipts\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Invoices\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Invoices\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\SecondBurials\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\SecondBurials\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\FengShuiTransfers\Form.cshtml" />
+    <Content Include="Areas\Cemetery\Views\FengShuiTransfers\Index.cshtml" />
+    <Content Include="Areas\Cemetery\Views\FengShuiTransfers\Info.cshtml" />
     <Content Include="Areas\Navigation\Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_Print.cshtml" />
     <None Include="Web.Debug.config">
@@ -3466,6 +3474,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105191416226_RenameQuadrangleCentreIdToColumbariumCentreIdForColumbariumItemsTable.resx">
       <DependentUpon>202105191416226_RenameQuadrangleCentreIdToColumbariumCentreIdForColumbariumItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105191422424_UpdateCatalogsTableData3.resx">
+      <DependentUpon>202105191422424_UpdateCatalogsTableData3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.resx">
+      <DependentUpon>202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -11,7 +11,7 @@ namespace Memorial.Core.Domain
         {
             Deceaseds = new HashSet<Deceased>();
 
-            PlotTransactions = new HashSet<PlotTransaction>();
+            CemeteryTransactions = new HashSet<CemeteryTransaction>();
 
             PlotTrackings = new HashSet<PlotTracking>();
 
@@ -62,7 +62,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<Deceased> Deceaseds { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions { get; set; }
+        public ICollection<CemeteryTransaction> CemeteryTransactions { get; set; }
 
         public ICollection<PlotTracking> PlotTrackings { get; set; }
 

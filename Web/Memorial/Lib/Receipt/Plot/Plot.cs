@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Plot;
+using Memorial.Lib.Cemetery;
 using AutoMapper;
 
 namespace Memorial.Lib.Receipt
@@ -25,7 +25,7 @@ namespace Memorial.Lib.Receipt
 
         public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
-            return _unitOfWork.Receipts.GetByNonOrderActivePlotAF(AF);
+            return _unitOfWork.Receipts.GetByNonOrderActiveCemeteryAF(AF);
         }
 
         public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
@@ -35,7 +35,7 @@ namespace Memorial.Lib.Receipt
 
         public string GetApplicationAF()
         {
-            return _receipt.PlotTransactionAF;
+            return _receipt.CemeteryTransactionAF;
         }
 
         override

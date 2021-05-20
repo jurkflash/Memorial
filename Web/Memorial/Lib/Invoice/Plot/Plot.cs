@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Memorial.Lib.Plot;
+using Memorial.Lib.Cemetery;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
@@ -21,7 +21,7 @@ namespace Memorial.Lib.Invoice
 
         public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
         {
-            return _unitOfWork.Invoices.GetByActivePlotAF(AF);
+            return _unitOfWork.Invoices.GetByActiveCemeteryAF(AF);
         }
 
         public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
@@ -31,13 +31,13 @@ namespace Memorial.Lib.Invoice
 
         public bool HasInvoiceByAF(string AF)
         {
-            return _unitOfWork.Invoices.GetByActivePlotAF(AF).Any();
+            return _unitOfWork.Invoices.GetByActiveCemeteryAF(AF).Any();
         }
 
         override
         public string GetAF()
         {
-            return _invoice.PlotTransactionAF;
+            return _invoice.CemeteryTransactionAF;
         }
 
         override

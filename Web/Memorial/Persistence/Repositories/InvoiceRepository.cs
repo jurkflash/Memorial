@@ -24,9 +24,9 @@ namespace Memorial.Persistence.Repositories
                             .ToList().OrderBy(i => i.CreateDate);
         }
 
-        public IEnumerable<Invoice> GetByActivePlotAF(string AF)
+        public IEnumerable<Invoice> GetByActiveCemeteryAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.PlotTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.CemeteryTransactionAF == AF && i.DeleteDate == null)
                             .ToList().OrderBy(i => i.CreateDate);
         }
 

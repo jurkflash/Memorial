@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 表格&lt;br /&gt;AF.
+        /// </summary>
+        public static string AF {
+            get {
+                return ResourceManager.GetString("AF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 年齡&lt;br /&gt;Age.
         /// </summary>
         public static string Age {
@@ -106,11 +115,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 區&lt;br /&gt;Area.
+        /// </summary>
+        public static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 葬紙准證號碼&lt;br /&gt;Burial Certificate.
         /// </summary>
         public static string BurialCertificate {
             get {
                 return ResourceManager.GetString("BurialCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 中心&lt;br /&gt;Centre.
+        /// </summary>
+        public static string Centre {
+            get {
+                return ResourceManager.GetString("Centre", resourceCulture);
             }
         }
         
@@ -129,6 +156,15 @@ namespace Resources {
         public static string Columbarium {
             get {
                 return ResourceManager.GetString("Columbarium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 申請日期&lt;br /&gt;Create Date.
+        /// </summary>
+        public static string CreateDate {
+            get {
+                return ResourceManager.GetString("CreateDate", resourceCulture);
             }
         }
         
@@ -196,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 描述&lt;br /&gt;Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 修改 Edit.
         /// </summary>
         public static string Edit {
@@ -210,6 +255,15 @@ namespace Resources {
         public static string EnglishName {
             get {
                 return ResourceManager.GetString("EnglishName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 壽板商&lt;br /&gt;Funeral Co..
+        /// </summary>
+        public static string FuneralCo {
+            get {
+                return ResourceManager.GetString("FuneralCo", resourceCulture);
             }
         }
         
@@ -250,11 +304,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 單&lt;br/&gt;Invoice.
+        /// </summary>
+        public static string Invoice {
+            get {
+                return ResourceManager.GetString("Invoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 終身管理費&lt;br /&gt;LifeTimeMaintenance.
+        /// </summary>
+        public static string LifeTimeMaintenance {
+            get {
+                return ResourceManager.GetString("LifeTimeMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 聯繫 Link.
         /// </summary>
         public static string Link {
             get {
                 return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 管理費&lt;br /&gt;Maintenance.
+        /// </summary>
+        public static string Maintenance {
+            get {
+                return ResourceManager.GetString("Maintenance", resourceCulture);
             }
         }
         
@@ -304,11 +385,47 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 骨灰閣 Niche.
+        ///   Looks up a localized string similar to 新申請者 New Applicant.
+        /// </summary>
+        public static string NewApplicant {
+            get {
+                return ResourceManager.GetString("NewApplicant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新逝世者 New Deceased.
+        /// </summary>
+        public static string NewDeceased {
+            get {
+                return ResourceManager.GetString("NewDeceased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰閣&lt;br /&gt;Niche.
         /// </summary>
         public static string Niche {
             get {
                 return ResourceManager.GetString("Niche", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全骨灰閣&lt;br /&gt;Niches.
+        /// </summary>
+        public static string Niches {
+            get {
+                return ResourceManager.GetString("Niches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 編號&lt;br /&gt;No..
+        /// </summary>
+        public static string No_ {
+            get {
+                return ResourceManager.GetString("No_", resourceCulture);
             }
         }
         
@@ -327,6 +444,24 @@ namespace Resources {
         public static string Plot {
             get {
                 return ResourceManager.GetString("Plot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 價格&lt;br /&gt;Price.
+        /// </summary>
+        public static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 收據&lt;br /&gt;Receipt.
+        /// </summary>
+        public static string Receipt {
+            get {
+                return ResourceManager.GetString("Receipt", resourceCulture);
             }
         }
         
@@ -367,11 +502,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 地點&lt;br /&gt;Site.
+        /// </summary>
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 空間 Space.
         /// </summary>
         public static string Space {
             get {
                 return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 種類&lt;br /&gt;Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         
@@ -385,11 +538,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 骨灰甕 Urn.
+        ///   Looks up a localized string similar to 骨灰甕&lt;br /&gt;Urn.
         /// </summary>
         public static string Urn {
             get {
                 return ResourceManager.GetString("Urn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X.
+        /// </summary>
+        public static string X {
+            get {
+                return ResourceManager.GetString("X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y.
+        /// </summary>
+        public static string Y {
+            get {
+                return ResourceManager.GetString("Y", resourceCulture);
             }
         }
     }

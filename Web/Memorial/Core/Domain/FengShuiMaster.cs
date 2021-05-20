@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public FengShuiMaster()
         {
-            PlotTransactions = new HashSet<PlotTransaction>();
+            CemeteryTransactions = new HashSet<CemeteryTransaction>();
         }
 
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace Memorial.Core.Domain
 
         public DateTime? DeleteDate { get; set; }
 
-        public ICollection<PlotTransaction> PlotTransactions { get; set; }
+        public ICollection<CemeteryTransaction> CemeteryTransactions { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Memorial.Core
         IPlotTypeRepository PlotTypes { get; }
         IPlotItemRepository PlotItems { get; }
         IPlotNumberRepository PlotNumbers { get; }
-        IPlotTransactionRepository PlotTransactions { get; }
+        ICemeteryTransactionRepository CemeteryTransactions { get; }
         IPlotTrackingRepository PlotTrackings { get; }
 
         IAncestorRepository Ancestors { get; }

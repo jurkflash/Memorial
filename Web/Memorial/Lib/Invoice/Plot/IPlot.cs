@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Plot;
+using Memorial.Lib.Cemetery;
 
 namespace Memorial.Lib.Invoice
 {

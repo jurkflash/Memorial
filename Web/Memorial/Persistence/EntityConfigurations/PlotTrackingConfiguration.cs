@@ -12,9 +12,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.PlotId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(qt => qt.PlotTransaction)
+            HasRequired(qt => qt.CemeteryTransaction)
                 .WithMany(qts => qts.PlotTrackings)
-                .HasForeignKey(qt => qt.PlotTransactionAF)
+                .HasForeignKey(qt => qt.CemeteryTransactionAF)
                 .WillCascadeOnDelete(false);
 
             HasOptional(qt => qt.Applicant)

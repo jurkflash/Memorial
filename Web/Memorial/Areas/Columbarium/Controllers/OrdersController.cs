@@ -112,7 +112,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Save(ColumbariumTransactionsFormViewModel viewModel)
         {
-            if (viewModel.ColumbariumTransactionDto.Deceased1Id == viewModel.ColumbariumTransactionDto.Deceased2Id)
+            if (viewModel.ColumbariumTransactionDto.Deceased1Id != null && viewModel.ColumbariumTransactionDto.Deceased1Id == viewModel.ColumbariumTransactionDto.Deceased2Id)
             {
                 ModelState.AddModelError("ColumbariumTransactionDto.Deceased1Id", "Same deceased");
                 ModelState.AddModelError("ColumbariumTransactionDto.Deceased2Id", "Same deceased");
