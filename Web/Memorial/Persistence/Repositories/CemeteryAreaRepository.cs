@@ -6,30 +6,30 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class PlotAreaRepository : Repository<PlotArea>, IPlotAreaRepository
+    public class CemeteryAreaRepository : Repository<CemeteryArea>, ICemeteryAreaRepository
     {
-        public PlotAreaRepository(MemorialContext context) : base(context)
+        public CemeteryAreaRepository(MemorialContext context) : base(context)
         {
         }
 
-        public PlotArea GetActive(int id)
+        public CemeteryArea GetActive(int id)
         {
-            return MemorialContext.PlotAreas
+            return MemorialContext.CemeteryAreas
                 .Where(pa => pa.Id == id && pa.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<PlotArea> GetAllActive()
+        public IEnumerable<CemeteryArea> GetAllActive()
         {
-            return MemorialContext.PlotAreas
+            return MemorialContext.CemeteryAreas
                 .Include(pa => pa.Site)
                 .Where(pa => pa.DeleteDate == null)
                 .ToList();
         }
 
-        public IEnumerable<PlotArea> GetBySite(byte siteId)
+        public IEnumerable<CemeteryArea> GetBySite(byte siteId)
         {
-            return MemorialContext.PlotAreas
+            return MemorialContext.CemeteryAreas
                 .Where(pa => pa.SiteId == siteId
                 && pa.DeleteDate == null).ToList();
         }

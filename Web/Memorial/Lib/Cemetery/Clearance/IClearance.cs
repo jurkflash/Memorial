@@ -4,9 +4,9 @@ namespace Memorial.Lib.Cemetery
 {
     public interface IClearance : ITransaction
     {
-        bool Create(CemeteryTransactionDto plotTransactionDto);
+        bool Create(CemeteryTransactionDto cemeteryTransactionDto);
         bool Delete();
         void SetClearance(string AF);
-        bool Update(CemeteryTransactionDto plotTransactionDto);
+        bool Update(CemeteryTransactionDto cemeteryTransactionDto);
     }
 }

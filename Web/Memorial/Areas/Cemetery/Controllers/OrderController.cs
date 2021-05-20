@@ -54,7 +54,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
+                CemeteryTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
             if (applicantId == 0 || _plot.HasApplicant() || _plot.HasCleared())
@@ -74,20 +74,20 @@ namespace Memorial.Areas.Cemetery.Controllers
             _order.SetTransaction(AF);
             _plot.SetPlot(_order.GetTransactionPlotId());
 
-            var viewModel = new PlotTransactionsInfoViewModel()
+            var viewModel = new CemeteryTransactionsInfoViewModel()
             {
                 ApplicantId = _order.GetTransactionApplicantId(),
                 DeceasedId = _order.GetTransactionDeceased1Id(),
                 PlotDto = _plot.GetPlotDto(),
                 ItemName = _order.GetItemName(),
-                PlotTransactionDto = _order.GetTransactionDto()
+                CemeteryTransactionDto = _order.GetTransactionDto()
             };
             return View(viewModel);
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            var viewModel = new PlotTransactionsFormViewModel()
+            var viewModel = new CemeteryTransactionsFormViewModel()
             {
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
@@ -96,52 +96,52 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 _plot.SetPlot(id);
 
-                var plotTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
-                plotTransactionDto.PlotDtoId = id;
-                viewModel.PlotTransactionDto = plotTransactionDto;
-                viewModel.PlotTransactionDto.Price = _plot.GetPrice();
-                viewModel.PlotTransactionDto.Maintenance = _plot.GetMaintenance();
-                viewModel.PlotTransactionDto.Brick = _plot.GetBrick();
-                viewModel.PlotTransactionDto.Dig = _plot.GetDig();
-                viewModel.PlotTransactionDto.Wall = _plot.GetWall();
+                var cemeteryTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
+                cemeteryTransactionDto.PlotDtoId = id;
+                viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
+                viewModel.CemeteryTransactionDto.Price = _plot.GetPrice();
+                viewModel.CemeteryTransactionDto.Maintenance = _plot.GetMaintenance();
+                viewModel.CemeteryTransactionDto.Brick = _plot.GetBrick();
+                viewModel.CemeteryTransactionDto.Dig = _plot.GetDig();
+                viewModel.CemeteryTransactionDto.Wall = _plot.GetWall();
             }
             else
             {
                 _order.SetTransaction(AF);
-                viewModel.PlotTransactionDto = _order.GetTransactionDto(AF);
+                viewModel.CemeteryTransactionDto = _order.GetTransactionDto(AF);
             }
 
             return View(viewModel);
         }
 
-        public ActionResult Save(PlotTransactionsFormViewModel viewModel)
+        public ActionResult Save(CemeteryTransactionsFormViewModel viewModel)
         {
-            _plot.SetPlot(viewModel.PlotTransactionDto.PlotDtoId);
-            if (viewModel.PlotTransactionDto.DeceasedDto1Id == null && !_plot.IsFengShuiPlot())
+            _plot.SetPlot(viewModel.CemeteryTransactionDto.PlotDtoId);
+            if (viewModel.CemeteryTransactionDto.DeceasedDto1Id == null && !_plot.IsFengShuiPlot())
             {
-                ModelState.AddModelError("PlotTransactionDto.DeceasedDto1Id", "Please Select");
+                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Please Select");
                 return FormForResubmit(viewModel);
             }
 
-            if (viewModel.PlotTransactionDto.DeceasedDto1Id != null)
+            if (viewModel.CemeteryTransactionDto.DeceasedDto1Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.PlotTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != viewModel.PlotTransactionDto.PlotDtoId)
+                _deceased.SetDeceased((int)viewModel.CemeteryTransactionDto.DeceasedDto1Id);
+                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != viewModel.CemeteryTransactionDto.PlotDtoId)
                 {
-                    ModelState.AddModelError("PlotTransactionDto.DeceasedDto1Id", "Invalid");
+                    ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Invalid");
                     return FormForResubmit(viewModel);
                 }
             }
 
-            if (viewModel.PlotTransactionDto.AF == null)
+            if (viewModel.CemeteryTransactionDto.AF == null)
             {
-                if (_order.Create(viewModel.PlotTransactionDto))
+                if (_order.Create(viewModel.CemeteryTransactionDto))
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.PlotTransactionDto.PlotItemId,
-                        id = viewModel.PlotTransactionDto.PlotDtoId,
-                        applicantId = viewModel.PlotTransactionDto.ApplicantDtoId
+                        itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                        id = viewModel.CemeteryTransactionDto.PlotDtoId,
+                        applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
                     });
                 }
                 else
@@ -151,38 +151,38 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
             else
             {
-                if (_invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Any() &&
-                    viewModel.PlotTransactionDto.Price + 
-                    (float)viewModel.PlotTransactionDto.Maintenance + 
-                    (float)viewModel.PlotTransactionDto.Brick + 
-                    (float)viewModel.PlotTransactionDto.Dig + 
-                    (float)viewModel.PlotTransactionDto.Wall
+                if (_invoice.GetInvoicesByAF(viewModel.CemeteryTransactionDto.AF).Any() &&
+                    viewModel.CemeteryTransactionDto.Price + 
+                    (float)viewModel.CemeteryTransactionDto.Maintenance + 
+                    (float)viewModel.CemeteryTransactionDto.Brick + 
+                    (float)viewModel.CemeteryTransactionDto.Dig + 
+                    (float)viewModel.CemeteryTransactionDto.Wall
                     <
-                _invoice.GetInvoicesByAF(viewModel.PlotTransactionDto.AF).Max(i => i.Amount))
+                _invoice.GetInvoicesByAF(viewModel.CemeteryTransactionDto.AF).Max(i => i.Amount))
                 {
-                    ModelState.AddModelError("PlotTransactionDto.Price", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Maintenance", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Brick", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Dig", "* Exceed invoice amount");
-                    ModelState.AddModelError("PlotTransactionDto.Wall", "* Exceed invoice amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Price", "* Exceed invoice amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Maintenance", "* Exceed invoice amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Brick", "* Exceed invoice amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Dig", "* Exceed invoice amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Wall", "* Exceed invoice amount");
 
                     return FormForResubmit(viewModel);
                 }
 
-                _order.Update(viewModel.PlotTransactionDto);
+                _order.Update(viewModel.CemeteryTransactionDto);
             }
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.PlotTransactionDto.PlotItemId,
-                id = viewModel.PlotTransactionDto.PlotDtoId,
-                applicantId = viewModel.PlotTransactionDto.ApplicantDtoId
+                itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                id = viewModel.CemeteryTransactionDto.PlotDtoId,
+                applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
             });
         }
 
-        public ActionResult FormForResubmit(PlotTransactionsFormViewModel viewModel)
+        public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.PlotTransactionDto.ApplicantDtoId);
+            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.CemeteryTransactionDto.ApplicantDtoId);
 
             return View("Form", viewModel);
         }

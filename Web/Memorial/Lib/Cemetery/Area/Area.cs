@@ -11,7 +11,7 @@ namespace Memorial.Lib.Cemetery
     public class Area : IArea
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.PlotArea _area;
+        private Core.Domain.CemeteryArea _area;
 
         public Area(IUnitOfWork unitOfWork)
         {
@@ -20,7 +20,7 @@ namespace Memorial.Lib.Cemetery
 
         public void SetArea(int id)
         {
-            _area = _unitOfWork.PlotAreas.GetActive(id);
+            _area = _unitOfWork.CemeteryAreas.GetActive(id);
         }
 
         public int GetId()
@@ -43,56 +43,56 @@ namespace Memorial.Lib.Cemetery
             return _area.SiteId;
         }
 
-        public Core.Domain.PlotArea GetArea()
+        public Core.Domain.CemeteryArea GetArea()
         {
             return _area;
         }
 
-        public PlotAreaDto GetAreaDto()
+        public CemeteryAreaDto GetAreaDto()
         {
-            return Mapper.Map<Core.Domain.PlotArea, PlotAreaDto>(_area);
+            return Mapper.Map<Core.Domain.CemeteryArea, CemeteryAreaDto>(_area);
         }
 
-        public Core.Domain.PlotArea GetArea(int areaId)
+        public Core.Domain.CemeteryArea GetArea(int areaId)
         {
-            return _unitOfWork.PlotAreas.GetActive(areaId);
+            return _unitOfWork.CemeteryAreas.GetActive(areaId);
         }
 
-        public PlotAreaDto GetAreaDto(int areaId)
+        public CemeteryAreaDto GetAreaDto(int areaId)
         {
-            return Mapper.Map<Core.Domain.PlotArea, PlotAreaDto>(GetArea(areaId));
+            return Mapper.Map<Core.Domain.CemeteryArea, CemeteryAreaDto>(GetArea(areaId));
         }
 
-        public IEnumerable<PlotAreaDto> GetAreaDtos()
+        public IEnumerable<CemeteryAreaDto> GetAreaDtos()
         {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotArea>, IEnumerable<PlotAreaDto>>(_unitOfWork.PlotAreas.GetAllActive());
+            return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(_unitOfWork.CemeteryAreas.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.PlotArea> GetAreaBySite(byte siteId)
+        public IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(byte siteId)
         {
-            return _unitOfWork.PlotAreas.GetBySite(siteId);
+            return _unitOfWork.CemeteryAreas.GetBySite(siteId);
         }
 
-        public IEnumerable<PlotAreaDto> GetAreaDtosBySite(byte siteId)
+        public IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(byte siteId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotArea>, IEnumerable<PlotAreaDto>>(GetAreaBySite(siteId));
+            return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(GetAreaBySite(siteId));
         }
 
-        public bool Create(PlotAreaDto plotAreaDto)
+        public bool Create(CemeteryAreaDto cemeteryAreaDto)
         {
-            _area = new Core.Domain.PlotArea();
-            Mapper.Map(plotAreaDto, _area);
+            _area = new Core.Domain.CemeteryArea();
+            Mapper.Map(cemeteryAreaDto, _area);
 
             _area.CreateDate = DateTime.Now;
 
-            _unitOfWork.PlotAreas.Add(_area);
+            _unitOfWork.CemeteryAreas.Add(_area);
 
             return true;
         }
 
-        public bool Update(Core.Domain.PlotArea plotArea)
+        public bool Update(Core.Domain.CemeteryArea cemeteryArea)
         {
-            plotArea.ModifyDate = DateTime.Now;
+            cemeteryArea.ModifyDate = DateTime.Now;
 
             return true;
         }

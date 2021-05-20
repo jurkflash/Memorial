@@ -17,16 +17,16 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.Plots
                 .Include(p => p.Applicant)
                 .Include(p => p.PlotType)
-                .Include(p => p.PlotArea)
+                .Include(p => p.CemeteryArea)
                 .Where(p => p.Id == id && p.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Plot> GetByArea(int plotAreaId, string filter = null)
+        public IEnumerable<Plot> GetByArea(int cemeteryAreaId, string filter = null)
         {
             var plots = MemorialContext.Plots
                     .Include(p => p.PlotType)
-                    .Where(p => p.PlotAreaId == plotAreaId);
+                    .Where(p => p.CemeteryAreaId == cemeteryAreaId);
 
             if (string.IsNullOrEmpty(filter))
             {
@@ -38,22 +38,22 @@ namespace Memorial.Persistence.Repositories
             }
         }
 
-        public IEnumerable<PlotType> GetTypesByArea(int plotAreaId)
+        public IEnumerable<PlotType> GetTypesByArea(int cemeteryAreaId)
         {
             var plotTypes = MemorialContext.Plots
                     .Include(p => p.PlotType)
-                    .Where(p => p.PlotAreaId == plotAreaId)
+                    .Where(p => p.CemeteryAreaId == cemeteryAreaId)
                     .Select(p => p.PlotType);
 
             return plotTypes.ToList();
         }
 
-        public IEnumerable<Plot> GetByTypeAndArea(int plotAreaId, int plotTypeId, string filter = null)
+        public IEnumerable<Plot> GetByTypeAndArea(int cemeteryAreaId, int plotTypeId, string filter = null)
         {
             var plots = MemorialContext.Plots
                 .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId &&
-                        p.PlotAreaId == plotAreaId);
+                        p.CemeteryAreaId == cemeteryAreaId);
 
             if (string.IsNullOrEmpty(filter))
             {
@@ -65,30 +65,30 @@ namespace Memorial.Persistence.Repositories
             }
         }
 
-        public IEnumerable<Plot> GetAvailableByTypeAndArea(int plotTypeId, int plotAreaId)
+        public IEnumerable<Plot> GetAvailableByTypeAndArea(int plotTypeId, int cemeteryAreaId)
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId && 
-                        p.PlotAreaId == plotAreaId && 
+                        p.CemeteryAreaId == cemeteryAreaId && 
                         p.ApplicantId == null).ToList();
         }
 
-        public IEnumerable<Plot> GetBuriedByWithTypeAndArea(int plotTypeId, int plotAreaId)
+        public IEnumerable<Plot> GetBuriedByWithTypeAndArea(int plotTypeId, int cemeteryAreaId)
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId &&
-                        p.PlotAreaId == plotAreaId &&
+                        p.CemeteryAreaId == cemeteryAreaId &&
                         p.Deceaseds.Count > 0 ).ToList();
         }
 
-        public IEnumerable<Plot> GetSecondBurialByWithTypeAndArea(int plotTypeId, int plotAreaId)
+        public IEnumerable<Plot> GetSecondBurialByWithTypeAndArea(int plotTypeId, int cemeteryAreaId)
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
                 .Where(p => p.PlotTypeId == plotTypeId &&
-                        p.PlotAreaId == plotAreaId &&
+                        p.CemeteryAreaId == cemeteryAreaId &&
                         p.Deceaseds.Count < p.PlotType.NumberOfPlacement &&
                         p.PlotType.NumberOfPlacement > 1).ToList();
         }

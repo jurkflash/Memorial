@@ -171,7 +171,7 @@ namespace Memorial.Lib.Cemetery
 
         public int GetAreaId()
         {
-            return _plot.PlotAreaId;
+            return _plot.CemeteryAreaId;
         }
 
         public int GetNumberOfPlacement()

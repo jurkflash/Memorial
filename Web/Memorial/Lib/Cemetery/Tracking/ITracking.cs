@@ -8,34 +8,34 @@ namespace Memorial.Lib.Cemetery
 {
     public interface ITracking
     {
-        void Add(int plotId, string plotTransactionAF);
+        void Add(int plotId, string cemeteryTransactionAF);
 
-        void Add(int plotId, string plotTransactionAF, int applicantId);
+        void Add(int plotId, string cemeteryTransactionAF, int applicantId);
 
-        void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id);
+        void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id);
 
-        void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id);
+        void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id);
 
-        void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? deceased3Id);
+        void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? deceased3Id);
 
         void AddDeceased(int plotId, int deceasedId);
 
-        void Change(int plotId, string plotTransactionAF, int? applicantId, int? deceased1Id);
+        void Change(int plotId, string cemeteryTransactionAF, int? applicantId, int? deceased1Id);
 
-        void ChangeDeceased(int plotId, string plotTransactionAF, int oldDeceasedId, int newDeceasedId);
+        void ChangeDeceased(int plotId, string cemeteryTransactionAF, int oldDeceasedId, int newDeceasedId);
 
-        void Remove(int plotId, string plotTransactionAF);
+        void Remove(int plotId, string cemeteryTransactionAF);
 
-        void RemoveDeceased(int plotId, string plotTransactionAF, int deceasedId);
+        void RemoveDeceased(int plotId, string cemeteryTransactionAF, int deceasedId);
 
         Core.Domain.PlotTracking GetLatestFirstTransactionByPlotId(int plotId);
 
         IEnumerable<Core.Domain.PlotTracking> GetTrackingByPlotId(int plotId);
 
-        Core.Domain.PlotTracking GetTrackingByTransactionAF(string plotTransactionAF);
+        Core.Domain.PlotTracking GetTrackingByTransactionAF(string cemeteryTransactionAF);
 
-        void Delete(string plotTransactionAF);
+        void Delete(string cemeteryTransactionAF);
 
-        bool IsLatestTransaction(int plotId, string plotTransactionAF);
+        bool IsLatestTransaction(int plotId, string cemeteryTransactionAF);
     }
 }

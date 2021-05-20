@@ -21,7 +21,7 @@ namespace Memorial.Core
         IFuneralCompanyRepository FuneralCompanies { get; }
 
         IPlotRepository Plots { get; }
-        IPlotAreaRepository PlotAreas { get; }
+        ICemeteryAreaRepository CemeteryAreas { get; }
         IPlotTypeRepository PlotTypes { get; }
         IPlotItemRepository PlotItems { get; }
         IPlotNumberRepository PlotNumbers { get; }

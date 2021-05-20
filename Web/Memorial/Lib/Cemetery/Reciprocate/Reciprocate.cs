@@ -61,14 +61,14 @@ namespace Memorial.Lib.Cemetery
             _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(CemeteryTransactionDto plotTransactionDto)
+        public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            NewNumber(plotTransactionDto.PlotItemId);
+            NewNumber(cemeteryTransactionDto.PlotItemId);
 
-            _plot.SetPlot(plotTransactionDto.PlotDtoId);
-            plotTransactionDto.ApplicantDtoId = (int)_plot.GetApplicantId();
+            _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
+            cemeteryTransactionDto.ApplicantDtoId = (int)_plot.GetApplicantId();
 
-            if (CreateNewTransaction(plotTransactionDto))
+            if (CreateNewTransaction(cemeteryTransactionDto))
             {
                 _unitOfWork.Complete();
             }
@@ -80,15 +80,15 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool Update(CemeteryTransactionDto plotTransactionDto)
+        public bool Update(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            if (_receipt.GetNonOrderReceipts(plotTransactionDto.AF).Any() && plotTransactionDto.Price <
-                _receipt.GetNonOrderReceipts(plotTransactionDto.AF).Max(i => i.Amount))
+            if (_receipt.GetNonOrderReceipts(cemeteryTransactionDto.AF).Any() && cemeteryTransactionDto.Price <
+                _receipt.GetNonOrderReceipts(cemeteryTransactionDto.AF).Max(i => i.Amount))
             {
                 return false;
             }
 
-            UpdateTransaction(plotTransactionDto);
+            UpdateTransaction(cemeteryTransactionDto);
 
             _unitOfWork.Complete();
 

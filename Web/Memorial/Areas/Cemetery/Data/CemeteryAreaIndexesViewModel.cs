@@ -3,9 +3,9 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class PlotAreaIndexesViewModel
+    public class CemeteryAreaIndexesViewModel
     {
-        public IEnumerable<PlotAreaDto> PlotAreaDtos { get; set; }
+        public IEnumerable<CemeteryAreaDto> CemeteryAreaDtos { get; set; }
 
         public int ApplicantId { get; set; }
     }

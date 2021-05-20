@@ -76,9 +76,9 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool RollbackPlotApplicantDeceaseds(string plotTransactionAF, int plotId)
+        public bool RollbackPlotApplicantDeceaseds(string cemeteryTransactionAF, int plotId)
         {
-            if (!_tracking.IsLatestTransaction(plotId, plotTransactionAF))
+            if (!_tracking.IsLatestTransaction(plotId, cemeteryTransactionAF))
                 return false;
 
             ClearPlotApplicantAndDeceased(plotId);
@@ -90,7 +90,7 @@ namespace Memorial.Lib.Cemetery
                 SetPlotApplicantDeceaseds(trackingsByPlotId.ElementAt(1).ApplicantId, trackingsByPlotId.ElementAt(1).Deceased1Id, trackingsByPlotId.ElementAt(1).Deceased2Id);
             }
 
-            _tracking.Delete(plotTransactionAF);
+            _tracking.Delete(cemeteryTransactionAF);
 
             return true;
         }

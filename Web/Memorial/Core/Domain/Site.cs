@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public Site()
         {
-            PlotAreas = new HashSet<PlotArea>();
+            CemeteryAreas = new HashSet<CemeteryArea>();
 
             AncestorAreas = new HashSet<AncestorArea>();
 
@@ -36,7 +36,7 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public ICollection<PlotArea> PlotAreas { get; set; }
+        public ICollection<CemeteryArea> CemeteryAreas { get; set; }
 
         public ICollection<AncestorArea> AncestorAreas { get; set; }
 

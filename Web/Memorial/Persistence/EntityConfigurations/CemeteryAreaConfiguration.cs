@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class PlotAreaConfiguration : EntityTypeConfiguration<PlotArea>
+    public class CemeteryAreaConfiguration : EntityTypeConfiguration<CemeteryArea>
     {
-        public PlotAreaConfiguration()
+        public CemeteryAreaConfiguration()
         {
             Property(pa => pa.Name)
                 .IsRequired()
@@ -13,7 +13,7 @@ namespace Memorial.Persistence.EntityConfigurations
 
 
             HasRequired(pa => pa.Site)
-                .WithMany(s => s.PlotAreas)
+                .WithMany(s => s.CemeteryAreas)
                 .HasForeignKey(pa => pa.SiteId)
                 .WillCascadeOnDelete(false);
         }

@@ -51,7 +51,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
                 .ForMember(c => c.PlotTypeDto, opt => opt.MapFrom(x => x.PlotType))
                 .ForMember(c => c.PlotTypeDtoId, opt => opt.MapFrom(x => x.PlotTypeId));
-            CreateMap<PlotArea, PlotAreaDto>();
+            CreateMap<CemeteryArea, CemeteryAreaDto>();
             CreateMap<PlotItem, PlotItemDto>();
             CreateMap<PlotLandscapeCompany, PlotLandscapeCompanyDto>();
             CreateMap<CemeteryTransaction, CemeteryTransactionDto>()
@@ -162,7 +162,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.PlotType, opt => opt.MapFrom(x => x.PlotTypeDto))
                 .ForMember(c => c.PlotTypeId, opt => opt.MapFrom(x => x.PlotTypeDtoId));
-            CreateMap<PlotAreaDto, PlotArea>()
+            CreateMap<CemeteryAreaDto, CemeteryArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<PlotItemDto, PlotItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

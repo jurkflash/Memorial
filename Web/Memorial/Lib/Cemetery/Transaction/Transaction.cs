@@ -169,19 +169,19 @@ namespace Memorial.Lib.Cemetery
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(GetTransactionsByPlotIdAndItemIdAndApplicantId(plotId, itemId, applicantId));
         }
 
-        public Core.Domain.CemeteryTransaction GetLastPlotTransactionByPlotId(int plotId)
+        public Core.Domain.CemeteryTransaction GetLastCemeteryTransactionTransactionByPlotId(int plotId)
         {
             return _unitOfWork.CemeteryTransactions.GetLastCemeteryTransactionByPlotId(plotId);
         }
 
-        protected bool CreateNewTransaction(CemeteryTransactionDto plotTransactionDto)
+        protected bool CreateNewTransaction(CemeteryTransactionDto cemeteryTransactionDto)
         {
             if (_AFnumber == "")
                 return false;
 
             _transaction = new Core.Domain.CemeteryTransaction();
 
-            Mapper.Map(plotTransactionDto, _transaction);
+            Mapper.Map(cemeteryTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
             _transaction.CreateDate = System.DateTime.Now;
@@ -191,13 +191,13 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        protected bool UpdateTransaction(CemeteryTransactionDto plotTransactionDto)
+        protected bool UpdateTransaction(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            var plotTransactionInDb = GetTransaction(plotTransactionDto.AF);
+            var cemeteryTransactionInDb = GetTransaction(cemeteryTransactionDto.AF);
 
-            Mapper.Map(plotTransactionDto, plotTransactionInDb);
+            Mapper.Map(cemeteryTransactionDto, cemeteryTransactionInDb);
 
-            plotTransactionInDb.ModifyDate = System.DateTime.Now;
+            cemeteryTransactionInDb.ModifyDate = System.DateTime.Now;
 
             return true;
         }
@@ -223,7 +223,7 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        protected bool SetTransactionDeceasedIdBasedOnPlot(CemeteryTransactionDto plotTransactionDto, int plotId)
+        protected bool SetTransactionDeceasedIdBasedOnPlot(CemeteryTransactionDto cemeteryTransactionDto, int plotId)
         {
             _plot.SetPlot(plotId);
 
@@ -236,72 +236,72 @@ namespace Memorial.Lib.Cemetery
 
                 if (deceaseds.Count() > 2)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
                     {
                         return false;
                     }
 
-                    plotTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
+                    cemeteryTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
                 }
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
 
-                    plotTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
+                    cemeteryTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
                 }
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    plotTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
+                    cemeteryTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
                 }
             }
 
             return true;
         }
 
-        protected bool SetDeceasedIdBasedOnPlotLastTransaction(CemeteryTransactionDto plotTransactionDto)
+        protected bool SetDeceasedIdBasedOnPlotLastTransaction(CemeteryTransactionDto cemeteryTransactionDto)
         {
             if (_plot.HasDeceased())
             {
-                var lastTransactionOfPlot = GetLastPlotTransactionByPlotId(_plot.GetPlot().Id);
+                var lastTransactionOfPlot = GetLastCemeteryTransactionTransactionByPlotId(_plot.GetPlot().Id);
 
                 if (lastTransactionOfPlot != null)
                 {
-                    SetDeceasedIdBasedOnPlotLastTransaction(lastTransactionOfPlot, plotTransactionDto);
+                    SetDeceasedIdBasedOnPlotLastTransaction(lastTransactionOfPlot, cemeteryTransactionDto);
                 }
             }
 
             return true;
         }
 
-        private bool SetDeceasedIdBasedOnPlotLastTransaction(Core.Domain.CemeteryTransaction lastPlotTransaction, CemeteryTransactionDto plotTransactionDto)
+        private bool SetDeceasedIdBasedOnPlotLastTransaction(Core.Domain.CemeteryTransaction lastCemeteryTransaction, CemeteryTransactionDto cemeteryTransactionDto)
         {
-            if (lastPlotTransaction != null)
+            if (lastCemeteryTransaction != null)
             {
-                if (lastPlotTransaction.Deceased1Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, (int)lastPlotTransaction.Deceased1Id) == null)
+                if (lastCemeteryTransaction.Deceased1Id != null &&
+                    _applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased1Id) == null)
                 {
                     return false;
                 }
 
-                if (lastPlotTransaction.Deceased2Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(plotTransactionDto.ApplicantDtoId, (int)lastPlotTransaction.Deceased2Id) == null)
+                if (lastCemeteryTransaction.Deceased2Id != null &&
+                    _applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased2Id) == null)
                 {
                     return false;
                 }
 
-                plotTransactionDto.DeceasedDto1Id = lastPlotTransaction.Deceased1Id;
+                cemeteryTransactionDto.DeceasedDto1Id = lastCemeteryTransaction.Deceased1Id;
 
-                plotTransactionDto.DeceasedDto1Id = lastPlotTransaction.Deceased2Id;
+                cemeteryTransactionDto.DeceasedDto1Id = lastCemeteryTransaction.Deceased2Id;
             }
 
             return true;

@@ -7,9 +7,9 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class PlotTransactionsInfoViewModel
+    public class CemeteryTransactionsInfoViewModel
     {
-        public CemeteryTransactionDto PlotTransactionDto { get; set; }
+        public CemeteryTransactionDto CemeteryTransactionDto { get; set; }
 
         public string ItemName { get; set; }
 

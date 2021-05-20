@@ -6,7 +6,7 @@ namespace Memorial.ViewModels
     {
         public SiteDto SiteDto { get; set; }
 
-        public PlotAreaDto PlotAreaDto { get; set; }
+        public CemeteryAreaDto CemeteryAreaDto { get; set; }
 
         public PlotDto PlotDto { get; set; }
 

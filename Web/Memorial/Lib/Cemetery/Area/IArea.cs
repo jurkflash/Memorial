@@ -18,23 +18,23 @@ namespace Memorial.Lib.Cemetery
 
         byte GetSiteId();
 
-        Core.Domain.PlotArea GetArea();
+        Core.Domain.CemeteryArea GetArea();
 
-        PlotAreaDto GetAreaDto();
+        CemeteryAreaDto GetAreaDto();
 
-        Core.Domain.PlotArea GetArea(int areaId);
+        Core.Domain.CemeteryArea GetArea(int areaId);
 
-        PlotAreaDto GetAreaDto(int areaId);
+        CemeteryAreaDto GetAreaDto(int areaId);
 
-        IEnumerable<PlotAreaDto> GetAreaDtos();
+        IEnumerable<CemeteryAreaDto> GetAreaDtos();
 
-        IEnumerable<Core.Domain.PlotArea> GetAreaBySite(byte siteId);
+        IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(byte siteId);
 
-        IEnumerable<PlotAreaDto> GetAreaDtosBySite(byte siteId);
+        IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(byte siteId);
 
-        bool Create(PlotAreaDto plotAreaDto);
+        bool Create(CemeteryAreaDto cemeteryAreaDto);
 
-        bool Update(Core.Domain.PlotArea plotArea);
+        bool Update(Core.Domain.CemeteryArea cemeteryArea);
 
         bool Delete(int id);
 

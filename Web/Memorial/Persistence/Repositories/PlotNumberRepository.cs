@@ -17,8 +17,8 @@ namespace Memorial.Persistence.Repositories
             
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
-                                .Include(p => p.Plot.PlotArea)
-                                .Include(p => p.Plot.PlotArea.Site)
+                                .Include(p => p.Plot.CemeteryArea)
+                                .Include(p => p.Plot.CemeteryArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
@@ -28,7 +28,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return plotItem.Plot.PlotArea.Site.Code + "/" + plotItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return plotItem.Plot.CemeteryArea.Site.Code + "/" + plotItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -38,8 +38,8 @@ namespace Memorial.Persistence.Repositories
             
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
-                                .Include(p => p.Plot.PlotArea)
-                                .Include(p => p.Plot.PlotArea.Site)
+                                .Include(p => p.Plot.CemeteryArea)
+                                .Include(p => p.Plot.CemeteryArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
@@ -49,7 +49,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return plotItem.Plot.PlotArea.Site.Code + "/" + plotItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return plotItem.Plot.CemeteryArea.Site.Code + "/" + plotItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -59,8 +59,8 @@ namespace Memorial.Persistence.Repositories
             
             var plotItem = MemorialContext.PlotItems
                                 .Include(p => p.Plot)
-                                .Include(p => p.Plot.PlotArea)
-                                .Include(p => p.Plot.PlotArea.Site)
+                                .Include(p => p.Plot.CemeteryArea)
+                                .Include(p => p.Plot.CemeteryArea.Site)
                                 .Where(p => p.Id == PlotItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
@@ -70,7 +70,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return plotItem.Plot.PlotArea.Site.Code + "/" + plotItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return plotItem.Plot.CemeteryArea.Site.Code + "/" + plotItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

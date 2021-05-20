@@ -10,9 +10,9 @@ namespace Memorial.Lib.Cemetery
     {
         void SetSecondBurial(string AF);
 
-        bool Create(CemeteryTransactionDto plotTransactionDto);
+        bool Create(CemeteryTransactionDto cemeteryTransactionDto);
 
-        bool Update(CemeteryTransactionDto plotTransactionDto);
+        bool Update(CemeteryTransactionDto cemeteryTransactionDto);
 
         bool Delete();
     }

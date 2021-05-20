@@ -9,8 +9,8 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<PlotTracking> GetTrackingByPlotId(int plotId);
 
-        PlotTracking GetTrackingByTransactionAF(string plotTransactionAF);
+        PlotTracking GetTrackingByTransactionAF(string cemeteryTransactionAF);
 
-        PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string plotTransactionAF);
+        PlotTracking GetTrackingByPlotIdAndTransactionAF(int plotId, string cemeteryTransactionAF);
     }
 }

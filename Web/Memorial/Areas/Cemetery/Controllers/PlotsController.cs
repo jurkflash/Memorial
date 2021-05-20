@@ -43,9 +43,9 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Index(byte siteId, int applicantId = 0)
         {
-            var viewModel = new PlotAreaIndexesViewModel()
+            var viewModel = new CemeteryAreaIndexesViewModel()
             {
-                PlotAreaDtos = _area.GetAreaDtosBySite(siteId),
+                CemeteryAreaDtos = _area.GetAreaDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -100,8 +100,8 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 viewModel.PlotDto = _plot.GetPlotDto();
                 viewModel.NumberOfPlacements = _plot.GetNumberOfPlacement();
-                viewModel.PlotAreaDto = _area.GetAreaDto(_plot.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.PlotAreaDto.SiteId);
+                viewModel.CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId());
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.CemeteryAreaDto.SiteId);
 
                 if (_plot.HasApplicant())
                 {

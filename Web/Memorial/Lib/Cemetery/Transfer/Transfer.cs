@@ -85,31 +85,31 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool Create(CemeteryTransactionDto plotTransactionDto)
+        public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            _plot.SetPlot(plotTransactionDto.PlotDtoId);
-            if (_plot.GetApplicantId() == plotTransactionDto.ApplicantDtoId)
+            _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
+            if (_plot.GetApplicantId() == cemeteryTransactionDto.ApplicantDtoId)
                 return false;
 
-            if (!AllowPlotDeceasePairing(_plot, plotTransactionDto.ApplicantDtoId))
+            if (!AllowPlotDeceasePairing(_plot, cemeteryTransactionDto.ApplicantDtoId))
                 return false;
 
-            if (!SetTransactionDeceasedIdBasedOnPlot(plotTransactionDto, plotTransactionDto.PlotDtoId))
+            if (!SetTransactionDeceasedIdBasedOnPlot(cemeteryTransactionDto, cemeteryTransactionDto.PlotDtoId))
                 return false;
 
-            plotTransactionDto.TransferredCemeteryTransactionAF = _tracking.GetLatestFirstTransactionByPlotId(plotTransactionDto.PlotDtoId).CemeteryTransactionAF;
+            cemeteryTransactionDto.TransferredCemeteryTransactionAF = _tracking.GetLatestFirstTransactionByPlotId(cemeteryTransactionDto.PlotDtoId).CemeteryTransactionAF;
 
-            GetTransaction(plotTransactionDto.TransferredCemeteryTransactionAF).DeleteDate = System.DateTime.Now;
+            GetTransaction(cemeteryTransactionDto.TransferredCemeteryTransactionAF).DeleteDate = System.DateTime.Now;
 
-            _tracking.Remove(plotTransactionDto.PlotDtoId, plotTransactionDto.TransferredCemeteryTransactionAF);
+            _tracking.Remove(cemeteryTransactionDto.PlotDtoId, cemeteryTransactionDto.TransferredCemeteryTransactionAF);
 
-            NewNumber(plotTransactionDto.PlotItemId);
+            NewNumber(cemeteryTransactionDto.PlotItemId);
 
-            if (CreateNewTransaction(plotTransactionDto))
+            if (CreateNewTransaction(cemeteryTransactionDto))
             {
-                _plot.SetApplicant(plotTransactionDto.ApplicantDtoId);
+                _plot.SetApplicant(cemeteryTransactionDto.ApplicantDtoId);
 
-                _tracking.Add(plotTransactionDto.PlotDtoId, _AFnumber, plotTransactionDto.ApplicantDtoId, plotTransactionDto.DeceasedDto1Id, plotTransactionDto.DeceasedDto2Id, plotTransactionDto.DeceasedDto3Id);
+                _tracking.Add(cemeteryTransactionDto.PlotDtoId, _AFnumber, cemeteryTransactionDto.ApplicantDtoId, cemeteryTransactionDto.DeceasedDto1Id, cemeteryTransactionDto.DeceasedDto2Id, cemeteryTransactionDto.DeceasedDto3Id);
 
                 _unitOfWork.Complete();
             }
@@ -122,15 +122,15 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool Update(CemeteryTransactionDto plotTransactionDto)
+        public bool Update(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            if (_invoice.GetInvoicesByAF(plotTransactionDto.AF).Any() && plotTransactionDto.Price <
-                _invoice.GetInvoicesByAF(plotTransactionDto.AF).Max(i => i.Amount))
+            if (_invoice.GetInvoicesByAF(cemeteryTransactionDto.AF).Any() && cemeteryTransactionDto.Price <
+                _invoice.GetInvoicesByAF(cemeteryTransactionDto.AF).Max(i => i.Amount))
             {
                 return false;
             }
 
-            UpdateTransaction(plotTransactionDto);
+            UpdateTransaction(cemeteryTransactionDto);
 
             _unitOfWork.Complete();
 

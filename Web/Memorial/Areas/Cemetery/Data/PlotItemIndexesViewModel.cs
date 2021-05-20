@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
+﻿using Memorial.Core.Dtos;
 using PagedList;
 
 namespace Memorial.ViewModels
 {
     public class PlotItemIndexesViewModel
     {
-        public IPagedList<CemeteryTransactionDto> PlotTransactionDtos { get; set; }
+        public IPagedList<CemeteryTransactionDto> CemeteryTransactionDtos { get; set; }
 
         public int PlotItemId { get; set; }
 

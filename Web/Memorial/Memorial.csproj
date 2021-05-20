@@ -787,7 +787,7 @@
     <Compile Include="Core\Domain\Niche.cs" />
     <Compile Include="Core\Domain\Plot.cs" />
     <Compile Include="Core\Domain\Ancestor.cs" />
-    <Compile Include="Core\Domain\PlotArea.cs" />
+    <Compile Include="Core\Domain\CemeteryArea.cs" />
     <Compile Include="Core\Domain\ColumbariumArea.cs" />
     <Compile Include="Core\Domain\PlotType.cs" />
     <Compile Include="Core\Domain\FengShuiMaster.cs" />
@@ -820,7 +820,7 @@
     <Compile Include="Core\Dtos\FuneralCompanyDto.cs" />
     <Compile Include="Core\Dtos\InvoiceDto.cs" />
     <Compile Include="Core\Dtos\PlotDto.cs" />
-    <Compile Include="Core\Dtos\PlotAreaDto.cs" />
+    <Compile Include="Core\Dtos\CemeteryAreaDto.cs" />
     <Compile Include="Core\Dtos\PlotItemDto.cs" />
     <Compile Include="Core\Dtos\PlotLandscapeCompanyDto.cs" />
     <Compile Include="Core\Dtos\CemeteryTransactionDto.cs" />
@@ -878,7 +878,7 @@
     <Compile Include="Core\Repositories\IPlotLandscapeCompanyRepository.cs" />
     <Compile Include="Core\Repositories\IPlotRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTypeRepository.cs" />
-    <Compile Include="Core\Repositories\IPlotAreaRepository.cs" />
+    <Compile Include="Core\Repositories\ICemeteryAreaRepository.cs" />
     <Compile Include="Core\Repositories\IFuneralCompanyRepository.cs" />
     <Compile Include="Core\Repositories\IGenderTypeRepository.cs" />
     <Compile Include="Core\Repositories\IPaymentMethodRepository.cs" />
@@ -2268,6 +2268,10 @@
     <Compile Include="Migrations\202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.designer.cs">
       <DependentUpon>202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105200946073_RenamePlotAreasToCemeteryAreasTable.cs" />
+    <Compile Include="Migrations\202105200946073_RenamePlotAreasToCemeteryAreasTable.designer.cs">
+      <DependentUpon>202105200946073_RenamePlotAreasToCemeteryAreasTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2313,7 +2317,7 @@
     <Compile Include="Persistence\EntityConfigurations\FengShuiMasterConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\PlotTypeConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PlotAreaConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CemeteryAreaConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumCentreConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\NicheConfiguration.cs" />
@@ -2357,7 +2361,7 @@
     <Compile Include="Persistence\Repositories\PlotRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotItemRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotTypeRepository.cs" />
-    <Compile Include="Persistence\Repositories\PlotAreaRepository.cs" />
+    <Compile Include="Persistence\Repositories\CemeteryAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumCentreRepository.cs" />
     <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
@@ -2401,12 +2405,12 @@
     <Compile Include="Areas\Cremation\Data\CremationNewNonOrderReceiptFormViewModel.cs" />
     <Compile Include="Areas\Cremation\Data\CremationNonOrderReceiptsViewModel.cs" />
     <Compile Include="Areas\Navigation\Data\NavigationViewModel.cs" />
-    <Compile Include="Areas\Cemetery\Data\PlotAreaIndexesViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\CemeteryAreaIndexesViewModel.cs" />
     <Compile Include="Areas\Cemetery\Data\PlotIndexesViewModel.cs" />
     <Compile Include="Areas\Cemetery\Data\PlotItemsViewModel.cs" />
     <Compile Include="Areas\Cemetery\Data\PlotItemIndexesViewModel.cs" />
-    <Compile Include="Areas\Cemetery\Data\PlotTransactionsInfoViewModel.cs" />
-    <Compile Include="Areas\Cemetery\Data\PlotTransactionsFormViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\CemeteryTransactionsInfoViewModel.cs" />
+    <Compile Include="Areas\Cemetery\Data\CemeteryTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\ColumbariumCentreIndexesViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\ColumbariumAreaIndexesViewModel.cs" />
     <Compile Include="Areas\Columbarium\Data\NicheIndexesViewModel.cs" />
@@ -3480,6 +3484,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.resx">
       <DependentUpon>202105200434286_RenamePlotTransactionsToCemeteryTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105200946073_RenamePlotAreasToCemeteryAreasTable.resx">
+      <DependentUpon>202105200946073_RenamePlotAreasToCemeteryAreasTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

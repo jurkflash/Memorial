@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.PlotAreaIndexesViewModel
+﻿@model Memorial.ViewModels.CemeteryAreaIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,11 +14,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var plotArea in Model.PlotAreaDtos)
+        @foreach (var cemeteryArea in Model.CemeteryAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotArea.Name, "Plots", new { areaId = plotArea.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
-                <td>@plotArea.Description</td>
+                <td>@Html.ActionLink(cemeteryArea.Name, "Plots", new { areaId = cemeteryArea.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>@cemeteryArea.Description</td>
             </tr>
         }
     </tbody>

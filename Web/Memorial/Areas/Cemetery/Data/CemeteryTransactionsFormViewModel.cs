@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class PlotTransactionsFormViewModel
+    public class CemeteryTransactionsFormViewModel
     {
         public IEnumerable<FuneralCompanyDto> FuneralCompanyDtos { get; set; }
 
@@ -15,7 +11,7 @@ namespace Memorial.ViewModels
 
         public IEnumerable<FengShuiMasterDto> FengShuiMasterDtos { get; set; }
 
-        public CemeteryTransactionDto PlotTransactionDto { get; set; }
+        public CemeteryTransactionDto CemeteryTransactionDto { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
 

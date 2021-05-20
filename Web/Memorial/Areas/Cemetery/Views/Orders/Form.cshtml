@@ -1,23 +1,23 @@
-﻿@model Memorial.ViewModels.PlotTransactionsFormViewModel
+﻿@model Memorial.ViewModels.CemeteryTransactionsFormViewModel
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.PlotTransactionDto.ApplicantDtoId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.CemeteryTransactionDto.ApplicantDtoId });}
 
 <h2>Form</h2>
 
 @using (Html.BeginForm("Save", "Orders", new { area = "Plot" }))
 {
-    @Model.PlotTransactionDto.AF
+    @Model.CemeteryTransactionDto.AF
     <div class="form-group row">
         <div class="col-md-3">
             Deceased
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.PlotTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.DeceasedDto1Id)
+            @Html.DropDownListFor(c => c.CemeteryTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.DeceasedDto1Id)
         </div>
     </div>
     <div class="form-group row">
@@ -25,8 +25,8 @@
             Price
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.PlotTransactionDto.Price, new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.Price)
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Price, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Price)
         </div>
     </div>
     <div class="form-group row">
@@ -34,8 +34,8 @@
             Maintenance
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.PlotTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.Maintenance)
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Maintenance)
         </div>
     </div>
     <div class="form-group row">
@@ -43,8 +43,8 @@
             Dig
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.PlotTransactionDto.Dig, new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.Dig)
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Dig, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Dig)
         </div>
     </div>
     <div class="form-group row">
@@ -52,8 +52,8 @@
             Brick
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.PlotTransactionDto.Brick, new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.Brick)
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Brick, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Brick)
         </div>
     </div>
     <div class="form-group row">
@@ -61,8 +61,8 @@
             Wall
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.PlotTransactionDto.Wall, new { @class = "form-control", @required = "required" })
-            @Html.ValidationMessageFor(c => c.PlotTransactionDto.Wall)
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Wall, new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Wall)
         </div>
     </div>
     <div class="form-group row">
@@ -70,13 +70,13 @@
             Remark
         </div>
         <div class="col-md-6">
-            @Html.TextAreaFor(c => c.PlotTransactionDto.Remark, new { @class = "form-control" })
+            @Html.TextAreaFor(c => c.CemeteryTransactionDto.Remark, new { @class = "form-control" })
         </div>
     </div>
-    @Html.HiddenFor(c => c.PlotTransactionDto.PlotItemId)
-    @Html.HiddenFor(c => c.PlotTransactionDto.PlotDtoId)
-    @Html.HiddenFor(c => c.PlotTransactionDto.ApplicantDtoId)
-    @Html.HiddenFor(c => c.PlotTransactionDto.AF)
+    @Html.HiddenFor(c => c.CemeteryTransactionDto.PlotItemId)
+    @Html.HiddenFor(c => c.CemeteryTransactionDto.PlotDtoId)
+    @Html.HiddenFor(c => c.CemeteryTransactionDto.ApplicantDtoId)
+    @Html.HiddenFor(c => c.CemeteryTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
@@ -102,27 +102,27 @@
                 return false;
             }, "At least 0");
 
-            $("#PlotTransactionDto_Price").rules("add",
+            $("#CemeteryTransactionDto_Price").rules("add",
                 {
                     AtLeastOne: true
                 });
 
-            $("#PlotTransactionDto_Maintenance").rules("add",
+            $("#CemeteryTransactionDto_Maintenance").rules("add",
                 {
                     AtLeastZero: true
                 });
 
-            $("#PlotTransactionDto_Dig").rules("add",
+            $("#CemeteryTransactionDto_Dig").rules("add",
                 {
                     AtLeastZero: true
                 });
 
-            $("#PlotTransactionDto_Brick").rules("add",
+            $("#CemeteryTransactionDto_Brick").rules("add",
                 {
                     AtLeastZero: true
                 });
 
-            $("#PlotTransactionDto_Wall").rules("add",
+            $("#CemeteryTransactionDto_Wall").rules("add",
                 {
                     AtLeastZero: true
                 });

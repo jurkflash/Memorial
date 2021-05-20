@@ -12,9 +12,9 @@ namespace Memorial.Lib.Cemetery
 
         bool AllowPlotDeceasePairing(IPlot plot, int applicantId);
 
-        bool Create(CemeteryTransactionDto plotTransactionDto);
+        bool Create(CemeteryTransactionDto cemeteryTransactionDto);
 
-        bool Update(CemeteryTransactionDto plotTransactionDto);
+        bool Update(CemeteryTransactionDto cemeteryTransactionDto);
 
         bool Delete();
     }

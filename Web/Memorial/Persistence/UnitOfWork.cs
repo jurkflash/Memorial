@@ -54,7 +54,7 @@ namespace Memorial.Persistence
             SpaceNumbers = new SpaceNumberRepository(_context);
             SpaceTransactions = new SpaceTransactionRepository(_context);
 
-            PlotAreas = new PlotAreaRepository(_context);
+            CemeteryAreas = new CemeteryAreaRepository(_context);
             PlotTypes = new PlotTypeRepository(_context);
             Plots = new PlotRepository(_context);
             PlotItems = new PlotItemRepository(_context);
@@ -98,7 +98,7 @@ namespace Memorial.Persistence
         public IColumbariumTrackingRepository ColumbariumTrackings { get; private set; }
         public IColumbariumTransactionRepository ColumbariumTransactions { get; private set; }
 
-        public IPlotAreaRepository PlotAreas { get; private set; }
+        public ICemeteryAreaRepository CemeteryAreas { get; private set; }
         public IPlotTypeRepository PlotTypes { get; private set; }
         public IPlotRepository Plots { get; private set; }
         public IPlotItemRepository PlotItems { get; private set; }

@@ -23,7 +23,7 @@ namespace Memorial.Core.Dtos
 
         public int PlotTypeId { get; set; }
 
-        public int PlotAreaId { get; set; }
+        public int CemeteryAreaId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

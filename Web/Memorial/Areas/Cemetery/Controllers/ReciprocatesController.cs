@@ -39,7 +39,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 PlotItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
-                PlotTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
+                CemeteryTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
             if (!_plot.HasApplicant() || _plot.HasCleared())
@@ -59,20 +59,20 @@ namespace Memorial.Areas.Cemetery.Controllers
             _reciprocate.SetTransaction(AF);
             _plot.SetPlot(_reciprocate.GetTransactionPlotId());
 
-            var viewModel = new PlotTransactionsInfoViewModel()
+            var viewModel = new CemeteryTransactionsInfoViewModel()
             {
                 ApplicantId = _reciprocate.GetTransactionApplicantId(),
                 DeceasedId = _reciprocate.GetTransactionDeceased1Id(),
                 PlotDto = _plot.GetPlotDto(),
                 ItemName = _reciprocate.GetItemName(),
-                PlotTransactionDto = _reciprocate.GetTransactionDto()
+                CemeteryTransactionDto = _reciprocate.GetTransactionDto()
             };
             return View(viewModel);
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, string AF = null)
         {
-            var viewModel = new PlotTransactionsFormViewModel()
+            var viewModel = new CemeteryTransactionsFormViewModel()
             {
                 FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos()
             };
@@ -81,31 +81,31 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 _plot.SetPlot(id);
 
-                var plotTransactionDto = new CemeteryTransactionDto();
-                plotTransactionDto.PlotDtoId = id;
-                plotTransactionDto.PlotItemId = itemId;
-                viewModel.PlotTransactionDto = plotTransactionDto;
-                viewModel.PlotTransactionDto.Price = _reciprocate.GetItemPrice();
+                var cemeteryTransactionDto = new CemeteryTransactionDto();
+                cemeteryTransactionDto.PlotDtoId = id;
+                cemeteryTransactionDto.PlotItemId = itemId;
+                viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
+                viewModel.CemeteryTransactionDto.Price = _reciprocate.GetItemPrice();
             }
             else
             {
                 _reciprocate.SetTransaction(AF);
-                viewModel.PlotTransactionDto = _reciprocate.GetTransactionDto(AF);
+                viewModel.CemeteryTransactionDto = _reciprocate.GetTransactionDto(AF);
             }
 
             return View(viewModel);
         }
 
-        public ActionResult Save(PlotTransactionsFormViewModel viewModel)
+        public ActionResult Save(CemeteryTransactionsFormViewModel viewModel)
         {
-            if (viewModel.PlotTransactionDto.AF == null)
+            if (viewModel.CemeteryTransactionDto.AF == null)
             {
-                if (_reciprocate.Create(viewModel.PlotTransactionDto))
+                if (_reciprocate.Create(viewModel.CemeteryTransactionDto))
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.PlotTransactionDto.PlotItemId,
-                        id = viewModel.PlotTransactionDto.PlotDtoId
+                        itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                        id = viewModel.CemeteryTransactionDto.PlotDtoId
                     });
                 }
                 else
@@ -115,9 +115,9 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
             else
             {
-                if (!_reciprocate.Update(viewModel.PlotTransactionDto))
+                if (!_reciprocate.Update(viewModel.CemeteryTransactionDto))
                 {
-                    ModelState.AddModelError("PlotTransactionDto.Price", "* Exceed receipt amount");
+                    ModelState.AddModelError("CemeteryTransactionDto.Price", "* Exceed receipt amount");
 
                     return FormForResubmit(viewModel);
                 }
@@ -125,12 +125,12 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.PlotTransactionDto.PlotItemId,
-                id = viewModel.PlotTransactionDto.PlotDtoId
+                itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                id = viewModel.CemeteryTransactionDto.PlotDtoId
             });
         }
 
-        public ActionResult FormForResubmit(PlotTransactionsFormViewModel viewModel)
+        public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
             viewModel.FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos();
 

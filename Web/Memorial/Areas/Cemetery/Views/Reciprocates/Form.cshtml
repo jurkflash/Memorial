@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.PlotTransactionsFormViewModel
+﻿@model Memorial.ViewModels.CemeteryTransactionsFormViewModel
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,13 +8,13 @@
 
 @using (Html.BeginForm("Save", "Reciprocates", new { area = "Plot" }))
 {
-    @Model.PlotTransactionDto.AF
+    @Model.CemeteryTransactionDto.AF
     <div class="form-group row">
         <div class="col-md-3">
             FengShui Master
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(pt => pt.PlotTransactionDto.FengShuiMasterId, new SelectList(Model.FengShuiMasterDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(pt => pt.CemeteryTransactionDto.FengShuiMasterId, new SelectList(Model.FengShuiMasterDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -22,7 +22,7 @@
             Amount
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(pt => pt.PlotTransactionDto.Price, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(pt => pt.CemeteryTransactionDto.Price, new { @class = "form-control", @required = "required" })
         </div>
     </div>
     <div class="form-group row">
@@ -30,10 +30,10 @@
             Remark
         </div>
         <div class="col-md-6">
-            @Html.TextAreaFor(pt => pt.PlotTransactionDto.Remark, new { @class = "form-control" })
+            @Html.TextAreaFor(pt => pt.CemeteryTransactionDto.Remark, new { @class = "form-control" })
         </div>
     </div>
 
-    @Html.HiddenFor(pt => pt.PlotTransactionDto.PlotItemId)
+    @Html.HiddenFor(pt => pt.CemeteryTransactionDto.PlotItemId)
     <button type="submit" class="btn btn-primary">Save</button>
 }

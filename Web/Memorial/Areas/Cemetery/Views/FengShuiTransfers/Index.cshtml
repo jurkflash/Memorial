@@ -38,26 +38,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var plotTransaction in Model.PlotTransactionDtos)
+        @foreach (var cemeteryTransaction in Model.CemeteryTransactionDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotTransaction.AF, "Info", new { AF = plotTransaction.AF }, new { target = "PlotTransactionInfo" })</td>
-                <td>@plotTransaction.PlotDto.Name</td>
-                <td>@plotTransaction.PlotDto.ApplicantDto.Name &nbsp; @plotTransaction.PlotDto.ApplicantDto.Name2</td>
-                <td>@plotTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = plotTransaction.AF, area = "Plot" })</td>
-                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = plotTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>@Html.ActionLink(cemeteryTransaction.AF, "Info", new { AF = cemeteryTransaction.AF }, new { target = "CemeteryTransactionInfo" })</td>
+                <td>@cemeteryTransaction.PlotDto.Name</td>
+                <td>@cemeteryTransaction.PlotDto.ApplicantDto.Name &nbsp; @cemeteryTransaction.PlotDto.ApplicantDto.Name2</td>
+                <td>@cemeteryTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = cemeteryTransaction.AF, area = "Plot" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = plotTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
+                    new { AF = cemeteryTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
-Page @(Model.PlotTransactionDtos.PageCount < Model.PlotTransactionDtos.PageNumber ? 0 : Model.PlotTransactionDtos.PageNumber) of @Model.PlotTransactionDtos.PageCount
-@Html.PagedListPager(Model.PlotTransactionDtos, page => Url.Action("Index",
+Page @(Model.CemeteryTransactionDtos.PageCount < Model.CemeteryTransactionDtos.PageNumber ? 0 : Model.CemeteryTransactionDtos.PageNumber) of @Model.CemeteryTransactionDtos.PageCount
+@Html.PagedListPager(Model.CemeteryTransactionDtos, page => Url.Action("Index",
     new { page, id = Model.PlotId.ToString(), itemId = Model.PlotItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

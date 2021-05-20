@@ -10,6 +10,6 @@ namespace Memorial.Lib.Cemetery
     {
         bool SetPlotApplicantDeceaseds(int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null);
 
-        bool RollbackPlotApplicantDeceaseds(string plotTransactionAF, int plotId);
+        bool RollbackPlotApplicantDeceaseds(string cemeteryTransactionAF, int plotId);
     }
 }

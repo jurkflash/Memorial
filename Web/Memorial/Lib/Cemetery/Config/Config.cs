@@ -30,12 +30,12 @@ namespace Memorial.Lib.Cemetery
             _plot = plot;
         }
 
-        public PlotAreaDto GetPlotAreaDto(int id)
+        public CemeteryAreaDto GetCemeteryAreaDto(int id)
         {
             return _area.GetAreaDto(id);
         }
 
-        public IEnumerable<PlotAreaDto> GetPlotAreaDtos()
+        public IEnumerable<CemeteryAreaDto> GetCemeteryAreaDtos()
         {
             return _area.GetAreaDtos();
         }
@@ -85,7 +85,7 @@ namespace Memorial.Lib.Cemetery
             var plotInDB = _plot.GetPlot(plotDto.Id);
 
             if ((plotInDB.PlotTypeId != plotDto.PlotTypeDtoId
-                || plotInDB.PlotAreaId != plotDto.PlotAreaId)
+                || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaId)
                 && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -168,9 +168,9 @@ namespace Memorial.Lib.Cemetery
         }
 
 
-        public bool CreateArea(PlotAreaDto plotAreaDto)
+        public bool CreateArea(CemeteryAreaDto cemeteryAreaDto)
         {
-            if (_area.Create(plotAreaDto))
+            if (_area.Create(cemeteryAreaDto))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -179,19 +179,19 @@ namespace Memorial.Lib.Cemetery
             return false;
         }
 
-        public bool UpdateArea(PlotAreaDto plotAreaDto)
+        public bool UpdateArea(CemeteryAreaDto cemeteryAreaDto)
         {
-            var plotAreaInDB = _area.GetArea(plotAreaDto.Id);
+            var cemeteryAreaInDB = _area.GetArea(cemeteryAreaDto.Id);
 
-            if (plotAreaInDB.SiteId != plotAreaDto.SiteId
-                && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.PlotAreaId == plotAreaInDB.Id && ct.DeleteDate == null).Any())
+            if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteId
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id && ct.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(plotAreaDto, plotAreaInDB);
+            Mapper.Map(cemeteryAreaDto, cemeteryAreaInDB);
 
-            if (_area.Update(plotAreaInDB))
+            if (_area.Update(cemeteryAreaInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -202,7 +202,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool DeleteArea(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.PlotAreaId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == id && ct.DeleteDate == null).Any())
             {
                 return false;
             }

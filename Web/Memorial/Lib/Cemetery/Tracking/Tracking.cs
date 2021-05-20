@@ -12,29 +12,29 @@ namespace Memorial.Lib.Cemetery
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(int plotId, string plotTransactionAF)
+        public void Add(int plotId, string cemeteryTransactionAF)
         {
-            Create(plotId, plotTransactionAF);
+            Create(plotId, cemeteryTransactionAF);
         }
 
-        public void Add(int plotId, string plotTransactionAF, int applicantId)
+        public void Add(int plotId, string cemeteryTransactionAF, int applicantId)
         {
-            Create(plotId, plotTransactionAF, applicantId);
+            Create(plotId, cemeteryTransactionAF, applicantId);
         }
 
-        public void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id)
+        public void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id)
         {
-            Create(plotId, plotTransactionAF, applicantId, deceased1Id);
+            Create(plotId, cemeteryTransactionAF, applicantId, deceased1Id);
         }
 
-        public void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
+        public void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id)
         {
-            Create(plotId, plotTransactionAF, applicantId, deceased1Id, deceased2Id);
+            Create(plotId, cemeteryTransactionAF, applicantId, deceased1Id, deceased2Id);
         }
 
-        public void Add(int plotId, string plotTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? deceased3Id)
+        public void Add(int plotId, string cemeteryTransactionAF, int applicantId, int? deceased1Id, int? deceased2Id, int? deceased3Id)
         {
-            Create(plotId, plotTransactionAF, applicantId, deceased1Id, deceased2Id, deceased3Id);
+            Create(plotId, cemeteryTransactionAF, applicantId, deceased1Id, deceased2Id, deceased3Id);
         }
 
         public void AddDeceased(int plotId, int deceasedId)
@@ -59,12 +59,12 @@ namespace Memorial.Lib.Cemetery
             }
         }
 
-        private void Create(int plotId, string plotTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null, int? deceased3Id = null)
+        private void Create(int plotId, string cemeteryTransactionAF, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null, int? deceased3Id = null)
         {
             _unitOfWork.PlotTrackings.Add(new Core.Domain.PlotTracking()
             {
                 PlotId = plotId,
-                CemeteryTransactionAF = plotTransactionAF,
+                CemeteryTransactionAF = cemeteryTransactionAF,
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
@@ -74,9 +74,9 @@ namespace Memorial.Lib.Cemetery
 
         }
 
-        public void Change(int plotId, string plotTransactionAF, int? applicantId, int? deceased1Id)
+        public void Change(int plotId, string cemeteryTransactionAF, int? applicantId, int? deceased1Id)
         {
-            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, cemeteryTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -85,9 +85,9 @@ namespace Memorial.Lib.Cemetery
             tracking.ActionDate = System.DateTime.Now;
         }
 
-        public void ChangeDeceased(int plotId, string plotTransactionAF, int oldDeceasedId, int newDeceasedId)
+        public void ChangeDeceased(int plotId, string cemeteryTransactionAF, int oldDeceasedId, int newDeceasedId)
         {
-            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, cemeteryTransactionAF);
 
             if(tracking.Deceased1Id == oldDeceasedId)
             {
@@ -109,17 +109,17 @@ namespace Memorial.Lib.Cemetery
             tracking.ActionDate = System.DateTime.Now;
         }
 
-        public void Remove(int plotId, string plotTransactionAF)
+        public void Remove(int plotId, string cemeteryTransactionAF)
         {
-            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, cemeteryTransactionAF);
 
             _unitOfWork.PlotTrackings.Remove(tracking);
 
         }
 
-        public void RemoveDeceased(int plotId, string plotTransactionAF, int deceasedId)
+        public void RemoveDeceased(int plotId, string cemeteryTransactionAF, int deceasedId)
         {
-            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, plotTransactionAF);
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByPlotIdAndTransactionAF(plotId, cemeteryTransactionAF);
 
             if (tracking.Deceased1Id == deceasedId)
             {
@@ -149,21 +149,21 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.PlotTrackings.GetTrackingByPlotId(plotId);
         }
 
-        public Core.Domain.PlotTracking GetTrackingByTransactionAF(string plotTransactionAF)
+        public Core.Domain.PlotTracking GetTrackingByTransactionAF(string cemeteryTransactionAF)
         {
-            return _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(plotTransactionAF);
+            return _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(cemeteryTransactionAF);
         }
 
-        public void Delete(string plotTransactionAF)
+        public void Delete(string cemeteryTransactionAF)
         {
-            var tracking = _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(plotTransactionAF);
+            var tracking = _unitOfWork.PlotTrackings.GetTrackingByTransactionAF(cemeteryTransactionAF);
             if (tracking != null)
                 _unitOfWork.PlotTrackings.Remove(tracking);
         }
 
-        public bool IsLatestTransaction(int plotId, string plotTransactionAF)
+        public bool IsLatestTransaction(int plotId, string cemeteryTransactionAF)
         {
-            return GetLatestFirstTransactionByPlotId(plotId).CemeteryTransactionAF == plotTransactionAF;
+            return GetLatestFirstTransactionByPlotId(plotId).CemeteryTransactionAF == cemeteryTransactionAF;
         }
     }
 }

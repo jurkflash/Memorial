@@ -42,9 +42,9 @@ namespace Memorial.Core.Domain
 
         public byte PlotTypeId { get; set; }
 
-        public PlotArea PlotArea { get; set; }
+        public CemeteryArea CemeteryArea { get; set; }
 
-        public int PlotAreaId { get; set; }
+        public int CemeteryAreaId { get; set; }
 
         public Applicant Applicant { get; set; }
 
