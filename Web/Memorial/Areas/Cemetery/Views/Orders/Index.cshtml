@@ -10,11 +10,11 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Cemeteries" })
+        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Cemetery" })
     </p>
 }
 
-@using (Html.BeginForm("Index", "Orders", new { area = "Cemeteries" }))
+@using (Html.BeginForm("Index", "Orders", new { area = "Cemetery" }))
 {
     <p>
         Find by Name: @Html.TextBox("filter")
@@ -57,11 +57,11 @@
                 <td>@cemeteryTransaction.Brick</td>
                 <td>@cemeteryTransaction.Wall</td>
                 <td>@cemeteryTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cemeteryTransaction.AF, area = "Cemeteries" })</td>
-                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Cemeteries" })</td>
+                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cemeteryTransaction.AF, area = "Cemetery" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Cemetery" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = cemeteryTransaction.AF, itemId = Model.CemeteryItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Cemeteries" },
+                    new { AF = cemeteryTransaction.AF, itemId = Model.CemeteryItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Cemetery" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>

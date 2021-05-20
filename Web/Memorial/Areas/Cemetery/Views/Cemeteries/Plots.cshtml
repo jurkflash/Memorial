@@ -7,7 +7,7 @@
 
 <h2>Plot</h2>
 
-@using (Html.BeginForm("Plots", "Plots", new { area = "Cemeteries" }))
+@using (Html.BeginForm("Plots", "Plots", new { area = "Cemetery" }))
 {
     <p>
         Find by Name: @Html.TextBox("filter")
@@ -33,7 +33,7 @@
         @foreach (var plotDto in Model.PlotDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId, area = "Cemeteries" })</td>
+                <td>@Html.ActionLink(plotDto.Name, "Items", new { id = plotDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" })</td>
                 <td>@plotDto.Description</td>
                 <td>@plotDto.Size</td>
                 <td>@plotDto.Price</td>
