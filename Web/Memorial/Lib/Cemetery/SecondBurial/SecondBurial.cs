@@ -75,7 +75,7 @@ namespace Memorial.Lib.Cemetery
                     return false;
             }
 
-            NewNumber(cemeteryTransactionDto.PlotItemId);
+            NewNumber(cemeteryTransactionDto.CemeteryItemId);
 
             if (CreateNewTransaction(cemeteryTransactionDto))
             {

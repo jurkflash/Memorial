@@ -11,7 +11,7 @@ namespace Memorial.Lib.Cemetery
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.PlotItem _item;
+        private Core.Domain.CemeteryItem _item;
         private const string _singleOrder = "CYSP1";
         private const float _singleOrderPrice = 0;
 
@@ -73,32 +73,32 @@ namespace Memorial.Lib.Cemetery
 
         public void SetItem(int id)
         {
-            _item = _unitOfWork.PlotItems.GetActive(id);
+            _item = _unitOfWork.CemeteryItems.GetActive(id);
         }
 
-        public Core.Domain.PlotItem GetItem()
+        public Core.Domain.CemeteryItem GetItem()
         {
             return _item;
         }
 
-        public PlotItemDto GetItemDto()
+        public CemeteryItemDto GetItemDto()
         {
-            return Mapper.Map<Core.Domain.PlotItem, PlotItemDto>(GetItem());
+            return Mapper.Map<Core.Domain.CemeteryItem, CemeteryItemDto>(GetItem());
         }
 
-        public Core.Domain.PlotItem GetItem(int id)
+        public Core.Domain.CemeteryItem GetItem(int id)
         {
-            return _unitOfWork.PlotItems.GetActive(id);
+            return _unitOfWork.CemeteryItems.GetActive(id);
         }
 
-        public PlotItemDto GetItemDto(int id)
+        public CemeteryItemDto GetItemDto(int id)
         {
-            return Mapper.Map<Core.Domain.PlotItem, PlotItemDto>(GetItem(id));
+            return Mapper.Map<Core.Domain.CemeteryItem, CemeteryItemDto>(GetItem(id));
         }
 
-        public IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId)
+        public IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.PlotItem>, IEnumerable<PlotItemDto>>(_unitOfWork.PlotItems.GetByPlot(plotId));
+            return Mapper.Map<IEnumerable<Core.Domain.CemeteryItem>, IEnumerable<CemeteryItemDto>>(_unitOfWork.CemeteryItems.GetByPlot(plotId));
         }
 
         public int GetId()
@@ -131,28 +131,28 @@ namespace Memorial.Lib.Cemetery
             return _item.isOrder;
         }
 
-        public bool Create(PlotItemDto plotItemDto)
+        public bool Create(CemeteryItemDto cemeteryItemDto)
         {
-            _item = new Core.Domain.PlotItem();
-            Mapper.Map(plotItemDto, _item);
+            _item = new Core.Domain.CemeteryItem();
+            Mapper.Map(cemeteryItemDto, _item);
 
             Create(_item);
 
             return true;
         }
 
-        private bool Create(Core.Domain.PlotItem plotItem)
+        private bool Create(Core.Domain.CemeteryItem cemeteryItem)
         {
-            plotItem.CreateDate = DateTime.Now;
+            cemeteryItem.CreateDate = DateTime.Now;
 
-            _unitOfWork.PlotItems.Add(plotItem);
+            _unitOfWork.CemeteryItems.Add(cemeteryItem);
 
             return true;
         }
 
-        public bool Update(Core.Domain.PlotItem plotItem)
+        public bool Update(Core.Domain.CemeteryItem cemeteryItem)
         {
-            plotItem.ModifyDate = DateTime.Now;
+            cemeteryItem.ModifyDate = DateTime.Now;
 
             return true;
         }
@@ -188,7 +188,7 @@ namespace Memorial.Lib.Cemetery
 
         private void Single(int plotId)
         {
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _singleOrder,
                 Price = _singleOrderPrice,
@@ -198,7 +198,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _orderSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _singleClearance,
                 Price = _singleClearancePrice,
@@ -211,7 +211,7 @@ namespace Memorial.Lib.Cemetery
 
         private void Double(int plotId)
         {
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _doubleOrder,
                 Price = _doubleOrderPrice,
@@ -221,7 +221,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _orderSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _doubleClearance,
                 Price = _doubleClearancePrice,
@@ -231,7 +231,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _clearanceSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _doubleSecondBurial,
                 Price = _doubleSecondBurialPrice,
@@ -244,7 +244,7 @@ namespace Memorial.Lib.Cemetery
 
         private void NewDouble(int plotId)
         {
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _newDoubleOrder,
                 Price = _newDoubleOrderPrice,
@@ -254,7 +254,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _orderSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _newDoubleClearance,
                 Price = _newDoubleClearancePrice,
@@ -264,7 +264,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _clearanceSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _newDoubleSecondBurial,
                 Price = _newDoubleSecondBurialPrice,
@@ -277,7 +277,7 @@ namespace Memorial.Lib.Cemetery
 
         private void FengShui(int plotId)
         {
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _fengShuiOrder,
                 Price = _fengShuiOrderPrice,
@@ -287,7 +287,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _orderSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _fengShuiClearance,
                 Price = _fengShuiClearancePrice,
@@ -297,7 +297,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _clearanceSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _fengShuiSecondBurial,
                 Price = _fengShuiSecondBurialPrice,
@@ -307,7 +307,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _secondBurialSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _fengShuiTransfer,
                 Price = _fengShuiTransferPrice,
@@ -317,7 +317,7 @@ namespace Memorial.Lib.Cemetery
                 SystemCode = _fengShuiTransferSystemCode
             });
 
-            Create(new Core.Domain.PlotItem()
+            Create(new Core.Domain.CemeteryItem()
             {
                 Code = _fengShuiReciprocate,
                 Price = _fengShuiReciprocatePrice,

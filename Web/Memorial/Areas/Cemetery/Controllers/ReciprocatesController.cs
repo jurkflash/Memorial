@@ -34,9 +34,9 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             _plot.SetPlot(id);
 
-            var viewModel = new PlotItemIndexesViewModel()
+            var viewModel = new CemeteryItemIndexesViewModel()
             {
-                PlotItemId = itemId,
+                CemeteryItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
@@ -83,7 +83,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
                 var cemeteryTransactionDto = new CemeteryTransactionDto();
                 cemeteryTransactionDto.PlotDtoId = id;
-                cemeteryTransactionDto.PlotItemId = itemId;
+                cemeteryTransactionDto.CemeteryItemId = itemId;
                 viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
                 viewModel.CemeteryTransactionDto.Price = _reciprocate.GetItemPrice();
             }
@@ -104,7 +104,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
                         id = viewModel.CemeteryTransactionDto.PlotDtoId
                     });
                 }
@@ -125,7 +125,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
                 id = viewModel.CemeteryTransactionDto.PlotDtoId
             });
         }

@@ -41,10 +41,10 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             _plot.SetPlot(id);
 
-            var viewModel = new PlotItemIndexesViewModel()
+            var viewModel = new CemeteryItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                PlotItemId = itemId,
+                CemeteryItemId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
@@ -128,7 +128,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
                         id = viewModel.CemeteryTransactionDto.PlotDtoId,
                         applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
                     });
@@ -154,7 +154,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.CemeteryTransactionDto.PlotItemId,
+                itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
                 id = viewModel.CemeteryTransactionDto.PlotDtoId,
                 applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
             });

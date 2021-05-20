@@ -63,7 +63,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            NewNumber(cemeteryTransactionDto.PlotItemId);
+            NewNumber(cemeteryTransactionDto.CemeteryItemId);
 
             _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
             cemeteryTransactionDto.ApplicantDtoId = (int)_plot.GetApplicantId();

@@ -81,9 +81,9 @@ namespace Memorial.Areas.Cemetery.Controllers
         public ActionResult Items(int id, int applicantId)
         {
             _plot.SetPlot(id);
-            var viewModel = new PlotItemsViewModel()
+            var viewModel = new CemeteryItemsViewModel()
             {
-                PlotItemDtos = _item.GetItemDtosByPlot(id),
+                CemeteryItemDtos = _item.GetItemDtosByPlot(id),
                 PlotDto = _plot.GetPlotDto(),
                 ApplicantId = applicantId
             };

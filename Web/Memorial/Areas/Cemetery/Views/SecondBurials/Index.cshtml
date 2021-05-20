@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.PlotItemIndexesViewModel
+﻿@model Memorial.ViewModels.CemeteryItemIndexesViewModel
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
@@ -10,7 +10,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.PlotItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
+        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Plot" })
     </p>
 }
 
@@ -18,7 +18,7 @@
 {
     <p>
         Find by Name: @Html.TextBox("filter")
-        @Html.Hidden("itemId", Model.PlotItemId.ToString())
+        @Html.Hidden("itemId", Model.CemeteryItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         @Html.Hidden("id", Model.PlotId.ToString())
         <input type="submit" value="Search" class="btn btn-secondary" />
@@ -53,7 +53,7 @@
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Plot" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = cemeteryTransaction.AF, itemId = Model.PlotItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
+                    new { AF = cemeteryTransaction.AF, itemId = Model.CemeteryItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Plot" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>
@@ -62,6 +62,6 @@
 </table>
 Page @(Model.CemeteryTransactionDtos.PageCount < Model.CemeteryTransactionDtos.PageNumber ? 0 : Model.CemeteryTransactionDtos.PageNumber) of @Model.CemeteryTransactionDtos.PageCount
 @Html.PagedListPager(Model.CemeteryTransactionDtos, page => Url.Action("Index",
-    new { page, id = Model.PlotId.ToString(), itemId = Model.PlotItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, id = Model.PlotId.ToString(), itemId = Model.CemeteryItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

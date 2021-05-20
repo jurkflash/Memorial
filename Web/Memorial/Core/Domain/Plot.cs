@@ -15,7 +15,7 @@ namespace Memorial.Core.Domain
 
             PlotTrackings = new HashSet<PlotTracking>();
 
-            PlotItems = new HashSet<PlotItem>();
+            CemeteryItems = new HashSet<CemeteryItem>();
         }
 
         public int Id { get; set; }
@@ -66,6 +66,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<PlotTracking> PlotTrackings { get; set; }
 
-        public ICollection<PlotItem> PlotItems { get; set; }
+        public ICollection<CemeteryItem> CemeteryItems { get; set; }
     }
 }

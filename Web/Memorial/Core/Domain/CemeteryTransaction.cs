@@ -30,9 +30,9 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public PlotItem PlotItem { get; set; }
+        public CemeteryItem CemeteryItem { get; set; }
 
-        public int PlotItemId { get; set; }
+        public int CemeteryItemId { get; set; }
 
         public Plot Plot { get; set; }
 

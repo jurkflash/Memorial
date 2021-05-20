@@ -50,12 +50,12 @@ namespace Memorial.Lib.Cemetery
             return _plot.GetPlotDtosByAreaId(areaId, filter);
         }
 
-        public PlotItemDto GetItemDto(int id)
+        public CemeteryItemDto GetItemDto(int id)
         {
             return _item.GetItemDto(id);
         }
 
-        public IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId)
+        public IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId)
         {
             return _item.GetItemDtosByPlot(plotId);
         }
@@ -118,9 +118,9 @@ namespace Memorial.Lib.Cemetery
             return false;
         }
 
-        public bool CreateItem(PlotItemDto plotItemDto)
+        public bool CreateItem(CemeteryItemDto cemeteryItemDto)
         {
-            if (_item.Create(plotItemDto))
+            if (_item.Create(cemeteryItemDto))
             {
                 _unitOfWork.Complete();
 
@@ -130,19 +130,19 @@ namespace Memorial.Lib.Cemetery
             return false;
         }
 
-        public bool UpdateItem(PlotItemDto plotItemDto)
+        public bool UpdateItem(CemeteryItemDto cemeteryItemDto)
         {
-            var plotItemInDB = _item.GetItem(plotItemDto.Id);
+            var cemeteryItemInDB = _item.GetItem(cemeteryItemDto.Id);
 
-            if ((plotItemInDB.isOrder != plotItemDto.isOrder)
-                && _unitOfWork.CemeteryTransactions.Find(pt => pt.PlotItemId == plotItemDto.Id && pt.DeleteDate == null).Any())
+            if ((cemeteryItemInDB.isOrder != cemeteryItemDto.isOrder)
+                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id && pt.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(plotItemDto, plotItemInDB);
+            Mapper.Map(cemeteryItemDto, cemeteryItemInDB);
 
-            if (_item.Update(plotItemInDB))
+            if (_item.Update(cemeteryItemInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -153,7 +153,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool DeleteItem(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(pt => pt.PlotItemId == id && pt.DeleteDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == id && pt.DeleteDate == null).Any())
             {
                 return false;
             }

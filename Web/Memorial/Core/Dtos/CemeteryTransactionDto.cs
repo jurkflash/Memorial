@@ -9,9 +9,9 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public CemeteryTransactionDto(int plotItemId, int plotDtoId, int applicantDtoId)
+        public CemeteryTransactionDto(int cemeteryItemId, int plotDtoId, int applicantDtoId)
         {
-            PlotItemId = plotItemId;
+            CemeteryItemId = cemeteryItemId;
             PlotDtoId = plotDtoId;
             ApplicantDtoId = applicantDtoId;
         }
@@ -31,7 +31,7 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public int PlotItemId { get; set; }
+        public int CemeteryItemId { get; set; }
 
         public PlotDto PlotDto { get; set; }
 

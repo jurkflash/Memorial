@@ -16,9 +16,9 @@ namespace Memorial.Persistence.EntityConfigurations
 
             HasKey(pt => pt.AF);
 
-            HasRequired(pt => pt.PlotItem)
+            HasRequired(pt => pt.CemeteryItem)
                 .WithMany(pi => pi.CemeteryTransactions)
-                .HasForeignKey(pt => pt.PlotItemId)
+                .HasForeignKey(pt => pt.CemeteryItemId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(pt => pt.Plot)

@@ -101,12 +101,12 @@ namespace Memorial.Lib.Cemetery
 
         public int GetItemId()
         {
-            return _transaction.PlotItemId;
+            return _transaction.CemeteryItemId;
         }
 
         public string GetItemName()
         {
-            _item.SetItem(_transaction.PlotItemId);
+            _item.SetItem(_transaction.CemeteryItemId);
             return _item.GetName();
         }
 
@@ -118,7 +118,7 @@ namespace Memorial.Lib.Cemetery
 
         public float GetItemPrice()
         {
-            _item.SetItem(_transaction.PlotItemId);
+            _item.SetItem(_transaction.CemeteryItemId);
             return _item.GetPrice();
         }
 
@@ -130,7 +130,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool IsItemOrder()
         {
-            _item.SetItem(_transaction.PlotItemId);
+            _item.SetItem(_transaction.CemeteryItemId);
             return _item.IsOrder();
         }
 

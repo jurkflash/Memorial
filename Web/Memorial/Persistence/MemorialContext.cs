@@ -28,7 +28,7 @@ namespace Memorial.Persistence
         public DbSet<CemeteryArea> CemeteryAreas { get; set; }
         public DbSet<PlotType> PlotTypes { get; set; }
         public DbSet<Plot> Plots { get; set; }
-        public DbSet<PlotItem> PlotItems { get; set; }
+        public DbSet<CemeteryItem> CemeteryItems { get; set; }
         public DbSet<PlotNumber> PlotNumbers { get; set; }
         public DbSet<PlotLandscapeCompany> PlotLandscapeCompanies { get; set; }
         public DbSet<CemeteryTransaction> CemeteryTransactions { get; set; }
@@ -96,7 +96,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new PlotTypeConfiguration());
             modelBuilder.Configurations.Add(new PlotConfiguration());
             modelBuilder.Configurations.Add(new PlotLandscapeCompanyConfiguration());
-            modelBuilder.Configurations.Add(new PlotItemConfiguration());
+            modelBuilder.Configurations.Add(new CemeteryItemConfiguration());
             modelBuilder.Configurations.Add(new PlotNumberConfiguration());
             modelBuilder.Configurations.Add(new PlotTrackingConfiguration());
 

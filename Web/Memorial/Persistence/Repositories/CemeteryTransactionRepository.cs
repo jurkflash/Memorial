@@ -17,7 +17,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Where(pt => pt.AF == AF && pt.DeleteDate == null)
                 .SingleOrDefault();
@@ -28,7 +28,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Where(pt => pt.AF == AF)
                 .SingleOrDefault();
@@ -45,10 +45,10 @@ namespace Memorial.Persistence.Repositories
             var transactions = MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.Deceased1)
-                .Where(pt => pt.PlotItemId == itemId
+                .Where(pt => pt.CemeteryItemId == itemId
                                             && pt.PlotId == plotId
                                             && pt.DeleteDate == null);
 
@@ -67,9 +67,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.ApplicantId == applicantId
-                                            && pt.PlotItemId == itemId
+                                            && pt.CemeteryItemId == itemId
                                             && pt.PlotId == plotId
                                             && pt.DeleteDate == null).ToList();
         }
@@ -79,7 +79,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.Deceased1Id == deceased1Id
                                             && pt.PlotId == plotId
                                             && pt.DeleteDate == null).SingleOrDefault();
@@ -90,7 +90,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.PlotId == plotId
                                             && pt.DeleteDate == null).OrderByDescending(pt => pt.CreateDate).FirstOrDefault();
         }
@@ -100,7 +100,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.DeleteDate == null).OrderByDescending(pt => pt.CreateDate).FirstOrDefault();
         }
 
@@ -109,7 +109,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Plot)
                 .Include(pt => pt.Plot)
-                .Include(pt => pt.PlotItem)
+                .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.PlotId == plotId && pt.DeleteDate == null)
                 .ToList();
         }

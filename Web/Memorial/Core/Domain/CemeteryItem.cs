@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class PlotItem
+    public class CemeteryItem
     {
-        public PlotItem()
+        public CemeteryItem()
         {
             CemeteryTransactions = new HashSet<CemeteryTransaction>();
         }

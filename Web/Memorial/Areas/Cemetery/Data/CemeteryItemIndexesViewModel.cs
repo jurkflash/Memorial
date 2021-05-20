@@ -3,11 +3,11 @@ using PagedList;
 
 namespace Memorial.ViewModels
 {
-    public class PlotItemIndexesViewModel
+    public class CemeteryItemIndexesViewModel
     {
         public IPagedList<CemeteryTransactionDto> CemeteryTransactionDtos { get; set; }
 
-        public int PlotItemId { get; set; }
+        public int CemeteryItemId { get; set; }
 
         public PlotDto PlotDto { get; set; }
 

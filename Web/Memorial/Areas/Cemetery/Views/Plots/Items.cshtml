@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.PlotItemsViewModel
+﻿@model Memorial.ViewModels.CemeteryItemsViewModel
 @{
     ViewBag.Title = "Item";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,11 +12,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var plotItem in Model.PlotItemDtos)
+        @foreach (var cemeteryItem in Model.CemeteryItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(plotItem.Name, "Index", plotItem.SystemCode, new { itemId = plotItem.Id, id = Model.PlotDto.Id, applicantId = Model.ApplicantId, area = "Plot" }, null)</td>
-                <td>@plotItem.Description</td>
+                <td>@Html.ActionLink(cemeteryItem.Name, "Index", cemeteryItem.SystemCode, new { itemId = cemeteryItem.Id, id = Model.PlotDto.Id, applicantId = Model.ApplicantId, area = "Plot" }, null)</td>
+                <td>@cemeteryItem.Description</td>
             </tr>
         }
     </tbody>

@@ -7,20 +7,20 @@ namespace Memorial.Lib.Cemetery
     public interface IItem
     {
         void AutoCreateItem(int plotTypeId, int plotId);
-        bool Create(PlotItemDto plotItemDto);
+        bool Create(CemeteryItemDto cemeteryItemDto);
         bool Delete(int id);
         string GetDescription();
         int GetId();
-        PlotItem GetItem();
-        PlotItem GetItem(int id);
-        PlotItemDto GetItemDto();
-        PlotItemDto GetItemDto(int id);
-        IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId);
+        CemeteryItem GetItem();
+        CemeteryItem GetItem(int id);
+        CemeteryItemDto GetItemDto();
+        CemeteryItemDto GetItemDto(int id);
+        IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId);
         string GetName();
         float GetPrice();
         string GetSystemCode();
         bool IsOrder();
         void SetItem(int id);
-        bool Update(PlotItem plotItem);
+        bool Update(CemeteryItem cemeteryItem);
     }
 }

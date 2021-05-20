@@ -7,20 +7,20 @@ namespace Memorial.Lib.Cemetery
     public interface IConfig
     {
         bool CreateArea(CemeteryAreaDto cemeteryAreaDto);
-        bool CreateItem(PlotItemDto plotItemDto);
+        bool CreateItem(CemeteryItemDto cemeteryItemDto);
         bool CreatePlot(PlotDto plotDto);
         bool DeleteArea(int id);
         bool DeleteItem(int id);
         bool DeletePlot(int id);
-        PlotItemDto GetItemDto(int id);
-        IEnumerable<PlotItemDto> GetItemDtosByPlot(int plotId);
+        CemeteryItemDto GetItemDto(int id);
+        IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId);
         IEnumerable<PlotNumber> GetNumbers();
         CemeteryAreaDto GetCemeteryAreaDto(int id);
         IEnumerable<CemeteryAreaDto> GetCemeteryAreaDtos();
         PlotDto GetPlotDto(int id);
         IEnumerable<PlotDto> GetPlotDtosByArea(int areaId, string filter);
         bool UpdateArea(CemeteryAreaDto cemeteryAreaDto);
-        bool UpdateItem(PlotItemDto plotItemDto);
+        bool UpdateItem(CemeteryItemDto cemeteryItemDto);
         bool UpdatePlot(PlotDto plotDto);
     }
 }

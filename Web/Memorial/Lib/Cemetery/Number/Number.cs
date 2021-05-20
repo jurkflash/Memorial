@@ -19,14 +19,14 @@ namespace Memorial.Lib.Cemetery
             _unitOfWork = unitOfWork;
         }
 
-        public string GetNewAF(int plotItemId, int year)
+        public string GetNewAF(int cemeteryItemId, int year)
         {
-            return _unitOfWork.PlotNumbers.GetNewAF(plotItemId, year);
+            return _unitOfWork.PlotNumbers.GetNewAF(cemeteryItemId, year);
         }
 
-        public string GetNewIV(int plotItemId, int year)
+        public string GetNewIV(int cemeteryItemId, int year)
         {
-            return _unitOfWork.PlotNumbers.GetNewIV(plotItemId, year);
+            return _unitOfWork.PlotNumbers.GetNewIV(cemeteryItemId, year);
         }
 
     }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Memorial.Core.Dtos
 {
-    public class PlotItemDto
+    public class CemeteryItemDto
     {
         public int Id { get; set; }
 

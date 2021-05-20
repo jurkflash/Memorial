@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class PlotItemConfiguration : EntityTypeConfiguration<PlotItem>
+    public class CemeteryItemConfiguration : EntityTypeConfiguration<CemeteryItem>
     {
-        public PlotItemConfiguration()
+        public CemeteryItemConfiguration()
         {
             Property(pi => pi.Name)
                 .IsRequired()
@@ -19,7 +19,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(10);
 
             HasRequired(pi => pi.Plot)
-                .WithMany(pa => pa.PlotItems)
+                .WithMany(pa => pa.CemeteryItems)
                 .HasForeignKey(pi => pi.PlotId)
                 .WillCascadeOnDelete(false);
         }

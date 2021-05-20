@@ -68,7 +68,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
         {
-            NewNumber(cemeteryTransactionDto.PlotItemId);
+            NewNumber(cemeteryTransactionDto.CemeteryItemId);
 
             if (CreateNewTransaction(cemeteryTransactionDto))
             {
