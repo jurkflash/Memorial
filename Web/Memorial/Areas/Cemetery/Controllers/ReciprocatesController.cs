@@ -151,7 +151,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Receipts(string AF)
         {
-            return RedirectToAction("Index", "NonOrderReceipts", new { AF = AF, area = "Plot" });
+            return RedirectToAction("Index", "NonOrderReceipts", new { AF = AF, area = "Cemetery" });
         }
 
     }

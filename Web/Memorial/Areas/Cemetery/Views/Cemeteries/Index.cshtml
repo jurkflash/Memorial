@@ -17,7 +17,7 @@
         @foreach (var cemeteryArea in Model.CemeteryAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(cemeteryArea.Name, "Plots", new { areaId = cemeteryArea.Id, applicantId = Model.ApplicantId, area = "Plot" })</td>
+                <td>@Html.ActionLink(cemeteryArea.Name, "Plots", new { areaId = cemeteryArea.Id, applicantId = Model.ApplicantId, area = "Cemetery" })</td>
                 <td>@cemeteryArea.Description</td>
             </tr>
         }

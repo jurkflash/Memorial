@@ -12,7 +12,7 @@ using PagedList;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
-    public class PlotsController : Controller
+    public class CemeteriesController : Controller
     {
         private readonly IPlot _plot;
         private readonly ISite _site;
@@ -22,7 +22,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         private readonly IDeceased _deceased;
         private readonly IApplicantDeceased _applicantDeceased;
 
-        public PlotsController(
+        public CemeteriesController(
             IPlot plot,
             ISite site,
             IArea area,
