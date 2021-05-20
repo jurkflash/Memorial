@@ -7,7 +7,7 @@
 <h2>Invoices</h2>
 
 <p>
-    @Html.ActionLink("New", "Form", new { AF = Model.AF, area = "Cemetery" })
+    @Html.ActionLink("New", "Form", new { AF = Model.AF, area = "Cemeteries" })
 </p>
 <h5>Form: @Model.AF</h5>
 <table class="table table-bordered table-hover">
@@ -34,9 +34,9 @@
             <td>@invoice.isPaid</td>
             <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@invoice.hasReceipt</td>
-            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Cemetery" })</td>
-            <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF, area = "Cemetery" })</td>
-            <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Cemetery" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Cemeteries" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF, area = "Cemeteries" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Cemeteries" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
         </tr>
         }
     </tbody>

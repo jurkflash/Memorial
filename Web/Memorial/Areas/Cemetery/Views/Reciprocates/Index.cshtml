@@ -10,11 +10,11 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, id = Model.PlotId, area = "Cemetery" })
+        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, id = Model.PlotId, area = "Cemeteries" })
     </p>
 }
 
-@using (Html.BeginForm("Index", "Reciprocates", new { area = "Cemetery" }))
+@using (Html.BeginForm("Index", "Reciprocates", new { area = "Cemeteries" }))
 {
     <p>
         Find by Name: @Html.TextBox("filter")
@@ -42,17 +42,17 @@
         @foreach (var cemeteryTransaction in Model.CemeteryTransactionDtos)
         {
             <tr>
-                <td>@Html.ActionLink(cemeteryTransaction.AF, "Info", new { AF = cemeteryTransaction.AF }, new { target = "CemeteryTransactionInfo", area = "Cemetery" })</td>
+                <td>@Html.ActionLink(cemeteryTransaction.AF, "Info", new { AF = cemeteryTransaction.AF }, new { target = "CemeteryTransactionInfo", area = "Cemeteries" })</td>
                 <td>@cemeteryTransaction.PlotDto.Name</td>
                 <td>@cemeteryTransaction.FengShuiMasterDto.Name</td>
                 <td>@cemeteryTransaction.Price</td>
                 <td>@cemeteryTransaction.Remark</td>
                 <td>@cemeteryTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Receipt", "Receipts", new { AF = cemeteryTransaction.AF, area = "Cemetery" })</td>
-                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, itemId = cemeteryTransaction.CemeteryItemId, area = "Cemetery" })</td>
+                <td>@Html.ActionLink("Receipt", "Receipts", new { AF = cemeteryTransaction.AF, area = "Cemeteries" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, itemId = cemeteryTransaction.CemeteryItemId, area = "Cemeteries" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = cemeteryTransaction.AF, itemId = cemeteryTransaction.CemeteryItemId, area = "Cemetery" },
+                    new { AF = cemeteryTransaction.AF, itemId = cemeteryTransaction.CemeteryItemId, area = "Cemeteries" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>
