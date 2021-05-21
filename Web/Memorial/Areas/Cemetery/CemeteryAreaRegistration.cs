@@ -8,7 +8,7 @@ namespace Memorial.Areas.Cemetery
         {
             get 
             {
-                return "Plot";
+                return "Cemetery";
             }
         }
 
