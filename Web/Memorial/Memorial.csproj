@@ -907,10 +907,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Lib\AncestralTablet\AncestorDeceased\IAncestorDeceased.cs" />
-    <Compile Include="Lib\AncestralTablet\AncestorDeceased\AncestorDeceased.cs" />
-    <Compile Include="Lib\AncestralTablet\Ancestor\Ancestor.cs" />
-    <Compile Include="Lib\AncestralTablet\Ancestor\IAncestralTablet.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestralTabletDeceased\IAncestorDeceased.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestralTabletDeceased\AncestorDeceased.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestralTablet\AncestralTablet.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestralTablet\IAncestralTablet.cs" />
     <Compile Include="Lib\AncestralTablet\Area\Area.cs" />
     <Compile Include="Lib\AncestralTablet\Area\IArea.cs" />
     <Compile Include="Lib\AncestralTablet\Config\Config.cs" />
