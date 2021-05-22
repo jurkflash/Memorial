@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class AncestorArea
+    public class AncestralTabletArea
     {
-        public AncestorArea()
+        public AncestralTabletArea()
         {
             Ancestors = new HashSet<Ancestor>();
 

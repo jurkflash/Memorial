@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Memorial.Areas.Setting.Controllers
 {
-    public class AncestorAreaController : Controller
+    public class AncestralTabletAreaController : Controller
     {
         // GET: Setting/AncestorArea
         public ActionResult Index()

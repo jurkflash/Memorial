@@ -24,9 +24,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(a => a.AncestorId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(a => a.AncestorArea)
+            HasRequired(a => a.AncestralTabletArea)
                 .WithMany(aa => aa.Ancestors)
-                .HasForeignKey(a => a.AncestorAreaId)
+                .HasForeignKey(a => a.AncestralTabletAreaId)
                 .WillCascadeOnDelete(false);
         }
     }

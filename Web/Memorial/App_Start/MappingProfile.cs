@@ -81,7 +81,7 @@ namespace Memorial.App_Start
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
 
             CreateMap<Ancestor, AncestorDto>();
-            CreateMap<AncestorArea, AncestorAreaDto>();
+            CreateMap<AncestralTabletArea, AncestralTabletAreaDto>();
             CreateMap<AncestorItem, AncestorItemDto>();
             CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>();
 
@@ -206,7 +206,7 @@ namespace Memorial.App_Start
 
             CreateMap<AncestorDto, Ancestor>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<AncestorAreaDto, AncestorArea>()
+            CreateMap<AncestralTabletAreaDto, AncestralTabletArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<AncestorItemDto, AncestorItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());

@@ -11,7 +11,7 @@ namespace Memorial.Core.Domain
         {
             CemeteryAreas = new HashSet<CemeteryArea>();
 
-            AncestorAreas = new HashSet<AncestorArea>();
+            AncestralTabletAreas = new HashSet<AncestralTabletArea>();
 
             Spaces = new HashSet<Space>();
 
@@ -38,7 +38,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<CemeteryArea> CemeteryAreas { get; set; }
 
-        public ICollection<AncestorArea> AncestorAreas { get; set; }
+        public ICollection<AncestralTabletArea> AncestralTabletAreas { get; set; }
 
         public ICollection<Space> Spaces { get; set; }
 

@@ -9,7 +9,7 @@ namespace Memorial.Lib.Ancestor
     public class Area : IArea
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.AncestorArea _area;
+        private Core.Domain.AncestralTabletArea _area;
 
         public Area(IUnitOfWork unitOfWork)
         {
@@ -18,7 +18,7 @@ namespace Memorial.Lib.Ancestor
 
         public void SetArea(int id)
         {
-            _area = _unitOfWork.AncestorAreas.GetActive(id);
+            _area = _unitOfWork.AncestralTabletAreas.GetActive(id);
         }
 
         public int GetId()
@@ -41,61 +41,61 @@ namespace Memorial.Lib.Ancestor
             return _area.SiteId;
         }
 
-        public Core.Domain.AncestorArea GetArea()
+        public Core.Domain.AncestralTabletArea GetArea()
         {
             return _area;
         }
 
-        public AncestorAreaDto GetAreaDto()
+        public AncestralTabletAreaDto GetAreaDto()
         {
-            return Mapper.Map<Core.Domain.AncestorArea, AncestorAreaDto>(_area);
+            return Mapper.Map<Core.Domain.AncestralTabletArea, AncestralTabletAreaDto>(_area);
         }
 
-        public Core.Domain.AncestorArea GetArea(int areaId)
+        public Core.Domain.AncestralTabletArea GetArea(int areaId)
         {
-            return _unitOfWork.AncestorAreas.GetActive(areaId);
+            return _unitOfWork.AncestralTabletAreas.GetActive(areaId);
         }
 
-        public AncestorAreaDto GetAreaDto(int areaId)
+        public AncestralTabletAreaDto GetAreaDto(int areaId)
         {
-            return Mapper.Map<Core.Domain.AncestorArea, AncestorAreaDto>(GetArea(areaId));
+            return Mapper.Map<Core.Domain.AncestralTabletArea, AncestralTabletAreaDto>(GetArea(areaId));
         }
 
-        public IEnumerable<Core.Domain.AncestorArea> GetAreas()
+        public IEnumerable<Core.Domain.AncestralTabletArea> GetAreas()
         {
-            return _unitOfWork.AncestorAreas.GetAllActive();
+            return _unitOfWork.AncestralTabletAreas.GetAllActive();
         }
 
-        public IEnumerable<AncestorAreaDto> GetAreaDtos()
+        public IEnumerable<AncestralTabletAreaDto> GetAreaDtos()
         {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestorArea>, IEnumerable<AncestorAreaDto>>(GetAreas());
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreas());
         }
 
-        public IEnumerable<Core.Domain.AncestorArea> GetAreaBySite(byte siteId)
+        public IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(byte siteId)
         {
-            return _unitOfWork.AncestorAreas.GetBySite(siteId);
+            return _unitOfWork.AncestralTabletAreas.GetBySite(siteId);
         }
 
-        public IEnumerable<AncestorAreaDto> GetAreaDtosBySite(byte siteId)
+        public IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(byte siteId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestorArea>, IEnumerable<AncestorAreaDto>>(GetAreaBySite(siteId));
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreaBySite(siteId));
         }
 
-        public bool Create(AncestorAreaDto ancestorAreaDto)
+        public bool Create(AncestralTabletAreaDto ancestralTabletAreaDto)
         {
-            _area = new Core.Domain.AncestorArea();
-            Mapper.Map(ancestorAreaDto, _area);
+            _area = new Core.Domain.AncestralTabletArea();
+            Mapper.Map(ancestralTabletAreaDto, _area);
 
             _area.CreateDate = DateTime.Now;
 
-            _unitOfWork.AncestorAreas.Add(_area);
+            _unitOfWork.AncestralTabletAreas.Add(_area);
 
             return true;
         }
 
-        public bool Update(Core.Domain.AncestorArea ancestorArea)
+        public bool Update(Core.Domain.AncestralTabletArea ancestralTabletArea)
         {
-            ancestorArea.ModifyDate = DateTime.Now;
+            ancestralTabletArea.ModifyDate = DateTime.Now;
 
             return true;
         }

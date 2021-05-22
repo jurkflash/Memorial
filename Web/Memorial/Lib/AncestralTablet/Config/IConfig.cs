@@ -7,20 +7,20 @@ namespace Memorial.Lib.Ancestor
     public interface IConfig
     {
         bool CreateAncestor(AncestorDto ancestorDto);
-        bool CreateArea(AncestorAreaDto ancestorAreaDto);
+        bool CreateArea(AncestralTabletAreaDto ancestralTabletAreaDto);
         bool CreateItem(AncestorItemDto ancestorItemDto);
         bool DeleteAncestor(int id);
         bool DeleteArea(int id);
         bool DeleteItem(int id);
         AncestorDto GetAncestorDto(int id);
         IEnumerable<AncestorDto> GetAncestorsByAreaId(int id);
-        AncestorAreaDto GetAreaDto(int id);
-        IEnumerable<AncestorAreaDto> GetAreaDtos();
+        AncestralTabletAreaDto GetAreaDto(int id);
+        IEnumerable<AncestralTabletAreaDto> GetAreaDtos();
         AncestorItemDto GetItemDto(int id);
         IEnumerable<AncestorItemDto> GetItemDtos();
         IEnumerable<AncestorNumber> GetNumbers();
         bool UpdateAncestor(AncestorDto ancestorDto);
-        bool UpdateArea(AncestorAreaDto ancestorAreaDto);
+        bool UpdateArea(AncestralTabletAreaDto ancestralTabletAreaDto);
         bool UpdateItem(AncestorItemDto ancestorItemDto);
     }
 }

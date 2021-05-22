@@ -7,10 +7,10 @@ namespace Memorial.Core.Repositories
     {
         Ancestor GetActive(int id);
 
-        IEnumerable<Ancestor> GetByArea(int ancestorAreaId);
+        IEnumerable<Ancestor> GetByArea(int ancestralTabletAreaId);
 
-        IEnumerable<Ancestor> GetAvailableByArea(int ancestorAreaId);
+        IEnumerable<Ancestor> GetAvailableByArea(int ancestralTabletAreaId);
 
-        IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestorAreaId);
+        IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestralTabletAreaId);
     }
 }

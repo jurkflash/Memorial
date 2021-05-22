@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Ancestors
                 .Include(a => a.Applicant)
-                .Include(a => a.AncestorArea)
+                .Include(a => a.AncestralTabletArea)
                 .Where(a => a.Id == id && a.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -24,20 +24,20 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Ancestor> GetByArea(int areaId)
         {
             return MemorialContext.Ancestors
-                .Where(a => a.AncestorAreaId == areaId).ToList();
+                .Where(a => a.AncestralTabletAreaId == areaId).ToList();
         }
 
-        public IEnumerable<Ancestor> GetAvailableByArea(int ancestorAreaId)
+        public IEnumerable<Ancestor> GetAvailableByArea(int ancestralTabletAreaId)
         {
             return MemorialContext.Ancestors
-                .Where(a => a.AncestorAreaId == ancestorAreaId && a.ApplicantId == null).ToList();
+                .Where(a => a.AncestralTabletAreaId == ancestralTabletAreaId && a.ApplicantId == null).ToList();
         }
 
-        public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestorAreaId)
+        public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestralTabletAreaId)
         {
             var d = new Dictionary<byte, IEnumerable<byte>>();
             var t = MemorialContext.Ancestors
-                .Where(a => a.AncestorAreaId == ancestorAreaId)
+                .Where(a => a.AncestralTabletAreaId == ancestralTabletAreaId)
                 .Select(a => new { a.PositionY, a.PositionX })
                 .Distinct()
                 .OrderBy(a => a.PositionY).ThenBy(a => a.PositionX).ToList();

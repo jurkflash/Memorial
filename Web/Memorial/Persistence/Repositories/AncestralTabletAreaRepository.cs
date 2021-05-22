@@ -6,30 +6,30 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class AncestorAreaRepository : Repository<AncestorArea>, IAncestorAreaRepository
+    public class AncestralTabletAreaRepository : Repository<AncestralTabletArea>, IAncestralTabletAreaRepository
     {
-        public AncestorAreaRepository(MemorialContext context) : base(context)
+        public AncestralTabletAreaRepository(MemorialContext context) : base(context)
         {
         }
 
-        public AncestorArea GetActive(int id)
+        public AncestralTabletArea GetActive(int id)
         {
-            return MemorialContext.AncestorAreas
+            return MemorialContext.AncestralTabletAreas
                 .Where(aa => aa.Id == id && aa.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<AncestorArea> GetAllActive()
+        public IEnumerable<AncestralTabletArea> GetAllActive()
         {
             MemorialContext.Configuration.LazyLoadingEnabled = false;
-            return MemorialContext.AncestorAreas
+            return MemorialContext.AncestralTabletAreas
                 .Where(aa => aa.DeleteDate == null)
                 .ToList();
         }
 
-        public IEnumerable<AncestorArea> GetBySite(byte siteId)
+        public IEnumerable<AncestralTabletArea> GetBySite(byte siteId)
         {
-            return MemorialContext.AncestorAreas
+            return MemorialContext.AncestralTabletAreas
                 .Where(a => a.SiteId == siteId).ToList();
         }
 

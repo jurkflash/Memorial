@@ -11,7 +11,7 @@ namespace Memorial.ViewModels
     {
         public SiteDto SiteDto { get; set; }
 
-        public AncestorAreaDto AncestorAreaDto { get; set; }
+        public AncestralTabletAreaDto AncestralTabletAreaDto { get; set; }
 
         public AncestorDto AncestorDto { get; set; }
 

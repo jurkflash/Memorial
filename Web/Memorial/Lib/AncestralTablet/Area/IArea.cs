@@ -15,25 +15,25 @@ namespace Memorial.Lib.Ancestor
 
         byte GetSiteId();
 
-        Core.Domain.AncestorArea GetArea();
+        Core.Domain.AncestralTabletArea GetArea();
 
-        AncestorAreaDto GetAreaDto();
+        AncestralTabletAreaDto GetAreaDto();
 
-        Core.Domain.AncestorArea GetArea(int areaId);
+        Core.Domain.AncestralTabletArea GetArea(int areaId);
 
-        AncestorAreaDto GetAreaDto(int areaId);
+        AncestralTabletAreaDto GetAreaDto(int areaId);
 
-        IEnumerable<Core.Domain.AncestorArea> GetAreas();
+        IEnumerable<Core.Domain.AncestralTabletArea> GetAreas();
 
-        IEnumerable<AncestorAreaDto> GetAreaDtos();
+        IEnumerable<AncestralTabletAreaDto> GetAreaDtos();
 
-        IEnumerable<Core.Domain.AncestorArea> GetAreaBySite(byte siteId);
+        IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(byte siteId);
 
-        IEnumerable<AncestorAreaDto> GetAreaDtosBySite(byte siteId);
+        IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(byte siteId);
 
-        bool Create(AncestorAreaDto ancestorAreaDto);
+        bool Create(AncestralTabletAreaDto ancestralTabletAreaDto);
 
-        bool Update(Core.Domain.AncestorArea ancestorArea);
+        bool Update(Core.Domain.AncestralTabletArea ancestralTabletArea);
 
         bool Delete(int id);
 

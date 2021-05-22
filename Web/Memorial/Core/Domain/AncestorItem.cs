@@ -26,9 +26,9 @@ namespace Memorial.Core.Domain
 
         public bool isOrder { get; set; }
 
-        public AncestorArea AncestorArea { get; set; }
+        public AncestralTabletArea AncestralTabletArea { get; set; }
 
-        public int AncestorAreaId { get; set; }
+        public int AncestralTabletAreaId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

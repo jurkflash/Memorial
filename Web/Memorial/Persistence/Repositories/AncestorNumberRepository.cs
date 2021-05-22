@@ -16,8 +16,8 @@ namespace Memorial.Persistence.Repositories
             INumberRepository numberRepository = new NumberRepository();
             
             var ancestorItem = MemorialContext.AncestorItems
-                                .Include(a => a.AncestorArea)
-                                .Include(a => a.AncestorArea.Site)
+                                .Include(a => a.AncestralTabletArea)
+                                .Include(a => a.AncestralTabletArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
@@ -27,7 +27,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return ancestorItem.AncestorArea.Site.Code + "/" + ancestorItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -36,8 +36,8 @@ namespace Memorial.Persistence.Repositories
             INumberRepository numberRepository = new NumberRepository();
             
             var ancestorItem = MemorialContext.AncestorItems
-                                .Include(a => a.AncestorArea)
-                                .Include(a => a.AncestorArea.Site)
+                                .Include(a => a.AncestralTabletArea)
+                                .Include(a => a.AncestralTabletArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
@@ -47,7 +47,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return ancestorItem.AncestorArea.Site.Code + "/" + ancestorItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -56,8 +56,8 @@ namespace Memorial.Persistence.Repositories
             INumberRepository numberRepository = new NumberRepository();
             
             var ancestorItem = MemorialContext.AncestorItems
-                                .Include(a => a.AncestorArea)
-                                .Include(a => a.AncestorArea.Site)
+                                .Include(a => a.AncestralTabletArea)
+                                .Include(a => a.AncestralTabletArea.Site)
                                 .Where(a => a.Id == AncestorItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
@@ -67,7 +67,7 @@ namespace Memorial.Persistence.Repositories
                 return "";
             else
             {
-                return ancestorItem.AncestorArea.Site.Code + "/" + ancestorItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

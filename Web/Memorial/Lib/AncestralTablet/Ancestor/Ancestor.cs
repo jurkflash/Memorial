@@ -114,7 +114,7 @@ namespace Memorial.Lib.Ancestor
 
         public int GetAreaId()
         {
-            return _ancestor.AncestorAreaId;
+            return _ancestor.AncestralTabletAreaId;
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId)

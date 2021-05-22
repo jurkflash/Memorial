@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.AncestorAreaIndexesViewModel
+﻿@model Memorial.ViewModels.AncestralTabletAreaIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,12 +15,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var ancestorArea in Model.AncestorAreaDtos)
+        @foreach (var ancestralTabletArea in Model.AncestralTabletAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestorArea.Name, "Ancestors", new { areaId = ancestorArea.Id, applicantId = Model.ApplicantId })</td>
-                <td>@ancestorArea.Description</td>
-                <td>@ancestorArea.Remark</td>
+                <td>@Html.ActionLink(ancestralTabletArea.Name, "Ancestors", new { areaId = ancestralTabletArea.Id, applicantId = Model.ApplicantId })</td>
+                <td>@ancestralTabletArea.Description</td>
+                <td>@ancestralTabletArea.Remark</td>
             </tr>
         }
     </tbody>

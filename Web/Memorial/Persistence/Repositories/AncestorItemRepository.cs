@@ -30,7 +30,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<AncestorItem> GetByArea(int areaId)
         {
             return MemorialContext.AncestorItems
-                .Where(ai => ai.AncestorAreaId == areaId
+                .Where(ai => ai.AncestralTabletAreaId == areaId
                 && ai.DeleteDate == null).ToList();
         }
 

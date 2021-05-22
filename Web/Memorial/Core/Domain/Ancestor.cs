@@ -36,9 +36,9 @@ namespace Memorial.Core.Domain
 
         public int? ApplicantId { get; set; }
 
-        public AncestorArea AncestorArea { get; set; }
+        public AncestralTabletArea AncestralTabletArea { get; set; }
 
-        public int AncestorAreaId { get; set; }
+        public int AncestralTabletAreaId { get; set; }
 
         public bool hasDeceased { get; set; }
 

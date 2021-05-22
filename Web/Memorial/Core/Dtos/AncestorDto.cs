@@ -20,7 +20,7 @@ namespace Memorial.Core.Dtos
 
         public int? ApplicantId { get; set; }
 
-        public int AncestorAreaId { get; set; }
+        public int AncestralTabletAreaId { get; set; }
 
         public bool hasDeceased { get; set; }
 

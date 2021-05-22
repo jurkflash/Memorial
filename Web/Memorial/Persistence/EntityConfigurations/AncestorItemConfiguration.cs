@@ -18,9 +18,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(10);
 
-            HasRequired(ai => ai.AncestorArea)
+            HasRequired(ai => ai.AncestralTabletArea)
                 .WithMany(aa => aa.AncestorItems)
-                .HasForeignKey(ai => ai.AncestorAreaId)
+                .HasForeignKey(ai => ai.AncestralTabletAreaId)
                 .WillCascadeOnDelete(false);
         }
     }

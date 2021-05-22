@@ -41,9 +41,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Index(byte siteId, int applicantId = 0)
         {
-            var viewModel = new AncestorAreaIndexesViewModel()
+            var viewModel = new AncestralTabletAreaIndexesViewModel()
             {
-                AncestorAreaDtos = _area.GetAreaDtosBySite(siteId),
+                AncestralTabletAreaDtos = _area.GetAreaDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -82,8 +82,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             if (_ancestor.GetAncestorDto() != null)
             {
                 viewModel.AncestorDto = _ancestor.GetAncestorDto();
-                viewModel.AncestorAreaDto = _area.GetAreaDto(_ancestor.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestorAreaDto.SiteId);
+                viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestor.GetAreaId());
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestralTabletAreaDto.SiteId);
 
                 if (_ancestor.HasApplicant())
                 {

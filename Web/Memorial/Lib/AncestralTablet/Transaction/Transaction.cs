@@ -239,7 +239,7 @@ namespace Memorial.Lib.Ancestor
 
         protected bool ChangeAncestor(string systemCode, int oldAncestorId, int newAncestorId)
         {
-            var areaId = _ancestor.GetAncestor(oldAncestorId).AncestorAreaId;
+            var areaId = _ancestor.GetAncestor(oldAncestorId).AncestralTabletAreaId;
 
             var itemId = _item.GetItemByArea(areaId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
 
