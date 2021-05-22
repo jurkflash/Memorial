@@ -14,9 +14,9 @@ namespace Memorial.Core.Domain
 
         public int AncestorId { get; set; }
 
-        public AncestorTransaction AncestorTransaction { get; set; }
+        public AncestralTabletTransaction AncestralTabletTransaction { get; set; }
 
-        public string AncestorTransactionAF { get; set; }
+        public string AncestralTabletTransactionAF { get; set; }
 
         public Applicant Applicant { get; set; }
 

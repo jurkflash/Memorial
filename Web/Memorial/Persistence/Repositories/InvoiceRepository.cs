@@ -12,9 +12,9 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public IEnumerable<Invoice> GetByActiveAncestorAF(string AF)
+        public IEnumerable<Invoice> GetByActiveAncestralTabletAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.AncestorTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.AncestralTabletTransactionAF == AF && i.DeleteDate == null)
                 .ToList().OrderBy(i => i.CreateDate);
         }
 

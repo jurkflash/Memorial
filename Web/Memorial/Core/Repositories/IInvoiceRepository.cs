@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface IInvoiceRepository : IRepository<Invoice>
     {
-        IEnumerable<Invoice> GetByActiveAncestorAF(string AF);
+        IEnumerable<Invoice> GetByActiveAncestralTabletAF(string AF);
 
         IEnumerable<Invoice> GetByActiveCremationAF(string AF);
 

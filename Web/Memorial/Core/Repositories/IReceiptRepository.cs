@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface IReceiptRepository : IRepository<Receipt>
     {
-        IEnumerable<Receipt> GetByNonOrderActiveAncestorAF(string AF);
+        IEnumerable<Receipt> GetByNonOrderActiveAncestralTabletAF(string AF);
 
         IEnumerable<Receipt> GetByNonOrderActiveCremationAF(string AF);
 

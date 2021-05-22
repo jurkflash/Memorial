@@ -21,7 +21,7 @@ namespace Memorial.Lib.Invoice
 
         public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
         {
-            return _unitOfWork.Invoices.GetByActiveAncestorAF(AF);
+            return _unitOfWork.Invoices.GetByActiveAncestralTabletAF(AF);
         }
 
         public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
@@ -31,13 +31,13 @@ namespace Memorial.Lib.Invoice
 
         public bool HasInvoiceByAF(string AF)
         {
-            return _unitOfWork.Invoices.GetByActiveAncestorAF(AF).Any();
+            return _unitOfWork.Invoices.GetByActiveAncestralTabletAF(AF).Any();
         }
 
         override
         public string GetAF()
         {
-            return _invoice.AncestorTransactionAF;
+            return _invoice.AncestralTabletTransactionAF;
         }
 
         override

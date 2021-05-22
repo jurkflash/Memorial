@@ -25,7 +25,7 @@ namespace Memorial.Lib.Receipt
 
         public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
-            return _unitOfWork.Receipts.GetByNonOrderActiveAncestorAF(AF);
+            return _unitOfWork.Receipts.GetByNonOrderActiveAncestralTabletAF(AF);
         }
 
         public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
@@ -35,7 +35,7 @@ namespace Memorial.Lib.Receipt
 
         public string GetApplicationAF()
         {
-            return _receipt.AncestorTransactionAF;
+            return _receipt.AncestralTabletTransactionAF;
         }
 
         override

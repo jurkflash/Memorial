@@ -21,9 +21,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(r => r.InvoiceIV)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(r => r.AncestorTransaction)
+            HasOptional(r => r.AncestralTabletTransaction)
                 .WithMany(at => at.Receipts)
-                .HasForeignKey(r => r.AncestorTransactionAF)
+                .HasForeignKey(r => r.AncestralTabletTransactionAF)
                 .WillCascadeOnDelete(false);
 
             HasOptional(r => r.CremationTransaction)

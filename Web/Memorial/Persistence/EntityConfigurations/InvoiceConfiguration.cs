@@ -16,9 +16,9 @@ namespace Memorial.Persistence.EntityConfigurations
 
             HasKey(i => i.IV);
 
-            HasOptional(i => i.AncestorTransaction)
+            HasOptional(i => i.AncestralTabletTransaction)
                 .WithMany(at => at.Invoices)
-                .HasForeignKey(i => i.AncestorTransactionAF)
+                .HasForeignKey(i => i.AncestralTabletTransactionAF)
                 .WillCascadeOnDelete(false);
 
             HasOptional(i => i.CremationTransaction)

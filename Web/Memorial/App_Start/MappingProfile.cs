@@ -83,7 +83,7 @@ namespace Memorial.App_Start
             CreateMap<Ancestor, AncestorDto>();
             CreateMap<AncestorArea, AncestorAreaDto>();
             CreateMap<AncestorItem, AncestorItemDto>();
-            CreateMap<AncestorTransaction, AncestorTransactionDto>();
+            CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>();
 
             CreateMap<Cremation, CremationDto>();
             CreateMap<CremationItem, CremationItemDto>();
@@ -210,7 +210,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<AncestorItemDto, AncestorItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
-            CreateMap<AncestorTransactionDto, AncestorTransaction>()
+            CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.AncestorItem, opt => opt.Ignore())
                 .ForMember(c => c.Ancestor, opt => opt.Ignore())
@@ -229,7 +229,7 @@ namespace Memorial.App_Start
 
             CreateMap<InvoiceDto, Invoice>()
                 .ForMember(i => i.IV, opt => opt.Ignore())
-                .ForMember(i => i.AncestorTransaction, opt => opt.Ignore())
+                .ForMember(i => i.AncestralTabletTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CremationTransaction, opt => opt.Ignore())
                 .ForMember(i => i.MiscellaneousTransaction, opt => opt.Ignore())
                 .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())
@@ -241,7 +241,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.RE, opt => opt.Ignore())
                 .ForMember(i => i.Invoice, opt => opt.Ignore())
                 .ForMember(i => i.PaymentMethod, opt => opt.Ignore())
-                .ForMember(i => i.AncestorTransaction, opt => opt.Ignore())
+                .ForMember(i => i.AncestralTabletTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CremationTransaction, opt => opt.Ignore())
                 .ForMember(i => i.MiscellaneousTransaction, opt => opt.Ignore())
                 .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())

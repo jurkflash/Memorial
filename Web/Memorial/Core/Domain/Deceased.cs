@@ -15,7 +15,7 @@ namespace Memorial.Core.Domain
 
             CremationTransactions = new HashSet<CremationTransaction>();
 
-            AncestorTransactions = new HashSet<AncestorTransaction>();
+            AncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
 
             ColumbariumTransactions1 = new HashSet<ColumbariumTransaction>();
 
@@ -108,7 +108,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<CremationTransaction> CremationTransactions { get; set; }
 
-        public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
+        public ICollection<AncestralTabletTransaction> AncestralTabletTransactions { get; set; }
 
         public ICollection<ColumbariumTransaction> ColumbariumTransactions1 { get; set; }
 

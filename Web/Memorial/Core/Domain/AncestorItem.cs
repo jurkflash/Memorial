@@ -9,7 +9,7 @@ namespace Memorial.Core.Domain
     {
         public AncestorItem()
         {
-            AncestorTransactions = new HashSet<AncestorTransaction>();
+            AncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
         }
 
         public int Id { get; set; }
@@ -36,6 +36,6 @@ namespace Memorial.Core.Domain
 
         public DateTime? DeleteDate { get; set; }
 
-        public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
+        public ICollection<AncestralTabletTransaction> AncestralTabletTransactions { get; set; }
     }
 }

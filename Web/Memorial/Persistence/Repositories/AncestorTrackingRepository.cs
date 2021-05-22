@@ -22,14 +22,14 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestorTrackings.Where(qt => qt.AncestorId == ancestorId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public AncestorTracking GetTrackingByTransactionAF(string ancestorTransactionAF)
+        public AncestorTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
         {
-            return MemorialContext.AncestorTrackings.Where(qt => qt.AncestorTransactionAF == ancestorTransactionAF).SingleOrDefault();
+            return MemorialContext.AncestorTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF).SingleOrDefault();
         }
 
-        public AncestorTracking GetTrackingByAncestorIdAndTransactionAF(int ancestorId, string ancestorTransactionAF)
+        public AncestorTracking GetTrackingByAncestorIdAndTransactionAF(int ancestorId, string ancestralTabletTransactionAF)
         {
-            return MemorialContext.AncestorTrackings.Where(qt => qt.AncestorTransactionAF == ancestorTransactionAF && qt.AncestorId == ancestorId).SingleOrDefault();
+            return MemorialContext.AncestorTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestorId == ancestorId).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

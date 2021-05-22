@@ -12,10 +12,10 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveAncestorAF(string AF)
+        public IEnumerable<Receipt> GetByNonOrderActiveAncestralTabletAF(string AF)
         {
             return MemorialContext.Receipts
-                .Where(r => r.AncestorTransactionAF == AF &&
+                .Where(r => r.AncestralTabletTransactionAF == AF &&
                     r.DeleteDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)

@@ -22,9 +22,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(qt => qt.DeceasedId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(qt => qt.AncestorTransaction)
+            HasRequired(qt => qt.AncestralTabletTransaction)
                 .WithMany(qts => qts.AncestorTrackings)
-                .HasForeignKey(qt => qt.AncestorTransactionAF)
+                .HasForeignKey(qt => qt.AncestralTabletTransactionAF)
                 .WillCascadeOnDelete(false);
 
         }

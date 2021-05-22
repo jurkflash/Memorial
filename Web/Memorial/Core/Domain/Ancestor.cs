@@ -11,9 +11,9 @@ namespace Memorial.Core.Domain
         {
             Deceaseds = new HashSet<Deceased>();
 
-            AncestorTransactions = new HashSet<AncestorTransaction>();
+            AncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
 
-            ShiftedAncestorTransactions = new HashSet<AncestorTransaction>();
+            ShiftedAncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
 
             AncestorTrackings = new HashSet<AncestorTracking>();
         }
@@ -52,9 +52,9 @@ namespace Memorial.Core.Domain
 
         public ICollection<Deceased> Deceaseds { get; set; }
 
-        public ICollection<AncestorTransaction> AncestorTransactions { get; set; }
+        public ICollection<AncestralTabletTransaction> AncestralTabletTransactions { get; set; }
 
-        public ICollection<AncestorTransaction> ShiftedAncestorTransactions { get; set; }
+        public ICollection<AncestralTabletTransaction> ShiftedAncestralTabletTransactions { get; set; }
 
         public ICollection<AncestorTracking> AncestorTrackings { get; set; }
     }

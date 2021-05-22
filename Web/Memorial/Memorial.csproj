@@ -518,7 +518,7 @@
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
-    <Content Include="Areas\Ancestor\Views\web.config" />
+    <Content Include="Areas\AncestralTablet\Views\web.config" />
     <Content Include="Areas\Cremation\Views\web.config" />
     <Content Include="Areas\Miscellaneous\Views\web.config" />
     <Content Include="Areas\Cemetery\Views\web.config" />
@@ -536,8 +536,8 @@
     <Content Include="Areas\Cemetery\Views\Clearances\Form.cshtml" />
     <Content Include="Areas\Cemetery\Views\Clearances\Info.cshtml" />
     <Content Include="Areas\Cemetery\Views\Shared\_PlotInfo.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shared\_AncestorInfo.cshtml" />
-    <Content Include="Areas\Ancestor\Views\AncestorDeceaseds\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Shared\_AncestorInfo.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestorDeceaseds\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\Reciprocates\Index.cshtml" />
@@ -656,16 +656,16 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Ancestor\AncestorAreaRegistration.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\AncestorsController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\MaintenancesController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\OrdersController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\InvoicesController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\NonOrderReceiptsController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\AncestorDeceasedsController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Ancestor\Controllers\ShiftsController.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorDeceasedsViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\AncestralTabletAreaRegistration.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\AncestorsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\MaintenancesController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\InvoicesController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\NonOrderReceiptsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\AncestorDeceasedsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\ReceiptsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\ShiftsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
@@ -743,7 +743,7 @@
     <Compile Include="Areas\Urn\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Urn\Controllers\PurchasesController.cs" />
     <Compile Include="Areas\Urn\Controllers\UrnsController.cs" />
-    <Compile Include="Core\Domain\AncestorTransaction.cs" />
+    <Compile Include="Core\Domain\AncestralTabletTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
     <Compile Include="Core\Domain\AncestorItem.cs" />
     <Compile Include="Core\Domain\ApplicantDeceased.cs" />
@@ -800,7 +800,7 @@
     <Compile Include="Core\Dtos\AncestorDto.cs" />
     <Compile Include="Core\Dtos\AncestorAreaDto.cs" />
     <Compile Include="Core\Dtos\AncestorItemDto.cs" />
-    <Compile Include="Core\Dtos\AncestorTransactionDto.cs" />
+    <Compile Include="Core\Dtos\AncestralTabletTransactionDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedFlattenDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedDto.cs" />
     <Compile Include="Core\Dtos\CremationDto.cs" />
@@ -842,7 +842,7 @@
     <Compile Include="Core\Dtos\UrnItemDto.cs" />
     <Compile Include="Core\Dtos\UrnTransactionDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
-    <Compile Include="Core\Repositories\IAncestorTransactionRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestralTabletTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorNumberRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorItemRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorAreaRepository.cs" />
@@ -907,30 +907,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Ancestor\AncestorDeceased\IAncestorDeceased.cs" />
-    <Compile Include="Lib\Ancestor\AncestorDeceased\AncestorDeceased.cs" />
-    <Compile Include="Lib\Ancestor\Ancestor\Ancestor.cs" />
-    <Compile Include="Lib\Ancestor\Ancestor\IAncestor.cs" />
-    <Compile Include="Lib\Ancestor\Area\Area.cs" />
-    <Compile Include="Lib\Ancestor\Area\IArea.cs" />
-    <Compile Include="Lib\Ancestor\Config\Config.cs" />
-    <Compile Include="Lib\Ancestor\Config\IConfig.cs" />
-    <Compile Include="Lib\Ancestor\Item\IItem.cs" />
-    <Compile Include="Lib\Ancestor\Item\Item.cs" />
-    <Compile Include="Lib\Ancestor\Maintenance\IMaintenance.cs" />
-    <Compile Include="Lib\Ancestor\Maintenance\Maintenance.cs" />
-    <Compile Include="Lib\Ancestor\Number\Number.cs" />
-    <Compile Include="Lib\Ancestor\Number\INumber.cs" />
-    <Compile Include="Lib\Ancestor\Order\IOrder.cs" />
-    <Compile Include="Lib\Ancestor\Order\Order.cs" />
-    <Compile Include="Lib\Ancestor\Payment\IPayment.cs" />
-    <Compile Include="Lib\Ancestor\Payment\Payment.cs" />
-    <Compile Include="Lib\Ancestor\Shift\IShift.cs" />
-    <Compile Include="Lib\Ancestor\Shift\Shift.cs" />
-    <Compile Include="Lib\Ancestor\Tracking\ITracking.cs" />
-    <Compile Include="Lib\Ancestor\Tracking\Tracking.cs" />
-    <Compile Include="Lib\Ancestor\Transaction\ITransaction.cs" />
-    <Compile Include="Lib\Ancestor\Transaction\Transaction.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestorDeceased\IAncestorDeceased.cs" />
+    <Compile Include="Lib\AncestralTablet\AncestorDeceased\AncestorDeceased.cs" />
+    <Compile Include="Lib\AncestralTablet\Ancestor\Ancestor.cs" />
+    <Compile Include="Lib\AncestralTablet\Ancestor\IAncestor.cs" />
+    <Compile Include="Lib\AncestralTablet\Area\Area.cs" />
+    <Compile Include="Lib\AncestralTablet\Area\IArea.cs" />
+    <Compile Include="Lib\AncestralTablet\Config\Config.cs" />
+    <Compile Include="Lib\AncestralTablet\Config\IConfig.cs" />
+    <Compile Include="Lib\AncestralTablet\Item\IItem.cs" />
+    <Compile Include="Lib\AncestralTablet\Item\Item.cs" />
+    <Compile Include="Lib\AncestralTablet\Maintenance\IMaintenance.cs" />
+    <Compile Include="Lib\AncestralTablet\Maintenance\Maintenance.cs" />
+    <Compile Include="Lib\AncestralTablet\Number\Number.cs" />
+    <Compile Include="Lib\AncestralTablet\Number\INumber.cs" />
+    <Compile Include="Lib\AncestralTablet\Order\IOrder.cs" />
+    <Compile Include="Lib\AncestralTablet\Order\Order.cs" />
+    <Compile Include="Lib\AncestralTablet\Payment\IPayment.cs" />
+    <Compile Include="Lib\AncestralTablet\Payment\Payment.cs" />
+    <Compile Include="Lib\AncestralTablet\Shift\IShift.cs" />
+    <Compile Include="Lib\AncestralTablet\Shift\Shift.cs" />
+    <Compile Include="Lib\AncestralTablet\Tracking\ITracking.cs" />
+    <Compile Include="Lib\AncestralTablet\Tracking\Tracking.cs" />
+    <Compile Include="Lib\AncestralTablet\Transaction\ITransaction.cs" />
+    <Compile Include="Lib\AncestralTablet\Transaction\Transaction.cs" />
     <Compile Include="Lib\ApplicantDeceased\ApplicantDeceased.cs" />
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
@@ -2284,6 +2284,10 @@
     <Compile Include="Migrations\202105201158150_UpdateCatalogsTableData4.designer.cs">
       <DependentUpon>202105201158150_UpdateCatalogsTableData4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105221039270_RenameAncestorTransactionToAncestralTabletTransactionsTable.cs" />
+    <Compile Include="Migrations\202105221039270_RenameAncestorTransactionToAncestralTabletTransactionsTable.designer.cs">
+      <DependentUpon>202105221039270_RenameAncestorTransactionToAncestralTabletTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2292,7 +2296,7 @@
     </Compile>
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\AncestorTransactionConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestralTabletTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CemeteryTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestorTrackingConfiguration.cs" />
@@ -2347,7 +2351,7 @@
     <Compile Include="Persistence\Repositories\AncestorNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorItemRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestorAreaRepository.cs" />
-    <Compile Include="Persistence\Repositories\AncestorTransactionRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestralTabletTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicantDeceasedRepository.cs" />
     <Compile Include="Persistence\Repositories\CatalogRepository.cs" />
     <Compile Include="Persistence\Repositories\NumberRepository.cs" />
@@ -2401,13 +2405,13 @@
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorAreaIndexesViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorIndexesViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorInfoViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorItemIndexesViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorItemsViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorTransactionsFormViewModel.cs" />
-    <Compile Include="Areas\Ancestor\Data\AncestorTransactionsInfoViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorAreaIndexesViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorIndexesViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorInfoViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorItemIndexesViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestorItemsViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestralTabletTransactionsFormViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestralTabletTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\Data\AppplicantDeceasedsInfoViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\Data\AppplicantDeceasedsIndexViewModel.cs" />
     <Compile Include="Areas\Cremation\Data\CremationItemIndexesViewModel.cs" />
@@ -2471,10 +2475,10 @@
     <Content Include="Areas\Urn\Views\Urns\Items.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Items.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestors\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestors\Ancestors.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Ancestors\Items.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Free\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Ancestors\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Ancestors\Ancestors.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Ancestors\Items.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Free\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Items.cshtml" />
     <Content Include="Areas\Columbarium\Views\Columbariums\Centre.cshtml" />
@@ -2574,21 +2578,21 @@
     <Content Include="Areas\Space\Views\Houses\Form.cshtml" />
     <Content Include="Areas\Space\Views\Houses\Index.cshtml" />
     <Content Include="Areas\Space\Views\Houses\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\NonOrderReceipts\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\NonOrderReceipts\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Receipts\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Receipts\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Invoices\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Orders\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Orders\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Orders\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenances\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenances\Index.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Maintenances\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shifts\Form.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shifts\Info.cshtml" />
-    <Content Include="Areas\Ancestor\Views\Shifts\ShiftedToIndex.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\NonOrderReceipts\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\NonOrderReceipts\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Receipts\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Receipts\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Invoices\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Invoices\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Orders\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Orders\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Maintenances\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Maintenances\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Maintenances\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Shifts\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Shifts\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Shifts\ShiftedToIndex.cshtml" />
     <Content Include="Areas\Cemetery\Views\Cemeteries\Plots.cshtml" />
     <Content Include="Areas\Cemetery\Views\Orders\Form.cshtml" />
     <Content Include="Areas\Cemetery\Views\Orders\Index.cshtml" />
@@ -3508,6 +3512,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105201158150_UpdateCatalogsTableData4.resx">
       <DependentUpon>202105201158150_UpdateCatalogsTableData4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105221039270_RenameAncestorTransactionToAncestralTabletTransactionsTable.resx">
+      <DependentUpon>202105221039270_RenameAncestorTransactionToAncestralTabletTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
