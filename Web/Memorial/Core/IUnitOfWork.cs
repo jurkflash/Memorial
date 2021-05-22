@@ -32,7 +32,7 @@ namespace Memorial.Core
         IAncestorTrackingRepository AncestorTrackings { get; }
         IAncestralTabletAreaRepository AncestralTabletAreas { get; }
         IAncestralTabletItemRepository AncestralTabletItems { get; }
-        IAncestorNumberRepository AncestorNumbers { get; }
+        IAncestralTabletNumberRepository AncestralTabletNumbers { get; }
         IAncestralTabletTransactionRepository AncestralTabletTransactions { get; }
 
         IPlotLandscapeCompanyRepository PlotLandscapeCompanies { get; }

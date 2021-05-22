@@ -2,7 +2,7 @@
 
 namespace Memorial.Core.Repositories
 {
-    public interface IAncestorNumberRepository : IRepository<AncestorNumber>
+    public interface IAncestralTabletNumberRepository : IRepository<AncestralTabletNumber>
     {
         string GetNewAF(int AncestralTabletItemId, int year);
 

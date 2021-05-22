@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class AncestorNumberConfiguration : EntityTypeConfiguration<AncestorNumber>
+    public class AncestralTabletNumberConfiguration : EntityTypeConfiguration<AncestralTabletNumber>
     {
-        public AncestorNumberConfiguration()
+        public AncestralTabletNumberConfiguration()
         {
             Property(an => an.ItemCode)
                 .IsRequired()

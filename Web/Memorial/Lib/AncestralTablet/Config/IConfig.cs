@@ -18,7 +18,7 @@ namespace Memorial.Lib.Ancestor
         IEnumerable<AncestralTabletAreaDto> GetAreaDtos();
         AncestralTabletItemDto GetItemDto(int id);
         IEnumerable<AncestralTabletItemDto> GetItemDtos();
-        IEnumerable<AncestorNumber> GetNumbers();
+        IEnumerable<AncestralTabletNumber> GetNumbers();
         bool UpdateAncestor(AncestorDto ancestorDto);
         bool UpdateArea(AncestralTabletAreaDto ancestralTabletAreaDto);
         bool UpdateItem(AncestralTabletItemDto ancestralTabletItemDto);

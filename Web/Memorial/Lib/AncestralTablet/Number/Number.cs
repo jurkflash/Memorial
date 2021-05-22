@@ -21,12 +21,12 @@ namespace Memorial.Lib.Ancestor
 
         public string GetNewAF(int ancestralTabletItemId, int year)
         {
-            return _unitOfWork.AncestorNumbers.GetNewAF(ancestralTabletItemId, year);
+            return _unitOfWork.AncestralTabletNumbers.GetNewAF(ancestralTabletItemId, year);
         }
 
         public string GetNewIV(int ancestralTabletItemId, int year)
         {
-            return _unitOfWork.AncestorNumbers.GetNewIV(ancestralTabletItemId, year);
+            return _unitOfWork.AncestralTabletNumbers.GetNewIV(ancestralTabletItemId, year);
         }
 
     }

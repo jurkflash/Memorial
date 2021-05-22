@@ -60,9 +60,9 @@ namespace Memorial.Lib.Ancestor
             return _ancestor.GetAncestorDtosByAreaId(id);
         }
 
-        public IEnumerable<AncestorNumber> GetNumbers()
+        public IEnumerable<AncestralTabletNumber> GetNumbers()
         {
-            return _unitOfWork.AncestorNumbers.GetAll();
+            return _unitOfWork.AncestralTabletNumbers.GetAll();
         }
 
         public bool CreateItem(AncestralTabletItemDto ancestralTabletItemDto)
