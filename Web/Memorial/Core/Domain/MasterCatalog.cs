@@ -7,7 +7,7 @@ namespace Memorial.Core.Domain
 {
     public enum MasterCatalog:byte
     {
-        Ancestor = 1,
+        AncestralTablet = 1,
         Cremation = 2,
         Miscellaneous = 3,
         Urn = 4,

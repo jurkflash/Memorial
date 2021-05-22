@@ -6,7 +6,7 @@
 
 <h2>Item</h2>
 
-@{Html.RenderAction("AncestorInfo", "Ancestors", new { id = Model.AncestorDto.Id, area = "AncestralTablet" });}
+@{Html.RenderAction("AncestralTabletInfo", "AncestralTablets", new { id = Model.AncestralTabletDto.Id, area = "AncestralTablet" });}
 
 <table class="table table-bordered table-hover">
     <thead>
@@ -20,7 +20,7 @@
         @foreach (var ancestralTabletItem in Model.AncestralTabletItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestralTabletItem.Name, "Index", ancestralTabletItem.SystemCode, new { area = "AncestralTablet", itemId = ancestralTabletItem.Id, id = Model.AncestorDto.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@Html.ActionLink(ancestralTabletItem.Name, "Index", ancestralTabletItem.SystemCode, new { area = "AncestralTablet", itemId = ancestralTabletItem.Id, id = Model.AncestralTabletDto.Id, applicantId = Model.ApplicantId }, null)</td>
                 <td>@ancestralTabletItem.Description</td>
                 <td>@ancestralTabletItem.Price</td>
             </tr>

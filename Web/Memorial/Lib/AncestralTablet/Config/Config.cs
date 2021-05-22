@@ -1,33 +1,30 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Memorial.Lib;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Config : IConfig
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IItem _item;
         private readonly IArea _area;
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
 
         public Config(
             IUnitOfWork unitOfWork,
             IItem item,
             IArea area,
-            IAncestor ancestor
+            IAncestralTablet ancestralTablet
             )
         {
             _unitOfWork = unitOfWork;
             _item = item;
             _area = area;
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
         }
 
         public AncestralTabletAreaDto GetAreaDto(int id)
@@ -50,14 +47,14 @@ namespace Memorial.Lib.Ancestor
             return _item.GetItemDtos();
         }
 
-        public AncestorDto GetAncestorDto(int id)
+        public AncestralTabletDto GetAncestralTabletDto(int id)
         {
-            return _ancestor.GetAncestorDto(id);
+            return _ancestralTablet.GetAncestralTabletDto(id);
         }
 
-        public IEnumerable<AncestorDto> GetAncestorsByAreaId(int id)
+        public IEnumerable<AncestralTabletDto> GetAncestralTabletsByAreaId(int id)
         {
-            return _ancestor.GetAncestorDtosByAreaId(id);
+            return _ancestralTablet.GetAncestralTabletDtosByAreaId(id);
         }
 
         public IEnumerable<AncestralTabletNumber> GetNumbers()
@@ -164,16 +161,16 @@ namespace Memorial.Lib.Ancestor
         }
 
 
-        public bool CreateAncestor(AncestorDto ancestorDto)
+        public bool CreateAncestralTablet(AncestralTabletDto ancestralTabletDto)
         {
-            if (_unitOfWork.Ancestors.Find(a => a.PositionX == ancestorDto.PositionX
-                 && a.PositionY == ancestorDto.PositionY
-                 && a.AncestralTabletAreaId == ancestorDto.AncestralTabletAreaId).Any())
+            if (_unitOfWork.AncestralTablets.Find(a => a.PositionX == ancestralTabletDto.PositionX
+                 && a.PositionY == ancestralTabletDto.PositionY
+                 && a.AncestralTabletAreaId == ancestralTabletDto.AncestralTabletAreaId).Any())
             {
                 return false;
             }
 
-            if (_ancestor.Create(ancestorDto))
+            if (_ancestralTablet.Create(ancestralTabletDto))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -182,18 +179,18 @@ namespace Memorial.Lib.Ancestor
             return false;
         }
 
-        public bool UpdateAncestor(AncestorDto ancestorDto)
+        public bool UpdateAncestralTablet(AncestralTabletDto ancestralTabletDto)
         {
-            var ancestorInDB = _ancestor.GetAncestor(ancestorDto.Id);
-            Mapper.Map(ancestorDto, ancestorInDB);
+            var ancestralTabletInDB = _ancestralTablet.GetAncestralTablet(ancestralTabletDto.Id);
+            Mapper.Map(ancestralTabletDto, ancestralTabletInDB);
 
-            if (ancestorInDB.AncestralTabletAreaId != ancestorDto.AncestralTabletAreaId
-                && (ancestorInDB.ApplicantId != null || ancestorInDB.hasDeceased))
+            if (ancestralTabletInDB.AncestralTabletAreaId != ancestralTabletDto.AncestralTabletAreaId
+                && (ancestralTabletInDB.ApplicantId != null || ancestralTabletInDB.hasDeceased))
             {
                 return false;
             }
 
-            if (_ancestor.Update(ancestorInDB))
+            if (_ancestralTablet.Update(ancestralTabletInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -202,14 +199,14 @@ namespace Memorial.Lib.Ancestor
             return false;
         }
 
-        public bool DeleteAncestor(int id)
+        public bool DeleteAncestralTablet(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestorId == id || at.ShiftedAncestorId == id) && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id) && at.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            if (_ancestor.Delete(id))
+            if (_ancestralTablet.Delete(id))
             {
                 _unitOfWork.Complete();
                 return true;

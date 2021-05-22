@@ -16,8 +16,8 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
-                .Include(at => at.ShiftedAncestor)
+                .Include(at => at.AncestralTablet)
+                .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AF == AF && at.DeleteDate == null)
                 .SingleOrDefault();
@@ -27,8 +27,8 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
-                .Include(at => at.ShiftedAncestor)
+                .Include(at => at.AncestralTablet)
+                .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AF == AF)
                 .SingleOrDefault();
@@ -40,15 +40,15 @@ namespace Memorial.Persistence.Repositories
                                             && at.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<AncestralTabletTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId, string filter)
+        public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter)
         {
             var transactions = MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
-                .Include(at => at.ShiftedAncestor)
+                .Include(at => at.AncestralTablet)
+                .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AncestralTabletItemId == itemId
-                                            && (at.AncestorId == ancestorId || at.ShiftedAncestorId == ancestorId)
+                                            && (at.AncestralTabletId == ancestralTabletId || at.ShiftedAncestralTabletId == ancestralTabletId)
                                             && at.DeleteDate == null);
 
             if(string.IsNullOrEmpty(filter))
@@ -61,15 +61,15 @@ namespace Memorial.Persistence.Repositories
             }
         }
 
-        public IEnumerable<AncestralTabletTransaction> GetByAncestorIdAndItemAndApplicant(int ancestorId, int itemId, int applicantId)
+        public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItemAndApplicant(int ancestralTabletId, int itemId, int applicantId)
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
+                .Include(at => at.AncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.ApplicantId == applicantId
                                             && at.AncestralTabletItemId == itemId
-                                            && at.AncestorId == ancestorId
+                                            && at.AncestralTabletId == ancestralTabletId
                                             && at.DeleteDate == null).ToList();
         }
 
@@ -77,19 +77,19 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
+                .Include(at => at.AncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.ShiftedAncestralTabletTransactionAF == AF)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<AncestralTabletTransaction> GetByAncestorId(int ancestorId)
+        public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletId(int ancestralTabletId)
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
-                .Include(at => at.Ancestor)
+                .Include(at => at.AncestralTablet)
                 .Include(at => at.AncestralTabletItem)
-                .Where(at => at.AncestorId == ancestorId && at.DeleteDate == null)
+                .Where(at => at.AncestralTabletId == ancestralTabletId && at.DeleteDate == null)
                 .ToList();
         }
 

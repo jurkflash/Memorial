@@ -5,12 +5,12 @@ namespace Memorial.Core.Repositories
 {
     public interface IAncestralTabletTrackingRepository : IRepository<AncestralTabletTracking>
     {
-        AncestralTabletTracking GetLatestFirstTransactionByAncestorId(int ancestorId);
+        AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<AncestralTabletTracking> GetTrackingByAncestorId(int ancestorId);
+        IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId);
 
         AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
 
-        AncestralTabletTracking GetTrackingByAncestorIdAndTransactionAF(int ancestorId, string ancestralTabletTransactionAF);
+        AncestralTabletTracking GetTrackingByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF);
     }
 }

@@ -6,37 +6,37 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class AncestorRepository : Repository<Ancestor>, IAncestorRepository
+    public class AncestralTabletRepository : Repository<AncestralTablet>, IAncestralTabletRepository
     {
-        public AncestorRepository(MemorialContext context) : base(context)
+        public AncestralTabletRepository(MemorialContext context) : base(context)
         {
         }
 
-        public Ancestor GetActive(int id)
+        public AncestralTablet GetActive(int id)
         {
-            return MemorialContext.Ancestors
+            return MemorialContext.AncestralTablets
                 .Include(a => a.Applicant)
                 .Include(a => a.AncestralTabletArea)
                 .Where(a => a.Id == id && a.DeleteDate == null)
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Ancestor> GetByArea(int areaId)
+        public IEnumerable<AncestralTablet> GetByArea(int areaId)
         {
-            return MemorialContext.Ancestors
+            return MemorialContext.AncestralTablets
                 .Where(a => a.AncestralTabletAreaId == areaId).ToList();
         }
 
-        public IEnumerable<Ancestor> GetAvailableByArea(int ancestralTabletAreaId)
+        public IEnumerable<AncestralTablet> GetAvailableByArea(int ancestralTabletAreaId)
         {
-            return MemorialContext.Ancestors
+            return MemorialContext.AncestralTablets
                 .Where(a => a.AncestralTabletAreaId == ancestralTabletAreaId && a.ApplicantId == null).ToList();
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestralTabletAreaId)
         {
             var d = new Dictionary<byte, IEnumerable<byte>>();
-            var t = MemorialContext.Ancestors
+            var t = MemorialContext.AncestralTablets
                 .Where(a => a.AncestralTabletAreaId == ancestralTabletAreaId)
                 .Select(a => new { a.PositionY, a.PositionX })
                 .Distinct()

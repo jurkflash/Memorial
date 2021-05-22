@@ -15,7 +15,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Deceased> GetByNiche(int nicheId);
 
-        IEnumerable<Deceased> GetByAncestor(int ancestorId);
+        IEnumerable<Deceased> GetByAncestralTablet(int ancestralTabletId);
 
         IEnumerable<Deceased> GetByPlot(int plotId);
     }

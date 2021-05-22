@@ -8,7 +8,7 @@ namespace Memorial.Areas.Setting.Controllers
 {
     public class AncestralTabletAreaController : Controller
     {
-        // GET: Setting/AncestorArea
+        // GET: Setting/AncestralTabletArea
         public ActionResult Index()
         {
             return View();

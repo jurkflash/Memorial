@@ -3,9 +3,9 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class AncestorIndexesViewModel
+    public class AncestralTabletIndexesViewModel
     {
-        public IEnumerable<AncestorDto> AncestorDtos { get; set; }
+        public IEnumerable<AncestralTabletDto> AncestralTabletDtos { get; set; }
 
         public IDictionary<byte, IEnumerable<byte>> Positions { get; set; }
 

@@ -90,9 +90,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Ancestor {
+        public static string AncestralTablet {
             get {
-                return ResourceManager.GetString("Ancestor", resourceCulture);
+                return ResourceManager.GetString("AncestralTablet", resourceCulture);
             }
         }
         

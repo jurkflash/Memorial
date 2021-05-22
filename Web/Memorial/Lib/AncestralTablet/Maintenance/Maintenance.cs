@@ -8,30 +8,30 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Maintenance : Transaction, IMaintenance
     {
         private const string _systemCode = "Maintenance";
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IAncestor _invoice;
+        private readonly Invoice.IAncestralTablet _invoice;
         private readonly IPayment _payment;
 
         public Maintenance(
             IUnitOfWork unitOfWork,
             IItem item,
-            IAncestor ancestor,
+            IAncestralTablet ancestralTablet,
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             INumber number,
-            Invoice.IAncestor invoice,
+            Invoice.IAncestralTablet invoice,
             IPayment payment
             ) :
             base(
                 unitOfWork,
                 item,
-                ancestor,
+                ancestralTablet,
                 applicant,
                 deceased,
                 applicantDeceased,
@@ -40,7 +40,7 @@ namespace Memorial.Lib.Ancestor
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -108,9 +108,9 @@ namespace Memorial.Lib.Ancestor
             return true;
         }
 
-        public bool ChangeAncestor(int oldAncestorId, int newAncestorId)
+        public bool ChangeAncestralTablet(int oldAncestralTabletId, int newAncestralTabletId)
         {
-            if (!ChangeAncestor(_systemCode, oldAncestorId, newAncestorId))
+            if (!ChangeAncestralTablet(_systemCode, oldAncestralTabletId, newAncestralTabletId))
                 return false;
 
             return true;

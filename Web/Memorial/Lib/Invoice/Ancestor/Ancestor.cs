@@ -2,18 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.Invoice
 {
-    public class Ancestor : Invoice, IAncestor
+    public class AncestralTablet : Invoice, IAncestralTablet
     {
         private readonly IUnitOfWork _unitOfWork;
         protected INumber _number;
 
-        public Ancestor(IUnitOfWork unitOfWork, INumber number) : base(unitOfWork)
+        public AncestralTablet(IUnitOfWork unitOfWork, INumber number) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _number = number;

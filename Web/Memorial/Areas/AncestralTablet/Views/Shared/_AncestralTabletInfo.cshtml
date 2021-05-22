@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.AncestorInfoViewModel
+﻿@model Memorial.ViewModels.AncestralTabletInfoViewModel
 
 <div class="form-group row">
     <div class="col-md-2 font-weight-bold">
@@ -19,19 +19,19 @@
         Name
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.Name
+        @Model.AncestralTabletDto.Name
     </div>
     <div class="col-md-2 font-weight-bold">
         Position X
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.PositionX
+        @Model.AncestralTabletDto.PositionX
     </div>
     <div class="col-md-2 font-weight-bold">
         Position Y
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.PositionY
+        @Model.AncestralTabletDto.PositionY
     </div>
 </div>
 <div class="form-group row">
@@ -39,19 +39,19 @@
         Price
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.Price
+        @Model.AncestralTabletDto.Price
     </div>
     <div class="col-md-2 font-weight-bold">
         Maintenance
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.Maintenance
+        @Model.AncestralTabletDto.Maintenance
     </div>
     <div class="col-md-2 font-weight-bold">
         Remark
     </div>
     <div class="col-md-2">
-        @Model.AncestorDto.Remark
+        @Model.AncestralTabletDto.Remark
     </div>
 </div>
 <hr />
@@ -106,7 +106,7 @@ else
     }
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.ActionLink("Install/Remove", "Index", "AncestorDeceaseds", new { id = Model.AncestorDto.Id }, null)
+            @Html.ActionLink("Install/Remove", "Index", "AncestralTabletDeceaseds", new { id = Model.AncestralTabletDto.Id }, null)
         </div>
     </div>
 }

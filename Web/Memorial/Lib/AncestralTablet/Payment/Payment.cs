@@ -5,21 +5,21 @@ using System.Linq;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Payment : IPayment
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransaction _transaction;
-        private readonly Invoice.IAncestor _invoice;
-        private readonly Receipt.IAncestor _receipt;
+        private readonly Invoice.IAncestralTablet _invoice;
+        private readonly Receipt.IAncestralTablet _receipt;
         private readonly IPaymentMethod _paymentMethod;
 
         public Payment(
             IUnitOfWork unitOfWork, 
             ITransaction transaction, 
-            Invoice.IAncestor invoice, 
-            Receipt.IAncestor receipt,
+            Invoice.IAncestralTablet invoice, 
+            Receipt.IAncestralTablet receipt,
             IPaymentMethod paymentMethod
             )
         {

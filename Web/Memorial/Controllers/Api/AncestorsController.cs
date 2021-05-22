@@ -9,18 +9,18 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 
 namespace Memorial.Controllers.Api
 {
-    public class AncestorsController : ApiController
+    public class AncestralTabletsController : ApiController
     {
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
         private readonly IArea _area;
 
-        public AncestorsController(IAncestor ancestor, IArea area)
+        public AncestralTabletsController(IAncestralTablet ancestralTablet, IArea area)
         {
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _area = area;
         }
 
@@ -29,14 +29,14 @@ namespace Memorial.Controllers.Api
             return Ok(_area.GetAreaDtosBySite(siteId));
         }
 
-        public IHttpActionResult GetAvailableAncestorByAreaId(int areaId)
+        public IHttpActionResult GetAvailableAncestralTabletByAreaId(int areaId)
         {
-            return Ok(_ancestor.GetAvailableAncestorDtosByAreaId(areaId));
+            return Ok(_ancestralTablet.GetAvailableAncestralTabletDtosByAreaId(areaId));
         }
 
-        public IHttpActionResult GetAncestor(int id)
+        public IHttpActionResult GetAncestralTablet(int id)
         {
-            return Ok(_ancestor.GetAncestorDto(id));
+            return Ok(_ancestralTablet.GetAncestralTabletDto(id));
         }
 
     }

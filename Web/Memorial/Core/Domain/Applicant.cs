@@ -12,7 +12,7 @@ namespace Memorial.Core.Domain
         {
             ApplicantDeceaseds = new HashSet<ApplicantDeceased>();
 
-            Ancestors = new HashSet<Ancestor>();
+            AncestralTablets = new HashSet<AncestralTablet>();
 
             Niches = new HashSet<Niche>();
 
@@ -75,7 +75,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
-        public ICollection<Ancestor> Ancestors { get; set; }
+        public ICollection<AncestralTablet> AncestralTablets { get; set; }
 
         public ICollection<Niche> Niches { get; set; }
 

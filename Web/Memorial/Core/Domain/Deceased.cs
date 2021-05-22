@@ -94,9 +94,9 @@ namespace Memorial.Core.Domain
 
         public int? PlotId { get; set; }
 
-        public Ancestor Ancestor { get; set; }
+        public AncestralTablet AncestralTablet { get; set; }
 
-        public int? AncestorId { get; set; }
+        public int? AncestralTabletId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

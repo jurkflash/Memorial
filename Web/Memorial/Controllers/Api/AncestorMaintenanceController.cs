@@ -9,15 +9,15 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 
 namespace Memorial.Controllers.Api
 {
-    public class AncestorMaintenanceController : ApiController
+    public class AncestralTabletMaintenanceController : ApiController
     {
         private readonly IMaintenance _maintenance;
 
-        public AncestorMaintenanceController(IMaintenance maintenance)
+        public AncestralTabletMaintenanceController(IMaintenance maintenance)
         {
             _maintenance = maintenance;
         }

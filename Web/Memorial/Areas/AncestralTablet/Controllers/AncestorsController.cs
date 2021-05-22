@@ -7,13 +7,13 @@ using Memorial.Lib.Site;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
-    public class AncestorsController : Controller
+    public class AncestralTabletsController : Controller
     {
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
         private readonly ISite _site;
         private readonly IArea _area;
         private readonly IItem _item;
@@ -21,8 +21,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         private readonly IDeceased _deceased;
         private readonly IApplicantDeceased _applicantDeceased;
 
-        public AncestorsController(
-            IAncestor ancestor,
+        public AncestralTabletsController(
+            IAncestralTablet ancestralTablet,
             ISite site,
             IArea area,
             IItem item,
@@ -30,7 +30,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             IDeceased deceased,
             IApplicantDeceased applicantDeceased)
         {
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _site = site;
             _area = area;
             _item = item;
@@ -49,12 +49,12 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Ancestors(int areaId, int applicantId)
+        public ActionResult AncestralTablets(int areaId, int applicantId)
         {
-            var viewModel = new AncestorIndexesViewModel()
+            var viewModel = new AncestralTabletIndexesViewModel()
             {
-                AncestorDtos = _ancestor.GetAncestorDtosByAreaId(areaId),
-                Positions = _ancestor.GetPositionsByAreaId(areaId),
+                AncestralTabletDtos = _ancestralTablet.GetAncestralTabletDtosByAreaId(areaId),
+                Positions = _ancestralTablet.GetPositionsByAreaId(areaId),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -62,42 +62,42 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Items(int id, int applicantId)
         {
-            _ancestor.SetAncestor(id);
-            _area.SetArea(_ancestor.GetAreaId());
+            _ancestralTablet.SetAncestralTablet(id);
+            _area.SetArea(_ancestralTablet.GetAreaId());
             var viewModel = new AncestralTabletItemsViewModel()
             {
                 AncestralTabletItemDtos = _item.GetItemDtosByArea(_area.GetId()),
-                AncestorDto = _ancestor.GetAncestorDto(),
+                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
                 ApplicantId = applicantId
             };
             return View(viewModel);
         }
 
         [ChildActionOnly]
-        public PartialViewResult AncestorInfo(int id)
+        public PartialViewResult AncestralTabletInfo(int id)
         {
-            var viewModel = new AncestorInfoViewModel();
-            _ancestor.SetAncestor(id);
+            var viewModel = new AncestralTabletInfoViewModel();
+            _ancestralTablet.SetAncestralTablet(id);
 
-            if (_ancestor.GetAncestorDto() != null)
+            if (_ancestralTablet.GetAncestralTabletDto() != null)
             {
-                viewModel.AncestorDto = _ancestor.GetAncestorDto();
-                viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestor.GetAreaId());
+                viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+                viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestralTablet.GetAreaId());
                 viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestralTabletAreaDto.SiteId);
 
-                if (_ancestor.HasApplicant())
+                if (_ancestralTablet.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestor.GetApplicantId());
-                    var deceaseds = _deceased.GetDeceasedsByAncestorId(_ancestor.GetAncestor().Id).ToList();
+                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestralTablet.GetApplicantId());
+                    var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         viewModel.DeceasedFlattenDto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestor.GetApplicantId(), deceaseds[0].Id);
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id);
                     }
                 }
             }
 
-            return PartialView("_AncestorInfo", viewModel);
+            return PartialView("_AncestralTabletInfo", viewModel);
         }
 
     }

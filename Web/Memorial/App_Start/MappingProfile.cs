@@ -80,7 +80,7 @@ namespace Memorial.App_Start
             CreateMap<ColumbariumItem, ColumbariumItemDto>();
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>();
 
-            CreateMap<Ancestor, AncestorDto>();
+            CreateMap<AncestralTablet, AncestralTabletDto>();
             CreateMap<AncestralTabletArea, AncestralTabletAreaDto>();
             CreateMap<AncestralTabletItem, AncestralTabletItemDto>();
             CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>();
@@ -204,7 +204,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
-            CreateMap<AncestorDto, Ancestor>()
+            CreateMap<AncestralTabletDto, AncestralTablet>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<AncestralTabletAreaDto, AncestralTabletArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -213,7 +213,7 @@ namespace Memorial.App_Start
             CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletItem, opt => opt.Ignore())
-                .ForMember(c => c.Ancestor, opt => opt.Ignore())
+                .ForMember(c => c.AncestralTablet, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.Deceased, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore())

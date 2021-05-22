@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class AncestorConfiguration : EntityTypeConfiguration<Ancestor>
+    public class AncestralTabletConfiguration : EntityTypeConfiguration<AncestralTablet>
     {
-        public AncestorConfiguration()
+        public AncestralTabletConfiguration()
         {
             Property(a => a.Name)
                 .IsRequired()
@@ -15,17 +15,17 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(255);
 
             HasOptional(a => a.Applicant)
-                .WithMany(a => a.Ancestors)
+                .WithMany(a => a.AncestralTablets)
                 .HasForeignKey(a => a.ApplicantId)
                 .WillCascadeOnDelete(false);
 
             HasMany(a => a.Deceaseds)
-                .WithOptional(d => d.Ancestor)
-                .HasForeignKey(a => a.AncestorId)
+                .WithOptional(d => d.AncestralTablet)
+                .HasForeignKey(a => a.AncestralTabletId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(a => a.AncestralTabletArea)
-                .WithMany(aa => aa.Ancestors)
+                .WithMany(aa => aa.AncestralTablets)
                 .HasForeignKey(a => a.AncestralTabletAreaId)
                 .WillCascadeOnDelete(false);
         }

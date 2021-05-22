@@ -21,7 +21,7 @@ namespace Memorial.Persistence.Repositories
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewAF(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewAF(ancestralTabletItem.Code, year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";
@@ -41,7 +41,7 @@ namespace Memorial.Persistence.Repositories
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewIV(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewIV(ancestralTabletItem.Code, year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";
@@ -61,7 +61,7 @@ namespace Memorial.Persistence.Repositories
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewRE(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewRE(ancestralTabletItem.Code, year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";

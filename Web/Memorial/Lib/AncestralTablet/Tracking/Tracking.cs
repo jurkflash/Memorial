@@ -8,7 +8,7 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Tracking : ITracking
     {
@@ -19,27 +19,27 @@ namespace Memorial.Lib.Ancestor
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(int ancestorId, string ancestralTabletTransactionAF)
+        public void Add(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            Create(ancestorId, ancestralTabletTransactionAF);
+            Create(ancestralTabletId, ancestralTabletTransactionAF);
         }
 
-        public void Add(int ancestorId, string ancestralTabletTransactionAF, int applicantId)
+        public void Add(int ancestralTabletId, string ancestralTabletTransactionAF, int applicantId)
         {
-            Create(ancestorId, ancestralTabletTransactionAF, applicantId);
+            Create(ancestralTabletId, ancestralTabletTransactionAF, applicantId);
         }
 
-        public void Add(int ancestorId, string ancestralTabletTransactionAF, int applicantId, int? deceasedId)
+        public void Add(int ancestralTabletId, string ancestralTabletTransactionAF, int applicantId, int? deceasedId)
         {
-            Create(ancestorId, ancestralTabletTransactionAF, applicantId, deceasedId);
+            Create(ancestralTabletId, ancestralTabletTransactionAF, applicantId, deceasedId);
         }
 
 
-        private void Create(int ancestorId, string ancestralTabletTransactionAF, int? applicantId = null, int? deceasedId = null)
+        private void Create(int ancestralTabletId, string ancestralTabletTransactionAF, int? applicantId = null, int? deceasedId = null)
         {
             _unitOfWork.AncestralTabletTrackings.Add(new Core.Domain.AncestralTabletTracking()
             {
-                AncestorId = ancestorId,
+                AncestralTabletId = ancestralTabletId,
                 AncestralTabletTransactionAF = ancestralTabletTransactionAF,
                 ApplicantId = applicantId,
                 DeceasedId = deceasedId,
@@ -48,9 +48,9 @@ namespace Memorial.Lib.Ancestor
 
         }
 
-        public void Change(int ancestorId, string ancestralTabletTransactionAF, int? applicantId, int? deceasedId)
+        public void Change(int ancestralTabletId, string ancestralTabletTransactionAF, int? applicantId, int? deceasedId)
         {
-            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestorIdAndTransactionAF(ancestorId, ancestralTabletTransactionAF);
+            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -59,22 +59,22 @@ namespace Memorial.Lib.Ancestor
             tracking.ActionDate = System.DateTime.Now;
         }
 
-        public void Remove(int ancestorId, string ancestralTabletTransactionAF)
+        public void Remove(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestorIdAndTransactionAF(ancestorId, ancestralTabletTransactionAF);
+            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
 
             _unitOfWork.AncestralTabletTrackings.Remove(tracking);
 
         }
 
-        public Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestorId(int ancestorId)
+        public Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetLatestFirstTransactionByAncestorId(ancestorId);
+            return _unitOfWork.AncestralTabletTrackings.GetLatestFirstTransactionByAncestralTabletId(ancestralTabletId);
         }
 
-        public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestorId(int ancestorId)
+        public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestorId(ancestorId);
+            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId);
         }
 
         public Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
@@ -89,9 +89,9 @@ namespace Memorial.Lib.Ancestor
                 _unitOfWork.AncestralTabletTrackings.Remove(tracking);
         }
 
-        public bool IsLatestTransaction(int ancestorId, string ancestralTabletTransactionAF)
+        public bool IsLatestTransaction(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            return GetLatestFirstTransactionByAncestorId(ancestorId).AncestralTabletTransactionAF == ancestralTabletTransactionAF;
+            return GetLatestFirstTransactionByAncestralTabletId(ancestralTabletId).AncestralTabletTransactionAF == ancestralTabletTransactionAF;
         }
     }
 }

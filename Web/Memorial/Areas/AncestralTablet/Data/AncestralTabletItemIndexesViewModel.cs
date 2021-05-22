@@ -14,9 +14,9 @@ namespace Memorial.ViewModels
 
         public int AncestralTabletItemId { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
-        public int AncestorId { get; set; }
+        public int AncestralTabletId { get; set; }
 
         public int ApplicantId { get; set; }
 

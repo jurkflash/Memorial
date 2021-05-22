@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public interface IMaintenance : ITransaction
     {
@@ -18,7 +18,7 @@ namespace Memorial.Lib.Ancestor
 
         bool Delete();
 
-        bool ChangeAncestor(int oldAncestorId, int newAncestorId);
+        bool ChangeAncestralTablet(int oldAncestralTabletId, int newAncestralTabletId);
 
         float GetAmount(int itemId, DateTime from, DateTime to);
     }

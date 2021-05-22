@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
+﻿using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class AncestorInfoViewModel
+    public class AncestralTabletInfoViewModel
     {
         public SiteDto SiteDto { get; set; }
 
         public AncestralTabletAreaDto AncestralTabletAreaDto { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
 

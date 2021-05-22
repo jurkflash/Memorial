@@ -18,7 +18,7 @@
         @foreach (var ancestralTabletArea in Model.AncestralTabletAreaDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestralTabletArea.Name, "Ancestors", new { areaId = ancestralTabletArea.Id, applicantId = Model.ApplicantId })</td>
+                <td>@Html.ActionLink(ancestralTabletArea.Name, "AncestralTablets", new { areaId = ancestralTabletArea.Id, applicantId = Model.ApplicantId })</td>
                 <td>@ancestralTabletArea.Description</td>
                 <td>@ancestralTabletArea.Remark</td>
             </tr>

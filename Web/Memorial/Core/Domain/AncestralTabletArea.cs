@@ -7,7 +7,7 @@ namespace Memorial.Core.Domain
     {
         public AncestralTabletArea()
         {
-            Ancestors = new HashSet<Ancestor>();
+            AncestralTablets = new HashSet<AncestralTablet>();
 
             AncestralTabletItems = new HashSet<AncestralTabletItem>();
         }
@@ -24,7 +24,7 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
-        public ICollection<Ancestor> Ancestors { get; set; }
+        public ICollection<AncestralTablet> AncestralTablets { get; set; }
 
         public ICollection<AncestralTabletItem> AncestralTabletItems { get; set; }
 

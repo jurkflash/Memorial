@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public interface IItem
     {

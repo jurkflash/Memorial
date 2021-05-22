@@ -15,6 +15,6 @@ namespace Memorial.ViewModels
 
         public ApplicantDto ApplicantDto { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
     }
 }

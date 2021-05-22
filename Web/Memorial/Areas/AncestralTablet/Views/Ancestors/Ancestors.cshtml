@@ -1,10 +1,10 @@
-﻿@model Memorial.ViewModels.AncestorIndexesViewModel
+﻿@model Memorial.ViewModels.AncestralTabletIndexesViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ancestor</h2>
+<h2>AncestralTablet</h2>
 
 <table class="table table-bordered table-hover">
     @foreach (var position in Model.Positions)
@@ -12,10 +12,10 @@
         <tr>
             @foreach (var c in Model.Positions[position.Key])
             {
-                foreach (var ancestor in Model.AncestorDtos.Where(q => q.PositionY == position.Key && q.PositionX == c))
+                foreach (var ancestralTablet in Model.AncestralTabletDtos.Where(q => q.PositionY == position.Key && q.PositionX == c))
                 {
                     <td>
-                        @Html.ActionLink(ancestor.Name, "Items", new { id = ancestor.Id, applicantId = Model.ApplicantId })
+                        @Html.ActionLink(ancestralTablet.Name, "Items", new { id = ancestralTablet.Id, applicantId = Model.ApplicantId })
                     </td>
                 }
             }

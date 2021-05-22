@@ -4,7 +4,7 @@ using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Item : IItem
     {

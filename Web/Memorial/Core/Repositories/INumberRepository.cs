@@ -34,11 +34,11 @@ namespace Memorial.Core.Repositories
 
         int GetColumbariumNewRE(string itemCode, int year);
 
-        int GetAncestorNewAF(string itemCode, int year);
+        int GetAncestralTabletNewAF(string itemCode, int year);
 
-        int GetAncestorNewIV(string itemCode, int year);
+        int GetAncestralTabletNewIV(string itemCode, int year);
 
-        int GetAncestorNewRE(string itemCode, int year);
+        int GetAncestralTabletNewRE(string itemCode, int year);
 
         int GetPlotNewAF(string itemCode, int year);
 

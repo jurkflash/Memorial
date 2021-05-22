@@ -4,148 +4,148 @@ using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
-    public class Ancestor : IAncestor
+    public class AncestralTablet : IAncestralTablet
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.Ancestor _ancestor;
+        private Core.Domain.AncestralTablet _ancestralTablet;
 
-        public Ancestor(IUnitOfWork unitOfWork)
+        public AncestralTablet(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetAncestor(int id)
+        public void SetAncestralTablet(int id)
         {
-            _ancestor = _unitOfWork.Ancestors.GetActive(id);
+            _ancestralTablet = _unitOfWork.AncestralTablets.GetActive(id);
         }
 
-        public Core.Domain.Ancestor GetAncestor()
+        public Core.Domain.AncestralTablet GetAncestralTablet()
         {
-            return _ancestor;
+            return _ancestralTablet;
         }
 
-        public AncestorDto GetAncestorDto()
+        public AncestralTabletDto GetAncestralTabletDto()
         {
-            return Mapper.Map<Core.Domain.Ancestor, AncestorDto>(GetAncestor());
+            return Mapper.Map<Core.Domain.AncestralTablet, AncestralTabletDto>(GetAncestralTablet());
         }
 
-        public Core.Domain.Ancestor GetAncestor(int id)
+        public Core.Domain.AncestralTablet GetAncestralTablet(int id)
         {
-            return _unitOfWork.Ancestors.GetActive(id);
+            return _unitOfWork.AncestralTablets.GetActive(id);
         }
 
-        public AncestorDto GetAncestorDto(int id)
+        public AncestralTabletDto GetAncestralTabletDto(int id)
         {
-            return Mapper.Map<Core.Domain.Ancestor, AncestorDto>(GetAncestor(id));
+            return Mapper.Map<Core.Domain.AncestralTablet, AncestralTabletDto>(GetAncestralTablet(id));
         }
 
-        public IEnumerable<Core.Domain.Ancestor> GetAncestorsByAreaId(int id)
+        public IEnumerable<Core.Domain.AncestralTablet> GetAncestralTabletsByAreaId(int id)
         {
-            return _unitOfWork.Ancestors.GetByArea(id);
+            return _unitOfWork.AncestralTablets.GetByArea(id);
         }
 
-        public IEnumerable<AncestorDto> GetAncestorDtosByAreaId(int id)
+        public IEnumerable<AncestralTabletDto> GetAncestralTabletDtosByAreaId(int id)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Ancestor>, IEnumerable<AncestorDto>>(GetAncestorsByAreaId(id));
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTablet>, IEnumerable<AncestralTabletDto>>(GetAncestralTabletsByAreaId(id));
         }
 
-        public IEnumerable<Core.Domain.Ancestor> GetAvailableAncestorsByAreaId(int id)
+        public IEnumerable<Core.Domain.AncestralTablet> GetAvailableAncestralTabletsByAreaId(int id)
         {
-            return _unitOfWork.Ancestors.GetAvailableByArea(id);
+            return _unitOfWork.AncestralTablets.GetAvailableByArea(id);
         }
 
-        public IEnumerable<AncestorDto> GetAvailableAncestorDtosByAreaId(int id)
+        public IEnumerable<AncestralTabletDto> GetAvailableAncestralTabletDtosByAreaId(int id)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Ancestor>, IEnumerable<AncestorDto>>(GetAvailableAncestorsByAreaId(id));
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTablet>, IEnumerable<AncestralTabletDto>>(GetAvailableAncestralTabletsByAreaId(id));
         }
 
         public string GetName()
         {
-            return _ancestor.Name;
+            return _ancestralTablet.Name;
         }
 
         public float GetPrice()
         {
-            return _ancestor.Price;
+            return _ancestralTablet.Price;
         }
 
         public float GetMaintenance()
         {
-            return _ancestor.Maintenance;
+            return _ancestralTablet.Maintenance;
         }
 
         public bool HasDeceased()
         {
-            return _ancestor.hasDeceased;
+            return _ancestralTablet.hasDeceased;
         }
 
         public void SetHasDeceased(bool flag)
         {
-            _ancestor.hasDeceased = flag;
+            _ancestralTablet.hasDeceased = flag;
         }
 
         public bool HasApplicant()
         {
-            return _ancestor.ApplicantId == null ? false : true;
+            return _ancestralTablet.ApplicantId == null ? false : true;
         }
 
         public bool HasFreeOrder()
         {
-            return _ancestor.hasFreeOrder;
+            return _ancestralTablet.hasFreeOrder;
         }
 
         public int? GetApplicantId()
         {
-            return _ancestor.ApplicantId;
+            return _ancestralTablet.ApplicantId;
         }
 
         public void SetApplicant(int applicantId)
         {
-            _ancestor.ApplicantId = applicantId;
+            _ancestralTablet.ApplicantId = applicantId;
         }
 
         public void RemoveApplicant()
         {
-            _ancestor.Applicant = null;
-            _ancestor.ApplicantId = null;
+            _ancestralTablet.Applicant = null;
+            _ancestralTablet.ApplicantId = null;
         }
 
         public int GetAreaId()
         {
-            return _ancestor.AncestralTabletAreaId;
+            return _ancestralTablet.AncestralTabletAreaId;
         }
 
         public IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId)
         {
-            return _unitOfWork.Ancestors.GetPositionsByArea(areaId);
+            return _unitOfWork.AncestralTablets.GetPositionsByArea(areaId);
         }
 
-        public bool Create(AncestorDto ancestorDto)
+        public bool Create(AncestralTabletDto ancestralTabletDto)
         {
-            _ancestor = new Core.Domain.Ancestor();
-            Mapper.Map(ancestorDto, _ancestor);
+            _ancestralTablet = new Core.Domain.AncestralTablet();
+            Mapper.Map(ancestralTabletDto, _ancestralTablet);
 
-            _ancestor.CreateDate = DateTime.Now;
+            _ancestralTablet.CreateDate = DateTime.Now;
 
-            _unitOfWork.Ancestors.Add(_ancestor);
+            _unitOfWork.AncestralTablets.Add(_ancestralTablet);
 
             return true;
         }
 
-        public bool Update(Core.Domain.Ancestor ancestor)
+        public bool Update(Core.Domain.AncestralTablet ancestralTablet)
         {
-            ancestor.ModifyDate = DateTime.Now;
+            ancestralTablet.ModifyDate = DateTime.Now;
 
             return true;
         }
 
         public bool Delete(int id)
         {
-            SetAncestor(id);
+            SetAncestralTablet(id);
 
-            _ancestor.DeleteDate = DateTime.Now;
+            _ancestralTablet.DeleteDate = DateTime.Now;
 
             return true;
         }

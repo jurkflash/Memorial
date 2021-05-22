@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Deceased;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -11,21 +11,21 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
         private readonly IDeceased _deceased;
         private readonly IOrder _order;
         private readonly ITracking _tracking;
-        private readonly Lib.Invoice.IAncestor _invoice;
+        private readonly Lib.Invoice.IAncestralTablet _invoice;
 
         public OrdersController(
-            IAncestor ancestor,
+            IAncestralTablet ancestralTablet,
             IDeceased deceased,
             IOrder order,
             ITracking tracking,
-            Lib.Invoice.IAncestor invoice
+            Lib.Invoice.IAncestralTablet invoice
             )
         {
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _deceased = deceased;
             _order = order;
             _tracking = tracking;
@@ -39,18 +39,18 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _ancestor.SetAncestor(id);
+            _ancestralTablet.SetAncestralTablet(id);
 
             var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 AncestralTabletItemId = itemId,
-                AncestorDto = _ancestor.GetAncestorDto(),
-                AncestorId = id,
-                AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestorIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
+                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
+                AncestralTabletId = id,
+                AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            if (applicantId == 0 || _ancestor.HasApplicant())
+            if (applicantId == 0 || _ancestralTablet.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }
@@ -65,13 +65,13 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         public ActionResult Info(string AF)
         {
             _order.SetTransaction(AF);
-            _ancestor.SetAncestor(_order.GetTransactionAncestorId());
+            _ancestralTablet.SetAncestralTablet(_order.GetTransactionAncestralTabletId());
 
             var viewModel = new AncestralTabletTransactionsInfoViewModel()
             {
                 ApplicantId = _order.GetTransactionApplicantId(),
                 DeceasedId = _order.GetTransactionDeceasedId(),
-                AncestorDto = _ancestor.GetAncestorDto(),
+                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
                 ItemName = _order.GetItemName(),
                 AncestralTabletTransactionDto = _order.GetTransactionDto()
             };
@@ -87,13 +87,13 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             if (AF == null)
             {
-                _ancestor.SetAncestor(id);
+                _ancestralTablet.SetAncestralTablet(id);
 
                 var ancestralTabletTransactionDto = new AncestralTabletTransactionDto(itemId, id, applicantId);
-                ancestralTabletTransactionDto.AncestorId = id;
+                ancestralTabletTransactionDto.AncestralTabletId = id;
                 viewModel.AncestralTabletTransactionDto = ancestralTabletTransactionDto;
-                viewModel.AncestralTabletTransactionDto.Price = _ancestor.GetPrice();
-                viewModel.AncestralTabletTransactionDto.Maintenance = _ancestor.GetMaintenance();
+                viewModel.AncestralTabletTransactionDto.Price = _ancestralTablet.GetPrice();
+                viewModel.AncestralTabletTransactionDto.Maintenance = _ancestralTablet.GetMaintenance();
             }
             else
             {
@@ -109,7 +109,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             if (viewModel.AncestralTabletTransactionDto.DeceasedId != null)
             {
                 _deceased.SetDeceased((int)viewModel.AncestralTabletTransactionDto.DeceasedId);
-                if (_deceased.GetAncestor() != null && _deceased.GetAncestor().Id != viewModel.AncestralTabletTransactionDto.AncestorId)
+                if (_deceased.GetAncestralTablet() != null && _deceased.GetAncestralTablet().Id != viewModel.AncestralTabletTransactionDto.AncestralTabletId)
                 {
                     ModelState.AddModelError("AncestralTabletTransactionDto.DeceasedId", "Invalid");
                     return FormForResubmit(viewModel);
@@ -123,7 +123,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                     return RedirectToAction("Index", new
                     {
                         itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
-                        id = viewModel.AncestralTabletTransactionDto.AncestorId,
+                        id = viewModel.AncestralTabletTransactionDto.AncestralTabletId,
                         applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
                     });
                 }
@@ -149,7 +149,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return RedirectToAction("Index", new
             {
                 itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
-                id = viewModel.AncestralTabletTransactionDto.AncestorId,
+                id = viewModel.AncestralTabletTransactionDto.AncestralTabletId,
                 applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
             });
         }
@@ -179,7 +179,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Invoices(string AF)
         {
-            return RedirectToAction("Index", "AncestorInvoices", new { AF = AF, area = "AncestralTablet" });
+            return RedirectToAction("Index", "AncestralTabletInvoices", new { AF = AF, area = "AncestralTablet" });
         }
 
     }

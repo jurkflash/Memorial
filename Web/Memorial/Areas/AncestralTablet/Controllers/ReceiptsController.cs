@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Memorial.Lib;
 using Memorial.Lib.Receipt;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
@@ -17,15 +17,15 @@ namespace Memorial.Areas.AncestralTablet.Controllers
     public class ReceiptsController : Controller
     {
         private readonly ITransaction _transaction;
-        private readonly Lib.Invoice.IAncestor _invoice;
-        private readonly Lib.Receipt.IAncestor _receipt;
+        private readonly Lib.Invoice.IAncestralTablet _invoice;
+        private readonly Lib.Receipt.IAncestralTablet _receipt;
         private readonly IPaymentMethod _paymentMethod;
         private readonly IPayment _payment;
 
         public ReceiptsController(
             ITransaction transaction,
-            Lib.Invoice.IAncestor invoice,
-            Lib.Receipt.IAncestor receipt,
+            Lib.Invoice.IAncestralTablet invoice,
+            Lib.Receipt.IAncestralTablet receipt,
             IPaymentMethod paymentMethod,
             IPayment payment)
         {

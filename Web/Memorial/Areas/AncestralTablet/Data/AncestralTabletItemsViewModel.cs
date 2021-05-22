@@ -11,7 +11,7 @@ namespace Memorial.ViewModels
     {
         public IEnumerable<AncestralTabletItemDto> AncestralTabletItemDtos { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
         public int ApplicantId { get; set; }
 

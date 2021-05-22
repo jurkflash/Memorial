@@ -2,33 +2,33 @@
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using System.Web.Mvc;
 using Memorial.ViewModels;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
-    public class AncestorDeceasedsController : Controller
+    public class AncestralTabletDeceasedsController : Controller
     {
         private readonly IApplicant _applicant;
         private readonly IDeceased _deceased;
-        private readonly IAncestorDeceased _ancestorDeceased;
+        private readonly IAncestralTabletDeceased _ancestralTabletDeceased;
         private readonly IApplicantDeceased _applicantDeceased;
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
 
-        public AncestorDeceasedsController(
+        public AncestralTabletDeceasedsController(
             IApplicant applicant,
             IDeceased deceased,
-            IAncestorDeceased ancestorDeceased,
+            IAncestralTabletDeceased ancestralTabletDeceased,
             IApplicantDeceased applicantDeceased,
-            IAncestor ancestor
+            IAncestralTablet ancestralTablet
             )
         {
             _applicant = applicant;
             _deceased = deceased;
-            _ancestorDeceased = ancestorDeceased;
+            _ancestralTabletDeceased = ancestralTabletDeceased;
             _applicantDeceased = applicantDeceased;
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
         }
 
         public ActionResult Index(int id)
@@ -36,27 +36,27 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return View(bind(id));
         }
 
-        private AncestorDeceasedsViewModel bind(int id)
+        private AncestralTabletDeceasedsViewModel bind(int id)
         {
-            var viewModel = new AncestorDeceasedsViewModel();
+            var viewModel = new AncestralTabletDeceasedsViewModel();
             
-            _ancestor.SetAncestor(id);
+            _ancestralTablet.SetAncestralTablet(id);
 
-            if (_ancestor.GetAncestorDto() != null)
+            if (_ancestralTablet.GetAncestralTabletDto() != null)
             {
-                viewModel.AncestorDto = _ancestor.GetAncestorDto();
+                viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
 
-                var applicantDeceaseds = _deceased.GetDeceasedBriefDtosByApplicantId((int)_ancestor.GetApplicantId());
+                var applicantDeceaseds = _deceased.GetDeceasedBriefDtosByApplicantId((int)_ancestralTablet.GetApplicantId());
 
-                if (_ancestor.HasApplicant())
+                if (_ancestralTablet.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestor.GetApplicantId());
-                    var deceaseds = _deceased.GetDeceasedsByAncestorId(_ancestor.GetAncestor().Id).ToList();
+                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestralTablet.GetApplicantId());
+                    var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[0].Id).ToList();
                         viewModel.DeceasedFlatten1Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestor.GetApplicantId(), deceaseds[0].Id);
+                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id);
                     }
                 }
 
@@ -66,34 +66,34 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return viewModel;
         }
 
-        public ActionResult Save(AncestorDeceasedsViewModel viewModel)
+        public ActionResult Save(AncestralTabletDeceasedsViewModel viewModel)
         {
             if (viewModel.Deceased1Id == null)
             {
-                return RedirectToAction("Index", new { id = viewModel.AncestorDto.Id });
+                return RedirectToAction("Index", new { id = viewModel.AncestralTabletDto.Id });
             }
 
             if (viewModel.Deceased1Id != null)
             {
                 _deceased.SetDeceased((int)viewModel.Deceased1Id);
-                if (_deceased.GetAncestor() != null)
+                if (_deceased.GetAncestralTablet() != null)
                 {
                     ModelState.AddModelError("DeceasedId", "Deceased already installed");
-                    return View("Index", bind(viewModel.AncestorDto.Id));
+                    return View("Index", bind(viewModel.AncestralTabletDto.Id));
                 }
 
-                if (!_ancestorDeceased.Add1(viewModel.AncestorDto.Id, (int)viewModel.Deceased1Id))
+                if (!_ancestralTabletDeceased.Add1(viewModel.AncestralTabletDto.Id, (int)viewModel.Deceased1Id))
                 {
-                    return View("Index", bind(viewModel.AncestorDto.Id));
+                    return View("Index", bind(viewModel.AncestralTabletDto.Id));
                 }
             }
 
-            return RedirectToAction("Index", new { id = viewModel.AncestorDto.Id });
+            return RedirectToAction("Index", new { id = viewModel.AncestralTabletDto.Id });
         }
 
         public ActionResult Remove(int id, int deceasedId)
         {
-            _ancestorDeceased.Remove(id, deceasedId);
+            _ancestralTabletDeceased.Remove(id, deceasedId);
 
             return RedirectToAction("Index", new { id = id });
         }

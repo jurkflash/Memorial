@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 
 namespace Memorial.Lib.Invoice
 {
-    public interface IAncestor : IInvoice
+    public interface IAncestralTablet : IInvoice
     {
         IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF);
 

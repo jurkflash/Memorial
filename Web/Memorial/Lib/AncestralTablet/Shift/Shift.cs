@@ -8,12 +8,12 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public class Shift : Transaction, IShift
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IAncestor _invoice;
+        private readonly Invoice.IAncestralTablet _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
         private readonly IMaintenance _maintenance;
@@ -21,12 +21,12 @@ namespace Memorial.Lib.Ancestor
         public Shift(
             IUnitOfWork unitOfWork,
             IItem item,
-            IAncestor ancestor,
+            IAncestralTablet ancestralTablet,
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             INumber number,
-            Invoice.IAncestor invoice,
+            Invoice.IAncestralTablet invoice,
             IPayment payment,
             ITracking tracking,
             IMaintenance maintenance
@@ -34,7 +34,7 @@ namespace Memorial.Lib.Ancestor
             base(
                 unitOfWork,
                 item,
-                ancestor,
+                ancestralTablet,
                 applicant,
                 deceased,
                 applicantDeceased,
@@ -43,7 +43,7 @@ namespace Memorial.Lib.Ancestor
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -70,56 +70,56 @@ namespace Memorial.Lib.Ancestor
             _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
         }
 
-        private bool ShiftAncestorApplicantDeceaseds(int oldQuadranlgeId, int newAncestorId, int newApplicantId)
+        private bool ShiftAncestralTabletApplicantDeceaseds(int oldQuadranlgeId, int newAncestralTabletId, int newApplicantId)
         {
-            _ancestor.SetAncestor(oldQuadranlgeId);
+            _ancestralTablet.SetAncestralTablet(oldQuadranlgeId);
 
-            var deceaseds = _deceased.GetDeceasedsByAncestorId(oldQuadranlgeId);
+            var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(oldQuadranlgeId);
 
             foreach (var deceased in deceaseds)
             {
                 _deceased.SetDeceased(deceased.Id);
-                _deceased.SetAncestor(newAncestorId);
+                _deceased.SetAncestralTablet(newAncestralTabletId);
             }
 
             if (deceaseds.Any())
             {
-                _ancestor.SetHasDeceased(false);
+                _ancestralTablet.SetHasDeceased(false);
             }
 
-            _ancestor.RemoveApplicant();
+            _ancestralTablet.RemoveApplicant();
 
-            _ancestor.SetAncestor(newAncestorId);
-            _ancestor.SetApplicant(newApplicantId);
-            _ancestor.SetHasDeceased(deceaseds.Any());
+            _ancestralTablet.SetAncestralTablet(newAncestralTabletId);
+            _ancestralTablet.SetApplicant(newApplicantId);
+            _ancestralTablet.SetHasDeceased(deceaseds.Any());
 
             return true;
         }
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            _ancestor.SetAncestor((int)ancestralTabletTransactionDto.ShiftedAncestorId);
-            if (_ancestor.HasApplicant())
+            _ancestralTablet.SetAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId);
+            if (_ancestralTablet.HasApplicant())
                 return false;
 
-            if (!SetTransactionDeceasedIdBasedOnAncestor(ancestralTabletTransactionDto, (int)ancestralTabletTransactionDto.ShiftedAncestorId))
+            if (!SetTransactionDeceasedIdBasedOnAncestralTablet(ancestralTabletTransactionDto, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletId))
                 return false;
 
-            ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF = _tracking.GetLatestFirstTransactionByAncestorId((int)ancestralTabletTransactionDto.ShiftedAncestorId).AncestralTabletTransactionAF;
+            ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF = _tracking.GetLatestFirstTransactionByAncestralTabletId((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId).AncestralTabletTransactionAF;
 
             GetTransaction(ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF).DeleteDate = System.DateTime.Now;
 
-            _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestorId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF);
+            _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF);
 
             NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
-                ShiftAncestorApplicantDeceaseds(ancestralTabletTransactionDto.AncestorId, (int)ancestralTabletTransactionDto.ShiftedAncestorId, ancestralTabletTransactionDto.ApplicantId);
+                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.AncestralTabletId, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
 
-                _maintenance.ChangeAncestor((int)ancestralTabletTransactionDto.ShiftedAncestorId, ancestralTabletTransactionDto.AncestorId);
+                _maintenance.ChangeAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId);
 
-                _tracking.Add(ancestralTabletTransactionDto.AncestorId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
 
                 _unitOfWork.Complete();
             }
@@ -141,18 +141,18 @@ namespace Memorial.Lib.Ancestor
 
             var ancestralTabletTransactionInDb = GetTransaction(ancestralTabletTransactionDto.AF);
 
-            if(ancestralTabletTransactionInDb.ShiftedAncestorId != ancestralTabletTransactionDto.ShiftedAncestorId)
+            if(ancestralTabletTransactionInDb.ShiftedAncestralTabletId != ancestralTabletTransactionDto.ShiftedAncestralTabletId)
             {
-                if (!SetTransactionDeceasedIdBasedOnAncestor(ancestralTabletTransactionDto, ancestralTabletTransactionInDb.AncestorId))
+                if (!SetTransactionDeceasedIdBasedOnAncestralTablet(ancestralTabletTransactionDto, ancestralTabletTransactionInDb.AncestralTabletId))
                     return false;
 
-                _tracking.Remove(ancestralTabletTransactionInDb.AncestorId, ancestralTabletTransactionDto.AF);
+                _tracking.Remove(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AF);
 
-                _tracking.Add(ancestralTabletTransactionDto.AncestorId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
 
-                ShiftAncestorApplicantDeceaseds(ancestralTabletTransactionInDb.AncestorId, ancestralTabletTransactionDto.AncestorId, ancestralTabletTransactionDto.ApplicantId);
+                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
 
-                _maintenance.ChangeAncestor(ancestralTabletTransactionInDb.AncestorId, ancestralTabletTransactionDto.AncestorId);
+                _maintenance.ChangeAncestralTablet(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId);
 
                 UpdateTransaction(ancestralTabletTransactionDto);
 
@@ -167,23 +167,23 @@ namespace Memorial.Lib.Ancestor
             if (GetTransactionsByShiftedAncestralTabletTransactionAF(_transaction.AF) != null)
                 return false;
 
-            if (!_tracking.IsLatestTransaction((int)_transaction.ShiftedAncestorId, _transaction.AF))
+            if (!_tracking.IsLatestTransaction((int)_transaction.ShiftedAncestralTabletId, _transaction.AF))
                 return false;
 
-            _ancestor.SetAncestor((int)_transaction.ShiftedAncestorId);
-            if (_ancestor.HasApplicant())
+            _ancestralTablet.SetAncestralTablet((int)_transaction.ShiftedAncestralTabletId);
+            if (_ancestralTablet.HasApplicant())
                 return false;
 
             DeleteTransaction();
 
 
-            _ancestor.SetAncestor(_transaction.AncestorId);
+            _ancestralTablet.SetAncestralTablet(_transaction.AncestralTabletId);
 
-            _ancestor.RemoveApplicant();
+            _ancestralTablet.RemoveApplicant();
 
-            _ancestor.SetHasDeceased(false);
+            _ancestralTablet.SetHasDeceased(false);
 
-            var deceaseds = _deceased.GetDeceasedsByAncestorId(_transaction.AncestorId);
+            var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_transaction.AncestralTabletId);
 
             foreach (var deceased in deceaseds)
             {
@@ -191,35 +191,35 @@ namespace Memorial.Lib.Ancestor
                 _deceased.RemoveNiche();
             }
 
-            _tracking.Remove(_transaction.AncestorId, _transaction.AF);
+            _tracking.Remove(_transaction.AncestralTabletId, _transaction.AF);
 
 
             var previousTransaction = GetTransactionExclusive(_transaction.ShiftedAncestralTabletTransactionAF);
 
-            _ancestor.SetAncestor(previousTransaction.AncestorId);
+            _ancestralTablet.SetAncestralTablet(previousTransaction.AncestralTabletId);
 
-            _ancestor.SetApplicant(previousTransaction.ApplicantId);
+            _ancestralTablet.SetApplicant(previousTransaction.ApplicantId);
 
             if (previousTransaction.DeceasedId != null)
             {
                 _deceased.SetDeceased((int)previousTransaction.DeceasedId);
 
-                if (_deceased.GetAncestor() != null && _deceased.GetAncestor().Id != _transaction.AncestorId)
+                if (_deceased.GetAncestralTablet() != null && _deceased.GetAncestralTablet().Id != _transaction.AncestralTabletId)
                     return false;
 
-                _deceased.SetAncestor(previousTransaction.AncestorId);
+                _deceased.SetAncestralTablet(previousTransaction.AncestralTabletId);
 
-                _ancestor.SetHasDeceased(true);
+                _ancestralTablet.SetHasDeceased(true);
             }
 
             previousTransaction.DeleteDate = null;
 
-            _tracking.Add(previousTransaction.AncestorId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.DeceasedId);
+            _tracking.Add(previousTransaction.AncestralTabletId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.DeceasedId);
 
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 
-            _maintenance.ChangeAncestor(_transaction.AncestorId, previousTransaction.AncestorId);
+            _maintenance.ChangeAncestralTablet(_transaction.AncestralTabletId, previousTransaction.AncestralTabletId);
 
             _unitOfWork.Complete();
 

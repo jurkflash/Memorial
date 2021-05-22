@@ -14,10 +14,10 @@
 
     <div class="form-group row">
         <div class="col-md-3">
-            Ancestor
+            AncestralTablet
         </div>
         <div class="col-md-6">
-            @Model.AncestralTabletTransactionDto.Ancestor.Name
+            @Model.AncestralTabletTransactionDto.AncestralTablet.Name
         </div>
     </div>
     if (Model.AncestralTabletTransactionDto.AF == null)
@@ -27,7 +27,7 @@
                 HasDeceased
             </div>
             <div class="col-md-6">
-                @Model.AncestralTabletTransactionDto.Ancestor.hasDeceased
+                @Model.AncestralTabletTransactionDto.AncestralTablet.hasDeceased
             </div>
         </div>
         <div class="form-group row">
@@ -45,10 +45,10 @@
         </div>
         <div class="form-group row">
             <div class="col-md-3">
-                Ancestor
+                AncestralTablet
             </div>
             <div class="col-md-6">
-                @Model.AncestralTabletTransactionDto.Ancestor.Name
+                @Model.AncestralTabletTransactionDto.AncestralTablet.Name
             </div>
         </div>
         <hr />
@@ -72,10 +72,10 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Ancestor
+            AncestralTablet
         </div>
         <div class="col-md-6">
-            <select id="Ancestors" class="form-control"></select>
+            <select id="AncestralTablets" class="form-control"></select>
         </div>
     </div>
     <div class="form-group row">
@@ -113,9 +113,9 @@
     </div>
 
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestorId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestorId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
@@ -150,7 +150,7 @@
 
         function areas() {
             $.ajax({
-                url: "/api/Ancestors/GetArea",
+                url: "/api/AncestralTablets/GetArea",
                 data: { siteId: $("#Sites").val() }
             })
                 .done(function (response) {
@@ -168,19 +168,19 @@
                 });
         }
 
-        function ancestors() {
+        function ancestralTablets() {
             $.ajax({
-                url: "/api/Ancestors/GetAvailableAncestorByAreaId",
+                url: "/api/AncestralTablets/GetAvailableAncestralTabletByAreaId",
                 data: { areaId: $("#Areas").val() }
             })
                 .done(function (response) {
                     var len = response.length;
-                    $("#Ancestors").empty();
-                    $("#Ancestors").append("<option value='0'>Please Select</option>");
+                    $("#AncestralTablets").empty();
+                    $("#AncestralTablets").append("<option value='0'>Please Select</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
-                        $("#Ancestors").append("<option value='" + id + "'>" + name + "</option>");
+                        $("#AncestralTablets").append("<option value='" + id + "'>" + name + "</option>");
                     }
                 })
                 .fail(function () {
@@ -188,20 +188,20 @@
                 });
         }
 
-        function clearAncestor() {
+        function clearAncestralTablet() {
             $("#qName").empty();
             $("#AncestralTabletTransactionDto_Price").val('');
             $("#AncestralTabletTransactionDto_Maintenance").val('');
-            $("#AncestralTabletTransactionDto_AncestorId").val('');
+            $("#AncestralTabletTransactionDto_AncestralTabletId").val('');
             $("#qRemark").empty();
         }
 
-        function ancestor() {
-            clearAncestor();
+        function ancestralTablet() {
+            clearAncestralTablet();
 
             $.ajax({
-                url: "/api/Ancestors/GetAncestor",
-                data: { id: $("#Ancestors").val() }
+                url: "/api/AncestralTablets/GetAncestralTablet",
+                data: { id: $("#AncestralTablets").val() }
             })
                 .done(function (response) {
                     if (response != null) {
@@ -209,7 +209,7 @@
                         $("#AncestralTabletTransactionDto_Price").val(response['price']);
                         $("#AncestralTabletTransactionDto_Maintenance").val(response['maintenance']);
                         $("#qRemark").html(response['remark']);
-                        $("#AncestralTabletTransactionDto_AncestorId").val(response['id']);
+                        $("#AncestralTabletTransactionDto_AncestralTabletId").val(response['id']);
                     }
                 })
                 .fail(function () {
@@ -222,8 +222,8 @@
 
             $("#Sites").change(function () {
                 $("#Areas").empty();
-                $("#Ancestors").empty();
-                clearAncestor();
+                $("#AncestralTablets").empty();
+                clearAncestralTablet();
 
                 if ($(this).val() != 0) {
                     areas();
@@ -231,19 +231,19 @@
             })
 
             $("#Areas").change(function () {
-                $("#Ancestors").empty();
-                clearAncestor();
+                $("#AncestralTablets").empty();
+                clearAncestralTablet();
 
                 if ($(this).val() != 0) {
-                    ancestors();
+                    ancestralTablets();
                 }
             });
 
-            $("#Ancestors").change(function () {
-                clearAncestor();
+            $("#AncestralTablets").change(function () {
+                clearAncestralTablet();
 
                 if ($(this).val() != 0) {
-                    ancestor();
+                    ancestralTablet();
                 }
             });
         });

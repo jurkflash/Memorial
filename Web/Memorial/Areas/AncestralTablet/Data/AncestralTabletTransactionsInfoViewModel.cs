@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public string ItemName { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
         public int ApplicantId { get; set; }
 

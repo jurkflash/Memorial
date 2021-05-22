@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using AutoMapper;
 
 namespace Memorial.Lib.Receipt
 {
-    public class Ancestor : Receipt, IAncestor
+    public class AncestralTablet : Receipt, IAncestralTablet
     {
         private readonly IUnitOfWork _unitOfWork;
         protected INumber _number;
 
-        public Ancestor(
+        public AncestralTablet(
             IUnitOfWork unitOfWork,
             INumber number
             ) : base(unitOfWork)

@@ -2,7 +2,7 @@
 
 namespace Memorial.Core.Dtos
 {
-    public class AncestorDto
+    public class AncestralTabletDto
     {
         public int Id { get; set; }
 

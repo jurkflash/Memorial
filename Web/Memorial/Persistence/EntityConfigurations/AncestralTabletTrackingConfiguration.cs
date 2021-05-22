@@ -7,9 +7,9 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public AncestralTabletTrackingConfiguration()
         {
-            HasRequired(at => at.Ancestor)
+            HasRequired(at => at.AncestralTablet)
                 .WithMany(a => a.AncestralTabletTrackings)
-                .HasForeignKey(at => at.AncestorId)
+                .HasForeignKey(at => at.AncestralTabletId)
                 .WillCascadeOnDelete(false);
 
             HasOptional(qt => qt.Applicant)

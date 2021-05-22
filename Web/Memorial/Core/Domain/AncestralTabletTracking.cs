@@ -10,9 +10,9 @@ namespace Memorial.Core.Domain
     {
         public int Id { get; set; }
 
-        public Ancestor Ancestor { get; set; }
+        public AncestralTablet AncestralTablet { get; set; }
 
-        public int AncestorId { get; set; }
+        public int AncestralTabletId { get; set; }
 
         public AncestralTabletTransaction AncestralTabletTransaction { get; set; }
 

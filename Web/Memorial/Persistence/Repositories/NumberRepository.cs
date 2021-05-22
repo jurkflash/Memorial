@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         private const string _space = "Space";
         private const string _urn = "Urn";
         private const string _columbarium = "Columbarium";
-        private const string _ancestor = "Ancestor";
+        private const string _ancestralTablet = "AncestralTablet";
         private const string _plot = "Plot";
 
         private MemorialContext _context;
@@ -106,19 +106,19 @@ namespace Memorial.Persistence.Repositories
             return GetNumber(_columbarium, _RE, itemCode, year);
         }
 
-        public int GetAncestorNewAF(string itemCode, int year)
+        public int GetAncestralTabletNewAF(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _AF, itemCode, year);
+            return GetNumber(_ancestralTablet, _AF, itemCode, year);
         }
 
-        public int GetAncestorNewIV(string itemCode, int year)
+        public int GetAncestralTabletNewIV(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _IV, itemCode, year);
+            return GetNumber(_ancestralTablet, _IV, itemCode, year);
         }
 
-        public int GetAncestorNewRE(string itemCode, int year)
+        public int GetAncestralTabletNewRE(string itemCode, int year)
         {
-            return GetNumber(_ancestor, _RE, itemCode, year);
+            return GetNumber(_ancestralTablet, _RE, itemCode, year);
         }
 
         public int GetPlotNewAF(string itemCode, int year)

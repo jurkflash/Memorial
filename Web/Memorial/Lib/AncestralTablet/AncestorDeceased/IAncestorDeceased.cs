@@ -1,6 +1,6 @@
-﻿namespace Memorial.Lib.Ancestor
+﻿namespace Memorial.Lib.AncestralTablet
 {
-    public interface IAncestorDeceased
+    public interface IAncestralTabletDeceased
     {
         bool Add1(int id, int deceasedId);
         bool Remove(int id, int deceasedId);

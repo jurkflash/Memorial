@@ -28,7 +28,7 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByNicheId(int nicheId);
 
-        IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId);
+        IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestralTabletId(int ancestralTabletId);
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByPlotId(int plotId);
 
@@ -42,11 +42,11 @@ namespace Memorial.Lib.Deceased
 
         bool RemoveNiche();
 
-        Core.Domain.Ancestor GetAncestor();
+        Core.Domain.AncestralTablet GetAncestralTablet();
 
-        bool SetAncestor(int ancestorId);
+        bool SetAncestralTablet(int ancestralTabletId);
 
-        bool RemoveAncestor();
+        bool RemoveAncestralTablet();
 
         Core.Domain.Plot GetPlot();
 
@@ -58,6 +58,6 @@ namespace Memorial.Lib.Deceased
 
         bool RemoveNicheDeceased();
 
-        bool RemoveAncestorDeceased();
+        bool RemoveAncestralTabletDeceased();
     }
 }

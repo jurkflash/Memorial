@@ -11,12 +11,12 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestralTabletTransaction> GetByApplicant(int id);
 
-        IEnumerable<AncestralTabletTransaction> GetByAncestorIdAndItem(int ancestorId, int itemId, string filter);
+        IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter);
 
         AncestralTabletTransaction GetByShiftedAncestralTabletTransactionAF(string AF);
 
-        IEnumerable<AncestralTabletTransaction> GetByAncestorId(int ancestorId);
+        IEnumerable<AncestralTabletTransaction> GetByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<AncestralTabletTransaction> GetByAncestorIdAndItemAndApplicant(int ancestorId, int itemId, int applicantId);
+        IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItemAndApplicant(int ancestralTabletId, int itemId, int applicantId);
     }
 }

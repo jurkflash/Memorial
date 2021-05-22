@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public interface ITransaction
     {
@@ -26,7 +26,7 @@ namespace Memorial.Lib.Ancestor
 
         float GetTransactionAmount();
 
-        int GetTransactionAncestorId();
+        int GetTransactionAncestralTabletId();
 
         int GetItemId();
 
@@ -44,13 +44,13 @@ namespace Memorial.Lib.Ancestor
 
         int? GetTransactionDeceasedId();
 
-        IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestorIdAndItemId(int ancestorId, int itemId, string filter);
+        IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter);
 
-        IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestorIdAndItemId(int ancestorId, int itemId, string filter);
+        IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter);
 
-        IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestorIdAndItemIdAndApplicantId(int ancestorId, int itemId, int applicantId);
+        IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestralTabletIdAndItemIdAndApplicantId(int ancestralTabletId, int itemId, int applicantId);
 
-        IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestorIdAndItemIdAndApplicantId(int ancestorId, int itemId, int applicantId);
+        IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestralTabletIdAndItemIdAndApplicantId(int ancestralTabletId, int itemId, int applicantId);
 
         Core.Domain.AncestralTabletTransaction GetTransactionsByShiftedAncestralTabletTransactionAF(string AF);
     }

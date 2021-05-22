@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Ancestor
+namespace Memorial.Lib.AncestralTablet
 {
     public interface ITracking
     {
@@ -18,14 +18,14 @@ namespace Memorial.Lib.Ancestor
 
         void Remove(int nicheId, string ancestralTabletTransactionAF);
 
-        Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestorId(int ancestorId);
+        Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestorId(int ancestorId);
+        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId);
 
         Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
 
         void Delete(string ancestralTabletTransactionAF);
 
-        bool IsLatestTransaction(int ancestorId, string ancestralTabletTransactionAF);
+        bool IsLatestTransaction(int ancestralTabletId, string ancestralTabletTransactionAF);
     }
 }

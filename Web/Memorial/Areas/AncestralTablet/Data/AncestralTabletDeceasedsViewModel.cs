@@ -7,11 +7,11 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class AncestorDeceasedsViewModel
+    public class AncestralTabletDeceasedsViewModel
     {
         public AncestralTabletTransactionDto AncestralTabletTransactionDto { get; set; }
 
-        public AncestorDto AncestorDto { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
 

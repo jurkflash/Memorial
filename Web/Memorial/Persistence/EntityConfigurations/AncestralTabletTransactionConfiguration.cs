@@ -21,9 +21,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(at => at.AncestralTabletItemId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(at => at.Ancestor)
+            HasRequired(at => at.AncestralTablet)
                 .WithMany(a => a.AncestralTabletTransactions)
-                .HasForeignKey(at => at.AncestorId)
+                .HasForeignKey(at => at.AncestralTabletId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(at => at.Applicant)
@@ -36,9 +36,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(at => at.DeceasedId)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(at => at.ShiftedAncestor)
+            HasOptional(at => at.ShiftedAncestralTablet)
                .WithMany(q => q.ShiftedAncestralTabletTransactions)
-               .HasForeignKey(at => at.ShiftedAncestorId)
+               .HasForeignKey(at => at.ShiftedAncestralTabletId)
                .WillCascadeOnDelete(false);
 
             HasOptional(at => at.ShiftedAncestralTabletTransaction)

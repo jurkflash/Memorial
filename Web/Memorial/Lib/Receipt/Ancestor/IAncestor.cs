@@ -5,7 +5,7 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Receipt
 {
-    public interface IAncestor : IReceipt
+    public interface IAncestralTablet : IReceipt
     {
         IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF);
 

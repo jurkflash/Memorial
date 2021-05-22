@@ -10,10 +10,10 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public AncestralTabletTransactionDto(int ancestralTabletItemId, int ancestorId, int applicantId)
+        public AncestralTabletTransactionDto(int ancestralTabletItemId, int ancestralTabletId, int applicantId)
         {
             AncestralTabletItemId = ancestralTabletItemId;
-            AncestorId = ancestorId;
+            AncestralTabletId = ancestralTabletId;
             ApplicantId = applicantId;
         }
 
@@ -23,9 +23,9 @@ namespace Memorial.Core.Dtos
 
         public int AncestralTabletItemId { get; set; }
 
-        public Ancestor Ancestor { get; set; }
+        public AncestralTablet AncestralTablet { get; set; }
 
-        public int AncestorId { get; set; }
+        public int AncestralTabletId { get; set; }
 
         public string Label { get; set; }
 
@@ -47,9 +47,9 @@ namespace Memorial.Core.Dtos
 
         public DateTime? ToDate { get; set; }
 
-        public Ancestor ShiftedAncestor { get; set; }
+        public AncestralTablet ShiftedAncestralTablet { get; set; }
 
-        public int? ShiftedAncestorId { get; set; }
+        public int? ShiftedAncestralTabletId { get; set; }
 
         public string ShiftedAncestralTabletTransactionAF { get; set; }
 

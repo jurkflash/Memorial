@@ -47,7 +47,7 @@
     </div>
 
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestorId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">Save</button>
@@ -74,7 +74,7 @@
             var t = $("#AncestralTabletTransactionDto_ToDate").val();
             if (f != "" && t != "") {
                 var ii = $("#AncestralTabletTransactionDto_AncestralTabletItemId").val();
-                var url = '/api/AncestorMaintenance/GetAmount';
+                var url = '/api/AncestralTabletMaintenance/GetAmount';
                 $.ajax({
                     url: url,
                     type: 'GET',

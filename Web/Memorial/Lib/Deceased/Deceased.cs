@@ -5,7 +5,7 @@ using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Cemetery;
 using AutoMapper;
 
@@ -15,19 +15,19 @@ namespace Memorial.Lib.Deceased
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly INiche _niche;
-        private readonly IAncestor _ancestor;
+        private readonly IAncestralTablet _ancestralTablet;
         private readonly IPlot _plot;
 
         private Core.Domain.Deceased _deceased;
 
         public Deceased(IUnitOfWork unitOfWork, 
             INiche niche, 
-            IAncestor ancestor, 
+            IAncestralTablet ancestralTablet, 
             IPlot plot)
         {
             _unitOfWork = unitOfWork;
             _niche = niche;
-            _ancestor = ancestor;
+            _ancestralTablet = ancestralTablet;
             _plot = plot;
         }
 
@@ -86,9 +86,9 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetByNiche(nicheId);
         }
 
-        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestorId(int ancestorId)
+        public IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestralTabletId(int ancestralTabletId)
         {
-            return _unitOfWork.Deceaseds.GetByAncestor(ancestorId);
+            return _unitOfWork.Deceaseds.GetByAncestralTablet(ancestralTabletId);
         }
 
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByPlotId(int plotId)
@@ -160,37 +160,37 @@ namespace Memorial.Lib.Deceased
             return false;
         }
 
-        public Core.Domain.Ancestor GetAncestor()
+        public Core.Domain.AncestralTablet GetAncestralTablet()
         {
-            if (_deceased.AncestorId != null)
+            if (_deceased.AncestralTabletId != null)
             {
-                _ancestor.SetAncestor((int)_deceased.AncestorId);
-                return _ancestor.GetAncestor();
+                _ancestralTablet.SetAncestralTablet((int)_deceased.AncestralTabletId);
+                return _ancestralTablet.GetAncestralTablet();
             }
             return null;
         }
 
-        public bool SetAncestor(int ancestorId)
+        public bool SetAncestralTablet(int ancestralTabletId)
         {
             if (_deceased != null)
             {
-                var ancestor = _ancestor.GetAncestor(ancestorId);
-                if (ancestor != null)
+                var ancestralTablet = _ancestralTablet.GetAncestralTablet(ancestralTabletId);
+                if (ancestralTablet != null)
                 {
-                    _deceased.Ancestor = ancestor;
-                    _deceased.AncestorId = ancestorId;
+                    _deceased.AncestralTablet = ancestralTablet;
+                    _deceased.AncestralTabletId = ancestralTabletId;
                     return true;
                 }
             }
             return false;
         }
 
-        public bool RemoveAncestor()
+        public bool RemoveAncestralTablet()
         {
             if (_deceased != null)
             {
-                _deceased.Ancestor = null;
-                _deceased.AncestorId = null;
+                _deceased.AncestralTablet = null;
+                _deceased.AncestralTabletId = null;
                 return true;
             }
             return false;
@@ -260,12 +260,12 @@ namespace Memorial.Lib.Deceased
             return true;
         }
 
-        public bool RemoveAncestorDeceased()
+        public bool RemoveAncestralTabletDeceased()
         {
             if (_deceased == null)
                 return false;
 
-            RemoveAncestor();
+            RemoveAncestralTablet();
 
             _unitOfWork.Complete();
 

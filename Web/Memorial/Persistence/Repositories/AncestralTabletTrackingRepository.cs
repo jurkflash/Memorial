@@ -12,14 +12,14 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public AncestralTabletTracking GetLatestFirstTransactionByAncestorId(int ancestorId)
+        public AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestorId == ancestorId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
         }
 
-        public IEnumerable<AncestralTabletTracking> GetTrackingByAncestorId(int ancestorId)
+        public IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestorId == ancestorId).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
         public AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
@@ -27,9 +27,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF).SingleOrDefault();
         }
 
-        public AncestralTabletTracking GetTrackingByAncestorIdAndTransactionAF(int ancestorId, string ancestralTabletTransactionAF)
+        public AncestralTabletTracking GetTrackingByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestorId == ancestorId).SingleOrDefault();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestralTabletId == ancestralTabletId).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

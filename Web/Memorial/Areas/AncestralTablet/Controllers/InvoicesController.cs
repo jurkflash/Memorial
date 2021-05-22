@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Memorial.Lib.Invoice;
-using Memorial.Lib.Ancestor;
+using Memorial.Lib.AncestralTablet;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
@@ -16,12 +16,12 @@ namespace Memorial.Areas.AncestralTablet.Controllers
     public class InvoicesController : Controller
     {
         private readonly ITransaction _transaction;
-        private readonly Lib.Invoice.IAncestor _invoice;
+        private readonly Lib.Invoice.IAncestralTablet _invoice;
         private readonly IPayment _payment;
 
         public InvoicesController(
             ITransaction transaction,
-            Lib.Invoice.IAncestor invoice, 
+            Lib.Invoice.IAncestralTablet invoice, 
             IPayment payment)
         {
             _transaction = transaction;
@@ -98,7 +98,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "AncestorReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "AncestralTabletReceipts", new { IV = IV, AF = AF });
         }
 
         public ActionResult Delete(string IV, string AF)
