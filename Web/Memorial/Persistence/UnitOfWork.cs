@@ -67,7 +67,7 @@ namespace Memorial.Persistence
             AncestralTabletItems = new AncestralTabletItemRepository(_context);
             AncestralTabletNumbers = new AncestralTabletNumberRepository(_context);
             AncestralTabletTransactions = new AncestralTabletTransactionRepository(_context);
-            AncestorTrackings = new AncestorTrackingRepository(_context);
+            AncestralTabletTrackings = new AncestralTabletTrackingRepository(_context);
 
             Invoices = new InvoiceRepository(_context);
             Receipts = new ReceiptRepository(_context);
@@ -123,7 +123,7 @@ namespace Memorial.Persistence
         public IAncestralTabletItemRepository AncestralTabletItems { get; private set; }
         public IAncestralTabletNumberRepository AncestralTabletNumbers { get; private set; }
         public IAncestralTabletTransactionRepository AncestralTabletTransactions { get; private set; }
-        public IAncestorTrackingRepository AncestorTrackings { get; private set; }
+        public IAncestralTabletTrackingRepository AncestralTabletTrackings { get; private set; }
 
         public IUrnItemRepository UrnItems { get; private set; }
         public IUrnNumberRepository UrnNumbers { get; private set; }

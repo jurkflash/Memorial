@@ -13,7 +13,7 @@ namespace Memorial.Core.Domain
 
             Receipts = new HashSet<Receipt>();
 
-            AncestorTrackings = new HashSet<AncestorTracking>();
+            AncestralTabletTrackings = new HashSet<AncestralTabletTracking>();
         }
 
         public string AF { get; set; }
@@ -64,6 +64,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<Receipt> Receipts { get; set; }
 
-        public ICollection<AncestorTracking> AncestorTrackings { get; set; }
+        public ICollection<AncestralTabletTracking> AncestralTabletTrackings { get; set; }
     }
 }

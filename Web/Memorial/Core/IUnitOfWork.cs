@@ -29,7 +29,7 @@ namespace Memorial.Core
         IPlotTrackingRepository PlotTrackings { get; }
 
         IAncestorRepository Ancestors { get; }
-        IAncestorTrackingRepository AncestorTrackings { get; }
+        IAncestralTabletTrackingRepository AncestralTabletTrackings { get; }
         IAncestralTabletAreaRepository AncestralTabletAreas { get; }
         IAncestralTabletItemRepository AncestralTabletItems { get; }
         IAncestralTabletNumberRepository AncestralTabletNumbers { get; }

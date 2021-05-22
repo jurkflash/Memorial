@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class AncestorTracking
+    public class AncestralTabletTracking
     {
         public int Id { get; set; }
 

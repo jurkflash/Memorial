@@ -15,7 +15,7 @@ namespace Memorial.Core.Domain
 
             ShiftedAncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
 
-            AncestorTrackings = new HashSet<AncestorTracking>();
+            AncestralTabletTrackings = new HashSet<AncestralTabletTracking>();
         }
 
         public int Id { get; set; }
@@ -56,6 +56,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<AncestralTabletTransaction> ShiftedAncestralTabletTransactions { get; set; }
 
-        public ICollection<AncestorTracking> AncestorTrackings { get; set; }
+        public ICollection<AncestralTabletTracking> AncestralTabletTrackings { get; set; }
     }
 }

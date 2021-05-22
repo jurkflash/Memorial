@@ -68,7 +68,7 @@ namespace Memorial.Persistence
         public DbSet<AncestralTabletArea> AncestralTabletAreas { get; set; }
         public DbSet<AncestralTabletItem> AncestralTabletItems { get; set; }
         public DbSet<AncestralTabletNumber> AncestralTabletNumbers { get; set; }
-        public DbSet<AncestorTracking> AncestorTrackings { get; set; }
+        public DbSet<AncestralTabletTracking> AncestralTabletTrackings { get; set; }
         
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
@@ -101,7 +101,7 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new PlotTrackingConfiguration());
 
             modelBuilder.Configurations.Add(new AncestorConfiguration());
-            modelBuilder.Configurations.Add(new AncestorTrackingConfiguration());
+            modelBuilder.Configurations.Add(new AncestralTabletTrackingConfiguration());
             modelBuilder.Configurations.Add(new AncestralTabletAreaConfiguration());
             modelBuilder.Configurations.Add(new AncestralTabletItemConfiguration());
             modelBuilder.Configurations.Add(new AncestralTabletNumberConfiguration());

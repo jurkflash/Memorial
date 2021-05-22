@@ -18,11 +18,11 @@ namespace Memorial.Lib.Ancestor
 
         void Remove(int nicheId, string ancestralTabletTransactionAF);
 
-        Core.Domain.AncestorTracking GetLatestFirstTransactionByAncestorId(int ancestorId);
+        Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestorId(int ancestorId);
 
-        IEnumerable<Core.Domain.AncestorTracking> GetTrackingByAncestorId(int ancestorId);
+        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestorId(int ancestorId);
 
-        Core.Domain.AncestorTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
+        Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
 
         void Delete(string ancestralTabletTransactionAF);
 
