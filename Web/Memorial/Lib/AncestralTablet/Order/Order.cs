@@ -75,7 +75,7 @@ namespace Memorial.Lib.Ancestor
                     return false;
             }
 
-            NewNumber(ancestralTabletTransactionDto.AncestorItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {

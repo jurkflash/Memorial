@@ -8,11 +8,11 @@ using PagedList;
 
 namespace Memorial.ViewModels
 {
-    public class AncestorItemIndexesViewModel
+    public class AncestralTabletItemIndexesViewModel
     {
         public IPagedList<AncestralTabletTransactionDto> AncestralTabletTransactionDtos { get; set; }
 
-        public int AncestorItemId { get; set; }
+        public int AncestralTabletItemId { get; set; }
 
         public AncestorDto AncestorDto { get; set; }
 

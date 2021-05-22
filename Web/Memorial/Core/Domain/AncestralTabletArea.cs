@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Memorial.Core.Domain
 {
@@ -11,7 +9,7 @@ namespace Memorial.Core.Domain
         {
             Ancestors = new HashSet<Ancestor>();
 
-            AncestorItems = new HashSet<AncestorItem>();
+            AncestralTabletItems = new HashSet<AncestralTabletItem>();
         }
 
         public int Id { get; set; }
@@ -28,7 +26,7 @@ namespace Memorial.Core.Domain
 
         public ICollection<Ancestor> Ancestors { get; set; }
 
-        public ICollection<AncestorItem> AncestorItems { get; set; }
+        public ICollection<AncestralTabletItem> AncestralTabletItems { get; set; }
 
         public DateTime CreateDate { get; set; }
 

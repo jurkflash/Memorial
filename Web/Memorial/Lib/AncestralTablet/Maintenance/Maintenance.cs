@@ -67,7 +67,7 @@ namespace Memorial.Lib.Ancestor
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            NewNumber(ancestralTabletTransactionDto.AncestorItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {

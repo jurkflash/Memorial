@@ -37,10 +37,10 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             var ancestralTabletTransactionDtos = _shift.GetTransactionDtosByAncestorIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
 
-            var viewModel = new AncestorItemIndexesViewModel()
+            var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                AncestorItemId = itemId,
+                AncestralTabletItemId = itemId,
                 AncestralTabletTransactionDtos = ancestralTabletTransactionDtos,
             };
 
@@ -84,7 +84,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
                 ancestralTabletTransactionDto.ApplicantId = applicantId;
 
-                ancestralTabletTransactionDto.AncestorItemId = itemId;
+                ancestralTabletTransactionDto.AncestralTabletItemId = itemId;
 
                 ancestralTabletTransactionDto.ShiftedAncestorId = id;
                 ancestralTabletTransactionDto.ShiftedAncestor = _ancestor.GetAncestor();
@@ -111,7 +111,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.AncestralTabletTransactionDto.AncestorItemId,
+                        itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
                         id = viewModel.AncestralTabletTransactionDto.AncestorId,
                         applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
                     });
@@ -136,7 +136,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.AncestralTabletTransactionDto.AncestorItemId,
+                itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
                 id = viewModel.AncestralTabletTransactionDto.AncestorId,
                 applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
             });

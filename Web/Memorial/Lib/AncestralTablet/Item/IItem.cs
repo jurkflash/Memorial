@@ -7,17 +7,17 @@ namespace Memorial.Lib.Ancestor
     {
         void SetItem(int id);
 
-        Core.Domain.AncestorItem GetItem();
+        Core.Domain.AncestralTabletItem GetItem();
 
-        AncestorItemDto GetItemDto();
+        AncestralTabletItemDto GetItemDto();
 
-        Core.Domain.AncestorItem GetItem(int id);
+        Core.Domain.AncestralTabletItem GetItem(int id);
 
-        AncestorItemDto GetItemDto(int id);
+        AncestralTabletItemDto GetItemDto(int id);
 
-        IEnumerable<Core.Domain.AncestorItem> GetItems();
+        IEnumerable<Core.Domain.AncestralTabletItem> GetItems();
 
-        IEnumerable<AncestorItemDto> GetItemDtos();
+        IEnumerable<AncestralTabletItemDto> GetItemDtos();
 
         int GetId();
 
@@ -31,13 +31,13 @@ namespace Memorial.Lib.Ancestor
 
         bool IsOrder();
 
-        IEnumerable<Core.Domain.AncestorItem> GetItemByArea(int areaId);
+        IEnumerable<Core.Domain.AncestralTabletItem> GetItemByArea(int areaId);
 
-        IEnumerable<AncestorItemDto> GetItemDtosByArea(int areaId);
+        IEnumerable<AncestralTabletItemDto> GetItemDtosByArea(int areaId);
 
-        bool Create(AncestorItemDto ancestorItemDto);
+        bool Create(AncestralTabletItemDto ancestralTabletItemDto);
 
-        bool Update(Core.Domain.AncestorItem ancestorItem);
+        bool Update(Core.Domain.AncestralTabletItem ancestralTabletItem);
 
         bool Delete(int id);
 

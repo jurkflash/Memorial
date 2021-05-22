@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Memorial.Core.Domain;
 
-namespace Memorial.Core.Domain
+namespace Memorial.Core.Dtos
 {
-    public class AncestorItem
+    public class AncestralTabletItemDto
     {
-        public AncestorItem()
-        {
-            AncestralTabletTransactions = new HashSet<AncestralTabletTransaction>();
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -35,7 +28,5 @@ namespace Memorial.Core.Domain
         public DateTime? ModifyDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }
-
-        public ICollection<AncestralTabletTransaction> AncestralTabletTransactions { get; set; }
     }
 }

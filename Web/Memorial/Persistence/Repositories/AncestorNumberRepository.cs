@@ -11,63 +11,63 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public string GetNewAF(int AncestorItemId, int year)
+        public string GetNewAF(int AncestralTabletItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var ancestorItem = MemorialContext.AncestorItems
+            var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
-                                .Where(a => a.Id == AncestorItemId &&
+                                .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewAF(ancestorItem.Code, year);
+            var number = numberRepository.GetAncestorNewAF(ancestralTabletItem.Code, year);
 
-            if (number == -1 || ancestorItem == null)
+            if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
-        public string GetNewIV(int AncestorItemId, int year)
+        public string GetNewIV(int AncestralTabletItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var ancestorItem = MemorialContext.AncestorItems
+            var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
-                                .Where(a => a.Id == AncestorItemId &&
+                                .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewIV(ancestorItem.Code, year);
+            var number = numberRepository.GetAncestorNewIV(ancestralTabletItem.Code, year);
 
-            if (number == -1 || ancestorItem == null)
+            if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
-        public string GetNewRE(int AncestorItemId, int year)
+        public string GetNewRE(int AncestralTabletItemId, int year)
         {
             INumberRepository numberRepository = new NumberRepository();
             
-            var ancestorItem = MemorialContext.AncestorItems
+            var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
-                                .Where(a => a.Id == AncestorItemId &&
+                                .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestorNewRE(ancestorItem.Code, year);
+            var number = numberRepository.GetAncestorNewRE(ancestralTabletItem.Code, year);
 
-            if (number == -1 || ancestorItem == null)
+            if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestorItem.AncestralTabletArea.Site.Code + "/" + ancestorItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

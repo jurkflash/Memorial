@@ -41,10 +41,10 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             _ancestor.SetAncestor(id);
 
-            var viewModel = new AncestorItemIndexesViewModel()
+            var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                AncestorItemId = itemId,
+                AncestralTabletItemId = itemId,
                 AncestorDto = _ancestor.GetAncestorDto(),
                 AncestorId = id,
                 AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestorIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
@@ -122,7 +122,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.AncestralTabletTransactionDto.AncestorItemId,
+                        itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
                         id = viewModel.AncestralTabletTransactionDto.AncestorId,
                         applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
                     });
@@ -148,7 +148,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.AncestralTabletTransactionDto.AncestorItemId,
+                itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
                 id = viewModel.AncestralTabletTransactionDto.AncestorId,
                 applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
             });

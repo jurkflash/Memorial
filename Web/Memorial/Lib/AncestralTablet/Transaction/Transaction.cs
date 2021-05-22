@@ -93,12 +93,12 @@ namespace Memorial.Lib.Ancestor
 
         public int GetItemId()
         {
-            return _transaction.AncestorItemId;
+            return _transaction.AncestralTabletItemId;
         }
 
         public string GetItemName()
         {
-            _item.SetItem(_transaction.AncestorItemId);
+            _item.SetItem(_transaction.AncestralTabletItemId);
             return _item.GetName();
         }
 
@@ -110,7 +110,7 @@ namespace Memorial.Lib.Ancestor
 
         public float GetItemPrice()
         {
-            _item.SetItem(_transaction.AncestorItemId);
+            _item.SetItem(_transaction.AncestralTabletItemId);
             return _item.GetPrice();
         }
 
@@ -122,7 +122,7 @@ namespace Memorial.Lib.Ancestor
 
         public bool IsItemOrder()
         {
-            _item.SetItem(_transaction.AncestorItemId);
+            _item.SetItem(_transaction.AncestralTabletItemId);
             return _item.IsOrder();
         }
 

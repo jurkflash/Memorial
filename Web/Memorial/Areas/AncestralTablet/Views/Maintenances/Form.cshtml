@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestorItemId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestorId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
@@ -73,7 +73,7 @@
             var f = $("#AncestralTabletTransactionDto_FromDate").val();
             var t = $("#AncestralTabletTransactionDto_ToDate").val();
             if (f != "" && t != "") {
-                var ii = $("#AncestralTabletTransactionDto_AncestorItemId").val();
+                var ii = $("#AncestralTabletTransactionDto_AncestralTabletItemId").val();
                 var url = '/api/AncestorMaintenance/GetAmount';
                 $.ajax({
                     url: url,

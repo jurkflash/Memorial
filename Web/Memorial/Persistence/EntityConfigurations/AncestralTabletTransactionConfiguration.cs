@@ -16,9 +16,9 @@ namespace Memorial.Persistence.EntityConfigurations
 
             HasKey(at => at.AF);
 
-            HasRequired(at => at.AncestorItem)
+            HasRequired(at => at.AncestralTabletItem)
                 .WithMany(ai => ai.AncestralTabletTransactions)
-                .HasForeignKey(at => at.AncestorItemId)
+                .HasForeignKey(at => at.AncestralTabletItemId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(at => at.Ancestor)

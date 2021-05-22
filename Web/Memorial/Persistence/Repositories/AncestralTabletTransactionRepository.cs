@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
                 .Include(at => at.ShiftedAncestor)
-                .Include(at => at.AncestorItem)
+                .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AF == AF && at.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -29,7 +29,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
                 .Include(at => at.ShiftedAncestor)
-                .Include(at => at.AncestorItem)
+                .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AF == AF)
                 .SingleOrDefault();
         }
@@ -46,8 +46,8 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
                 .Include(at => at.ShiftedAncestor)
-                .Include(at => at.AncestorItem)
-                .Where(at => at.AncestorItemId == itemId
+                .Include(at => at.AncestralTabletItem)
+                .Where(at => at.AncestralTabletItemId == itemId
                                             && (at.AncestorId == ancestorId || at.ShiftedAncestorId == ancestorId)
                                             && at.DeleteDate == null);
 
@@ -66,9 +66,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
-                .Include(at => at.AncestorItem)
+                .Include(at => at.AncestralTabletItem)
                 .Where(at => at.ApplicantId == applicantId
-                                            && at.AncestorItemId == itemId
+                                            && at.AncestralTabletItemId == itemId
                                             && at.AncestorId == ancestorId
                                             && at.DeleteDate == null).ToList();
         }
@@ -78,7 +78,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
-                .Include(at => at.AncestorItem)
+                .Include(at => at.AncestralTabletItem)
                 .Where(at => at.ShiftedAncestralTabletTransactionAF == AF)
                 .SingleOrDefault();
         }
@@ -88,7 +88,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)
                 .Include(at => at.Ancestor)
-                .Include(at => at.AncestorItem)
+                .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AncestorId == ancestorId && at.DeleteDate == null)
                 .ToList();
         }

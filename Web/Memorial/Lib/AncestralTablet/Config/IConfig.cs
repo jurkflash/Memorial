@@ -8,7 +8,7 @@ namespace Memorial.Lib.Ancestor
     {
         bool CreateAncestor(AncestorDto ancestorDto);
         bool CreateArea(AncestralTabletAreaDto ancestralTabletAreaDto);
-        bool CreateItem(AncestorItemDto ancestorItemDto);
+        bool CreateItem(AncestralTabletItemDto ancestralTabletItemDto);
         bool DeleteAncestor(int id);
         bool DeleteArea(int id);
         bool DeleteItem(int id);
@@ -16,11 +16,11 @@ namespace Memorial.Lib.Ancestor
         IEnumerable<AncestorDto> GetAncestorsByAreaId(int id);
         AncestralTabletAreaDto GetAreaDto(int id);
         IEnumerable<AncestralTabletAreaDto> GetAreaDtos();
-        AncestorItemDto GetItemDto(int id);
-        IEnumerable<AncestorItemDto> GetItemDtos();
+        AncestralTabletItemDto GetItemDto(int id);
+        IEnumerable<AncestralTabletItemDto> GetItemDtos();
         IEnumerable<AncestorNumber> GetNumbers();
         bool UpdateAncestor(AncestorDto ancestorDto);
         bool UpdateArea(AncestralTabletAreaDto ancestralTabletAreaDto);
-        bool UpdateItem(AncestorItemDto ancestorItemDto);
+        bool UpdateItem(AncestralTabletItemDto ancestralTabletItemDto);
     }
 }

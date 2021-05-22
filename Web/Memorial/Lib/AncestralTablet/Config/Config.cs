@@ -40,12 +40,12 @@ namespace Memorial.Lib.Ancestor
             return _area.GetAreaDtos();
         }
 
-        public AncestorItemDto GetItemDto(int id)
+        public AncestralTabletItemDto GetItemDto(int id)
         {
             return _item.GetItemDto(id);
         }
 
-        public IEnumerable<AncestorItemDto> GetItemDtos()
+        public IEnumerable<AncestralTabletItemDto> GetItemDtos()
         {
             return _item.GetItemDtos();
         }
@@ -65,9 +65,9 @@ namespace Memorial.Lib.Ancestor
             return _unitOfWork.AncestorNumbers.GetAll();
         }
 
-        public bool CreateItem(AncestorItemDto ancestorItemDto)
+        public bool CreateItem(AncestralTabletItemDto ancestralTabletItemDto)
         {
-            if (_item.Create(ancestorItemDto))
+            if (_item.Create(ancestralTabletItemDto))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -76,20 +76,20 @@ namespace Memorial.Lib.Ancestor
             return false;
         }
 
-        public bool UpdateItem(AncestorItemDto ancestorItemDto)
+        public bool UpdateItem(AncestralTabletItemDto ancestralTabletItemDto)
         {
-            var ancestorItemInDB = _item.GetItem(ancestorItemDto.Id);
+            var ancestralTabletItemInDB = _item.GetItem(ancestralTabletItemDto.Id);
             
-            if ((ancestorItemInDB.AncestralTabletAreaId != ancestorItemDto.AncestralTabletAreaId
-                || ancestorItemInDB.isOrder != ancestorItemDto.isOrder)
-                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestorItemId == ancestorItemInDB.Id && at.DeleteDate == null).Any())
+            if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItemDto.AncestralTabletAreaId
+                || ancestralTabletItemInDB.isOrder != ancestralTabletItemDto.isOrder)
+                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == ancestralTabletItemInDB.Id && at.DeleteDate == null).Any())
             {
                 return false;
             }
 
-            Mapper.Map(ancestorItemDto, ancestorItemInDB);
+            Mapper.Map(ancestralTabletItemDto, ancestralTabletItemInDB);
 
-            if (_item.Update(ancestorItemInDB))
+            if (_item.Update(ancestralTabletItemInDB))
             {
                 _unitOfWork.Complete();
                 return true;
@@ -100,7 +100,7 @@ namespace Memorial.Lib.Ancestor
 
         public bool DeleteItem(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestorItemId == id && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == id && at.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -133,7 +133,7 @@ namespace Memorial.Lib.Ancestor
             Mapper.Map(ancestralTabletAreaDto, ancestralTabletAreaInDB);
 
             if (ancestralTabletAreaInDB.SiteId != ancestralTabletAreaDto.SiteId
-                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestorItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeleteDate == null).Any())
+                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeleteDate == null).Any())
             {
                 return false;
             }
@@ -149,7 +149,7 @@ namespace Memorial.Lib.Ancestor
 
         public bool DeleteArea(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestorItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any())
             {
                 return false;
             }

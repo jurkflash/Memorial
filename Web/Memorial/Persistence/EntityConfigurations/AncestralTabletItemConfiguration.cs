@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class AncestorItemConfiguration : EntityTypeConfiguration<AncestorItem>
+    public class AncestralTabletItemConfiguration : EntityTypeConfiguration<AncestralTabletItem>
     {
-        public AncestorItemConfiguration()
+        public AncestralTabletItemConfiguration()
         {
             Property(ai => ai.Name)
                 .IsRequired()
@@ -19,7 +19,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(10);
 
             HasRequired(ai => ai.AncestralTabletArea)
-                .WithMany(aa => aa.AncestorItems)
+                .WithMany(aa => aa.AncestralTabletItems)
                 .HasForeignKey(ai => ai.AncestralTabletAreaId)
                 .WillCascadeOnDelete(false);
         }

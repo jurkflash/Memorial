@@ -9,7 +9,7 @@ namespace Memorial.Lib.Ancestor
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.AncestorItem _item;
+        private Core.Domain.AncestralTabletItem _item;
 
         public Item(IUnitOfWork unitOfWork)
         {
@@ -18,37 +18,37 @@ namespace Memorial.Lib.Ancestor
 
         public void SetItem(int id)
         {
-            _item = _unitOfWork.AncestorItems.GetActive(id);
+            _item = _unitOfWork.AncestralTabletItems.GetActive(id);
         }
 
-        public Core.Domain.AncestorItem GetItem()
+        public Core.Domain.AncestralTabletItem GetItem()
         {
             return _item;
         }
 
-        public AncestorItemDto GetItemDto()
+        public AncestralTabletItemDto GetItemDto()
         {
-            return Mapper.Map<Core.Domain.AncestorItem, AncestorItemDto>(GetItem());
+            return Mapper.Map<Core.Domain.AncestralTabletItem, AncestralTabletItemDto>(GetItem());
         }
 
-        public Core.Domain.AncestorItem GetItem(int id)
+        public Core.Domain.AncestralTabletItem GetItem(int id)
         {
-            return _unitOfWork.AncestorItems.GetActive(id);
+            return _unitOfWork.AncestralTabletItems.GetActive(id);
         }
 
-        public AncestorItemDto GetItemDto(int id)
+        public AncestralTabletItemDto GetItemDto(int id)
         {
-            return Mapper.Map<Core.Domain.AncestorItem, AncestorItemDto>(GetItem(id));
+            return Mapper.Map<Core.Domain.AncestralTabletItem, AncestralTabletItemDto>(GetItem(id));
         }
 
-        public IEnumerable<Core.Domain.AncestorItem> GetItems()
+        public IEnumerable<Core.Domain.AncestralTabletItem> GetItems()
         {
-            return _unitOfWork.AncestorItems.GetAllActive();
+            return _unitOfWork.AncestralTabletItems.GetAllActive();
         }
 
-        public IEnumerable<AncestorItemDto> GetItemDtos()
+        public IEnumerable<AncestralTabletItemDto> GetItemDtos()
         {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestorItem>, IEnumerable<AncestorItemDto>>(GetItems());
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletItem>, IEnumerable<AncestralTabletItemDto>>(GetItems());
         }
 
         public int GetId()
@@ -81,31 +81,31 @@ namespace Memorial.Lib.Ancestor
             return _item.isOrder;
         }
 
-        public IEnumerable<Core.Domain.AncestorItem> GetItemByArea(int areaId)
+        public IEnumerable<Core.Domain.AncestralTabletItem> GetItemByArea(int areaId)
         {
-            return _unitOfWork.AncestorItems.GetByArea(areaId);
+            return _unitOfWork.AncestralTabletItems.GetByArea(areaId);
         }
 
-        public IEnumerable<AncestorItemDto> GetItemDtosByArea(int areaId)
+        public IEnumerable<AncestralTabletItemDto> GetItemDtosByArea(int areaId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestorItem>, IEnumerable<AncestorItemDto>>(GetItemByArea(areaId));
+            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletItem>, IEnumerable<AncestralTabletItemDto>>(GetItemByArea(areaId));
         }
 
-        public bool Create(AncestorItemDto ancestorItemDto)
+        public bool Create(AncestralTabletItemDto ancestralTabletItemDto)
         {
-            _item = new Core.Domain.AncestorItem();
-            Mapper.Map(ancestorItemDto, _item);
+            _item = new Core.Domain.AncestralTabletItem();
+            Mapper.Map(ancestralTabletItemDto, _item);
 
             _item.CreateDate = DateTime.Now;
 
-            _unitOfWork.AncestorItems.Add(_item);
+            _unitOfWork.AncestralTabletItems.Add(_item);
 
             return true;
         }
 
-        public bool Update(Core.Domain.AncestorItem ancestorItem)
+        public bool Update(Core.Domain.AncestralTabletItem ancestralTabletItem)
         {
-            ancestorItem.ModifyDate = DateTime.Now;
+            ancestralTabletItem.ModifyDate = DateTime.Now;
 
             return true;
         }

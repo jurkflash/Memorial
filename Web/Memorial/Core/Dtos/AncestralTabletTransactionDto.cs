@@ -10,18 +10,18 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public AncestralTabletTransactionDto(int ancestorItemId, int ancestorId, int applicantId)
+        public AncestralTabletTransactionDto(int ancestralTabletItemId, int ancestorId, int applicantId)
         {
-            AncestorItemId = ancestorItemId;
+            AncestralTabletItemId = ancestralTabletItemId;
             AncestorId = ancestorId;
             ApplicantId = applicantId;
         }
 
         public string AF { get; set; }
 
-        public AncestorItem AncestorItem { get; set; }
+        public AncestralTabletItem AncestralTabletItem { get; set; }
 
-        public int AncestorItemId { get; set; }
+        public int AncestralTabletItemId { get; set; }
 
         public Ancestor Ancestor { get; set; }
 

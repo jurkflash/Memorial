@@ -19,14 +19,14 @@ namespace Memorial.Lib.Ancestor
             _unitOfWork = unitOfWork;
         }
 
-        public string GetNewAF(int ancestorItemId, int year)
+        public string GetNewAF(int ancestralTabletItemId, int year)
         {
-            return _unitOfWork.AncestorNumbers.GetNewAF(ancestorItemId, year);
+            return _unitOfWork.AncestorNumbers.GetNewAF(ancestralTabletItemId, year);
         }
 
-        public string GetNewIV(int ancestorItemId, int year)
+        public string GetNewIV(int ancestralTabletItemId, int year)
         {
-            return _unitOfWork.AncestorNumbers.GetNewIV(ancestorItemId, year);
+            return _unitOfWork.AncestorNumbers.GetNewIV(ancestralTabletItemId, year);
         }
 
     }

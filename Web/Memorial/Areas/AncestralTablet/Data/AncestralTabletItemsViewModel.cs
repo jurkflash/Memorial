@@ -7,9 +7,9 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class AncestorItemsViewModel
+    public class AncestralTabletItemsViewModel
     {
-        public IEnumerable<AncestorItemDto> AncestorItemDtos { get; set; }
+        public IEnumerable<AncestralTabletItemDto> AncestralTabletItemDtos { get; set; }
 
         public AncestorDto AncestorDto { get; set; }
 

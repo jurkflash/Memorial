@@ -745,7 +745,7 @@
     <Compile Include="Areas\Urn\Controllers\UrnsController.cs" />
     <Compile Include="Core\Domain\AncestralTabletTransaction.cs" />
     <Compile Include="Core\Domain\AncestorNumber.cs" />
-    <Compile Include="Core\Domain\AncestorItem.cs" />
+    <Compile Include="Core\Domain\AncestralTabletItem.cs" />
     <Compile Include="Core\Domain\ApplicantDeceased.cs" />
     <Compile Include="Core\Domain\Catalog.cs" />
     <Compile Include="Core\Domain\CremationTransaction.cs" />
@@ -799,7 +799,7 @@
     <Compile Include="Core\Domain\Applicant.cs" />
     <Compile Include="Core\Dtos\AncestorDto.cs" />
     <Compile Include="Core\Dtos\AncestralTabletAreaDto.cs" />
-    <Compile Include="Core\Dtos\AncestorItemDto.cs" />
+    <Compile Include="Core\Dtos\AncestralTabletItemDto.cs" />
     <Compile Include="Core\Dtos\AncestralTabletTransactionDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedFlattenDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedDto.cs" />
@@ -844,7 +844,7 @@
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\IAncestralTabletTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestorNumberRepository.cs" />
-    <Compile Include="Core\Repositories\IAncestorItemRepository.cs" />
+    <Compile Include="Core\Repositories\IAncestralTabletItemRepository.cs" />
     <Compile Include="Core\Repositories\IAncestralTabletAreaRepository.cs" />
     <Compile Include="Core\Repositories\IApplicantDeceasedRepository.cs" />
     <Compile Include="Core\Repositories\ICatalogRepository.cs" />
@@ -2292,6 +2292,10 @@
     <Compile Include="Migrations\202105221050499_RenameAncestorAreasToAncestralTabletAreasTable.designer.cs">
       <DependentUpon>202105221050499_RenameAncestorAreasToAncestralTabletAreasTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105221122420_RenameAncestorItemToAncestralTabletItemTable.cs" />
+    <Compile Include="Migrations\202105221122420_RenameAncestorItemToAncestralTabletItemTable.designer.cs">
+      <DependentUpon>202105221122420_RenameAncestorItemToAncestralTabletItemTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2309,7 +2313,7 @@
     <Compile Include="Persistence\EntityConfigurations\ColumbariumTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\InvoiceConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\AncestorItemConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AncestralTabletItemConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\MiscellaneousNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestralTabletAreaConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CemeteryItemConfiguration.cs" />
@@ -2353,7 +2357,7 @@
     <Compile Include="Persistence\EntityConfigurations\PaymentMethodConfiguration.cs" />
     <Compile Include="Persistence\MemorialContext.cs" />
     <Compile Include="Persistence\Repositories\AncestorNumberRepository.cs" />
-    <Compile Include="Persistence\Repositories\AncestorItemRepository.cs" />
+    <Compile Include="Persistence\Repositories\AncestralTabletItemRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestralTabletAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestralTabletTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicantDeceasedRepository.cs" />
@@ -2412,8 +2416,8 @@
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletAreaIndexesViewModel.cs" />
     <Compile Include="Areas\AncestralTablet\Data\AncestorIndexesViewModel.cs" />
     <Compile Include="Areas\AncestralTablet\Data\AncestorInfoViewModel.cs" />
-    <Compile Include="Areas\AncestralTablet\Data\AncestorItemIndexesViewModel.cs" />
-    <Compile Include="Areas\AncestralTablet\Data\AncestorItemsViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestralTabletItemIndexesViewModel.cs" />
+    <Compile Include="Areas\AncestralTablet\Data\AncestralTabletItemsViewModel.cs" />
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletTransactionsFormViewModel.cs" />
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\Data\AppplicantDeceasedsInfoViewModel.cs" />
@@ -3522,6 +3526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105221050499_RenameAncestorAreasToAncestralTabletAreasTable.resx">
       <DependentUpon>202105221050499_RenameAncestorAreasToAncestralTabletAreasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105221122420_RenameAncestorItemToAncestralTabletItemTable.resx">
+      <DependentUpon>202105221122420_RenameAncestorItemToAncestralTabletItemTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

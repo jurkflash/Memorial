@@ -85,7 +85,7 @@ namespace Memorial.Lib.Site
         public bool DeleteSite(byte id)
         {
             if (
-                _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestorItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any() ||
+                _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == id && at.DeleteDate == null).Any() ||
                 _unitOfWork.CemeteryTransactions.Find(at => at.Plot.CemeteryArea.SiteId == id && at.DeleteDate == null).Any() ||

@@ -64,9 +64,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         {
             _ancestor.SetAncestor(id);
             _area.SetArea(_ancestor.GetAreaId());
-            var viewModel = new AncestorItemsViewModel()
+            var viewModel = new AncestralTabletItemsViewModel()
             {
-                AncestorItemDtos = _item.GetItemDtosByArea(_area.GetId()),
+                AncestralTabletItemDtos = _item.GetItemDtosByArea(_area.GetId()),
                 AncestorDto = _ancestor.GetAncestorDto(),
                 ApplicantId = applicantId
             };

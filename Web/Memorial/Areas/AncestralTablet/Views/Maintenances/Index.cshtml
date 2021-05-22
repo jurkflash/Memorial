@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.AncestorItemIndexesViewModel
+﻿@model Memorial.ViewModels.AncestralTabletItemIndexesViewModel
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
@@ -10,7 +10,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.AncestorItemId, applicantId = Model.ApplicantId, id = Model.AncestorId, area = "AncestralTablet" })
+        @Html.ActionLink("New", "Form", new { itemId = Model.AncestralTabletItemId, applicantId = Model.ApplicantId, id = Model.AncestorId, area = "AncestralTablet" })
     </p>
 }
 
@@ -18,7 +18,7 @@
 {
     <p>
         Find by Name: @Html.TextBox("filter")
-        @Html.Hidden("itemId", Model.AncestorItemId.ToString())
+        @Html.Hidden("itemId", Model.AncestralTabletItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         @Html.Hidden("id", Model.AncestorId.ToString())
         <input type="submit" value="Search" class="btn btn-secondary" />
@@ -55,7 +55,7 @@
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = ancestralTabletTransaction.AF, applicantId = Model.ApplicantId, area = "AncestralTablet" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = ancestralTabletTransaction.AF, itemId = Model.AncestorItemId, id = Model.AncestorId, applicantId = Model.ApplicantId, area = "AncestralTablet" },
+                    new { AF = ancestralTabletTransaction.AF, itemId = Model.AncestralTabletItemId, id = Model.AncestorId, applicantId = Model.ApplicantId, area = "AncestralTablet" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>
@@ -64,7 +64,7 @@
 </table>
 Page @(Model.AncestralTabletTransactionDtos.PageCount < Model.AncestralTabletTransactionDtos.PageNumber ? 0 : Model.AncestralTabletTransactionDtos.PageNumber) of @Model.AncestralTabletTransactionDtos.PageCount
 @Html.PagedListPager(Model.AncestralTabletTransactionDtos, page => Url.Action("Index",
-    new { page, id = Model.AncestorId.ToString(), itemId = Model.AncestorItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, id = Model.AncestorId.ToString(), itemId = Model.AncestralTabletItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 
 

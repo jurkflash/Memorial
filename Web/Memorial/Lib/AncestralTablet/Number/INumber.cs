@@ -9,8 +9,8 @@ namespace Memorial.Lib.Ancestor
 {
     public interface INumber
     {
-        string GetNewAF(int ancestorItemId, int year);
+        string GetNewAF(int ancestralTabletItemId, int year);
 
-        string GetNewIV(int ancestorItemId, int year);
+        string GetNewIV(int ancestralTabletItemId, int year);
     }
 }

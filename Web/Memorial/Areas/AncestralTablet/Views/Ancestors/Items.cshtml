@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.AncestorItemsViewModel
+﻿@model Memorial.ViewModels.AncestralTabletItemsViewModel
 @{
     ViewBag.Title = "Item";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,12 +17,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var ancestorItem in Model.AncestorItemDtos)
+        @foreach (var ancestralTabletItem in Model.AncestralTabletItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestorItem.Name, "Index", ancestorItem.SystemCode, new { area = "AncestralTablet", itemId = ancestorItem.Id, id = Model.AncestorDto.Id, applicantId = Model.ApplicantId }, null)</td>
-                <td>@ancestorItem.Description</td>
-                <td>@ancestorItem.Price</td>
+                <td>@Html.ActionLink(ancestralTabletItem.Name, "Index", ancestralTabletItem.SystemCode, new { area = "AncestralTablet", itemId = ancestralTabletItem.Id, id = Model.AncestorDto.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@ancestralTabletItem.Description</td>
+                <td>@ancestralTabletItem.Price</td>
             </tr>
         }
     </tbody>

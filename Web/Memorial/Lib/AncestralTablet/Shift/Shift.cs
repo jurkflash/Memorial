@@ -111,7 +111,7 @@ namespace Memorial.Lib.Ancestor
 
             _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestorId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF);
 
-            NewNumber(ancestralTabletTransactionDto.AncestorItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
