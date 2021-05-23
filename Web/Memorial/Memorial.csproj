@@ -396,7 +396,7 @@
     <Content Include="Areas\Cemetery\Views\Clearances\Info.cshtml" />
     <Content Include="Areas\Cemetery\Views\Shared\_PlotInfo.cshtml" />
     <Content Include="Areas\AncestralTablet\Views\Shared\_AncestralTabletInfo.cshtml" />
-    <Content Include="Areas\AncestralTablet\Views\AncestorDeceaseds\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestralTabletDeceaseds\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Form.cshtml" />
     <Content Include="Areas\Cemetery\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\Reciprocates\Index.cshtml" />
@@ -657,12 +657,12 @@
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\AncestralTablet\AncestralTabletAreaRegistration.cs" />
-    <Compile Include="Areas\AncestralTablet\Controllers\AncestorsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\AncestralTabletsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\MaintenancesController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\OrdersController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\NonOrderReceiptsController.cs" />
-    <Compile Include="Areas\AncestralTablet\Controllers\AncestorDeceasedsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\AncestralTabletDeceasedsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\ShiftsController.cs" />
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletDeceasedsViewModel.cs" />
@@ -2308,6 +2308,10 @@
     <Compile Include="Migrations\202105221515424_RenameAncestorToAncestralTabletTable.designer.cs">
       <DependentUpon>202105221515424_RenameAncestorToAncestralTabletTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105231026090_UpdateCatalogsTableData5.cs" />
+    <Compile Include="Migrations\202105231026090_UpdateCatalogsTableData5.designer.cs">
+      <DependentUpon>202105231026090_UpdateCatalogsTableData5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2493,9 +2497,9 @@
     <Content Include="Areas\Urn\Views\Urns\Items.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Items.cshtml" />
-    <Content Include="Areas\AncestralTablet\Views\Ancestors\Index.cshtml" />
-    <Content Include="Areas\AncestralTablet\Views\Ancestors\Ancestors.cshtml" />
-    <Content Include="Areas\AncestralTablet\Views\Ancestors\Items.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestralTablets\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestralTablets\AncestralTablets.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestralTablets\Items.cshtml" />
     <Content Include="Areas\AncestralTablet\Views\Free\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Index.cshtml" />
     <Content Include="Areas\Cremation\Views\Cremations\Items.cshtml" />
@@ -3547,6 +3551,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105221515424_RenameAncestorToAncestralTabletTable.resx">
       <DependentUpon>202105221515424_RenameAncestorToAncestralTabletTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105231026090_UpdateCatalogsTableData5.resx">
+      <DependentUpon>202105231026090_UpdateCatalogsTableData5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
