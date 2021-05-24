@@ -6,17 +6,17 @@
 
 <h2>Receipt Form</h2>
 
-AF: @Model.AF
+@Html.Raw(Resources.Mix.AF): @Model.AF
 <br />
-Amount: @Model.Amount
+@Html.Raw(Resources.Mix.Amount): @Model.Amount
 <br />
-Remaining Amount: @Model.RemainingAmount
+@Html.Raw(Resources.Mix.RemainingAmount): @Model.RemainingAmount
 
 @using (Html.BeginForm("Save", "NonOrderReceipts", FormMethod.Post, new { @id = "receiptForm", area = "Cremation" }))
 {
     <div class="form-group row">
         <div class="col-md-3">
-            Amount
+            @Html.Raw(Resources.Mix.Amount)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(r => r.ReceiptDto.Amount, new { @class = "form-control" })
@@ -25,7 +25,7 @@ Remaining Amount: @Model.RemainingAmount
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Payment Method
+            @Html.Raw(Resources.Mix.PaymentMethodBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -33,7 +33,7 @@ Remaining Amount: @Model.RemainingAmount
     </div>
     <div class="form-group row" id="divPaymentRemark" style="display:none">
         <div class="col-md-3">
-            Payment Remark
+            @Html.Raw(Resources.Mix.PaymentRemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(r => r.ReceiptDto.PaymentRemark, new { @class = "form-control" })
@@ -42,7 +42,7 @@ Remaining Amount: @Model.RemainingAmount
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(r => r.ReceiptDto.Remark, new { @class = "form-control" })
@@ -52,7 +52,7 @@ Remaining Amount: @Model.RemainingAmount
 
     @Html.HiddenFor(r => r.ReceiptDto.RE)
     @Html.HiddenFor(r => r.AF)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts {

@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Funeral Company</h2>
+<h2>@Html.Raw(Resources.Mix.FuneralCompany)</h2>
 
 @using (Html.BeginForm("Save", "FuneralCompanies"))
 {
     <div class="form-group row">
         <div class="col-md-3">
-            Name
+            @Html.Raw(Resources.Mix.NameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Contact Person
+            @Html.Raw(Resources.Mix.ContactNameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.ContactPerson, new { @class = "form-control" })
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Contact Number
+            @Html.Raw(Resources.Mix.ContactNumberBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.ContactNumber, new { @class = "form-control" })
@@ -37,14 +37,14 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(a => a.Remark, new { @class = "form-control" })
         </div>
     </div>
     @Html.HiddenFor(a => a.Id)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts

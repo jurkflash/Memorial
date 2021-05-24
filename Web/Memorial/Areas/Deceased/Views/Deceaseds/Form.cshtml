@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Deceased</h2>
+<h2>@Html.Raw(Resources.Mix.NewDeceased)</h2>
 
 @using (Html.BeginForm("Save", "Deceaseds", new { area = "Deceased" }))
 {
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.IC)
+            @Html.Raw(Resources.Mix.ICBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.IC, new { @class = "form-control" })
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.EnglishName)
+            @Html.Raw(Resources.Mix.EnglishNameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Name, new { @class = "form-control" })
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.ChineseName)
+            @Html.Raw(Resources.Mix.ChineseNameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Name2, new { @class = "form-control" })
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Age)
+            @Html.Raw(Resources.Mix.AgeBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.Age, new { @class = "form-control", type = "number" })
@@ -46,7 +46,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Address)
+            @Html.Raw(Resources.Mix.AddressBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(d => d.DeceasedDto.Address, new { @class = "form-control" })
@@ -54,7 +54,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Gender)
+            @Html.Raw(Resources.Mix.GenderBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.GenderTypeId, new SelectList(Model.GenderTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -62,7 +62,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Marital)
+            @Html.Raw(Resources.Mix.MaritalBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.MaritalTypeId, new SelectList(Model.MaritalTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -70,7 +70,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Religion)
+            @Html.Raw(Resources.Mix.ReligionBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.ReligionTypeId, new SelectList(Model.ReligionTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -78,7 +78,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Nationality)
+            @Html.Raw(Resources.Mix.NationalityBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(d => d.DeceasedDto.NationalityTypeId, new SelectList(Model.NationalityTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -86,16 +86,16 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.DeathDate)
+            @Html.Raw(Resources.Mix.DeathDateBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(d => d.DeceasedDto.DeathDate)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.DeathRegistrationCentre)
+            @Html.Raw(Resources.Mix.DeathRegistrationCentreBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.DeathRegistrationCentre, new { @class = "form-control" })
@@ -103,7 +103,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.DeathCertificate)
+            @Html.Raw(Resources.Mix.DeathCertificateBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.DeathCertificate, new { @class = "form-control" })
@@ -111,7 +111,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.BurialCertificate)
+            @Html.Raw(Resources.Mix.BurialCertificateBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.BurialCertificate, new { @class = "form-control" })
@@ -119,7 +119,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.ImportPermitNumber)
+            @Html.Raw(Resources.Mix.ImportPermitNumberBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(d => d.DeceasedDto.ImportPermitNumber, new { @class = "form-control" })
@@ -127,7 +127,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Remark)
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(d => d.DeceasedDto.Remark, new { @class = "form-control" })

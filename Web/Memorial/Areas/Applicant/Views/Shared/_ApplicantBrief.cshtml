@@ -3,11 +3,11 @@
     ViewBag.Title = "Info";
 }
 
-<h2>New Applicant</h2>
+<h2>@Html.Raw(Resources.Mix.NewApplicant)</h2>
 
 <div class="form-group row">
     <div class="col-md-3">
-        @Html.Raw(Resources.Mix.IC)
+        @Html.Raw(Resources.Mix.ICBR)
     </div>
     <div class="col-md-6">
         @Model.IC
@@ -15,31 +15,30 @@
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        Name
+        @Html.Raw(Resources.Mix.EnglishNameBR)
     </div>
     <div class="col-md-6">
-        @Html.Raw(Resources.Mix.EnglishName)
+        @Model.Name
     </div>
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        Name2
+        @Html.Raw(Resources.Mix.ChineseNameBR)
     </div>
     <div class="col-md-6">
-        @Html.Raw(Resources.Mix.ChineseName)
+        @Model.Name2
     </div>
 </div>
 
 <p>
-    @Html.ActionLink("New Deceased", "NewDeceased", new { id = Model.Id })
+    @Html.ActionLink(Resources.Mix.NewDeceased, "NewDeceased", new { id = Model.Id })
 </p>
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>English Name</th>
-            <th>Chinese Name</th>
-            @*<th>Relationship</th>*@
+            <th>@Html.Raw(Resources.Mix.EnglishNameBR)</th>
+            <th>@Html.Raw(Resources.Mix.ChineseNameBR)</th>
             <th>@Html.Raw(Resources.Mix.Edit)</th>
         </tr>
     </thead>
@@ -49,7 +48,6 @@
             <tr>
                 <td>@Html.ActionLink(deceased.Name, "Info", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
                 <td>@deceased.Name2</td>
-                @*<td>@deceased.RelationshipType.Name</td>*@
                 <td>@Html.ActionLink(Resources.Mix.Edit, "EditDeceased", new { id = deceased.Id }, new { target = "deceasedInfo" })</td>
             </tr>
         }

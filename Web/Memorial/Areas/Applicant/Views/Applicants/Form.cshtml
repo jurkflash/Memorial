@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Applicant</h2>
+<h2>@Html.Raw(Resources.Mix.NewApplicant)</h2>
 
 @using (Html.BeginForm("Save", "Applicants", new { area = "Applicant" }))
 {
     <div class="form-group row">
         <div class="col-md-3">
-            IC
+            @Html.Raw(Resources.Mix.ICBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.IC, new { @class = "form-control" })
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            English Name
+            @Html.Raw(Resources.Mix.EnglishNameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Chinese Name
+            @Html.Raw(Resources.Mix.ChineseNameBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.Name2, new { @class = "form-control" })
@@ -36,7 +36,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Address
+            @Html.Raw(Resources.Mix.AddressBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(a => a.Address, new { @class = "form-control" })
@@ -44,7 +44,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            House Phone
+            @Html.Raw(Resources.Mix.HousePhoneBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.HousePhone, new { @class = "form-control" })
@@ -52,7 +52,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Mobile Number
+            @Html.Raw(Resources.Mix.MobileNumberBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(a => a.MobileNumber, new { @class = "form-control" })
@@ -60,14 +60,14 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(a => a.Remark, new { @class = "form-control" })
         </div>
     </div>
     @Html.HiddenFor(a => a.Id)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts 

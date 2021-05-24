@@ -2,19 +2,19 @@
 
 <div class="form-group row">
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Site)
+        @Html.Raw(Resources.Mix.SiteBR)
     </div>
     <div class="col-md-2">
         @Model.SiteDto.Name
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Centre)
+        @Html.Raw(Resources.Mix.CentreBR)
     </div>
     <div class="col-md-2">
         @Model.ColumbariumCentreDto.Name
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Area)
+        @Html.Raw(Resources.Mix.AreaBR)
     </div>
     <div class="col-md-2">
         @Model.ColumbariumAreaDto.Name
@@ -22,19 +22,19 @@
 </div>
 <div class="form-group row">
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.No_)
+        @Html.Raw(Resources.Mix.No_BR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.Name
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Description)
+        @Html.Raw(Resources.Mix.DescriptionBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.Description
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Type)
+        @Html.Raw(Resources.Mix.TypeBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.NicheTypeDto.Name
@@ -42,19 +42,19 @@
 </div>
 <div class="form-group row">
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Price)
+        @Html.Raw(Resources.Mix.PriceBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.Price
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Maintenance)
+        @Html.Raw(Resources.Mix.MaintenanceBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.Maintenance
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.LifeTimeMaintenance)
+        @Html.Raw(Resources.Mix.LifeTimeMaintenanceBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.LifeTimeMaintenance
@@ -74,7 +74,7 @@
         @Model.NicheDto.PositionY
     </div>
     <div class="col-md-2 font-weight-bold">
-        @Html.Raw(Resources.Mix.Remark)
+        @Html.Raw(Resources.Mix.RemarkBR)
     </div>
     <div class="col-md-2">
         @Model.NicheDto.Remark
@@ -90,13 +90,13 @@ else
 {
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.EnglishName)
+            @Html.Raw(Resources.Mix.EnglishNameBR)
         </div>
         <div class="col-md-3">
             @Html.ActionLink(Model.ApplicantDto.Name, "Info", "Applicants", new { id = Model.ApplicantDto.Id }, null)
         </div>
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.ChineseName)
+            @Html.Raw(Resources.Mix.ChineseNameBR)
         </div>
         <div class="col-md-3">
             @Model.ApplicantDto.Name2
@@ -118,19 +118,19 @@ else
     {
         <div class="form-group row">
             <div class="col-md-1">
-                @Html.Raw(Resources.Mix.EnglishName)
+                @Html.Raw(Resources.Mix.EnglishNameBR)
             </div>
             <div class="col-md-2">
                 @Html.ActionLink(Model.DeceasedFlatten1Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten1Dto.DeceasedId }, null)
             </div>
             <div class="col-md-1">
-                @Html.Raw(Resources.Mix.ChineseName)
+                @Html.Raw(Resources.Mix.ChineseNameBR)
             </div>
             <div class="col-md-2">
                 @Model.DeceasedFlatten1Dto.DeceasedName2
             </div>
             <div class="col-md-2">
-                @Html.Raw(Resources.Mix.Relationship)
+                @Html.Raw(Resources.Mix.RelationshipBR)
             </div>
             <div class="col-md-2">
                 @Model.DeceasedFlatten1Dto.RelationshipTypeName
@@ -148,19 +148,19 @@ else
         {
             <div class="form-group row">
                 <div class="col-md-1">
-                    @Html.Raw(Resources.Mix.EnglishName)
+                    @Html.Raw(Resources.Mix.EnglishNameBR)
                 </div>
                 <div class="col-md-1">
                     @Html.ActionLink(Model.DeceasedFlatten2Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten2Dto.DeceasedId }, null)
                 </div>
                 <div class="col-md-2">
-                    @Html.Raw(Resources.Mix.ChineseName)
+                    @Html.Raw(Resources.Mix.ChineseNameBR)
                 </div>
                 <div class="col-md-2">
                     @Model.DeceasedFlatten2Dto.DeceasedName2
                 </div>
                 <div class="col-md-2">
-                    @Html.Raw(Resources.Mix.Relationship)
+                    @Html.Raw(Resources.Mix.RelationshipBR)
                 </div>
                 <div class="col-md-2">
                     @Model.DeceasedFlatten2Dto.RelationshipTypeName

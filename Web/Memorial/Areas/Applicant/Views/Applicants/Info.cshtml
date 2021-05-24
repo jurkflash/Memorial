@@ -4,33 +4,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Info</h2>
+<h2>@Html.Raw(Resources.Mix.Applicant)</h2>
 
 <div class="form-group">
-    IC
+    @Html.Raw(Resources.Mix.ICBR)
     @Model.IC
 </div>
 <div class="form-group">
-    English Name
+    @Html.Raw(Resources.Mix.EnglishNameBR)
     @Model.Name
 </div>
 <div class="form-group">
-    Chinese Name
+    @Html.Raw(Resources.Mix.ChineseNameBR)
     @Model.Name2
 </div>
 <div class="form-group">
-    Address
+    @Html.Raw(Resources.Mix.AddressBR)
     @Model.Address
 </div>
 <div class="form-group">
-    HousePhone
+    @Html.Raw(Resources.Mix.HousePhoneBR)
     @Model.HousePhone
 </div>
 <div class="form-group">
-    MobileNumber
+    @Html.Raw(Resources.Mix.MobileNumberBR)
     @Model.MobileNumber
 </div>
 <div class="form-group">
-    Remark
+    @Html.Raw(Resources.Mix.RemarkBR)
     @Model.Remark
 </div>

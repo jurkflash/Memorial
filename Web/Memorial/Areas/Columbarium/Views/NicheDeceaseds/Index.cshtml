@@ -10,41 +10,41 @@
 {
     <div class="form-group row">
         <div class="col-md-2">
-            Name
+            @Html.Raw(Resources.Mix.No_BR)
         </div>
         <div class="col-md-2">
             @Model.NicheDto.Name
         </div>
         <div class="col-md-2">
-            Description
+            @Html.Raw(Resources.Mix.DescriptionBR)
         </div>
         <div class="col-md-2">
             @Model.NicheDto.Description
         </div>
         <div class="col-md-2">
-            Type
+            @Html.Raw(Resources.Mix.TypeBR)
         </div>
         <div class="col-md-2">
             @Model.NicheDto.NicheTypeDto.Name
         </div>
     </div>
     <hr />
-    <h5>Owner</h5>
+    <h5>@Html.Raw(Resources.Mix.Applicant)</h5>
     if (Model.ApplicantDto == null)
     {
-        <div>no owner</div>
+        <div>@Html.Raw(Resources.Mix.NoRecord)</div>
     }
     else
     {
         <div class="form-group row">
             <div class="col-md-3">
-                English Name
+                @Html.Raw(Resources.Mix.EnglishNameBR)
             </div>
             <div class="col-md-3">
                 @Html.ActionLink(Model.ApplicantDto.Name, "Info", "Applicants", new { id = Model.ApplicantDto.Id }, null)
             </div>
             <div class="col-md-3">
-                Chinese Name
+                @Html.Raw(Resources.Mix.ChineseNameBR)
             </div>
             <div class="col-md-3">
                 @Model.ApplicantDto.Name2
@@ -52,11 +52,11 @@
         </div>
         if (Model.NumberOfPlacements == 1)
         {
-            <h5>Deceased</h5>
+            <h5>@Html.Raw(Resources.Mix.Deceased)</h5>
         }
         else
         {
-            <h5>Deceased1</h5>
+            <h5>@Html.Raw(Resources.Mix.Deceased)1</h5>
         }
         if (Model.DeceasedFlatten1Dto == null)
         {
@@ -67,25 +67,25 @@
         {
             <div class="form-group row">
                 <div class="col-md-1">
-                    English Name
+                    @Html.Raw(Resources.Mix.EnglishNameBR)
                 </div>
                 <div class="col-md-2">
                     @Html.ActionLink(Model.DeceasedFlatten1Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten1Dto.DeceasedId }, null)
                 </div>
                 <div class="col-md-1">
-                    Chinese Name
+                    @Html.Raw(Resources.Mix.ChineseNameBR)
                 </div>
                 <div class="col-md-2">
                     @Model.DeceasedFlatten1Dto.DeceasedName2
                 </div>
                 <div class="col-md-2">
-                    Relationship
+                    @Html.Raw(Resources.Mix.RelationshipBR)
                 </div>
                 <div class="col-md-2">
                     @Model.DeceasedFlatten1Dto.RelationshipTypeName
                 </div>
                 <div class="col-md-2">
-                    @Html.ActionLink("Remove", "Remove", "NicheDeceaseds", new { id = Model.NicheDto.Id, deceasedId = Model.DeceasedFlatten1Dto.DeceasedId }, null)
+                    @Html.ActionLink(Resources.Mix.Remove, "Remove", "NicheDeceaseds", new { id = Model.NicheDto.Id, deceasedId = Model.DeceasedFlatten1Dto.DeceasedId }, null)
                 </div>
             </div>
         }
@@ -101,25 +101,25 @@
             {
                 <div class="form-group row">
                     <div class="col-md-1">
-                        English Name
+                        @Html.Raw(Resources.Mix.EnglishNameBR)
                     </div>
                     <div class="col-md-1">
                         @Html.ActionLink(Model.DeceasedFlatten2Dto.DeceasedName, "Info", "Deceaseds", new { id = Model.DeceasedFlatten2Dto.DeceasedId }, null)
                     </div>
                     <div class="col-md-2">
-                        Chinese Name
+                        @Html.Raw(Resources.Mix.ChineseNameBR)
                     </div>
                     <div class="col-md-2">
                         @Model.DeceasedFlatten2Dto.DeceasedName2
                     </div>
                     <div class="col-md-2">
-                        Relationship
+                        @Html.Raw(Resources.Mix.RelationshipBR)
                     </div>
                     <div class="col-md-2">
                         @Model.DeceasedFlatten2Dto.RelationshipTypeName
                     </div>
                     <div class="col-md-2">
-                        @Html.ActionLink("Remove", "Remove", "NicheDeceaseds", new { id = Model.NicheDto.Id, deceasedId = Model.DeceasedFlatten2Dto.DeceasedId }, null)
+                        @Html.ActionLink(Resources.Mix.Remove, "Remove", "NicheDeceaseds", new { id = Model.NicheDto.Id, deceasedId = Model.DeceasedFlatten2Dto.DeceasedId }, null)
                     </div>
                 </div>
             }
@@ -130,7 +130,7 @@
             @Html.HiddenFor(qd => qd.NicheDto.Id)
             @Html.HiddenFor(qd => qd.Deceased1Id)
             @Html.HiddenFor(qd => qd.Deceased2Id)
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
         </div>
     </div>
 }

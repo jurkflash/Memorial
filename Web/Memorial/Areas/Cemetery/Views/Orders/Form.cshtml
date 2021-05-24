@@ -6,14 +6,14 @@
 
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.CemeteryTransactionDto.ApplicantDtoId });}
 
-<h2>Form</h2>
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
 
 @using (Html.BeginForm("Save", "Orders", new { area = "Cemetery" }))
 {
     @Model.CemeteryTransactionDto.AF
     <div class="form-group row">
         <div class="col-md-3">
-            Deceased
+            @Html.Raw(Resources.Mix.Deceased)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(c => c.CemeteryTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -22,52 +22,52 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Price
+            @Html.Raw(Resources.Mix.PlotPriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Price, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Price, new { @class = "form-control", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Price)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Maintenance
+            @Html.Raw(Resources.Mix.TurfMaintenanceFees)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Maintenance, new { @class = "form-control", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Maintenance)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Dig
+            @Html.Raw(Resources.Mix.DigPriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Dig, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Dig, new { @class = "form-control", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Dig)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Brick
+            @Html.Raw(Resources.Mix.BrickPriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Brick, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Brick, new { @class = "form-control", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Brick)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Wall
+            @Html.Raw(Resources.Mix.WallPriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Wall, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.Wall, new { @class = "form-control", @required = Resources.Mix.Required })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.Wall)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(c => c.CemeteryTransactionDto.Remark, new { @class = "form-control" })
@@ -77,7 +77,7 @@
     @Html.HiddenFor(c => c.CemeteryTransactionDto.PlotDtoId)
     @Html.HiddenFor(c => c.CemeteryTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.CemeteryTransactionDto.AF)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts

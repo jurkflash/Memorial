@@ -6,14 +6,14 @@
 
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantId });}
 
-<h2>Form</h2>
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
 
 @using (Html.BeginForm("Save", "Houses", new { area = "Space" }))
 {
     @Model.AF
     <div class="form-group row">
         <div class="col-md-3">
-            From
+            @Html.Raw(Resources.Mix.FromBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(s => s.FromDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker"})
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            To
+            @Html.Raw(Resources.Mix.ToBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(s => s.ToDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker" })
@@ -31,15 +31,15 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Price
+            @Html.Raw(Resources.Mix.PriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(s => s.Amount, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(s => s.Amount, new { @class = "form-control", @required = Resources.Mix.Required })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(s => s.Remark, new { @class = "form-control" })
@@ -50,7 +50,7 @@
     @Html.HiddenFor(s => s.ApplicantId)
     @Html.HiddenFor(s => s.AF)
     @Html.HiddenFor(s => s.BasePrice)
-    <button type="submit" class="btn btn-primary" id="btnSubmit">Save</button>
+    <button type="submit" class="btn btn-primary" id="btnSubmit">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts

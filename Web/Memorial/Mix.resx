@@ -117,17 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Address" xml:space="preserve">
+  <data name="AddressBR" xml:space="preserve">
     <value>住址&lt;br /&gt;Address</value>
   </data>
-  <data name="AF" xml:space="preserve">
+  <data name="Address" xml:space="preserve">
+    <value>住址 Address</value>
+  </data>
+  <data name="AFBR" xml:space="preserve">
     <value>表格&lt;br /&gt;AF</value>
   </data>
-  <data name="Age" xml:space="preserve">
+  <data name="AF" xml:space="preserve">
+    <value>表格 AF</value>
+  </data>
+  <data name="AgeBR" xml:space="preserve">
     <value>年齡&lt;br /&gt;Age</value>
   </data>
-  <data name="Ancestor" xml:space="preserve">
-    <value />
+  <data name="Age" xml:space="preserve">
+    <value>年齡 Age</value>
+  </data>
+  <data name="AncestralTabletBR" xml:space="preserve">
+    <value>祖先牌位&lt;br /&gt;AncestralTablet</value>
   </data>
   <data name="Applicant" xml:space="preserve">
     <value>申請者 Applicant</value>
@@ -135,34 +144,37 @@
   <data name="Applicants" xml:space="preserve">
     <value>全申請者 Applicants</value>
   </data>
-  <data name="Area" xml:space="preserve">
+  <data name="AreaBR" xml:space="preserve">
     <value>區&lt;br /&gt;Area</value>
   </data>
-  <data name="BurialCertificate" xml:space="preserve">
+  <data name="Area" xml:space="preserve">
+    <value>區 Area</value>
+  </data>
+  <data name="BurialCertificateBR" xml:space="preserve">
     <value>葬紙准證號碼&lt;br /&gt;Burial Certificate</value>
   </data>
-  <data name="Centre" xml:space="preserve">
+  <data name="CentreBR" xml:space="preserve">
     <value>中心&lt;br /&gt;Centre</value>
   </data>
-  <data name="ChineseName" xml:space="preserve">
-    <value>（中）&lt;br /&gt;Chinese Name</value>
+  <data name="ChineseNameBR" xml:space="preserve">
+    <value>（中）&lt;br /&gt;@Html.Raw(Resources.Mix.ChineseNameBR)</value>
   </data>
   <data name="Columbarium" xml:space="preserve">
     <value>骨灰殿 Columbarium</value>
   </data>
-  <data name="CreateDate" xml:space="preserve">
+  <data name="CreateDateBR" xml:space="preserve">
     <value>申請日期&lt;br /&gt;Create Date</value>
   </data>
   <data name="Cremation" xml:space="preserve">
     <value>火化 Cremation</value>
   </data>
-  <data name="DeathCertificate" xml:space="preserve">
+  <data name="DeathCertificateBR" xml:space="preserve">
     <value>生死局號碼&lt;br /&gt;Death Certificate</value>
   </data>
-  <data name="DeathDate" xml:space="preserve">
+  <data name="DeathDateBR" xml:space="preserve">
     <value>逝世日期&lt;br /&gt;Death Date</value>
   </data>
-  <data name="DeathRegistrationCentre" xml:space="preserve">
+  <data name="DeathRegistrationCentreBR" xml:space="preserve">
     <value>逝世登記處&lt;br /&gt;Death Registration Centre</value>
   </data>
   <data name="Deceased" xml:space="preserve">
@@ -174,52 +186,52 @@
   <data name="Delete" xml:space="preserve">
     <value>刪除 Delete</value>
   </data>
-  <data name="Description" xml:space="preserve">
+  <data name="DescriptionBR" xml:space="preserve">
     <value>描述&lt;br /&gt;Description</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>修改 Edit</value>
   </data>
-  <data name="EnglishName" xml:space="preserve">
-    <value>姓名（英）&lt;br /&gt;English Name</value>
+  <data name="EnglishNameBR" xml:space="preserve">
+    <value>姓名（英）&lt;br /&gt;@Html.Raw(Resources.Mix.EnglishNameBR)</value>
   </data>
-  <data name="FuneralCo" xml:space="preserve">
-    <value>壽板商&lt;br /&gt;Funeral Co.</value>
+  <data name="FuneralCompanyBR" xml:space="preserve">
+    <value>壽板商&lt;br /&gt;Funeral Company</value>
   </data>
-  <data name="Gender" xml:space="preserve">
+  <data name="GenderBR" xml:space="preserve">
     <value>性別&lt;br /&gt;Gender</value>
   </data>
-  <data name="HousePhone" xml:space="preserve">
+  <data name="HousePhoneBR" xml:space="preserve">
     <value>住家電話&lt;br /&gt;House Phone</value>
   </data>
-  <data name="IC" xml:space="preserve">
+  <data name="ICBR" xml:space="preserve">
     <value>身份證&lt;br/&gt;NRIC No</value>
   </data>
-  <data name="ImportPermitNumber" xml:space="preserve">
+  <data name="ImportPermitNumberBR" xml:space="preserve">
     <value>政府入口準字號數（如由外運棺來檳）&lt;br /&gt;Import Permit Number</value>
   </data>
-  <data name="Invoice" xml:space="preserve">
+  <data name="InvoiceBR" xml:space="preserve">
     <value>單&lt;br/&gt;Invoice</value>
   </data>
-  <data name="LifeTimeMaintenance" xml:space="preserve">
+  <data name="LifeTimeMaintenanceBR" xml:space="preserve">
     <value>終身管理費&lt;br /&gt;LifeTimeMaintenance</value>
   </data>
   <data name="Link" xml:space="preserve">
     <value>聯繫 Link</value>
   </data>
-  <data name="Maintenance" xml:space="preserve">
+  <data name="MaintenanceFeesBR" xml:space="preserve">
     <value>管理費&lt;br /&gt;Maintenance</value>
   </data>
-  <data name="Marital" xml:space="preserve">
+  <data name="MaritalBR" xml:space="preserve">
     <value>婚姻&lt;br /&gt;Marital</value>
   </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>雜費 Miscellaneous</value>
   </data>
-  <data name="MobileNumber" xml:space="preserve">
+  <data name="MobileNumberBR" xml:space="preserve">
     <value>流動電話&lt;br /&gt;Mobile Number</value>
   </data>
-  <data name="Nationality" xml:space="preserve">
+  <data name="NationalityBR" xml:space="preserve">
     <value>國籍&lt;br /&gt;Nationality</value>
   </data>
   <data name="New" xml:space="preserve">
@@ -231,52 +243,52 @@
   <data name="NewDeceased" xml:space="preserve">
     <value>新逝世者 New Deceased</value>
   </data>
-  <data name="Niche" xml:space="preserve">
+  <data name="NicheBR" xml:space="preserve">
     <value>骨灰閣&lt;br /&gt;Niche</value>
   </data>
-  <data name="Niches" xml:space="preserve">
+  <data name="NichesBR" xml:space="preserve">
     <value>全骨灰閣&lt;br /&gt;Niches</value>
   </data>
   <data name="NoRecord" xml:space="preserve">
     <value>沒記錄 No record</value>
   </data>
-  <data name="No_" xml:space="preserve">
+  <data name="No_BR" xml:space="preserve">
     <value>編號&lt;br /&gt;No.</value>
   </data>
   <data name="Plot" xml:space="preserve">
     <value />
   </data>
-  <data name="Price" xml:space="preserve">
+  <data name="PriceBR" xml:space="preserve">
     <value>價格&lt;br /&gt;Price</value>
   </data>
-  <data name="Receipt" xml:space="preserve">
+  <data name="ReceiptBR" xml:space="preserve">
     <value>收據&lt;br /&gt;Receipt</value>
   </data>
-  <data name="Relationship" xml:space="preserve">
+  <data name="RelationshipBR" xml:space="preserve">
     <value>申請人與逝世者關係&lt;br /&gt;Relationship</value>
   </data>
-  <data name="Religion" xml:space="preserve">
+  <data name="ReligionBR" xml:space="preserve">
     <value>信仰&lt;br /&gt;Religion</value>
   </data>
-  <data name="Remark" xml:space="preserve">
+  <data name="RemarkBR" xml:space="preserve">
     <value>備註&lt;br /&gt;Remark</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存 Save</value>
   </data>
-  <data name="Site" xml:space="preserve">
+  <data name="SiteBR" xml:space="preserve">
     <value>地點&lt;br /&gt;Site</value>
   </data>
   <data name="Space" xml:space="preserve">
     <value>空間 Space</value>
   </data>
-  <data name="Type" xml:space="preserve">
+  <data name="TypeBR" xml:space="preserve">
     <value>種類&lt;br /&gt;Type</value>
   </data>
   <data name="Unlink" xml:space="preserve">
     <value>刪除聯繫 Unlink</value>
   </data>
-  <data name="Urn" xml:space="preserve">
+  <data name="UrnBR" xml:space="preserve">
     <value>骨灰甕&lt;br /&gt;Urn</value>
   </data>
   <data name="X" xml:space="preserve">
@@ -284,5 +296,116 @@
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>數額 Amount</value>
+  </data>
+  <data name="AmountBR" xml:space="preserve">
+    <value>數額&lt;br /&gt;Amount</value>
+  </data>
+  <data name="AncestralTablet" xml:space="preserve">
+    <value>祖先牌位 AncestralTablet</value>
+  </data>
+  <data name="BrickPriceBR" xml:space="preserve">
+    <value>砌築磚穴費&lt;br /&gt;Brick Price</value>
+  </data>
+  <data name="ChangeToBR" xml:space="preserve">
+    <value>換去&lt;br /&gt;Change To</value>
+  </data>
+  <data name="DigPriceBR" xml:space="preserve">
+    <value>挖洞穴費&lt;br /&gt;Dig Price</value>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>表格 Form</value>
+  </data>
+  <data name="FromBR" xml:space="preserve">
+    <value>從&lt;br /&gt;From</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>單 Invoice</value>
+  </data>
+  <data name="PaymentMethodBR" xml:space="preserve">
+    <value>付費方式&lt;br /&gt;Payment Method</value>
+  </data>
+  <data name="PaymentRemarkBR" xml:space="preserve">
+    <value>付費備註&lt;br /&gt;Payment Remark</value>
+  </data>
+  <data name="PlotPriceBR" xml:space="preserve">
+    <value>墓地費用&lt;br /&gt;Plot Price</value>
+  </data>
+  <data name="Receipt" xml:space="preserve">
+    <value>收據 Receipt</value>
+  </data>
+  <data name="RemainingAmount" xml:space="preserve">
+    <value>剩餘數額 Remaining Amount</value>
+  </data>
+  <data name="RemainingAmountBR" xml:space="preserve">
+    <value>剩餘數額&lt;br /&gt;Remaining Amount</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>請輸入 Required</value>
+  </data>
+  <data name="ShiftedToBR" xml:space="preserve">
+    <value>已移位至&lt;br /&gt;Shifted To</value>
+  </data>
+  <data name="ShiftToBR" xml:space="preserve">
+    <value>移位至&lt;br /&gt;Shift To</value>
+  </data>
+  <data name="ToBR" xml:space="preserve">
+    <value>至&lt;br /&gt;To</value>
+  </data>
+  <data name="TurfMaintenanceFees" xml:space="preserve">
+    <value>管草基金&lt;br /&gt;Turf Maintenance Fees</value>
+  </data>
+  <data name="WallPriceBR" xml:space="preserve">
+    <value>後牆及行人道費&lt;br /&gt;Wall Price</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>刪除 Remove</value>
+  </data>
+  <data name="FengShuiMasterBR" xml:space="preserve">
+    <value>風水師&lt;br /&gt;Feng Shui Master</value>
+  </data>
+  <data name="ApplicantBR" xml:space="preserve">
+    <value>申請者&lt;br /&gt;Applicant</value>
+  </data>
+  <data name="ContactNameBR" xml:space="preserve">
+    <value>聯絡名&lt;br /&gt;Contact Name</value>
+  </data>
+  <data name="ContactNumberBR" xml:space="preserve">
+    <value>聯絡號碼&lt;br /&gt;Contact Number</value>
+  </data>
+  <data name="CremateDateBR" xml:space="preserve">
+    <value>火葬日期&lt;br /&gt;Cremate Date</value>
+  </data>
+  <data name="DeceasedBR" xml:space="preserve">
+    <value>逝世者&lt;br /&gt;Deceased</value>
+  </data>
+  <data name="FuneralCompany" xml:space="preserve">
+    <value>壽板商 Funeral Company</value>
+  </data>
+  <data name="HasDeceasedBR" xml:space="preserve">
+    <value>有逝世者&lt;br /&gt;Has Deceased</value>
+  </data>
+  <data name="IsDepositBR" xml:space="preserve">
+    <value>是定金&lt;br /&gt;Is Deposit</value>
+  </data>
+  <data name="NameBR" xml:space="preserve">
+    <value>名&lt;br /&gt;Name</value>
+  </data>
+  <data name="NewApplicantBR" xml:space="preserve">
+    <value>新申請者&lt;br /&gt; New Applicant</value>
+  </data>
+  <data name="Text1BR" xml:space="preserve">
+    <value>輸入1&lt;br /&gt;Text1</value>
+  </data>
+  <data name="Text2BR" xml:space="preserve">
+    <value>輸入2&lt;br /&gt;Text2</value>
+  </data>
+  <data name="Text3BR" xml:space="preserve">
+    <value>輸入3&lt;br /&gt;Text3</value>
+  </data>
+  <data name="TransferToBR" xml:space="preserve">
+    <value>轉讓至&lt;br /&gt;Transfer To</value>
   </data>
 </root>

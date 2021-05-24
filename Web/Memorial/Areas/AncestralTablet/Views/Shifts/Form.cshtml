@@ -6,7 +6,7 @@
 
 @{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantId, area = "Applicant" });}
 
-<h2>Form</h2>
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
 
 @using (Html.BeginForm("Save", "Shifts", new { area = "AncestralTablet" }))
 {
@@ -14,7 +14,7 @@
 
     <div class="form-group row">
         <div class="col-md-3">
-            AncestralTablet
+            @Html.Raw(Resources.Mix.AncestralTabletBR)
         </div>
         <div class="col-md-6">
             @Model.AncestralTabletTransactionDto.AncestralTablet.Name
@@ -32,7 +32,7 @@
         </div>
         <div class="form-group row">
             <div class="col-md-9">
-                Shift To
+                @Html.Raw(Resources.Mix.ShiftToBR)
             </div>
         </div>
     }
@@ -40,23 +40,23 @@
     {
         <div class="form-group row">
             <div class="col-md-9">
-                Shifted To
+                @Html.Raw(Resources.Mix.ShiftedToBR)
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-3">
-                AncestralTablet
+                @Html.Raw(Resources.Mix.AncestralTabletBR)
             </div>
             <div class="col-md-6">
                 @Model.AncestralTabletTransactionDto.AncestralTablet.Name
             </div>
         </div>
         <hr />
-        <div>Change To</div>
+        <div>@Html.Raw(Resources.Mix.ChangeToBR)</div>
     }
     <div class="form-group row">
         <div class="col-md-3">
-            Site
+            @Html.Raw(Resources.Mix.SiteBR)
         </div>
         <div class="col-md-6">
             <select id="Sites" class="form-control"></select>
@@ -64,7 +64,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            Area
+            @Html.Raw(Resources.Mix.AreaBR)
         </div>
         <div class="col-md-6">
             <select id="Areas" class="form-control"></select>
@@ -72,7 +72,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            AncestralTablet
+            @Html.Raw(Resources.Mix.AncestralTabletBR)
         </div>
         <div class="col-md-6">
             <select id="AncestralTablets" class="form-control"></select>
@@ -80,32 +80,32 @@
     </div>
     <div class="form-group row">
         <div class="col-md-2">
-            Name
+            @Html.Raw(Resources.Mix.No_BR)
         </div>
         <div class="col-md-2">
-            Price
+            @Html.Raw(Resources.Mix.PriceBR)
         </div>
         <div class="col-md-2">
-            Maintenance
+            @Html.Raw(Resources.Mix.MaintenanceFeesBR)
         </div>
         <div class="col-md-1">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-2" id="qName"></div>
         <div class="col-md-2" id="qPrice">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = Resources.Mix.Required })
         </div>
         <div class="col-md-2" id="qMaintenance">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = Resources.Mix.Required })
         </div>
         <div class="col-md-1" id="qRemark"></div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-3">
-            Remark
+            @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
             @Html.TextAreaFor(c => c.AncestralTabletTransactionDto.Remark, new { @class = "form-control" })
@@ -118,7 +118,7 @@
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 
 @section scripts
