@@ -10,9 +10,11 @@ using PagedList;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
-    public class OrderController : Controller
+    public class OrdersController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IArea _area;
+        private readonly IItem _item;
         private readonly IDeceased _deceased;
         private readonly IOrder _order;
         private readonly IApplicant _applicant;
@@ -20,8 +22,10 @@ namespace Memorial.Areas.Cemetery.Controllers
         private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
         private readonly Lib.Invoice.IPlot _invoice;
 
-        public OrderController(
+        public OrdersController(
             IPlot plot,
+            IArea area,
+            IItem item,
             IApplicant applicant,
             IDeceased deceased,
             IOrder order,
@@ -31,6 +35,8 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _area = area;
+            _item = item;
             _applicant = applicant;
             _deceased = deceased;
             _order = order;
@@ -47,11 +53,12 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             _plot.SetPlot(id);
+            _item.SetItem(itemId);
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                CemeteryItemId = itemId,
+                CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
@@ -69,20 +76,27 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _order.SetTransaction(AF);
             _plot.SetPlot(_order.GetTransactionPlotId());
+            _area.SetArea(_plot.GetAreaId());
 
-            var viewModel = new CemeteryTransactionsInfoViewModel()
-            {
-                ApplicantId = _order.GetTransactionApplicantId(),
-                DeceasedId = _order.GetTransactionDeceased1Id(),
-                PlotDto = _plot.GetPlotDto(),
-                ItemName = _order.GetItemName(),
-                CemeteryTransactionDto = _order.GetTransactionDto()
-            };
+            var viewModel = new CemeteryTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.PlotDto = _plot.GetPlotDto();
+            viewModel.CemeteryTransactionDto = _order.GetTransactionDto();
+            viewModel.ApplicantId = _order.GetTransactionApplicantId();
+            viewModel.DeceasedId = _order.GetTransactionDeceased1Id();
+            viewModel.Header = _area.GetArea().Site.Header;
+
             return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)

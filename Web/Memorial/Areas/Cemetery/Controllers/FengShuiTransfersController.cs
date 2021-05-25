@@ -12,6 +12,7 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class FengShuiTransfersController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IItem _item;
         private readonly ITransfer _transfer;
         private readonly IApplicant _applicant;
         private readonly ITracking _tracking;
@@ -19,6 +20,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public FengShuiTransfersController(
             IPlot plot,
+            IItem item,
             IApplicant applicant,
             ITransfer transfer,
             ITracking tracking,
@@ -26,6 +28,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _item = item;
             _applicant = applicant;
             _transfer = transfer;
             _tracking = tracking;
@@ -40,11 +43,12 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             _plot.SetPlot(id);
+            _item.SetItem(itemId);
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                CemeteryItemId = itemId,
+                CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _transfer.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)

@@ -12,6 +12,7 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class SecondBurialsController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IItem _item;
         private readonly IDeceased _deceased;
         private readonly ISecondBurial _secondBurial;
         private readonly ITracking _tracking;
@@ -19,6 +20,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public SecondBurialsController(
             IPlot plot,
+            IItem item,
             IDeceased deceased,
             ISecondBurial secondBurial,
             ITracking tracking,
@@ -26,6 +28,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _item = item;
             _deceased = deceased;
             _secondBurial = secondBurial;
             _tracking = tracking;
@@ -40,11 +43,12 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             _plot.SetPlot(id);
+            _item.SetItem(itemId);
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                CemeteryItemId = itemId,
+                CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _secondBurial.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)

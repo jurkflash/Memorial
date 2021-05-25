@@ -157,7 +157,7 @@
     <value>中心&lt;br /&gt;Centre</value>
   </data>
   <data name="ChineseNameBR" xml:space="preserve">
-    <value>（中）&lt;br /&gt;@Html.Raw(Resources.Mix.ChineseNameBR)</value>
+    <value>（中）&lt;br /&gt;Chinese Name</value>
   </data>
   <data name="Columbarium" xml:space="preserve">
     <value>骨灰殿 Columbarium</value>
@@ -166,7 +166,7 @@
     <value>申請日期&lt;br /&gt;Create Date</value>
   </data>
   <data name="Cremation" xml:space="preserve">
-    <value>火化 Cremation</value>
+    <value>火葬 Cremation</value>
   </data>
   <data name="DeathCertificateBR" xml:space="preserve">
     <value>生死局號碼&lt;br /&gt;Death Certificate</value>
@@ -193,7 +193,7 @@
     <value>修改 Edit</value>
   </data>
   <data name="EnglishNameBR" xml:space="preserve">
-    <value>姓名（英）&lt;br /&gt;@Html.Raw(Resources.Mix.EnglishNameBR)</value>
+    <value>姓名（英）&lt;br /&gt;English Name</value>
   </data>
   <data name="FuneralCompanyBR" xml:space="preserve">
     <value>壽板商&lt;br /&gt;Funeral Company</value>
@@ -255,8 +255,8 @@
   <data name="No_BR" xml:space="preserve">
     <value>編號&lt;br /&gt;No.</value>
   </data>
-  <data name="Plot" xml:space="preserve">
-    <value />
+  <data name="PlotBR" xml:space="preserve">
+    <value>墓地&lt;br /&gt;Plot</value>
   </data>
   <data name="PriceBR" xml:space="preserve">
     <value>價格&lt;br /&gt;Price</value>
@@ -354,7 +354,7 @@
   <data name="ToBR" xml:space="preserve">
     <value>至&lt;br /&gt;To</value>
   </data>
-  <data name="TurfMaintenanceFees" xml:space="preserve">
+  <data name="TurfMaintenanceFeesBR" xml:space="preserve">
     <value>管草基金&lt;br /&gt;Turf Maintenance Fees</value>
   </data>
   <data name="WallPriceBR" xml:space="preserve">
@@ -381,6 +381,12 @@
   <data name="DeceasedBR" xml:space="preserve">
     <value>逝世者&lt;br /&gt;Deceased</value>
   </data>
+  <data name="DeleteBR" xml:space="preserve">
+    <value>刪除&lt;br /&gt;Delete</value>
+  </data>
+  <data name="EditBR" xml:space="preserve">
+    <value>修改&lt;br /&gt;Edit</value>
+  </data>
   <data name="FuneralCompany" xml:space="preserve">
     <value>壽板商 Funeral Company</value>
   </data>
@@ -396,6 +402,15 @@
   <data name="NewApplicantBR" xml:space="preserve">
     <value>新申請者&lt;br /&gt; New Applicant</value>
   </data>
+  <data name="PlotTypeBR" xml:space="preserve">
+    <value>墓地種類&lt;br /&gt;Plot Type</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索 Search</value>
+  </data>
+  <data name="SizeBR" xml:space="preserve">
+    <value>尺寸&lt;br /&gt;Size</value>
+  </data>
   <data name="Text1BR" xml:space="preserve">
     <value>輸入1&lt;br /&gt;Text1</value>
   </data>
@@ -407,5 +422,35 @@
   </data>
   <data name="TransferToBR" xml:space="preserve">
     <value>轉讓至&lt;br /&gt;Transfer To</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>全部單 Invoices</value>
+  </data>
+  <data name="PaidBR" xml:space="preserve">
+    <value>已付&lt;br /&gt;Paid</value>
+  </data>
+  <data name="PlotType" xml:space="preserve">
+    <value>墓地種類 Plot Type</value>
+  </data>
+  <data name="ReceiptIssuedBR" xml:space="preserve">
+    <value>已有收據&lt;br /&gt;Receipt Issued</value>
+  </data>
+  <data name="Receipts" xml:space="preserve">
+    <value>全部收據 Receipts</value>
+  </data>
+  <data name="Plot" xml:space="preserve">
+    <value>墓地 Plot</value>
+  </data>
+  <data name="Agreement" xml:space="preserve">
+    <value>We, the above-named signatories hereby declared and confirm that the above information given by us is to be true and we voluntarily executed this document&lt;br /&gt;We hereby agree to indemnify and keep indemnified CHINESE CEMETERY ASSOCIATION OF KEPONG, JINJANG &amp;amp; BATU VILLAGE (herein aftered reffered to as the "Committee" against all expenses, loses liability. (whether criminal or civil) damages and costs that the Committee may suffer, sustain or incur as a result, whether directly or indirectly of any breach by us and/or any negligent act, omission or default)</value>
+  </data>
+  <data name="CemeteryApplicationFormBR" xml:space="preserve">
+    <value>墓地申請表格&lt;br /&gt;Cemetery Application Form</value>
+  </data>
+  <data name="CremationApplicationFormBR" xml:space="preserve">
+    <value>火葬申請表格&lt;br /&gt;Cremation Application Form</value>
+  </data>
+  <data name="FuneralArrangementEntrustedBR" xml:space="preserve">
+    <value>出葬手續交興壽板承包商&lt;br /&gt;Funeral Arrangement entrusted to the following company</value>
   </data>
 </root>

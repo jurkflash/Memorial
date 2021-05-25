@@ -11,16 +11,19 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class ReciprocatesController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IItem _item;
         private readonly IFengShuiMaster _fengShuiMaster;
         private readonly IReciprocate _reciprocate;
 
         public ReciprocatesController(
             IPlot plot,
+            IItem item,
             IFengShuiMaster fengShuiMaster,
             IReciprocate reciprocate
             )
         {
             _plot = plot;
+            _item = item;
             _fengShuiMaster = fengShuiMaster;
             _reciprocate = reciprocate;
         }
@@ -33,10 +36,11 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             _plot.SetPlot(id);
+            _item.SetItem(itemId);
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
-                CemeteryItemId = itemId,
+                CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)

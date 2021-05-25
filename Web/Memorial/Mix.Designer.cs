@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We, the above-named signatories hereby declared and confirm that the above information given by us is to be true and we voluntarily executed this document&lt;br /&gt;We hereby agree to indemnify and keep indemnified CHINESE CEMETERY ASSOCIATION OF KEPONG, JINJANG &amp;amp; BATU VILLAGE (herein aftered reffered to as the &quot;Committee&quot; against all expenses, loses liability. (whether criminal or civil) damages and costs that the Committee may suffer, sustain or incur as a result, whether directly or indirectly of any brea [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Agreement {
+            get {
+                return ResourceManager.GetString("Agreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 數額 Amount.
         /// </summary>
         public static string Amount {
@@ -214,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 墓地申請表格&lt;br /&gt;Cemetery Application Form.
+        /// </summary>
+        public static string CemeteryApplicationFormBR {
+            get {
+                return ResourceManager.GetString("CemeteryApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 中心&lt;br /&gt;Centre.
         /// </summary>
         public static string CentreBR {
@@ -232,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to （中）&lt;br /&gt;@Html.Raw(Resources.Mix.ChineseNameBR).
+        ///   Looks up a localized string similar to （中）&lt;br /&gt;Chinese Name.
         /// </summary>
         public static string ChineseNameBR {
             get {
@@ -286,11 +304,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 火化 Cremation.
+        ///   Looks up a localized string similar to 火葬 Cremation.
         /// </summary>
         public static string Cremation {
             get {
                 return ResourceManager.GetString("Cremation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 火葬申請表格&lt;br /&gt;Cremation Application Form.
+        /// </summary>
+        public static string CremationApplicationFormBR {
+            get {
+                return ResourceManager.GetString("CremationApplicationFormBR", resourceCulture);
             }
         }
         
@@ -358,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 刪除&lt;br /&gt;Delete.
+        /// </summary>
+        public static string DeleteBR {
+            get {
+                return ResourceManager.GetString("DeleteBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 描述&lt;br /&gt;Description.
         /// </summary>
         public static string DescriptionBR {
@@ -385,7 +421,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 姓名（英）&lt;br /&gt;@Html.Raw(Resources.Mix.EnglishNameBR).
+        ///   Looks up a localized string similar to 修改&lt;br /&gt;Edit.
+        /// </summary>
+        public static string EditBR {
+            get {
+                return ResourceManager.GetString("EditBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 姓名（英）&lt;br /&gt;English Name.
         /// </summary>
         public static string EnglishNameBR {
             get {
@@ -417,6 +462,15 @@ namespace Resources {
         public static string FromBR {
             get {
                 return ResourceManager.GetString("FromBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 出葬手續交興壽板承包商&lt;br /&gt;Funeral Arrangement entrusted to the following company.
+        /// </summary>
+        public static string FuneralArrangementEntrustedBR {
+            get {
+                return ResourceManager.GetString("FuneralArrangementEntrustedBR", resourceCulture);
             }
         }
         
@@ -498,6 +552,15 @@ namespace Resources {
         public static string InvoiceBR {
             get {
                 return ResourceManager.GetString("InvoiceBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全部單 Invoices.
+        /// </summary>
+        public static string Invoices {
+            get {
+                return ResourceManager.GetString("Invoices", resourceCulture);
             }
         }
         
@@ -655,6 +718,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 已付&lt;br /&gt;Paid.
+        /// </summary>
+        public static string PaidBR {
+            get {
+                return ResourceManager.GetString("PaidBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 付費方式&lt;br /&gt;Payment Method.
         /// </summary>
         public static string PaymentMethodBR {
@@ -673,11 +745,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 墓地 Plot.
         /// </summary>
         public static string Plot {
             get {
                 return ResourceManager.GetString("Plot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 墓地&lt;br /&gt;Plot.
+        /// </summary>
+        public static string PlotBR {
+            get {
+                return ResourceManager.GetString("PlotBR", resourceCulture);
             }
         }
         
@@ -687,6 +768,24 @@ namespace Resources {
         public static string PlotPriceBR {
             get {
                 return ResourceManager.GetString("PlotPriceBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 墓地種類 Plot Type.
+        /// </summary>
+        public static string PlotType {
+            get {
+                return ResourceManager.GetString("PlotType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 墓地種類&lt;br /&gt;Plot Type.
+        /// </summary>
+        public static string PlotTypeBR {
+            get {
+                return ResourceManager.GetString("PlotTypeBR", resourceCulture);
             }
         }
         
@@ -714,6 +813,24 @@ namespace Resources {
         public static string ReceiptBR {
             get {
                 return ResourceManager.GetString("ReceiptBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 已有收據&lt;br /&gt;Receipt Issued.
+        /// </summary>
+        public static string ReceiptIssuedBR {
+            get {
+                return ResourceManager.GetString("ReceiptIssuedBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全部收據 Receipts.
+        /// </summary>
+        public static string Receipts {
+            get {
+                return ResourceManager.GetString("Receipts", resourceCulture);
             }
         }
         
@@ -790,6 +907,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 搜索 Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 已移位至&lt;br /&gt;Shifted To.
         /// </summary>
         public static string ShiftedToBR {
@@ -813,6 +939,15 @@ namespace Resources {
         public static string SiteBR {
             get {
                 return ResourceManager.GetString("SiteBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 尺寸&lt;br /&gt;Size.
+        /// </summary>
+        public static string SizeBR {
+            get {
+                return ResourceManager.GetString("SizeBR", resourceCulture);
             }
         }
         
@@ -873,9 +1008,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to 管草基金&lt;br /&gt;Turf Maintenance Fees.
         /// </summary>
-        public static string TurfMaintenanceFees {
+        public static string TurfMaintenanceFeesBR {
             get {
-                return ResourceManager.GetString("TurfMaintenanceFees", resourceCulture);
+                return ResourceManager.GetString("TurfMaintenanceFeesBR", resourceCulture);
             }
         }
         

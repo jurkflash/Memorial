@@ -716,7 +716,7 @@
     <Compile Include="Areas\Miscellaneous\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Navigation\Controllers\NavigationController.cs" />
     <Compile Include="Areas\Cemetery\Controllers\CemeteriesController.cs" />
-    <Compile Include="Areas\Cemetery\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Cemetery\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Cemetery\Controllers\InvoicesController.cs" />
     <Compile Include="Areas\Cemetery\Controllers\ReceiptsController.cs" />
     <Compile Include="Areas\Cemetery\Controllers\SecondBurialsController.cs" />
@@ -2509,8 +2509,6 @@
     <Content Include="Areas\Columbarium\Views\Columbariums\Items.cshtml" />
     <Content Include="Areas\Cemetery\Views\Cemeteries\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\Cemeteries\Items.cshtml" />
-    <Content Include="Areas\Cemetery\Views\Double\Index.cshtml" />
-    <Content Include="Areas\Cemetery\Views\FengShui\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\Clearances\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\SecondBurials\Index.cshtml" />
     <Content Include="Areas\Applicant\Views\Applicants\Form.cshtml" />

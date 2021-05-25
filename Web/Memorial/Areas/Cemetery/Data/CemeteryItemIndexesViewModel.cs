@@ -7,7 +7,7 @@ namespace Memorial.ViewModels
     {
         public IPagedList<CemeteryTransactionDto> CemeteryTransactionDtos { get; set; }
 
-        public int CemeteryItemId { get; set; }
+        public CemeteryItemDto CemeteryItemDto { get; set; }
 
         public PlotDto PlotDto { get; set; }
 

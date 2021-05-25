@@ -45,8 +45,7 @@
         <span>@Model.CremationTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
     </div>
     <div class="col-md-6" style="text-align:center">
-        火葬申請表格<br />
-        Cremation Application Form
+        @Html.Raw(Resources.Mix.CremationApplicationFormBR)
     </div>
     <div class="col-md-3" style="text-align:right">
         @Model.CremationTransactionDto.AF
@@ -55,11 +54,10 @@
 
 @{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
 
-<h5 style="padding-top:5px"><u>火葬 Cremation</u></h5>
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Cremation)</u></h5>
 <div class="row flexrow">
     <div class="col-md-3">
-        火葬日期及時間<br />
-        Cremate Date Time
+        @Html.Raw(Resources.Mix.CremateDateBR)
     </div>
     <div class="col-md-3">
         @Model.CremationTransactionDto.CremateDate.ToString("yyyy-MMM-dd hh:mm:ss tt")
@@ -67,8 +65,7 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-6">
-        出葬手續交興壽板承包商<br />
-        Funeral Arrangement entrusted to the following company
+        @Html.Raw(Resources.Mix.FuneralArrangementEntrustedBR)
     </div>
     <div class="col-md-6">
         @Model.CremationTransactionDto.FuneralCompany.Name
@@ -76,9 +73,6 @@
 </div>
 <br />
 <p>
-    We, the above-named signatories hereby declared and confirm that the above information given by us is to be true and we
-    voluntarily executed this document<br />We hereby agree to indemnify and keep indemnified CHINESE CEMETERY ASSOCIATION OF KEPONG, JINJANG &amp; BATU VILLAGE (herein aftered reffered to as the "Committee" against all expenses, loses liability. (whether criminal or civil)
-    damages and costs that the Committee may suffer, sustain or incur as a result, whether directly or indirectly of any breach by us
-    and/or any negligent act, omission or default)
+    @Html.Raw(Resources.Mix.Agreement)
 </p>
 

@@ -5,28 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Plot</h2>
+<h2>@Html.Raw(Resources.Mix.Plot)</h2>
 
-@using (Html.BeginForm("Plots", "Plots", new { area = "Cemetery" }))
+@using (Html.BeginForm("Plots", "Cemeteries", new { area = "Cemetery" }))
 {
     <p>
         Find by Name: @Html.TextBox("filter")
         @Html.Hidden("areaId", Model.AreaId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         <br />
-        Plot Type: @Html.DropDownList("plotTypeId", new SelectList(Model.PlotTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        @Html.Raw(Resources.Mix.PlotType): @Html.DropDownList("plotTypeId", new SelectList(Model.PlotTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th>Type</th>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.SizeBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.TypeBR)</th>
         </tr>
     </thead>
     <tbody>

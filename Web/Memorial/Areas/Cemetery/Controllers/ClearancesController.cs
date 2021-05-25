@@ -13,6 +13,7 @@ namespace Memorial.Areas.Cemetery.Controllers
     {
         private readonly IPlot _plot;
         private readonly IDeceased _deceased;
+        private readonly IItem _item;
         private readonly IClearance _clearance;
         private readonly ITracking _tracking;
         private readonly Lib.Invoice.IPlot _invoice;
@@ -20,6 +21,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         public ClearancesController(
             IPlot plot,
             IDeceased deceased,
+            IItem item,
             IClearance clearance,
             ITracking tracking,
             Lib.Invoice.IPlot invoice
@@ -27,6 +29,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         {
             _plot = plot;
             _deceased = deceased;
+            _item = item;
             _clearance = clearance;
             _tracking = tracking;
             _invoice = invoice;
@@ -40,11 +43,12 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             _plot.SetPlot(id);
+            _item.SetItem(itemId);
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
-                CemeteryItemId = itemId,
+                CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _clearance.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)

@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.CemeteryItemDto.Name</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemId, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Cemetery" })
+        @Html.ActionLink("New", "Form", new { itemId = Model.CemeteryItemDto.Id, applicantId = Model.ApplicantId, id = Model.PlotId, area = "Cemetery" })
     </p>
 }
 
@@ -18,25 +18,25 @@
 {
     <p>
         Find by Name: @Html.TextBox("filter")
-        @Html.Hidden("itemId", Model.CemeteryItemId.ToString())
+        @Html.Hidden("itemId", Model.CemeteryItemDto.Id.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         @Html.Hidden("id", Model.PlotId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>Plot</th>
-            <th>Applicant</th>
-            <th>Deceased</th>
-            <th>Price</th>
-            <th>Create Date</th>
-            <th>Invoice</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.PlotBR)</th>
+            <th>@Html.Raw(Resources.Mix.ApplicantBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeceasedBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -49,11 +49,11 @@
                 <td>@cemeteryTransaction.DeceasedDto1.Name &nbsp; @cemeteryTransaction.DeceasedDto1.Name2</td>
                 <td>@cemeteryTransaction.Price</td>
                 <td>@cemeteryTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cemeteryTransaction.AF, area = "Cemetery" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = cemeteryTransaction.AF, area = "Cemetery" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Cemetery" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = cemeteryTransaction.AF, itemId = Model.CemeteryItemId, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Cemetery" },
+                    new { AF = cemeteryTransaction.AF, itemId = Model.CemeteryItemDto.Id, id = Model.PlotId, applicantId = Model.ApplicantId, area = "Cemetery" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
                 </td>
             </tr>
@@ -62,6 +62,6 @@
 </table>
 Page @(Model.CemeteryTransactionDtos.PageCount < Model.CemeteryTransactionDtos.PageNumber ? 0 : Model.CemeteryTransactionDtos.PageNumber) of @Model.CemeteryTransactionDtos.PageCount
 @Html.PagedListPager(Model.CemeteryTransactionDtos, page => Url.Action("Index",
-    new { page, id = Model.PlotId.ToString(), itemId = Model.CemeteryItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, id = Model.PlotId.ToString(), itemId = Model.CemeteryItemDto.Id.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

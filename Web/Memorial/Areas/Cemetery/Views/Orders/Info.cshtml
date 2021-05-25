@@ -4,15 +4,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF })
+}
 
-<div class="row">
-    <div class="col-md-3">
-        AF
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.CemeteryTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.CremationApplicationFormBR)
+    </div>
+    <div class="col-md-3" style="text-align:right">
         @Model.CemeteryTransactionDto.AF
     </div>
 </div>
 
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
+
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Cremation)</u></h5>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.CremateDateBR)
+    </div>
+    <div class="col-md-3">
+        @Model.CremationTransactionDto.CremateDate.ToString("yyyy-MMM-dd hh:mm:ss tt")
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.FuneralArrangementEntrustedBR)
+    </div>
+    <div class="col-md-6">
+        @Model.CemeteryTransactionDto.
+    </div>
+</div>
+<br />
+<p>
+    @Html.Raw(Resources.Mix.Agreement)
+</p>
 
