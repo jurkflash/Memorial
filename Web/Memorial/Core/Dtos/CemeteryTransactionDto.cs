@@ -39,7 +39,11 @@ namespace Memorial.Core.Dtos
 
         public FengShuiMasterDto FengShuiMasterDto { get; set; }
 
-        public int? FengShuiMasterId { get; set; }
+        public int? FengShuiMasterDtoId { get; set; }
+
+        public FuneralCompanyDto FuneralCompanyDto { get; set; }
+
+        public int? FuneralCompanyDtoId { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
 

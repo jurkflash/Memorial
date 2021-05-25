@@ -42,6 +42,10 @@ namespace Memorial.Core.Domain
 
         public int? FengShuiMasterId { get; set; }
 
+        public FuneralCompany FuneralCompany { get; set; }
+
+        public int? FuneralCompanyId { get; set; }
+
         public Applicant Applicant { get; set; }
 
         public int ApplicantId { get; set; }

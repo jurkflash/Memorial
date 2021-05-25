@@ -55,6 +55,10 @@ namespace Memorial.App_Start
             CreateMap<CemeteryItem, CemeteryItemDto>();
             CreateMap<PlotLandscapeCompany, PlotLandscapeCompanyDto>();
             CreateMap<CemeteryTransaction, CemeteryTransactionDto>()
+                .ForMember(c => c.FuneralCompanyDto, opt => opt.MapFrom(x => x.FuneralCompany))
+                .ForMember(c => c.FuneralCompanyDtoId, opt => opt.MapFrom(x => x.FuneralCompanyId))
+                .ForMember(c => c.FengShuiMasterDto, opt => opt.MapFrom(x => x.FengShuiMaster))
+                .ForMember(c => c.FengShuiMasterDtoId, opt => opt.MapFrom(x => x.FengShuiMasterId))
                 .ForMember(c => c.PlotDto, opt => opt.MapFrom(x => x.Plot))
                 .ForMember(c => c.PlotDtoId, opt => opt.MapFrom(x => x.PlotId))
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
@@ -178,6 +182,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Deceased2, opt => opt.MapFrom(x => x.DeceasedDto2))
                 .ForMember(c => c.Deceased2Id, opt => opt.MapFrom(x => x.DeceasedDto2Id))
                 .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
+                .ForMember(c => c.FuneralCompanyId, opt => opt.MapFrom(x => x.FuneralCompanyDtoId))
+                .ForMember(c => c.FengShuiMasterId, opt => opt.MapFrom(x => x.FengShuiMasterDtoId))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<NicheDto, Niche>()

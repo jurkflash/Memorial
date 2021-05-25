@@ -66,6 +66,10 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(pt => pt.TransferredCemeteryTransactionAF)
                 .WillCascadeOnDelete(false);
 
+            HasOptional(pt => pt.FuneralCompany)
+                .WithMany(fc => fc.CemeteryTransactions)
+                .HasForeignKey(pt => pt.FuneralCompanyId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

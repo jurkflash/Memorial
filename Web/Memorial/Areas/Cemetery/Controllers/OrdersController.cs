@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Memorial.Lib;
 using Memorial.Lib.Cemetery;
+using Memorial.Lib.FuneralCompany;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.Applicant;
 using Memorial.Core.Dtos;
@@ -18,6 +19,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         private readonly IDeceased _deceased;
         private readonly IOrder _order;
         private readonly IApplicant _applicant;
+        private readonly IFuneralCompany _funeralCompany;
         private readonly ITracking _tracking;
         private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
         private readonly Lib.Invoice.IPlot _invoice;
@@ -27,6 +29,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             IArea area,
             IItem item,
             IApplicant applicant,
+            IFuneralCompany funeralCompany,
             IDeceased deceased,
             IOrder order,
             ITracking tracking,
@@ -38,6 +41,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             _area = area;
             _item = item;
             _applicant = applicant;
+            _funeralCompany = funeralCompany;
             _deceased = deceased;
             _order = order;
             _tracking = tracking;
@@ -103,7 +107,8 @@ namespace Memorial.Areas.Cemetery.Controllers
         {
             var viewModel = new CemeteryTransactionsFormViewModel()
             {
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
+                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
+                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos()
             };
 
             if (AF == null)
@@ -197,6 +202,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
             viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.CemeteryTransactionDto.ApplicantDtoId);
+            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
 
             return View("Form", viewModel);
         }

@@ -15,6 +15,8 @@ namespace Memorial.Core.Domain
             ColumbariumTransactions = new HashSet<ColumbariumTransaction>();
 
             CremationTransactions = new HashSet<CremationTransaction>();
+
+            CemeteryTransactions = new HashSet<CemeteryTransaction>();
         }
 
         public int Id { get; set; }
@@ -43,5 +45,7 @@ namespace Memorial.Core.Domain
         public ICollection<ColumbariumTransaction> ColumbariumTransactions { get; set; }
 
         public ICollection<CremationTransaction> CremationTransactions { get; set; }
+
+        public ICollection<CemeteryTransaction> CemeteryTransactions { get; set; }
     }
 }

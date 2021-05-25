@@ -2312,6 +2312,10 @@
     <Compile Include="Migrations\202105231026090_UpdateCatalogsTableData5.designer.cs">
       <DependentUpon>202105231026090_UpdateCatalogsTableData5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105251503191_AddFuneralCompanyToCemeteryTransactionsTable.cs" />
+    <Compile Include="Migrations\202105251503191_AddFuneralCompanyToCemeteryTransactionsTable.designer.cs">
+      <DependentUpon>202105251503191_AddFuneralCompanyToCemeteryTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3552,6 +3556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105231026090_UpdateCatalogsTableData5.resx">
       <DependentUpon>202105231026090_UpdateCatalogsTableData5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105251503191_AddFuneralCompanyToCemeteryTransactionsTable.resx">
+      <DependentUpon>202105251503191_AddFuneralCompanyToCemeteryTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
