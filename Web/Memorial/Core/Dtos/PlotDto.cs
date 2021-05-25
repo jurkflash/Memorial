@@ -31,7 +31,9 @@ namespace Memorial.Core.Dtos
 
         public byte PlotTypeDtoId { get; set; }
 
-        public int CemeteryAreaId { get; set; }
+        public CemeteryAreaDto CemeteryAreaDto { get; set; }
+
+        public int CemeteryAreaDtoId { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }
 

@@ -74,6 +74,10 @@ namespace Memorial.Core.Domain
 
         public string TransferredCemeteryTransactionAF { get; set; }
 
+        public DateTime? ClearanceDate { get; set; }
+
+        public DateTime? ClearanceGroundDate { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

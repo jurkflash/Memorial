@@ -18,6 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(p => p.Applicant)
                 .Include(p => p.PlotType)
                 .Include(p => p.CemeteryArea)
+                .Include(p => p.CemeteryArea.Site)
                 .Where(p => p.Id == id && p.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -26,6 +27,7 @@ namespace Memorial.Persistence.Repositories
         {
             var plots = MemorialContext.Plots
                     .Include(p => p.PlotType)
+                    .Include(p => p.CemeteryArea.Site)
                     .Where(p => p.CemeteryAreaId == cemeteryAreaId);
 
             if (string.IsNullOrEmpty(filter))
@@ -42,6 +44,7 @@ namespace Memorial.Persistence.Repositories
         {
             var plotTypes = MemorialContext.Plots
                     .Include(p => p.PlotType)
+                    .Include(p => p.CemeteryArea.Site)
                     .Where(p => p.CemeteryAreaId == cemeteryAreaId)
                     .Select(p => p.PlotType);
 
@@ -52,6 +55,7 @@ namespace Memorial.Persistence.Repositories
         {
             var plots = MemorialContext.Plots
                 .Include(p => p.PlotType)
+                .Include(p => p.CemeteryArea.Site)
                 .Where(p => p.PlotTypeId == plotTypeId &&
                         p.CemeteryAreaId == cemeteryAreaId);
 
@@ -69,6 +73,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
+                .Include(p => p.CemeteryArea.Site)
                 .Where(p => p.PlotTypeId == plotTypeId && 
                         p.CemeteryAreaId == cemeteryAreaId && 
                         p.ApplicantId == null).ToList();
@@ -78,6 +83,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
+                .Include(p => p.CemeteryArea.Site)
                 .Where(p => p.PlotTypeId == plotTypeId &&
                         p.CemeteryAreaId == cemeteryAreaId &&
                         p.Deceaseds.Count > 0 ).ToList();
@@ -87,6 +93,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Plots
                 .Include(p => p.PlotType)
+                .Include(p => p.CemeteryArea.Site)
                 .Where(p => p.PlotTypeId == plotTypeId &&
                         p.CemeteryAreaId == cemeteryAreaId &&
                         p.Deceaseds.Count < p.PlotType.NumberOfPlacement &&

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
 
@@ -50,8 +46,12 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
                 .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
                 .ForMember(c => c.PlotTypeDto, opt => opt.MapFrom(x => x.PlotType))
-                .ForMember(c => c.PlotTypeDtoId, opt => opt.MapFrom(x => x.PlotTypeId));
-            CreateMap<CemeteryArea, CemeteryAreaDto>();
+                .ForMember(c => c.PlotTypeDtoId, opt => opt.MapFrom(x => x.PlotTypeId))
+                .ForMember(c => c.CemeteryAreaDto, opt => opt.MapFrom(x => x.CemeteryArea))
+                .ForMember(c => c.CemeteryAreaDtoId, opt => opt.MapFrom(x => x.CemeteryAreaId));
+            CreateMap<CemeteryArea, CemeteryAreaDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<CemeteryItem, CemeteryItemDto>();
             CreateMap<PlotLandscapeCompany, PlotLandscapeCompanyDto>();
             CreateMap<CemeteryTransaction, CemeteryTransactionDto>()
@@ -165,9 +165,13 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Applicant, opt => opt.MapFrom(x => x.ApplicantDto))
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.PlotType, opt => opt.MapFrom(x => x.PlotTypeDto))
-                .ForMember(c => c.PlotTypeId, opt => opt.MapFrom(x => x.PlotTypeDtoId));
+                .ForMember(c => c.PlotTypeId, opt => opt.MapFrom(x => x.PlotTypeDtoId))
+                .ForMember(c => c.CemeteryArea, opt => opt.MapFrom(x => x.CemeteryAreaDto))
+                .ForMember(c => c.CemeteryAreaId, opt => opt.MapFrom(x => x.CemeteryAreaDtoId));
             CreateMap<CemeteryAreaDto, CemeteryArea>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.MapFrom(x => x.SiteDto))
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<CemeteryItemDto, CemeteryItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<PlotTypeDto, PlotType>()

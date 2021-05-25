@@ -1,7 +1,7 @@
 ﻿@model Memorial.ViewModels.CemeteryTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Print.cshtml";
 }
 
 @if (!Model.ExportToPDF)
@@ -26,23 +26,75 @@
 
 @{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
 
-<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Cremation)</u></h5>
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Cemetery)</u></h5>
 <div class="row flexrow">
     <div class="col-md-3">
-        @Html.Raw(Resources.Mix.CremateDateBR)
-    </div>
-    <div class="col-md-3">
-        @*@Model.CremationTransactionDto.CremateDate.ToString("yyyy-MMM-dd hh:mm:ss tt")*@
-    </div>
-</div>
-<div class="row flexrow">
-    <div class="col-md-6">
         @Html.Raw(Resources.Mix.FuneralArrangementEntrustedBR)
     </div>
-    <div class="col-md-6">
-        @Model.CemeteryTransactionDto.
+    <div class="col-md-3">
+        @if (Model.CemeteryTransactionDto.FuneralCompanyDto != null)
+        {
+            @Model.CemeteryTransactionDto.FuneralCompanyDto.Name
+        }
     </div>
 </div>
+
+<div class="row flexrow">
+    <div class="col-md-6">
+        <table>
+            <tr>
+                <td colspan="2">
+                    @Html.Raw(Resources.Mix.MaintenanceDevelopmentExpensesBR)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.Raw(Resources.Mix.PlotPriceBR)</td>
+                <td>@Model.CemeteryTransactionDto.Price</td>
+            </tr>
+            <tr>
+                <td>@Html.Raw(Resources.Mix.TurfMaintenanceFeesBR)</td>
+                <td>@Model.CemeteryTransactionDto.Maintenance</td>
+            </tr>
+            <tr>
+                <td>@Html.Raw(Resources.Mix.WallPriceBR)</td>
+                <td>@Model.CemeteryTransactionDto.Wall</td>
+            </tr>
+            <tr>
+                <td>@Html.Raw(Resources.Mix.DigPriceBR)</td>
+                <td>@Model.CemeteryTransactionDto.Dig</td>
+            </tr>
+            <tr>
+                <td>@Html.Raw(Resources.Mix.BrickPriceBR)</td>
+                <td>@Model.CemeteryTransactionDto.Brick</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>@Html.Raw(Resources.Mix.SiteBR)</td>
+                            <td>@Model.PlotDto.CemeteryAreaDto.SiteDto.Name</td>
+                            <td>@Html.Raw(Resources.Mix.No_BR)</td>
+                            <td>@Model.PlotDto.Name</td>
+                            <td>@Html.Raw(Resources.Mix.PlotTypeBR)</td>
+                            <td>@Model.PlotDto.PlotTypeDto.Name</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Raw(Resources.Mix.AuthorisedSignatureOfApplicantBR)
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+</div>
+
 <br />
 <p>
     @Html.Raw(Resources.Mix.Agreement)

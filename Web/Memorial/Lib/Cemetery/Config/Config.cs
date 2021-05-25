@@ -85,7 +85,7 @@ namespace Memorial.Lib.Cemetery
             var plotInDB = _plot.GetPlot(plotDto.Id);
 
             if ((plotInDB.PlotTypeId != plotDto.PlotTypeDtoId
-                || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaId)
+                || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaDtoId)
                 && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -183,7 +183,7 @@ namespace Memorial.Lib.Cemetery
         {
             var cemeteryAreaInDB = _area.GetArea(cemeteryAreaDto.Id);
 
-            if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteId
+            if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteDtoId
                 && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id && ct.DeleteDate == null).Any())
             {
                 return false;

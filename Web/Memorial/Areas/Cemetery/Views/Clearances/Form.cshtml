@@ -13,6 +13,24 @@
     @Model.CemeteryTransactionDto.AF
     <div class="form-group row">
         <div class="col-md-3">
+            拾金日期
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.ClearanceDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.ClearanceDate)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            起泥日期
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.CemeteryTransactionDto.ClearanceGroundDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.ClearanceGroundDate)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
             @Html.Raw(Resources.Mix.PriceBR)
         </div>
         <div class="col-md-6">
@@ -41,10 +59,24 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/jqueryuicss")
 
+    @Scripts.Render("~/bundles/jqueryui-timepicker")
+    @Styles.Render("~/Content/jqueryuicss-timepicker")
+
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            var dateNow = new Date();
+            $('.datepicker').datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                useCurrent: true,
+                defaultDate: dateNow
+            }); //Initialise any date pickers
+            $('.datetimepicker').datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                timeFormat: 'HH:mm',
+                useCurrent: true,
+                defaultDate: dateNow
+            }); //Initialise any date pickers
             $.validator.addMethod("AtLeastOne", function (value, element, arg) {
                 if (value >= 1)
                     return true;

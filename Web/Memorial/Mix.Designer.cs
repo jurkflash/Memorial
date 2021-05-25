@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authorised Signature of Applicant&lt;br /&gt;申請人簽名.
+        /// </summary>
+        public static string AuthorisedSignatureOfApplicantBR {
+            get {
+                return ResourceManager.GetString("AuthorisedSignatureOfApplicantBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 砌築磚穴費&lt;br /&gt;Brick Price.
         /// </summary>
         public static string BrickPriceBR {
@@ -219,6 +228,15 @@ namespace Resources {
         public static string BurialCertificateBR {
             get {
                 return ResourceManager.GetString("BurialCertificateBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 墓地 Cemetery.
+        /// </summary>
+        public static string Cemetery {
+            get {
+                return ResourceManager.GetString("Cemetery", resourceCulture);
             }
         }
         
@@ -588,6 +606,15 @@ namespace Resources {
         public static string Link {
             get {
                 return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 樂捐維修發展基金&lt;br /&gt;Maintenance and Development Expenses.
+        /// </summary>
+        public static string MaintenanceDevelopmentExpensesBR {
+            get {
+                return ResourceManager.GetString("MaintenanceDevelopmentExpensesBR", resourceCulture);
             }
         }
         

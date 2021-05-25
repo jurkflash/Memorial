@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Memorial.Core.Dtos
 {
@@ -13,7 +10,9 @@ namespace Memorial.Core.Dtos
 
         public string Description { get; set; }
 
-        public byte SiteId { get; set; }
+        public SiteDto SiteDto { get; set; }
+
+        public byte SiteDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

@@ -444,6 +444,9 @@
   <data name="Agreement" xml:space="preserve">
     <value>We, the above-named signatories hereby declared and confirm that the above information given by us is to be true and we voluntarily executed this document&lt;br /&gt;We hereby agree to indemnify and keep indemnified CHINESE CEMETERY ASSOCIATION OF KEPONG, JINJANG &amp;amp; BATU VILLAGE (herein aftered reffered to as the "Committee" against all expenses, loses liability. (whether criminal or civil) damages and costs that the Committee may suffer, sustain or incur as a result, whether directly or indirectly of any breach by us and/or any negligent act, omission or default)</value>
   </data>
+  <data name="Cemetery" xml:space="preserve">
+    <value>墓地 Cemetery</value>
+  </data>
   <data name="CemeteryApplicationFormBR" xml:space="preserve">
     <value>墓地申請表格&lt;br /&gt;Cemetery Application Form</value>
   </data>
@@ -452,5 +455,11 @@
   </data>
   <data name="FuneralArrangementEntrustedBR" xml:space="preserve">
     <value>出葬手續交興壽板承包商&lt;br /&gt;Funeral Arrangement entrusted to the following company</value>
+  </data>
+  <data name="MaintenanceDevelopmentExpensesBR" xml:space="preserve">
+    <value>樂捐維修發展基金&lt;br /&gt;Maintenance and Development Expenses</value>
+  </data>
+  <data name="AuthorisedSignatureOfApplicantBR" xml:space="preserve">
+    <value>Authorised Signature of Applicant&lt;br /&gt;申請人簽名</value>
   </data>
 </root>

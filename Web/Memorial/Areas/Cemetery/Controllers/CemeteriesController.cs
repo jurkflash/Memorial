@@ -101,7 +101,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 viewModel.PlotDto = _plot.GetPlotDto();
                 viewModel.NumberOfPlacements = _plot.GetNumberOfPlacement();
                 viewModel.CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.CemeteryAreaDto.SiteId);
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.CemeteryAreaDto.SiteDtoId);
 
                 if (_plot.HasApplicant())
                 {
