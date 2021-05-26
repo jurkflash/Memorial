@@ -2495,6 +2495,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="Areas\Cemetery\Views\Clearances\FuneralCoInfo.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Clearances\ApprovedInfo.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Clearances\ClearanceCheckInfo.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />

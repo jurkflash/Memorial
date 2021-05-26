@@ -193,6 +193,11 @@ namespace Memorial.Lib.Columbarium
 
             DeleteTransaction();
 
+            previousTransaction.DeleteDate = null;
+
+            _tracking.Add(previousTransaction.NicheId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.Deceased1Id, previousTransaction.Deceased2Id);
+
+
             _payment.SetTransaction(_transaction.AF);
             _payment.DeleteTransaction();
 

@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 墓地轉讓書&lt;br /&gt;Transfer Application Form.
+        /// </summary>
+        public static string CemeteryTransferApplicationFormBR {
+            get {
+                return ResourceManager.GetString("CemeteryTransferApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 中心&lt;br /&gt;Centre.
         /// </summary>
         public static string CentreBR {
@@ -273,6 +282,15 @@ namespace Resources {
         public static string ChineseNameBR {
             get {
                 return ResourceManager.GetString("ChineseNameBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 拾金申請表格&lt;br /&gt;Application Form.
+        /// </summary>
+        public static string ClearanceApplicationFormBR {
+            get {
+                return ResourceManager.GetString("ClearanceApplicationFormBR", resourceCulture);
             }
         }
         
@@ -939,6 +957,15 @@ namespace Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 附葬申請表格&lt;br /&gt;Second Burial Application Form.
+        /// </summary>
+        public static string SecondBurialApplicationFormBR {
+            get {
+                return ResourceManager.GetString("SecondBurialApplicationFormBR", resourceCulture);
             }
         }
         

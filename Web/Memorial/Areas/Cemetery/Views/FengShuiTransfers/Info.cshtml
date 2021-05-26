@@ -1,8 +1,71 @@
-﻿
+﻿@model Memorial.ViewModels.CemeteryTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Print.cshtml";
 }
 
-<h2>Info</h2>
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF })
+}
 
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.CemeteryTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.CemeteryTransferApplicationFormBR)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.CemeteryTransactionDto.AF
+    </div>
+</div>
+
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Plot)</u></h5>
+<div class="row flexrow">
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.SiteBR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.CemeteryAreaDto.SiteDto.Name
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.No_BR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.Name
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.PlotTypeBR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.PlotTypeDto.Name
+    </div>
+</div>
+
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Applicant)</u></h5>
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Applicant" });}
+
+@Html.Raw("<b>" + Resources.Mix.TransferToBR + "</b>")
+
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Applicant)</u></h5>
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.CemeteryTransactionDto.TransferredApplicantId, area = "Applicant" });}
+
+<div class="row flexrow">
+    <div class="col-md-4">
+        @Html.Raw(Resources.Mix.AuthorisedSignatureOfApplicantBR)
+        <br />
+        @Model.CemeteryTransactionDto.ApplicantDto.Name
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        @Html.Raw(Resources.Mix.AuthorisedSignatureOfApplicantBR)
+        <br />
+        @Model.CemeteryTransactionDto.ApplicantDto.Name
+    </div>
+</div>

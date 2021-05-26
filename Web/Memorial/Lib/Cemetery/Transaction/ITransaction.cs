@@ -44,6 +44,8 @@ namespace Memorial.Lib.Cemetery
 
         int? GetTransactionDeceased1Id();
 
+        int? GetTransactionTransferredApplicantId();
+
         IEnumerable<Core.Domain.CemeteryTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId, string filter);
 
         IEnumerable<CemeteryTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId, string filter);

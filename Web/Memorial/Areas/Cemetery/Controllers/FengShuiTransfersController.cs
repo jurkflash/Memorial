@@ -12,6 +12,7 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class FengShuiTransfersController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IArea _area;
         private readonly IItem _item;
         private readonly ITransfer _transfer;
         private readonly IApplicant _applicant;
@@ -20,6 +21,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public FengShuiTransfersController(
             IPlot plot,
+            IArea area,
             IItem item,
             IApplicant applicant,
             ITransfer transfer,
@@ -28,6 +30,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _area = area;
             _item = item;
             _applicant = applicant;
             _transfer = transfer;
@@ -59,20 +62,28 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _transfer.SetTransaction(AF);
             _plot.SetPlot(_transfer.GetTransactionPlotId());
+            _area.SetArea(_plot.GetAreaId());
 
-            var viewModel = new CemeteryTransactionsInfoViewModel()
-            {
-                ApplicantId = _transfer.GetTransactionApplicantId(),
-                DeceasedId = _transfer.GetTransactionDeceased1Id(),
-                PlotDto = _plot.GetPlotDto(),
-                ItemName = _transfer.GetItemName(),
-                CemeteryTransactionDto = _transfer.GetTransactionDto()
-            };
+            var viewModel = new CemeteryTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _transfer.GetItemName();
+            viewModel.PlotDto = _plot.GetPlotDto();
+            viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto();
+            viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_transfer.GetTransactionTransferredApplicantId());
+            viewModel.ApplicantId = (int)_transfer.GetTransactionTransferredApplicantId();
+            viewModel.Header = _area.GetArea().Site.Header;
+
             return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
@@ -86,14 +97,17 @@ namespace Memorial.Areas.Cemetery.Controllers
                 var cemeteryTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
                 cemeteryTransactionDto.ApplicantDto = _applicant.GetApplicantDto(applicantId);
                 cemeteryTransactionDto.PlotDto = _plot.GetPlotDto();
+                cemeteryTransactionDto.TransferredApplicantId = _plot.GetApplicantId();
 
                 viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
                 viewModel.CemeteryTransactionDto.Price = _transfer.GetItemPrice(itemId);
+                
             }
             else
             {
                 _transfer.SetTransaction(AF);
                 viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto(AF);
+                viewModel.ApplicantDto = _applicant.GetApplicantDto((int)viewModel.CemeteryTransactionDto.TransferredApplicantId);
             }
 
             return View(viewModel);

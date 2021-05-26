@@ -1,15 +1,17 @@
 ﻿@model Memorial.ViewModels.AppplicantDeceasedsInfoViewModel
 
-<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Applicant)</u></h5>
-@if (Model.ApplicantId == null)
+@if (Model.ShowApplicant)
 {
-    <div>@Html.Raw(Resources.Mix.NoRecord)</div>
+    <h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Applicant)</u></h5>
+    if (Model.ApplicantId == null)
+    {
+        <div>@Html.Raw(Resources.Mix.NoRecord)</div>
+    }
+    else
+    {
+        Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });
+    }
 }
-else
-{
-    Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });
-}
-
 
 <div class="row flexrow">
     <div class="col-md-1">

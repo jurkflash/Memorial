@@ -462,4 +462,13 @@
   <data name="AuthorisedSignatureOfApplicantBR" xml:space="preserve">
     <value>Authorised Signature of Applicant&lt;br /&gt;申請人簽名</value>
   </data>
+  <data name="CemeteryTransferApplicationFormBR" xml:space="preserve">
+    <value>墓地轉讓書&lt;br /&gt;Transfer Application Form</value>
+  </data>
+  <data name="ClearanceApplicationFormBR" xml:space="preserve">
+    <value>拾金申請表格&lt;br /&gt;Application Form</value>
+  </data>
+  <data name="SecondBurialApplicationFormBR" xml:space="preserve">
+    <value>附葬申請表格&lt;br /&gt;Second Burial Application Form</value>
+  </data>
 </root>

@@ -11,20 +11,18 @@
 
 @Html.Raw(Model.Header)
 
-<div class="row flexrow">
-    <div class="col-md-3" style="text-align:left">
-        <span>Transaction Date</span><br />
-        <span>@Model.CemeteryTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
-    </div>
-    <div class="col-md-6" style="text-align:center">
-        @Html.Raw(Resources.Mix.SecondBurialApplicationFormBR)
-    </div>
-    <div class="col-md-3" style="text-align:right">
-        @Model.CemeteryTransactionDto.AF
-    </div>
-</div>
-
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.DeceasedId, area = "ApplicantDeceaseds" });}
+捨金填泥規則及調查報告
+<ol style="list-style:decimal">
+    <li>
+        捨金工作完成後, 填泥承包商必須將原基磚石, 鐵枝等廢料載走, 必須將墓穴填平及耕種草坪。
+    </li>
+    <li>
+        捨金工作完成後30天內, 如有關者沒有將墓基磚石廢料搬走, 並將墓穴填平, 義山部將另行僱人從事上述工作, 一切費用將由填泥承包商負責。
+    </li>
+    <li>
+        本規則若有未盡善之處, 本義山有權增刪與修正。
+    </li>
+</ol>
 
 <h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Plot)</u></h5>
 <div class="row flexrow">
@@ -48,13 +46,10 @@
     </div>
 </div>
 
-<div class="row flexrow">
-    <div class="col-md-12 text-right">
-        @Html.Raw(Resources.Mix.AuthorisedSignatureOfApplicantBR)
-    </div>
-</div>
+經督工 ________________ 至現場調查證實, 墓碑編號穴已填泥, 墓碑及磗塊經已搬離捨金地點, 己施工完畢。
 
-<br />
-<p>
-    @Html.Raw(Resources.Mix.Agreement)
-</p>
+
+調查負責人簽名:___________________
+
+日期: ___________
+

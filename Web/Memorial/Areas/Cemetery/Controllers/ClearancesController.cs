@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Memorial.Lib.Cemetery;
+using Memorial.Lib.FuneralCompany;
 using Memorial.Lib.Deceased;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
@@ -12,15 +13,19 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class ClearancesController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IArea _area;
         private readonly IDeceased _deceased;
         private readonly IItem _item;
         private readonly IClearance _clearance;
+        private readonly IFuneralCompany _funeralCompany;
         private readonly ITracking _tracking;
         private readonly Lib.Invoice.IPlot _invoice;
 
         public ClearancesController(
             IPlot plot,
+            IArea area,
             IDeceased deceased,
+            IFuneralCompany funeralCompany,
             IItem item,
             IClearance clearance,
             ITracking tracking,
@@ -28,7 +33,9 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _area = area;
             _deceased = deceased;
+            _funeralCompany = funeralCompany;
             _item = item;
             _clearance = clearance;
             _tracking = tracking;
@@ -66,27 +73,35 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View("Index", viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false, string type = "Info")
         {
             _clearance.SetTransaction(AF);
             _plot.SetPlot(_clearance.GetTransactionPlotId());
+            _area.SetArea(_plot.GetAreaId());
 
-            var viewModel = new CemeteryTransactionsInfoViewModel()
-            {
-                ApplicantId = _clearance.GetTransactionApplicantId(),
-                DeceasedId = _clearance.GetTransactionDeceased1Id(),
-                PlotDto = _plot.GetPlotDto(),
-                ItemName = _clearance.GetItemName(),
-                CemeteryTransactionDto = _clearance.GetTransactionDto()
-            };
-            return View(viewModel);
+            var viewModel = new CemeteryTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _clearance.GetItemName();
+            viewModel.PlotDto = _plot.GetPlotDto();
+            viewModel.CemeteryTransactionDto = _clearance.GetTransactionDto();
+            viewModel.ApplicantId = _clearance.GetTransactionApplicantId();
+            viewModel.Header = _area.GetArea().Site.Header;
+
+            return View(type, viewModel);
+        }
+
+        public ActionResult PrintAll(string AF, string type)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true, type = type });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
             var viewModel = new CemeteryTransactionsFormViewModel()
             {
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
+                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
+                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos()
             };
 
             if (AF == null)
@@ -109,23 +124,6 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Save(CemeteryTransactionsFormViewModel viewModel)
         {
-            if (viewModel.CemeteryTransactionDto.DeceasedDto1Id == null)
-            {
-                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Please Select");
-                return View("Form", viewModel);
-            }
-
-            if (viewModel.CemeteryTransactionDto.DeceasedDto1Id != null)
-            {
-                _deceased.SetDeceased((int)viewModel.CemeteryTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetPlot() != null && (_deceased.GetPlot().Id != viewModel.CemeteryTransactionDto.PlotDtoId ||
-                    _clearance.GetTransactionsByPlotIdAndDeceased1Id(viewModel.CemeteryTransactionDto.PlotDtoId, (int)viewModel.CemeteryTransactionDto.DeceasedDto1Id).AF != viewModel.CemeteryTransactionDto.AF))
-                {
-                    ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Invalid");
-                    return View("Form", viewModel);
-                }
-            }
-
             if (viewModel.CemeteryTransactionDto.AF == null)
             {
                 if (_clearance.Create(viewModel.CemeteryTransactionDto))

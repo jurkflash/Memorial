@@ -6,10 +6,7 @@
 
 @if (!Model.ExportToPDF)
 {
-    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF, type="Info" })
-    @Html.ActionLink("Print Form B", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF, type = "FuneralCoInfo" })
-    @Html.ActionLink("Print Approved Letter", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF, type = "ApprovedInfo" })
-    @Html.ActionLink("Print Survey Report", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF, type = "ClearanceCheckInfo" })
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF })
 }
 
 @Html.Raw(Model.Header)
@@ -27,17 +24,27 @@
     </div>
 </div>
 
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto1Id, area = "ApplicantDeceaseds" });}
-
-@if (Model.CemeteryTransactionDto.DeceasedDto2Id != null)
-{
-    { Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto2Id, showApplicant = false, area = "ApplicantDeceaseds" }); }
-}
-
-@if (Model.CemeteryTransactionDto.DeceasedDto3Id != null)
-{
-    { Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto3Id, showApplicant = false, area = "ApplicantDeceaseds" }); }
-}
+<h5 style="padding-top:5px"><u>@Html.Raw(Resources.Mix.Plot)</u></h5>
+<div class="row flexrow">
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.SiteBR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.CemeteryAreaDto.SiteDto.Name
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.No_BR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.Name
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.PlotTypeBR)
+    </div>
+    <div class="col-md-2">
+        @Model.PlotDto.PlotTypeDto.Name
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-3">

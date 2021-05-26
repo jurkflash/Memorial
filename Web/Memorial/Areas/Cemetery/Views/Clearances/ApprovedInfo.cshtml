@@ -1,0 +1,37 @@
+﻿@model Memorial.ViewModels.CemeteryTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.CemeteryTransactionDto.AF })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        批准拾金事宜<br/ />Approved Letters
+    </div>
+    <div class="col-md-3" style="text-align:right">
+    </div>
+</div>
+
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto1Id, area = "ApplicantDeceaseds" });}
+
+@if (Model.CemeteryTransactionDto.DeceasedDto2Id != null)
+{
+    { Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto2Id, showApplicant = false, area = "ApplicantDeceaseds" }); }
+}
+
+@if (Model.CemeteryTransactionDto.DeceasedDto3Id != null)
+{
+    { Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.CemeteryTransactionDto.DeceasedDto3Id, showApplicant = false, area = "ApplicantDeceaseds" }); }
+}
+
+本義山機構日前收到你的申請書為先人申請捨金一事, 本義山機構經過有關單位審核之後, 獲得批准, 申請者必須攜帶批准信親臨辦事處, 同時預先通知捨金日期及必須付清款項, 方可動工, 特此函達周知。
+先生台鑑 甲洞華人義山機構批准人

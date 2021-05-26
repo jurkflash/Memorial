@@ -12,6 +12,7 @@ namespace Memorial.Areas.Cemetery.Controllers
     public class SecondBurialsController : Controller
     {
         private readonly IPlot _plot;
+        private readonly IArea _area;
         private readonly IItem _item;
         private readonly IDeceased _deceased;
         private readonly ISecondBurial _secondBurial;
@@ -20,6 +21,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public SecondBurialsController(
             IPlot plot,
+            IArea area,
             IItem item,
             IDeceased deceased,
             ISecondBurial secondBurial,
@@ -28,6 +30,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             )
         {
             _plot = plot;
+            _area = area;
             _item = item;
             _deceased = deceased;
             _secondBurial = secondBurial;
@@ -66,20 +69,28 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View("Index", viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _secondBurial.SetTransaction(AF);
             _plot.SetPlot(_secondBurial.GetTransactionPlotId());
+            _area.SetArea(_plot.GetAreaId());
 
-            var viewModel = new CemeteryTransactionsInfoViewModel()
-            {
-                ApplicantId = _secondBurial.GetTransactionApplicantId(),
-                DeceasedId = _secondBurial.GetTransactionDeceased1Id(),
-                PlotDto = _plot.GetPlotDto(),
-                ItemName = _secondBurial.GetItemName(),
-                CemeteryTransactionDto = _secondBurial.GetTransactionDto()
-            };
+            var viewModel = new CemeteryTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _secondBurial.GetItemName();
+            viewModel.PlotDto = _plot.GetPlotDto();
+            viewModel.CemeteryTransactionDto = _secondBurial.GetTransactionDto();
+            viewModel.ApplicantId = _secondBurial.GetTransactionApplicantId();
+            viewModel.DeceasedId = _secondBurial.GetTransactionDeceased1Id();
+            viewModel.Header = _area.GetArea().Site.Header;
+
             return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)

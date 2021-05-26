@@ -70,28 +70,29 @@ namespace Memorial.Lib.Cemetery
         {
             NewNumber(cemeteryTransactionDto.CemeteryItemId);
 
+            _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
+
+            cemeteryTransactionDto.ClearedApplicantId = _plot.GetApplicantId();
+
+            var deceaseds = _deceased.GetDeceasedsByPlotId(cemeteryTransactionDto.PlotDtoId);
+
+            if (deceaseds.Count() > 0)
+            {
+                cemeteryTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
+            }
+
+            if (deceaseds.Count() > 1)
+            {
+                cemeteryTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
+            }
+
+            if (deceaseds.Count() > 2)
+            {
+                cemeteryTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
+            }
+
             if (CreateNewTransaction(cemeteryTransactionDto))
             {
-                _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
-
-                cemeteryTransactionDto.ClearedApplicantId = _plot.GetApplicantId();
-
-                var deceaseds = _deceased.GetDeceasedsByPlotId(cemeteryTransactionDto.PlotDtoId);
-
-                if (deceaseds.Count() > 0)
-                {
-                    cemeteryTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
-                }
-
-                if (deceaseds.Count() > 1)
-                {
-                    cemeteryTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
-                }
-
-                if (deceaseds.Count() > 2)
-                {
-                    cemeteryTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
-                }
 
                 foreach (var deceased in deceaseds)
                 {

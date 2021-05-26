@@ -41,15 +41,19 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult Info(int? applicantId = null, int? deceasedId = null)
+        public PartialViewResult Info(int? applicantId = null, int? deceasedId = null, bool showApplicant = true)
         {
             var viewModel = new AppplicantDeceasedsInfoViewModel()
             {
                 ApplicantId = applicantId,
                 DeceasedId = deceasedId,
-                RelationshipTypeName = _applicantDeceased.GetApplicantDeceased(applicantId == null ? 0 : (int)applicantId, 
-                                                                                deceasedId == null ? 0 : (int)deceasedId).RelationshipType.Name
+                ShowApplicant = showApplicant
             };
+
+            if (applicantId != null && deceasedId != null)
+            {
+                viewModel.RelationshipTypeName = _applicantDeceased.GetApplicantDeceased((int)applicantId, (int)deceasedId).RelationshipType.Name;
+            }
 
             return PartialView("_ApplicantDeceasedsInfo", viewModel);
         }

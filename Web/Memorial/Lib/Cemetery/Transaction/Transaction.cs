@@ -144,6 +144,11 @@ namespace Memorial.Lib.Cemetery
             return _transaction.Deceased1Id;
         }
 
+        public int? GetTransactionTransferredApplicantId()
+        {
+            return _transaction.TransferredApplicantId;
+        }
+
         public IEnumerable<Core.Domain.CemeteryTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId, string filter)
         {
             return _unitOfWork.CemeteryTransactions.GetByPlotIdAndItem(plotId, itemId, filter);

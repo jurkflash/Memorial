@@ -10,5 +10,7 @@ namespace Memorial.ViewModels
         public string RelationshipTypeName { get; set; }
 
         public int? DeceasedId { get; set; }
+
+        public bool ShowApplicant { get; set; }
     }
 }

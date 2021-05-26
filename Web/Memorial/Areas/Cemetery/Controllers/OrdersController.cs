@@ -88,6 +88,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             var viewModel = new CemeteryTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _order.GetItemName();
             viewModel.PlotDto = _plot.GetPlotDto();
             viewModel.CemeteryTransactionDto = _order.GetTransactionDto();
             viewModel.ApplicantId = _order.GetTransactionApplicantId();
