@@ -15,5 +15,7 @@ namespace Memorial.Core.Dtos
         public Site Site { get; set; }
 
         public byte SiteId { get; set; }
+
+        public string ColorCode { get; set; }
     }
 }

@@ -1,24 +1,52 @@
 ﻿@model Memorial.ViewModels.SpaceTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Print.cshtml";
 }
 
-<h2>Info</h2>
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.SpaceTransactionDto.AF })
+}
 
-@{Html.RenderAction("Info", "Applicants", new { id = Model.SpaceTransactionDto.ApplicantId, area = "Applicant" });}
+@Html.Raw(Model.Header)
 
-<div class="row">
-    <div class="col-md-3">
-        Amount
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.SpaceTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
     </div>
-    <div class="col-md-3">
-        @Model.SpaceTransactionDto.Amount
+    <div class="col-md-6" style="text-align:center">
+        @Model.ItemName
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.SpaceTransactionDto.AF
     </div>
 </div>
-<div class="row">
+
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });}
+
+@if (Model.SpaceTransactionDto.FromDate.HasValue)
+{
+    <div class="row flexrow">
+        <div class="col-md-12 text-center">
+            從 @Model.SpaceTransactionDto.FromDate.Value.ToString("yyyy-MMM-dd HH:mm")
+            至 @Model.SpaceTransactionDto.ToDate.Value.ToString("yyyy-MMM-dd HH:mm")
+        </div>
+    </div>
+}
+
+<div class="row flexrow">
     <div class="col-md-3">
-        Remark
+        @Html.Raw(Resources.Mix.DonationBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.TotalAmount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
     </div>
     <div class="col-md-3">
         @Model.SpaceTransactionDto.Remark

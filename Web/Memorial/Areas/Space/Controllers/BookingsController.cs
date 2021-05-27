@@ -13,18 +13,21 @@ namespace Memorial.Areas.Space.Controllers
     public class BookingsController : Controller
     {
         private readonly IDeceased _deceased;
+        private readonly ISpace _space;
         private readonly IFuneralCompany _funeralCompany;
         private readonly IItem _item;
         private readonly IBooking _booking;
 
         public BookingsController(
             IItem item,
+            ISpace space,
             IDeceased deceased,
             IFuneralCompany funeralCompany,
             IBooking booking
             )
         {
             _item = item;
+            _space = space;
             _deceased = deceased;
             _funeralCompany = funeralCompany;
             _booking = booking;
@@ -37,10 +40,14 @@ namespace Memorial.Areas.Space.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new SpaceItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 SpaceItemId = itemId,
+                SpaceItemName = _item.GetName(),
+                SpaceName = _item.GetItem().Space.Name,
                 SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
@@ -48,17 +55,30 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _booking.SetBooking(AF);
+            _booking.SetTransaction(AF);
+            _item.SetItem(_booking.GetTransactionSpaceItemId());
+            _space.SetSpace(_item.GetItem().SpaceId);
 
-            var viewModel = new SpaceTransactionsInfoViewModel()
-            {
-                SpaceTransactionDto = _booking.GetTransactionDto(),
-                ItemName = _booking.GetItemName()
-            };
+            var viewModel = new SpaceTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _booking.GetItemName();
+            viewModel.SpaceDto = _space.GetSpaceDto();
+            viewModel.SpaceTransactionDto = _booking.GetTransactionDto();
+            viewModel.TotalDays = (int)Math.Ceiling(((DateTime)_booking.GetTransactionDto().ToDate - (DateTime)_booking.GetTransactionDto().FromDate).TotalDays);
+            viewModel.TotalAmount = _booking.GetTransactionTotalAmount();
+            viewModel.ApplicantId = _booking.GetTransactionApplicantId();
+            viewModel.DeceasedId = _booking.GetTransactionDeceasedId();
+            viewModel.Header = _space.GetSpace().Site.Header;
 
-            return View(viewModel);
+            return View(_item.GetItem().FormView, viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)
@@ -76,6 +96,7 @@ namespace Memorial.Areas.Space.Controllers
                 var spaceTransactionDto = new SpaceTransactionDto();
                 spaceTransactionDto.ApplicantId = applicantId;
                 spaceTransactionDto.SpaceItemId = itemId;
+                spaceTransactionDto.BasePrice = _item.GetPrice();
                 spaceTransactionDto.Amount = _item.GetPrice();
                 viewModel.SpaceTransactionDto = spaceTransactionDto;
             }

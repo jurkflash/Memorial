@@ -47,6 +47,13 @@ namespace Memorial
 
             bundles.Add(new StyleBundle("~/Content/jqueryuicss-timepicker").Include(
                    "~/Content/jquery-ui-timepicker-addon.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
+                    "~/Scripts/moment.min.js",
+                    "~/FullCalendar/main.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
+                   "~/FullCalendar/main.min.css"));
         }
     }
 }

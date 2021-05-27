@@ -25,6 +25,10 @@ namespace Memorial.Lib.Space
 
         float GetTransactionAmount();
 
+        float GetTransactionOtherCharges();
+
+        float GetTransactionTotalAmount();
+
         int GetTransactionSpaceItemId();
 
         int GetItemId();
@@ -54,6 +58,8 @@ namespace Memorial.Lib.Space
         IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemIdAndApplicantId(int applicantId, int itemId);
 
         IEnumerable<Core.Domain.SpaceTransaction> GetTransactionByItemIdAndDeceasedId(int deceasedId, int itemId);
+
+        IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, byte siteId);
 
     }
 }

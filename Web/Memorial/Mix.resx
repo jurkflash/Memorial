@@ -471,4 +471,19 @@
   <data name="SecondBurialApplicationFormBR" xml:space="preserve">
     <value>附葬申請表格&lt;br /&gt;Second Burial Application Form</value>
   </data>
+  <data name="Donation" xml:space="preserve">
+    <value>樂捐 Donation</value>
+  </data>
+  <data name="DonationBR" xml:space="preserve">
+    <value>樂捐&lt;br /&gt;Donation</value>
+  </data>
+  <data name="OtherChargesBR" xml:space="preserve">
+    <value>其他費用&lt;br /&gt;Other Charges</value>
+  </data>
+  <data name="DailyRentalBR" xml:space="preserve">
+    <value>單日費用&lt;br /&gt;Daily Rental</value>
+  </data>
+  <data name="ParkingNote" xml:space="preserve">
+    <value>注: 本停車場提供貴客泊車方便，任何停泊車輛，如有損失，貴客自理，本堂不負看守責任。主家如有損失需報案， 請自行處理。</value>
+  </data>
 </root>

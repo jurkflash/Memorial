@@ -8,12 +8,12 @@
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
-@using (Html.BeginForm("Save", "Bookings", new { area = "Space"}))
+@using (Html.BeginForm("Save", "Bookings", new { area = "Space" }))
 {
     @Model.SpaceTransactionDto.AF
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Deceased)
+            @Html.Raw(Resources.Mix.DeceasedBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(s => s.SpaceTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.FuneralCoBR)
+            @Html.Raw(Resources.Mix.FuneralCompanyBR)
         </div>
         <div class="col-md-6">
             @Html.DropDownListFor(s => s.SpaceTransactionDto.FuneralCompanyId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
@@ -52,6 +52,14 @@
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(s => s.SpaceTransactionDto.Amount, new { @class = "form-control", @required = Resources.Mix.Required })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.OtherChargesBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.SpaceTransactionDto.OtherCharges, new { @class = "form-control", @required = Resources.Mix.Required })
         </div>
     </div>
     <div class="form-group row">
@@ -116,7 +124,7 @@
             var sii = $("#SpaceTransactionDto_SpaceItemId").val();
             var af = $("#SpaceTransactionDto_AF").val();
             if (f != "" && t != "") {
-                
+
                 var paramdata = { from: f, to: t, spaceItemId: sii };
                 if (af != "")
                     paramdata = { from: f, to: t, AF: af };
@@ -148,10 +156,21 @@
                 return false;
             }, "At least 1");
 
+            $.validator.addMethod("AtLeastZero", function (value, element, arg) {
+                if (value >= 1)
+                    return true;
+                return false;
+            }, "At least 0");
+
             $("#SpaceTransactionDto_Amount").rules("add",
-            {
-                AtLeastOne: true
-            });
+                {
+                    AtLeastOne: true
+                });
+
+            $("#SpaceTransactionDto_OtherCharges").rules("add",
+                {
+                    AtLeastZero: true
+                });
 
             var dateNow = new Date();
             $('.datepicker').datetimepicker({

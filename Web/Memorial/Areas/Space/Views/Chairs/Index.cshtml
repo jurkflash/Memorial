@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.SpaceName</h2>
+<h5>@Model.SpaceItemName</h5>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.SpaceItemId, applicantId = Model.ApplicantId, area = "Space" })
     </p>
 }
 
@@ -20,22 +21,22 @@
         Find by Name: @Html.TextBox("filter")
         @Html.Hidden("itemId", Model.SpaceItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Remark</th>
-            <th>Price</th>
-            <th>Create Date</th>
-            <th>Invoice</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.FromBR)</th>
+            <th>@Html.Raw(Resources.Mix.ToBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +49,7 @@
                 <td>@spaceTransaction.Remark</td>
                 <td>@spaceTransaction.Amount</td>
                 <td>@spaceTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId, area = "Space" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

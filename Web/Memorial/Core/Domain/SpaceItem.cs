@@ -36,6 +36,8 @@ namespace Memorial.Core.Domain
 
         public int SpaceId { get; set; }
 
+        public string FormView { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

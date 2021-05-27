@@ -13,5 +13,19 @@ namespace Memorial.ViewModels
 
         public string ItemName { get; set; }
 
+        public int TotalDays { get; set; }
+
+        public float TotalAmount { get; set; }
+
+        public SpaceDto SpaceDto { get; set; }
+
+        public int ApplicantId { get; set; }
+
+        public int? DeceasedId { get; set; }
+
+        public bool ExportToPDF { get; set; }
+
+        public string Header { get; set; }
+
     }
 }

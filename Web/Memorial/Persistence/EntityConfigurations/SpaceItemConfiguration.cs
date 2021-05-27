@@ -18,6 +18,9 @@ namespace Memorial.Persistence.EntityConfigurations
             .IsRequired()
             .HasMaxLength(10);
 
+            Property(si => si.FormView)
+           .HasMaxLength(255);
+
             HasRequired(si => si.Space)
                 .WithMany(s => s.SpaceItems)
                 .HasForeignKey(si => si.SpaceId)

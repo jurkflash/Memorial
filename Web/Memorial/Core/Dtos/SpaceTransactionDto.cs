@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
@@ -17,6 +14,8 @@ namespace Memorial.Core.Dtos
         public float BasePrice { get; set; }
 
         public float Amount { get; set; }
+
+        public float OtherCharges { get; set; }
 
         public string Remark { get; set; }
 

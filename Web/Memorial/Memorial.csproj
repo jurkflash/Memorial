@@ -313,10 +313,6 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Content\fullcalendar.css" />
-    <Content Include="Content\fullcalendar.min.css" />
-    <Content Include="Content\fullcalendar.print.css" />
-    <Content Include="Content\fullcalendar.print.min.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -364,6 +360,86 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="FullCalendar\locales-all.js" />
+    <Content Include="FullCalendar\locales-all.min.js" />
+    <Content Include="FullCalendar\locales\af.js" />
+    <Content Include="FullCalendar\locales\ar-dz.js" />
+    <Content Include="FullCalendar\locales\ar-kw.js" />
+    <Content Include="FullCalendar\locales\ar-ly.js" />
+    <Content Include="FullCalendar\locales\ar-ma.js" />
+    <Content Include="FullCalendar\locales\ar-sa.js" />
+    <Content Include="FullCalendar\locales\ar-tn.js" />
+    <Content Include="FullCalendar\locales\ar.js" />
+    <Content Include="FullCalendar\locales\az.js" />
+    <Content Include="FullCalendar\locales\bg.js" />
+    <Content Include="FullCalendar\locales\bn.js" />
+    <Content Include="FullCalendar\locales\bs.js" />
+    <Content Include="FullCalendar\locales\ca.js" />
+    <Content Include="FullCalendar\locales\cs.js" />
+    <Content Include="FullCalendar\locales\cy.js" />
+    <Content Include="FullCalendar\locales\da.js" />
+    <Content Include="FullCalendar\locales\de-at.js" />
+    <Content Include="FullCalendar\locales\de.js" />
+    <Content Include="FullCalendar\locales\el.js" />
+    <Content Include="FullCalendar\locales\en-au.js" />
+    <Content Include="FullCalendar\locales\en-gb.js" />
+    <Content Include="FullCalendar\locales\en-nz.js" />
+    <Content Include="FullCalendar\locales\eo.js" />
+    <Content Include="FullCalendar\locales\es-us.js" />
+    <Content Include="FullCalendar\locales\es.js" />
+    <Content Include="FullCalendar\locales\et.js" />
+    <Content Include="FullCalendar\locales\eu.js" />
+    <Content Include="FullCalendar\locales\fa.js" />
+    <Content Include="FullCalendar\locales\fi.js" />
+    <Content Include="FullCalendar\locales\fr-ca.js" />
+    <Content Include="FullCalendar\locales\fr-ch.js" />
+    <Content Include="FullCalendar\locales\fr.js" />
+    <Content Include="FullCalendar\locales\gl.js" />
+    <Content Include="FullCalendar\locales\he.js" />
+    <Content Include="FullCalendar\locales\hi.js" />
+    <Content Include="FullCalendar\locales\hr.js" />
+    <Content Include="FullCalendar\locales\hu.js" />
+    <Content Include="FullCalendar\locales\hy-am.js" />
+    <Content Include="FullCalendar\locales\id.js" />
+    <Content Include="FullCalendar\locales\is.js" />
+    <Content Include="FullCalendar\locales\it.js" />
+    <Content Include="FullCalendar\locales\ja.js" />
+    <Content Include="FullCalendar\locales\ka.js" />
+    <Content Include="FullCalendar\locales\kk.js" />
+    <Content Include="FullCalendar\locales\ko.js" />
+    <Content Include="FullCalendar\locales\lb.js" />
+    <Content Include="FullCalendar\locales\lt.js" />
+    <Content Include="FullCalendar\locales\lv.js" />
+    <Content Include="FullCalendar\locales\mk.js" />
+    <Content Include="FullCalendar\locales\ms.js" />
+    <Content Include="FullCalendar\locales\nb.js" />
+    <Content Include="FullCalendar\locales\ne.js" />
+    <Content Include="FullCalendar\locales\nl.js" />
+    <Content Include="FullCalendar\locales\nn.js" />
+    <Content Include="FullCalendar\locales\pl.js" />
+    <Content Include="FullCalendar\locales\pt-br.js" />
+    <Content Include="FullCalendar\locales\pt.js" />
+    <Content Include="FullCalendar\locales\ro.js" />
+    <Content Include="FullCalendar\locales\ru.js" />
+    <Content Include="FullCalendar\locales\sk.js" />
+    <Content Include="FullCalendar\locales\sl.js" />
+    <Content Include="FullCalendar\locales\sq.js" />
+    <Content Include="FullCalendar\locales\sr-cyrl.js" />
+    <Content Include="FullCalendar\locales\sr.js" />
+    <Content Include="FullCalendar\locales\sv.js" />
+    <Content Include="FullCalendar\locales\ta-in.js" />
+    <Content Include="FullCalendar\locales\th.js" />
+    <Content Include="FullCalendar\locales\tr.js" />
+    <Content Include="FullCalendar\locales\ug.js" />
+    <Content Include="FullCalendar\locales\uk.js" />
+    <Content Include="FullCalendar\locales\uz.js" />
+    <Content Include="FullCalendar\locales\vi.js" />
+    <Content Include="FullCalendar\locales\zh-cn.js" />
+    <Content Include="FullCalendar\locales\zh-tw.js" />
+    <Content Include="FullCalendar\main.css" />
+    <Content Include="FullCalendar\main.js" />
+    <Content Include="FullCalendar\main.min.css" />
+    <Content Include="FullCalendar\main.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Images\cemeterylogo.jpg" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
@@ -502,10 +578,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\fullcalendar.js" />
-    <Content Include="Scripts\fullcalendar.min.js" />
-    <Content Include="Scripts\gcal.js" />
-    <Content Include="Scripts\gcal.min.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.min.js" />
     <Content Include="Scripts\i18n\jquery-ui-timepicker-af.js" />
@@ -568,95 +640,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-icons_2694e8_256x240.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-icons_3d80b3_256x240.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-icons_72a7cf_256x240.png" />
-    <Content Include="Scripts\lib\cupertino\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Scripts\lib\cupertino\jquery-ui.min.css" />
-    <Content Include="Scripts\lib\jquery-ui.min.js" />
-    <Content Include="Scripts\lib\jquery.min.js" />
-    <Content Include="Scripts\lib\moment.min.js" />
-    <Content Include="Scripts\locale-all.js" />
-    <Content Include="Scripts\locale\af.js" />
-    <Content Include="Scripts\locale\ar-dz.js" />
-    <Content Include="Scripts\locale\ar-kw.js" />
-    <Content Include="Scripts\locale\ar-ly.js" />
-    <Content Include="Scripts\locale\ar-ma.js" />
-    <Content Include="Scripts\locale\ar-sa.js" />
-    <Content Include="Scripts\locale\ar-tn.js" />
-    <Content Include="Scripts\locale\ar.js" />
-    <Content Include="Scripts\locale\bg.js" />
-    <Content Include="Scripts\locale\bs.js" />
-    <Content Include="Scripts\locale\ca.js" />
-    <Content Include="Scripts\locale\cs.js" />
-    <Content Include="Scripts\locale\da.js" />
-    <Content Include="Scripts\locale\de-at.js" />
-    <Content Include="Scripts\locale\de-ch.js" />
-    <Content Include="Scripts\locale\de.js" />
-    <Content Include="Scripts\locale\el.js" />
-    <Content Include="Scripts\locale\en-au.js" />
-    <Content Include="Scripts\locale\en-ca.js" />
-    <Content Include="Scripts\locale\en-gb.js" />
-    <Content Include="Scripts\locale\en-ie.js" />
-    <Content Include="Scripts\locale\en-nz.js" />
-    <Content Include="Scripts\locale\es-do.js" />
-    <Content Include="Scripts\locale\es-us.js" />
-    <Content Include="Scripts\locale\es.js" />
-    <Content Include="Scripts\locale\et.js" />
-    <Content Include="Scripts\locale\eu.js" />
-    <Content Include="Scripts\locale\fa.js" />
-    <Content Include="Scripts\locale\fi.js" />
-    <Content Include="Scripts\locale\fr-ca.js" />
-    <Content Include="Scripts\locale\fr-ch.js" />
-    <Content Include="Scripts\locale\fr.js" />
-    <Content Include="Scripts\locale\gl.js" />
-    <Content Include="Scripts\locale\he.js" />
-    <Content Include="Scripts\locale\hi.js" />
-    <Content Include="Scripts\locale\hr.js" />
-    <Content Include="Scripts\locale\hu.js" />
-    <Content Include="Scripts\locale\id.js" />
-    <Content Include="Scripts\locale\is.js" />
-    <Content Include="Scripts\locale\it.js" />
-    <Content Include="Scripts\locale\ja.js" />
-    <Content Include="Scripts\locale\ka.js" />
-    <Content Include="Scripts\locale\kk.js" />
-    <Content Include="Scripts\locale\ko.js" />
-    <Content Include="Scripts\locale\lb.js" />
-    <Content Include="Scripts\locale\lt.js" />
-    <Content Include="Scripts\locale\lv.js" />
-    <Content Include="Scripts\locale\mk.js" />
-    <Content Include="Scripts\locale\ms-my.js" />
-    <Content Include="Scripts\locale\ms.js" />
-    <Content Include="Scripts\locale\nb.js" />
-    <Content Include="Scripts\locale\nl-be.js" />
-    <Content Include="Scripts\locale\nl.js" />
-    <Content Include="Scripts\locale\nn.js" />
-    <Content Include="Scripts\locale\pl.js" />
-    <Content Include="Scripts\locale\pt-br.js" />
-    <Content Include="Scripts\locale\pt.js" />
-    <Content Include="Scripts\locale\ro.js" />
-    <Content Include="Scripts\locale\ru.js" />
-    <Content Include="Scripts\locale\sk.js" />
-    <Content Include="Scripts\locale\sl.js" />
-    <Content Include="Scripts\locale\sq.js" />
-    <Content Include="Scripts\locale\sr-cyrl.js" />
-    <Content Include="Scripts\locale\sr.js" />
-    <Content Include="Scripts\locale\sv.js" />
-    <Content Include="Scripts\locale\th.js" />
-    <Content Include="Scripts\locale\tr.js" />
-    <Content Include="Scripts\locale\uk.js" />
-    <Content Include="Scripts\locale\vi.js" />
-    <Content Include="Scripts\locale\zh-cn.js" />
-    <Content Include="Scripts\locale\zh-tw.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -866,6 +849,7 @@
     <Compile Include="Core\Domain\CemeteryItem.cs" />
     <Compile Include="Core\Domain\MiscellaneousItem.cs" />
     <Compile Include="Core\Domain\MiscellaneousTransaction.cs" />
+    <Compile Include="Core\Domain\SpaceBooked.cs" />
     <Compile Include="Core\Domain\UrnTransaction.cs" />
     <Compile Include="Core\Domain\SpaceTransaction.cs" />
     <Compile Include="Core\Domain\UrnNumber.cs" />
@@ -2421,12 +2405,33 @@
     <Compile Include="Migrations\202105251657425_AddClearanceAndGroundDateToCemeteryTransactionsTable.designer.cs">
       <DependentUpon>202105251657425_AddClearanceAndGroundDateToCemeteryTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105271153209_AddColorCodeToSpacesTable.cs" />
+    <Compile Include="Migrations\202105271153209_AddColorCodeToSpacesTable.designer.cs">
+      <DependentUpon>202105271153209_AddColorCodeToSpacesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105271154080_PopulateColorCodeToSpacesTableData.cs" />
+    <Compile Include="Migrations\202105271154080_PopulateColorCodeToSpacesTableData.designer.cs">
+      <DependentUpon>202105271154080_PopulateColorCodeToSpacesTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105271317087_AddFormViewColumnToSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202105271317087_AddFormViewColumnToSpaceItemsTable.designer.cs">
+      <DependentUpon>202105271317087_AddFormViewColumnToSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105271340161_AddOtherChargesColumnToSpaceTransactionsTable.cs" />
+    <Compile Include="Migrations\202105271340161_AddOtherChargesColumnToSpaceTransactionsTable.designer.cs">
+      <DependentUpon>202105271340161_AddOtherChargesColumnToSpaceTransactionsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105271512144_UpdateSpaceItemsTableData1.cs" />
+    <Compile Include="Migrations\202105271512144_UpdateSpaceItemsTableData1.designer.cs">
+      <DependentUpon>202105271512144_UpdateSpaceItemsTableData1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Mix.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\SpaceCalendar.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestralTabletTransactionConfiguration.cs" />
@@ -2599,6 +2604,12 @@
     <Content Include="Areas\Cemetery\Views\Clearances\FuneralCoInfo.cshtml" />
     <Content Include="Areas\Cemetery\Views\Clearances\ApprovedInfo.cshtml" />
     <Content Include="Areas\Cemetery\Views\Clearances\ClearanceCheckInfo.cshtml" />
+    <Content Include="Areas\Space\Views\Spaces\ShowCalendar.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\InfoWithoutDeceased.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\InfoHallForPray.cshtml" />
+    <Content Include="Areas\Space\Views\Chairs\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\InfoWithoutDeceasedAndFuneralCo.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\Info.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -2694,7 +2705,7 @@
     <Content Include="Areas\Cremation\Views\Orders\Info.cshtml" />
     <Content Include="Areas\Space\Views\Bookings\Index.cshtml" />
     <Content Include="Areas\Space\Views\Bookings\Form.cshtml" />
-    <Content Include="Areas\Space\Views\Bookings\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Bookings\InfoWithDeceased.cshtml" />
     <Content Include="Areas\Space\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Space\Views\Invoices\Index.cshtml" />
     <Content Include="Areas\Space\Views\Receipts\Form.cshtml" />
@@ -2703,7 +2714,6 @@
     <Content Include="Areas\Space\Views\NonOrderReceipts\Index.cshtml" />
     <Content Include="Areas\Space\Views\Chairs\Form.cshtml" />
     <Content Include="Areas\Space\Views\Chairs\Index.cshtml" />
-    <Content Include="Areas\Space\Views\Chairs\Info.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Form.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Index.cshtml" />
     <Content Include="Areas\Space\Views\Electric\Info.cshtml" />
@@ -3670,6 +3680,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105251657425_AddClearanceAndGroundDateToCemeteryTransactionsTable.resx">
       <DependentUpon>202105251657425_AddClearanceAndGroundDateToCemeteryTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271153209_AddColorCodeToSpacesTable.resx">
+      <DependentUpon>202105271153209_AddColorCodeToSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271154080_PopulateColorCodeToSpacesTableData.resx">
+      <DependentUpon>202105271154080_PopulateColorCodeToSpacesTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271317087_AddFormViewColumnToSpaceItemsTable.resx">
+      <DependentUpon>202105271317087_AddFormViewColumnToSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271340161_AddOtherChargesColumnToSpaceTransactionsTable.resx">
+      <DependentUpon>202105271340161_AddOtherChargesColumnToSpaceTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105271512144_UpdateSpaceItemsTableData1.resx">
+      <DependentUpon>202105271512144_UpdateSpaceItemsTableData1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

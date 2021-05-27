@@ -24,6 +24,8 @@ namespace Memorial.Core.Domain
 
         public byte SiteId { get; set; }
 
+        public string ColorCode { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

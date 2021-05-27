@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
@@ -77,6 +78,16 @@ namespace Memorial.Lib.Space
         public float GetTransactionAmount()
         {
             return _transaction.Amount;
+        }
+
+        public float GetTransactionOtherCharges()
+        {
+            return _transaction.OtherCharges;
+        }
+
+        public float GetTransactionTotalAmount()
+        {
+            return GetTransactionAmount() + GetTransactionOtherCharges();
         }
 
         public int GetTransactionSpaceItemId()
@@ -160,6 +171,12 @@ namespace Memorial.Lib.Space
             return _unitOfWork.SpaceTransactions.GetByItemAndDeceased(itemId, deceasedId);
         }
 
+        public IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, byte siteId)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<Core.Domain.SpaceBooked>>(_unitOfWork.SpaceTransactions.GetBooked(from, to, siteId));
+        }
+        
+
         protected bool CreateNewTransaction(SpaceTransactionDto spaceTransactionDto)
         {
             if (_AFnumber == "")
@@ -194,41 +211,5 @@ namespace Memorial.Lib.Space
 
             return true;
         }
-
-
-
-
-
-
-
-
-
-        //public bool CreateNewTransaction(SpaceTransactionDto spaceTransactionDto)
-        //{
-        //    ISpaceNumber spaceNumber = new Lib.SpaceNumber(_unitOfWork);
-        //    var number = spaceNumber.GetNewAF(spaceTransactionDto.SpaceItemId, System.DateTime.Now.Year);
-        //    if (number == "")
-        //    {
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        ISpace space = new Lib.Space(_unitOfWork);
-        //        ISpaceItem spaceItem = new Lib.SpaceItem(_unitOfWork);
-        //        if (spaceItem.AllowDoubleBook(spaceTransactionDto.SpaceItemId) == false && 
-        //            space.CheckAvailability((DateTime)spaceTransactionDto.FromDate, (DateTime)spaceTransactionDto.ToDate, spaceTransactionDto.SpaceItemId) == false)
-        //            return false;
-
-        //        var spaceTransaction = Mapper.Map<SpaceTransactionDto, Core.Domain.SpaceTransaction>(spaceTransactionDto);
-        //        spaceTransaction.AF = number;
-        //        spaceTransaction.CreateDate = System.DateTime.Now;
-        //        _unitOfWork.SpaceTransactions.Add(spaceTransaction);
-        //        _unitOfWork.Complete();
-        //        return true;
-        //    }
-        //}
-
-
-
     }
 }

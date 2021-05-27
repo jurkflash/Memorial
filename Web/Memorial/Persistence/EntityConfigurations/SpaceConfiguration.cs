@@ -17,6 +17,9 @@ namespace Memorial.Persistence.EntityConfigurations
             Property(s => s.Remark)
                 .HasMaxLength(255);
 
+            Property(s => s.ColorCode)
+                .HasMaxLength(6);
+
             HasRequired(s => s.Site)
                 .WithMany(s => s.Spaces)
                 .HasForeignKey(s => s.SiteId)

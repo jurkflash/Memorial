@@ -38,10 +38,14 @@ namespace Memorial.Areas.Space.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new SpaceItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 SpaceItemId = itemId,
+                SpaceItemName = _item.GetName(),
+                SpaceName = _item.GetItem().Space.Name,
                 SpaceTransactionDtos = _chair.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
@@ -49,18 +53,30 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _chair.SetChair(AF);
+            _chair.SetTransaction(AF);
+            _item.SetItem(_chair.GetTransactionSpaceItemId());
+            _space.SetSpace(_item.GetItem().SpaceId);
 
-            var viewModel = new SpaceTransactionsInfoViewModel()
-            {
-                SpaceTransactionDto = _chair.GetTransactionDto(),
-                ItemName = _chair.GetItemName()
-            };
+            var viewModel = new SpaceTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _chair.GetItemName();
+            viewModel.SpaceDto = _space.GetSpaceDto();
+            viewModel.SpaceTransactionDto = _chair.GetTransactionDto();
+            viewModel.ApplicantId = _chair.GetTransactionApplicantId();
+            viewModel.DeceasedId = _chair.GetTransactionDeceasedId();
+            viewModel.Header = _space.GetSpace().Site.Header;
 
             return View(viewModel);
         }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
+        }
+
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)
         {

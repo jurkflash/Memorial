@@ -1,0 +1,104 @@
+﻿@model Memorial.ViewModels.SpaceTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.SpaceTransactionDto.AF })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.SpaceTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Model.SpaceDto.Name 租借表格<br />Application Form
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.SpaceTransactionDto.AF
+    </div>
+</div>
+
+租用多元化大禮堂作功德用途之條規與表格
+<ol style="list-style:decimal">
+    <li>
+        所有租用人/使用者必須在本機構辦事處登記, 並遵守設施管理人員給予的任何指示。
+    </li>
+    <li>
+        租用本機構大禮堂之租金 （ 8:00 am - 12:00 am ）：<br />
+        1天 : RM 3,000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2天 : RM 6,000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3天 : RM 9,000
+    </li>
+    <li>
+        本機構將提供 1 套三寶架、20 張圓桌、10 張長桌、10 張四方桌和 400 張椅子免費使用, 並享用冷氣設備及壁扇, 但必須自行按置燈火, 其他一切祭品, 如杯碟垃圾袋等請租用人/使用者自備。
+    </li>
+    <li>
+        租用大禮堂三天以上者, 每增加一天另加RM 3,000, 以此類推。
+    </li>
+    <li>
+        凡租用人/使用者必須先繳付定金RM 2,000或 以上, 餘額則須在使用時的第一天付清。
+    </li>
+    <li>
+        在一般情況下, 如租用人申請更改已作實的租訂時間, 需提早一個月前通知, 否則將視作取消租訂, 已繳費用會被沒收, 不得有任何異議。
+    </li>
+    <li>
+        使用禮堂期間, 如禮堂遭到任何損壞, 租用人須負責支付修理費用; 如有任何設備、器具、裝 置或其他財物遭到損壞或損毀 ( 正常損耗除外) 、偷竊或被移走, 租用人亦須支付修理、修復或重新購置有關物品的費用。
+    </li>
+    <li>
+        如租用人或任何其他人士受傷, 或有設施遭到損壞, 必須即時向管理人員報告。
+    </li>
+    <li>
+        租用人/使用者必須在使用大禮堂完後收拾乾淨, 確保一切的清潔衛生, 營造一個良好的設施場所以供下一位租用人/使用者, 謝謝合作!
+    </li>
+</ol>
+更斯日期: 15-09-2016
+
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });}
+
+<div class="row flexrow">
+    <div class="col-md-12 text-center">
+        租用日期由 @Model.SpaceTransactionDto.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") 
+        至 @Model.SpaceTransactionDto.ToDate.Value.ToString("yyyy-MMM-dd HH:mm")
+        共 @Model.TotalDays 天
+    </div>
+</div>
+
+<p>
+    @Html.Raw(Resources.Mix.ParkingNote)
+</p>
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.DailyRentalBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.SpaceTransactionDto.BasePrice x @Model.TotalDays 天
+    </div>
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.OtherChargesBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.SpaceTransactionDto.OtherCharges
+    </div>
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.DonationBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.TotalAmount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-3">
+        @Model.SpaceTransactionDto.Remark
+    </div>
+</div>
+
+
+

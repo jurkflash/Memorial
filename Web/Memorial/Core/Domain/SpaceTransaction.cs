@@ -24,6 +24,8 @@ namespace Memorial.Core.Domain
 
         public float Amount { get; set; }
 
+        public float OtherCharges { get; set; }
+
         public string Remark { get; set; }
 
         public SpaceItem SpaceItem { get; set; }

@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public SpaceItem GetActive(int id)
         {
             return MemorialContext.SpaceItems
+                .Include(si => si.Space)
                 .Where(si => si.Id == id && si.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -30,6 +31,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<SpaceItem> GetBySpace(int spaceId)
         {
             return MemorialContext.SpaceItems
+                .Include(si => si.Space)
                 .Where(si => si.SpaceId == spaceId && si.DeleteDate == null).ToList();
         }
 

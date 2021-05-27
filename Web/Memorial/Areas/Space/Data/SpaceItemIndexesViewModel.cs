@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
+﻿using Memorial.Core.Dtos;
 using PagedList;
 
 namespace Memorial.ViewModels
@@ -13,6 +8,10 @@ namespace Memorial.ViewModels
         public IPagedList<SpaceTransactionDto> SpaceTransactionDtos { get; set; }
 
         public int SpaceItemId { get; set; }
+
+        public string SpaceName { get; set; }
+
+        public string SpaceItemName { get; set; }
 
         public int ApplicantId { get; set; }
 

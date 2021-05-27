@@ -8,7 +8,7 @@ using Memorial.Core;
 using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using AutoMapper;
-using Memorial.Lib;
+using Memorial.ViewModels;
 using Memorial.Lib.Space;
 
 namespace Memorial.Controllers.Api
@@ -55,6 +55,27 @@ namespace Memorial.Controllers.Api
             var result = _space.CheckAvailability(from, to, AF);
 
             return Ok(result);
+        }
+
+        public IHttpActionResult GetEvents(DateTime startDate, DateTime endDate, byte siteId)
+        {
+            var events = new List<SpaceCalendar>();
+            var trx = _transaction.GetBookedTransaction(startDate, endDate, siteId);
+
+            foreach(var t in trx)
+            {
+                events.Add(new SpaceCalendar()
+                {
+                    Title = t.SpaceName,
+                    StartDate = t.FromDate.ToString("yyyy-MM-ddTHH:mm"),
+                    EndDate = t.ToDate.ToString("yyyy-MM-ddTHH:mm"),
+                    Desc = t.TransactionRemark,
+                    AF = t.AF,
+                    BackgroundColor = string.IsNullOrEmpty(t.SpaceColorCode) ? "#FFFFFF" : "#"+ t.SpaceColorCode
+                });
+            }
+
+            return Json(events.ToArray());
         }
     }
 }

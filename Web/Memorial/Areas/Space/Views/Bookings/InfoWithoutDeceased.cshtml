@@ -1,0 +1,97 @@
+﻿@model Memorial.ViewModels.SpaceTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.SpaceTransactionDto.AF })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.SpaceTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Model.SpaceDto.Name 租借表格<br />Application Form
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.SpaceTransactionDto.AF
+    </div>
+</div>
+
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });}
+
+<div class="row flexrow">
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.FuneralCompanyBR)
+    </div>
+    <div class="col-md-2" style="text-align:center">
+        @Model.SpaceTransactionDto.FuneralCompany.Name
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.ContactNameBR)
+    </div>
+    <div class="col-md-2" style="text-align:center">
+        @Model.SpaceTransactionDto.FuneralCompany.ContactPerson
+    </div>
+    <div class="col-md-2">
+        @Html.Raw(Resources.Mix.ContactNumberBR)
+    </div>
+    <div class="col-md-2" style="text-align:center">
+        @Model.SpaceTransactionDto.FuneralCompany.ContactNumber
+    </div>
+</div>
+
+<div class="row flexrow">
+    <div class="col-md-12 text-center">
+        立字日期 @Model.SpaceTransactionDto.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") 起租
+    </div>
+</div>
+
+<div class="row flexrow">
+    <div class="col-md-12 text-center">
+        訂於 @Model.SpaceTransactionDto.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") 退租
+    </div>
+</div>
+
+<p>
+    @Html.Raw(Resources.Mix.ParkingNote)
+</p>
+
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.DailyRentalBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.SpaceTransactionDto.BasePrice x @Model.TotalDays 天
+    </div>
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.OtherChargesBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.SpaceTransactionDto.OtherCharges
+    </div>
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.DonationBR)
+    </div>
+    <div class="col-md-3">
+        RM @Model.TotalAmount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-3">
+        @Model.SpaceTransactionDto.Remark
+    </div>
+</div>
+
+
+

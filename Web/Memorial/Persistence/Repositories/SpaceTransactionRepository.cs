@@ -95,6 +95,21 @@ namespace Memorial.Persistence.Repositories
                 && st.AF != AF).Any();
         }
 
+        public IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, byte siteId)
+        {
+            return MemorialContext.SpaceTransactions
+                .Include(st => st.SpaceItem)
+                .Include(st => st.SpaceItem.Space)
+                .Where(st => st.DeleteDate == null
+                && st.SpaceItem.AllowDoubleBook == false
+                && (
+                (st.FromDate <= from && from <= st.ToDate)
+                || (st.FromDate <= to && to <= st.ToDate)
+                || (from <= st.FromDate && st.FromDate <= to)
+                || (from <= st.ToDate && st.ToDate <= to))
+                && st.SpaceItem.Space.SiteId == siteId);
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -31,6 +31,8 @@ namespace Memorial.Core.Dtos
 
         public int SpaceId { get; set; }
 
+        public string FormView { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

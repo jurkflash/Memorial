@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Memorial.ViewModels;
+using Memorial.Lib.Site;
 using Memorial.Lib.Space;
 
 namespace Memorial.Areas.Space.Controllers
@@ -7,13 +8,16 @@ namespace Memorial.Areas.Space.Controllers
     public class SpacesController : Controller
     {
         private readonly ISpace _space;
+        private readonly ISite _site;
         private readonly IItem _item;
 
         public SpacesController(
             ISpace space,
+            ISite site,
             IItem item)
         {
             _space = space;
+            _site = site;
             _item = item;
         }
 
@@ -22,7 +26,18 @@ namespace Memorial.Areas.Space.Controllers
             var viewModel = new SpaceIndexesViewModel()
             {
                 SpaceDtos = _space.DtosGetBySite(siteId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                siteDto = _site.GetSiteDto(siteId)
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult ShowCalendar(byte siteId)
+        {
+            var viewModel = new SpaceIndexesViewModel()
+            {
+                SpaceDtos = _space.DtosGetBySite(siteId),
+                siteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);
         }

@@ -358,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 單日費用&lt;br /&gt;Daily Rental.
+        /// </summary>
+        public static string DailyRentalBR {
+            get {
+                return ResourceManager.GetString("DailyRentalBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 生死局號碼&lt;br /&gt;Death Certificate.
         /// </summary>
         public static string DeathCertificateBR {
@@ -444,6 +453,24 @@ namespace Resources {
         public static string DigPriceBR {
             get {
                 return ResourceManager.GetString("DigPriceBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 樂捐 Donation.
+        /// </summary>
+        public static string Donation {
+            get {
+                return ResourceManager.GetString("Donation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 樂捐&lt;br /&gt;Donation.
+        /// </summary>
+        public static string DonationBR {
+            get {
+                return ResourceManager.GetString("DonationBR", resourceCulture);
             }
         }
         
@@ -763,11 +790,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 其他費用&lt;br /&gt;Other Charges.
+        /// </summary>
+        public static string OtherChargesBR {
+            get {
+                return ResourceManager.GetString("OtherChargesBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 已付&lt;br /&gt;Paid.
         /// </summary>
         public static string PaidBR {
             get {
                 return ResourceManager.GetString("PaidBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 注: 本停車場提供貴客泊車方便，任何停泊車輛，如有損失，貴客自理，本堂不負看守責任。主家如有損失需報案， 請自行處理。.
+        /// </summary>
+        public static string ParkingNote {
+            get {
+                return ResourceManager.GetString("ParkingNote", resourceCulture);
             }
         }
         

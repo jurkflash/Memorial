@@ -1,0 +1,79 @@
+﻿@model Memorial.ViewModels.SpaceIndexesViewModel
+@{
+    ViewBag.Title = "ShowCalendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowCalendar</h2>
+
+<div class="container">
+    <div id='calendar'></div>
+</div>
+@Html.HiddenFor(s=>s.siteDto.Id)
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+
+    @Scripts.Render("~/bundles/fullcalendar")
+    @Styles.Render("~/Content/fullcalendar")
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var siteId = $("#siteDto_Id").val();
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            eventClick: function (info) {
+                if (info.event.extendedProps.af) {
+                    var link = '@Url.Action("Info", "Bookings", new { area = "Space", AF = "-1" })';
+                    link = link.replace("-1", info.event.extendedProps.af);
+
+                    window.open(link);
+                }
+            },
+            events: function (fetchInfo, successCallback, failureCallback) {
+                $.ajax({
+                    url: '/Api/Spaces/GetEvents',
+                    type: "GET",
+                    data: { startDate: fetchInfo.startStr, endDate: fetchInfo.endStr, siteId: siteId },
+                    dataType: "JSON",
+
+                    success: function (result) {
+                        var events = [];
+
+                        $.each(result, function (i, data) {
+                            events.push(
+                                {
+                                    title: data.Title,
+                                    desc: data.Desc,
+                                    start: data.StartDate,
+                                    end: data.EndDate,
+                                    af: data.AF,
+                                    backgroundColor: data.BackgroundColor,
+                                    textColor: '#000000'
+                                });
+                        });
+
+                        successCallback(events);
+                    }
+                });
+            },
+
+        });
+        calendar.render();
+    });
+
+    $(document).ready(function () {   // will trigger when the document is ready
+    });
+</script>
+
+}
