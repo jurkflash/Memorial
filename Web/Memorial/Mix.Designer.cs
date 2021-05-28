@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 墓地美化公司&lt;br /&gt;Landscape Company.
+        /// </summary>
+        public static string CemeteryLandscapeCompanyBR {
+            get {
+                return ResourceManager.GetString("CemeteryLandscapeCompanyBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 墓地轉讓書&lt;br /&gt;Transfer Application Form.
         /// </summary>
         public static string CemeteryTransferApplicationFormBR {
@@ -723,6 +732,15 @@ namespace Resources {
         public static string Miscellaneous {
             get {
                 return ResourceManager.GetString("Miscellaneous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 表格&lt;br /&gt;Application Form.
+        /// </summary>
+        public static string MiscellaneousApplicationFormBR {
+            get {
+                return ResourceManager.GetString("MiscellaneousApplicationFormBR", resourceCulture);
             }
         }
         

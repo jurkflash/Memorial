@@ -35,10 +35,13 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
+                MiscellaneousItemName = _item.GetName(),
                 MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };
@@ -46,9 +49,23 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            return View(_compensate.GetTransactionDto(AF));
+            _compensate.SetTransaction(AF);
+            _miscellaneous.SetMiscellaneous(_compensate.GetTransactionDto().MiscellaneousItemDto.MiscellaneousId);
+
+            var viewModel = new MiscellaneousTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.MiscellaneousTransactionDto = _compensate.GetTransactionDto();
+            viewModel.Header = _miscellaneous.GetMiscellaneous().Site.Header;
+
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int applicantId = 0, string AF = null)

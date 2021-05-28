@@ -49,7 +49,7 @@ namespace Memorial.Lib.Miscellaneous
             return _transaction;
         }
 
-        public MiscellaneousTransactionDto GetMiscellaneousDto()
+        public MiscellaneousTransactionDto GetTransactionDto()
         {
             return Mapper.Map<Core.Domain.MiscellaneousTransaction, MiscellaneousTransactionDto>(GetTransaction());
         }

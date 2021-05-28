@@ -35,9 +35,12 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 MiscellaneousItemId = itemId,
+                MiscellaneousItemName = _item.GetName(),
                 MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = true
             };

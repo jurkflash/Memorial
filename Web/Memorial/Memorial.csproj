@@ -757,6 +757,7 @@
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\ReciprocatesController.cs" />
     <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsFormViewModel.cs" />
+    <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Miscellaneous\MiscellaneousAreaRegistration.cs" />
     <Compile Include="Areas\Navigation\NavigationAreaRegistration.cs" />
     <Compile Include="Areas\Cemetery\Controllers\ClearancesController.cs" />

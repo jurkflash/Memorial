@@ -14,7 +14,7 @@ namespace Memorial.Lib.Miscellaneous
 
         Core.Domain.MiscellaneousTransaction GetTransaction();
 
-        MiscellaneousTransactionDto GetMiscellaneousDto();
+        MiscellaneousTransactionDto GetTransactionDto();
 
         Core.Domain.MiscellaneousTransaction GetTransaction(string AF);
 

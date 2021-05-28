@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.MiscellaneousItemName</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.MiscellaneousItemId, area = "Miscellaneous" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.MiscellaneousItemId, area = "Miscellaneous" })
     </p>
 }
 
@@ -20,22 +20,21 @@
         Find by Name: @Html.TextBox("filter")
         @Html.Hidden("itemId", Model.MiscellaneousItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>Miscellaneous</th>
-            <th>Plot Landscape Company</th>
-            <th>Amount</th>
-            <th>Remark</th>
-            <th>Create Date</th>
-            <th>Receipt</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.CemeteryLandscapeCompanyBR)</th>
+            <th>@Html.Raw(Resources.Mix.AmountBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.ReceiptBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -43,12 +42,11 @@
         {
             <tr>
                 <td>@miscellaneousTransaction.AF</td>
-                <td>@miscellaneousTransaction.MiscellaneousItemDto.Name</td>
                 <td>@miscellaneousTransaction.PlotLandscapeCompanyDto.Name</td>
                 <td>@miscellaneousTransaction.Amount</td>
                 <td>@miscellaneousTransaction.Remark</td>
                 <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Receipt", "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Receipt, "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, area = "Miscellaneous" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

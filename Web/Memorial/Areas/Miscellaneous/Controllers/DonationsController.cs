@@ -31,10 +31,13 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
+                MiscellaneousItemName = _item.GetName(),
                 MiscellaneousTransactionDtos = _donation.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };

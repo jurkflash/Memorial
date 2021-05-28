@@ -17,6 +17,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.MiscellaneousTransactions
                 .Include(mt => mt.Applicant)
                 .Include(mt => mt.MiscellaneousItem)
+                .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.PlotLandscapeCompany)
                 .Where(mt => mt.AF == AF && mt.DeleteDate == null)
                 .SingleOrDefault();
@@ -25,8 +26,9 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<MiscellaneousTransaction> GetByItem(int itemId, string filter)
         {
             var miscellaneousTransactions = MemorialContext.MiscellaneousTransactions
-                .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.Applicant)
+                .Include(mt => mt.MiscellaneousItem)
+                .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.PlotLandscapeCompany)
                 .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null);
 
@@ -43,8 +45,9 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
             return MemorialContext.MiscellaneousTransactions
-                .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.Applicant)
+                .Include(mt => mt.MiscellaneousItem)
+                .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.PlotLandscapeCompany)
                 .Where(mt => mt.ApplicantId == applicantId
                                             && mt.MiscellaneousItemId == itemId

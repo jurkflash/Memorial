@@ -504,4 +504,10 @@
   <data name="UrnApplicationFormBR" xml:space="preserve">
     <value>骨灰甕&lt;br /&gt;Urn</value>
   </data>
+  <data name="MiscellaneousApplicationFormBR" xml:space="preserve">
+    <value>表格&lt;br /&gt;Application Form</value>
+  </data>
+  <data name="CemeteryLandscapeCompanyBR" xml:space="preserve">
+    <value>墓地美化公司&lt;br /&gt;Landscape Company</value>
+  </data>
 </root>

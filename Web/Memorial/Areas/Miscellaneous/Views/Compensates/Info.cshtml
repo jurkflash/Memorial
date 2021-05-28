@@ -1,26 +1,44 @@
-﻿@model Memorial.Core.Dtos.MiscellaneousTransactionDto
+﻿@model Memorial.ViewModels.MiscellaneousTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Print.cshtml";
 }
 
-<h2>Info</h2>
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.MiscellaneousTransactionDto.AF })
+}
 
-@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });}
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.MiscellaneousTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.MiscellaneousApplicationFormBR)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.MiscellaneousTransactionDto.AF
+    </div>
+</div>
+
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.MiscellaneousTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <div class="row">
     <div class="col-md-3">
-        Amount
+        @Html.Raw(Resources.Mix.PriceBR)
     </div>
     <div class="col-md-3">
-        @Model.Amount
+        @Model.MiscellaneousTransactionDto.Amount
     </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-        Remark
+        @Html.Raw(Resources.Mix.RemarkBR)
     </div>
     <div class="col-md-3">
-        @Model.Remark
+        @Model.MiscellaneousTransactionDto.Remark
     </div>
 </div>

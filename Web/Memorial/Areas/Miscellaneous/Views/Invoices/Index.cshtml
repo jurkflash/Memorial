@@ -4,24 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Invoices</h2>
+<h2>@Html.Raw(Resources.Mix.Invoices)</h2>
 
 <p>
-    @Html.ActionLink("New", "Form", new { AF = Model.AF, area = "Miscellaneous" })
+    @Html.ActionLink(Resources.Mix.New, "Form", new { AF = Model.AF, area = "Miscellaneous" })
 </p>
-<h5>Form: @Model.AF</h5>
+<h5>@Html.Raw(Resources.Mix.Form): @Model.AF</h5>
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Invoice</th>
-            <th>Remark</th>
-            <th>Amount</th>
-            <th>Paid</th>
-            <th>Create Date</th>
-            <th>Receipt Issued</th>
-            <th>Receipt</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.AmountBR)</th>
+            <th>@Html.Raw(Resources.Mix.PaidBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.ReceiptIssuedBR)</th>
+            <th>@Html.Raw(Resources.Mix.ReceiptBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@
             <td>@invoice.isPaid</td>
             <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
             <td>@invoice.hasReceipt</td>
-            <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Miscellaneous" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Receipt, "Receipt", new { IV = invoice.IV, area = "Miscellaneous" })</td>
             <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF, area = "Miscellaneous" })</td>
             <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Miscellaneous" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
         </tr>
