@@ -637,6 +637,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 項目 Item.
+        /// </summary>
+        public static string Item {
+            get {
+                return ResourceManager.GetString("Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 項目&lt;br /&gt;Item.
+        /// </summary>
+        public static string ItemBR {
+            get {
+                return ResourceManager.GetString("ItemBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全項目 Items.
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 全項目&lt;br /&gt;Items.
+        /// </summary>
+        public static string ItemsBR {
+            get {
+                return ResourceManager.GetString("ItemsBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 終身管理費&lt;br /&gt;LifeTimeMaintenance.
         /// </summary>
         public static string LifeTimeMaintenanceBR {

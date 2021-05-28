@@ -10,7 +10,7 @@
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" })
     </p>
 }
 
@@ -20,23 +20,23 @@
         Find by Name: @Html.TextBox("filter")
         @Html.Hidden("itemId", Model.CremationItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>Cremation</th>
-            <th>Applicant</th>
-            <th>Deceased</th>
-            <th>Price</th>
-            <th>Cremate Date</th>
-            <th>Create Date</th>
-            <th>Invoice</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.ItemBR)</th>
+            <th>@Html.Raw(Resources.Mix.ApplicantBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeceasedBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CremateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -50,7 +50,7 @@
                 <td>@cremationTransaction.Price</td>
                 <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = cremationTransaction.AF, area = "Cremation" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = cremationTransaction.AF, area = "Cremation" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId, area = "Cremation" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

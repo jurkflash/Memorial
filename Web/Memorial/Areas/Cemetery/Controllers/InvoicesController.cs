@@ -47,7 +47,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             var viewModel = new InvoiceFormViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount()
+                Amount = _transaction.GetTransactionTotalAmount()
             };
 
             if (IV == null)
@@ -69,7 +69,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 _transaction.SetTransaction(viewModel.AF);
 
                 ModelState.AddModelError("InvoiceDto.Amount", "Amount invalid");
-                viewModel.Amount = _transaction.GetTransactionAmount();
+                viewModel.Amount = _transaction.GetTransactionTotalAmount();
                 return View("Form", viewModel);
             }
 
@@ -83,7 +83,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                 {
-                    viewModel.Amount = _transaction.GetTransactionAmount();
+                    viewModel.Amount = _transaction.GetTransactionTotalAmount();
                     return View("Form", viewModel);
                 }
             }

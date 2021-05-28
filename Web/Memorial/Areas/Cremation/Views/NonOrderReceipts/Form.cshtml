@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Receipt Form</h2>
+<h2>@Html.Raw(Resources.Mix.Receipt)</h2>
 
 @Html.Raw(Resources.Mix.AF): @Model.AF
 <br />
@@ -16,7 +16,7 @@
 {
     <div class="form-group row">
         <div class="col-md-3">
-            @Html.Raw(Resources.Mix.Amount)
+            @Html.Raw(Resources.Mix.AmountBR)
         </div>
         <div class="col-md-6">
             @Html.TextBoxFor(r => r.ReceiptDto.Amount, new { @class = "form-control" })

@@ -24,7 +24,7 @@ namespace Memorial.Lib.Cemetery
 
         string GetTransactionAF();
 
-        float GetTransactionAmount();
+        float GetTransactionTotalAmount();
 
         int GetTransactionPlotId();
 

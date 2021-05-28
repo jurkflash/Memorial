@@ -85,7 +85,7 @@ namespace Memorial.Lib.Cemetery
             return _transaction.AF;
         }
 
-        public float GetTransactionAmount()
+        public float GetTransactionTotalAmount()
         {
             return _transaction.Price +
                 (_transaction.Maintenance == null ? 0 : (float)_transaction.Maintenance) +
