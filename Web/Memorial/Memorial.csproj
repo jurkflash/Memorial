@@ -865,7 +865,7 @@
     <Compile Include="Core\Domain\Urn.cs" />
     <Compile Include="Core\Domain\ColumbariumCentre.cs" />
     <Compile Include="Core\Domain\Space.cs" />
-    <Compile Include="Core\Domain\PlotLandscapeCompany.cs" />
+    <Compile Include="Core\Domain\CemeteryLandscapeCompany.cs" />
     <Compile Include="Core\Domain\FuneralCompany.cs" />
     <Compile Include="Core\Domain\GenderType.cs" />
     <Compile Include="Core\Domain\NationalityType.cs" />
@@ -909,7 +909,7 @@
     <Compile Include="Core\Dtos\PlotDto.cs" />
     <Compile Include="Core\Dtos\CemeteryAreaDto.cs" />
     <Compile Include="Core\Dtos\CemeteryItemDto.cs" />
-    <Compile Include="Core\Dtos\PlotLandscapeCompanyDto.cs" />
+    <Compile Include="Core\Dtos\CemeteryLandscapeCompanyDto.cs" />
     <Compile Include="Core\Dtos\CemeteryTransactionDto.cs" />
     <Compile Include="Core\Dtos\PlotTypeDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumAreaDto.cs" />
@@ -962,7 +962,7 @@
     <Compile Include="Core\Repositories\IUrnRepository.cs" />
     <Compile Include="Core\Repositories\ICremationRepository.cs" />
     <Compile Include="Core\Repositories\IDeceasedRepository.cs" />
-    <Compile Include="Core\Repositories\IPlotLandscapeCompanyRepository.cs" />
+    <Compile Include="Core\Repositories\ICemeteryLandscapeCompanyRepository.cs" />
     <Compile Include="Core\Repositories\IPlotRepository.cs" />
     <Compile Include="Core\Repositories\IPlotTypeRepository.cs" />
     <Compile Include="Core\Repositories\ICemeteryAreaRepository.cs" />
@@ -1043,8 +1043,8 @@
     <Compile Include="Lib\FengShuiMaster\IFengShuiMaster.cs" />
     <Compile Include="Lib\Miscellaneous\Reciprocate\IReciprocate.cs" />
     <Compile Include="Lib\Miscellaneous\Reciprocate\Reciprocate.cs" />
-    <Compile Include="Lib\PlotLandscapeCompany\PlotLandscapeCompany.cs" />
-    <Compile Include="Lib\PlotLandscapeCompany\IPlotLandscapeCompany.cs" />
+    <Compile Include="Lib\CemeteryLandscapeCompany\CemeteryLandscapeCompany.cs" />
+    <Compile Include="Lib\CemeteryLandscapeCompany\ICemeteryLandscapeCompany.cs" />
     <Compile Include="Lib\FuneralCompany\FuneralCompany.cs" />
     <Compile Include="Lib\FuneralCompany\IFuneralCompany.cs" />
     <Compile Include="Lib\GenderType\GenderType.cs" />
@@ -2427,6 +2427,10 @@
     <Compile Include="Migrations\202105271512144_UpdateSpaceItemsTableData1.designer.cs">
       <DependentUpon>202105271512144_UpdateSpaceItemsTableData1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.cs" />
+    <Compile Include="Migrations\202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.designer.cs">
+      <DependentUpon>202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2465,7 +2469,7 @@
     <Compile Include="Persistence\EntityConfigurations\ColumbariumNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\UrnConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\DeceasedConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PlotLandscapeCompanyConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CemeteryLandscapeCompanyConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\FuneralCompanyConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\MaritalTypeConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\GenderTypeConfiguration.cs" />
@@ -2508,7 +2512,7 @@
     <Compile Include="Persistence\Repositories\MiscellaneousItemRepository.cs" />
     <Compile Include="Persistence\Repositories\MiscellaneousNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\MiscellaneousTransactionRepository.cs" />
-    <Compile Include="Persistence\Repositories\PlotLandscapeCompanyRepository.cs" />
+    <Compile Include="Persistence\Repositories\CemeteryLandscapeCompanyRepository.cs" />
     <Compile Include="Persistence\Repositories\FuneralCompanyRepository.cs" />
     <Compile Include="Persistence\Repositories\PaymentMethodRepository.cs" />
     <Compile Include="Persistence\Repositories\ApplicantRepository.cs" />
@@ -3695,6 +3699,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105271512144_UpdateSpaceItemsTableData1.resx">
       <DependentUpon>202105271512144_UpdateSpaceItemsTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.resx">
+      <DependentUpon>202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

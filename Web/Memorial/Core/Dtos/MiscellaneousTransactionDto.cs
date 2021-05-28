@@ -24,9 +24,9 @@ namespace Memorial.Core.Dtos
 
         public int? ApplicantDtoId { get; set; }
 
-        public PlotLandscapeCompanyDto PlotLandscapeCompanyDto { get; set; }
+        public CemeteryLandscapeCompanyDto CemeteryLandscapeCompanyDto { get; set; }
 
-        public int? PlotLandscapeCompanyDtoId { get; set; }
+        public int? CemeteryLandscapeCompanyDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

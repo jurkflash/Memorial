@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Miscellaneous;
-using Memorial.Lib.PlotLandscapeCompany;
+using Memorial.Lib.CemeteryLandscapeCompany;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
@@ -12,19 +12,19 @@ namespace Memorial.Areas.Miscellaneous.Controllers
     {
         private readonly IMiscellaneous _miscellaneous;
         private readonly IItem _item;
-        private readonly IPlotLandscapeCompany _plotLandscapeCompany;
+        private readonly ICemeteryLandscapeCompany _cemeteryLandscapeCompany;
         private readonly IReciprocate _reciprocate;
 
         public ReciprocatesController(
             IMiscellaneous miscellaneous,
             IItem item,
-            IPlotLandscapeCompany plotLandscapeCompany,
+            ICemeteryLandscapeCompany cemeteryLandscapeCompany,
             IReciprocate reciprocate
             )
         {
             _miscellaneous = miscellaneous;
             _item = item;
-            _plotLandscapeCompany = plotLandscapeCompany;
+            _cemeteryLandscapeCompany = cemeteryLandscapeCompany;
             _reciprocate = reciprocate;
         }
 
@@ -52,7 +52,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var viewModel = new MiscellaneousTransactionsFormViewModel()
             {
-                PlotLandscapeCompanyDtos = _plotLandscapeCompany.GetPlotLandscapeCompanyDtos()
+                CemeteryLandscapeCompanyDtos = _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDtos()
             };
 
             if (AF == null)
@@ -98,7 +98,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult FormForResubmit(MiscellaneousTransactionsFormViewModel viewModel)
         {
-            viewModel.PlotLandscapeCompanyDtos = _plotLandscapeCompany.GetPlotLandscapeCompanyDtos();
+            viewModel.CemeteryLandscapeCompanyDtos = _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDtos();
 
             return View("Form", viewModel);
         }

@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.Applicant)
                 .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
-                .Include(mt => mt.PlotLandscapeCompany)
+                .Include(mt => mt.CemeteryLandscapeCompany)
                 .Where(mt => mt.AF == AF && mt.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -29,7 +29,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.Applicant)
                 .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
-                .Include(mt => mt.PlotLandscapeCompany)
+                .Include(mt => mt.CemeteryLandscapeCompany)
                 .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null);
 
             if(string.IsNullOrEmpty(filter))
@@ -48,7 +48,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.Applicant)
                 .Include(mt => mt.MiscellaneousItem)
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
-                .Include(mt => mt.PlotLandscapeCompany)
+                .Include(mt => mt.CemeteryLandscapeCompany)
                 .Where(mt => mt.ApplicantId == applicantId
                                             && mt.MiscellaneousItemId == itemId
                                             && mt.DeleteDate == null).ToList();

@@ -6,22 +6,22 @@ using System.Collections.Generic;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class PlotLandscapeCompanyRepository : Repository<PlotLandscapeCompany>, IPlotLandscapeCompanyRepository
+    public class CemeteryLandscapeCompanyRepository : Repository<CemeteryLandscapeCompany>, ICemeteryLandscapeCompanyRepository
     {
-        public PlotLandscapeCompanyRepository(MemorialContext context) : base(context)
+        public CemeteryLandscapeCompanyRepository(MemorialContext context) : base(context)
         {
         }
 
-        public PlotLandscapeCompany GetActive(int id)
+        public CemeteryLandscapeCompany GetActive(int id)
         {
-            return MemorialContext.PlotLandscapeCompanies
+            return MemorialContext.CemeteryLandscapeCompanies
                 .Where(plc => plc.DeleteDate == null &&
                         plc.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<PlotLandscapeCompany> GetAllActive()
+        public IEnumerable<CemeteryLandscapeCompany> GetAllActive()
         {
-            return MemorialContext.PlotLandscapeCompanies
+            return MemorialContext.CemeteryLandscapeCompanies
                 .Where(plc => plc.DeleteDate == null).ToList();
         }
         public MemorialContext MemorialContext

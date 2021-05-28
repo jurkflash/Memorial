@@ -30,9 +30,9 @@ namespace Memorial.Core.Domain
 
         public int? ApplicantId { get; set; }
 
-        public PlotLandscapeCompany PlotLandscapeCompany { get; set; }
+        public CemeteryLandscapeCompany CemeteryLandscapeCompany { get; set; }
 
-        public int? PlotLandscapeCompanyId { get; set; }
+        public int? CemeteryLandscapeCompanyId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

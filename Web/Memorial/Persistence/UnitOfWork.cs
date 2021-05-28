@@ -23,7 +23,7 @@ namespace Memorial.Persistence
             ApplicantDeceaseds = new ApplicantDeceasedRepository(_context);
             FengShuiMasters = new FengShuiMasterRepository(_context);
             FuneralCompanies = new FuneralCompanyRepository(_context);
-            PlotLandscapeCompanies = new PlotLandscapeCompanyRepository(_context);
+            CemeteryLandscapeCompanies = new CemeteryLandscapeCompanyRepository(_context);
 
             Cremations = new CremationRepository(_context);
             CremationItems = new CremationItemRepository(_context);
@@ -106,7 +106,7 @@ namespace Memorial.Persistence
         public ICemeteryTransactionRepository CemeteryTransactions { get; private set; }
         public IPlotTrackingRepository PlotTrackings { get; private set; }
 
-        public IPlotLandscapeCompanyRepository PlotLandscapeCompanies { get; private set; }
+        public ICemeteryLandscapeCompanyRepository CemeteryLandscapeCompanies { get; private set; }
 
         public ICremationRepository Cremations { get; private set; }
         public ICremationItemRepository CremationItems { get; private set; }

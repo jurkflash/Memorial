@@ -26,9 +26,9 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasForeignKey(mt => mt.ApplicantId)
                 .WillCascadeOnDelete(false);
 
-            HasOptional(mt => mt.PlotLandscapeCompany)
+            HasOptional(mt => mt.CemeteryLandscapeCompany)
                 .WithMany(plc => plc.MiscellaneousTransactions)
-                .HasForeignKey(mt => mt.PlotLandscapeCompanyId)
+                .HasForeignKey(mt => mt.CemeteryLandscapeCompanyId)
                 .WillCascadeOnDelete(false);
         }
     }

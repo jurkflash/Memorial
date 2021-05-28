@@ -35,7 +35,7 @@ namespace Memorial.Core
         IAncestralTabletNumberRepository AncestralTabletNumbers { get; }
         IAncestralTabletTransactionRepository AncestralTabletTransactions { get; }
 
-        IPlotLandscapeCompanyRepository PlotLandscapeCompanies { get; }
+        ICemeteryLandscapeCompanyRepository CemeteryLandscapeCompanies { get; }
 
         IUrnRepository Urns { get; }
         IUrnItemRepository UrnItems { get; }

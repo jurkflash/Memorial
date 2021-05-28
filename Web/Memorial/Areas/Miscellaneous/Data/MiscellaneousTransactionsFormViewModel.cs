@@ -9,7 +9,7 @@ namespace Memorial.ViewModels
 {
     public class MiscellaneousTransactionsFormViewModel
     {
-        public IEnumerable<PlotLandscapeCompanyDto> PlotLandscapeCompanyDtos { get; set; }
+        public IEnumerable<CemeteryLandscapeCompanyDto> CemeteryLandscapeCompanyDtos { get; set; }
 
         public MiscellaneousTransactionDto MiscellaneousTransactionDto { get; set; }
 

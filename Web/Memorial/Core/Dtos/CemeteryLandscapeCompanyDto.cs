@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Dtos
 {
-    public class PlotLandscapeCompanyDto
+    public class CemeteryLandscapeCompanyDto
     {
         public int Id { get; set; }
 
