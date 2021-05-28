@@ -770,6 +770,7 @@
     <Compile Include="Areas\Setting\Controllers\Ancestor\AncestralTabletAreaController.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
+    <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
     <Compile Include="Controllers\Api\AncestorMaintenanceController.cs" />
     <Compile Include="Controllers\Api\AncestorsController.cs" />
@@ -2676,8 +2677,6 @@
     <Content Include="Areas\Urn\Views\Purchases\Info.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\Form.cshtml" />
     <Content Include="Areas\Urn\Views\Invoices\Index.cshtml" />
-    <Content Include="Areas\Urn\Views\Invoices\InvoiceForm.cshtml" />
-    <Content Include="Areas\Urn\Views\Invoices\Invoices.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Urn\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Miscellaneous\Views\Compensates\Index.cshtml" />

@@ -16,6 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)
+                .Include(ut => ut.UrnItem.Urn)
                 .Include(ut => ut.Applicant)
                 .Where(ut => ut.AF == AF && ut.DeleteDate == null)
                 .SingleOrDefault();
@@ -25,6 +26,7 @@ namespace Memorial.Persistence.Repositories
         {
             var transactions = MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)
+                .Include(ut => ut.UrnItem.Urn)
                 .Include(ut => ut.Applicant)
                 .Where(ut => ut.UrnItemId == itemId && ut.DeleteDate == null).ToList();
 
@@ -42,6 +44,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)
+                .Include(ut => ut.UrnItem.Urn)
                 .Include(ut => ut.Applicant)
                 .Where(ut => ut.ApplicantId == applicantId
                                             && ut.UrnItemId == itemId

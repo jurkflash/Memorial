@@ -1168,6 +1168,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 骨灰甕 Urn.
+        /// </summary>
+        public static string Urn {
+            get {
+                return ResourceManager.GetString("Urn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰甕&lt;br /&gt;Urn.
+        /// </summary>
+        public static string UrnApplicationFormBR {
+            get {
+                return ResourceManager.GetString("UrnApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 骨灰甕&lt;br /&gt;Urn.
         /// </summary>
         public static string UrnBR {

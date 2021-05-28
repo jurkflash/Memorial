@@ -14,6 +14,8 @@ namespace Memorial.ViewModels
 
         public int CremationItemId { get; set; }
 
+        public string CremationItemName { get; set; }
+
         public int ApplicantId { get; set; }
 
         public bool AllowNew { get; set; }

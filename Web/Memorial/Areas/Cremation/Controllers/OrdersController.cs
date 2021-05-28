@@ -40,10 +40,13 @@ namespace Memorial.Areas.Cremation.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
+            _item.SetItem(itemId);
+
             var viewModel = new CremationItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 CremationItemId = itemId,
+                CremationItemName = _item.GetName(),
                 CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != 0
             };

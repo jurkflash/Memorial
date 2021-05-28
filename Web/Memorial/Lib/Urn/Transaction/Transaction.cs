@@ -46,7 +46,7 @@ namespace Memorial.Lib.Urn
             return _transaction;
         }
 
-        public UrnTransactionDto GetUrnDto()
+        public UrnTransactionDto GetTransactionDto()
         {
             return Mapper.Map<Core.Domain.UrnTransaction, UrnTransactionDto>(GetTransaction());
         }

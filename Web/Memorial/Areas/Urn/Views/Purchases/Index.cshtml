@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.UrnItemName</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })
     </p>
 }
 
@@ -27,15 +27,15 @@
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>Urn</th>
-            <th>Applicant</th>
-            <th>Price</th>
-            <th>Remark</th>
-            <th>Create Date</th>
-            <th>Invoice</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.UrnBR)</th>
+            <th>@Html.Raw(Resources.Mix.ApplicantBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +48,7 @@
                 <td>@urnTransaction.Price</td>
                 <td>@urnTransaction.Remark</td>
                 <td>@urnTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = urnTransaction.AF, area = "Urn" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = urnTransaction.AF, area = "Urn" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = urnTransaction.AF, itemId = urnTransaction.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

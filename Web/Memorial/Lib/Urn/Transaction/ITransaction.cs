@@ -14,7 +14,7 @@ namespace Memorial.Lib.Urn
 
         Core.Domain.UrnTransaction GetTransaction();
 
-        UrnTransactionDto GetUrnDto();
+        UrnTransactionDto GetTransactionDto();
 
         Core.Domain.UrnTransaction GetTransaction(string AF);
 

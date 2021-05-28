@@ -498,4 +498,10 @@
   <data name="ItemsBR" xml:space="preserve">
     <value>全項目&lt;br /&gt;Items</value>
   </data>
+  <data name="Urn" xml:space="preserve">
+    <value>骨灰甕 Urn</value>
+  </data>
+  <data name="UrnApplicationFormBR" xml:space="preserve">
+    <value>骨灰甕&lt;br /&gt;Urn</value>
+  </data>
 </root>
