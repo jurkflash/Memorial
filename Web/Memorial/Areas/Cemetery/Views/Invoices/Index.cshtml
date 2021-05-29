@@ -7,7 +7,7 @@
 <h2>@Html.Raw(Resources.Mix.Invoices)</h2>
 
 <p>
-    @Html.ActionLink("New", "Form", new { AF = Model.AF, area = "Cemetery" })
+    @Html.ActionLink(Resources.Mix.New, "Form", new { AF = Model.AF, area = "Cemetery" })
 </p>
 <h5>@Html.Raw(Resources.Mix.Form): @Model.AF</h5>
 <table class="table table-bordered table-hover">

@@ -151,11 +151,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 祖先牌位申請表格&lt;br /&gt;Ancestral Tablet Application Form.
+        /// </summary>
+        public static string AncestralTabletApplicationFormBR {
+            get {
+                return ResourceManager.GetString("AncestralTabletApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 祖先牌位&lt;br /&gt;AncestralTablet.
         /// </summary>
         public static string AncestralTabletBR {
             get {
                 return ResourceManager.GetString("AncestralTabletBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 祖先牌文&lt;br /&gt;Ancestral Tablet.
+        /// </summary>
+        public static string AncestralTabletLabelBR {
+            get {
+                return ResourceManager.GetString("AncestralTabletLabelBR", resourceCulture);
             }
         }
         

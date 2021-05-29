@@ -510,4 +510,10 @@
   <data name="CemeteryLandscapeCompanyBR" xml:space="preserve">
     <value>墓地美化公司&lt;br /&gt;Landscape Company</value>
   </data>
+  <data name="AncestralTabletApplicationFormBR" xml:space="preserve">
+    <value>祖先牌位申請表格&lt;br /&gt;Ancestral Tablet Application Form</value>
+  </data>
+  <data name="AncestralTabletLabelBR" xml:space="preserve">
+    <value>祖先牌文&lt;br /&gt;Ancestral Tablet</value>
+  </data>
 </root>

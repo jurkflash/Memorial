@@ -12,6 +12,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
     public class OrdersController : Controller
     {
         private readonly IAncestralTablet _ancestralTablet;
+        private readonly IArea _area;
+        private readonly IItem _item;
         private readonly IDeceased _deceased;
         private readonly IOrder _order;
         private readonly ITracking _tracking;
@@ -19,6 +21,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public OrdersController(
             IAncestralTablet ancestralTablet,
+            IArea area,
+            IItem item,
             IDeceased deceased,
             IOrder order,
             ITracking tracking,
@@ -26,6 +30,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             )
         {
             _ancestralTablet = ancestralTablet;
+            _area = area;
+            _item = item;
             _deceased = deceased;
             _order = order;
             _tracking = tracking;
@@ -40,11 +46,13 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
 
             _ancestralTablet.SetAncestralTablet(id);
+            _item.SetItem(itemId);
 
             var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 AncestralTabletItemId = itemId,
+                AncestralTabletItemName = _item.GetName(),
                 AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
                 AncestralTabletId = id,
                 AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
@@ -62,20 +70,27 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _order.SetTransaction(AF);
             _ancestralTablet.SetAncestralTablet(_order.GetTransactionAncestralTabletId());
+            _area.SetArea(_order.GetTransaction().AncestralTabletItem.AncestralTabletAreaId);
 
-            var viewModel = new AncestralTabletTransactionsInfoViewModel()
-            {
-                ApplicantId = _order.GetTransactionApplicantId(),
-                DeceasedId = _order.GetTransactionDeceasedId(),
-                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
-                ItemName = _order.GetItemName(),
-                AncestralTabletTransactionDto = _order.GetTransactionDto()
-            };
+            var viewModel = new AncestralTabletTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _order.GetItemName();
+            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+            viewModel.AncestralTabletTransactionDto = _order.GetTransactionDto();
+            viewModel.ApplicantId = _order.GetTransactionApplicantId();
+            viewModel.Header = _area.GetArea().Site.Header;
+
             return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)

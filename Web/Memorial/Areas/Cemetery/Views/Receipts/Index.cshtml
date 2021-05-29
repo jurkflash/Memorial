@@ -17,7 +17,7 @@
 @if (!Model.InvoiceDto.isPaid)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Cemetery" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Cemetery" })
     </p>
 }
 

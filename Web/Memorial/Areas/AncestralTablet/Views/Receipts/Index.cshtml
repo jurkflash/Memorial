@@ -4,20 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Order Receipts</h2>
+<h2>@Html.Raw(Resources.Mix.Receipts)</h2>
 
-Form: @Model.AF
+@Html.Raw(Resources.Mix.AF): @Model.AF
 <br />
-Invoice : @Model.InvoiceDto.IV
+@Html.Raw(Resources.Mix.Invoice) : @Model.InvoiceDto.IV
 <br />
-Amount : @Model.InvoiceDto.Amount
+@Html.Raw(Resources.Mix.Amount) : @Model.InvoiceDto.Amount
 <br />
-Remaining Amount: @Model.RemainingAmount
+@Html.Raw(Resources.Mix.RemainingAmount): @Model.RemainingAmount
 
 @if (!Model.InvoiceDto.isPaid)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF })
     </p>
 }
 
@@ -25,14 +25,14 @@ Remaining Amount: @Model.RemainingAmount
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Receipt</th>
-            <th>Amount</th>
-            <th>Remark</th>
-            <th>Payment Method</th>
-            <th>Payment Remark</th>
-            <th>Create Date</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.ReceiptBR)</th>
+            <th>@Html.Raw(Resources.Mix.AmountBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.PaymentMethodBR)</th>
+            <th>@Html.Raw(Resources.Mix.PaymentRemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>

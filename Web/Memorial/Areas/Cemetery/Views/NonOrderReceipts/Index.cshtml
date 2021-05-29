@@ -15,7 +15,7 @@
 @if (Model.RemainingAmount > 0)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { AF = Model.AF, MasterCatalog = Model.MasterCatalog, area = "Cemetery" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { AF = Model.AF, MasterCatalog = Model.MasterCatalog, area = "Cemetery" })
     </p>
 }
 

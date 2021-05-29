@@ -17,6 +17,8 @@ namespace Memorial.ViewModels
 
         public int ApplicantId { get; set; }
 
-        public int? DeceasedId { get; set; }
+        public bool ExportToPDF { get; set; }
+
+        public string Header { get; set; }
     }
 }
