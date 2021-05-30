@@ -14,22 +14,22 @@ namespace Memorial.Persistence.Repositories
 
         public ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId && !qt.ToDeleteFlag).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
         }
 
-        public IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId)
+        public IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId, bool toDeleteFlag = false)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.NicheId == nicheId && qt.ToDeleteFlag == toDeleteFlag).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
         public ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF).SingleOrDefault();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF && !qt.ToDeleteFlag).SingleOrDefault();
         }
 
         public ColumbariumTracking GetTrackingByNicheIdAndTransactionAF(int nicheId, string columbariumTransactionAF)
         {
-            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF && qt.NicheId == nicheId).SingleOrDefault();
+            return MemorialContext.ColumbariumTrackings.Where(qt => qt.ColumbariumTransactionAF == columbariumTransactionAF && qt.NicheId == nicheId && !qt.ToDeleteFlag).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

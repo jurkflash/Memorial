@@ -1,0 +1,28 @@
+﻿@model Memorial.ViewModels.ColumbariumTransactionsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Applicant" });}
+
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
+
+@using (Html.BeginForm("Save", "Withdraws", new { area = "AncestralTablet" }))
+{
+    @Model.ColumbariumTransactionDto.AF
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.ColumbariumTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
+}

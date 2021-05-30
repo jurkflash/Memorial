@@ -10,6 +10,7 @@ namespace Memorial.Lib.Columbarium
     public class Order : Transaction, IOrder
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWithdraw _withdraw;
         private readonly Invoice.IColumbarium _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
@@ -18,6 +19,7 @@ namespace Memorial.Lib.Columbarium
             IUnitOfWork unitOfWork,
             IItem item,
             INiche niche,
+            IWithdraw withdraw,
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
@@ -39,6 +41,7 @@ namespace Memorial.Lib.Columbarium
             _unitOfWork = unitOfWork;
             _item = item;
             _niche = niche;
+            _withdraw = withdraw;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -102,6 +105,8 @@ namespace Memorial.Lib.Columbarium
                 }
 
                 _tracking.Add(columbariumTransactionDto.NicheDtoId, _AFnumber, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
+
+                _withdraw.RemoveWithdrew(columbariumTransactionDto.NicheDtoId);
 
                 _unitOfWork.Complete();
             }

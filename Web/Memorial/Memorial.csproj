@@ -753,6 +753,7 @@
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
+    <Compile Include="Areas\Columbarium\Controllers\WithdrawsController.cs" />
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
@@ -1025,6 +1026,8 @@
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
+    <Compile Include="Lib\Columbarium\Withrdaw\IWithdraw.cs" />
+    <Compile Include="Lib\Columbarium\Withrdaw\Withrdaw.cs" />
     <Compile Include="Lib\Constant.cs" />
     <Compile Include="Lib\Cremation\Config\Config.cs" />
     <Compile Include="Lib\Cremation\Config\IConfig.cs" />
@@ -2438,6 +2441,10 @@
     <Compile Include="Migrations\202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.designer.cs">
       <DependentUpon>202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.cs" />
+    <Compile Include="Migrations\202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.designer.cs">
+      <DependentUpon>202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2626,6 +2633,9 @@
     <Content Include="Areas\AncestralTablet\Views\Withdraws\Form.cshtml" />
     <Content Include="Areas\AncestralTablet\Views\Withdraws\Index.cshtml" />
     <Content Include="Areas\AncestralTablet\Views\Withdraws\Info.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Withdraws\Form.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Withdraws\Index.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Withdraws\Info.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3713,6 +3723,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.resx">
       <DependentUpon>202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.resx">
+      <DependentUpon>202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

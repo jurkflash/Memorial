@@ -53,6 +53,11 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.ColumbariumCentres.GetActive(id);
         }
 
+        public ColumbariumCentreDto GetCentreDto()
+        {
+            return Mapper.Map<Core.Domain.ColumbariumCentre, ColumbariumCentreDto>(GetCentre());
+        }
+
         public ColumbariumCentreDto GetCentreDto(int id)
         {
             return Mapper.Map<Core.Domain.ColumbariumCentre, ColumbariumCentreDto>(GetCentre(id));

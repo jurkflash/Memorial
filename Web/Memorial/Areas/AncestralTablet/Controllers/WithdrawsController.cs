@@ -124,15 +124,6 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                if (_invoice.GetInvoicesByAF(viewModel.AncestralTabletTransactionDto.AF).Any() &&
-                    viewModel.AncestralTabletTransactionDto.Price <
-                _invoice.GetInvoicesByAF(viewModel.AncestralTabletTransactionDto.AF).Max(i => i.Amount))
-                {
-                    ModelState.AddModelError("AncestralTabletTransactionDto.Price", "* Exceed invoice amount");
-                    return View("Form", viewModel);
-                }
-
-
                 _withdraw.Update(viewModel.AncestralTabletTransactionDto);
             }
 
@@ -155,11 +146,6 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 id = id,
                 applicantId = applicantId
             });
-        }
-
-        public ActionResult Invoice(string AF)
-        {
-            return RedirectToAction("Index", "AncestralTabletInvoices", new { AF = AF, area = "AncestralTablet" });
         }
     }
 }

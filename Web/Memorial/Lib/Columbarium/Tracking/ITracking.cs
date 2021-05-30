@@ -14,6 +14,7 @@ namespace Memorial.Lib.Columbarium
         void Delete(string columbariumTransactionAF);
         ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId);
         IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId);
+        IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId, bool toDeleteFlag);
         ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF);
         bool IsLatestTransaction(int nicheId, string columbariumTransactionAF);
         void Remove(int nicheId, string columbariumTransactionAF);

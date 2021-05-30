@@ -36,6 +36,7 @@ namespace Memorial.Lib.AncestralTablet
                 AncestralTabletTransactionAF = ancestralTabletTransactionAF,
                 ApplicantId = applicantId,
                 DeceasedId = deceasedId,
+                ToDeleteFlag = false,
                 ActionDate = System.DateTime.Now
             });
 

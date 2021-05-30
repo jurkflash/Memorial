@@ -80,6 +80,10 @@ namespace Memorial.Core.Domain
 
         public string TransferredColumbariumTransactionAF { get; set; }
 
+        public string WithdrewAFS { get; set; }
+
+        public int? WithdrewColumbariumApplicantId { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

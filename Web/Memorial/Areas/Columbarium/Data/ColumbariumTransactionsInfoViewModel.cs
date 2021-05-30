@@ -10,6 +10,8 @@ namespace Memorial.ViewModels
 
         public NicheDto NicheDto { get; set; }
 
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
+
         public float TotalAmount { get; set; }
 
         public int ApplicantId { get; set; }

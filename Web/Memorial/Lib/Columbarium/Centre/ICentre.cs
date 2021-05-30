@@ -22,6 +22,8 @@ namespace Memorial.Lib.Columbarium
 
         Core.Domain.ColumbariumCentre GetCentre(int id);
 
+        ColumbariumCentreDto GetCentreDto();
+
         ColumbariumCentreDto GetCentreDto(int id);
 
         IEnumerable<ColumbariumCentreDto> GetCentreDtos();

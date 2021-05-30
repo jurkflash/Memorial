@@ -81,6 +81,10 @@ namespace Memorial.Core.Dtos
 
         public string TransferredColumbariumTransactionDtoAF { get; set; }
 
+        public string WithdrewAFS { get; set; }
+
+        public int? WithdrewAncestralTabletApplicantId { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

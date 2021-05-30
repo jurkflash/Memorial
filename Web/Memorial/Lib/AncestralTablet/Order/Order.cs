@@ -16,6 +16,7 @@ namespace Memorial.Lib.AncestralTablet
         private readonly Invoice.IAncestralTablet _invoice;
         private readonly IPayment _payment;
         private readonly ITracking _tracking;
+        private readonly IWithdraw _withdraw;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -27,7 +28,8 @@ namespace Memorial.Lib.AncestralTablet
             INumber number,
             Invoice.IAncestralTablet invoice,
             IPayment payment,
-            ITracking tracking
+            ITracking tracking,
+            IWithdraw withdraw
             ) : 
             base(
                 unitOfWork, 
@@ -49,6 +51,7 @@ namespace Memorial.Lib.AncestralTablet
             _invoice = invoice;
             _payment = payment;
             _tracking = tracking;
+            _withdraw = withdraw;
         }
 
         public void SetOrder(string AF)
@@ -93,9 +96,9 @@ namespace Memorial.Lib.AncestralTablet
                         return false;
                 }
 
-
-
                 _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+
+                _withdraw.RemoveWithdrew(ancestralTabletTransactionDto.AncestralTabletId);
 
                 _unitOfWork.Complete();
             }

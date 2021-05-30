@@ -41,6 +41,7 @@ namespace Memorial.Lib.Columbarium
                 ApplicantId = applicantId,
                 Deceased1Id = deceased1Id,
                 Deceased2Id = deceased2Id,
+                ToDeleteFlag = false,
                 ActionDate = System.DateTime.Now
             });
         }
@@ -79,7 +80,12 @@ namespace Memorial.Lib.Columbarium
 
         public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByNicheId(int nicheId)
         {
-            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(nicheId);
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(nicheId, false);
+        }
+
+        public IEnumerable<Core.Domain.ColumbariumTracking> GetTrackingByNicheId(int nicheId, bool toDeleteFlag)
+        {
+            return _unitOfWork.ColumbariumTrackings.GetTrackingByNicheId(nicheId, toDeleteFlag);
         }
 
         public Core.Domain.ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF)

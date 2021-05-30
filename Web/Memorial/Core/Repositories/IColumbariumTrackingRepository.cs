@@ -7,7 +7,7 @@ namespace Memorial.Core.Repositories
     {
         ColumbariumTracking GetLatestFirstTransactionByNicheId(int nicheId);
 
-        IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId);
+        IEnumerable<ColumbariumTracking> GetTrackingByNicheId(int nicheId, bool toDeleteFlag);
 
         ColumbariumTracking GetTrackingByTransactionAF(string columbariumTransactionAF);
 
