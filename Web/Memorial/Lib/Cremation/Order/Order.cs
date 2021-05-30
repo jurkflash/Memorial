@@ -54,6 +54,8 @@ namespace Memorial.Lib.Cremation
         {
             NewNumber(cremationTransactionDto.CremationItemId);
 
+            cremationTransactionDto.SummaryItem = SummaryItem(cremationTransactionDto);
+
             if (CreateNewTransaction(cremationTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -73,6 +75,8 @@ namespace Memorial.Lib.Cremation
             {
                 return false;
             }
+
+            cremationTransactionDto.SummaryItem = SummaryItem(cremationTransactionDto);
 
             if (UpdateTransaction(cremationTransactionDto))
             {
@@ -96,6 +100,11 @@ namespace Memorial.Lib.Cremation
             _unitOfWork.Complete();
 
             return true;
+        }
+
+        private string SummaryItem(CremationTransactionDto cremationTransactionDto)
+        {
+            return "";
         }
 
     }

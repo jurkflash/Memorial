@@ -2445,12 +2445,17 @@
     <Compile Include="Migrations\202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.designer.cs">
       <DependentUpon>202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105301506433_AddSummaryItemForCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202105301506433_AddSummaryItemForCremationTransactionsTable.designer.cs">
+      <DependentUpon>202105301506433_AddSummaryItemForCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Mix.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\InvoiceInfoViewModel.cs" />
     <Compile Include="ViewModels\SpaceCalendar.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2602,7 +2607,6 @@
     <Compile Include="Areas\Cremation\Data\CremationIndexesViewModel.cs" />
     <Compile Include="Areas\Menu\Data\ListCatalogViewModel.cs" />
     <Compile Include="ViewModels\InvoicesViewModel.cs" />
-    <Compile Include="ViewModels\ListInvoicesViewModel.cs" />
     <Compile Include="Areas\Applicant\Data\ApplicantInfoViewModel.cs" />
     <Compile Include="Areas\Cremation\Data\CremationTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Deceased\Data\DeceasedFormViewModel.cs" />
@@ -3728,6 +3732,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.resx">
       <DependentUpon>202105301334362_AddWithdrewAFSAndWithdrewColumbariunApplicantIdToColumbariumTransactionsTableAndColumnForTracking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105301506433_AddSummaryItemForCremationTransactionsTable.resx">
+      <DependentUpon>202105301506433_AddSummaryItemForCremationTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -7,9 +7,12 @@ using Memorial.Core.Domain;
 
 namespace Memorial.ViewModels
 {
-    public class ListInvoicesViewModel
+    public class InvoiceInfoViewModel
     {
         public string AF { get; set; }
-        public IEnumerable<InvoiceDto> InvoiceDtos { get; set; }
+
+        public string SummaryItem { get; set; }
+
+        public InvoiceDto InvoiceDto { get; set; }
     }
 }
