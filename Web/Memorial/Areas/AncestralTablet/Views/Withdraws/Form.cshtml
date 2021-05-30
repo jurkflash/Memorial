@@ -1,0 +1,28 @@
+﻿@model Memorial.ViewModels.AncestralTabletTransactionsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantId, area = "Applicant" });}
+
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
+
+@using (Html.BeginForm("Save", "Withdraws", new { area = "AncestralTablet" }))
+{
+    @Model.AncestralTabletTransactionDto.AF
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.AncestralTabletTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
+}

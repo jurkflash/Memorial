@@ -89,29 +89,29 @@ namespace Memorial.Lib.Columbarium
 
         public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            _niche.SetNiche(columbariumTransactionDto.NicheId);
-            if (_niche.GetApplicantId() == columbariumTransactionDto.ApplicantId)
+            _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
+            if (_niche.GetApplicantId() == columbariumTransactionDto.ApplicantDtoId)
                 return false;
 
-            if (!AllowNicheDeceasePairing(columbariumTransactionDto.NicheId, columbariumTransactionDto.ApplicantId))
+            if (!AllowNicheDeceasePairing(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.ApplicantDtoId))
                 return false;
 
-            if (!SetTransactionDeceasedIdBasedOnNiche(columbariumTransactionDto, columbariumTransactionDto.NicheId))
+            if (!SetTransactionDeceasedIdBasedOnNiche(columbariumTransactionDto, columbariumTransactionDto.NicheDtoId))
                 return false;
 
-            columbariumTransactionDto.TransferredColumbariumTransactionAF = _tracking.GetLatestFirstTransactionByNicheId(columbariumTransactionDto.NicheId).ColumbariumTransactionAF;
+            columbariumTransactionDto.TransferredColumbariumTransactionDtoAF = _tracking.GetLatestFirstTransactionByNicheId(columbariumTransactionDto.NicheDtoId).ColumbariumTransactionAF;
 
-            GetTransaction(columbariumTransactionDto.TransferredColumbariumTransactionAF).DeleteDate = System.DateTime.Now;
+            GetTransaction(columbariumTransactionDto.TransferredColumbariumTransactionDtoAF).DeleteDate = System.DateTime.Now;
 
-            _tracking.Remove(columbariumTransactionDto.NicheId, columbariumTransactionDto.TransferredColumbariumTransactionAF);
+            _tracking.Remove(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.TransferredColumbariumTransactionDtoAF);
 
-            NewNumber(columbariumTransactionDto.ColumbariumItemId);
+            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
             if (CreateNewTransaction(columbariumTransactionDto))
             {
-                _niche.SetApplicant(columbariumTransactionDto.ApplicantId);
+                _niche.SetApplicant(columbariumTransactionDto.ApplicantDtoId);
 
-                _tracking.Add(columbariumTransactionDto.NicheId, _AFnumber, columbariumTransactionDto.ApplicantId, columbariumTransactionDto.Deceased1Id, columbariumTransactionDto.Deceased2Id);
+                _tracking.Add(columbariumTransactionDto.NicheDtoId, _AFnumber, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
 
                 _unitOfWork.Complete();
             }

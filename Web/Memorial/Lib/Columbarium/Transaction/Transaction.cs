@@ -80,7 +80,7 @@ namespace Memorial.Lib.Columbarium
             return _transaction.AF;
         }
 
-        public float GetTransactionAmount()
+        public float GetTransactionTotalAmount()
         {
             return _transaction.Price + 
                 (_transaction.Maintenance == null ? 0 : (float)_transaction.Maintenance) + 
@@ -229,22 +229,22 @@ namespace Memorial.Lib.Columbarium
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
 
-                    columbariumTransactionDto.Deceased2Id = deceaseds.ElementAt(1).Id;
+                    columbariumTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
                 }
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    columbariumTransactionDto.Deceased1Id = deceaseds.ElementAt(0).Id;
+                    columbariumTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
                 }
             }
 

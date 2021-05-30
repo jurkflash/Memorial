@@ -46,8 +46,6 @@ namespace Memorial.Lib.Deceased
 
         bool SetAncestralTablet(int ancestralTabletId);
 
-        bool RemoveAncestralTablet();
-
         Core.Domain.Plot GetPlot();
 
         bool SetPlot(int plotId);

@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.AncestralTablet
 {
     public interface ITracking
     {
-        void Add(int nicheId, string ancestralTabletTransactionAF);
+        void Add(int ancestralTabletId, string ancestralTabletTransactionAF);
 
-        void Add(int nicheId, string ancestralTabletTransactionAF, int applicantId);
+        void Add(int ancestralTabletId, string ancestralTabletTransactionAF, int applicantId);
 
-        void Add(int nicheId, string ancestralTabletTransactionAF, int applicantId, int? deceasedId);
+        void Add(int ancestralTabletId, string ancestralTabletTransactionAF, int applicantId, int? deceasedId);
 
-        void Change(int nicheId, string ancestralTabletTransactionAF, int? applicantId, int? deceasedId);
+        void Change(int ancestralTabletId, string ancestralTabletTransactionAF, int? applicantId, int? deceasedId);
 
-        void Remove(int nicheId, string ancestralTabletTransactionAF);
+        void Remove(int ancestralTabletId, string ancestralTabletTransactionAF);
 
         Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId);
 
         IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId);
+
+        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag);
 
         Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
 

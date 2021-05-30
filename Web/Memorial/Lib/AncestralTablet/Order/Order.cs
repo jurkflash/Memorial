@@ -93,6 +93,8 @@ namespace Memorial.Lib.AncestralTablet
                         return false;
                 }
 
+
+
                 _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
 
                 _unitOfWork.Complete();
@@ -141,7 +143,7 @@ namespace Memorial.Lib.AncestralTablet
                 if (deceasedId == null)
                 {
                     _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemoveAncestralTablet();
+                    _deceased.RemoveAncestralTabletDeceased();
                 }
                 else
                 {
@@ -175,7 +177,7 @@ namespace Memorial.Lib.AncestralTablet
             foreach (var deceased in deceaseds)
             {
                 _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveAncestralTablet();
+                _deceased.RemoveAncestralTabletDeceased();
             }
 
             _ancestralTablet.SetHasDeceased(false);

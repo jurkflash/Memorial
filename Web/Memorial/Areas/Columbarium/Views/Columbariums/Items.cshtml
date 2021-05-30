@@ -4,15 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Item</h2>
+<h2>@Html.Raw(Resources.Mix.Items)</h2>
 
 @{Html.RenderAction("NicheInfo", "Columbariums", new { id = Model.NicheDto.Id, area = "Columbarium" });}
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
         </tr>
     </thead>
     <tbody>

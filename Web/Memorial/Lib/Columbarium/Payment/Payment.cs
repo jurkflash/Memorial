@@ -103,7 +103,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool UpdateInvoice(InvoiceDto invoiceDto)
         {
-            if (_transaction.GetTransactionAmount() < invoiceDto.Amount)
+            if (_transaction.GetTransactionTotalAmount() < invoiceDto.Amount)
                 return false;
 
             if (_receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(invoiceDto.IV) > invoiceDto.Amount)
@@ -141,7 +141,7 @@ namespace Memorial.Lib.Columbarium
             }
             else
             {
-                if(_transaction.GetTransactionAmount() < _receipt.GetTotalIssuedNonOrderReceiptAmount(_transaction.GetTransactionAF()) - _receipt.GetAmount() + receiptDto.Amount)
+                if(_transaction.GetTransactionTotalAmount() < _receipt.GetTotalIssuedNonOrderReceiptAmount(_transaction.GetTransactionAF()) - _receipt.GetAmount() + receiptDto.Amount)
                     return false;
             }
 
@@ -187,7 +187,7 @@ namespace Memorial.Lib.Columbarium
 
         public float GetNonOrderTransactionUnpaidAmount()
         {
-            return _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(_transaction.GetTransactionAF());
+            return _transaction.GetTransactionTotalAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(_transaction.GetTransactionAF());
         }
     }
 }

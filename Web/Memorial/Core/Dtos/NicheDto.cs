@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Memorial.Core.Domain;
-
-namespace Memorial.Core.Dtos
+﻿namespace Memorial.Core.Dtos
 {
     public class NicheDto
     {
@@ -31,6 +27,8 @@ namespace Memorial.Core.Dtos
         public ColumbariumAreaDto ColumbariumAreaDto { get; set; }
 
         public int ColumbariumAreaDtoId { get; set; }
+
+        public ApplicantDto ApplicantDto { get; set; }
 
         public int? ApplicantDtoId { get; set; }
 

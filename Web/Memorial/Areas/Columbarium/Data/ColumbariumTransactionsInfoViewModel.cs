@@ -10,8 +10,15 @@ namespace Memorial.ViewModels
 
         public NicheDto NicheDto { get; set; }
 
+        public float TotalAmount { get; set; }
+
         public int ApplicantId { get; set; }
 
         public int? DeceasedId { get; set; }
+
+        public bool ExportToPDF { get; set; }
+
+        public string Header { get; set; }
+
     }
 }

@@ -9,6 +9,8 @@ namespace Memorial.ViewModels
 
         public int ColumbariumItemId { get; set; }
 
+        public string ColumbariumItemName { get; set; }
+
         public NicheDto NicheDto { get; set; }
 
         public int NicheId { get; set; }

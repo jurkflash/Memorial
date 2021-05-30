@@ -26,6 +26,8 @@ namespace Memorial.Core.Domain
 
         public int? DeceasedId { get; set; }
 
+        public bool ToDeleteFlag { get; set; }
+
         public DateTime ActionDate { get; set; }
 
     }

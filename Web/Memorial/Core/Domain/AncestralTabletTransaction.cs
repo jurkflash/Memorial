@@ -54,6 +54,10 @@ namespace Memorial.Core.Domain
 
         public string ShiftedAncestralTabletTransactionAF { get; set; }
 
+        public string WithdrewAFS { get; set; }
+
+        public int? WithdrewAncestralTabletApplicantId { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

@@ -101,30 +101,30 @@ namespace Memorial.Lib.Columbarium
 
         public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            _niche.SetNiche(columbariumTransactionDto.NicheId);
+            _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
             if (_niche.HasApplicant())
                 return false;
 
-            if(!SetTransactionDeceasedIdBasedOnNiche(columbariumTransactionDto, (int)columbariumTransactionDto.ShiftedNicheId))
+            if(!SetTransactionDeceasedIdBasedOnNiche(columbariumTransactionDto, (int)columbariumTransactionDto.ShiftedNicheDtoId))
                 return false;
 
-            columbariumTransactionDto.ShiftedColumbariumTransactionAF = _tracking.GetLatestFirstTransactionByNicheId((int)columbariumTransactionDto.ShiftedNicheId).ColumbariumTransactionAF;
+            columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF = _tracking.GetLatestFirstTransactionByNicheId((int)columbariumTransactionDto.ShiftedNicheDtoId).ColumbariumTransactionAF;
 
-            GetTransaction(columbariumTransactionDto.ShiftedColumbariumTransactionAF).DeleteDate = System.DateTime.Now;
+            GetTransaction(columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF).DeleteDate = System.DateTime.Now;
 
-            _tracking.Remove((int)columbariumTransactionDto.ShiftedNicheId, columbariumTransactionDto.ShiftedColumbariumTransactionAF);
+            _tracking.Remove((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF);
 
-            NewNumber(columbariumTransactionDto.ColumbariumItemId);
+            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
             if (CreateNewTransaction(columbariumTransactionDto))
             {
-                ShiftNicheApplicantDeceaseds((int)columbariumTransactionDto.ShiftedNicheId, columbariumTransactionDto.NicheId, columbariumTransactionDto.ApplicantId);
+                ShiftNicheApplicantDeceaseds((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.ApplicantDtoId);
 
-                _manage.ChangeNiche((int)columbariumTransactionDto.ShiftedNicheId, columbariumTransactionDto.NicheId);
+                _manage.ChangeNiche((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.NicheDtoId);
 
-                _photo.ChangeNiche((int)columbariumTransactionDto.ShiftedNicheId, columbariumTransactionDto.NicheId);
+                _photo.ChangeNiche((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.NicheDtoId);
                 
-                _tracking.Add(columbariumTransactionDto.NicheId, _AFnumber, columbariumTransactionDto.ApplicantId, columbariumTransactionDto.Deceased1Id, columbariumTransactionDto.Deceased2Id);
+                _tracking.Add(columbariumTransactionDto.NicheDtoId, _AFnumber, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
 
                 _unitOfWork.Complete();
             }
@@ -146,20 +146,20 @@ namespace Memorial.Lib.Columbarium
 
             var columbariumTransactionInDb = GetTransaction(columbariumTransactionDto.AF);
 
-            if (columbariumTransactionInDb.NicheId != columbariumTransactionDto.NicheId)
+            if (columbariumTransactionInDb.NicheId != columbariumTransactionDto.NicheDtoId)
             {
                 if (!SetTransactionDeceasedIdBasedOnNiche(columbariumTransactionDto, columbariumTransactionInDb.NicheId))
                     return false;
 
                 _tracking.Remove(columbariumTransactionInDb.NicheId, columbariumTransactionDto.AF);
 
-                _tracking.Add(columbariumTransactionDto.NicheId, columbariumTransactionDto.AF, columbariumTransactionDto.ApplicantId, columbariumTransactionDto.Deceased1Id, columbariumTransactionDto.Deceased2Id);
+                _tracking.Add(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.AF, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
 
-                ShiftNicheApplicantDeceaseds(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheId, columbariumTransactionDto.ApplicantId);
+                ShiftNicheApplicantDeceaseds(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.ApplicantDtoId);
 
-                _manage.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheId);
+                _manage.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheDtoId);
 
-                _photo.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheId);
+                _photo.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheDtoId);
 
                 UpdateTransaction(columbariumTransactionDto);
 

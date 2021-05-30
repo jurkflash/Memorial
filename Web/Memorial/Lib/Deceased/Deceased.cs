@@ -185,7 +185,7 @@ namespace Memorial.Lib.Deceased
             return false;
         }
 
-        public bool RemoveAncestralTablet()
+        private bool RemoveAncestralTablet()
         {
             if (_deceased != null)
             {

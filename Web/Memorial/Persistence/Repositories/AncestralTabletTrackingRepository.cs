@@ -14,22 +14,22 @@ namespace Memorial.Persistence.Repositories
 
         public AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId && !qt.ToDeleteFlag).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
         }
 
-        public IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId)
+        public IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool toDeleteFlag = false)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId).OrderByDescending(qt => qt.ActionDate).ToList();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId && qt.ToDeleteFlag == toDeleteFlag).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
         public AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF).SingleOrDefault();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && !qt.ToDeleteFlag).SingleOrDefault();
         }
 
         public AncestralTabletTracking GetTrackingByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestralTabletId == ancestralTabletId).SingleOrDefault();
+            return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestralTabletId == ancestralTabletId && !qt.ToDeleteFlag).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

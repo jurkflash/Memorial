@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.ColumbariumItemName</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
     </p>
 }
 
@@ -21,23 +21,23 @@
         @Html.Hidden("itemId", Model.ColumbariumItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         @Html.Hidden("id", Model.NicheId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>AF</th>
-            <th>Niche</th>
-            <th>Applicant</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Amount</th>
-            <th>Create Date</th>
-            <th>Invoice</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.AFBR)</th>
+            <th>@Html.Raw(Resources.Mix.NicheBR)</th>
+            <th>@Html.Raw(Resources.Mix.Applicant)</th>
+            <th>@Html.Raw(Resources.Mix.FromBR)</th>
+            <th>@Html.Raw(Resources.Mix.ToBR)</th>
+            <th>@Html.Raw(Resources.Mix.AmountBR)</th>
+            <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -45,13 +45,13 @@
         {
             <tr>
                 <td>@Html.ActionLink(columbariumTransaction.AF, "Info", new { AF = columbariumTransaction.AF }, new { target = "ColumbariumTransactionInfo", area = "Columbarium" })</td>
-                <td>@columbariumTransaction.Niche.Name</td>
-                <td>@columbariumTransaction.Niche.Applicant.Name &nbsp; @columbariumTransaction.Niche.Applicant.Name2</td>
+                <td>@columbariumTransaction.NicheDto.Name</td>
+                <td>@columbariumTransaction.NicheDto.ApplicantDto.Name &nbsp; @columbariumTransaction.NicheDto.ApplicantDto.Name2</td>
                 <td>@Convert.ToDateTime(columbariumTransaction.FromDate).ToString("yyyy-MMM")</td>
                 <td>@Convert.ToDateTime(columbariumTransaction.ToDate).ToString("yyyy-MMM")</td>
                 <td>@columbariumTransaction.Price</td>
                 <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoice", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoice", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

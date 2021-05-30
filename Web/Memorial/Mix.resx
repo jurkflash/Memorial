@@ -516,4 +516,10 @@
   <data name="AncestralTabletLabelBR" xml:space="preserve">
     <value>祖先牌文&lt;br /&gt;Ancestral Tablet</value>
   </data>
+  <data name="Centre" xml:space="preserve">
+    <value>中心 Centre</value>
+  </data>
+  <data name="ColumbariumApplicationFormBR" xml:space="preserve">
+    <value>骨灰殿申請表格&lt;br /&gt;Columbarium Application Form</value>
+  </data>
 </root>

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -17,8 +17,8 @@
             @Html.Raw(Resources.Mix.ApplicantBR)
         </div>
         <div class="col-md-6">
-            @Model.ColumbariumTransactionDto.Niche.Applicant.Name &nbsp;
-            @Model.ColumbariumTransactionDto.Niche.Applicant.Name2
+            @Model.ColumbariumTransactionDto.NicheDto.Applicant.Name &nbsp;
+            @Model.ColumbariumTransactionDto.NicheDto.Applicant.Name2
         </div>
     </div>
     <div class="form-group row">
@@ -31,9 +31,9 @@
             @Html.Raw(Resources.Mix.NewApplicantBR)
         </div>
         <div class="col-md-6">
-            @Model.ColumbariumTransactionDto.Applicant.Name &nbsp;
-            @Model.ColumbariumTransactionDto.Applicant.Name2
-            @Html.ValidationMessageFor(a => a.ColumbariumTransactionDto.Applicant.Name)
+            @Model.ColumbariumTransactionDto.ApplicantDto.Name &nbsp;
+            @Model.ColumbariumTransactionDto.ApplicantDto.Name2
+            @Html.ValidationMessageFor(a => a.ColumbariumTransactionDto.ApplicantDto.Name)
         </div>
     </div>
     <div class="form-group row">
@@ -53,9 +53,9 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
     @Html.HiddenFor(c => c.ColumbariumTransactionDto.TransferredFromApplicantId)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>

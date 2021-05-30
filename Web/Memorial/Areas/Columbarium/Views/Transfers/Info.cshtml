@@ -1,8 +1,76 @@
-﻿
+﻿@model Memorial.ViewModels.ColumbariumTransactionsInfoViewModel
 @{
     ViewBag.Title = "Info";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Info</h2>
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.ColumbariumTransactionDto.AF })
+}
 
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.ColumbariumTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.ColumbariumApplicationFormBR)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.ColumbariumTransactionDto.AF
+    </div>
+</div>
+
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.ColumbariumTransactionDto.DeceasedDto1Id, area = "ApplicantDeceaseds" });}
+
+@if (Model.ColumbariumTransactionDto.DeceasedDto2Id != null)
+{
+    { Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.ColumbariumTransactionDto.DeceasedDto2Id, showApplicant = false, area = "ApplicantDeceaseds" }); }
+}
+
+<h5 style="padding-top:5px"><u>@Model.ItemName</u></h5>
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.ApplicantBR)
+    </div>
+    <div class="col-md-3">
+        @Model.ColumbariumTransactionDto.TransferredApplicantDto.Name
+    </div>
+</div>
+@Html.Raw(Resources.Mix.TransferToBR)
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.ApplicantBR)
+    </div>
+    <div class="col-md-3">
+        @Model.ColumbariumTransactionDto.ApplicantDto.Name
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.PriceBR)
+    </div>
+    <div class="col-md-3">
+        @Model.ColumbariumTransactionDto.Price
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.MaintenanceFeesBR)
+    </div>
+    <div class="col-md-3">
+        @Model.ColumbariumTransactionDto.Maintenance
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-3">
+        @Model.ColumbariumTransactionDto.Remark
+    </div>
+</div>

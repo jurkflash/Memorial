@@ -65,24 +65,24 @@ namespace Memorial.Lib.Columbarium
 
         public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            if (columbariumTransactionDto.Deceased1Id != null)
+            if (columbariumTransactionDto.DeceasedDto1Id != null)
             {
-                SetDeceased((int)columbariumTransactionDto.Deceased1Id);
+                SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
                 if (_deceased.GetNiche() != null)
                     return false;
             }
 
-            NewNumber(columbariumTransactionDto.ColumbariumItemId);
+            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
             if (CreateNewTransaction(columbariumTransactionDto))
             {
-                _niche.SetNiche(columbariumTransactionDto.NicheId);
-                _niche.SetApplicant(columbariumTransactionDto.ApplicantId);
+                _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
+                _niche.SetApplicant(columbariumTransactionDto.ApplicantDtoId);
 
-                if (columbariumTransactionDto.Deceased1Id != null)
+                if (columbariumTransactionDto.DeceasedDto1Id != null)
                 {
-                    SetDeceased((int)columbariumTransactionDto.Deceased1Id);
-                    if (_deceased.SetNiche(columbariumTransactionDto.NicheId))
+                    SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
+                    if (_deceased.SetNiche(columbariumTransactionDto.NicheDtoId))
                     {
                         _niche.SetHasDeceased(true);
                     }
@@ -90,10 +90,10 @@ namespace Memorial.Lib.Columbarium
                         return false;
                 }
 
-                if (columbariumTransactionDto.Deceased2Id != null)
+                if (columbariumTransactionDto.DeceasedDto2Id != null)
                 {
-                    SetDeceased((int)columbariumTransactionDto.Deceased2Id);
-                    if (_deceased.SetNiche(columbariumTransactionDto.NicheId))
+                    SetDeceased((int)columbariumTransactionDto.DeceasedDto2Id);
+                    if (_deceased.SetNiche(columbariumTransactionDto.NicheDtoId))
                     {
                         _niche.SetHasDeceased(true);
                     }
@@ -101,7 +101,7 @@ namespace Memorial.Lib.Columbarium
                         return false;
                 }
 
-                _tracking.Add(columbariumTransactionDto.NicheId, _AFnumber, columbariumTransactionDto.ApplicantId, columbariumTransactionDto.Deceased1Id, columbariumTransactionDto.Deceased2Id);
+                _tracking.Add(columbariumTransactionDto.NicheDtoId, _AFnumber, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
 
                 _unitOfWork.Complete();
             }
@@ -129,16 +129,16 @@ namespace Memorial.Lib.Columbarium
 
             if (UpdateTransaction(columbariumTransactionDto))
             {
-                _niche.SetNiche(columbariumTransactionDto.NicheId);
+                _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
 
-                NicheApplicantDeceaseds(columbariumTransactionDto.Deceased1Id, deceased1InDb);
+                NicheApplicantDeceaseds(columbariumTransactionDto.DeceasedDto1Id, deceased1InDb);
 
-                NicheApplicantDeceaseds(columbariumTransactionDto.Deceased2Id, deceased2InDb);
+                NicheApplicantDeceaseds(columbariumTransactionDto.DeceasedDto2Id, deceased2InDb);
 
-                if (columbariumTransactionDto.Deceased1Id == null && columbariumTransactionDto.Deceased2Id == null)
+                if (columbariumTransactionDto.DeceasedDto1Id == null && columbariumTransactionDto.DeceasedDto2Id == null)
                     _niche.SetHasDeceased(false);
 
-                _tracking.Change(columbariumTransactionDto.NicheId, columbariumTransactionDto.AF, columbariumTransactionDto.ApplicantId, columbariumTransactionDto.Deceased1Id, columbariumTransactionDto.Deceased2Id);
+                _tracking.Change(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.AF, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
 
                 _unitOfWork.Complete();
             }

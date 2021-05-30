@@ -38,26 +38,10 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-3">
-        @Html.Raw(Resources.Mix.FromBR)
+        @Html.Raw(Resources.Mix.Area)
     </div>
     <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.FromDate
-    </div>
-</div>
-<div class="row flexrow">
-    <div class="col-md-3">
-        @Html.Raw(Resources.Mix.ToBR)
-    </div>
-    <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.ToDate
-    </div>
-</div>
-<div class="row flexrow">
-    <div class="col-md-3">
-        @Html.Raw(Resources.Mix.MaintenanceFeesBR)
-    </div>
-    <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.Maintenance
+        @Model.AncestralTabletTransactionDto.AncestralTablet.AncestralTabletArea.Name
     </div>
 </div>
 <div class="row flexrow">

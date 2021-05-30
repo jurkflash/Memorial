@@ -742,6 +742,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\AncestralTablet\AncestralTabletAreaRegistration.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\AncestralTabletsController.cs" />
+    <Compile Include="Areas\AncestralTablet\Controllers\WithdrawsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\MaintenancesController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\OrdersController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\InvoicesController.cs" />
@@ -1018,6 +1019,8 @@
     <Compile Include="Lib\AncestralTablet\Tracking\Tracking.cs" />
     <Compile Include="Lib\AncestralTablet\Transaction\ITransaction.cs" />
     <Compile Include="Lib\AncestralTablet\Transaction\Transaction.cs" />
+    <Compile Include="Lib\AncestralTablet\Withrdaw\IWithdraw.cs" />
+    <Compile Include="Lib\AncestralTablet\Withrdaw\Withrdaw.cs" />
     <Compile Include="Lib\ApplicantDeceased\ApplicantDeceased.cs" />
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
@@ -2431,6 +2434,10 @@
     <Compile Include="Migrations\202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.designer.cs">
       <DependentUpon>202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.cs" />
+    <Compile Include="Migrations\202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.designer.cs">
+      <DependentUpon>202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2616,6 +2623,9 @@
     <Content Include="Areas\Space\Views\Chairs\Info.cshtml" />
     <Content Include="Areas\Space\Views\Bookings\InfoWithoutDeceasedAndFuneralCo.cshtml" />
     <Content Include="Areas\Space\Views\Bookings\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Withdraws\Form.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Withdraws\Index.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Withdraws\Info.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -2666,8 +2676,6 @@
     <Content Include="Areas\Columbarium\Views\Photos\Info.cshtml" />
     <Content Include="Areas\Columbarium\Views\Shifts\Info.cshtml" />
     <Content Include="Areas\Columbarium\Views\Transfers\Info.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Invoices\InvoiceForm.cshtml" />
-    <Content Include="Areas\Columbarium\Views\Invoices\Invoices.cshtml" />
     <Content Include="Areas\Columbarium\Views\Receipts\Form.cshtml" />
     <Content Include="Areas\Columbarium\Views\Receipts\Index.cshtml" />
     <Content Include="Areas\Columbarium\Views\Invoices\Form.cshtml" />
@@ -3702,6 +3710,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.resx">
       <DependentUpon>202105281710034_RenamePlotLandscapeCompanyToCemeteryLandscapeCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.resx">
+      <DependentUpon>202105301146406_AddWithdrewAFSAndWithdrewAncestralTabletApplicantIdToAncestralTabletTransactionsTableAndColumnForTracking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

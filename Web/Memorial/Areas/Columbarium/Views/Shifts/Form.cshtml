@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -17,17 +17,17 @@
             @Html.Raw(Resources.Mix.NicheBR)
         </div>
         <div class="col-md-6">
-            @Model.ColumbariumTransactionDto.ShiftedNiche.Name
+            @Model.ColumbariumTransactionDto.ShiftedNicheDto.Name
         </div>
     </div>
     if (Model.ColumbariumTransactionDto.AF == null)
     {
         <div class="form-group row">
             <div class="col-md-3">
-                @Html.Raw(Resources.Mix.HasDeceased)
+                @Html.Raw(Resources.Mix.HasDeceasedBR)
             </div>
             <div class="col-md-6">
-                @Model.ColumbariumTransactionDto.ShiftedNiche.hasDeceased
+                @Model.ColumbariumTransactionDto.ShiftedNicheDto.hasDeceased
             </div>
         </div>
         <div class="form-group row">
@@ -48,7 +48,7 @@
                 @Html.Raw(Resources.Mix.NicheBR)
             </div>
             <div class="col-md-6">
-                @Model.ColumbariumTransactionDto.Niche.Name
+                @Model.ColumbariumTransactionDto.NicheDto.Name
             </div>
         </div>
         <hr />
@@ -134,11 +134,11 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedNicheId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedColumbariumTransactionAF)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedNicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ShiftedColumbariumTransactionDtoAF)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }

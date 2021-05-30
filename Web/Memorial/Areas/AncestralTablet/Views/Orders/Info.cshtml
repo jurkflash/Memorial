@@ -4,11 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Print.cshtml";
-}
-
 @if (!Model.ExportToPDF)
 {
     @Html.ActionLink("Print All", "PrintAll", new { AF = Model.AncestralTabletTransactionDto.AF })

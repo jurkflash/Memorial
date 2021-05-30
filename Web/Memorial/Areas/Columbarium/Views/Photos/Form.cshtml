@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -53,9 +53,9 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheId)
-    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }

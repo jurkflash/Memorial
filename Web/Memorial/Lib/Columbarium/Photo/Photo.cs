@@ -66,14 +66,14 @@ namespace Memorial.Lib.Columbarium
 
         public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
         {
-            if (columbariumTransactionDto.Deceased1Id != null)
+            if (columbariumTransactionDto.DeceasedDto1Id != null)
             {
-                SetDeceased((int)columbariumTransactionDto.Deceased1Id);
+                SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
                 if (_deceased.GetNiche() != null)
                     return false;
             }
 
-            NewNumber(columbariumTransactionDto.ColumbariumItemId);
+            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
             if (CreateNewTransaction(columbariumTransactionDto))
             {

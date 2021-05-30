@@ -11,16 +11,22 @@ namespace Memorial.Areas.Columbarium.Controllers
     public class ShiftsController : Controller
     {
         private readonly INiche _niche;
+        private readonly ICentre _centre;
+        private readonly IItem _item;
         private readonly IShift _shift;
         private readonly Lib.Invoice.IColumbarium _invoice;
 
         public ShiftsController(
             INiche niche,
+            ICentre centre,
+            IItem item,
             IShift shift,
             Lib.Invoice.IColumbarium invoice
             )
         {
             _niche = niche;
+            _centre = centre;
+            _item = item;
             _shift = shift;
             _invoice = invoice;
         }
@@ -29,10 +35,13 @@ namespace Memorial.Areas.Columbarium.Controllers
         {
             var columbariumTransactionDtos = _shift.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
 
+            _item.SetItem(itemId);
+
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 ColumbariumItemId = itemId,
+                ColumbariumItemName = _item.GetName(),
                 ColumbariumTransactionDtos = columbariumTransactionDtos
             };
 
@@ -48,21 +57,28 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _shift.SetTransaction(AF);
             _niche.SetNiche(_shift.GetTransactionNicheId());
 
-            var viewModel = new ColumbariumTransactionsInfoViewModel()
-            {
-                ApplicantId = _shift.GetTransactionApplicantId(),
-                DeceasedId = _shift.GetTransactionDeceased1Id(),
-                NicheDto = _niche.GetNicheDto(),
-                ItemName = _shift.GetItemName(),
-                ColumbariumTransactionDto = _shift.GetTransactionDto()
-            };
+            var viewModel = new ColumbariumTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _shift.GetItemName();
+            viewModel.NicheDto = _niche.GetNicheDto();
+            viewModel.ColumbariumTransactionDto = _shift.GetTransactionDto();
+            viewModel.ApplicantId = _shift.GetTransactionApplicantId();
+            viewModel.Header = _centre.GetCentre().Site.Header;
+
             return View(viewModel);
         }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
+        }
+
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
@@ -74,12 +90,12 @@ namespace Memorial.Areas.Columbarium.Controllers
 
                 var columbariumTransactionDto = new ColumbariumTransactionDto();
 
-                columbariumTransactionDto.ApplicantId = applicantId;
+                columbariumTransactionDto.ApplicantDtoId = applicantId;
 
-                columbariumTransactionDto.ColumbariumItemId = itemId;
+                columbariumTransactionDto.ColumbariumItemDtoId = itemId;
 
-                columbariumTransactionDto.ShiftedNicheId = id;
-                columbariumTransactionDto.ShiftedNiche = _niche.GetNiche();
+                columbariumTransactionDto.ShiftedNicheDtoId = id;
+                columbariumTransactionDto.ShiftedNicheDto = _niche.GetNicheDto();
 
                 viewModel.ColumbariumTransactionDto = columbariumTransactionDto;
             }
@@ -87,9 +103,9 @@ namespace Memorial.Areas.Columbarium.Controllers
             {
                 viewModel.ColumbariumTransactionDto = _shift.GetTransactionDto(AF);
 
-                _niche.SetNiche((int)viewModel.ColumbariumTransactionDto.ShiftedNicheId);
+                _niche.SetNiche((int)viewModel.ColumbariumTransactionDto.ShiftedNicheDtoId);
 
-                viewModel.ColumbariumTransactionDto.ShiftedNiche = _niche.GetNiche();
+                viewModel.ColumbariumTransactionDto.ShiftedNicheDto = _niche.GetNicheDto();
             }
 
             return View(viewModel);
@@ -103,9 +119,9 @@ namespace Memorial.Areas.Columbarium.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemId,
-                        id = viewModel.ColumbariumTransactionDto.NicheId,
-                        applicantId = viewModel.ColumbariumTransactionDto.ApplicantId
+                        itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemDtoId,
+                        id = viewModel.ColumbariumTransactionDto.NicheDtoId,
+                        applicantId = viewModel.ColumbariumTransactionDto.ApplicantDtoId
                     });
                 }
                 else
@@ -128,19 +144,19 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemId,
-                id = viewModel.ColumbariumTransactionDto.NicheId,
-                applicantId = viewModel.ColumbariumTransactionDto.ApplicantId
+                itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemDtoId,
+                id = viewModel.ColumbariumTransactionDto.NicheDtoId,
+                applicantId = viewModel.ColumbariumTransactionDto.ApplicantDtoId
             });
         }
 
         public ActionResult FormForResubmit(ColumbariumTransactionsFormViewModel viewModel)
         {
-            if(viewModel.ColumbariumTransactionDto.ShiftedNicheId != null)
+            if(viewModel.ColumbariumTransactionDto.ShiftedNicheDtoId != null)
             {
-                _niche.SetNiche((int)viewModel.ColumbariumTransactionDto.ShiftedNicheId);
+                _niche.SetNiche((int)viewModel.ColumbariumTransactionDto.ShiftedNicheDtoId);
 
-                viewModel.ColumbariumTransactionDto.ShiftedNiche = _niche.GetNiche();
+                viewModel.ColumbariumTransactionDto.ShiftedNicheDto = _niche.GetNicheDto();
             }
 
             return View("Form", viewModel);

@@ -11,16 +11,22 @@ namespace Memorial.Areas.Columbarium.Controllers
     public class ManageController : Controller
     {
         private readonly INiche _niche;
+        private readonly ICentre _centre;
+        private readonly IItem _item;
         private readonly IManage _manage;
         private readonly Lib.Invoice.IColumbarium _invoice;
 
         public ManageController(
             INiche niche,
+            ICentre centre,
+            IItem item,
             IManage manage,
             Lib.Invoice.IColumbarium invoice
             )
         {
             _niche = niche;
+            _centre = centre;
+            _item = item;
             _manage = manage;
             _invoice = invoice;
         }
@@ -33,11 +39,13 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
 
             _niche.SetNiche(id);
+            _item.SetItem(itemId);
 
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
                 ApplicantId = applicantId,
                 ColumbariumItemId = itemId,
+                ColumbariumItemName = _item.GetName(),
                 NicheDto = _niche.GetNicheDto(),
                 NicheId = id,
                 ColumbariumTransactionDtos = _manage.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
@@ -46,20 +54,26 @@ namespace Memorial.Areas.Columbarium.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Info(string AF)
+        public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _manage.SetTransaction(AF);
             _niche.SetNiche(_manage.GetTransactionNicheId());
 
-            var viewModel = new ColumbariumTransactionsInfoViewModel()
-            {
-                ApplicantId = _manage.GetTransactionApplicantId(),
-                DeceasedId = _manage.GetTransactionDeceased1Id(),
-                NicheDto = _niche.GetNicheDto(),
-                ItemName = _manage.GetItemName(),
-                ColumbariumTransactionDto = _manage.GetTransactionDto()
-            };
+            var viewModel = new ColumbariumTransactionsInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ItemName = _manage.GetItemName();
+            viewModel.NicheDto = _niche.GetNicheDto();
+            viewModel.ColumbariumTransactionDto = _manage.GetTransactionDto();
+            viewModel.ApplicantId = _manage.GetTransactionApplicantId();
+            viewModel.Header = _centre.GetCentre().Site.Header;
+
             return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string AF)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            return report;
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
@@ -71,7 +85,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 _niche.SetNiche(id);
 
                 var columbariumTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
-                columbariumTransactionDto.NicheId = id;
+                columbariumTransactionDto.NicheDtoId = id;
                 viewModel.ColumbariumTransactionDto = columbariumTransactionDto;
                 viewModel.ColumbariumTransactionDto.Price = _manage.GetPrice(itemId);
             }
@@ -92,9 +106,9 @@ namespace Memorial.Areas.Columbarium.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemId,
-                        id = viewModel.ColumbariumTransactionDto.NicheId,
-                        applicantId = viewModel.ColumbariumTransactionDto.ApplicantId
+                        itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemDtoId,
+                        id = viewModel.ColumbariumTransactionDto.NicheDtoId,
+                        applicantId = viewModel.ColumbariumTransactionDto.ApplicantDtoId
                     });
                 }
                 else
@@ -118,9 +132,9 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemId,
-                id = viewModel.ColumbariumTransactionDto.NicheId,
-                applicantId = viewModel.ColumbariumTransactionDto.ApplicantId
+                itemId = viewModel.ColumbariumTransactionDto.ColumbariumItemDtoId,
+                id = viewModel.ColumbariumTransactionDto.NicheDtoId,
+                applicantId = viewModel.ColumbariumTransactionDto.ApplicantDtoId
             });
         }
 

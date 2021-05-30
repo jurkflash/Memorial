@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Html.Raw(Resources.Mix.AncestralTablet)</h2>
 
 @using (Html.BeginForm("Save", "AncestralTabletDeceaseds", new { area = "AncestralTablet" }))
 {

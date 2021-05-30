@@ -4,11 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Print.cshtml";
-}
-
 @if (!Model.ExportToPDF)
 {
     @Html.ActionLink("Print All", "PrintAll", new { AF = Model.AncestralTabletTransactionDto.AF })
@@ -30,6 +25,8 @@
 </div>
 
 @{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedId, area = "ApplicantDeceaseds" });}
+
+<h5 style="padding-top:5px"><u>@Model.ItemName</u></h5>
 
 <div class="row flexrow">
     <div class="col-md-3">

@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Model.ColumbariumItemName</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink("New", "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
     </p>
 }
 
@@ -21,7 +21,7 @@
         @Html.Hidden("itemId", Model.ColumbariumItemId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         @Html.Hidden("id", Model.NicheId.ToString())
-        <input type="submit" value="Search" class="btn btn-secondary" />
+        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }
 
@@ -31,14 +31,14 @@
             <th>@Html.Raw(Resources.Mix.AFBR)</th>
             <th>@Html.Raw(Resources.Mix.NicheBR)</th>
             <th>@Html.Raw(Resources.Mix.Applicant)</th>
-            <th>Has Deceased</th>
+            <th>@Html.Raw(Resources.Mix.HasDeceasedBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
-            <th>@Html.Raw(Resources.Mix.MaintenanceBR)</th>
+            <th>@Html.Raw(Resources.Mix.MaintenanceFeesBR)</th>
             <th>@Html.Raw(Resources.Mix.LifeTimeMaintenanceBR)</th>
             <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
             <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
-            <th>@Html.Raw(Resources.Mix.Edit)</th>
-            <th>@Html.Raw(Resources.Mix.Delete)</th>
+            <th>@Html.Raw(Resources.Mix.EditBR)</th>
+            <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
     </thead>
     <tbody>
@@ -46,14 +46,14 @@
         {
             <tr>
                 <td>@Html.ActionLink(columbariumTransaction.AF, "Info", new { AF = columbariumTransaction.AF }, new { target = "ColumbariumTransactionInfo", area = "Columbarium" })</td>
-                <td>@columbariumTransaction.Niche.Name</td>
+                <td>@columbariumTransaction.NicheDto.Name</td>
                 <td>@columbariumTransaction.Applicant.Name &nbsp; @columbariumTransaction.Applicant.Name2</td>
-                <td>@columbariumTransaction.Niche.hasDeceased</td>
+                <td>@columbariumTransaction.NicheDto.hasDeceased</td>
                 <td>@columbariumTransaction.Price</td>
                 <td>@columbariumTransaction.Maintenance</td>
                 <td>@columbariumTransaction.LifeTimeMaintenance</td>
                 <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink("Invoice", "Invoices", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
+                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

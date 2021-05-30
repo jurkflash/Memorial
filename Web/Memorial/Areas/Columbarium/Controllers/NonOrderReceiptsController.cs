@@ -31,8 +31,8 @@ namespace Memorial.Areas.Columbarium.Controllers
             var viewModel = new NonOrderReceiptsViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount(),
-                RemainingAmount = _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
+                Amount = _transaction.GetTransactionTotalAmount(),
+                RemainingAmount = _transaction.GetTransactionTotalAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
                 ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreateDate)
             };
 
@@ -45,8 +45,8 @@ namespace Memorial.Areas.Columbarium.Controllers
             var viewModel = new NewNonOrderReceiptFormViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount(),
-                RemainingAmount = _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
+                Amount = _transaction.GetTransactionTotalAmount(),
+                RemainingAmount = _transaction.GetTransactionTotalAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
                 PaymentMethods = _paymentMethod.GetPaymentMethods()
             };
             return View(viewModel);
@@ -60,7 +60,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             if (viewModel.ReceiptDto.Amount > _payment.GetNonOrderTransactionUnpaidAmount())
             {
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount invalid");
-                viewModel.Amount = _transaction.GetTransactionAmount();
+                viewModel.Amount = _transaction.GetTransactionTotalAmount();
                 viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
                 viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
                 return View("Form", viewModel);
@@ -78,7 +78,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 }
                 else
                 {
-                    viewModel.Amount = _transaction.GetTransactionAmount();
+                    viewModel.Amount = _transaction.GetTransactionTotalAmount();
                     viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
                     viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
                     return View("Form", viewModel);

@@ -1,12 +1,5 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Lib.Applicant;
-using Memorial.Lib.Deceased;
-using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.AncestralTablet
 {
@@ -74,7 +67,12 @@ namespace Memorial.Lib.AncestralTablet
 
         public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId);
+            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId, false);
+        }
+
+        public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag)
+        {
+            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId, ToDeleteFlag);
         }
 
         public Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)

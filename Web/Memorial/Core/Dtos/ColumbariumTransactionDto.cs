@@ -14,9 +14,9 @@ namespace Memorial.Core.Dtos
 
         public ColumbariumTransactionDto(int columbariumItemId, int nicheId, int applicantId)
         {
-            ColumbariumItemId = columbariumItemId;
-            NicheId = nicheId;
-            ApplicantId = applicantId;
+            ColumbariumItemDtoId = columbariumItemId;
+            NicheDtoId = nicheId;
+            ApplicantDtoId = applicantId;
         }
 
         public string AF { get; set; }
@@ -39,41 +39,47 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public ColumbariumItem ColumbariumItem { get; set; }
+        public ColumbariumItemDto ColumbariumItemDto { get; set; }
 
-        public int ColumbariumItemId { get; set; }
+        public int ColumbariumItemDtoId { get; set; }
 
-        public Niche Niche { get; set; }
+        public NicheDto NicheDto { get; set; }
 
-        public int NicheId { get; set; }
+        public int NicheDtoId { get; set; }
 
-        public FuneralCompany FuneralCompany { get; set; }
+        public FuneralCompanyDto FuneralCompanyDto { get; set; }
 
-        public int? FuneralCompanyId { get; set; }
+        public int? FuneralCompanyDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
-        public Deceased Deceased1 { get; set; }
+        public DeceasedDto DeceasedDto1 { get; set; }
 
-        public int? Deceased1Id { get; set; }
+        public int? DeceasedDto1Id { get; set; }
 
-        public Deceased Deceased2 { get; set; }
+        public DeceasedDto DeceasedDto2 { get; set; }
 
-        public int? Deceased2Id { get; set; }
+        public int? DeceasedDto2Id { get; set; }
 
-        public Niche ShiftedNiche { get; set; }
+        public NicheDto ShiftedNicheDto { get; set; }
 
-        public int? ShiftedNicheId { get; set; }
+        public int? ShiftedNicheDtoId { get; set; }
 
         public int? TransferredFromApplicantId { get; set; }
 
-        public string ShiftedColumbariumTransactionAF { get; set; }
+        public ColumbariumTransactionDto ShiftedColumbariumTransactionDto { get; set; }
 
-        public int? TransferredApplicantId { get; set; }
+        public string ShiftedColumbariumTransactionDtoAF { get; set; }
 
-        public string TransferredColumbariumTransactionAF { get; set; }
+        public ApplicantDto TransferredApplicantDto { get; set; }
+
+        public int? TransferredApplicantDtoId { get; set; }
+
+        public ColumbariumTransactionDto TransferredColumbariumTransactionDto { get; set; }
+
+        public string TransferredColumbariumTransactionDtoAF { get; set; }
 
         public DateTime CreateDate { get; set; }
 

@@ -21,7 +21,7 @@ namespace Memorial.Lib.Columbarium
 
         string GetTransactionAF();
 
-        float GetTransactionAmount();
+        float GetTransactionTotalAmount();
 
         int GetTransactionNicheId();
 

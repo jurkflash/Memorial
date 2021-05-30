@@ -286,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 中心 Centre.
+        /// </summary>
+        public static string Centre {
+            get {
+                return ResourceManager.GetString("Centre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 中心&lt;br /&gt;Centre.
         /// </summary>
         public static string CentreBR {
@@ -327,6 +336,15 @@ namespace Resources {
         public static string Columbarium {
             get {
                 return ResourceManager.GetString("Columbarium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰殿申請表格&lt;br /&gt;Columbarium Application Form.
+        /// </summary>
+        public static string ColumbariumApplicationFormBR {
+            get {
+                return ResourceManager.GetString("ColumbariumApplicationFormBR", resourceCulture);
             }
         }
         
