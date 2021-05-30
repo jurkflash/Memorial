@@ -104,6 +104,18 @@ namespace Memorial.Areas.Cemetery.Controllers
             return report;
         }
 
+        public ActionResult PrintRuleCN()
+        {
+            var report = new Rotativa.ViewAsPdf("InfoRuleCN");
+            return report;
+        }
+
+        public ActionResult PrintRuleBM()
+        {
+            var report = new Rotativa.ViewAsPdf("InfoRuleBM");
+            return report;
+        }
+
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
             var viewModel = new CemeteryTransactionsFormViewModel()

@@ -2636,6 +2636,8 @@
     <Content Include="Areas\Columbarium\Views\Withdraws\Form.cshtml" />
     <Content Include="Areas\Columbarium\Views\Withdraws\Index.cshtml" />
     <Content Include="Areas\Columbarium\Views\Withdraws\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Orders\InfoRuleCN.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Orders\InfoRuleBM.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
