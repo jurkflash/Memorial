@@ -84,6 +84,8 @@ namespace Memorial.Core.Domain
 
         public int? WithdrewColumbariumApplicantId { get; set; }
 
+        public string SummaryItem { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifyDate { get; set; }

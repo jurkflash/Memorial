@@ -24,6 +24,8 @@ namespace Memorial.Lib.Miscellaneous
 
         float GetTransactionAmount();
 
+        string GetTransactionSummaryItem();
+
         int GetItemId();
 
         string GetItemName();

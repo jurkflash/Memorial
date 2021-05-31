@@ -28,6 +28,8 @@ namespace Memorial.Core.Domain
 
         public int ApplicantId { get; set; }
 
+        public string SummaryItem { get; set; }
+
         public ICollection<Invoice> Invoices { get; set; }
 
         public ICollection<Receipt> Receipts { get; set; }

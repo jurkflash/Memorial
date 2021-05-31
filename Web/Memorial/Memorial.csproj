@@ -2449,6 +2449,10 @@
     <Compile Include="Migrations\202105301506433_AddSummaryItemForCremationTransactionsTable.designer.cs">
       <DependentUpon>202105301506433_AddSummaryItemForCremationTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105301550472_AddSummaryItemForAllTransactionsTable.cs" />
+    <Compile Include="Migrations\202105301550472_AddSummaryItemForAllTransactionsTable.designer.cs">
+      <DependentUpon>202105301550472_AddSummaryItemForAllTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3735,6 +3739,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105301506433_AddSummaryItemForCremationTransactionsTable.resx">
       <DependentUpon>202105301506433_AddSummaryItemForCremationTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105301550472_AddSummaryItemForAllTransactionsTable.resx">
+      <DependentUpon>202105301550472_AddSummaryItemForAllTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

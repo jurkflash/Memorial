@@ -23,6 +23,8 @@ namespace Memorial.Lib.Columbarium
 
         float GetTransactionTotalAmount();
 
+        string GetTransactionSummaryItem();
+
         int GetTransactionNicheId();
 
         int GetItemId();

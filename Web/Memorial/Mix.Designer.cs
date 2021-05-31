@@ -376,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 火葬日期 Cremate Date.
+        /// </summary>
+        public static string CremateDate {
+            get {
+                return ResourceManager.GetString("CremateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 火葬日期&lt;br /&gt;Cremate Date.
         /// </summary>
         public static string CremateDateBR {
@@ -561,6 +570,15 @@ namespace Resources {
         public static string Form {
             get {
                 return ResourceManager.GetString("Form", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 從 From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -844,6 +862,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 骨灰閣 Niche.
+        /// </summary>
+        public static string Niche {
+            get {
+                return ResourceManager.GetString("Niche", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 骨灰閣&lt;br /&gt;Niche.
         /// </summary>
         public static string NicheBR {
@@ -1051,6 +1078,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 備註 Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 備註&lt;br /&gt;Remark.
         /// </summary>
         public static string RemarkBR {
@@ -1110,6 +1146,15 @@ namespace Resources {
         public static string ShiftedToBR {
             get {
                 return ResourceManager.GetString("ShiftedToBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 移位至 Shift To.
+        /// </summary>
+        public static string ShiftTo {
+            get {
+                return ResourceManager.GetString("ShiftTo", resourceCulture);
             }
         }
         
@@ -1177,11 +1222,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 至 To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 至&lt;br /&gt;To.
         /// </summary>
         public static string ToBR {
             get {
                 return ResourceManager.GetString("ToBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 轉讓至 Transfer To.
+        /// </summary>
+        public static string TransferTo {
+            get {
+                return ResourceManager.GetString("TransferTo", resourceCulture);
             }
         }
         
@@ -1200,6 +1263,15 @@ namespace Resources {
         public static string TurfMaintenanceFeesBR {
             get {
                 return ResourceManager.GetString("TurfMaintenanceFeesBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 種類 Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
         
@@ -1254,6 +1326,15 @@ namespace Resources {
         public static string WallPriceBR {
             get {
                 return ResourceManager.GetString("WallPriceBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 移走 Withdraw.
+        /// </summary>
+        public static string Withdraw {
+            get {
+                return ResourceManager.GetString("Withdraw", resourceCulture);
             }
         }
         

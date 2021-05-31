@@ -80,6 +80,11 @@ namespace Memorial.Lib.Space
             return _transaction.Amount;
         }
 
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
+
         public float GetTransactionOtherCharges()
         {
             return _transaction.OtherCharges;

@@ -80,6 +80,8 @@ namespace Memorial.Lib.Cemetery
 
             NewNumber(cemeteryTransactionDto.CemeteryItemId);
 
+            SummaryItem(cemeteryTransactionDto);
+
             if (CreateNewTransaction(cemeteryTransactionDto))
             {
                 _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
@@ -125,6 +127,8 @@ namespace Memorial.Lib.Cemetery
             var cemeteryTransactionInDb = GetTransaction(cemeteryTransactionDto.AF);
 
             var deceased1InDb = cemeteryTransactionInDb.Deceased1Id;
+
+            SummaryItem(cemeteryTransactionDto);
 
             if (UpdateTransaction(cemeteryTransactionDto))
             {
@@ -208,5 +212,14 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
+        private void SummaryItem(CemeteryTransactionDto trx)
+        {
+            _plot.SetPlot(trx.PlotDtoId);
+
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Plot + ": " + _plot.GetName() + "<BR/>" +
+                Resources.Mix.Type + ": " + _plot.GetPlot().PlotType.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
+        }
     }
 }

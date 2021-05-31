@@ -113,6 +113,8 @@ namespace Memorial.Lib.AncestralTablet
 
             NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
+            SummaryItem(ancestralTabletTransactionDto);
+
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
                 ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.AncestralTabletId, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
@@ -153,6 +155,8 @@ namespace Memorial.Lib.AncestralTablet
                 ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
 
                 _maintenance.ChangeAncestralTablet(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId);
+
+                SummaryItem(ancestralTabletTransactionDto);
 
                 UpdateTransaction(ancestralTabletTransactionDto);
 
@@ -226,5 +230,15 @@ namespace Memorial.Lib.AncestralTablet
             return true;
         }
 
+        private void SummaryItem(AncestralTabletTransactionDto trx)
+        {
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+            
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetAncestralTablet((int)trx.ShiftedAncestralTabletId).Name + "<BR/>" +
+                Resources.Mix.ShiftTo + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
+        }
     }
 }

@@ -86,6 +86,11 @@ namespace Memorial.Lib.AncestralTablet
                 (_transaction.Maintenance == null ? 0 : (float)_transaction.Maintenance);
         }
 
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
+
         public int GetTransactionAncestralTabletId()
         {
             return _transaction.AncestralTabletId;

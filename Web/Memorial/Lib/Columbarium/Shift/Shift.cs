@@ -116,6 +116,8 @@ namespace Memorial.Lib.Columbarium
 
             NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
+            SummaryItem(columbariumTransactionDto);
+
             if (CreateNewTransaction(columbariumTransactionDto))
             {
                 ShiftNicheApplicantDeceaseds((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.ApplicantDtoId);
@@ -160,6 +162,8 @@ namespace Memorial.Lib.Columbarium
                 _manage.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheDtoId);
 
                 _photo.ChangeNiche(columbariumTransactionInDb.NicheId, columbariumTransactionDto.NicheDtoId);
+
+                SummaryItem(columbariumTransactionDto);
 
                 UpdateTransaction(columbariumTransactionDto);
 
@@ -245,6 +249,17 @@ namespace Memorial.Lib.Columbarium
             _unitOfWork.Complete();
             
             return true;
+        }
+
+        private void SummaryItem(ColumbariumTransactionDto trx)
+        {
+            _niche.SetNiche(trx.NicheDtoId);
+
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Niche + ": " + _niche.GetNiche((int)trx.ShiftedNicheDtoId).Name + "<BR/>" +
+                Resources.Mix.ShiftTo + "<BR/>" +
+                Resources.Mix.Niche + ": " + _niche.GetName() + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
         }
 
     }

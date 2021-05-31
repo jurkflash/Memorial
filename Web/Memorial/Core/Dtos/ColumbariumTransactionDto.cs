@@ -85,6 +85,8 @@ namespace Memorial.Core.Dtos
 
         public int? WithdrewAncestralTabletApplicantId { get; set; }
 
+        public string SummaryItem { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

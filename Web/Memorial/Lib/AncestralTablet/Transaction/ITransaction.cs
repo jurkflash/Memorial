@@ -26,6 +26,8 @@ namespace Memorial.Lib.AncestralTablet
 
         float GetTransactionAmount();
 
+        string GetTransactionSummaryItem();
+
         int GetTransactionAncestralTabletId();
 
         int GetItemId();

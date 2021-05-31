@@ -54,6 +54,8 @@ namespace Memorial.Lib.Miscellaneous
         {
             NewNumber(miscellaneousTransactionDto.MiscellaneousItemDtoId);
 
+            SummaryItem(miscellaneousTransactionDto);
+
             if (CreateNewTransaction(miscellaneousTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -73,6 +75,8 @@ namespace Memorial.Lib.Miscellaneous
             {
                 return false;
             }
+
+            SummaryItem(miscellaneousTransactionDto);
 
             if (UpdateTransaction(miscellaneousTransactionDto))
             {
@@ -98,5 +102,10 @@ namespace Memorial.Lib.Miscellaneous
             return true;
         }
 
+        private void SummaryItem(MiscellaneousTransactionDto trx)
+        {
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
+        }
     }
 }

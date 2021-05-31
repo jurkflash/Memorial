@@ -74,6 +74,11 @@ namespace Memorial.Lib.Miscellaneous
             return _transaction.Amount;
         }
 
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
+
         public int GetItemId()
         {
             return _transaction.MiscellaneousItemId;

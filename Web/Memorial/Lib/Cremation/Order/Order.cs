@@ -54,7 +54,7 @@ namespace Memorial.Lib.Cremation
         {
             NewNumber(cremationTransactionDto.CremationItemId);
 
-            cremationTransactionDto.SummaryItem = SummaryItem(cremationTransactionDto);
+            SummaryItem(cremationTransactionDto);
 
             if (CreateNewTransaction(cremationTransactionDto))
             {
@@ -76,7 +76,7 @@ namespace Memorial.Lib.Cremation
                 return false;
             }
 
-            cremationTransactionDto.SummaryItem = SummaryItem(cremationTransactionDto);
+            SummaryItem(cremationTransactionDto);
 
             if (UpdateTransaction(cremationTransactionDto))
             {
@@ -102,9 +102,11 @@ namespace Memorial.Lib.Cremation
             return true;
         }
 
-        private string SummaryItem(CremationTransactionDto cremationTransactionDto)
+        private void SummaryItem(CremationTransactionDto trx)
         {
-            return "";
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.CremateDate + ": " + trx.CremateDate.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
         }
 
     }

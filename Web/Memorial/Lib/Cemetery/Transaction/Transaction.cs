@@ -94,6 +94,11 @@ namespace Memorial.Lib.Cemetery
                 (_transaction.Brick == null ? 0 : (float)_transaction.Brick);             
         }
 
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
+
         public int GetTransactionPlotId()
         {
             return _transaction.PlotId;

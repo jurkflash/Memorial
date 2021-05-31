@@ -67,6 +67,8 @@ namespace Memorial.Core.Dtos
 
         public string TransferredCemeteryTransactionAF { get; set; }
 
+        public string SummaryItem { get; set; }
+
         public DateTime? ClearanceDate { get; set; }
 
         public DateTime? ClearanceGroundDate { get; set; }

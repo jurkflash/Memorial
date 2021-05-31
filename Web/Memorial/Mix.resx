@@ -522,4 +522,31 @@
   <data name="ColumbariumApplicationFormBR" xml:space="preserve">
     <value>骨灰殿申請表格&lt;br /&gt;Columbarium Application Form</value>
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value>備註 Remark</value>
+  </data>
+  <data name="CremateDate" xml:space="preserve">
+    <value>火葬日期 Cremate Date</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>從 From</value>
+  </data>
+  <data name="Niche" xml:space="preserve">
+    <value>骨灰閣 Niche</value>
+  </data>
+  <data name="ShiftTo" xml:space="preserve">
+    <value>移位至 Shift To</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>至 To</value>
+  </data>
+  <data name="TransferTo" xml:space="preserve">
+    <value>轉讓至 Transfer To</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>種類 Type</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>移走 Withdraw</value>
+  </data>
 </root>

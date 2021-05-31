@@ -69,6 +69,8 @@ namespace Memorial.Lib.AncestralTablet
         {
             NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
+            SummaryItem(ancestralTabletTransactionDto);
+
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -88,6 +90,8 @@ namespace Memorial.Lib.AncestralTablet
             {
                 return false;
             }
+
+            SummaryItem(ancestralTabletTransactionDto);
 
             UpdateTransaction(ancestralTabletTransactionDto);
 
@@ -126,6 +130,17 @@ namespace Memorial.Lib.AncestralTablet
             var total = (((to.Year - from.Year) * 12) + to.Month - from.Month) * _item.GetPrice();
 
             return total;
+        }
+
+        private void SummaryItem(AncestralTabletTransactionDto trx)
+        {
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
+                Resources.Mix.From + ": " + trx.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + 
+                Resources.Mix.To + ": " + trx.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
         }
     }
 }

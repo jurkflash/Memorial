@@ -80,6 +80,8 @@ namespace Memorial.Lib.AncestralTablet
 
             NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
+            SummaryItem(ancestralTabletTransactionDto);
+
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
                 _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId);
@@ -121,6 +123,8 @@ namespace Memorial.Lib.AncestralTablet
             var ancestralTabletTransactionInDb = GetTransaction(ancestralTabletTransactionDto.AF);
 
             var deceased1InDb = ancestralTabletTransactionInDb.DeceasedId;
+
+            SummaryItem(ancestralTabletTransactionDto);
 
             if (UpdateTransaction(ancestralTabletTransactionDto))
             {
@@ -195,6 +199,16 @@ namespace Memorial.Lib.AncestralTablet
             _unitOfWork.Complete();
 
             return true;
+        }
+
+        private void SummaryItem(AncestralTabletTransactionDto trx)
+        {
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
+                Resources.Mix.Type + ": " + _ancestralTablet.GetName() + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
         }
 
     }

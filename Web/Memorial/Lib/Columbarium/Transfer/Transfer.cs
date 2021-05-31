@@ -107,6 +107,8 @@ namespace Memorial.Lib.Columbarium
 
             NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
 
+            SummaryItem(columbariumTransactionDto);
+
             if (CreateNewTransaction(columbariumTransactionDto))
             {
                 _niche.SetApplicant(columbariumTransactionDto.ApplicantDtoId);
@@ -131,6 +133,8 @@ namespace Memorial.Lib.Columbarium
             {
                 return false;
             }
+
+            SummaryItem(columbariumTransactionDto);
 
             UpdateTransaction(columbariumTransactionDto);
 
@@ -206,5 +210,15 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
+        private void SummaryItem(ColumbariumTransactionDto trx)
+        {
+            _applicant.SetApplicant(trx.ApplicantDtoId);
+
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Niche + ": " + _applicant.GetApplicant((int)trx.TransferredApplicantDtoId).Name + "<BR/>" +
+                Resources.Mix.TransferTo + "<BR/>" +
+                Resources.Mix.Niche + ": " + _applicant.GetApplicant().Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
+        }
     }
 }

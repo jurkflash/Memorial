@@ -96,6 +96,8 @@ namespace Memorial.Lib.Space
 
             NewNumber(spaceTransactionDto.SpaceItemId);
 
+            SummaryItem(spaceTransactionDto);
+
             if (CreateNewTransaction(spaceTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -123,6 +125,8 @@ namespace Memorial.Lib.Space
 
             var spaceTransactionInDb = GetTransaction(spaceTransactionDto.AF);
 
+            SummaryItem(spaceTransactionDto);
+
             if (UpdateTransaction(spaceTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -141,6 +145,14 @@ namespace Memorial.Lib.Space
             _unitOfWork.Complete();
 
             return true;
+        }
+
+        private void SummaryItem(SpaceTransactionDto trx)
+        {
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Space + ": " + trx.SpaceItem.Space.Name +"<BR/>"+ 
+                Resources.Mix.From + ": " + trx.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + Resources.Mix.To + ": " + trx.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>"+
+                Resources.Mix.Remark + ": " + trx.Remark;
         }
 
     }

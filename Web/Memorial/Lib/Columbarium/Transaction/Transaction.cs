@@ -87,6 +87,11 @@ namespace Memorial.Lib.Columbarium
                 (_transaction.LifeTimeMaintenance == null ? 0 : (float)_transaction.LifeTimeMaintenance);
         }
 
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
+
         public int GetTransactionNicheId()
         {
             return _transaction.NicheId;

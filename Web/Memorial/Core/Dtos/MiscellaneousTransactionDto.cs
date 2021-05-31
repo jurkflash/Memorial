@@ -28,6 +28,8 @@ namespace Memorial.Core.Dtos
 
         public int? CemeteryLandscapeCompanyDtoId { get; set; }
 
+        public string SummaryItem { get; set; }
+
         public DateTime CreateDate { get; set; }
     }
 }

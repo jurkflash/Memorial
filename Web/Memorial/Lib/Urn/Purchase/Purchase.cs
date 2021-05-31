@@ -54,6 +54,8 @@ namespace Memorial.Lib.Urn
         {
             NewNumber(urnTransactionDto.UrnItemId);
 
+            SummaryItem(urnTransactionDto);
+
             if (CreateNewTransaction(urnTransactionDto))
             {
                 _unitOfWork.Complete();
@@ -73,6 +75,8 @@ namespace Memorial.Lib.Urn
             {
                 return false;
             }
+
+            SummaryItem(urnTransactionDto);
 
             if (UpdateTransaction(urnTransactionDto))
             {
@@ -98,5 +102,12 @@ namespace Memorial.Lib.Urn
             return true;
         }
 
+
+        private void SummaryItem(UrnTransactionDto trx)
+        {
+            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+                Resources.Mix.Urn + ": " + trx.UrnItem.Urn.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + trx.Remark;
+        }
     }
 }

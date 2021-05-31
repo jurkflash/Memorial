@@ -29,6 +29,8 @@ namespace Memorial.Lib.Space
 
         float GetTransactionTotalAmount();
 
+        string GetTransactionSummaryItem();
+
         int GetTransactionSpaceItemId();
 
         int GetItemId();

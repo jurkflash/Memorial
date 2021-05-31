@@ -71,10 +71,10 @@ namespace Memorial.Lib.Urn
             return _transaction.Price;
         }
 
-        //public int GetTransactionUrnId()
-        //{
-        //    return _transaction.UrnId;
-        //}
+        public string GetTransactionSummaryItem()
+        {
+            return _transaction.SummaryItem;
+        }
 
         public int GetItemId()
         {
