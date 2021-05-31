@@ -934,7 +934,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 付費方式&lt;br /&gt;Payment Method.
+        ///   Looks up a localized string similar to 付款方式&lt;br /&gt;Payment Method.
         /// </summary>
         public static string PaymentMethodBR {
             get {
@@ -943,7 +943,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 付費備註&lt;br /&gt;Payment Remark.
+        ///   Looks up a localized string similar to 付款備註&lt;br /&gt;Payment Remark.
         /// </summary>
         public static string PaymentRemarkBR {
             get {

@@ -66,7 +66,7 @@ namespace Memorial.Areas.Space.Controllers
             viewModel.SpaceTransactionDto = _chair.GetTransactionDto();
             viewModel.ApplicantId = _chair.GetTransactionApplicantId();
             viewModel.DeceasedId = _chair.GetTransactionDeceasedId();
-            viewModel.Header = _space.GetSpace().Site.Header;
+            viewModel.Header = _chair.GetSiteHeader();
 
             return View(viewModel);
         }

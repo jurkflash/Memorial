@@ -70,7 +70,7 @@ namespace Memorial.Areas.Space.Controllers
             viewModel.TotalAmount = _booking.GetTransactionTotalAmount();
             viewModel.ApplicantId = _booking.GetTransactionApplicantId();
             viewModel.DeceasedId = _booking.GetTransactionDeceasedId();
-            viewModel.Header = _space.GetSpace().Site.Header;
+            viewModel.Header = _booking.GetSiteHeader();
 
             return View(_item.GetItem().FormView, viewModel);
         }

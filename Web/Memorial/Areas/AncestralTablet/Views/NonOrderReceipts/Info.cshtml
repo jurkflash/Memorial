@@ -1,4 +1,4 @@
-﻿@model Memorial.ViewModels.OrderReceiptInfoViewModel
+﻿@model Memorial.ViewModels.NonOrderReceiptInfoViewModel
 @{
     ViewBag.Title = "Info";
     Layout = "~/Views/Shared/_Print.cshtml";
@@ -27,15 +27,6 @@
 <div class="row flexrow">
     <div class="col-md-12">
         @Html.Raw(@Model.SummaryItem)
-    </div>
-</div>
-
-<div class="row flexrow">
-    <div class="col-md-3">
-        @Html.Raw(Resources.Mix.InvoiceBR)
-    </div>
-    <div class="col-md-3">
-        @Model.InvoiceDto.IV (RM @Model.InvoiceDto.Amount)
     </div>
 </div>
 <div class="row flexrow">
@@ -67,7 +58,7 @@
         @Html.Raw(Resources.Mix.RemarkBR)
     </div>
     <div class="col-md-6">
-        @Model.InvoiceDto.Remark
+        @Model.ReceiptDto.Remark
     </div>
 </div>
 

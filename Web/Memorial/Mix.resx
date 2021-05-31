@@ -325,10 +325,10 @@
     <value>單 Invoice</value>
   </data>
   <data name="PaymentMethodBR" xml:space="preserve">
-    <value>付費方式&lt;br /&gt;Payment Method</value>
+    <value>付款方式&lt;br /&gt;Payment Method</value>
   </data>
   <data name="PaymentRemarkBR" xml:space="preserve">
-    <value>付費備註&lt;br /&gt;Payment Remark</value>
+    <value>付款備註&lt;br /&gt;Payment Remark</value>
   </data>
   <data name="PlotPriceBR" xml:space="preserve">
     <value>墓地費用&lt;br /&gt;Plot Price</value>

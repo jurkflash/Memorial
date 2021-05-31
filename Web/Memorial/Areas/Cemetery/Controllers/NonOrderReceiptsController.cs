@@ -47,6 +47,25 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Info(string RE, bool exportToPDF = false)
+        {
+            var viewModel = new NonOrderReceiptInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ReceiptDto = _receipt.GetReceiptDto(RE);
+
+            _transaction.SetTransaction(_receipt.GetApplicationAF());
+            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
+            viewModel.Header = _transaction.GetSiteHeader();
+
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string RE)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { RE = RE, exportToPDF = true });
+            return report;
+        }
+
         public ActionResult Form(string AF)
         {
             _transaction.SetTransaction(AF);

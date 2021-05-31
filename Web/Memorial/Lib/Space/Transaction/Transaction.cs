@@ -100,6 +100,11 @@ namespace Memorial.Lib.Space
             return _transaction.SpaceItemId;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.SpaceItem.Space.Site.Header;
+        }
+
         public int GetItemId()
         {
             return _transaction.SpaceItemId;

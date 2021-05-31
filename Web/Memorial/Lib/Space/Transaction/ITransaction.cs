@@ -33,6 +33,8 @@ namespace Memorial.Lib.Space
 
         int GetTransactionSpaceItemId();
 
+        string GetSiteHeader();
+
         int GetItemId();
 
         string GetItemName();

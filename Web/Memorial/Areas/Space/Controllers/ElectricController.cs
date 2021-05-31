@@ -66,7 +66,7 @@ namespace Memorial.Areas.Space.Controllers
             viewModel.SpaceTransactionDto = _electric.GetTransactionDto();
             viewModel.ApplicantId = _electric.GetTransactionApplicantId();
             viewModel.DeceasedId = _electric.GetTransactionDeceasedId();
-            viewModel.Header = _space.GetSpace().Site.Header;
+            viewModel.Header = _electric.GetSiteHeader();
 
             return View(viewModel);
         }

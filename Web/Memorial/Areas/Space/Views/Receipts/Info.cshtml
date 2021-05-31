@@ -40,6 +40,14 @@
 </div>
 <div class="row flexrow">
     <div class="col-md-6">
+        @Html.Raw(Resources.Mix.DonationBR)
+    </div>
+    <div class="col-md-6">
+        @Model.ReceiptDto.Amount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
         @Html.Raw(Resources.Mix.PaymentMethodBR)
     </div>
     <div class="col-md-6">
@@ -52,14 +60,6 @@
     </div>
     <div class="col-md-6">
         @Model.ReceiptDto.PaymentRemark
-    </div>
-</div>
-<div class="row flexrow">
-    <div class="col-md-6">
-        @Html.Raw(Resources.Mix.AmountBR)
-    </div>
-    <div class="col-md-6">
-        @Model.ReceiptDto.Amount
     </div>
 </div>
 <div class="row flexrow">
