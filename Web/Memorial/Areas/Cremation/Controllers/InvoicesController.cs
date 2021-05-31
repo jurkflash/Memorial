@@ -96,21 +96,29 @@ namespace Memorial.Areas.Cremation.Controllers
             }
         }
 
-        //public ActionResult Info(string IV)
-        //{
-        //    var viewModel = new InvoicesViewModel()
-        //    {
-        //        AF = AF,
-        //        InvoiceDtos = _invoice.GetInvoiceDtosByAF(AF)
-        //    };
+        public ActionResult Info(string IV, bool exportToPDF = false)
+        {
+            _transaction.SetTransaction(_invoice.GetAF());
 
-        //    return View(viewModel);
-        //}
+            var viewModel = new InvoiceInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
+            viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+            viewModel.Header = _transaction.GetSiteHeader();
+
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string IV)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { IV = IV, exportToPDF = true });
+            return report;
+        }
 
         public ActionResult Receipt(string IV, string AF)
         {
             return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF, area = "Cremation" });
-            }
+        }
 
         public ActionResult Delete(string IV, string AF)
         {

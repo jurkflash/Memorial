@@ -2460,6 +2460,7 @@
       <DependentUpon>Mix.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\InvoiceInfoViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\OrderReceiptInfoViewModel.cs" />
     <Compile Include="ViewModels\SpaceCalendar.cs" />
     <Compile Include="Persistence\EntityConfigurations\ApplicantDeceasedConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CatalogConfiguration.cs" />
@@ -2646,6 +2647,20 @@
     <Content Include="Areas\Columbarium\Views\Withdraws\Info.cshtml" />
     <Content Include="Areas\Cemetery\Views\Orders\InfoRuleCN.cshtml" />
     <Content Include="Areas\Cemetery\Views\Orders\InfoRuleBM.cshtml" />
+    <Content Include="Areas\Cremation\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Urn\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Invoices\Info.cshtml" />
+    <Content Include="Areas\Cremation\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\Space\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\Urn\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Receipts\Info.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Receipts\Info.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />

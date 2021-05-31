@@ -79,6 +79,11 @@ namespace Memorial.Lib.Cremation
             return _transaction.SummaryItem;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.CremationItem.Cremation.Site.Header;
+        }
+
         public int GetItemId()
         {
             return _transaction.CremationItemId;

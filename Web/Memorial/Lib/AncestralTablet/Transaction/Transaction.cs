@@ -91,6 +91,12 @@ namespace Memorial.Lib.AncestralTablet
             return _transaction.SummaryItem;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.AncestralTabletItem.AncestralTabletArea.Site.Header;
+        }
+
+
         public int GetTransactionAncestralTabletId()
         {
             return _transaction.AncestralTabletId;

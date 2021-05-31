@@ -27,6 +27,8 @@ namespace Memorial.Lib.Columbarium
 
         int GetTransactionNicheId();
 
+        string GetSiteHeader();
+
         int GetItemId();
 
         string GetItemName();

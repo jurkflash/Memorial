@@ -97,6 +97,11 @@ namespace Memorial.Lib.Columbarium
             return _transaction.NicheId;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.Niche.ColumbariumArea.ColumbariumCentre.Site.Header;
+        }
+
         public int GetItemId()
         {
             return _transaction.ColumbariumItemId;

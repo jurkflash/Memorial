@@ -16,6 +16,9 @@ namespace Memorial.Persistence.Repositories
         public SpaceTransaction GetActive(string AF)
         {
             return MemorialContext.SpaceTransactions
+                .Include(st => st.SpaceItem)
+                .Include(st => st.SpaceItem.Space)
+                .Include(st => st.SpaceItem.Space.Site)
                 .Where(st => st.AF == AF && st.DeleteDate == null)
                 .SingleOrDefault();
         }

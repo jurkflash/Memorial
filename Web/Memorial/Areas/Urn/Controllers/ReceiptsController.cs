@@ -51,6 +51,26 @@ namespace Memorial.Areas.Urn.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Info(string RE, bool exportToPDF = false)
+        {
+            var viewModel = new OrderReceiptInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.ReceiptDto = _receipt.GetReceiptDto(RE);
+            viewModel.InvoiceDto = viewModel.ReceiptDto.InvoiceDto;
+
+            _transaction.SetTransaction(_invoice.GetAF());
+            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
+            viewModel.Header = _transaction.GetSiteHeader();
+
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string RE)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { RE = RE, exportToPDF = true });
+            return report;
+        }
+
         public ActionResult Form(string IV, string AF, string RE = null)
         {
             _transaction.SetTransaction(AF);
@@ -95,7 +115,7 @@ namespace Memorial.Areas.Urn.Controllers
 
             if (viewModel.ReceiptDto.RE == null)
             {
-                viewModel.ReceiptDto.InvoiceIV = viewModel.InvoiceDto.IV;
+                viewModel.ReceiptDto.InvoiceDtoIV = viewModel.InvoiceDto.IV;
                 
                 if (_payment.CreateReceipt(viewModel.ReceiptDto))
                 {

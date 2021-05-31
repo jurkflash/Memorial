@@ -135,11 +135,11 @@ namespace Memorial.Lib.AncestralTablet
 
             if (_transaction.IsItemOrder())
             {
-                _invoice.SetInvoice(receiptDto.InvoiceIV);
+                _invoice.SetInvoice(receiptDto.InvoiceDtoIV);
 
                 _receipt.SetReceipt(receiptDto.RE);
 
-                if (_invoice.GetAmount() < _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(receiptDto.InvoiceIV) - _receipt.GetAmount() + receiptDto.Amount)
+                if (_invoice.GetAmount() < _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(receiptDto.InvoiceDtoIV) - _receipt.GetAmount() + receiptDto.Amount)
                     return false;
             }
             else
@@ -170,7 +170,7 @@ namespace Memorial.Lib.AncestralTablet
 
             if (_transaction.IsItemOrder())
             {
-                _invoice.SetInvoice(receiptDto.InvoiceIV);
+                _invoice.SetInvoice(receiptDto.InvoiceDtoIV);
 
                 _invoice.SetHasReceipt(true);
 

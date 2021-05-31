@@ -17,6 +17,8 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
+                .Include(pt => pt.Plot.CemeteryArea)
+                .Include(pt => pt.Plot.CemeteryArea.Site)
                 .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
@@ -29,6 +31,8 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)
                 .Include(pt => pt.Plot)
+                .Include(pt => pt.Plot.CemeteryArea)
+                .Include(pt => pt.Plot.CemeteryArea.Site)
                 .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)

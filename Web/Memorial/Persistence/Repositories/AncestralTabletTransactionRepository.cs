@@ -19,6 +19,8 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTablet)
                 .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
+                .Include(at => at.AncestralTabletItem.AncestralTabletArea)
+                .Include(at => at.AncestralTabletItem.AncestralTabletArea.Site)
                 .Where(at => at.AF == AF && at.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -30,6 +32,8 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTablet)
                 .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
+                .Include(at => at.AncestralTabletItem.AncestralTabletArea)
+                .Include(at => at.AncestralTabletItem.AncestralTabletArea.Site)
                 .Where(at => at.AF == AF)
                 .SingleOrDefault();
         }

@@ -92,8 +92,10 @@ namespace Memorial.Persistence.Repositories
 
         public Receipt GetByActiveRE(string RE)
         {
-            return MemorialContext.Receipts.Where(r => r.RE == RE && r.DeleteDate == null)
-                            .SingleOrDefault();
+            return MemorialContext.Receipts
+                .Where(r => r.RE == RE && r.DeleteDate == null)
+                .Include(r => r.Invoice)
+                .SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

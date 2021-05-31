@@ -99,6 +99,11 @@ namespace Memorial.Lib.Cemetery
             return _transaction.SummaryItem;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.Plot.CemeteryArea.Site.Header;
+        }
+
         public int GetTransactionPlotId()
         {
             return _transaction.PlotId;

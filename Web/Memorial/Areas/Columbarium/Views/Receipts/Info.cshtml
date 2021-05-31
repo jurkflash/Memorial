@@ -1,0 +1,74 @@
+﻿@model Memorial.ViewModels.OrderReceiptInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { RE = Model.ReceiptDto.RE })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.ReceiptDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.Receipt)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.ReceiptDto.RE
+    </div>
+</div>
+
+<div class="row flexrow">
+    <div class="col-md-12">
+        @Html.Raw(@Model.SummaryItem)
+    </div>
+</div>
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.InvoiceBR)
+    </div>
+    <div class="col-md-3">
+        @Model.InvoiceDto.IV (RM @Model.InvoiceDto.Amount)
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.PaymentMethodBR)
+    </div>
+    <div class="col-md-6">
+        @Model.ReceiptDto.PaymentMethod.Name
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.PaymentRemarkBR)
+    </div>
+    <div class="col-md-6">
+        @Model.ReceiptDto.PaymentRemark
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.AmountBR)
+    </div>
+    <div class="col-md-6">
+        @Model.ReceiptDto.Amount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-6">
+        @Model.InvoiceDto.Remark
+    </div>
+</div>
+
+

@@ -17,6 +17,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Niche)
+                .Include(qt => qt.Niche.ColumbariumArea)
+                .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre)
+                .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre.Site)
                 .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.AF == AF && qt.DeleteDate == null)
@@ -28,6 +31,9 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.ColumbariumTransactions
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Niche)
+                .Include(qt => qt.Niche.ColumbariumArea)
+                .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre)
+                .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre.Site)
                 .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.AF == AF)

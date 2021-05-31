@@ -79,6 +79,11 @@ namespace Memorial.Lib.Miscellaneous
             return _transaction.SummaryItem;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.MiscellaneousItem.Miscellaneous.Site.Header;
+        }
+
         public int GetItemId()
         {
             return _transaction.MiscellaneousItemId;

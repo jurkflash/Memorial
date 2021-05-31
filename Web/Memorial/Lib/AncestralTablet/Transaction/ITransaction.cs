@@ -28,6 +28,8 @@ namespace Memorial.Lib.AncestralTablet
 
         string GetTransactionSummaryItem();
 
+        string GetSiteHeader();
+
         int GetTransactionAncestralTabletId();
 
         int GetItemId();

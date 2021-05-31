@@ -28,6 +28,8 @@ namespace Memorial.Lib.Cemetery
 
         string GetTransactionSummaryItem();
 
+        string GetSiteHeader();
+
         int GetTransactionPlotId();
 
         int GetItemId();

@@ -8,9 +8,9 @@ namespace Memorial.Core.Dtos
     {
         public string RE { get; set; }
 
-        public Invoice Invoice { get; set; }
+        public InvoiceDto InvoiceDto { get; set; }
 
-        public string InvoiceIV { get; set; }
+        public string InvoiceDtoIV { get; set; }
 
         public CemeteryTransaction CemeteryTransaction { get; set; }
 

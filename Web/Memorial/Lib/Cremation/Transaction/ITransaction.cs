@@ -26,6 +26,8 @@ namespace Memorial.Lib.Cremation
 
         string GetTransactionSummaryItem();
 
+        string GetSiteHeader();
+
         int GetItemId();
 
         string GetItemName();

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
+﻿using Memorial.Core.Dtos;
 
 namespace Memorial.ViewModels
 {
-    public class InvoiceInfoViewModel
+    public class OrderReceiptInfoViewModel
     {
         public string AF { get; set; }
 
-        public string SummaryItem { get; set; }
+        public string SummaryItem { get; set; } 
 
         public InvoiceDto InvoiceDto { get; set; }
+
+        public ReceiptDto ReceiptDto { get; set; }
 
         public bool ExportToPDF { get; set; }
 
         public string Header { get; set; }
-
     }
 }

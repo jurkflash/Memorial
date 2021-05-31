@@ -1,0 +1,49 @@
+﻿@model Memorial.ViewModels.InvoiceInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { IV = Model.InvoiceDto.IV })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.InvoiceDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.Invoice)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.InvoiceDto.IV
+    </div>
+</div>
+
+<div class="row flexrow">
+    <div class="col-md-12">
+        @Html.Raw(@Model.SummaryItem)
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.AmountBR)
+    </div>
+    <div class="col-md-3">
+        @Model.InvoiceDto.Amount
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-6">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-6">
+        @Model.InvoiceDto.Remark
+    </div>
+</div>
+
+

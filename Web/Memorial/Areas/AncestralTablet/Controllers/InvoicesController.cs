@@ -40,6 +40,25 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Info(string IV, bool exportToPDF = false)
+        {
+            _transaction.SetTransaction(_invoice.GetAF());
+
+            var viewModel = new InvoiceInfoViewModel();
+            viewModel.ExportToPDF = exportToPDF;
+            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
+            viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+            viewModel.Header = _transaction.GetSiteHeader();
+
+            return View(viewModel);
+        }
+
+        public ActionResult PrintAll(string IV)
+        {
+            var report = new Rotativa.ActionAsPdf("Info", new { IV = IV, exportToPDF = true });
+            return report;
+        }
+
         public ActionResult Form(string AF, string IV = null)
         {
             _transaction.SetTransaction(AF);

@@ -76,6 +76,11 @@ namespace Memorial.Lib.Urn
             return _transaction.SummaryItem;
         }
 
+        public string GetSiteHeader()
+        {
+            return _transaction.UrnItem.Urn.Site.Header;
+        }
+
         public int GetItemId()
         {
             return _transaction.UrnItemId;

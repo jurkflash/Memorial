@@ -95,7 +95,7 @@ namespace Memorial.Areas.Space.Controllers
 
             if (viewModel.ReceiptDto.RE == null)
             {
-                viewModel.ReceiptDto.InvoiceIV = viewModel.InvoiceDto.IV;
+                viewModel.ReceiptDto.InvoiceDtoIV = viewModel.InvoiceDto.IV;
                 
                 if (_payment.CreateReceipt(viewModel.ReceiptDto))
                 {
