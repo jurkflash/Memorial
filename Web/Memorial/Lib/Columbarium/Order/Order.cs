@@ -218,7 +218,7 @@ namespace Memorial.Lib.Columbarium
         {
             _niche.SetNiche(trx.NicheDtoId);
 
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Niche + ": " + _niche.GetName() + "<BR/>" +
                 Resources.Mix.Type + ": " + _niche.GetNiche().NicheType.Name + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;

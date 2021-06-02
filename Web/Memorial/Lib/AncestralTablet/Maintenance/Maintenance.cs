@@ -136,7 +136,7 @@ namespace Memorial.Lib.AncestralTablet
         {
             _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
 
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
                 Resources.Mix.From + ": " + trx.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + 
                 Resources.Mix.To + ": " + trx.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +

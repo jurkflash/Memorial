@@ -77,7 +77,7 @@ namespace Memorial.Lib.AncestralTablet
         {
             var ancestralTabletItemInDB = _item.GetItem(ancestralTabletItemDto.Id);
             
-            if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItemDto.AncestralTabletAreaId
+            if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItemDto.AncestralTabletAreaDtoId
                 || ancestralTabletItemInDB.isOrder != ancestralTabletItemDto.isOrder)
                 && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == ancestralTabletItemInDB.Id && at.DeleteDate == null).Any())
             {
@@ -129,7 +129,7 @@ namespace Memorial.Lib.AncestralTablet
             var ancestralTabletAreaInDB = _area.GetArea(ancestralTabletAreaDto.Id);
             Mapper.Map(ancestralTabletAreaDto, ancestralTabletAreaInDB);
 
-            if (ancestralTabletAreaInDB.SiteId != ancestralTabletAreaDto.SiteId
+            if (ancestralTabletAreaInDB.SiteId != ancestralTabletAreaDto.SiteDtoId
                 && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeleteDate == null).Any())
             {
                 return false;

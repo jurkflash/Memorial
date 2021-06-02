@@ -234,7 +234,7 @@ namespace Memorial.Lib.AncestralTablet
         {
             _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
             
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetAncestralTablet((int)trx.ShiftedAncestralTabletId).Name + "<BR/>" +
                 Resources.Mix.ShiftTo + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +

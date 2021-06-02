@@ -110,7 +110,7 @@ namespace Memorial.Lib.Space
 
         private void SummaryItem(SpaceTransactionDto trx)
         {
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
 

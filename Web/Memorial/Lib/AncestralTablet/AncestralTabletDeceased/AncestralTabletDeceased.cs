@@ -67,14 +67,14 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Remove(int id, int deceasedId)
         {
-            _deceased.SetDeceased(deceasedId);
-            _deceased.RemoveAncestralTabletDeceased();
-
-            if (_deceased.GetDeceasedsByAncestralTabletId(id).Count() == 0)
+            if (_deceased.GetDeceasedsByAncestralTabletId(id).Count() == 1)
             {
                 _ancestralTablet.SetAncestralTablet(id);
                 _ancestralTablet.SetHasDeceased(false);
             }
+
+            _deceased.SetDeceased(deceasedId);
+            _deceased.RemoveAncestralTablet();
 
             var tracking = _tracking.GetLatestFirstTransactionByAncestralTabletId(id);
 

@@ -185,7 +185,7 @@ namespace Memorial.Lib.Deceased
             return false;
         }
 
-        private bool RemoveAncestralTablet()
+        public bool RemoveAncestralTablet()
         {
             if (_deceased != null)
             {
@@ -248,28 +248,5 @@ namespace Memorial.Lib.Deceased
             return true;
         }
 
-        public bool RemoveNicheDeceased()
-        {
-            if (_deceased == null)
-                return false;
-
-            RemoveNiche();
-
-            _unitOfWork.Complete();
-
-            return true;
-        }
-
-        public bool RemoveAncestralTabletDeceased()
-        {
-            if (_deceased == null)
-                return false;
-
-            RemoveAncestralTablet();
-
-            _unitOfWork.Complete();
-
-            return true;
-        }
     }
 }

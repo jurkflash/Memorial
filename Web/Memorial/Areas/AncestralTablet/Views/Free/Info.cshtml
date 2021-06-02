@@ -1,0 +1,53 @@
+﻿@model Memorial.ViewModels.AncestralTabletTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.AncestralTabletTransactionDto.AF })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.AncestralTabletTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Html.Raw(Resources.Mix.AncestralTabletApplicationFormBR)
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.AncestralTabletTransactionDto.AF
+    </div>
+</div>
+
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedId, area = "ApplicantDeceaseds" });}
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.No_BR)
+    </div>
+    <div class="col-md-3">
+        @Model.AncestralTabletTransactionDto.AncestralTablet.Name
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.AncestralTabletLabelBR)
+    </div>
+    <div class="col-md-3">
+        @Model.AncestralTabletTransactionDto.Label
+    </div>
+</div>
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-3">
+        @Model.AncestralTabletTransactionDto.Remark
+    </div>
+</div>
+

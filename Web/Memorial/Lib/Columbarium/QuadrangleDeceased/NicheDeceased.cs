@@ -82,14 +82,14 @@ namespace Memorial.Lib.Columbarium
 
         public bool Remove(int id, int deceasedId)
         {
-            _deceased.SetDeceased(deceasedId);
-            _deceased.RemoveNicheDeceased();
-
-            if (_deceased.GetDeceasedsByNicheId(id).Count() == 0)
+            if (_deceased.GetDeceasedsByNicheId(id).Count() == 1)
             {
                 _niche.SetNiche(id);
                 _niche.SetHasDeceased(false);
             }
+
+            _deceased.SetDeceased(deceasedId);
+            _deceased.RemoveNiche();
 
             var tracking = _tracking.GetLatestFirstTransactionByNicheId(id);
 

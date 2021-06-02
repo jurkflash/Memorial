@@ -223,7 +223,7 @@ namespace Memorial.Lib.Cemetery
         {
             _plot.SetPlot(trx.PlotDtoId);
 
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Applicant + ": " + _plot.GetName() + "<BR/>" +
                 Resources.Mix.TransferToBR + 
                 Resources.Mix.Applicant + ": " + _applicant.GetApplicant((int)trx.TransferredApplicantId).Name + "<BR/>" +

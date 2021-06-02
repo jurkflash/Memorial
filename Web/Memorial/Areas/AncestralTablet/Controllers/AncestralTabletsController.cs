@@ -83,7 +83,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             {
                 viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
                 viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestralTablet.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestralTabletAreaDto.SiteId);
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestralTabletAreaDto.SiteDtoId);
 
                 if (_ancestralTablet.HasApplicant())
                 {

@@ -8,18 +8,18 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Core.Dtos;
 
-namespace Memorial.Lib.Columbarium
+namespace Memorial.Lib.AncestralTablet
 {
-    public class Withrdaw : Transaction, IWithdraw
+    public class Withdraw : Transaction, IWithdraw
     {
         private const string _systemCode = "Withrdaw";
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITracking _tracking;
 
-        public Withrdaw(
+        public Withdraw(
             IUnitOfWork unitOfWork,
             IItem item,
-            INiche niche,
+            IAncestralTablet ancestralTablet,
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
@@ -29,7 +29,7 @@ namespace Memorial.Lib.Columbarium
             base(
                 unitOfWork,
                 item,
-                niche,
+                ancestralTablet,
                 applicant,
                 deceased,
                 applicantDeceased,
@@ -38,7 +38,7 @@ namespace Memorial.Lib.Columbarium
         {
             _unitOfWork = unitOfWork;
             _item = item;
-            _niche = niche;
+            _ancestralTablet = ancestralTablet;
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
@@ -56,11 +56,11 @@ namespace Memorial.Lib.Columbarium
             _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
+        public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
 
-            var trns = GetTransactionsByNicheId(columbariumTransactionDto.NicheDtoId);
+            var trns = GetTransactionsByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletId);
 
             if (trns.Count() == 0)
                 return false;
@@ -70,37 +70,30 @@ namespace Memorial.Lib.Columbarium
             {
                 trn.DeleteDate = DateTime.Now;
             }
-            columbariumTransactionDto.WithdrewAFS = trnsAF;
+            ancestralTabletTransactionDto.WithdrewAFS = trnsAF;
 
 
-            var trackingTrns = _tracking.GetTrackingByNicheId(columbariumTransactionDto.NicheDtoId);
+            var trackingTrns = _tracking.GetTrackingByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletId);
             foreach (var trackingTrn in trackingTrns)
             {
                 trackingTrn.ToDeleteFlag = true;
             }
             
 
-            _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
-            if (columbariumTransactionDto.DeceasedDto1Id != null)
+            _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId);
+            if (ancestralTabletTransactionDto.DeceasedId != null)
             {
-                _deceased.SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
-                _deceased.RemoveAncestralTabletDeceased();
-                _niche.SetHasDeceased(false);
+                _deceased.SetDeceased((int)ancestralTabletTransactionDto.DeceasedId);
+                _deceased.RemoveAncestralTablet();
+                _ancestralTablet.SetHasDeceased(false);
             }
 
-            if (columbariumTransactionDto.DeceasedDto2Id != null)
-            {
-                _deceased.SetDeceased((int)columbariumTransactionDto.DeceasedDto2Id);
-                _deceased.RemoveAncestralTabletDeceased();
-                _niche.SetHasDeceased(false);
-            }
+            
+            ancestralTabletTransactionDto.WithdrewAncestralTabletApplicantId = (int)_ancestralTablet.GetApplicantId();
+            _ancestralTablet.RemoveApplicant();
 
 
-            columbariumTransactionDto.WithdrewAncestralTabletApplicantId = (int)_niche.GetApplicantId();
-            _niche.RemoveApplicant();
-
-
-            if (CreateNewTransaction(columbariumTransactionDto))
+            if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
                 _unitOfWork.Complete();
             }
@@ -112,9 +105,9 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool Update(ColumbariumTransactionDto columbariumTransactionDto)
+        public bool Update(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            UpdateTransaction(columbariumTransactionDto);
+            UpdateTransaction(ancestralTabletTransactionDto);
 
             _unitOfWork.Complete();
 
@@ -130,26 +123,19 @@ namespace Memorial.Lib.Columbarium
                 GetTransaction(AF).DeleteDate = null;
             }
 
-            _niche.SetNiche(_transaction.NicheId);
-            if (_transaction.Deceased1Id != null)
+            _ancestralTablet.SetAncestralTablet(_transaction.AncestralTabletId);
+            if (_transaction.DeceasedId != null)
             {
-                _deceased.SetDeceased((int)_transaction.Deceased1Id);
-                _deceased.SetAncestralTablet(_transaction.NicheId);
-                _niche.SetHasDeceased(true);
-            }
-
-            if (_transaction.Deceased2Id != null)
-            {
-                _deceased.SetDeceased((int)_transaction.Deceased2Id);
-                _deceased.SetAncestralTablet(_transaction.NicheId);
-                _niche.SetHasDeceased(true);
+                _deceased.SetDeceased((int)_transaction.DeceasedId);
+                _deceased.SetAncestralTablet(_transaction.AncestralTabletId);
+                _ancestralTablet.SetHasDeceased(true);
             }
 
 
-            _niche.SetApplicant((int)_transaction.WithdrewColumbariumApplicantId);
+            _ancestralTablet.SetApplicant((int)_transaction.WithdrewAncestralTabletApplicantId);
             
 
-            var trackings = _tracking.GetTrackingByNicheId(_transaction.NicheId, true);
+            var trackings = _tracking.GetTrackingByAncestralTabletId(_transaction.AncestralTabletId, true);
 
             foreach(var tracking in trackings)
             {
@@ -163,9 +149,9 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public bool RemoveWithdrew(int nicheId)
+        public bool RemoveWithdrew(int ancestralTabletId)
         {
-            var trans = GetTransactionsByNicheId(nicheId);
+            var trans = GetTransactionsByAncestralTabletId(ancestralTabletId);
 
             if(trans.Count() != 1)
             {
@@ -174,11 +160,11 @@ namespace Memorial.Lib.Columbarium
 
             trans.ElementAt(0).DeleteDate = DateTime.Now;
 
-            var trackings = _tracking.GetTrackingByNicheId(_transaction.NicheId, true);
+            var trackings = _tracking.GetTrackingByAncestralTabletId(_transaction.AncestralTabletId, true);
 
             foreach (var tracking in trackings)
             {
-                _tracking.Remove(tracking.NicheId, tracking.ColumbariumTransactionAF);
+                _tracking.Remove(tracking.AncestralTabletId, tracking.AncestralTabletTransactionAF);
             }
 
             return true;

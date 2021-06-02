@@ -150,7 +150,7 @@ namespace Memorial.Lib.AncestralTablet
                 if (deceasedId == null)
                 {
                     _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemoveAncestralTabletDeceased();
+                    _deceased.RemoveAncestralTablet();
                 }
                 else
                 {
@@ -184,7 +184,7 @@ namespace Memorial.Lib.AncestralTablet
             foreach (var deceased in deceaseds)
             {
                 _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveAncestralTabletDeceased();
+                _deceased.RemoveAncestralTablet();
             }
 
             _ancestralTablet.SetHasDeceased(false);
@@ -205,9 +205,8 @@ namespace Memorial.Lib.AncestralTablet
         {
             _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
 
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
-                Resources.Mix.Type + ": " + _ancestralTablet.GetName() + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
 

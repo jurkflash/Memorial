@@ -14,7 +14,7 @@
     </p>
 }
 
-@using (Html.BeginForm("Index", "Orders", new { area = "Columbarium" }))
+@using (Html.BeginForm("Index", "Free", new { area = "Columbarium" }))
 {
     <p>
         Find by Name: @Html.TextBox("filter")
@@ -32,11 +32,7 @@
             <th>@Html.Raw(Resources.Mix.NicheBR)</th>
             <th>@Html.Raw(Resources.Mix.Applicant)</th>
             <th>@Html.Raw(Resources.Mix.HasDeceasedBR)</th>
-            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
-            <th>@Html.Raw(Resources.Mix.MaintenanceFeesBR)</th>
-            <th>@Html.Raw(Resources.Mix.LifeTimeMaintenanceBR)</th>
             <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
-            <th>@Html.Raw(Resources.Mix.InvoiceBR)</th>
             <th>@Html.Raw(Resources.Mix.EditBR)</th>
             <th>@Html.Raw(Resources.Mix.DeleteBR)</th>
         </tr>
@@ -49,11 +45,7 @@
                 <td>@columbariumTransaction.NicheDto.Name</td>
                 <td>@columbariumTransaction.ApplicantDto.Name &nbsp; @columbariumTransaction.ApplicantDto.Name2</td>
                 <td>@columbariumTransaction.NicheDto.hasDeceased</td>
-                <td>@columbariumTransaction.Price</td>
-                <td>@columbariumTransaction.Maintenance</td>
-                <td>@columbariumTransaction.LifeTimeMaintenance</td>
                 <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",

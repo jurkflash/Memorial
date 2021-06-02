@@ -105,7 +105,7 @@ namespace Memorial.Lib.Urn
 
         private void SummaryItem(UrnTransactionDto trx)
         {
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Urn + ": " + trx.UrnItem.Urn.Name + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }

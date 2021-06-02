@@ -29,7 +29,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CremationItem> GetByCremation(int cremationId)
         {
             return MemorialContext.CremationItems
-                .Where(ci => ci.Id == cremationId && ci.DeleteDate == null).ToList();
+                .Where(ci => ci.CremationId == cremationId && ci.DeleteDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

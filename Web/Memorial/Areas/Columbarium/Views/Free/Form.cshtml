@@ -1,0 +1,53 @@
+﻿@model Memorial.ViewModels.ColumbariumTransactionsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ColumbariumTransactionDto.ApplicantDtoId });}
+
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
+
+@using (Html.BeginForm("Save", "Free", new { area = "Columbarium" }))
+{
+    @Model.ColumbariumTransactionDto.AF
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.Deceased)1
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(c => c.ColumbariumTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.ColumbariumTransactionDto.DeceasedDto1Id)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.Deceased)2
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(c => c.ColumbariumTransactionDto.DeceasedDto2Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.ColumbariumTransactionDto.DeceasedDto2Id)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.FuneralCompanyBR)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(c => c.ColumbariumTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.ColumbariumTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ColumbariumItemDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.NicheDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.ApplicantDtoId)
+    @Html.HiddenFor(c => c.ColumbariumTransactionDto.AF)
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
+}

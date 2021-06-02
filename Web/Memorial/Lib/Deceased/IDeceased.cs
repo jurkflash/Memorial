@@ -42,6 +42,8 @@ namespace Memorial.Lib.Deceased
 
         bool RemoveNiche();
 
+        bool RemoveAncestralTablet();
+
         Core.Domain.AncestralTablet GetAncestralTablet();
 
         bool SetAncestralTablet(int ancestralTabletId);
@@ -54,8 +56,5 @@ namespace Memorial.Lib.Deceased
 
         bool InstallNicheDeceased(int nicheId);
 
-        bool RemoveNicheDeceased();
-
-        bool RemoveAncestralTabletDeceased();
     }
 }

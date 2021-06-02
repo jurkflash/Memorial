@@ -19,9 +19,9 @@ namespace Memorial.Core.Dtos
 
         public bool isOrder { get; set; }
 
-        public AncestralTabletArea AncestralTabletArea { get; set; }
+        public AncestralTabletAreaDto AncestralTabletAreaDto { get; set; }
 
-        public int AncestralTabletAreaId { get; set; }
+        public int AncestralTabletAreaDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

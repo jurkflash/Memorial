@@ -1,0 +1,49 @@
+﻿@model Memorial.ViewModels.SpaceTransactionsInfoViewModel
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Print.cshtml";
+}
+
+@if (!Model.ExportToPDF)
+{
+    @Html.ActionLink("Print All", "PrintAll", new { AF = Model.SpaceTransactionDto.AF })
+}
+
+@Html.Raw(Model.Header)
+
+<div class="row flexrow">
+    <div class="col-md-3" style="text-align:left">
+        <span>Transaction Date</span><br />
+        <span>@Model.SpaceTransactionDto.CreateDate.ToString("yyyy-MMM-dd")</span>
+    </div>
+    <div class="col-md-6" style="text-align:center">
+        @Model.SpaceDto.Name 租借表格<br />Application Form
+    </div>
+    <div class="col-md-3" style="text-align:right">
+        @Model.SpaceTransactionDto.AF
+    </div>
+</div>
+
+@{Html.RenderAction("PartialViewInfo", "Applicants", new { id = Model.ApplicantId, area = "Applicant" });}
+
+@if (Model.SpaceTransactionDto.FromDate.HasValue)
+{
+    <div class="row flexrow">
+        <div class="col-md-12 text-center">
+            從 From @Model.SpaceTransactionDto.FromDate.Value.ToString("yyyy-MMM-dd HH:mm")
+            至 To @Model.SpaceTransactionDto.ToDate.Value.ToString("yyyy-MMM-dd HH:mm")
+        </div>
+    </div>
+}
+
+<div class="row flexrow">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-3">
+        @Model.SpaceTransactionDto.Remark
+    </div>
+</div>
+
+
+

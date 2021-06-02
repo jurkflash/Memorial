@@ -214,7 +214,7 @@ namespace Memorial.Lib.Columbarium
         {
             _applicant.SetApplicant(trx.ApplicantDtoId);
 
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Niche + ": " + _applicant.GetApplicant((int)trx.TransferredApplicantDtoId).Name + "<BR/>" +
                 Resources.Mix.TransferTo + "<BR/>" +
                 Resources.Mix.Niche + ": " + _applicant.GetApplicant().Name + "<BR/>" +

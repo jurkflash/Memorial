@@ -1,0 +1,76 @@
+﻿@model Memorial.ViewModels.CremationTransactionsFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.CremationTransactionDto.ApplicantId });}
+
+<h2>@Html.Raw(Resources.Mix.Form)</h2>
+
+@using (Html.BeginForm("Save", "Free", new { area = "Cremation" }))
+{
+    @Model.CremationTransactionDto.AF
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DeceasedBR)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(c => c.CremationTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.CremationTransactionDto.DeceasedId)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.FuneralCompanyBR)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(c => c.CremationTransactionDto.FuneralCompanyId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.CremateDateBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(c => c.CremationTransactionDto.CremateDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = Resources.Mix.Required })
+            @Html.ValidationMessageFor(c => c.CremationTransactionDto.CremateDate)
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(c => c.CremationTransactionDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(c => c.CremationTransactionDto.CremationItemId)
+    @Html.HiddenFor(c => c.CremationTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.CremationTransactionDto.AF)
+    <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jqueryuicss")
+
+    @Scripts.Render("~/bundles/jqueryui-timepicker")
+    @Styles.Render("~/Content/jqueryuicss-timepicker")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var dateNow = new Date();
+            $('.datetimepicker').datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                timeFormat: 'HH:mm',
+                useCurrent: true,
+                defaultDate: dateNow
+            }); //Initialise any date pickers
+
+        });
+    </script>
+}

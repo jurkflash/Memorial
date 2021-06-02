@@ -104,7 +104,7 @@ namespace Memorial.Lib.Cremation
 
         private void SummaryItem(CremationTransactionDto trx)
         {
-            trx.SummaryItem = "AF: " + trx.AF == null ? _AFnumber : trx.AF + "<BR/>" +
+            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.CremateDate + ": " + trx.CremateDate.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
