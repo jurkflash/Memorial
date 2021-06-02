@@ -73,7 +73,7 @@
             var f = $("#ColumbariumTransactionDto_FromDate").val();
             var t = $("#ColumbariumTransactionDto_ToDate").val();
             if (f != "" && t != "") {
-                var ii = $("#ColumbariumTransactionDto_ColumbariumItemId").val();
+                var ii = $("#ColumbariumTransactionDto_ColumbariumItemDtoId").val();
                 var url = '/api/ColumbariumManages/GetAmount';
                 $.ajax({
                     url: url,

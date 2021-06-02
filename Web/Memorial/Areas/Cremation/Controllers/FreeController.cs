@@ -61,8 +61,8 @@ namespace Memorial.Areas.Cremation.Controllers
             var viewModel = new CremationTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
             viewModel.CremationTransactionDto = _order.GetCremationDto();
-            viewModel.ApplicantId = _order.GetCremationDto().ApplicantId;
-            viewModel.DeceasedId = _order.GetCremationDto().DeceasedId;
+            viewModel.ApplicantId = _order.GetCremationDto().ApplicantDtoId;
+            viewModel.DeceasedId = _order.GetCremationDto().DeceasedDtoId;
             viewModel.Header = _order.GetTransaction().CremationItem.Cremation.Site.Header;
             return View(viewModel);
         }
@@ -88,8 +88,8 @@ namespace Memorial.Areas.Cremation.Controllers
 
             if (AF == null)
             {
-                cremationTransactionDto.ApplicantId = applicantId;
-                cremationTransactionDto.CremationItemId = itemId;
+                cremationTransactionDto.ApplicantDtoId = applicantId;
+                cremationTransactionDto.CremationItemDtoId = itemId;
                 viewModel.CremationTransactionDto = cremationTransactionDto;
             }
             else
@@ -104,7 +104,7 @@ namespace Memorial.Areas.Cremation.Controllers
         {
             if (viewModel.CremationTransactionDto.AF == null)
             {
-                if (_order.GetTransactionsByItemIdAndDeceasedId(viewModel.CremationTransactionDto.CremationItemId, viewModel.CremationTransactionDto.DeceasedId).Any())
+                if (_order.GetTransactionsByItemIdAndDeceasedId(viewModel.CremationTransactionDto.CremationItemDtoId, viewModel.CremationTransactionDto.DeceasedDtoId).Any())
                 {
                     ModelState.AddModelError("CremationTransactionDto.DeceasedId", "Deceased order exists");
                     return FormForResubmit(viewModel);
@@ -125,15 +125,15 @@ namespace Memorial.Areas.Cremation.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.CremationTransactionDto.CremationItemId,
-                applicantId = viewModel.CremationTransactionDto.ApplicantId
+                itemId = viewModel.CremationTransactionDto.CremationItemDtoId,
+                applicantId = viewModel.CremationTransactionDto.ApplicantDtoId
             });
         }
 
         public ActionResult FormForResubmit(CremationTransactionsFormViewModel viewModel)
         {
             viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.CremationTransactionDto.ApplicantId);
+            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.CremationTransactionDto.ApplicantDtoId);
 
             return View("Form", viewModel);
         }

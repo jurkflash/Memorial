@@ -45,8 +45,8 @@
         {
             <tr>
                 <td>@Html.ActionLink(ancestralTabletTransaction.AF, "Info", new { AF = ancestralTabletTransaction.AF }, new { target = "AncestralTabletTransactionInfo", area = "AncestralTablet" })</td>
-                <td>@ancestralTabletTransaction.AncestralTablet.Name</td>
-                <td>@ancestralTabletTransaction.AncestralTablet.Applicant.Name &nbsp; @ancestralTabletTransaction.AncestralTablet.Applicant.Name2</td>
+                <td>@ancestralTabletTransaction.AncestralTabletDto.Name</td>
+                <td>@ancestralTabletTransaction.AncestralTabletDto.ApplicantDto.Name &nbsp; @ancestralTabletTransaction.AncestralTabletDto.ApplicantDto.Name2</td>
                 <td>@Convert.ToDateTime(ancestralTabletTransaction.FromDate).ToString("yyyy-MMM")</td>
                 <td>@Convert.ToDateTime(ancestralTabletTransaction.ToDate).ToString("yyyy-MMM")</td>
                 <td>@ancestralTabletTransaction.Price</td>

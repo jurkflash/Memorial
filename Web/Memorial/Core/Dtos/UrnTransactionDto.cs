@@ -13,13 +13,13 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public UrnItem UrnItem { get; set; }
+        public UrnItemDto UrnItemDto { get; set; }
 
-        public int UrnItemId { get; set; }
+        public int UrnItemDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
         public string SummaryItem { get; set; }
 

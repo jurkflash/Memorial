@@ -89,12 +89,12 @@ namespace Memorial.Lib.Space
 
         public bool Create(SpaceTransactionDto spaceTransactionDto)
         {
-            if (!IsAvailable(spaceTransactionDto.SpaceItemId, (DateTime)spaceTransactionDto.FromDate, (DateTime)spaceTransactionDto.ToDate))
+            if (!IsAvailable(spaceTransactionDto.SpaceItemDtoId, (DateTime)spaceTransactionDto.FromDate, (DateTime)spaceTransactionDto.ToDate))
             {
                 return false;
             }
 
-            NewNumber(spaceTransactionDto.SpaceItemId);
+            NewNumber(spaceTransactionDto.SpaceItemDtoId);
 
             SummaryItem(spaceTransactionDto);
 
@@ -150,7 +150,7 @@ namespace Memorial.Lib.Space
         private void SummaryItem(SpaceTransactionDto trx)
         {
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Space + ": " + trx.SpaceItem.Space.Name +"<BR/>"+ 
+                Resources.Mix.Space + ": " + _item.GetItem(trx.SpaceItemDtoId).Space.Name +"<BR/>"+ 
                 Resources.Mix.From + ": " + trx.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + Resources.Mix.To + ": " + trx.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>"+
                 Resources.Mix.Remark + ": " + trx.Remark;
         }

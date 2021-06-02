@@ -102,7 +102,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 viewModel.NumberOfPlacements = _niche.GetNumberOfPlacement();
                 viewModel.ColumbariumAreaDto = _area.GetAreaDto(_niche.GetNicheDto().ColumbariumAreaDtoId);
                 viewModel.ColumbariumCentreDto = _centre.GetCentreDto(viewModel.ColumbariumAreaDto.ColumbariumCentreDtoId);
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.ColumbariumCentreDto.SiteId);
+                viewModel.SiteDto = _site.GetSiteDto(viewModel.ColumbariumCentreDto.SiteDtoId);
 
                 if(_niche.HasApplicant())
                 {

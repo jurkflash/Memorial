@@ -24,23 +24,23 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public GenderType GenderType { get; set; }
+        public GenderTypeDto GenderTypeDto { get; set; }
 
-        public byte GenderTypeId { get; set; }
+        public byte GenderTypeDtoId { get; set; }
 
         public string Province { get; set; }
 
-        public NationalityType NationalityType { get; set; }
+        public NationalityTypeDto NationalityTypeDto { get; set; }
 
-        public byte NationalityTypeId { get; set; }
+        public byte NationalityTypeDtoId { get; set; }
 
-        public MaritalType MaritalType { get; set; }
+        public MaritalTypeDto MaritalTypeDto { get; set; }
 
-        public byte MaritalTypeId { get; set; }
+        public byte MaritalTypeDtoId { get; set; }
 
-        public ReligionType ReligionType { get; set; }
+        public ReligionTypeDto ReligionTypeDto { get; set; }
 
-        public byte ReligionTypeId { get; set; }
+        public byte ReligionTypeDtoId { get; set; }
 
         public string DeathPlace { get; set; }
 

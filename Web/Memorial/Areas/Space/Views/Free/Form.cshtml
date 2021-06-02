@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.SpaceTransactionDto.ApplicantId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.SpaceTransactionDto.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -16,8 +16,8 @@
             @Html.Raw(Resources.Mix.DeceasedBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(s => s.SpaceTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
-            @Html.ValidationMessageFor(s => s.SpaceTransactionDto.DeceasedId)
+            @Html.DropDownListFor(s => s.SpaceTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.SpaceTransactionDto.DeceasedDtoId)
         </div>
     </div>
     <div class="form-group row">
@@ -25,7 +25,7 @@
             @Html.Raw(Resources.Mix.FuneralCompanyBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(s => s.SpaceTransactionDto.FuneralCompanyId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(s => s.SpaceTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -55,9 +55,9 @@
         </div>
     </div>
 
-    @Html.HiddenFor(s => s.SpaceTransactionDto.SpaceItemId)
-    @Html.HiddenFor(s => s.SpaceTransactionDto.SpaceItem.Space.Name)
-    @Html.HiddenFor(s => s.SpaceTransactionDto.ApplicantId)
+    @Html.HiddenFor(s => s.SpaceTransactionDto.SpaceItemDtoId)
+    @Html.HiddenFor(s => s.SpaceTransactionDto.SpaceItemDto.SpaceDto.Name)
+    @Html.HiddenFor(s => s.SpaceTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(s => s.SpaceTransactionDto.AF)
     <button type="submit" class="btn btn-primary" id="btnSubmit">@Html.Raw(Resources.Mix.Save)</button>
 }

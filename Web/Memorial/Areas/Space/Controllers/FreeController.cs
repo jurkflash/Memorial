@@ -93,8 +93,8 @@ namespace Memorial.Areas.Space.Controllers
             if (AF == null)
             {
                 var spaceTransactionDto = new SpaceTransactionDto();
-                spaceTransactionDto.ApplicantId = applicantId;
-                spaceTransactionDto.SpaceItemId = itemId;
+                spaceTransactionDto.ApplicantDtoId = applicantId;
+                spaceTransactionDto.SpaceItemDtoId = itemId;
                 viewModel.SpaceTransactionDto = spaceTransactionDto;
             }
             else
@@ -108,7 +108,7 @@ namespace Memorial.Areas.Space.Controllers
         public ActionResult FormForResubmit(SpaceTransactionsFormViewModel viewModel)
         {
             viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.SpaceTransactionDto.ApplicantId);
+            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.SpaceTransactionDto.ApplicantDtoId);
 
             return View("Form", viewModel);
         }
@@ -116,7 +116,7 @@ namespace Memorial.Areas.Space.Controllers
         public ActionResult Save(SpaceTransactionsFormViewModel viewModel)
         {
             if((viewModel.SpaceTransactionDto.AF == null &&
-                !_booking.IsAvailable(viewModel.SpaceTransactionDto.SpaceItemId, (DateTime)viewModel.SpaceTransactionDto.FromDate, (DateTime)viewModel.SpaceTransactionDto.ToDate)) ||
+                !_booking.IsAvailable(viewModel.SpaceTransactionDto.SpaceItemDtoId, (DateTime)viewModel.SpaceTransactionDto.FromDate, (DateTime)viewModel.SpaceTransactionDto.ToDate)) ||
                 (viewModel.SpaceTransactionDto.AF != null &&
                 !_booking.IsAvailable(viewModel.SpaceTransactionDto.AF, (DateTime)viewModel.SpaceTransactionDto.FromDate, (DateTime)viewModel.SpaceTransactionDto.ToDate)))
             {
@@ -128,7 +128,7 @@ namespace Memorial.Areas.Space.Controllers
             if ((viewModel.SpaceTransactionDto.AF == null && _booking.Create(viewModel.SpaceTransactionDto)) ||
                 (viewModel.SpaceTransactionDto.AF != null && _booking.Update(viewModel.SpaceTransactionDto)))
             {
-                return RedirectToAction("Index", new { itemId = viewModel.SpaceTransactionDto.SpaceItemId, applicantId = viewModel.SpaceTransactionDto.ApplicantId });
+                return RedirectToAction("Index", new { itemId = viewModel.SpaceTransactionDto.SpaceItemDtoId, applicantId = viewModel.SpaceTransactionDto.ApplicantDtoId });
             }
 
             return FormForResubmit(viewModel);

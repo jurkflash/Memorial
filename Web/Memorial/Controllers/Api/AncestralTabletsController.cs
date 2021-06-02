@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Memorial.Core;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
-using AutoMapper;
-using Memorial.Lib;
+﻿using System.Web.Http;
 using Memorial.Lib.AncestralTablet;
 
 namespace Memorial.Controllers.Api

@@ -236,7 +236,7 @@
             $("#ColumbariumTransactionDto_Price").val('');
             $("#ColumbariumTransactionDto_Maintenance").val('');
             $("#ColumbariumTransactionDto_LifeTimeMaintenance").val('');
-            $("#ColumbariumTransactionDto_NicheId").val('');
+            $("#ColumbariumTransactionDto_NicheDtoId").val('');
             $("#qRemark").empty();
             $("#qNicheType").empty();
         }
@@ -257,7 +257,7 @@
                         $("#qRemark").html(response['remark']);
                         $("#qNicheType").html(response['nicheTypeDto.name']);
                         $("#ColumbariumTransactionDto_Price").val(response['price']);
-                        $("#ColumbariumTransactionDto_NicheId").val(response['id']);
+                        $("#ColumbariumTransactionDto_NicheDtoId").val(response['id']);
                     }
                 })
                 .fail(function () {

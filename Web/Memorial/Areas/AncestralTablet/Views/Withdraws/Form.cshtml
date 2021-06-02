@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -20,9 +20,9 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }

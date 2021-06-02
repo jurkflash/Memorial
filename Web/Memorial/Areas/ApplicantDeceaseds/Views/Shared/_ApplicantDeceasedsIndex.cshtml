@@ -76,7 +76,7 @@
             <tr>
                 <td>@Html.ActionLink(deceased.Name, "Info", "Deceaseds", new { id = deceased.Id, area = "Deceased" }, null)</td>
                 <td>@deceased.Name2</td>
-                <td>@Model.ApplicantDeceasedDtos.Where(a => a.DeceasedId == deceased.Id).FirstOrDefault().RelationshipType.Name</td>
+                <td>@Model.ApplicantDeceasedDtos.Where(a => a.DeceasedDtoId == deceased.Id).FirstOrDefault().RelationshipTypeDto.Name</td>
                 <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", "Deceaseds", new { id = deceased.Id, applicantId = Model.ApplicantDto.Id, area = "Deceased" }, null)</td>
             </tr>
         }

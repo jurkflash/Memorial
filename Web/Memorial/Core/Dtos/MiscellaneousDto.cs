@@ -13,9 +13,9 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public Site Site { get; set; }
+        public SiteDto SiteDto { get; set; }
 
-        public byte SiteId { get; set; }
+        public byte SiteDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

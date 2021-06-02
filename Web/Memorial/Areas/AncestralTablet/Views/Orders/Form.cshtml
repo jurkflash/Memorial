@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.AncestralTabletTransactionDto.ApplicantId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.AncestralTabletTransactionDto.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -16,8 +16,8 @@
             @Html.Raw(Resources.Mix.Deceased)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.AncestralTabletTransactionDto.DeceasedId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "-", new { @class = "form-control" })
-            @Html.ValidationMessageFor(c => c.AncestralTabletTransactionDto.DeceasedId)
+            @Html.DropDownListFor(c => c.AncestralTabletTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "-", new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.AncestralTabletTransactionDto.DeceasedDtoId)
         </div>
     </div>
     <div class="form-group row">
@@ -46,9 +46,9 @@
             @Html.TextAreaFor(c => c.AncestralTabletTransactionDto.Remark, new { @class = "form-control" })
         </div>
     </div>
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }

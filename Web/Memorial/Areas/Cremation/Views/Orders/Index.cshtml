@@ -44,9 +44,9 @@
         {
             <tr>
                 <td>@Html.ActionLink(cremationTransaction.AF, "Info", new { AF = cremationTransaction.AF }, new { target = "CremationTransactionInfo" })</td>
-                <td>@cremationTransaction.CremationItem.Name</td>
-                <td>@cremationTransaction.Applicant.Name &nbsp; @cremationTransaction.Applicant.Name2</td>
-                <td>@cremationTransaction.Deceased.Name &nbsp; @cremationTransaction.Deceased.Name2</td>
+                <td>@cremationTransaction.CremationItemDto.Name</td>
+                <td>@cremationTransaction.ApplicantDto.Name &nbsp; @cremationTransaction.ApplicantDto.Name2</td>
+                <td>@cremationTransaction.DeceasedDto.Name &nbsp; @cremationTransaction.DeceasedDto.Name2</td>
                 <td>@cremationTransaction.Price</td>
                 <td>@cremationTransaction.CremateDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@cremationTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>

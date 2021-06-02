@@ -2,9 +2,15 @@
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Request.UrlReferrer != null)
+    {
+        string returnURL = Request.UrlReferrer.ToString();
+        ViewBag.ReturnURL = returnURL;
+    }
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -45,10 +51,9 @@
             @Html.TextAreaFor(c => c.AncestralTabletTransactionDto.Remark, new { @class = "form-control" })
         </div>
     </div>
-
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
@@ -73,7 +78,7 @@
             var f = $("#AncestralTabletTransactionDto_FromDate").val();
             var t = $("#AncestralTabletTransactionDto_ToDate").val();
             if (f != "" && t != "") {
-                var ii = $("#AncestralTabletTransactionDto_AncestralTabletItemId").val();
+                var ii = $("#AncestralTabletTransactionDto_AncestralTabletItemDtoId").val();
                 var url = '/api/AncestralTabletMaintenance/GetAmount';
                 $.ajax({
                     url: url,

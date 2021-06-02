@@ -19,21 +19,21 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public SpaceItem SpaceItem { get; set; }
+        public SpaceItemDto SpaceItemDto { get; set; }
 
-        public int SpaceItemId { get; set; }
+        public int SpaceItemDtoId { get; set; }
 
-        public FuneralCompany FuneralCompany { get; set; }
+        public FuneralCompanyDto FuneralCompanyDto { get; set; }
 
-        public int? FuneralCompanyId { get; set; }
+        public int? FuneralCompanyDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
-        public Deceased Deceased { get; set; }
+        public DeceasedDto DeceasedDto { get; set; }
 
-        public int? DeceasedId { get; set; }
+        public int? DeceasedDtoId { get; set; }
 
         public string SummaryItem { get; set; }
 

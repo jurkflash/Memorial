@@ -24,7 +24,7 @@
     </div>
 </div>
 
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedId, area = "ApplicantDeceaseds" });}
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedDtoId, area = "ApplicantDeceaseds" });}
 
 <h5 style="padding-top:5px"><u>@Model.ItemName</u></h5>
 
@@ -33,7 +33,7 @@
         @Html.Raw(Resources.Mix.No_BR)
     </div>
     <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.AncestralTablet.Name
+        @Model.AncestralTabletTransactionDto.AncestralTabletDto.Name
     </div>
 </div>
 <div class="row flexrow">
@@ -41,7 +41,7 @@
         @Html.Raw(Resources.Mix.Area)
     </div>
     <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.AncestralTablet.AncestralTabletArea.Name
+        @Model.AncestralTabletTransactionDto.AncestralTabletDto.AncestralTabletArea.Name
     </div>
 </div>
 <div class="row flexrow">

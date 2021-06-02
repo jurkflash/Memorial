@@ -10,17 +10,17 @@ namespace Memorial.Core.Dtos
     {
         public int Id { get; set; }
 
-        public ApplicantDto Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
-        public DeceasedDto Deceased { get; set; }
+        public DeceasedDto DeceasedDto { get; set; }
 
-        public int DeceasedId { get; set; }
+        public int DeceasedDtoId { get; set; }
 
-        public RelationshipTypeDto RelationshipType { get; set; }
+        public RelationshipTypeDto RelationshipTypeDto { get; set; }
 
-        public byte RelationshipTypeId { get; set; }
+        public byte RelationshipTypeDtoId { get; set; }
 
     }
 }

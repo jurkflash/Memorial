@@ -68,7 +68,7 @@ namespace Memorial.Lib.Miscellaneous
         {
             var miscellaneousInDB = _miscellaneous.GetMiscellaneous(miscellaneousDto.Id);
 
-            if (miscellaneousInDB.SiteId != miscellaneousDto.SiteId
+            if (miscellaneousInDB.SiteId != miscellaneousDto.SiteDtoId
                 && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.SiteId == miscellaneousInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -117,7 +117,7 @@ namespace Memorial.Lib.Miscellaneous
         {
             var miscellaneousItemInDB = _item.GetItem(miscellaneousItemDto.Id);
 
-            if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousId
+            if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousDtoId
                 || miscellaneousItemInDB.isOrder != miscellaneousItemDto.isOrder)
                 && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == miscellaneousItemInDB.Id && ct.DeleteDate == null).Any())
             {

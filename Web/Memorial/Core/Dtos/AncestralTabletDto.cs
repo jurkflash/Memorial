@@ -18,7 +18,9 @@ namespace Memorial.Core.Dtos
 
         public string Remark { get; set; }
 
-        public int? ApplicantId { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
+
+        public int? ApplicantDtoId { get; set; }
 
         public int AncestralTabletAreaId { get; set; }
 

@@ -10,22 +10,22 @@ namespace Memorial.Core.Dtos
 
         }
 
-        public AncestralTabletTransactionDto(int ancestralTabletItemId, int ancestralTabletId, int applicantId)
+        public AncestralTabletTransactionDto(int ancestralTabletItemDtoId, int ancestralTabletDtoId, int applicantDtoId)
         {
-            AncestralTabletItemId = ancestralTabletItemId;
-            AncestralTabletId = ancestralTabletId;
-            ApplicantId = applicantId;
+            AncestralTabletItemDtoId = ancestralTabletItemDtoId;
+            AncestralTabletDtoId = ancestralTabletDtoId;
+            ApplicantDtoId = applicantDtoId;
         }
 
         public string AF { get; set; }
 
-        public AncestralTabletItem AncestralTabletItem { get; set; }
+        public AncestralTabletItemDto AncestralTabletItemDto { get; set; }
 
-        public int AncestralTabletItemId { get; set; }
+        public int AncestralTabletItemDtoId { get; set; }
 
-        public AncestralTablet AncestralTablet { get; set; }
+        public AncestralTabletDto AncestralTabletDto { get; set; }
 
-        public int AncestralTabletId { get; set; }
+        public int AncestralTabletDtoId { get; set; }
 
         public string Label { get; set; }
 
@@ -35,23 +35,23 @@ namespace Memorial.Core.Dtos
 
         public float? Maintenance { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
-        public Deceased Deceased { get; set; }
+        public DeceasedDto DeceasedDto { get; set; }
 
-        public int? DeceasedId { get; set; }
+        public int? DeceasedDtoId { get; set; }
 
         public DateTime? FromDate { get; set; }
 
         public DateTime? ToDate { get; set; }
 
-        public AncestralTablet ShiftedAncestralTablet { get; set; }
+        public AncestralTabletDto ShiftedAncestralTabletDto { get; set; }
 
-        public int? ShiftedAncestralTabletId { get; set; }
+        public int? ShiftedAncestralTabletDtoId { get; set; }
 
-        public string ShiftedAncestralTabletTransactionAF { get; set; }
+        public string ShiftedAncestralTabletTransactionDtoAF { get; set; }
 
         public string WithdrewAFS { get; set; }
 

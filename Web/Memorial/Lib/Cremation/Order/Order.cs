@@ -52,7 +52,7 @@ namespace Memorial.Lib.Cremation
 
         public bool Create(CremationTransactionDto cremationTransactionDto)
         {
-            NewNumber(cremationTransactionDto.CremationItemId);
+            NewNumber(cremationTransactionDto.CremationItemDtoId);
 
             SummaryItem(cremationTransactionDto);
 

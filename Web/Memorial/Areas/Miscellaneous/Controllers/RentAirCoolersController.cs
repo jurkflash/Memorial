@@ -48,7 +48,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _rentAirCooler.SetTransaction(AF);
-            _miscellaneous.SetMiscellaneous(_rentAirCooler.GetTransactionDto().MiscellaneousItemDto.MiscellaneousId);
+            _miscellaneous.SetMiscellaneous(_rentAirCooler.GetTransactionDto().MiscellaneousItemDto.MiscellaneousDtoId);
 
             var viewModel = new MiscellaneousTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;

@@ -55,7 +55,7 @@ namespace Memorial.Areas.Urn.Controllers
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _purchase.SetTransaction(AF);
-            _urn.SetUrn(_purchase.GetTransactionDto().UrnItem.UrnId);
+            _urn.SetUrn(_purchase.GetTransactionDto().UrnItemDto.UrnDtoId);
             
             var viewModel = new UrnTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
@@ -80,8 +80,8 @@ namespace Memorial.Areas.Urn.Controllers
 
             if (AF == null)
             {
-                urnTransactionDto.ApplicantId = applicantId;
-                urnTransactionDto.UrnItemId = itemId;
+                urnTransactionDto.ApplicantDtoId = applicantId;
+                urnTransactionDto.UrnItemDtoId = itemId;
                 urnTransactionDto.Price = _urn.GetPrice();
             }
             else
@@ -111,8 +111,8 @@ namespace Memorial.Areas.Urn.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = urnTransactionDto.UrnItemId,
-                applicantId = urnTransactionDto.ApplicantId
+                itemId = urnTransactionDto.UrnItemDtoId,
+                applicantId = urnTransactionDto.ApplicantDtoId
             });
         }
 

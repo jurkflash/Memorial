@@ -18,9 +18,9 @@ namespace Memorial.Core.Dtos
 
         public Boolean isOrder { get; set; }
 
-        public Miscellaneous Miscellaneous { get; set; }
+        public MiscellaneousDto MiscellaneousDto { get; set; }
 
-        public int MiscellaneousId { get; set; }
+        public int MiscellaneousDtoId { get; set; }
 
         public string SystemCode { get; set; }
 

@@ -68,7 +68,7 @@ namespace Memorial.Lib.Cremation
         {
             var cremationInDB = _cremation.GetCremation(cremationDto.Id);
 
-            if (cremationInDB.SiteId != cremationDto.SiteId
+            if (cremationInDB.SiteId != cremationDto.SiteDtoId
                 && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -117,7 +117,7 @@ namespace Memorial.Lib.Cremation
         {
             var cremationItemInDB = _item.GetItem(cremationItemDto.Id);
 
-            if ((cremationItemInDB.CremationId != cremationItemDto.CremationId
+            if ((cremationItemInDB.CremationId != cremationItemDto.CremationDtoId
                 || cremationItemInDB.isOrder != cremationItemDto.isOrder)
                 && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == cremationItemInDB.Id && ct.DeleteDate == null).Any())
             {

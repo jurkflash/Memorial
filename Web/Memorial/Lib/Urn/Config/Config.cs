@@ -68,7 +68,7 @@ namespace Memorial.Lib.Urn
         {
             var urnInDB = _urn.GetUrn(urnDto.Id);
 
-            if (urnInDB.SiteId != urnDto.SiteId
+            if (urnInDB.SiteId != urnDto.SiteDtoId
                 && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.SiteId == urnInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -117,7 +117,7 @@ namespace Memorial.Lib.Urn
         {
             var urnItemInDB = _item.GetItem(urnItemDto.Id);
 
-            if ((urnItemInDB.UrnId != urnItemDto.UrnId
+            if ((urnItemInDB.UrnId != urnItemDto.UrnDtoId
                 || urnItemInDB.isOrder != urnItemDto.isOrder)
                 && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == urnItemInDB.Id && ct.DeleteDate == null).Any())
             {

@@ -98,30 +98,30 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            _ancestralTablet.SetAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId);
+            _ancestralTablet.SetAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId);
             if (_ancestralTablet.HasApplicant())
                 return false;
 
-            if (!SetTransactionDeceasedIdBasedOnAncestralTablet(ancestralTabletTransactionDto, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletId))
+            if (!SetTransactionDeceasedIdBasedOnAncestralTablet(ancestralTabletTransactionDto, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId))
                 return false;
 
-            ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF = _tracking.GetLatestFirstTransactionByAncestralTabletId((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId).AncestralTabletTransactionAF;
+            ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF = _tracking.GetLatestFirstTransactionByAncestralTabletId((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId).AncestralTabletTransactionAF;
 
-            GetTransaction(ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF).DeleteDate = System.DateTime.Now;
+            GetTransaction(ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF).DeleteDate = System.DateTime.Now;
 
-            _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF);
+            _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF);
 
-            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemDtoId);
 
             SummaryItem(ancestralTabletTransactionDto);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
-                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.AncestralTabletId, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
+                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.AncestralTabletDtoId, (int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId, ancestralTabletTransactionDto.ApplicantDtoId);
 
-                _maintenance.ChangeAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId);
+                _maintenance.ChangeAncestralTablet((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId, ancestralTabletTransactionDto.AncestralTabletDtoId);
 
-                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletDtoId, _AFnumber, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
 
                 _unitOfWork.Complete();
             }
@@ -143,18 +143,18 @@ namespace Memorial.Lib.AncestralTablet
 
             var ancestralTabletTransactionInDb = GetTransaction(ancestralTabletTransactionDto.AF);
 
-            if(ancestralTabletTransactionInDb.ShiftedAncestralTabletId != ancestralTabletTransactionDto.ShiftedAncestralTabletId)
+            if(ancestralTabletTransactionInDb.ShiftedAncestralTabletId != ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId)
             {
                 if (!SetTransactionDeceasedIdBasedOnAncestralTablet(ancestralTabletTransactionDto, ancestralTabletTransactionInDb.AncestralTabletId))
                     return false;
 
                 _tracking.Remove(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AF);
 
-                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletDtoId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
 
-                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.ApplicantId);
+                ShiftAncestralTabletApplicantDeceaseds(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletDtoId, ancestralTabletTransactionDto.ApplicantDtoId);
 
-                _maintenance.ChangeAncestralTablet(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletId);
+                _maintenance.ChangeAncestralTablet(ancestralTabletTransactionInDb.AncestralTabletId, ancestralTabletTransactionDto.AncestralTabletDtoId);
 
                 SummaryItem(ancestralTabletTransactionDto);
 
@@ -232,10 +232,10 @@ namespace Memorial.Lib.AncestralTablet
 
         private void SummaryItem(AncestralTabletTransactionDto trx)
         {
-            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletDtoId);
             
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetAncestralTablet((int)trx.ShiftedAncestralTabletId).Name + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetAncestralTablet((int)trx.ShiftedAncestralTabletDtoId).Name + "<BR/>" +
                 Resources.Mix.ShiftTo + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;

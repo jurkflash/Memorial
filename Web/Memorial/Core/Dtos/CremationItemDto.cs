@@ -15,9 +15,9 @@ namespace Memorial.Core.Dtos
 
         public string Code { get; set; }
 
-        public Cremation Cremation { get; set; }
+        public CremationDto CremationDto { get; set; }
 
-        public byte CremationId { get; set; }
+        public byte CremationDtoId { get; set; }
 
         public string SystemCode { get; set; }
 

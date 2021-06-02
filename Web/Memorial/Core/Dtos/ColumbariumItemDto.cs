@@ -19,9 +19,9 @@ namespace Memorial.Core.Dtos
 
         public bool isOrder { get; set; }
 
-        public ColumbariumCentre ColumbariumCentre { get; set; }
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
 
-        public int ColumbariumCentreId { get; set; }
+        public int ColumbariumCentreDtoId { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

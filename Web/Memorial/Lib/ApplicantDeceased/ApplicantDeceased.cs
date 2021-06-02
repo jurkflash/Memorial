@@ -56,15 +56,15 @@ namespace Memorial.Lib.ApplicantDeceased
 
             return new Core.Dtos.ApplicantDeceasedFlattenDto()
             {
-                ApplicantId = ad.ApplicantId,
-                ApplicantName = ad.Applicant.Name,
-                ApplicantName2 = ad.Applicant.Name2,
-                DeceasedId = ad.DeceasedId,
-                DeceasedName = ad.Deceased.Name,
-                DeceasedName2 = ad.Deceased.Name2,
+                ApplicantId = ad.ApplicantDtoId,
+                ApplicantName = ad.ApplicantDto.Name,
+                ApplicantName2 = ad.ApplicantDto.Name2,
+                DeceasedId = ad.DeceasedDtoId,
+                DeceasedName = ad.DeceasedDto.Name,
+                DeceasedName2 = ad.DeceasedDto.Name2,
                 Id = ad.Id,
-                RelationshipTypeId = ad.RelationshipTypeId,
-                RelationshipTypeName = ad.RelationshipType.Name
+                RelationshipTypeId = ad.RelationshipTypeDtoId,
+                RelationshipTypeName = ad.RelationshipTypeDto.Name
             };
         }
 

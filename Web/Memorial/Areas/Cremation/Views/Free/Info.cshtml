@@ -35,14 +35,14 @@
         @Model.CremationTransactionDto.CremateDate.ToString("yyyy-MMM-dd hh:mm:ss tt")
     </div>
 </div>
-@if (Model.CremationTransactionDto.FuneralCompany != null)
+@if (Model.CremationTransactionDto.FuneralCompanyDto != null)
 {
     <div class="row flexrow">
         <div class="col-md-6">
             @Html.Raw(Resources.Mix.FuneralArrangementEntrustedBR)
         </div>
         <div class="col-md-6">
-            @Model.CremationTransactionDto.FuneralCompany.Name
+            @Model.CremationTransactionDto.FuneralCompanyDto.Name
         </div>
     </div>
 }

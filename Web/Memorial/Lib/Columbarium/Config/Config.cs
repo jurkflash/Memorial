@@ -143,7 +143,7 @@ namespace Memorial.Lib.Columbarium
             var columbariumItemInDB = _item.GetItem(columbariumItemDto.Id);
 
             if ((columbariumItemInDB.isOrder != columbariumItemDto.isOrder
-                || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreId)
+                || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreDtoId)
                 && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id && qi.DeleteDate == null).Any())
             {
                 return false;
@@ -191,7 +191,7 @@ namespace Memorial.Lib.Columbarium
         {
             var columbariumCentreInDB = _centre.GetCentre(columbariumCentreDto.Id);
 
-            if (columbariumCentreInDB.SiteId != columbariumCentreDto.SiteId
+            if (columbariumCentreInDB.SiteId != columbariumCentreDto.SiteDtoId
                 && _unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.ColumbariumCentreId == columbariumCentreInDB.Id && qt.DeleteDate == null).Any())
             {
                 return false;

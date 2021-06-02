@@ -52,7 +52,7 @@ namespace Memorial.Lib.Urn
 
         public bool Create(UrnTransactionDto urnTransactionDto)
         {
-            NewNumber(urnTransactionDto.UrnItemId);
+            NewNumber(urnTransactionDto.UrnItemDtoId);
 
             SummaryItem(urnTransactionDto);
 
@@ -106,7 +106,7 @@ namespace Memorial.Lib.Urn
         private void SummaryItem(UrnTransactionDto trx)
         {
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Urn + ": " + trx.UrnItem.Urn.Name + "<BR/>" +
+                Resources.Mix.Urn + ": " + _item.GetItem(trx.UrnItemDtoId).Urn.Name + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
     }

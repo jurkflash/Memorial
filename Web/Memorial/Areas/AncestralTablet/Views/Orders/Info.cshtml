@@ -24,14 +24,14 @@
     </div>
 </div>
 
-@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedId, area = "ApplicantDeceaseds" });}
+@{Html.RenderAction("Info", "ApplicantDeceaseds", new { applicantId = Model.ApplicantId, deceasedId = Model.AncestralTabletTransactionDto.DeceasedDtoId, area = "ApplicantDeceaseds" });}
 
 <div class="row flexrow">
     <div class="col-md-3">
         @Html.Raw(Resources.Mix.No_BR)
     </div>
     <div class="col-md-3">
-        @Model.AncestralTabletTransactionDto.AncestralTablet.Name
+        @Model.AncestralTabletTransactionDto.AncestralTabletDto.Name
     </div>
 </div>
 <div class="row flexrow">

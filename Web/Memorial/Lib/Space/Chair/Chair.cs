@@ -60,7 +60,7 @@ namespace Memorial.Lib.Space
 
         public bool Create(SpaceTransactionDto spaceTransactionDto)
         {
-            NewNumber(spaceTransactionDto.SpaceItemId);
+            NewNumber(spaceTransactionDto.SpaceItemDtoId);
 
             SummaryItem(spaceTransactionDto);
 

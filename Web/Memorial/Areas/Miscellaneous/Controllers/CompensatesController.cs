@@ -52,7 +52,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
             _compensate.SetTransaction(AF);
-            _miscellaneous.SetMiscellaneous(_compensate.GetTransactionDto().MiscellaneousItemDto.MiscellaneousId);
+            _miscellaneous.SetMiscellaneous(_compensate.GetTransactionDto().MiscellaneousItemDto.MiscellaneousDtoId);
 
             var viewModel = new MiscellaneousTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;

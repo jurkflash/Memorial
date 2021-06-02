@@ -27,9 +27,9 @@ namespace Memorial.Core.Dtos
 
         public byte ToleranceHour { get; set; }
 
-        public Space Space { get; set; }
+        public SpaceDto SpaceDto { get; set; }
 
-        public int SpaceId { get; set; }
+        public int SpaceDtoId { get; set; }
 
         public string FormView { get; set; }
 

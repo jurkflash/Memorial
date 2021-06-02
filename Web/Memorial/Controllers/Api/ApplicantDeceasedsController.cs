@@ -43,7 +43,7 @@ namespace Memorial.Controllers.Api
         [HttpPost]
         public IHttpActionResult CreateWithReturnId(ApplicantDeceasedDto applicantDeceasedDto)
         {
-            var result = _applicantDeceased.CreateWithReturnId(applicantDeceasedDto.ApplicantId, applicantDeceasedDto.DeceasedId, applicantDeceasedDto.RelationshipTypeId);
+            var result = _applicantDeceased.CreateWithReturnId(applicantDeceasedDto.ApplicantDtoId, applicantDeceasedDto.DeceasedDtoId, applicantDeceasedDto.RelationshipTypeDtoId);
 
             return Ok(result);
         }

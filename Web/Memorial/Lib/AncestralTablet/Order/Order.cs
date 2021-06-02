@@ -71,26 +71,26 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            if (ancestralTabletTransactionDto.DeceasedId != null)
+            if (ancestralTabletTransactionDto.DeceasedDtoId != null)
             {
-                SetDeceased((int)ancestralTabletTransactionDto.DeceasedId);
+                SetDeceased((int)ancestralTabletTransactionDto.DeceasedDtoId);
                 if (_deceased.GetAncestralTablet() != null)
                     return false;
             }
 
-            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemDtoId);
 
             SummaryItem(ancestralTabletTransactionDto);
 
             if (CreateNewTransaction(ancestralTabletTransactionDto))
             {
-                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId);
-                _ancestralTablet.SetApplicant(ancestralTabletTransactionDto.ApplicantId);
+                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId);
+                _ancestralTablet.SetApplicant(ancestralTabletTransactionDto.ApplicantDtoId);
 
-                if (ancestralTabletTransactionDto.DeceasedId != null)
+                if (ancestralTabletTransactionDto.DeceasedDtoId != null)
                 {
-                    SetDeceased((int)ancestralTabletTransactionDto.DeceasedId);
-                    if (_deceased.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId))
+                    SetDeceased((int)ancestralTabletTransactionDto.DeceasedDtoId);
+                    if (_deceased.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId))
                     {
                         _ancestralTablet.SetHasDeceased(true);
                     }
@@ -98,9 +98,9 @@ namespace Memorial.Lib.AncestralTablet
                         return false;
                 }
 
-                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletId, _AFnumber, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletDtoId, _AFnumber, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
 
-                _withdraw.RemoveWithdrew(ancestralTabletTransactionDto.AncestralTabletId);
+                _withdraw.RemoveWithdrew(ancestralTabletTransactionDto.AncestralTabletDtoId);
 
                 _unitOfWork.Complete();
             }
@@ -128,14 +128,14 @@ namespace Memorial.Lib.AncestralTablet
 
             if (UpdateTransaction(ancestralTabletTransactionDto))
             {
-                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId);
+                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId);
 
-                AncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.DeceasedId, deceased1InDb);
+                AncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.DeceasedDtoId, deceased1InDb);
 
-                if (ancestralTabletTransactionDto.DeceasedId == null)
+                if (ancestralTabletTransactionDto.DeceasedDtoId == null)
                     _ancestralTablet.SetHasDeceased(false);
 
-                _tracking.Change(ancestralTabletTransactionDto.AncestralTabletId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantId, ancestralTabletTransactionDto.DeceasedId);
+                _tracking.Change(ancestralTabletTransactionDto.AncestralTabletDtoId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
 
                 _unitOfWork.Complete();
             }
@@ -203,7 +203,7 @@ namespace Memorial.Lib.AncestralTablet
 
         private void SummaryItem(AncestralTabletTransactionDto trx)
         {
-            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletDtoId);
 
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +

@@ -85,8 +85,8 @@ namespace Memorial.Areas.Space.Controllers
 
             if (AF == null)
             {
-                spaceTransactionDto.ApplicantId = applicantId;
-                spaceTransactionDto.SpaceItemId = itemId;
+                spaceTransactionDto.ApplicantDtoId = applicantId;
+                spaceTransactionDto.SpaceItemDtoId = itemId;
                 spaceTransactionDto.Amount = _item.GetPrice();
             }
             else
@@ -102,7 +102,7 @@ namespace Memorial.Areas.Space.Controllers
             if ((spaceTransactionDto.AF == null && _house.Create(spaceTransactionDto)) ||
                 (spaceTransactionDto.AF != null && _house.Update(spaceTransactionDto)))
             {
-                return RedirectToAction("Index", new { itemId = spaceTransactionDto.SpaceItemId, applicantId = spaceTransactionDto.ApplicantId });
+                return RedirectToAction("Index", new { itemId = spaceTransactionDto.SpaceItemDtoId, applicantId = spaceTransactionDto.ApplicantDtoId });
             }
 
             return View("Form", spaceTransactionDto);

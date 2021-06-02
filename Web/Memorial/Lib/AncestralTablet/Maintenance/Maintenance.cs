@@ -67,7 +67,7 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemDtoId);
 
             SummaryItem(ancestralTabletTransactionDto);
 
@@ -134,7 +134,7 @@ namespace Memorial.Lib.AncestralTablet
 
         private void SummaryItem(AncestralTabletTransactionDto trx)
         {
-            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletId);
+            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletDtoId);
 
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +

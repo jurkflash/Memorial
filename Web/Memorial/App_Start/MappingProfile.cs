@@ -28,14 +28,32 @@ namespace Memorial.App_Start
             CreateMap<ReligionType, ReligionTypeDto>();
 
             CreateMap<Applicant, ApplicantDto>();
-            CreateMap<Deceased, DeceasedDto>();
+            CreateMap<Deceased, DeceasedDto>()
+                .ForMember(c => c.GenderTypeDto, opt => opt.MapFrom(x => x.GenderType))
+                .ForMember(c => c.GenderTypeDtoId, opt => opt.MapFrom(x => x.GenderTypeId))
+                .ForMember(c => c.NationalityTypeDto, opt => opt.MapFrom(x => x.NationalityType))
+                .ForMember(c => c.NationalityTypeDtoId, opt => opt.MapFrom(x => x.NationalityTypeId))
+                .ForMember(c => c.MaritalTypeDto, opt => opt.MapFrom(x => x.MaritalType))
+                .ForMember(c => c.MaritalTypeDtoId, opt => opt.MapFrom(x => x.MaritalTypeId))
+                .ForMember(c => c.ReligionTypeDto, opt => opt.MapFrom(x => x.ReligionType))
+                .ForMember(c => c.ReligionTypeDtoId, opt => opt.MapFrom(x => x.ReligionTypeId));
             CreateMap<Deceased, DeceasedBriefDto>();
-            CreateMap<ApplicantDeceased, ApplicantDeceasedDto>();
+            CreateMap<ApplicantDeceased, ApplicantDeceasedDto>()
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.DeceasedDto, opt => opt.MapFrom(x => x.Deceased))
+                .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId))
+                .ForMember(c => c.RelationshipTypeDto, opt => opt.MapFrom(x => x.RelationshipType))
+                .ForMember(c => c.RelationshipTypeDtoId, opt => opt.MapFrom(x => x.RelationshipTypeId));
             CreateMap<FuneralCompany, FuneralCompanyDto>();
             CreateMap<CremationTransaction, CremationTransactionDto>();
 
-            CreateMap<Miscellaneous, MiscellaneousDto>();
-            CreateMap<MiscellaneousItem, MiscellaneousItemDto>();
+            CreateMap<Miscellaneous, MiscellaneousDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+            CreateMap<MiscellaneousItem, MiscellaneousItemDto>()
+                .ForMember(c => c.MiscellaneousDto, opt => opt.MapFrom(x => x.Miscellaneous))
+                .ForMember(c => c.MiscellaneousDtoId, opt => opt.MapFrom(x => x.MiscellaneousId));
             CreateMap<MiscellaneousTransaction, MiscellaneousTransactionDto>()
                 .ForMember(c => c.MiscellaneousItemDto, opt => opt.MapFrom(x => x.MiscellaneousItem))
                 .ForMember(c => c.MiscellaneousItemDtoId, opt => opt.MapFrom(x => x.MiscellaneousItemId))
@@ -44,13 +62,33 @@ namespace Memorial.App_Start
                 .ForMember(c => c.CemeteryLandscapeCompanyDto, opt => opt.MapFrom(x => x.CemeteryLandscapeCompany))
                 .ForMember(c => c.CemeteryLandscapeCompanyDtoId, opt => opt.MapFrom(x => x.CemeteryLandscapeCompanyId));
 
-            CreateMap<Space, SpaceDto>();
-            CreateMap<SpaceItem, SpaceItemDto>();
-            CreateMap<SpaceTransaction, SpaceTransactionDto>();
+            CreateMap<Space, SpaceDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+            CreateMap<SpaceItem, SpaceItemDto>()
+                .ForMember(c => c.SpaceDto, opt => opt.MapFrom(x => x.Space))
+                .ForMember(c => c.SpaceDtoId, opt => opt.MapFrom(x => x.SpaceId));
+            CreateMap<SpaceTransaction, SpaceTransactionDto>()
+                .ForMember(c => c.SpaceItemDto, opt => opt.MapFrom(x => x.SpaceItem))
+                .ForMember(c => c.SpaceItemDtoId, opt => opt.MapFrom(x => x.SpaceItemId))
+                .ForMember(c => c.FuneralCompanyDto, opt => opt.MapFrom(x => x.FuneralCompany))
+                .ForMember(c => c.FuneralCompanyDtoId, opt => opt.MapFrom(x => x.FuneralCompanyId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.DeceasedDto, opt => opt.MapFrom(x => x.Deceased))
+                .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId));
 
-            CreateMap<Urn, UrnDto>();
-            CreateMap<UrnItem, UrnItemDto>();
-            CreateMap<UrnTransaction, UrnTransactionDto>();
+            CreateMap<Urn, UrnDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+            CreateMap<UrnItem, UrnItemDto>()
+                .ForMember(c => c.UrnDto, opt => opt.MapFrom(x => x.Urn))
+                .ForMember(c => c.UrnDtoId, opt => opt.MapFrom(x => x.UrnId));
+            CreateMap<UrnTransaction, UrnTransactionDto>()
+                .ForMember(c => c.UrnItemDto, opt => opt.MapFrom(x => x.UrnItem))
+                .ForMember(c => c.UrnItemDtoId, opt => opt.MapFrom(x => x.UrnItemId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId));
 
             CreateMap<Plot, PlotDto>()
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
@@ -91,9 +129,13 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ColumbariumCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
                 .ForMember(c => c.ColumbariumCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
 
-            CreateMap<ColumbariumCentre, ColumbariumCentreDto>();
+            CreateMap<ColumbariumCentre, ColumbariumCentreDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<NicheType, NicheTypeDto>();
-            CreateMap<ColumbariumItem, ColumbariumItemDto>();
+            CreateMap<ColumbariumItem, ColumbariumItemDto>()
+                .ForMember(c => c.ColumbariumCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
+                .ForMember(c => c.ColumbariumCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>()
                 .ForMember(c => c.ColumbariumItemDto, opt => opt.MapFrom(x => x.ColumbariumItem))
                 .ForMember(c => c.ColumbariumItemDtoId, opt => opt.MapFrom(x => x.ColumbariumItemId))
@@ -116,18 +158,45 @@ namespace Memorial.App_Start
                 .ForMember(c => c.TransferredColumbariumTransactionDto, opt => opt.MapFrom(x => x.TransferredColumbariumTransaction))
                 .ForMember(c => c.TransferredColumbariumTransactionDtoAF, opt => opt.MapFrom(x => x.TransferredColumbariumTransactionAF));
 
-            CreateMap<AncestralTablet, AncestralTabletDto>();
+            CreateMap<AncestralTablet, AncestralTabletDto>()
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId));
             CreateMap<AncestralTabletArea, AncestralTabletAreaDto>()
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<AncestralTabletItem, AncestralTabletItemDto>()
                 .ForMember(c => c.AncestralTabletAreaDto, opt => opt.MapFrom(x => x.AncestralTabletArea))
                 .ForMember(c => c.AncestralTabletAreaDtoId, opt => opt.MapFrom(x => x.AncestralTabletAreaId));
-            CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>();
+            CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>()
+                .ForMember(c => c.AncestralTabletItemDto, opt => opt.MapFrom(x => x.AncestralTabletItem))
+                .ForMember(c => c.AncestralTabletItemDtoId, opt => opt.MapFrom(x => x.AncestralTabletItemId))
+                .ForMember(c => c.AncestralTabletItemDto, opt => opt.MapFrom(x => x.AncestralTabletItem))
+                .ForMember(c => c.AncestralTabletItemDtoId, opt => opt.MapFrom(x => x.AncestralTabletItemId))
+                .ForMember(c => c.AncestralTabletDto, opt => opt.MapFrom(x => x.AncestralTablet))
+                .ForMember(c => c.AncestralTabletDtoId, opt => opt.MapFrom(x => x.AncestralTabletId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.DeceasedDto, opt => opt.MapFrom(x => x.Deceased))
+                .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId))
+                .ForMember(c => c.ShiftedAncestralTabletDto, opt => opt.MapFrom(x => x.ShiftedAncestralTablet))
+                .ForMember(c => c.ShiftedAncestralTabletDtoId, opt => opt.MapFrom(x => x.ShiftedAncestralTabletId))
+                .ForMember(c => c.ShiftedAncestralTabletTransactionDtoAF, opt => opt.MapFrom(x => x.ShiftedAncestralTabletTransactionAF));
 
-            CreateMap<Cremation, CremationDto>();
-            CreateMap<CremationItem, CremationItemDto>();
-            CreateMap<CremationTransaction, CremationTransactionDto>();
+            CreateMap<Cremation, CremationDto>()
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+            CreateMap<CremationItem, CremationItemDto>()
+                .ForMember(c => c.CremationDto, opt => opt.MapFrom(x => x.Cremation))
+                .ForMember(c => c.CremationDtoId, opt => opt.MapFrom(x => x.CremationId));
+            CreateMap<CremationTransaction, CremationTransactionDto>()
+                .ForMember(c => c.CremationItemDto, opt => opt.MapFrom(x => x.CremationItem))
+                .ForMember(c => c.CremationItemDtoId, opt => opt.MapFrom(x => x.CremationItemId))
+                .ForMember(c => c.FuneralCompanyDto, opt => opt.MapFrom(x => x.FuneralCompany))
+                .ForMember(c => c.FuneralCompanyDtoId, opt => opt.MapFrom(x => x.FuneralCompanyId))
+                .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.DeceasedDto, opt => opt.MapFrom(x => x.Deceased))
+                .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId));
 
             CreateMap<Invoice, InvoiceDto>();
             CreateMap<Receipt, ReceiptDto>();
@@ -151,9 +220,13 @@ namespace Memorial.App_Start
             CreateMap<DeceasedDto, Deceased>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.GenderType, opt => opt.Ignore())
+                .ForMember(c => c.GenderTypeId, opt => opt.MapFrom(x => x.GenderTypeDtoId))
                 .ForMember(c => c.NationalityType, opt => opt.Ignore())
+                .ForMember(c => c.NationalityTypeId, opt => opt.MapFrom(x => x.NationalityTypeDtoId))
                 .ForMember(c => c.MaritalType, opt => opt.Ignore())
+                .ForMember(c => c.MaritalTypeId, opt => opt.MapFrom(x => x.MaritalTypeDtoId))
                 .ForMember(c => c.ReligionType, opt => opt.Ignore())
+                .ForMember(c => c.ReligionTypeId, opt => opt.MapFrom(x => x.ReligionTypeDtoId))
                 .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
                 .ForMember(c => c.CreateDate, opt => opt.Ignore())
@@ -161,16 +234,26 @@ namespace Memorial.App_Start
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<ApplicantDeceasedDto, ApplicantDeceased>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId))
+                .ForMember(c => c.RelationshipType, opt => opt.Ignore())
+                .ForMember(c => c.RelationshipTypeId, opt => opt.MapFrom(x => x.RelationshipTypeDtoId));
             CreateMap<FuneralCompanyDto, FuneralCompany>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<CremationTransactionDto, CremationTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore());
 
             CreateMap<MiscellaneousDto, Miscellaneous>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<MiscellaneousItemDto, MiscellaneousItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Miscellaneous, opt => opt.Ignore())
+                .ForMember(c => c.MiscellaneousId, opt => opt.MapFrom(x => x.MiscellaneousDtoId));
             CreateMap<MiscellaneousTransactionDto, MiscellaneousTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.MiscellaneousItem, opt => opt.Ignore())
@@ -182,35 +265,51 @@ namespace Memorial.App_Start
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<SpaceDto, Space>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<SpaceItemDto, SpaceItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Space, opt => opt.Ignore())
+                .ForMember(c => c.SpaceId, opt => opt.MapFrom(x => x.SpaceDtoId));
             CreateMap<SpaceTransactionDto, SpaceTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.SpaceItem, opt => opt.Ignore())
+                .ForMember(c => c.SpaceItemId, opt => opt.MapFrom(x => x.SpaceItemDtoId))
                 .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
+                .ForMember(c => c.FuneralCompanyId, opt => opt.MapFrom(x => x.FuneralCompanyDtoId))
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<UrnDto, Urn>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<UrnItemDto, UrnItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Urn, opt => opt.Ignore())
+                .ForMember(c => c.UrnId, opt => opt.MapFrom(x => x.UrnDtoId));
             CreateMap<UrnTransactionDto, UrnTransaction>()
-                .ForMember(c => c.AF, opt => opt.Ignore());
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.UrnItem, opt => opt.Ignore())
+                .ForMember(c => c.UrnItemId, opt => opt.MapFrom(x => x.UrnItemDtoId))
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId));
 
             CreateMap<PlotDto, Plot>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.Applicant, opt => opt.MapFrom(x => x.ApplicantDto))
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
-                .ForMember(c => c.PlotType, opt => opt.MapFrom(x => x.PlotTypeDto))
+                .ForMember(c => c.PlotType, opt => opt.Ignore())
                 .ForMember(c => c.PlotTypeId, opt => opt.MapFrom(x => x.PlotTypeDtoId))
-                .ForMember(c => c.CemeteryArea, opt => opt.MapFrom(x => x.CemeteryAreaDto))
+                .ForMember(c => c.CemeteryArea, opt => opt.Ignore())
                 .ForMember(c => c.CemeteryAreaId, opt => opt.MapFrom(x => x.CemeteryAreaDtoId));
             CreateMap<CemeteryAreaDto, CemeteryArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.Site, opt => opt.MapFrom(x => x.SiteDto))
+                .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<CemeteryItemDto, CemeteryItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -232,68 +331,95 @@ namespace Memorial.App_Start
 
             CreateMap<NicheDto, Niche>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.NicheType, opt => opt.MapFrom(x => x.NicheTypeDto))
+                .ForMember(c => c.NicheType, opt => opt.Ignore())
                 .ForMember(c => c.NicheTypeId, opt => opt.MapFrom(x => x.NicheTypeDtoId))
-                .ForMember(c => c.ColumbariumArea, opt => opt.MapFrom(x => x.ColumbariumAreaDto))
+                .ForMember(c => c.ColumbariumArea, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumAreaId, opt => opt.MapFrom(x => x.ColumbariumAreaDtoId));
 
             CreateMap<ColumbariumAreaDto, ColumbariumArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumCentreDto, ColumbariumCentre>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
+                .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId));
             CreateMap<NicheTypeDto, NicheType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
-                .ForMember(c => c.ColumbariumItem, opt => opt.MapFrom(x => x.ColumbariumItemDto))
+                .ForMember(c => c.ColumbariumItem, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumItemId, opt => opt.MapFrom(x => x.ColumbariumItemDtoId))
-                .ForMember(c => c.Niche, opt => opt.MapFrom(x => x.NicheDto))
+                .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.NicheId, opt => opt.MapFrom(x => x.NicheDtoId))
-                .ForMember(c => c.FuneralCompany, opt => opt.MapFrom(x => x.FuneralCompanyDto))
+                .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
                 .ForMember(c => c.FuneralCompanyId, opt => opt.MapFrom(x => x.FuneralCompanyDtoId))
-                .ForMember(c => c.Applicant, opt => opt.MapFrom(x => x.ApplicantDto))
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
-                .ForMember(c => c.Deceased1, opt => opt.MapFrom(x => x.DeceasedDto1))
+                .ForMember(c => c.Deceased1, opt => opt.Ignore())
                 .ForMember(c => c.Deceased1Id, opt => opt.MapFrom(x => x.DeceasedDto1Id))
-                .ForMember(c => c.Deceased2, opt => opt.MapFrom(x => x.DeceasedDto2Id))
+                .ForMember(c => c.Deceased2, opt => opt.Ignore())
                 .ForMember(c => c.Deceased2Id, opt => opt.MapFrom(x => x.DeceasedDto2Id))
-                .ForMember(c => c.ShiftedNiche, opt => opt.MapFrom(x => x.ShiftedNicheDto))
+                .ForMember(c => c.ShiftedNiche, opt => opt.Ignore())
                 .ForMember(c => c.ShiftedNicheId, opt => opt.MapFrom(x => x.ShiftedNicheDtoId))
-                .ForMember(c => c.ShiftedColumbariumTransaction, opt => opt.MapFrom(x => x.ShiftedColumbariumTransactionDto))
+                .ForMember(c => c.ShiftedColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.ShiftedColumbariumTransactionAF, opt => opt.MapFrom(x => x.ShiftedColumbariumTransactionDtoAF))
-                .ForMember(c => c.TransferredApplicant, opt => opt.MapFrom(x => x.TransferredApplicantDto))
+                .ForMember(c => c.TransferredApplicant, opt => opt.Ignore())
                 .ForMember(c => c.TransferredApplicantId, opt => opt.MapFrom(x => x.TransferredApplicantDtoId))
-                .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.MapFrom(x => x.TransferredColumbariumTransactionDto))
+                .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.TransferredColumbariumTransactionAF, opt => opt.MapFrom(x => x.TransferredColumbariumTransactionDtoAF))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
 
             CreateMap<AncestralTabletDto, AncestralTablet>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId));
             CreateMap<AncestralTabletAreaDto, AncestralTabletArea>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<AncestralTabletItemDto, AncestralTabletItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.AncestralTabletArea, opt => opt.MapFrom(x => x.AncestralTabletAreaDto))
+                .ForMember(c => c.AncestralTabletArea, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId));
             CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletItem, opt => opt.Ignore())
+                .ForMember(c => c.AncestralTabletItemId, opt => opt.MapFrom(x => x.AncestralTabletItemDtoId))
                 .ForMember(c => c.AncestralTablet, opt => opt.Ignore())
+                .ForMember(c => c.AncestralTabletId, opt => opt.MapFrom(x => x.AncestralTabletDtoId))
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId))
+                .ForMember(c => c.ShiftedAncestralTablet, opt => opt.Ignore())
+                .ForMember(c => c.ShiftedAncestralTabletId, opt => opt.MapFrom(x => x.ShiftedAncestralTabletDtoId))
+                .ForMember(c => c.ShiftedAncestralTabletTransactionAF, opt => opt.MapFrom(x => x.ShiftedAncestralTabletTransactionDtoAF))
                 .ForMember(c => c.CreateDate, opt => opt.Ignore())
                 .ForMember(c => c.ModifyDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<CremationDto, Cremation>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<CremationItemDto, CremationItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Cremation, opt => opt.Ignore())
+                .ForMember(c => c.CremationId, opt => opt.MapFrom(x => x.CremationDtoId));
             CreateMap<CremationTransactionDto, CremationTransaction>()
-                .ForMember(c => c.AF, opt => opt.Ignore());
+                .ForMember(c => c.AF, opt => opt.Ignore())
+                .ForMember(c => c.CremationItem, opt => opt.Ignore())
+                .ForMember(c => c.CremationItemId, opt => opt.MapFrom(x => x.CremationItemDtoId))
+                .ForMember(c => c.FuneralCompany, opt => opt.Ignore())
+                .ForMember(c => c.FuneralCompanyId, opt => opt.MapFrom(x => x.FuneralCompanyDtoId))
+                .ForMember(c => c.Applicant, opt => opt.Ignore())
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.Deceased, opt => opt.Ignore())
+                .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId));
 
             CreateMap<InvoiceDto, Invoice>()
                 .ForMember(i => i.IV, opt => opt.Ignore())

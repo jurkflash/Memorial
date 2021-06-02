@@ -92,7 +92,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 _ancestralTablet.SetAncestralTablet(id);
 
                 var ancestralTabletTransactionDto = new AncestralTabletTransactionDto(itemId, id, applicantId);
-                ancestralTabletTransactionDto.AncestralTabletId = id;
+                ancestralTabletTransactionDto.AncestralTabletDtoId = id;
                 viewModel.AncestralTabletTransactionDto = ancestralTabletTransactionDto;
             }
             else
@@ -112,9 +112,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
-                        id = viewModel.AncestralTabletTransactionDto.AncestralTabletId,
-                        applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
+                        itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemDtoId,
+                        id = viewModel.AncestralTabletTransactionDto.AncestralTabletDtoId,
+                        applicantId = viewModel.AncestralTabletTransactionDto.ApplicantDtoId
                     });
                 }
                 else
@@ -129,9 +129,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemId,
-                id = viewModel.AncestralTabletTransactionDto.AncestralTabletId,
-                applicantId = viewModel.AncestralTabletTransactionDto.ApplicantId
+                itemId = viewModel.AncestralTabletTransactionDto.AncestralTabletItemDtoId,
+                id = viewModel.AncestralTabletTransactionDto.AncestralTabletDtoId,
+                applicantId = viewModel.AncestralTabletTransactionDto.ApplicantDtoId
             });
         }
 

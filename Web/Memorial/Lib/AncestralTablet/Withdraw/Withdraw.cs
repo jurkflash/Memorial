@@ -58,9 +58,9 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
         {
-            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemId);
+            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemDtoId);
 
-            var trns = GetTransactionsByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletId);
+            var trns = GetTransactionsByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletDtoId);
 
             if (trns.Count() == 0)
                 return false;
@@ -73,17 +73,17 @@ namespace Memorial.Lib.AncestralTablet
             ancestralTabletTransactionDto.WithdrewAFS = trnsAF;
 
 
-            var trackingTrns = _tracking.GetTrackingByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletId);
+            var trackingTrns = _tracking.GetTrackingByAncestralTabletId(ancestralTabletTransactionDto.AncestralTabletDtoId);
             foreach (var trackingTrn in trackingTrns)
             {
                 trackingTrn.ToDeleteFlag = true;
             }
             
 
-            _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletId);
-            if (ancestralTabletTransactionDto.DeceasedId != null)
+            _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId);
+            if (ancestralTabletTransactionDto.DeceasedDtoId != null)
             {
-                _deceased.SetDeceased((int)ancestralTabletTransactionDto.DeceasedId);
+                _deceased.SetDeceased((int)ancestralTabletTransactionDto.DeceasedDtoId);
                 _deceased.RemoveAncestralTablet();
                 _ancestralTablet.SetHasDeceased(false);
             }

@@ -236,12 +236,12 @@ namespace Memorial.Lib.AncestralTablet
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(ancestralTabletTransactionDto.ApplicantId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetApplicantDeceased(ancestralTabletTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    ancestralTabletTransactionDto.DeceasedId = deceaseds.ElementAt(0).Id;
+                    ancestralTabletTransactionDto.DeceasedDtoId = deceaseds.ElementAt(0).Id;
                 }
             }
 

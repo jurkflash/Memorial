@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Memorial.Core.Domain;
-
-namespace Memorial.Core.Dtos
+﻿namespace Memorial.Core.Dtos
 {
     public class ColumbariumCentreDto
     {
@@ -12,9 +8,9 @@ namespace Memorial.Core.Dtos
 
         public string Description { get; set; }
 
-        public Site Site { get; set; }
+        public SiteDto SiteDto { get; set; }
 
-        public byte SiteId { get; set; }
+        public byte SiteDtoId { get; set; }
 
     }
 }

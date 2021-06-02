@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantId, area = "Applicant" });}
+@{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -17,7 +17,7 @@
             @Html.Raw(Resources.Mix.AncestralTabletBR)
         </div>
         <div class="col-md-6">
-            @Model.AncestralTabletTransactionDto.AncestralTablet.Name
+            @Model.AncestralTabletTransactionDto.AncestralTabletDto.Name
         </div>
     </div>
     if (Model.AncestralTabletTransactionDto.AF == null)
@@ -27,7 +27,7 @@
                 @Html.Raw(Resources.Mix.HasDeceasedBR)
             </div>
             <div class="col-md-6">
-                @Model.AncestralTabletTransactionDto.AncestralTablet.hasDeceased
+                @Model.AncestralTabletTransactionDto.AncestralTabletDto.hasDeceased
             </div>
         </div>
         <div class="form-group row">
@@ -48,7 +48,7 @@
                 @Html.Raw(Resources.Mix.AncestralTabletBR)
             </div>
             <div class="col-md-6">
-                @Model.AncestralTabletTransactionDto.AncestralTablet.Name
+                @Model.AncestralTabletTransactionDto.AncestralTabletDto.Name
             </div>
         </div>
         <hr />
@@ -112,11 +112,11 @@
         </div>
     </div>
 
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletTransactionAF)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletId)
-    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletItemDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AncestralTabletDtoId)
+    @Html.HiddenFor(c => c.AncestralTabletTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.AncestralTabletTransactionDto.AF)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
@@ -192,7 +192,7 @@
             $("#qName").empty();
             $("#AncestralTabletTransactionDto_Price").val('');
             $("#AncestralTabletTransactionDto_Maintenance").val('');
-            $("#AncestralTabletTransactionDto_AncestralTabletId").val('');
+            $("#AncestralTabletTransactionDto_AncestralTabletDtoId").val('');
             $("#qRemark").empty();
         }
 
@@ -209,7 +209,7 @@
                         $("#AncestralTabletTransactionDto_Price").val(response['price']);
                         $("#AncestralTabletTransactionDto_Maintenance").val(response['maintenance']);
                         $("#qRemark").html(response['remark']);
-                        $("#AncestralTabletTransactionDto_AncestralTabletId").val(response['id']);
+                        $("#AncestralTabletTransactionDto_AncestralTabletDtoId").val(response['id']);
                     }
                 })
                 .fail(function () {

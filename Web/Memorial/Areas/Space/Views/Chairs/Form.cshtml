@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantId });}
+@{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
@@ -46,8 +46,8 @@
         </div>
     </div>
 
-    @Html.HiddenFor(s => s.SpaceItemId)
-    @Html.HiddenFor(s => s.ApplicantId)
+    @Html.HiddenFor(s => s.SpaceItemDtoId)
+    @Html.HiddenFor(s => s.ApplicantDtoId)
     @Html.HiddenFor(s => s.AF)
     @Html.HiddenFor(s => s.BasePrice)
     <button type="submit" class="btn btn-primary" id="btnSubmit">@Html.Raw(Resources.Mix.Save)</button>

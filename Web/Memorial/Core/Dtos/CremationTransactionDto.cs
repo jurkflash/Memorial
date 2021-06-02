@@ -11,23 +11,23 @@ namespace Memorial.Core.Dtos
 
         public float Price { get; set; }
 
-        public CremationItem CremationItem { get; set; }
+        public CremationItemDto CremationItemDto { get; set; }
 
-        public int CremationItemId { get; set; }
+        public int CremationItemDtoId { get; set; }
 
         public DateTime CremateDate { get; set; }
 
-        public FuneralCompany FuneralCompany { get; set; }
+        public FuneralCompanyDto FuneralCompanyDto { get; set; }
 
-        public int? FuneralCompanyId { get; set; }
+        public int? FuneralCompanyDtoId { get; set; }
 
-        public Applicant Applicant { get; set; }
+        public ApplicantDto ApplicantDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int ApplicantDtoId { get; set; }
 
-        public Deceased Deceased { get; set; }
+        public DeceasedDto DeceasedDto { get; set; }
 
-        public int DeceasedId { get; set; }
+        public int DeceasedDtoId { get; set; }
 
         public string SummaryItem { get; set; }
 

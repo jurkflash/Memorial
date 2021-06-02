@@ -68,7 +68,7 @@ namespace Memorial.Lib.Space
         {
             var spaceInDB = _space.GetSpace(spaceDto.Id);
 
-            if (spaceInDB.SiteId != spaceDto.SiteId
+            if (spaceInDB.SiteId != spaceDto.SiteDtoId
                 && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeleteDate == null).Any())
             {
                 return false;
@@ -117,7 +117,7 @@ namespace Memorial.Lib.Space
         {
             var spaceItemInDB = _item.GetItem(spaceItemDto.Id);
 
-            if ((spaceItemInDB.SpaceId != spaceItemDto.SpaceId
+            if ((spaceItemInDB.SpaceId != spaceItemDto.SpaceDtoId
                 || spaceItemInDB.isOrder != spaceItemDto.isOrder
                 || spaceItemInDB.AllowDoubleBook != spaceItemDto.AllowDoubleBook
                 || spaceItemInDB.AllowDeposit != spaceItemDto.AllowDeposit)

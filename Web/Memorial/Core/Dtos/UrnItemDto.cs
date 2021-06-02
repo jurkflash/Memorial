@@ -15,9 +15,9 @@ namespace Memorial.Core.Dtos
 
         public string Code { get; set; }
 
-        public Urn Urn { get; set; }
+        public UrnDto UrnDto { get; set; }
 
-        public int UrnId { get; set; }
+        public int UrnDtoId { get; set; }
 
         public string SystemCode { get; set; }
 

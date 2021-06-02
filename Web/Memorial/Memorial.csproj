@@ -779,8 +779,8 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
-    <Compile Include="Controllers\Api\AncestorMaintenanceController.cs" />
-    <Compile Include="Controllers\Api\AncestorsController.cs" />
+    <Compile Include="Controllers\Api\AncestralTabletMaintenanceController.cs" />
+    <Compile Include="Controllers\Api\AncestralTabletsController.cs" />
     <Compile Include="Controllers\Api\SitesController.cs" />
     <Compile Include="Controllers\Api\ColumbariumsController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
