@@ -36,7 +36,7 @@
             <td>@invoice.hasReceipt</td>
             <td>@Html.ActionLink("Receipt", "Receipt", new { IV = invoice.IV, area = "Columbarium" })</td>
             <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF, area = "Columbarium" })</td>
-            <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Columbarium" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })</td>
+            <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { IV = invoice.IV, AF = Model.AF, area = "Columbarium" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm(MEMORIAL_CONFIRM);" })</td>
         </tr>
         }
     </tbody>

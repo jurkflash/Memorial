@@ -14,7 +14,7 @@
         @Html.Hidden("areaId", Model.AreaId.ToString())
         @Html.Hidden("applicantId", Model.ApplicantId.ToString())
         <br />
-        @Html.Raw(Resources.Mix.PlotType): @Html.DropDownList("plotTypeId", new SelectList(Model.PlotTypeDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+        @Html.Raw(Resources.Mix.PlotType): @Html.DropDownList("plotTypeId", new SelectList(Model.PlotTypeDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
     </p>
 }

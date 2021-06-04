@@ -16,7 +16,7 @@
             @Html.Raw(Resources.Mix.DeceasedBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(s => s.SpaceTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(s => s.SpaceTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             @Html.ValidationMessageFor(s => s.SpaceTransactionDto.DeceasedDtoId)
         </div>
     </div>
@@ -25,7 +25,7 @@
             @Html.Raw(Resources.Mix.FuneralCompanyBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(s => s.SpaceTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(s => s.SpaceTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -113,7 +113,7 @@
                 }).done(function (data) {
                     $("#SpaceTransactionDto_Amount").val(data);
                 }).fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
             }
         }
@@ -144,7 +144,7 @@
                         $("#btnSubmit").prop("disabled", true);
                     }
                 }).fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
             }
         }
@@ -154,13 +154,13 @@
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 1");
+            }, MEMORIAL_AT_LEAST_ONE);
 
             $.validator.addMethod("AtLeastZero", function (value, element, arg) {
                 if (value >= 0)
                     return true;
                 return false;
-            }, "At least 0");
+            }, MEMORIAL_AT_LEAST_ZERO);
 
             $("#SpaceTransactionDto_Amount").rules("add",
                 {

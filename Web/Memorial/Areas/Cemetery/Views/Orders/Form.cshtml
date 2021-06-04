@@ -16,7 +16,7 @@
             @Html.Raw(Resources.Mix.DeceasedBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.CemeteryTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(c => c.CemeteryTransactionDto.DeceasedDto1Id, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.DeceasedDto1Id)
         </div>
     </div>
@@ -70,7 +70,7 @@
             @Html.Raw(Resources.Mix.FuneralArrangementEntrustedBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.CemeteryTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(c => c.CemeteryTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             @Html.ValidationMessageFor(c => c.CemeteryTransactionDto.FuneralCompanyDtoId)
         </div>
     </div>
@@ -103,13 +103,13 @@
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 1");
+            }, MEMORIAL_AT_LEAST_ONE);
 
             $.validator.addMethod("AtLeastZero", function (value, element, arg) {
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 0");
+            }, MEMORIAL_AT_LEAST_ZERO);
 
             $("#CemeteryTransactionDto_Price").rules("add",
                 {

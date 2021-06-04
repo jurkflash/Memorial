@@ -28,7 +28,7 @@
             @Html.Raw(Resources.Mix.PaymentMethodBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row" id="divPaymentRemark" style="display:none">
@@ -78,7 +78,7 @@
                         $("#divPaymentRemark").hide();
                     }
                 }).fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
             }
             else {
@@ -93,7 +93,7 @@
                 if ($("#divPaymentRemark").is(":visible") && value == "")
                     return false;
                 return true;
-            }, "Please enter payment remark");
+            }, MEMORIAL_PLEASE_ENTER);
 
             $("#ReceiptDto_PaymentRemark").rules("add",
                 {

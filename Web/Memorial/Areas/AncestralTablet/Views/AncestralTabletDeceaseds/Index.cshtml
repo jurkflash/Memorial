@@ -41,7 +41,7 @@
         <h5>@Html.Raw(Resources.Mix.Deceased)</h5>
         if (Model.DeceasedFlatten1Dto == null)
         {
-            @Html.DropDownListFor(q => q.Deceased1Id, new SelectList(Model.AvailableDeceaseds, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(q => q.Deceased1Id, new SelectList(Model.AvailableDeceaseds, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             @Html.ValidationMessageFor(q => q.Deceased1Id)
         }
         else

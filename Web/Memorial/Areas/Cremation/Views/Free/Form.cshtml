@@ -16,7 +16,7 @@
             @Html.Raw(Resources.Mix.DeceasedBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.CremationTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(c => c.CremationTransactionDto.DeceasedDtoId, new SelectList(Model.DeceasedBriefDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             @Html.ValidationMessageFor(c => c.CremationTransactionDto.DeceasedDtoId)
         </div>
     </div>
@@ -25,7 +25,7 @@
             @Html.Raw(Resources.Mix.FuneralCompanyBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(c => c.CremationTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(c => c.CremationTransactionDto.FuneralCompanyDtoId, new SelectList(Model.FuneralCompanyDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">

@@ -87,7 +87,7 @@
                 }).done(function (data) {
                     $("#AncestralTabletTransactionDto_Price").val(data);
                 }).fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
             }
         }

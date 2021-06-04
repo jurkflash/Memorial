@@ -52,7 +52,7 @@
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
                     new { AF = columbariumTransaction.AF, itemId = Model.ColumbariumItemId, id = Model.NicheId, applicantId = Model.ApplicantId, area = "Columbarium" },
-                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure?');" })
+                    new { @class = "btn btn-danger btn-sm", onclick = "return confirm(MEMORIAL_CONFIRM);" })
                 </td>
             </tr>
         }

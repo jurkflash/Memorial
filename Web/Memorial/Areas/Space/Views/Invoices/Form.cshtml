@@ -49,13 +49,13 @@
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 1");
+            }, MEMORIAL_AT_LEAST_ONE);
 
             $.validator.addMethod("AmountNotMatch", function (value, element, arg) {
                 if (value <= parseFloat($("#Amount").val()))
                     return true;
                 return false;
-            }, "Amount invalid");
+            }, MEMORIAL_AMOUNT_INVALID);
 
             $("#InvoiceDto_Amount").rules("add",
                 {

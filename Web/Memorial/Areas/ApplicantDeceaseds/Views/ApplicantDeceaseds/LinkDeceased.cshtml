@@ -59,7 +59,7 @@
                     }
                 })
                 .fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
 
             var table = $("#linkedDeceaseds").DataTable({
@@ -89,7 +89,7 @@
 
             $("#linkedDeceaseds").on("click", ".js-unlink", function () {
                 var button = $(this);
-                bootbox.confirm("Are you sure you want to unlink this deceased?", function (result) {
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         var tr = table.row(button.parents("tr")).node();
                         //addRow.childNodes[2].textContent = "";
@@ -110,7 +110,7 @@
                             method: "Delete"
                         })
                             .done(function (response) {
-                                toastr.success("Successfully unlink");
+                                toastr.success(MEMORIAL_SUCCESS);
 
                                 table.row(button.parents("tr")).remove().draw();
                                 table2.row.add({
@@ -121,7 +121,7 @@
                                 }).draw();
                             })
                             .fail(function () {
-                                toastr.error("Something unexpected happened.");
+                                toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                             });
                     }
                 });
@@ -156,7 +156,7 @@
 
             $("#unlinkedDeceaseds").on("click", ".js-link", function () {
                 var button = $(this);
-                bootbox.confirm("Are you sure you want to link this deceased?", function (result) {
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         var addRow2 = table2.row(button.parents("tr")).node();
                         var ddl = $(addRow2.getElementsByTagName("select")).children("option:selected");
@@ -176,7 +176,7 @@
                             }
                         })
                             .done(function (response) {
-                                toastr.success("Successfully linked");
+                                toastr.success(MEMORIAL_SUCCESS);
 
                                 table2.row(button.parents("tr")).remove().draw();
                                 table.row.add({
@@ -187,7 +187,7 @@
                                 }).draw();
                             })
                             .fail(function () {
-                                toastr.error("Something unexpected happened.");
+                                toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                             });
                     }
                 });

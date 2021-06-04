@@ -14,7 +14,7 @@
             @Html.Raw(Resources.Mix.FengShuiMasterBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(m => m.MiscellaneousTransactionDto.CemeteryLandscapeCompanyDtoId, new SelectList(Model.CemeteryLandscapeCompanyDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.MiscellaneousTransactionDto.CemeteryLandscapeCompanyDtoId, new SelectList(Model.CemeteryLandscapeCompanyDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -51,7 +51,7 @@
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 1");
+            }, MEMORIAL_AT_LEAST_ONE);
 
             $("#MiscellaneousTransactionDto_Price").rules("add",
                 {

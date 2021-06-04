@@ -28,7 +28,7 @@
             @Html.Raw(Resources.Mix.PaymentMethodBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(r => r.ReceiptDto.PaymentMethodId, new SelectList(Model.PaymentMethods, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row" id="divPaymentRemark" style="display:none">
@@ -51,7 +51,7 @@
     </div>
 
     @Html.HiddenFor(r => r.ReceiptDto.RE)
-    @Html.HiddenFor(r => r.ReceiptDto.InvoiceIV)
+    @Html.HiddenFor(r => r.ReceiptDto.InvoiceDtoIV)
     @Html.HiddenFor(r => r.InvoiceDto.Amount)
     @Html.HiddenFor(r => r.InvoiceDto.IV)
     @Html.HiddenFor(r => r.AF)
@@ -82,7 +82,7 @@
                         $("#divPaymentRemark").hide();
                     }
                 }).fail(function () {
-                    toastr.error("Something unexpected happened.");
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
             }
             else {
@@ -99,19 +99,19 @@
                 if (value >= 1)
                     return true;
                 return false;
-            }, "At least 1");
+            }, MEMORIAL_AT_LEAST_ONE);
 
             $.validator.addMethod("AmountNotMatch", function (value, element, arg) {
                 if (value <= parseFloat($("#RemainingAmount").val()) + amount)
                     return true;
                 return false;
-            }, "Amount invalid");
+            }, MEMORIAL_AMOUNT_INVALID);
 
             $.validator.addMethod("paymentMethodRemark", function (value, element, arg) {
                 if ($("#divPaymentRemark").is(":visible") && value == "")
                     return false;
                 return true;
-            }, "Please enter payment remark");
+            }, MEMORIAL_PLEASE_ENTER);
 
             $("#ReceiptDto_PaymentRemark").rules("add",
                 {
