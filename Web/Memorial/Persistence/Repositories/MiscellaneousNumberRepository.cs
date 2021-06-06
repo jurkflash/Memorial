@@ -19,16 +19,21 @@ namespace Memorial.Persistence.Repositories
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
+                                .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetMiscellaneousNewAF(miscellaneousItem.Code, year);
+            var number = numberRepository.GetMiscellaneousNewAF(
+                (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
+                year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";
             else
             {
-                return miscellaneousItem.Miscellaneous.Site.Code + "/" + miscellaneousItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return miscellaneousItem.Miscellaneous.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -39,16 +44,21 @@ namespace Memorial.Persistence.Repositories
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
+                                .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetMiscellaneousNewIV(miscellaneousItem.Code, year);
+            var number = numberRepository.GetMiscellaneousNewIV(
+                (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
+                year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";
             else
             {
-                return miscellaneousItem.Miscellaneous.Site.Code + "/" + miscellaneousItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return miscellaneousItem.Miscellaneous.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -59,16 +69,21 @@ namespace Memorial.Persistence.Repositories
             var miscellaneousItem = MemorialContext.MiscellaneousItems
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
+                                .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
                                 m.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetMiscellaneousNewRE(miscellaneousItem.Code, year);
+            var number = numberRepository.GetMiscellaneousNewRE(
+                (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
+                year);
 
             if (number == -1 || miscellaneousItem == null)
                 return "";
             else
             {
-                return miscellaneousItem.Miscellaneous.Site.Code + "/" + miscellaneousItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return miscellaneousItem.Miscellaneous.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

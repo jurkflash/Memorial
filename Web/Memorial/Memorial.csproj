@@ -2542,6 +2542,14 @@
     <Compile Include="Migrations\202106060332514_PopulateCremationItemsTableData.designer.cs">
       <DependentUpon>202106060332514_PopulateCremationItemsTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106060802027_RedesignMiscellaneousItemsTable.cs" />
+    <Compile Include="Migrations\202106060802027_RedesignMiscellaneousItemsTable.designer.cs">
+      <DependentUpon>202106060802027_RedesignMiscellaneousItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060805293_PopulateMiscellaneousItemsTableData.cs" />
+    <Compile Include="Migrations\202106060805293_PopulateMiscellaneousItemsTableData.designer.cs">
+      <DependentUpon>202106060805293_PopulateMiscellaneousItemsTableData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3923,6 +3931,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106060332514_PopulateCremationItemsTableData.resx">
       <DependentUpon>202106060332514_PopulateCremationItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060802027_RedesignMiscellaneousItemsTable.resx">
+      <DependentUpon>202106060802027_RedesignMiscellaneousItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060805293_PopulateMiscellaneousItemsTableData.resx">
+      <DependentUpon>202106060805293_PopulateMiscellaneousItemsTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -7,20 +7,17 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public MiscellaneousItemConfiguration()
         {
-            Property(mi => mi.Name)
-                .IsRequired()
-                .HasMaxLength(255);
-
-            Property(mi => mi.Description)
-                .HasMaxLength(255);
-
             Property(mi => mi.Code)
-                .IsRequired()
                 .HasMaxLength(10);
 
             HasRequired(mi => mi.Miscellaneous)
                 .WithMany(m => m.MiscellaneousItems)
                 .HasForeignKey(mi => mi.MiscellaneousId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(mi => mi.SubProductService)
+                .WithMany(m => m.MiscellaneousItems)
+                .HasForeignKey(mi => mi.SubProductServiceId)
                 .WillCascadeOnDelete(false);
         }
     }

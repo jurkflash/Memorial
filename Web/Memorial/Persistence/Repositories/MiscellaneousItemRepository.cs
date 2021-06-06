@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public MiscellaneousItem GetActive(int id)
         {
             return MemorialContext.MiscellaneousItems
+                .Include(mi => mi.SubProductService)
                 .Where(mi => mi.Id == id && mi.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -22,6 +23,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<MiscellaneousItem> GetAllActive()
         {
             return MemorialContext.MiscellaneousItems
+                .Include(mi => mi.SubProductService)
                 .Where(mi => mi.DeleteDate == null)
                 .ToList();
         }
@@ -29,6 +31,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<MiscellaneousItem> GetByMiscellaneous(int miscellaneousId)
         {
             return MemorialContext.MiscellaneousItems
+                .Include(mi => mi.SubProductService)
                 .Where(mi => mi.Id == miscellaneousId && mi.DeleteDate == null).ToList();
         }
 
