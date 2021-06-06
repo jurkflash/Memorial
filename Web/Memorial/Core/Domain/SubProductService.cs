@@ -13,6 +13,8 @@ namespace Memorial.Core.Domain
             CremationItems = new HashSet<CremationItem>();
 
             MiscellaneousItems = new HashSet<MiscellaneousItem>();
+
+            UrnItems = new HashSet<UrnItem>();
         }
 
         public int Id { get; set; }
@@ -40,5 +42,7 @@ namespace Memorial.Core.Domain
         public ICollection<CremationItem> CremationItems { get; set; }
 
         public ICollection<MiscellaneousItem> MiscellaneousItems { get; set; }
+
+        public ICollection<UrnItem> UrnItems { get; set; }
     }
 }

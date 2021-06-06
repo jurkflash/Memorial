@@ -43,7 +43,7 @@
         {
             <tr>
                 <td>@Html.ActionLink(urnTransaction.AF, "Info", new { AF = urnTransaction.AF }, new { target = "UrnTransactionInfo" })</td>
-                <td>@urnTransaction.UrnItemDto.Name</td>
+                <td>@urnTransaction.UrnItemDto.SubProductServiceDto.Name</td>
                 <td>@urnTransaction.ApplicantDto.Name &nbsp; @urnTransaction.ApplicantDto.Name2</td>
                 <td>@urnTransaction.Price</td>
                 <td>@urnTransaction.Remark</td>

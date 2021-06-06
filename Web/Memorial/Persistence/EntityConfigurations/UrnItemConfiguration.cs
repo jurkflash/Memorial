@@ -7,20 +7,17 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public UrnItemConfiguration()
         {
-            Property(ui => ui.Name)
-            .IsRequired()
-            .HasMaxLength(255);
-
-            Property(ui => ui.Description)
-            .HasMaxLength(255);
-
             Property(ui => ui.Code)
-            .IsRequired()
             .HasMaxLength(10);
 
             HasRequired(ui => ui.Urn)
                 .WithMany(u => u.UrnItems)
                 .HasForeignKey(ui => ui.UrnId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(ui => ui.SubProductService)
+                .WithMany(u => u.UrnItems)
+                .HasForeignKey(ui => ui.SubProductServiceId)
                 .WillCascadeOnDelete(false);
         }
     }

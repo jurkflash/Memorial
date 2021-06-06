@@ -60,27 +60,33 @@ namespace Memorial.Lib.Urn
 
         public string GetName()
         {
-            return _item.Name;
+            return _item.SubProductService.Name;
         }
 
         public string GetDescription()
         {
-            return _item.Description;
+            return _item.SubProductService.Description;
         }
 
         public float GetPrice()
         {
-            return _item.Price;
+            if (_item.Price.HasValue)
+                return _item.Price.Value;
+            else
+                return _item.SubProductService.Price;
         }
 
         public string GetSystemCode()
         {
-            return _item.SystemCode;
+            return _item.SubProductService.SystemCode;
         }
 
         public bool IsOrder()
         {
-            return _item.isOrder;
+            if (_item.isOrder.HasValue)
+                return _item.isOrder.Value;
+            else
+                return _item.SubProductService.isOrder;
         }
 
         public IEnumerable<Core.Domain.UrnItem> GetItemByUrn(int urnId)

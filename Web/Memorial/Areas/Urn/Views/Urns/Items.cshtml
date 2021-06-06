@@ -16,8 +16,8 @@
         @foreach (var urnItem in Model.UrnItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(urnItem.Name, "Index", urnItem.SystemCode, new { itemId = urnItem.Id, applicantId = Model.ApplicantId, area = "Urn" }, null)</td>
-                <td>@urnItem.Description</td>
+                <td>@Html.ActionLink(urnItem.SubProductServiceDto.Name, "Index", urnItem.SubProductServiceDto.SystemCode, new { itemId = urnItem.Id, applicantId = Model.ApplicantId, area = "Urn" }, null)</td>
+                <td>@urnItem.SubProductServiceDto.Description</td>
                 <td>@urnItem.Price</td>
             </tr>
         }

@@ -2550,6 +2550,14 @@
     <Compile Include="Migrations\202106060805293_PopulateMiscellaneousItemsTableData.designer.cs">
       <DependentUpon>202106060805293_PopulateMiscellaneousItemsTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106060825549_RedesignUrnItemsTable.cs" />
+    <Compile Include="Migrations\202106060825549_RedesignUrnItemsTable.designer.cs">
+      <DependentUpon>202106060825549_RedesignUrnItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060827289_PopulateUrnItemsTableData.cs" />
+    <Compile Include="Migrations\202106060827289_PopulateUrnItemsTableData.designer.cs">
+      <DependentUpon>202106060827289_PopulateUrnItemsTableData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3937,6 +3945,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106060805293_PopulateMiscellaneousItemsTableData.resx">
       <DependentUpon>202106060805293_PopulateMiscellaneousItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060825549_RedesignUrnItemsTable.resx">
+      <DependentUpon>202106060825549_RedesignUrnItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060827289_PopulateUrnItemsTableData.resx">
+      <DependentUpon>202106060827289_PopulateUrnItemsTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -18,16 +18,21 @@ namespace Memorial.Persistence.Repositories
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
+                                .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetUrnNewAF(urnItem.Code, year);
+            var number = numberRepository.GetUrnNewAF(
+                (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 
+                year);
 
             if (number == -1 || urnItem == null)
                 return "";
             else
             {
-                return urnItem.Urn.Site.Code + "/" + urnItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return urnItem.Urn.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -38,16 +43,21 @@ namespace Memorial.Persistence.Repositories
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
+                                .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetUrnNewIV(urnItem.Code, year);
+            var number = numberRepository.GetUrnNewIV(
+                (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 
+                year);
 
             if (number == -1 || urnItem == null)
                 return "";
             else
             {
-                return urnItem.Urn.Site.Code + "/" + urnItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return urnItem.Urn.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -58,16 +68,21 @@ namespace Memorial.Persistence.Repositories
             var urnItem = MemorialContext.UrnItems
                                 .Include(u => u.Urn)
                                 .Include(u => u.Urn.Site)
+                                .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
                                 u.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetUrnNewRE(urnItem.Code, year);
+            var number = numberRepository.GetUrnNewRE(
+                (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 
+                year);
 
             if (number == -1 || urnItem == null)
                 return "";
             else
             {
-                return urnItem.Urn.Site.Code + "/" + urnItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return urnItem.Urn.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
