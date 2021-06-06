@@ -858,7 +858,7 @@
     <Compile Include="Core\Domain\MasterCatalog.cs" />
     <Compile Include="Core\Domain\CemeteryTransaction.cs" />
     <Compile Include="Core\Domain\AncestralTabletTracking.cs" />
-    <Compile Include="Core\Domain\PlotTracking.cs" />
+    <Compile Include="Core\Domain\CemeteryTracking.cs" />
     <Compile Include="Core\Domain\ColumbariumTracking.cs" />
     <Compile Include="Core\Domain\ColumbariumTransaction.cs" />
     <Compile Include="Core\Domain\Receipt.cs" />
@@ -877,7 +877,7 @@
     <Compile Include="Core\Domain\UrnNumber.cs" />
     <Compile Include="Core\Domain\UrnItem.cs" />
     <Compile Include="Core\Domain\ColumbariumItem.cs" />
-    <Compile Include="Core\Domain\PlotNumber.cs" />
+    <Compile Include="Core\Domain\CemeteryNumber.cs" />
     <Compile Include="Core\Domain\CremationNumber.cs" />
     <Compile Include="Core\Domain\SpaceItem.cs" />
     <Compile Include="Core\Domain\ColumbariumNumber.cs" />
@@ -964,7 +964,7 @@
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
     <Compile Include="Core\Repositories\ICemeteryTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IAncestralTabletTrackingRepository.cs" />
-    <Compile Include="Core\Repositories\IPlotTrackingRepository.cs" />
+    <Compile Include="Core\Repositories\ICemeteryTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumTrackingRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IReceiptRepository.cs" />
@@ -973,7 +973,7 @@
     <Compile Include="Core\Repositories\IMiscellaneousItemRepository.cs" />
     <Compile Include="Core\Repositories\IMiscellaneousTransactionRepository.cs" />
     <Compile Include="Core\Repositories\IMiscellaneousNumberRepository.cs" />
-    <Compile Include="Core\Repositories\IPlotNumberRepository.cs" />
+    <Compile Include="Core\Repositories\ICemeteryNumberRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumItemRepository.cs" />
     <Compile Include="Core\Repositories\IColumbariumNumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationItemRepository.cs" />
@@ -2570,6 +2570,34 @@
     <Compile Include="Migrations\202106060905538_PopulateSpaceItemsTableData.designer.cs">
       <DependentUpon>202106060905538_PopulateSpaceItemsTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106061019082_AddOtherIdToSubProductServicesTable.cs" />
+    <Compile Include="Migrations\202106061019082_AddOtherIdToSubProductServicesTable.designer.cs">
+      <DependentUpon>202106061019082_AddOtherIdToSubProductServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061022030_AppendDataToSubProductServicesTable1.cs" />
+    <Compile Include="Migrations\202106061022030_AppendDataToSubProductServicesTable1.designer.cs">
+      <DependentUpon>202106061022030_AppendDataToSubProductServicesTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061035226_UpdateSubProductServicesTableData.cs" />
+    <Compile Include="Migrations\202106061035226_UpdateSubProductServicesTableData.designer.cs">
+      <DependentUpon>202106061035226_UpdateSubProductServicesTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061038559_UpdateSubProductServicesTableData1.cs" />
+    <Compile Include="Migrations\202106061038559_UpdateSubProductServicesTableData1.designer.cs">
+      <DependentUpon>202106061038559_UpdateSubProductServicesTableData1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061104202_RedesignCemeteryItemsTable.cs" />
+    <Compile Include="Migrations\202106061104202_RedesignCemeteryItemsTable.designer.cs">
+      <DependentUpon>202106061104202_RedesignCemeteryItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061307049_RenamePlotTrackingsToCemeteryTrackingsTable.cs" />
+    <Compile Include="Migrations\202106061307049_RenamePlotTrackingsToCemeteryTrackingsTable.designer.cs">
+      <DependentUpon>202106061307049_RenamePlotTrackingsToCemeteryTrackingsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs" />
+    <Compile Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.designer.cs">
+      <DependentUpon>202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2590,7 +2618,7 @@
     <Compile Include="Persistence\EntityConfigurations\CremationTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CemeteryTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestralTabletTrackingConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PlotTrackingConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CemeteryTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumTrackingConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReceiptConfiguration.cs" />
@@ -2603,7 +2631,7 @@
     <Compile Include="Persistence\EntityConfigurations\MiscellaneousItemConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\AncestralTabletNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ColumbariumItemConfiguration.cs" />
-    <Compile Include="Persistence\EntityConfigurations\PlotNumberConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\CemeteryNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\CremationNumberConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\MiscellaneousTransactionConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\SpaceTransactionConfiguration.cs" />
@@ -2648,7 +2676,7 @@
     <Compile Include="Persistence\Repositories\CremationTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\CemeteryTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestralTabletTrackingRepository.cs" />
-    <Compile Include="Persistence\Repositories\PlotTrackingRepository.cs" />
+    <Compile Include="Persistence\Repositories\CemeteryTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumTrackingRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumTransactionRepository.cs" />
     <Compile Include="Persistence\Repositories\ReceiptRepository.cs" />
@@ -2670,7 +2698,7 @@
     <Compile Include="Persistence\Repositories\CemeteryAreaRepository.cs" />
     <Compile Include="Persistence\Repositories\AncestralTabletRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumCentreRepository.cs" />
-    <Compile Include="Persistence\Repositories\PlotNumberRepository.cs" />
+    <Compile Include="Persistence\Repositories\CemeteryNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumNumberRepository.cs" />
     <Compile Include="Persistence\Repositories\NicheTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\ColumbariumAreaRepository.cs" />
@@ -3972,6 +4000,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106060905538_PopulateSpaceItemsTableData.resx">
       <DependentUpon>202106060905538_PopulateSpaceItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061019082_AddOtherIdToSubProductServicesTable.resx">
+      <DependentUpon>202106061019082_AddOtherIdToSubProductServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061022030_AppendDataToSubProductServicesTable1.resx">
+      <DependentUpon>202106061022030_AppendDataToSubProductServicesTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061035226_UpdateSubProductServicesTableData.resx">
+      <DependentUpon>202106061035226_UpdateSubProductServicesTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061038559_UpdateSubProductServicesTableData1.resx">
+      <DependentUpon>202106061038559_UpdateSubProductServicesTableData1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061104202_RedesignCemeteryItemsTable.resx">
+      <DependentUpon>202106061104202_RedesignCemeteryItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061307049_RenamePlotTrackingsToCemeteryTrackingsTable.resx">
+      <DependentUpon>202106061307049_RenamePlotTrackingsToCemeteryTrackingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.resx">
+      <DependentUpon>202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

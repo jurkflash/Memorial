@@ -28,11 +28,11 @@ namespace Memorial.Lib.Cemetery
 
         void RemoveDeceased(int plotId, string cemeteryTransactionAF, int deceasedId);
 
-        Core.Domain.PlotTracking GetLatestFirstTransactionByPlotId(int plotId);
+        Core.Domain.CemeteryTracking GetLatestFirstTransactionByPlotId(int plotId);
 
-        IEnumerable<Core.Domain.PlotTracking> GetTrackingByPlotId(int plotId);
+        IEnumerable<Core.Domain.CemeteryTracking> GetTrackingByPlotId(int plotId);
 
-        Core.Domain.PlotTracking GetTrackingByTransactionAF(string cemeteryTransactionAF);
+        Core.Domain.CemeteryTracking GetTrackingByTransactionAF(string cemeteryTransactionAF);
 
         void Delete(string cemeteryTransactionAF);
 

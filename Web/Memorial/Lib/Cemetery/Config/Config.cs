@@ -60,9 +60,9 @@ namespace Memorial.Lib.Cemetery
             return _item.GetItemDtosByPlot(plotId);
         }
 
-        public IEnumerable<PlotNumber> GetNumbers()
+        public IEnumerable<CemeteryNumber> GetNumbers()
         {
-            return _unitOfWork.PlotNumbers.GetAll();
+            return _unitOfWork.CemeteryNumbers.GetAll();
         }
 
 

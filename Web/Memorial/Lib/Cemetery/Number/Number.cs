@@ -21,12 +21,12 @@ namespace Memorial.Lib.Cemetery
 
         public string GetNewAF(int cemeteryItemId, int year)
         {
-            return _unitOfWork.PlotNumbers.GetNewAF(cemeteryItemId, year);
+            return _unitOfWork.CemeteryNumbers.GetNewAF(cemeteryItemId, year);
         }
 
         public string GetNewIV(int cemeteryItemId, int year)
         {
-            return _unitOfWork.PlotNumbers.GetNewIV(cemeteryItemId, year);
+            return _unitOfWork.CemeteryNumbers.GetNewIV(cemeteryItemId, year);
         }
 
     }

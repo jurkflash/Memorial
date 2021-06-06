@@ -33,11 +33,11 @@ namespace Memorial.Core.Domain
 
             CemeteryTransactions3 = new HashSet<CemeteryTransaction>();
 
-            PlotTrackings1 = new HashSet<PlotTracking>();
+            CemeteryTrackings1 = new HashSet<CemeteryTracking>();
 
-            PlotTrackings2 = new HashSet<PlotTracking>();
+            CemeteryTrackings2 = new HashSet<CemeteryTracking>();
 
-            PlotTrackings3 = new HashSet<PlotTracking>();
+            CemeteryTrackings3 = new HashSet<CemeteryTracking>();
         }
 
         public int Id { get; set; }
@@ -126,11 +126,11 @@ namespace Memorial.Core.Domain
 
         public ICollection<CemeteryTransaction> CemeteryTransactions3 { get; set; }
 
-        public ICollection<PlotTracking> PlotTrackings1 { get; set; }
+        public ICollection<CemeteryTracking> CemeteryTrackings1 { get; set; }
 
-        public ICollection<PlotTracking> PlotTrackings2 { get; set; }
+        public ICollection<CemeteryTracking> CemeteryTrackings2 { get; set; }
 
-        public ICollection<PlotTracking> PlotTrackings3 { get; set; }
+        public ICollection<CemeteryTracking> CemeteryTrackings3 { get; set; }
 
     }
 }

@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public CemeteryItem GetActive(int id)
         {
             return MemorialContext.CemeteryItems
+                .Include(ci => ci.SubProductService)
                 .Where(pi => pi.Id == id && pi.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -22,6 +23,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CemeteryItem> GetByPlot(int plotId)
         {
             return MemorialContext.CemeteryItems
+                .Include(ci => ci.SubProductService)
                 .Where(pi => pi.PlotId == plotId
                 && pi.DeleteDate == null).ToList();
         }

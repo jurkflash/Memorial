@@ -14,7 +14,7 @@ namespace Memorial.Lib.Cemetery
         bool DeletePlot(int id);
         CemeteryItemDto GetItemDto(int id);
         IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId);
-        IEnumerable<PlotNumber> GetNumbers();
+        IEnumerable<CemeteryNumber> GetNumbers();
         CemeteryAreaDto GetCemeteryAreaDto(int id);
         IEnumerable<CemeteryAreaDto> GetCemeteryAreaDtos();
         PlotDto GetPlotDto(int id);

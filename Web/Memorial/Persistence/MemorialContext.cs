@@ -31,10 +31,10 @@ namespace Memorial.Persistence
         public DbSet<PlotType> PlotTypes { get; set; }
         public DbSet<Plot> Plots { get; set; }
         public DbSet<CemeteryItem> CemeteryItems { get; set; }
-        public DbSet<PlotNumber> PlotNumbers { get; set; }
+        public DbSet<CemeteryNumber> CemeteryNumbers { get; set; }
         public DbSet<CemeteryLandscapeCompany> CemeteryLandscapeCompanies { get; set; }
         public DbSet<CemeteryTransaction> CemeteryTransactions { get; set; }
-        public DbSet<PlotTracking> PlotTrackings { get; set; }
+        public DbSet<CemeteryTracking> CemeteryTrackings { get; set; }
 
         public DbSet<ColumbariumArea> ColumbariumAreas { get; set; }
         public DbSet<NicheType> NicheTypes { get; set; }
@@ -102,8 +102,8 @@ namespace Memorial.Persistence
             modelBuilder.Configurations.Add(new PlotConfiguration());
             modelBuilder.Configurations.Add(new CemeteryLandscapeCompanyConfiguration());
             modelBuilder.Configurations.Add(new CemeteryItemConfiguration());
-            modelBuilder.Configurations.Add(new PlotNumberConfiguration());
-            modelBuilder.Configurations.Add(new PlotTrackingConfiguration());
+            modelBuilder.Configurations.Add(new CemeteryNumberConfiguration());
+            modelBuilder.Configurations.Add(new CemeteryTrackingConfiguration());
 
             modelBuilder.Configurations.Add(new AncestralTabletConfiguration());
             modelBuilder.Configurations.Add(new AncestralTabletTrackingConfiguration());

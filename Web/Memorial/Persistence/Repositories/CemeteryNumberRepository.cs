@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Memorial.Persistence.Repositories
 {
-    public class PlotNumberRepository : Repository<PlotNumber>, IPlotNumberRepository
+    public class CemeteryNumberRepository : Repository<CemeteryNumber>, ICemeteryNumberRepository
     {
-        public PlotNumberRepository(MemorialContext context) : base(context)
+        public CemeteryNumberRepository(MemorialContext context) : base(context)
         {
         }
 
@@ -19,16 +19,21 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
+                                .Include(p => p.SubProductService)
                                 .Where(p => p.Id == CemeteryItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetPlotNewAF(cemeteryItem.Code, year);
+            var number = numberRepository.GetPlotNewAF(
+                (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code), 
+                year);
 
             if (number == -1 || cemeteryItem == null)
                 return "";
             else
             {
-                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" + cemeteryItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -40,16 +45,21 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
+                                .Include(p => p.SubProductService)
                                 .Where(p => p.Id == CemeteryItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetPlotNewIV(cemeteryItem.Code, year);
+            var number = numberRepository.GetPlotNewIV(
+                 (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code),
+                year);
 
             if (number == -1 || cemeteryItem == null)
                 return "";
             else
             {
-                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" + cemeteryItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -61,16 +71,21 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot)
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
+                                .Include(p => p.SubProductService)
                                 .Where(p => p.Id == CemeteryItemId &&
                                 p.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetPlotNewRE(cemeteryItem.Code, year);
+            var number = numberRepository.GetPlotNewRE(
+                 (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code),
+                year);
 
             if (number == -1 || cemeteryItem == null)
                 return "";
             else
             {
-                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" + cemeteryItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cemeteryItem.Plot.CemeteryArea.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

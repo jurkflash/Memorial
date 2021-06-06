@@ -17,6 +17,8 @@ namespace Memorial.Core.Domain
             UrnItems = new HashSet<UrnItem>();
 
             SpaceItems = new HashSet<SpaceItem>();
+
+            CemeteryItems = new HashSet<CemeteryItem>();
         }
 
         public int Id { get; set; }
@@ -33,6 +35,8 @@ namespace Memorial.Core.Domain
 
         public bool isOrder { get; set; }
 
+        public int? OtherId { get; set; }
+
         public Product Product { get; set; }
 
         public int ProductId { get; set; }
@@ -48,5 +52,7 @@ namespace Memorial.Core.Domain
         public ICollection<UrnItem> UrnItems { get; set; }
 
         public ICollection<SpaceItem> SpaceItems { get; set; }
+
+        public ICollection<CemeteryItem> CemeteryItems { get; set; }
     }
 }

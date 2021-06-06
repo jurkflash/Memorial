@@ -11,7 +11,7 @@ namespace Memorial.Core.Domain
 
             Receipts = new HashSet<Receipt>();
 
-            PlotTrackings = new HashSet<PlotTracking>();
+            CemeteryTrackings = new HashSet<CemeteryTracking>();
         }
 
         public string AF { get; set; }
@@ -90,6 +90,6 @@ namespace Memorial.Core.Domain
 
         public ICollection<Receipt> Receipts { get; set; }
 
-        public ICollection<PlotTracking> PlotTrackings { get; set; }
+        public ICollection<CemeteryTracking> CemeteryTrackings { get; set; }
     }
 }

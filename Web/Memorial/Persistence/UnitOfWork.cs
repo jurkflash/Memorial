@@ -61,9 +61,9 @@ namespace Memorial.Persistence
             PlotTypes = new PlotTypeRepository(_context);
             Plots = new PlotRepository(_context);
             CemeteryItems = new CemeteryItemRepository(_context);
-            PlotNumbers = new PlotNumberRepository(_context);
+            CemeteryNumbers = new CemeteryNumberRepository(_context);
             CemeteryTransactions = new CemeteryTransactionRepository(_context);
-            PlotTrackings = new PlotTrackingRepository(_context);
+            CemeteryTrackings = new CemeteryTrackingRepository(_context);
 
             AncestralTablets = new AncestralTabletRepository(_context);
             AncestralTabletAreas = new AncestralTabletAreaRepository(_context);
@@ -107,9 +107,9 @@ namespace Memorial.Persistence
         public IPlotTypeRepository PlotTypes { get; private set; }
         public IPlotRepository Plots { get; private set; }
         public ICemeteryItemRepository CemeteryItems { get; private set; }
-        public IPlotNumberRepository PlotNumbers { get; private set; }
+        public ICemeteryNumberRepository CemeteryNumbers { get; private set; }
         public ICemeteryTransactionRepository CemeteryTransactions { get; private set; }
-        public IPlotTrackingRepository PlotTrackings { get; private set; }
+        public ICemeteryTrackingRepository CemeteryTrackings { get; private set; }
 
         public ICemeteryLandscapeCompanyRepository CemeteryLandscapeCompanies { get; private set; }
 

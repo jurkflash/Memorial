@@ -108,27 +108,33 @@ namespace Memorial.Lib.Cemetery
 
         public string GetName()
         {
-            return _item.Name;
+            return _item.SubProductService.Name;
         }
 
         public string GetDescription()
         {
-            return _item.Description;
+            return _item.SubProductService.Description;
         }
 
         public float GetPrice()
         {
-            return _item.Price;
+            if (_item.Price.HasValue)
+                return _item.Price.Value;
+            else
+                return _item.SubProductService.Price;
         }
 
         public string GetSystemCode()
         {
-            return _item.SystemCode;
+            return _item.SubProductService.SystemCode;
         }
 
         public bool IsOrder()
         {
-            return _item.isOrder;
+            if (_item.isOrder.HasValue)
+                return _item.isOrder.Value;
+            else
+                return _item.SubProductService.isOrder;
         }
 
         public bool Create(CemeteryItemDto cemeteryItemDto)
@@ -194,8 +200,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _singleOrderPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _orderName,
-                SystemCode = _orderSystemCode
+                //Name = _orderName,
+                //SystemCode = _orderSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -204,8 +210,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _singleClearancePrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _clearanceName,
-                SystemCode = _clearanceSystemCode
+                //Name = _clearanceName,
+                //SystemCode = _clearanceSystemCode
             });
         }
 
@@ -217,8 +223,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _doubleOrderPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _orderName,
-                SystemCode = _orderSystemCode
+                //Name = _orderName,
+                //SystemCode = _orderSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -227,8 +233,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _doubleClearancePrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _clearanceName,
-                SystemCode = _clearanceSystemCode
+                //Name = _clearanceName,
+                //SystemCode = _clearanceSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -237,8 +243,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _doubleSecondBurialPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _secondBurialName,
-                SystemCode = _secondBurialSystemCode
+                //Name = _secondBurialName,
+                //SystemCode = _secondBurialSystemCode
             });
         }
 
@@ -250,8 +256,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _newDoubleOrderPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _orderName,
-                SystemCode = _orderSystemCode
+                //Name = _orderName,
+                //SystemCode = _orderSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -260,8 +266,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _newDoubleClearancePrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _clearanceName,
-                SystemCode = _clearanceSystemCode
+                //Name = _clearanceName,
+                //SystemCode = _clearanceSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -270,8 +276,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _newDoubleSecondBurialPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _secondBurialName,
-                SystemCode = _secondBurialSystemCode
+                //Name = _secondBurialName,
+                //SystemCode = _secondBurialSystemCode
             });
         }
 
@@ -283,8 +289,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _fengShuiOrderPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _orderName,
-                SystemCode = _orderSystemCode
+                //Name = _orderName,
+                //SystemCode = _orderSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -293,8 +299,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _fengShuiClearancePrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _clearanceName,
-                SystemCode = _clearanceSystemCode
+                //Name = _clearanceName,
+                //SystemCode = _clearanceSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -303,8 +309,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _fengShuiSecondBurialPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _secondBurialName,
-                SystemCode = _secondBurialSystemCode
+                //Name = _secondBurialName,
+                //SystemCode = _secondBurialSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -313,8 +319,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _fengShuiTransferPrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _fengShuiTransferName,
-                SystemCode = _fengShuiTransferSystemCode
+                //Name = _fengShuiTransferName,
+                //SystemCode = _fengShuiTransferSystemCode
             });
 
             Create(new Core.Domain.CemeteryItem()
@@ -323,8 +329,8 @@ namespace Memorial.Lib.Cemetery
                 Price = _fengShuiReciprocatePrice,
                 isOrder = true,
                 PlotId = plotId,
-                Name = _fengShuiReciprocateName,
-                SystemCode = _fengShuiReciprocateSystemCode
+                //Name = _fengShuiReciprocateName,
+                //SystemCode = _fengShuiReciprocateSystemCode
             });
         }
     }

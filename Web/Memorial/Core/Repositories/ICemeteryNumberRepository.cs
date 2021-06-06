@@ -2,7 +2,7 @@
 
 namespace Memorial.Core.Repositories
 {
-    public interface IPlotNumberRepository : IRepository<PlotNumber>
+    public interface ICemeteryNumberRepository : IRepository<CemeteryNumber>
     {
         string GetNewAF(int CemeteryItemId, int year);
 

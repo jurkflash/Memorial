@@ -118,7 +118,12 @@ namespace Memorial.App_Start
             CreateMap<CemeteryArea, CemeteryAreaDto>()
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
-            CreateMap<CemeteryItem, CemeteryItemDto>();
+            CreateMap<CemeteryItem, CemeteryItemDto>()
+                .ForMember(c => c.SubProductServiceDto, opt => opt.MapFrom(x => x.SubProductService))
+                .ForMember(c => c.SubProductServiceDtoId, opt => opt.MapFrom(x => x.SubProductServiceId))
+                .ForMember(c => c.PlotDto, opt => opt.MapFrom(x => x.Plot))
+                .ForMember(c => c.PlotDtoId, opt => opt.MapFrom(x => x.PlotId));
+
             CreateMap<CemeteryLandscapeCompany, CemeteryLandscapeCompanyDto>();
             CreateMap<CemeteryTransaction, CemeteryTransactionDto>()
                 .ForMember(c => c.FuneralCompanyDto, opt => opt.MapFrom(x => x.FuneralCompany))
@@ -357,7 +362,12 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<CemeteryItemDto, CemeteryItem>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Plot, opt => opt.Ignore())
+                .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
+                .ForMember(c => c.SubProductService, opt => opt.Ignore())
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId));
+
             CreateMap<PlotTypeDto, PlotType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<CemeteryLandscapeCompanyDto, CemeteryLandscapeCompany>()

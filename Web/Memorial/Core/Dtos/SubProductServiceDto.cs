@@ -18,6 +18,8 @@ namespace Memorial.Core.Dtos
 
         public bool isOrder { get; set; }
 
+        public int? OtherId { get; set; }
+
         public ProductDto ProductDto { get; set; }
 
         public int ProductDtoId { get; set; }

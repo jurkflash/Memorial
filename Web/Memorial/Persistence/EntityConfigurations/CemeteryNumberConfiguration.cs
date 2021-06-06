@@ -3,9 +3,9 @@ using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations
 {
-    public class PlotNumberConfiguration : EntityTypeConfiguration<PlotNumber>
+    public class CemeteryNumberConfiguration : EntityTypeConfiguration<CemeteryNumber>
     {
-        public PlotNumberConfiguration()
+        public CemeteryNumberConfiguration()
         {
             Property(pn => pn.ItemCode)
                 .IsRequired()
