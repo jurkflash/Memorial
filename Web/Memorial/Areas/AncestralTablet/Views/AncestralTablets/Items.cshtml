@@ -20,8 +20,8 @@
         @foreach (var ancestralTabletItem in Model.AncestralTabletItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(ancestralTabletItem.SubProductService.Name, "Index", ancestralTabletItem.SubProductService.SystemCode, new { area = "AncestralTablet", itemId = ancestralTabletItem.Id, id = Model.AncestralTabletDto.Id, applicantId = Model.ApplicantId }, null)</td>
-                <td>@ancestralTabletItem.SubProductService.Description</td>
+                <td>@Html.ActionLink(ancestralTabletItem.SubProductServiceDto.Name, "Index", ancestralTabletItem.SubProductServiceDto.SystemCode, new { area = "AncestralTablet", itemId = ancestralTabletItem.Id, id = Model.AncestralTabletDto.Id, applicantId = Model.ApplicantId }, null)</td>
+                <td>@ancestralTabletItem.SubProductServiceDto.Description</td>
                 <td>@ancestralTabletItem.Price</td>
             </tr>
         }

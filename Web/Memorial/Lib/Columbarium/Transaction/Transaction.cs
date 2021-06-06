@@ -265,7 +265,7 @@ namespace Memorial.Lib.Columbarium
         {
             var centreId = _niche.GetNiche(oldNicheId).ColumbariumArea.ColumbariumCentreId;
 
-            var itemId = _item.GetItemByCentre(centreId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
+            var itemId = _item.GetItemByCentre(centreId).Where(i => i.SubProductService.SystemCode == systemCode).FirstOrDefault();
 
             if (itemId == null)
                 return false;

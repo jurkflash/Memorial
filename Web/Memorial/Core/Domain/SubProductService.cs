@@ -7,6 +7,8 @@ namespace Memorial.Core.Domain
         public SubProductService()
         {
             AncestralTabletItems = new HashSet<AncestralTabletItem>();
+
+            ColumbariumItems = new HashSet<ColumbariumItem>();
         }
 
         public int Id { get; set; }
@@ -28,5 +30,7 @@ namespace Memorial.Core.Domain
         public int ProductId { get; set; }
 
         public ICollection<AncestralTabletItem> AncestralTabletItems { get; set; }
+
+        public ICollection<ColumbariumItem> ColumbariumItems { get; set; }
     }
 }

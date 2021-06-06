@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.Columbarium
@@ -11,11 +12,13 @@ namespace Memorial.Lib.Columbarium
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.ColumbariumItem _item;
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -50,27 +53,33 @@ namespace Memorial.Lib.Columbarium
 
         public string GetName()
         {
-            return _item.Name;
+            return _item.SubProductService.Name;
         }
 
         public string GetDescription()
         {
-            return _item.Description;
+            return _item.SubProductService.Description;
         }
 
         public float GetPrice()
         {
-            return _item.Price;
+            if (_item.Price.HasValue)
+                return _item.Price.Value;
+            else
+                return _item.SubProductService.Price;
         }
 
         public string GetSystemCode()
         {
-            return _item.SystemCode;
+            return _item.SubProductService.SystemCode;
         }
 
         public bool IsOrder()
         {
-            return _item.isOrder;
+            if (_item.isOrder.HasValue)
+                return _item.isOrder.Value;
+            else
+                return _item.SubProductService.isOrder;
         }
 
         public IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId)

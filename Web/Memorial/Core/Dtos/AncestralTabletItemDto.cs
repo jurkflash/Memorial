@@ -13,9 +13,9 @@ namespace Memorial.Core.Dtos
 
         public bool? isOrder { get; set; }
 
-        public SubProductService SubProductService { get; set; }
+        public SubProductServiceDto SubProductServiceDto { get; set; }
 
-        public int SubProductServiceId { get; set; }
+        public int SubProductServiceDtoId { get; set; }
 
         public AncestralTabletAreaDto AncestralTabletAreaDto { get; set; }
 

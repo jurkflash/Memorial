@@ -18,16 +18,21 @@ namespace Memorial.Persistence.Repositories
             var columbariumItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.ColumbariumCentre)
                                 .Include(q => q.ColumbariumCentre.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetColumbariumNewAF(columbariumItem.Code, year);
+            var number = numberRepository.GetColumbariumNewAF(
+                (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 
+                year);
 
             if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -38,16 +43,21 @@ namespace Memorial.Persistence.Repositories
             var columbariumItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.ColumbariumCentre)
                                 .Include(q => q.ColumbariumCentre.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetColumbariumNewIV(columbariumItem.Code, year);
+            var number = numberRepository.GetColumbariumNewIV(
+                (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 
+                year);
 
             if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -58,16 +68,21 @@ namespace Memorial.Persistence.Repositories
             var columbariumItem = MemorialContext.ColumbariumItems
                                 .Include(q => q.ColumbariumCentre)
                                 .Include(q => q.ColumbariumCentre.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
                                 q.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetColumbariumNewRE(columbariumItem.Code, year);
+            var number = numberRepository.GetColumbariumNewRE(
+                (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 
+                year);
 
             if (number == -1 || columbariumItem == null)
                 return "";
             else
             {
-                return columbariumItem.ColumbariumCentre.Site.Code + "/" + columbariumItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return columbariumItem.ColumbariumCentre.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

@@ -19,8 +19,8 @@
         @foreach (var columbariumItem in Model.ColumbariumItemDtos)
         {
             <tr>
-                <td>@Html.ActionLink(columbariumItem.Name, "Index", columbariumItem.SystemCode, new { itemId = columbariumItem.Id, id = Model.NicheDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)</td>
-                <td>@columbariumItem.Description</td>
+                <td>@Html.ActionLink(columbariumItem.SubProductServiceDto.Name, "Index", columbariumItem.SubProductServiceDto.SystemCode, new { itemId = columbariumItem.Id, id = Model.NicheDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)</td>
+                <td>@columbariumItem.SubProductServiceDto.Description</td>
             </tr>
         }
     </tbody>

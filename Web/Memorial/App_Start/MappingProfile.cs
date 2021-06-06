@@ -146,6 +146,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<NicheType, NicheTypeDto>();
             CreateMap<ColumbariumItem, ColumbariumItemDto>()
+                .ForMember(c => c.SubProductServiceDto, opt => opt.MapFrom(x => x.SubProductService))
+                .ForMember(c => c.SubProductServiceDtoId, opt => opt.MapFrom(x => x.SubProductServiceId))
                 .ForMember(c => c.ColumbariumCentreDto, opt => opt.MapFrom(x => x.ColumbariumCentre))
                 .ForMember(c => c.ColumbariumCentreDtoId, opt => opt.MapFrom(x => x.ColumbariumCentreId));
             CreateMap<ColumbariumTransaction, ColumbariumTransactionDto>()
@@ -177,6 +179,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<AncestralTabletItem, AncestralTabletItemDto>()
+                .ForMember(c => c.SubProductServiceDto, opt => opt.MapFrom(x => x.SubProductService))
+                .ForMember(c => c.SubProductServiceDtoId, opt => opt.MapFrom(x => x.SubProductServiceId))
                 .ForMember(c => c.AncestralTabletAreaDto, opt => opt.MapFrom(x => x.AncestralTabletArea))
                 .ForMember(c => c.AncestralTabletAreaDtoId, opt => opt.MapFrom(x => x.AncestralTabletAreaId));
             CreateMap<AncestralTabletTransaction, AncestralTabletTransactionDto>()
@@ -371,6 +375,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.SubProductService, opt => opt.Ignore())
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId));
             CreateMap<NicheTypeDto, NicheType>()
@@ -410,6 +416,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<AncestralTabletItemDto, AncestralTabletItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.SubProductService, opt => opt.Ignore())
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.AncestralTabletArea, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId));
             CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()

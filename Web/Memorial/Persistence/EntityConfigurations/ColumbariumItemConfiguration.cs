@@ -7,20 +7,17 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public ColumbariumItemConfiguration()
         {
-            Property(qi => qi.Name)
-                .IsRequired()
-                .HasMaxLength(255);
-
-            Property(qi => qi.Description)
-                .HasMaxLength(255);
-
             Property(qi => qi.Code)
-                .IsRequired()
                 .HasMaxLength(10);
 
             HasRequired(qi => qi.ColumbariumCentre)
                 .WithMany(qc => qc.ColumbariumItems)
                 .HasForeignKey(qi => qi.ColumbariumCentreId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(qi => qi.SubProductService)
+                .WithMany(qc => qc.ColumbariumItems)
+                .HasForeignKey(qi => qi.SubProductServiceId)
                 .WillCascadeOnDelete(false);
         }
     }
