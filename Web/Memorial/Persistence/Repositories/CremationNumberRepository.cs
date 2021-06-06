@@ -19,16 +19,21 @@ namespace Memorial.Persistence.Repositories
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetCremationNewAF(cremationItem.Code, year);
+            var number = numberRepository.GetCremationNewAF(
+                (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 
+                year);
 
             if (number == -1 || cremationItem == null)
                 return "";
             else
             {
-                return cremationItem.Cremation.Site.Code + "/" + cremationItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cremationItem.Cremation.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -39,16 +44,21 @@ namespace Memorial.Persistence.Repositories
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetCremationNewIV(cremationItem.Code, year);
+            var number = numberRepository.GetCremationNewIV(
+                (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 
+                year);
 
             if (number == -1 || cremationItem == null)
                 return "";
             else
             {
-                return cremationItem.Cremation.Site.Code + "/" + cremationItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cremationItem.Cremation.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -59,16 +69,21 @@ namespace Memorial.Persistence.Repositories
             var cremationItem = MemorialContext.CremationItems
                                 .Include(ci => ci.Cremation)
                                 .Include(ci => ci.Cremation.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
                                 ci.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetCremationNewRE(cremationItem.Code, year);
+            var number = numberRepository.GetCremationNewRE(
+                (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 
+                year);
 
             if (number == -1 || cremationItem == null)
                 return "";
             else
             {
-                return cremationItem.Cremation.Site.Code + "/" + cremationItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return cremationItem.Cremation.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

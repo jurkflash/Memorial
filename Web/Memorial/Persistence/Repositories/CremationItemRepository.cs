@@ -15,6 +15,7 @@ namespace Memorial.Persistence.Repositories
         public CremationItem GetActive(int id)
         {
             return MemorialContext.CremationItems
+                .Include(ci => ci.SubProductService)
                 .Where(ci => ci.Id == id && ci.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -22,6 +23,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CremationItem> GetAllActive()
         {
             return MemorialContext.CremationItems
+                .Include(ci => ci.SubProductService)
                 .Where(ci => ci.DeleteDate == null)
                 .ToList();
         }
@@ -29,6 +31,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CremationItem> GetByCremation(int cremationId)
         {
             return MemorialContext.CremationItems
+                .Include(ci => ci.SubProductService)
                 .Where(ci => ci.CremationId == cremationId && ci.DeleteDate == null).ToList();
         }
 

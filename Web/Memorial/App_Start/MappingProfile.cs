@@ -202,6 +202,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<CremationItem, CremationItemDto>()
+                .ForMember(c => c.SubProductServiceDto, opt => opt.MapFrom(x => x.SubProductService))
+                .ForMember(c => c.SubProductServiceDtoId, opt => opt.MapFrom(x => x.SubProductServiceId))
                 .ForMember(c => c.CremationDto, opt => opt.MapFrom(x => x.Cremation))
                 .ForMember(c => c.CremationDtoId, opt => opt.MapFrom(x => x.CremationId));
             CreateMap<CremationTransaction, CremationTransactionDto>()
@@ -443,6 +445,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<CremationItemDto, CremationItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.SubProductService, opt => opt.Ignore())
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Cremation, opt => opt.Ignore())
                 .ForMember(c => c.CremationId, opt => opt.MapFrom(x => x.CremationDtoId));
             CreateMap<CremationTransactionDto, CremationTransaction>()

@@ -2534,6 +2534,14 @@
     <Compile Include="Migrations\202106060316090_PopulateColumbariumItemsTableData.designer.cs">
       <DependentUpon>202106060316090_PopulateColumbariumItemsTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106060331104_RedesignCremationItemsTable.cs" />
+    <Compile Include="Migrations\202106060331104_RedesignCremationItemsTable.designer.cs">
+      <DependentUpon>202106060331104_RedesignCremationItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060332514_PopulateCremationItemsTableData.cs" />
+    <Compile Include="Migrations\202106060332514_PopulateCremationItemsTableData.designer.cs">
+      <DependentUpon>202106060332514_PopulateCremationItemsTableData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3909,6 +3917,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106060316090_PopulateColumbariumItemsTableData.resx">
       <DependentUpon>202106060316090_PopulateColumbariumItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060331104_RedesignCremationItemsTable.resx">
+      <DependentUpon>202106060331104_RedesignCremationItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060332514_PopulateCremationItemsTableData.resx">
+      <DependentUpon>202106060332514_PopulateCremationItemsTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
