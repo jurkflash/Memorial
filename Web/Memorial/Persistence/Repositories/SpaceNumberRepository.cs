@@ -18,16 +18,21 @@ namespace Memorial.Persistence.Repositories
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
+                                .Include(s => s.SubProductService)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetSpaceNewAF(spaceItem.Code, year);
+            var number = numberRepository.GetSpaceNewAF(
+                (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),
+                year);
 
             if (number == -1 || spaceItem == null)
                 return "";
             else
             {
-                return spaceItem.Space.Site.Code + "/" + spaceItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return spaceItem.Space.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -38,16 +43,21 @@ namespace Memorial.Persistence.Repositories
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
+                                .Include(s => s.SubProductService)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetSpaceNewIV(spaceItem.Code, year);
+            var number = numberRepository.GetSpaceNewIV(
+                (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),
+                year);
 
             if (number == -1 || spaceItem == null)
                 return "";
             else
             {
-                return spaceItem.Space.Site.Code + "/" + spaceItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return spaceItem.Space.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code) + 
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -58,16 +68,21 @@ namespace Memorial.Persistence.Repositories
             var spaceItem = MemorialContext.SpaceItems
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
+                                .Include(s => s.SubProductService)
                                 .Where(s => s.Id == SpaceItemId &&
                                 s.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetSpaceNewRE(spaceItem.Code, year);
+            var number = numberRepository.GetSpaceNewRE(
+                (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),
+                year);
 
             if (number == -1 || spaceItem == null)
                 return "";
             else
             {
-                return spaceItem.Space.Site.Code + "/" + spaceItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return spaceItem.Space.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code) + 
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

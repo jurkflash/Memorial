@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Space;
 using AutoMapper;
 
 namespace Memorial.Lib.Space
@@ -11,11 +12,13 @@ namespace Memorial.Lib.Space
     public class Space : ISpace
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IItem _item;
         private Core.Domain.Space _space;
 
-        public Space(IUnitOfWork unitOfWork)
+        public Space(IUnitOfWork unitOfWork, IItem item)
         {
             _unitOfWork = unitOfWork;
+            _item = item;
         }
 
         public void SetSpace(int id)
@@ -58,12 +61,12 @@ namespace Memorial.Lib.Space
             if (from > to)
                 return -1;
 
-            var spaceItem = _unitOfWork.SpaceItems.Get(spaceItemId);
-
-            if (spaceItem == null)
+            _item.SetItem(spaceItemId);
+            
+            if (_item.GetItem() == null)
                 return -1;
 
-            var diff = Math.Ceiling(((to - from).TotalMinutes / 60.0) / 24.0) * spaceItem.Price;
+            var diff = Math.Ceiling(((to - from).TotalMinutes / 60.0) / 24.0) * _item.GetPrice();
 
             return diff;
         }
@@ -73,9 +76,9 @@ namespace Memorial.Lib.Space
             if (from > to)
                 return false;
 
-            var spaceItem = _unitOfWork.SpaceItems.Get(spaceItemId);
+            _item.SetItem(spaceItemId);
 
-            if (spaceItem == null)
+            if (_item.GetItem() == null)
                 return false;
 
             return _unitOfWork.SpaceTransactions.GetAvailability(from, to, spaceItemId);

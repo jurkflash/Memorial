@@ -14,17 +14,11 @@ namespace Memorial.Core.Domain
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
         public string Code { get; set; }
 
-        public string SystemCode { get; set; }
-
-        public Boolean isOrder { get; set; }
+        public Boolean? isOrder { get; set; }
 
         public bool AllowDeposit { get; set; }
 
@@ -35,6 +29,10 @@ namespace Memorial.Core.Domain
         public Space Space { get; set; }
 
         public int SpaceId { get; set; }
+
+        public SubProductService SubProductService { get; set; }
+
+        public int SubProductServiceId { get; set; }
 
         public string FormView { get; set; }
 

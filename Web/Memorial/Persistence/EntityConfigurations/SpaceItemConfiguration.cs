@@ -7,15 +7,7 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public SpaceItemConfiguration()
         {
-            Property(si => si.Name)
-            .IsRequired()
-            .HasMaxLength(255);
-
-            Property(si => si.Description)
-            .HasMaxLength(255);
-
             Property(si => si.Code)
-            .IsRequired()
             .HasMaxLength(10);
 
             Property(si => si.FormView)
@@ -24,6 +16,11 @@ namespace Memorial.Persistence.EntityConfigurations
             HasRequired(si => si.Space)
                 .WithMany(s => s.SpaceItems)
                 .HasForeignKey(si => si.SpaceId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(si => si.SubProductService)
+                .WithMany(s => s.SpaceItems)
+                .HasForeignKey(si => si.SubProductServiceId)
                 .WillCascadeOnDelete(false);
         }
     }

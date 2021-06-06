@@ -80,6 +80,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
             CreateMap<SpaceItem, SpaceItemDto>()
+                .ForMember(c => c.SubProductServiceDto, opt => opt.MapFrom(x => x.SubProductService))
+                .ForMember(c => c.SubProductServiceDtoId, opt => opt.MapFrom(x => x.SubProductServiceId))
                 .ForMember(c => c.SpaceDto, opt => opt.MapFrom(x => x.Space))
                 .ForMember(c => c.SpaceDtoId, opt => opt.MapFrom(x => x.SpaceId));
             CreateMap<SpaceTransaction, SpaceTransactionDto>()
@@ -309,6 +311,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<SpaceItemDto, SpaceItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.SubProductService, opt => opt.Ignore())
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Space, opt => opt.Ignore())
                 .ForMember(c => c.SpaceId, opt => opt.MapFrom(x => x.SpaceDtoId));
             CreateMap<SpaceTransactionDto, SpaceTransaction>()

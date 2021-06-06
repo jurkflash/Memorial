@@ -15,6 +15,8 @@ namespace Memorial.Core.Domain
             MiscellaneousItems = new HashSet<MiscellaneousItem>();
 
             UrnItems = new HashSet<UrnItem>();
+
+            SpaceItems = new HashSet<SpaceItem>();
         }
 
         public int Id { get; set; }
@@ -44,5 +46,7 @@ namespace Memorial.Core.Domain
         public ICollection<MiscellaneousItem> MiscellaneousItems { get; set; }
 
         public ICollection<UrnItem> UrnItems { get; set; }
+
+        public ICollection<SpaceItem> SpaceItems { get; set; }
     }
 }

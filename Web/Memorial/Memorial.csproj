@@ -2558,6 +2558,18 @@
     <Compile Include="Migrations\202106060827289_PopulateUrnItemsTableData.designer.cs">
       <DependentUpon>202106060827289_PopulateUrnItemsTableData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106060839001_AppendDataToSubProductServicesTable.cs" />
+    <Compile Include="Migrations\202106060839001_AppendDataToSubProductServicesTable.designer.cs">
+      <DependentUpon>202106060839001_AppendDataToSubProductServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060903451_RedesignSpaceItemsTable.cs" />
+    <Compile Include="Migrations\202106060903451_RedesignSpaceItemsTable.designer.cs">
+      <DependentUpon>202106060903451_RedesignSpaceItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060905538_PopulateSpaceItemsTableData.cs" />
+    <Compile Include="Migrations\202106060905538_PopulateSpaceItemsTableData.designer.cs">
+      <DependentUpon>202106060905538_PopulateSpaceItemsTableData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3951,6 +3963,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106060827289_PopulateUrnItemsTableData.resx">
       <DependentUpon>202106060827289_PopulateUrnItemsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060839001_AppendDataToSubProductServicesTable.resx">
+      <DependentUpon>202106060839001_AppendDataToSubProductServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060903451_RedesignSpaceItemsTable.resx">
+      <DependentUpon>202106060903451_RedesignSpaceItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060905538_PopulateSpaceItemsTableData.resx">
+      <DependentUpon>202106060905538_PopulateSpaceItemsTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
