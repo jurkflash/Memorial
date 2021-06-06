@@ -55,7 +55,7 @@ namespace Memorial.Lib.Site
             return Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>(GetSites());
         }
 
-        public bool CreateSite(SiteDto siteDto)
+        public Core.Domain.Site CreateSite(SiteDto siteDto)
         {
             _site = new Core.Domain.Site();
             Mapper.Map(siteDto, _site);
@@ -64,9 +64,7 @@ namespace Memorial.Lib.Site
 
             _unitOfWork.Sites.Add(_site);
 
-            _unitOfWork.Complete();
-
-            return true;
+            return _site;
         }
 
         public bool UpdateSite(SiteDto siteDto)
@@ -76,8 +74,6 @@ namespace Memorial.Lib.Site
             Mapper.Map(siteDto, siteInDB);
 
             siteInDB.ModifyDate = DateTime.Now;
-
-            _unitOfWork.Complete();
 
             return true;
         }
@@ -99,8 +95,6 @@ namespace Memorial.Lib.Site
             SetSite(id);
 
             _site.DeleteDate = DateTime.Now;
-
-            _unitOfWork.Complete();
 
             return true;
         }

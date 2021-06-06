@@ -5,7 +5,7 @@ namespace Memorial.Lib.Site
 {
     public interface ISite
     {
-        bool CreateSite(SiteDto siteDto);
+        Core.Domain.Site CreateSite(SiteDto siteDto);
         bool DeleteSite(byte id);
         Core.Domain.Site GetSite();
         Core.Domain.Site GetSite(byte id);

@@ -19,6 +19,7 @@ namespace Memorial
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTables.bootstrap4.js",
                         "~/Scripts/toastr.js",
+                        "~/Scripts/common.js",
                         "~/Scripts/constants.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

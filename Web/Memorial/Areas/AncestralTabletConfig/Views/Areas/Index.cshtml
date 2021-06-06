@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Area)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.ItemBR)</th>
+            <th>@Html.Raw(Resources.Mix.AncestralTabletBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var url_string = window.location.href
+            var url = new URL(url_string);
+
+            var table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/configAncestralTabletAreas",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function(data, type, area) {
+                            return "<a href='/AncestralTabletConfig/Areas/Details/" + area.id + "'>" + area.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "remark"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<a href='/AncestralTabletConfig/Items?areaId=" + data + "'>" + MEMORIAL_ITEM + "</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<a href='/AncestralTabletConfig/AncestralTablets?areaId=" + data + "'>" + MEMORIAL_ANCESTRALTABLET + "</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-area-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/configAncestralTabletAreas/" + button.attr("data-area-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

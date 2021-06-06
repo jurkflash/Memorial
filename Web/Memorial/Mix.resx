@@ -549,4 +549,13 @@
   <data name="Withdraw" xml:space="preserve">
     <value>移走 Withdraw</value>
   </data>
+  <data name="CodeBR" xml:space="preserve">
+    <value>代號&lt;br /&gt;Code</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>地點 Site</value>
+  </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>目錄 Catalog</value>
+  </data>
 </root>

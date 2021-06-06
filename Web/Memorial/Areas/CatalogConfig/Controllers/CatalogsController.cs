@@ -4,12 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Memorial.Areas.Setting.Controllers
+namespace Memorial.Areas.CatalogConfig.Controllers
 {
-    public class AncestralTabletAreaController : Controller
+    public class CatalogsController : Controller
     {
-        // GET: Setting/AncestralTabletArea
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult New()
         {
             return View();
         }

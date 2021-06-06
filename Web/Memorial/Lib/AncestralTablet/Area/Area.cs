@@ -81,7 +81,7 @@ namespace Memorial.Lib.AncestralTablet
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreaBySite(siteId));
         }
 
-        public bool Create(AncestralTabletAreaDto ancestralTabletAreaDto)
+        public Core.Domain.AncestralTabletArea Create(AncestralTabletAreaDto ancestralTabletAreaDto)
         {
             _area = new Core.Domain.AncestralTabletArea();
             Mapper.Map(ancestralTabletAreaDto, _area);
@@ -90,7 +90,7 @@ namespace Memorial.Lib.AncestralTablet
 
             _unitOfWork.AncestralTabletAreas.Add(_area);
 
-            return true;
+            return _area;
         }
 
         public bool Update(Core.Domain.AncestralTabletArea ancestralTabletArea)

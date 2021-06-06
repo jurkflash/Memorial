@@ -122,7 +122,7 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTablets.GetPositionsByArea(areaId);
         }
 
-        public bool Create(AncestralTabletDto ancestralTabletDto)
+        public Core.Domain.AncestralTablet Create(AncestralTabletDto ancestralTabletDto)
         {
             _ancestralTablet = new Core.Domain.AncestralTablet();
             Mapper.Map(ancestralTabletDto, _ancestralTablet);
@@ -131,7 +131,7 @@ namespace Memorial.Lib.AncestralTablet
 
             _unitOfWork.AncestralTablets.Add(_ancestralTablet);
 
-            return true;
+            return _ancestralTablet;
         }
 
         public bool Update(Core.Domain.AncestralTablet ancestralTablet)

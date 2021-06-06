@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Site)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.AddressBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var url_string = window.location.href
+            var url = new URL(url_string);
+
+            var table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/configSites",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function(data, type, site) {
+                            return "<a href='/SiteConfig/Sites/Details/" + site.id + "'>" + site.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "address"
+                    },
+                    {
+                        data: "remark"
+                    },
+                    {
+                        data: "code"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-site-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/configSites/" + button.attr("data-site-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

@@ -7,23 +7,15 @@ namespace Memorial.Persistence.EntityConfigurations
     {
         public CatalogConfiguration()
         {
-            Property(c => c.Name)
-                .IsRequired()
-                .HasMaxLength(255);
-
-            Property(c => c.Description)
-                .HasMaxLength(255);
+            HasRequired(c => c.Product)
+                .WithMany(s => s.Catalogs)
+                .HasForeignKey(c => c.ProductId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(c => c.Site)
                 .WithMany(s => s.Catalogs)
                 .HasForeignKey(c => c.SiteId)
                 .WillCascadeOnDelete(false);
-
-            Property(c => c.Area)
-                .HasMaxLength(255);
-
-            Property(c => c.Controller)
-                .HasMaxLength(255);
         }
     }
 }

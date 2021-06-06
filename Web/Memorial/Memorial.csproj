@@ -469,7 +469,6 @@
     <Content Include="Areas\ApplicantDeceaseds\Views\web.config" />
     <Content Include="Areas\Navigation\Views\web.config" />
     <Content Include="Areas\Menu\Views\web.config" />
-    <Content Include="Areas\Setting\Views\web.config" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Areas\Columbarium\Views\NicheDeceaseds\Index.cshtml" />
     <Content Include="Areas\Cemetery\Views\Clearances\Form.cshtml" />
@@ -494,6 +493,7 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\common.js" />
     <Content Include="Scripts\constants.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -741,6 +741,10 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AncestralTabletConfig\AncestralTabletConfigAreaRegistration.cs" />
+    <Compile Include="Areas\AncestralTabletConfig\Controllers\AncestralTabletsController.cs" />
+    <Compile Include="Areas\AncestralTabletConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\AncestralTabletConfig\Controllers\AreasController.cs" />
     <Compile Include="Areas\AncestralTablet\AncestralTabletAreaRegistration.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\AncestralTabletsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\FreeController.cs" />
@@ -774,14 +778,21 @@
     <Compile Include="Areas\Columbarium\Controllers\NicheDeceasedsController.cs" />
     <Compile Include="Areas\Columbarium\Data\NicheDeceasedsViewModel.cs" />
     <Compile Include="Areas\Columbarium\ColumbariumAreaRegistration.cs" />
-    <Compile Include="Areas\Setting\Controllers\Ancestor\AncestralTabletAreaController.cs" />
-    <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
+    <Compile Include="Areas\CatalogConfig\Controllers\CatalogsController.cs" />
+    <Compile Include="Areas\CatalogConfig\CatalogConfigAreaRegistration.cs" />
+    <Compile Include="Areas\SiteConfig\Controllers\SitesController.cs" />
+    <Compile Include="Areas\SiteConfig\SiteConfigAreaRegistration.cs" />
     <Compile Include="Areas\Space\Controllers\FreeController.cs" />
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
     <Compile Include="Controllers\Api\AncestralTabletMaintenanceController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletsController.cs" />
+    <Compile Include="Controllers\ConfigApi\ConfigCatalogsController.cs" />
+    <Compile Include="Controllers\ConfigApi\ConfigSitesController.cs" />
+    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletsController.cs" />
+    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletItemsController.cs" />
+    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletAreasController.cs" />
     <Compile Include="Controllers\Api\SitesController.cs" />
     <Compile Include="Controllers\Api\ColumbariumsController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
@@ -840,6 +851,8 @@
     <Compile Include="Core\Domain\AncestralTabletNumber.cs" />
     <Compile Include="Core\Domain\AncestralTabletItem.cs" />
     <Compile Include="Core\Domain\ApplicantDeceased.cs" />
+    <Compile Include="Core\Domain\SubProductService.cs" />
+    <Compile Include="Core\Domain\Product.cs" />
     <Compile Include="Core\Domain\Catalog.cs" />
     <Compile Include="Core\Domain\CremationTransaction.cs" />
     <Compile Include="Core\Domain\MasterCatalog.cs" />
@@ -897,6 +910,7 @@
     <Compile Include="Core\Dtos\AncestralTabletTransactionDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedFlattenDto.cs" />
     <Compile Include="Core\Dtos\ApplicantDeceasedDto.cs" />
+    <Compile Include="Core\Dtos\CatalogDto.cs" />
     <Compile Include="Core\Dtos\CremationDto.cs" />
     <Compile Include="Core\Dtos\CremationItemDto.cs" />
     <Compile Include="Core\Dtos\FengShuiMasterDto.cs" />
@@ -925,6 +939,7 @@
     <Compile Include="Core\Dtos\ColumbariumItemDto.cs" />
     <Compile Include="Core\Dtos\ColumbariumTransactionDto.cs" />
     <Compile Include="Core\Dtos\NicheTypeDto.cs" />
+    <Compile Include="Core\Dtos\ProductDto.cs" />
     <Compile Include="Core\Dtos\ReceiptDto.cs" />
     <Compile Include="Core\Dtos\RelationshipTypeDto.cs" />
     <Compile Include="Core\Dtos\ReligionTypeDto.cs" />
@@ -932,6 +947,7 @@
     <Compile Include="Core\Dtos\SpaceDto.cs" />
     <Compile Include="Core\Dtos\SpaceItemDto.cs" />
     <Compile Include="Core\Dtos\SpaceTransactionDto.cs" />
+    <Compile Include="Core\Dtos\SubProductServiceDto.cs" />
     <Compile Include="Core\Dtos\UrnDto.cs" />
     <Compile Include="Core\Dtos\UrnItemDto.cs" />
     <Compile Include="Core\Dtos\UrnTransactionDto.cs" />
@@ -941,6 +957,8 @@
     <Compile Include="Core\Repositories\IAncestralTabletItemRepository.cs" />
     <Compile Include="Core\Repositories\IAncestralTabletAreaRepository.cs" />
     <Compile Include="Core\Repositories\IApplicantDeceasedRepository.cs" />
+    <Compile Include="Core\Repositories\ISubProductServiceRepository.cs" />
+    <Compile Include="Core\Repositories\IProductRepository.cs" />
     <Compile Include="Core\Repositories\ICatalogRepository.cs" />
     <Compile Include="Core\Repositories\INumberRepository.cs" />
     <Compile Include="Core\Repositories\ICremationTransactionRepository.cs" />
@@ -1031,6 +1049,10 @@
     <Compile Include="Lib\ApplicantDeceased\IApplicantDeceased.cs" />
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
+    <Compile Include="Lib\Catalog\Catalog.cs" />
+    <Compile Include="Lib\Catalog\Config\Config.cs" />
+    <Compile Include="Lib\Catalog\Config\IConfig.cs" />
+    <Compile Include="Lib\Catalog\ICatalog.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\IWithdraw.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\Withdraw.cs" />
     <Compile Include="Lib\Constant.cs" />
@@ -1158,6 +1180,10 @@
     <Compile Include="Lib\Columbarium\Number\Number.cs" />
     <Compile Include="Lib\Columbarium\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Columbarium\Transfer\Transfer.cs" />
+    <Compile Include="Lib\SubProductService\ISubProductService.cs" />
+    <Compile Include="Lib\SubProductService\SubProductService.cs" />
+    <Compile Include="Lib\Product\IProduct.cs" />
+    <Compile Include="Lib\Product\Product.cs" />
     <Compile Include="Lib\Receipt\Ancestor\Ancestor.cs" />
     <Compile Include="Lib\Receipt\Ancestor\IAncestor.cs" />
     <Compile Include="Lib\Receipt\Cremation\Cremation.cs" />
@@ -1178,6 +1204,8 @@
     <Compile Include="Lib\RelationshipType\RelationshipType.cs" />
     <Compile Include="Lib\ReligionType\IReligionType.cs" />
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
+    <Compile Include="Lib\Site\Config\Config.cs" />
+    <Compile Include="Lib\Site\Config\IConfig.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
     <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Space\Config\Config.cs" />
@@ -2458,12 +2486,56 @@
     <Compile Include="Migrations\202105301550472_AddSummaryItemForAllTransactionsTable.designer.cs">
       <DependentUpon>202105301550472_AddSummaryItemForAllTransactionsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106051301475_AddCreateModifyDeleteDateToCatalog.cs" />
+    <Compile Include="Migrations\202106051301475_AddCreateModifyDeleteDateToCatalog.designer.cs">
+      <DependentUpon>202106051301475_AddCreateModifyDeleteDateToCatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051339561_AddProductsTable.cs" />
+    <Compile Include="Migrations\202106051339561_AddProductsTable.designer.cs">
+      <DependentUpon>202106051339561_AddProductsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051340484_PopulateDataToProductsTable.cs" />
+    <Compile Include="Migrations\202106051340484_PopulateDataToProductsTable.designer.cs">
+      <DependentUpon>202106051340484_PopulateDataToProductsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051453376_RedesignCatalogsTable.cs" />
+    <Compile Include="Migrations\202106051453376_RedesignCatalogsTable.designer.cs">
+      <DependentUpon>202106051453376_RedesignCatalogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051455499_PopulateCatalogsTableData.cs" />
+    <Compile Include="Migrations\202106051455499_PopulateCatalogsTableData.designer.cs">
+      <DependentUpon>202106051455499_PopulateCatalogsTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051518208_AddSubProductServicesTable.cs" />
+    <Compile Include="Migrations\202106051518208_AddSubProductServicesTable.designer.cs">
+      <DependentUpon>202106051518208_AddSubProductServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106051519199_PopulateSubProductServicesTableData.cs" />
+    <Compile Include="Migrations\202106051519199_PopulateSubProductServicesTableData.designer.cs">
+      <DependentUpon>202106051519199_PopulateSubProductServicesTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060228299_RedesignAncestralTabletItemsTable.cs" />
+    <Compile Include="Migrations\202106060228299_RedesignAncestralTabletItemsTable.designer.cs">
+      <DependentUpon>202106060228299_RedesignAncestralTabletItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060243310_SetCodeToNullForAncestralTabletItemsTable.cs" />
+    <Compile Include="Migrations\202106060243310_SetCodeToNullForAncestralTabletItemsTable.designer.cs">
+      <DependentUpon>202106060243310_SetCodeToNullForAncestralTabletItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106060244244_PopulateAncestralTabletItemsTableData.cs" />
+    <Compile Include="Migrations\202106060244244_PopulateAncestralTabletItemsTableData.designer.cs">
+      <DependentUpon>202106060244244_PopulateAncestralTabletItemsTableData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Mix.resx</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\EntityConfigurations\SubProductServiceConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\ProductConfiguration.cs" />
+    <Compile Include="Persistence\Repositories\SubProductServiceRepository.cs" />
+    <Compile Include="Persistence\Repositories\ProductRepository.cs" />
     <Compile Include="ViewModels\InvoiceInfoViewModel.cs" />
     <Compile Include="ViewModels\Receipt\NonOrderReceiptInfoViewModel.cs" />
     <Compile Include="ViewModels\Receipt\OrderReceiptInfoViewModel.cs" />
@@ -2684,6 +2756,16 @@
     <Content Include="Areas\Space\Views\Free\Form.cshtml" />
     <Content Include="Areas\Space\Views\Free\Index.cshtml" />
     <Content Include="Areas\Space\Views\Free\Info.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\web.config" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Index.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Items\Index.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\AncestralTablets\Index.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Details.cshtml" />
+    <Content Include="Areas\SiteConfig\Views\web.config" />
+    <Content Include="Areas\SiteConfig\Views\Sites\Index.cshtml" />
+    <Content Include="Areas\SiteConfig\Views\Sites\Details.cshtml" />
+    <Content Include="Areas\CatalogConfig\Views\Catalogs\Index.cshtml" />
+    <Content Include="Areas\CatalogConfig\Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -2831,12 +2913,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AncestralTabletConfig\Data\" />
+    <Folder Include="Areas\AncestralTabletConfig\Views\Shared\" />
+    <Folder Include="Areas\CatalogConfig\Data\" />
+    <Folder Include="Areas\CatalogConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />
-    <Folder Include="Areas\Setting\Data\" />
-    <Folder Include="Areas\Setting\Views\AncestorArea\" />
-    <Folder Include="Areas\Setting\Views\Shared\" />
+    <Folder Include="Areas\SiteConfig\Data\" />
+    <Folder Include="Areas\SiteConfig\Views\Shared\" />
     <Folder Include="Areas\Space\Views\Shared\" />
     <Folder Include="Areas\Urn\Views\Shared\" />
     <Folder Include="Lib\Columbarium\Free\" />
@@ -3780,6 +3865,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105301550472_AddSummaryItemForAllTransactionsTable.resx">
       <DependentUpon>202105301550472_AddSummaryItemForAllTransactionsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051301475_AddCreateModifyDeleteDateToCatalog.resx">
+      <DependentUpon>202106051301475_AddCreateModifyDeleteDateToCatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051339561_AddProductsTable.resx">
+      <DependentUpon>202106051339561_AddProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051340484_PopulateDataToProductsTable.resx">
+      <DependentUpon>202106051340484_PopulateDataToProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051453376_RedesignCatalogsTable.resx">
+      <DependentUpon>202106051453376_RedesignCatalogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051455499_PopulateCatalogsTableData.resx">
+      <DependentUpon>202106051455499_PopulateCatalogsTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051518208_AddSubProductServicesTable.resx">
+      <DependentUpon>202106051518208_AddSubProductServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051519199_PopulateSubProductServicesTableData.resx">
+      <DependentUpon>202106051519199_PopulateSubProductServicesTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060228299_RedesignAncestralTabletItemsTable.resx">
+      <DependentUpon>202106060228299_RedesignAncestralTabletItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060243310_SetCodeToNullForAncestralTabletItemsTable.resx">
+      <DependentUpon>202106060243310_SetCodeToNullForAncestralTabletItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106060244244_PopulateAncestralTabletItemsTableData.resx">
+      <DependentUpon>202106060244244_PopulateAncestralTabletItemsTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

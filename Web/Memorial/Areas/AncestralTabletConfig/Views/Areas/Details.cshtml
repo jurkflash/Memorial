@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Area)</h2>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.NameBR)
+    </div>
+    <div class="col-md-6" id="name">
+        
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.DescriptionBR)
+    </div>
+    <div class="col-md-6" id="description">
+
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-6" id="remark">
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function getData() {
+            //var f = $("#ColumbariumTransactionDto_FromDate").val();
+            //var t = $("#ColumbariumTransactionDto_ToDate").val();
+            //if (f != "" && t != "") {
+                //var ii = $("#ColumbariumTransactionDto_ColumbariumItemDtoId").val();
+                var url = '/api/configAncestralTabletAreas/' + GetURLLastParameter();
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    //data: { from: f, to: t, itemId: ii }
+                }).done(function (data) {
+                    $("#name").html(data.name);
+                    $("#description").html(data.description);
+                    $("#remark").html(data.remark);
+                }).fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+            //}
+        }
+
+        $(document).ready(function () {
+            getData();
+        });
+    </script>
+}
+
+

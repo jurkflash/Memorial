@@ -35,7 +35,7 @@ namespace Memorial.Lib.AncestralTablet
 
         IEnumerable<AncestralTabletItemDto> GetItemDtosByArea(int areaId);
 
-        bool Create(AncestralTabletItemDto ancestralTabletItemDto);
+        Core.Domain.AncestralTabletItem Create(AncestralTabletItemDto ancestralTabletItemDto);
 
         bool Update(Core.Domain.AncestralTabletItem ancestralTabletItem);
 

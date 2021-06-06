@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Site)</h2>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.NameBR)
+    </div>
+    <div class="col-md-6" id="name">
+
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.AddressBR)
+    </div>
+    <div class="col-md-6" id="description">
+
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.CodeBR)
+    </div>
+    <div class="col-md-6" id="description">
+
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.RemarkBR)
+    </div>
+    <div class="col-md-6" id="remark">
+
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        Header
+    </div>
+    <div class="col-md-6" id="header">
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function getData() {
+            var url = '/api/configSites/' + GetURLLastParameter();
+            $.ajax({
+                url: url,
+                type: 'GET',
+            }).done(function (data) {
+                $("#name").html(data.name);
+                $("#address").html(data.address);
+                $("#code").html(data.code);
+                $("#remark").html(data.remark);
+                $("#header").html(data.header);
+            }).fail(function () {
+                toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+            });
+        }
+
+        $(document).ready(function () {
+            getData();
+        });
+    </script>
+}
+
+

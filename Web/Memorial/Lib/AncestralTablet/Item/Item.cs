@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.AncestralTablet
@@ -9,11 +10,13 @@ namespace Memorial.Lib.AncestralTablet
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.AncestralTabletItem _item;
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -58,27 +61,33 @@ namespace Memorial.Lib.AncestralTablet
 
         public string GetName()
         {
-            return _item.Name;
+            return _item.SubProductService.Name;
         }
 
         public string GetDescription()
         {
-            return _item.Description;
+            return _item.SubProductService.Description;
         }
 
         public float GetPrice()
         {
-            return _item.Price;
+            if (_item.Price.HasValue)
+                return _item.Price.Value;
+            else
+                return _item.SubProductService.Price;
         }
 
         public string GetSystemCode()
         {
-            return _item.SystemCode;
+            return _item.SubProductService.SystemCode;
         }
 
         public bool IsOrder()
         {
-            return _item.isOrder;
+            if (_item.isOrder.HasValue)
+                return _item.isOrder.Value;
+            else
+                return _item.SubProductService.isOrder;
         }
 
         public IEnumerable<Core.Domain.AncestralTabletItem> GetItemByArea(int areaId)
@@ -91,7 +100,7 @@ namespace Memorial.Lib.AncestralTablet
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletItem>, IEnumerable<AncestralTabletItemDto>>(GetItemByArea(areaId));
         }
 
-        public bool Create(AncestralTabletItemDto ancestralTabletItemDto)
+        public Core.Domain.AncestralTabletItem Create(AncestralTabletItemDto ancestralTabletItemDto)
         {
             _item = new Core.Domain.AncestralTabletItem();
             Mapper.Map(ancestralTabletItemDto, _item);
@@ -100,7 +109,7 @@ namespace Memorial.Lib.AncestralTablet
 
             _unitOfWork.AncestralTabletItems.Add(_item);
 
-            return true;
+            return _item;
         }
 
         public bool Update(Core.Domain.AncestralTabletItem ancestralTabletItem)

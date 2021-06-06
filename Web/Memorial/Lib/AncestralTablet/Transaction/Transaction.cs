@@ -252,7 +252,7 @@ namespace Memorial.Lib.AncestralTablet
         {
             var areaId = _ancestralTablet.GetAncestralTablet(oldAncestralTabletId).AncestralTabletAreaId;
 
-            var itemId = _item.GetItemByArea(areaId).Where(i => i.SystemCode == systemCode).FirstOrDefault();
+            var itemId = _item.GetItemByArea(areaId).Where(i => i.SubProductService.SystemCode == systemCode).FirstOrDefault();
 
             if (itemId == null)
                 return false;

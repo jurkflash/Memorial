@@ -19,6 +19,18 @@ namespace Memorial.App_Start
 
 
             // Domain to Dto
+            CreateMap<Product, ProductDto>();
+
+            CreateMap<SubProductService, SubProductServiceDto>()
+                .ForMember(c => c.ProductDto, opt => opt.MapFrom(x => x.Product))
+                .ForMember(c => c.ProductDtoId, opt => opt.MapFrom(x => x.ProductId));
+
+            CreateMap<Catalog, CatalogDto>()
+                .ForMember(c => c.ProductDto, opt => opt.MapFrom(x => x.Product))
+                .ForMember(c => c.ProductDtoId, opt => opt.MapFrom(x => x.ProductId))
+                .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+
             CreateMap<Site, SiteDto>();
 
             CreateMap<GenderType, GenderTypeDto>();
@@ -204,6 +216,21 @@ namespace Memorial.App_Start
 
 
             // Dto to Domain
+            CreateMap<ProductDto, Product>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+
+            CreateMap<SubProductServiceDto, SubProductService>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Product, opt => opt.Ignore())
+                .ForMember(c => c.ProductId, opt => opt.MapFrom(x => x.ProductDtoId));
+
+            CreateMap<CatalogDto, Catalog>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Product, opt => opt.Ignore())
+                .ForMember(c => c.ProductId, opt => opt.MapFrom(x => x.ProductDtoId))
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+
             CreateMap<SiteDto, Site>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
 

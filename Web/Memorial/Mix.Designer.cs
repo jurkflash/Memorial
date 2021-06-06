@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 目錄 Catalog.
+        /// </summary>
+        public static string Catalog {
+            get {
+                return ResourceManager.GetString("Catalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 墓地 Cemetery.
         /// </summary>
         public static string Cemetery {
@@ -327,6 +336,15 @@ namespace Resources {
         public static string ClearanceApplicationFormBR {
             get {
                 return ResourceManager.GetString("ClearanceApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 代號&lt;br /&gt;Code.
+        /// </summary>
+        public static string CodeBR {
+            get {
+                return ResourceManager.GetString("CodeBR", resourceCulture);
             }
         }
         
@@ -1164,6 +1182,15 @@ namespace Resources {
         public static string ShiftToBR {
             get {
                 return ResourceManager.GetString("ShiftToBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 地點 Site.
+        /// </summary>
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
             }
         }
         

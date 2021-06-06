@@ -7,18 +7,21 @@ using Memorial.Core;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
 using Memorial.Lib.Site;
+using Memorial.Lib.Catalog;
 
 namespace Memorial.Areas.Menu.Controllers
 {
     public class MenuController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private ISite _site;
+        private readonly ISite _site;
+        private readonly ICatalog _catalog;
 
-        public MenuController(IUnitOfWork unitOfWork, ISite site)
+        public MenuController(IUnitOfWork unitOfWork, ISite site, ICatalog catalog)
         {
             _unitOfWork = unitOfWork;
             _site = site;
+            _catalog = catalog;
         }
 
         public ActionResult Index()
@@ -30,7 +33,7 @@ namespace Memorial.Areas.Menu.Controllers
         {
             var viewModel = new ListCatalogViewModel()
             {
-                Catalogs = _unitOfWork.Catalogs.GetBySite(siteId),
+                CatalogDtos = _catalog.GetCatalogDtosBySite(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);

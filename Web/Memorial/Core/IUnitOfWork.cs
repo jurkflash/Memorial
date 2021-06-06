@@ -5,6 +5,8 @@ namespace Memorial.Core
 {
     public interface IUnitOfWork : IDisposable
     {
+        IProductRepository Products { get; }
+        ISubProductServiceRepository SubProductServices { get; }
         ICatalogRepository Catalogs { get; }
 
         IGenderTypeRepository GenderTypes { get; }

@@ -42,9 +42,9 @@ namespace Memorial.Lib.AncestralTablet
             return _item.GetItemDto(id);
         }
 
-        public IEnumerable<AncestralTabletItemDto> GetItemDtos()
+        public IEnumerable<AncestralTabletItemDto> GetItemDtosByAreaId(int areaId)
         {
-            return _item.GetItemDtos();
+            return _item.GetItemDtosByArea(areaId);
         }
 
         public AncestralTabletDto GetAncestralTabletDto(int id)
@@ -52,7 +52,7 @@ namespace Memorial.Lib.AncestralTablet
             return _ancestralTablet.GetAncestralTabletDto(id);
         }
 
-        public IEnumerable<AncestralTabletDto> GetAncestralTabletsByAreaId(int id)
+        public IEnumerable<AncestralTabletDto> GetAncestralTabletDtosByAreaId(int id)
         {
             return _ancestralTablet.GetAncestralTabletDtosByAreaId(id);
         }
@@ -62,15 +62,13 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletNumbers.GetAll();
         }
 
-        public bool CreateItem(AncestralTabletItemDto ancestralTabletItemDto)
+        public int CreateItem(AncestralTabletItemDto ancestralTabletItemDto)
         {
-            if (_item.Create(ancestralTabletItemDto))
-            {
-                _unitOfWork.Complete();
-                return true;
-            }
+            var item = _item.Create(ancestralTabletItemDto);
 
-            return false;
+            _unitOfWork.Complete();
+
+            return item.Id;
         }
 
         public bool UpdateItem(AncestralTabletItemDto ancestralTabletItemDto)
@@ -113,15 +111,13 @@ namespace Memorial.Lib.AncestralTablet
 
 
 
-        public bool CreateArea(AncestralTabletAreaDto ancestralTabletAreaDto)
+        public int CreateArea(AncestralTabletAreaDto ancestralTabletAreaDto)
         {
-            if (_area.Create(ancestralTabletAreaDto))
-            {
-                _unitOfWork.Complete();
-                return true;
-            }
+            var area = _area.Create(ancestralTabletAreaDto);
 
-            return false;
+            _unitOfWork.Complete();
+
+            return area.Id;
         }
 
         public bool UpdateArea(AncestralTabletAreaDto ancestralTabletAreaDto)
@@ -161,22 +157,20 @@ namespace Memorial.Lib.AncestralTablet
         }
 
 
-        public bool CreateAncestralTablet(AncestralTabletDto ancestralTabletDto)
+        public int CreateAncestralTablet(AncestralTabletDto ancestralTabletDto)
         {
             if (_unitOfWork.AncestralTablets.Find(a => a.PositionX == ancestralTabletDto.PositionX
                  && a.PositionY == ancestralTabletDto.PositionY
                  && a.AncestralTabletAreaId == ancestralTabletDto.AncestralTabletAreaId).Any())
             {
-                return false;
+                return 0;
             }
 
-            if (_ancestralTablet.Create(ancestralTabletDto))
-            {
-                _unitOfWork.Complete();
-                return true;
-            }
+            var ancestralTablet = _ancestralTablet.Create(ancestralTabletDto);
 
-            return false;
+            _unitOfWork.Complete();
+
+            return ancestralTablet.Id;
         }
 
         public bool UpdateAncestralTablet(AncestralTabletDto ancestralTabletDto)

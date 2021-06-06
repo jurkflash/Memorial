@@ -18,16 +18,21 @@ namespace Memorial.Persistence.Repositories
             var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestralTabletNewAF(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewAF(
+                (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
+                year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + 
+                    (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code) + 
+                    "/" + "AF-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -38,16 +43,21 @@ namespace Memorial.Persistence.Repositories
             var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestralTabletNewIV(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewIV(
+                (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
+                year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code) +
+                    "/" + "IV-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 
@@ -58,16 +68,21 @@ namespace Memorial.Persistence.Repositories
             var ancestralTabletItem = MemorialContext.AncestralTabletItems
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
+                                .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
                                 a.DeleteDate == null).SingleOrDefault();
 
-            var number = numberRepository.GetAncestralTabletNewRE(ancestralTabletItem.Code, year);
+            var number = numberRepository.GetAncestralTabletNewRE(
+                (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
+                year);
 
             if (number == -1 || ancestralTabletItem == null)
                 return "";
             else
             {
-                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" + ancestralTabletItem.Code + "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
+                return ancestralTabletItem.AncestralTabletArea.Site.Code + "/" +
+                    (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code) +
+                    "/" + "RE-" + number.ToString().PadLeft(5, '0') + "/" + year.ToString();
             }
         }
 

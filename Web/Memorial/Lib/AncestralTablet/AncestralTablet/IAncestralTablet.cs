@@ -47,7 +47,7 @@ namespace Memorial.Lib.AncestralTablet
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
 
-        bool Create(AncestralTabletDto ancestralTabletDto);
+        Core.Domain.AncestralTablet Create(AncestralTabletDto ancestralTabletDto);
 
         bool Update(Core.Domain.AncestralTablet ancestralTablet);
 

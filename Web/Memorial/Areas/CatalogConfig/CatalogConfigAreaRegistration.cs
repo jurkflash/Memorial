@@ -1,22 +1,22 @@
 ﻿using System.Web.Mvc;
 
-namespace Memorial.Areas.Setting
+namespace Memorial.Areas.CatalogConfig
 {
-    public class SettingAreaRegistration : AreaRegistration 
+    public class CatalogConfigAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {
             get 
             {
-                return "Setting";
+                return "CatalogConfig";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Setting_default",
-                "Setting/{controller}/{action}/{id}",
+                "CatalogConfig_default",
+                "CatalogConfig/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

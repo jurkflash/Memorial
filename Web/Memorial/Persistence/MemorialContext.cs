@@ -12,6 +12,8 @@ namespace Memorial.Persistence
             this.Configuration.LazyLoadingEnabled = false;
         }
 
+        public DbSet<Product> Products { get; set; }
+        public DbSet<SubProductService> SubProductServices { get; set; }
         public DbSet<MaritalType> MaritalTypes { get; set; }
         public DbSet<GenderType> GenderTypes { get; set; }
         public DbSet<NationalityType> NationalityTypes { get; set; }
@@ -78,6 +80,9 @@ namespace Memorial.Persistence
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new ProductConfiguration());
+            modelBuilder.Configurations.Add(new SubProductServiceConfiguration());
+
             modelBuilder.Configurations.Add(new MaritalTypeConfiguration());
             modelBuilder.Configurations.Add(new GenderTypeConfiguration());
             modelBuilder.Configurations.Add(new NationalityTypeConfiguration());

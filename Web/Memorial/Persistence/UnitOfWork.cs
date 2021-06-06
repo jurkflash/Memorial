@@ -11,6 +11,9 @@ namespace Memorial.Persistence
         public UnitOfWork(MemorialContext context)
         {
             _context = context;
+            Products = new ProductRepository(_context);
+            SubProductServices = new SubProductServiceRepository(_context);
+
             GenderTypes = new GenderTypeRepository(_context);
             MaritalTypes = new MaritalTypeRepository(_context);
             NationalityTypes = new NationalityTypeRepository(_context);
@@ -74,6 +77,8 @@ namespace Memorial.Persistence
             
             Catalogs = new CatalogRepository(_context);
         }
+        public IProductRepository Products { get; private set; }
+        public ISubProductServiceRepository SubProductServices { get; private set; }
 
         public IGenderTypeRepository GenderTypes { get; private set; }
         public IMaritalTypeRepository MaritalTypes { get; private set; }

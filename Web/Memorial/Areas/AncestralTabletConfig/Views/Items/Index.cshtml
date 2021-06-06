@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Item)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var url_string = window.location.href
+            var url = new URL(url_string);
+
+            var table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/configAncestralTabletItems",
+                    data: { areaId: url.searchParams.get("areaId") },
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, item) {
+                            return "<a href='/AncestralTabletItems/edit/" + item.id + "'>" + item.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "price"
+                    },
+                    {
+                        data: "code"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-item-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/configAncestralTabletItems/" + button.attr("data-item-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
