@@ -2838,6 +2838,7 @@
     <Content Include="Areas\SiteConfig\Views\Sites\Details.cshtml" />
     <Content Include="Areas\CatalogConfig\Views\Catalogs\Index.cshtml" />
     <Content Include="Areas\CatalogConfig\Views\web.config" />
+    <Content Include="Areas\SiteConfig\Views\Sites\Form.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />

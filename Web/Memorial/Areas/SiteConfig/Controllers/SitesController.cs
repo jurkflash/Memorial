@@ -19,7 +19,7 @@ namespace Memorial.Areas.SiteConfig.Controllers
             return View();
         }
 
-        public ActionResult New()
+        public ActionResult Form()
         {
             return View();
         }
