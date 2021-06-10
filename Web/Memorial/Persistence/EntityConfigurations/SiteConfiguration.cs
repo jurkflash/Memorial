@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity.ModelConfiguration;
+using System.ComponentModel.DataAnnotations.Schema;
 using Memorial.Core.Domain;
 
 namespace Memorial.Persistence.EntityConfigurations

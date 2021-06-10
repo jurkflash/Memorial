@@ -16,7 +16,7 @@ namespace Memorial.Lib.Cemetery
 
         string GetDescription();
 
-        byte GetSiteId();
+        int GetSiteId();
 
         Core.Domain.CemeteryArea GetArea();
 
@@ -28,9 +28,9 @@ namespace Memorial.Lib.Cemetery
 
         IEnumerable<CemeteryAreaDto> GetAreaDtos();
 
-        IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(byte siteId);
+        IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(int siteId);
 
-        IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(byte siteId);
+        IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(int siteId);
 
         bool Create(CemeteryAreaDto cemeteryAreaDto);
 

@@ -9,6 +9,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestralTabletArea> GetAllActive();
 
-        IEnumerable<AncestralTabletArea> GetBySite(byte siteId);
+        IEnumerable<AncestralTabletArea> GetBySite(int siteId);
     }
 }

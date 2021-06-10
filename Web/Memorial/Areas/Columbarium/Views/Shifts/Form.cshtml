@@ -114,13 +114,13 @@
         <div class="col-md-1" id="qDescription"></div>
         <div class="col-md-2" id="qNicheType"></div>
         <div class="col-md-2" id="qPrice">
-            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Price, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Price, new { @class = "form-control", @required = "required" })
         </div>
         <div class="col-md-2" id="qMaintenance">
-            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Maintenance, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
         </div>
         <div class="col-md-2" id="qLifeTimeMaintenance">
-            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.LifeTimeMaintenance, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.ColumbariumTransactionDto.LifeTimeMaintenance, new { @class = "form-control", @required = "required" })
         </div>
         <div class="col-md-1" id="qRemark"></div>
     </div>
@@ -153,7 +153,7 @@
     <script>
         function sites() {
             $.ajax({
-                url: "/api/Sites/GetSites"
+                url: "/api/sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -171,9 +171,10 @@
         }
 
         function centres() {
+            var url = "/api/sites/" + $("#Sites").val() + "/columbariums/centres";
+
             $.ajax({
-                url: "/api/Niches/GetCentre",
-                data: { siteId: $("#Sites").val() }
+                url: url
             })
                 .done(function (response) {
                     var len = response.length;
@@ -191,9 +192,10 @@
         }
 
         function areas() {
+            var url = "/api/columbariums/centres/" + $("#Centres").val() + "/areas";
+
             $.ajax({
-                url: "/api/Niches/GetArea",
-                data: { centreId: $("#Centres").val() }
+                url: url
             })
                 .done(function (response) {
                     var len = response.length;
@@ -211,9 +213,10 @@
         }
 
         function niches() {
+            var url = "/api/columbariums/areas/" + $("#Areas").val() + "/availableNiches";
+
             $.ajax({
-                url: "/api/Niches/GetAvailableNicheByAreaId",
-                data: { areaId: $("#Areas").val() }
+                url: url
             })
                 .done(function (response) {
                     var len = response.length;
@@ -244,9 +247,10 @@
         function niche() {
             clearNiche();
 
+            var url = "/api/columbariums/niche/" + $("#Niches").val();
+
             $.ajax({
-                url: "/api/Niches/GetNiche",
-                data: { id: $("#Niches").val() }
+                url: url
             })
                 .done(function (response) {
                     if (response != null) {

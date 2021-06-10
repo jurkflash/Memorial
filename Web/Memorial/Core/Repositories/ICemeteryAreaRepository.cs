@@ -9,6 +9,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<CemeteryArea> GetAllActive();
 
-        IEnumerable<CemeteryArea> GetBySite(byte siteId);
+        IEnumerable<CemeteryArea> GetBySite(int siteId);
     }
 }

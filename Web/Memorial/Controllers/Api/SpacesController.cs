@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using Memorial.Core;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
-using AutoMapper;
 using Memorial.ViewModels;
 using Memorial.Lib.Space;
 
 namespace Memorial.Controllers.Api
 {
+    [RoutePrefix("api/spaceitems")]
     public class SpacesController : ApiController
     {
         private readonly ISpace _space;
@@ -24,12 +18,13 @@ namespace Memorial.Controllers.Api
             _transaction = transaction;
         }
 
-        public IHttpActionResult GetAmount(DateTime from, DateTime to, int spaceItemId)
+        [Route("{id:int}/amount")]
+        public IHttpActionResult GetAmount(int id, DateTime from, DateTime to)
         {
             if (from > to)
                 return BadRequest();
 
-            var result = _space.GetAmount(from, to, spaceItemId);
+            var result = _space.GetAmount(from, to, id);
 
             if (result == -1)
                 return BadRequest();
@@ -37,17 +32,19 @@ namespace Memorial.Controllers.Api
                 return Ok(result);
         }
 
-        public IHttpActionResult GetAvailability(DateTime from, DateTime to, int spaceItemId)
+        [Route("{id:int}/availability")]
+        public IHttpActionResult GetAvailability(int id, DateTime from, DateTime to)
         {
             if (from > to)
                 return BadRequest();
 
-            var result = _space.CheckAvailability(from, to, spaceItemId);
+            var result = _space.CheckAvailability(from, to, id);
 
             return Ok(result);
         }
 
-        public IHttpActionResult GetAvailability(DateTime from, DateTime to, string AF)
+        [Route("{AF}/availability")]
+        public IHttpActionResult GetAvailability(string AF, DateTime from, DateTime to)
         {
             if (from > to)
                 return BadRequest();
@@ -57,10 +54,11 @@ namespace Memorial.Controllers.Api
             return Ok(result);
         }
 
-        public IHttpActionResult GetEvents(DateTime startDate, DateTime endDate, byte siteId)
+        [Route("events")]
+        public IHttpActionResult GetEvents(int siteId, DateTime from, DateTime to)
         {
             var events = new List<SpaceCalendar>();
-            var trx = _transaction.GetBookedTransaction(startDate, endDate, siteId);
+            var trx = _transaction.GetBookedTransaction(from, to, siteId);
 
             foreach(var t in trx)
             {

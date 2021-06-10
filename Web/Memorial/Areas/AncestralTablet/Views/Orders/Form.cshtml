@@ -25,7 +25,7 @@
             @Html.Raw(Resources.Mix.PriceBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = "required" })
             @Html.ValidationMessageFor(c => c.AncestralTabletTransactionDto.Price)
         </div>
     </div>
@@ -34,7 +34,7 @@
             @Html.Raw(Resources.Mix.MaintenanceFeesBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
             @Html.ValidationMessageFor(c => c.AncestralTabletTransactionDto.Maintenance)
         </div>
     </div>

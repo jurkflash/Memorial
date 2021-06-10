@@ -20,6 +20,6 @@ namespace Memorial.Core.Repositories
 
         bool GetAvailability(DateTime from, DateTime to, string AF);
 
-        IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, byte siteId);
+        IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, int siteId);
     }
 }

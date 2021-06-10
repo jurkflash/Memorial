@@ -28,9 +28,9 @@ namespace Memorial.Lib.Columbarium
 
         IEnumerable<ColumbariumCentreDto> GetCentreDtos();
 
-        IEnumerable<Core.Domain.ColumbariumCentre> GetCentreBySite(byte sitId);
+        IEnumerable<Core.Domain.ColumbariumCentre> GetCentreBySite(int sitId);
 
-        IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(byte siteId);
+        IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(int siteId);
 
         bool Create(ColumbariumCentreDto columbariumCentreDto);
 

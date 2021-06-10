@@ -786,10 +786,11 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
-    <Compile Include="Controllers\Api\AncestralTabletMaintenanceController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletsController.cs" />
-    <Compile Include="Controllers\ConfigApi\ConfigCatalogsController.cs" />
-    <Compile Include="Controllers\ConfigApi\ConfigSitesController.cs" />
+    <Compile Include="Controllers\Api\SubProductServicesController.cs" />
+    <Compile Include="Controllers\Api\ProductsController.cs" />
+    <Compile Include="Controllers\Api\SpacesController.cs" />
+    <Compile Include="Controllers\Api\CatalogsController.cs" />
     <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletsController.cs" />
     <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletItemsController.cs" />
     <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletAreasController.cs" />
@@ -799,8 +800,6 @@
     <Compile Include="Controllers\Api\DeceasedsController.cs" />
     <Compile Include="Controllers\Api\ApplicantDeceasedsController.cs" />
     <Compile Include="Controllers\Api\PaymentMethodsController.cs" />
-    <Compile Include="Controllers\Api\ColumbariumManagesController.cs" />
-    <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\Controllers\ApplicantDeceasedsController.cs" />
     <Compile Include="Areas\Applicant\Controllers\ApplicantsController.cs" />
     <Compile Include="Areas\Cremation\Controllers\CremationsController.cs" />
@@ -1050,8 +1049,6 @@
     <Compile Include="Lib\Applicant\Applicant.cs" />
     <Compile Include="Lib\Applicant\IApplicant.cs" />
     <Compile Include="Lib\Catalog\Catalog.cs" />
-    <Compile Include="Lib\Catalog\Config\Config.cs" />
-    <Compile Include="Lib\Catalog\Config\IConfig.cs" />
     <Compile Include="Lib\Catalog\ICatalog.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\IWithdraw.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\Withdraw.cs" />
@@ -1204,8 +1201,6 @@
     <Compile Include="Lib\RelationshipType\RelationshipType.cs" />
     <Compile Include="Lib\ReligionType\IReligionType.cs" />
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
-    <Compile Include="Lib\Site\Config\Config.cs" />
-    <Compile Include="Lib\Site\Config\IConfig.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
     <Compile Include="Lib\Site\Site.cs" />
     <Compile Include="Lib\Space\Config\Config.cs" />
@@ -2597,6 +2592,10 @@
     <Compile Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs" />
     <Compile Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.designer.cs">
       <DependentUpon>202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106090600142_ChangeIdDatatypeToIntForSitesTable.cs" />
+    <Compile Include="Migrations\202106090600142_ChangeIdDatatypeToIntForSitesTable.designer.cs">
+      <DependentUpon>202106090600142_ChangeIdDatatypeToIntForSitesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
@@ -4022,6 +4021,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106061315510_RenamePlotNumbersToCemeteryNumbersTable.resx">
       <DependentUpon>202106061315510_RenamePlotNumbersToCemeteryNumbersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106090600142_ChangeIdDatatypeToIntForSitesTable.resx">
+      <DependentUpon>202106090600142_ChangeIdDatatypeToIntForSitesTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

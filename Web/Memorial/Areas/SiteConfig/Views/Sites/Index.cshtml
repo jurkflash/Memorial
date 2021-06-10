@@ -5,7 +5,7 @@
 
 <h2>@Html.Raw(Resources.Mix.Site)</h2>
 <p>
-    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>
 
 <table id="tbl" class="table table-bordered table-hover">
@@ -30,14 +30,14 @@
 
             var table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/configSites",
+                    url: "/api/sites",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         data: "name",
                         render: function(data, type, site) {
-                            return "<a href='/SiteConfig/Sites/Details/" + site.id + "'>" + site.name + "</a>";
+                            return "<a href='/SiteConfig/Sites/Form/" + site.id + "'>" + site.name + "</a>";
                         }
                     },
                     {
@@ -62,10 +62,10 @@
             $("#tbl").on("click", ".js-delete", function () {
                 var button = $(this);
 
-                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/configSites/" + button.attr("data-site-id"),
+                            url: "/api/sites/" + button.attr("data-site-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();

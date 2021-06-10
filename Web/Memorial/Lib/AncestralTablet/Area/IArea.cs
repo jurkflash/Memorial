@@ -13,7 +13,7 @@ namespace Memorial.Lib.AncestralTablet
 
         string GetDescription();
 
-        byte GetSiteId();
+        int GetSiteId();
 
         Core.Domain.AncestralTabletArea GetArea();
 
@@ -27,9 +27,9 @@ namespace Memorial.Lib.AncestralTablet
 
         IEnumerable<AncestralTabletAreaDto> GetAreaDtos();
 
-        IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(byte siteId);
+        IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(int siteId);
 
-        IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(byte siteId);
+        IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(int siteId);
 
         Core.Domain.AncestralTabletArea Create(AncestralTabletAreaDto ancestralTabletAreaDto);
 

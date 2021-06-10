@@ -68,12 +68,12 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumCentre>, IEnumerable<ColumbariumCentreDto>>(_unitOfWork.ColumbariumCentres.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.ColumbariumCentre> GetCentreBySite(byte sitId)
+        public IEnumerable<Core.Domain.ColumbariumCentre> GetCentreBySite(int sitId)
         {
             return _unitOfWork.ColumbariumCentres.GetBySite(sitId);
         }
 
-        public IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(byte siteId)
+        public IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumCentre>, IEnumerable<ColumbariumCentreDto>>(GetCentreBySite(siteId));
         }

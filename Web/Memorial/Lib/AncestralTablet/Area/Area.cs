@@ -36,7 +36,7 @@ namespace Memorial.Lib.AncestralTablet
             return _area.Description;
         }
 
-        public byte GetSiteId()
+        public int GetSiteId()
         {
             return _area.SiteId;
         }
@@ -71,12 +71,12 @@ namespace Memorial.Lib.AncestralTablet
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreas());
         }
 
-        public IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(byte siteId)
+        public IEnumerable<Core.Domain.AncestralTabletArea> GetAreaBySite(int siteId)
         {
             return _unitOfWork.AncestralTabletAreas.GetBySite(siteId);
         }
 
-        public IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(byte siteId)
+        public IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreaBySite(siteId));
         }

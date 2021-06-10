@@ -28,7 +28,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<ColumbariumCentre> GetBySite(byte siteId)
+        public IEnumerable<ColumbariumCentre> GetBySite(int siteId)
         {
             return MemorialContext.ColumbariumCentres
                 .Where(qc => qc.SiteId == siteId

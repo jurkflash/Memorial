@@ -35,12 +35,12 @@ namespace Memorial.Lib.Site
             return Mapper.Map<Core.Domain.Site, SiteDto>(_site);
         }
 
-        public Core.Domain.Site GetSite(byte id)
+        public Core.Domain.Site GetSite(int id)
         {
             return _unitOfWork.Sites.GetActive(id);
         }
 
-        public SiteDto GetSiteDto(byte id)
+        public SiteDto GetSiteDto(int id)
         {
             return Mapper.Map<Core.Domain.Site, SiteDto>(GetSite(id));
         }
@@ -55,7 +55,7 @@ namespace Memorial.Lib.Site
             return Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>(GetSites());
         }
 
-        public Core.Domain.Site CreateSite(SiteDto siteDto)
+        public int CreateSite(SiteDto siteDto)
         {
             _site = new Core.Domain.Site();
             Mapper.Map(siteDto, _site);
@@ -64,7 +64,9 @@ namespace Memorial.Lib.Site
 
             _unitOfWork.Sites.Add(_site);
 
-            return _site;
+            _unitOfWork.Complete();
+
+            return _site.Id;
         }
 
         public bool UpdateSite(SiteDto siteDto)
@@ -75,10 +77,12 @@ namespace Memorial.Lib.Site
 
             siteInDB.ModifyDate = DateTime.Now;
 
+            _unitOfWork.Complete();
+
             return true;
         }
 
-        public bool DeleteSite(byte id)
+        public bool DeleteSite(int id)
         {
             if (
                 _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any() ||
@@ -95,6 +99,8 @@ namespace Memorial.Lib.Site
             SetSite(id);
 
             _site.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

@@ -38,7 +38,7 @@ namespace Memorial.Lib.Cemetery
             return _area.Description;
         }
 
-        public byte GetSiteId()
+        public int GetSiteId()
         {
             return _area.SiteId;
         }
@@ -68,12 +68,12 @@ namespace Memorial.Lib.Cemetery
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(_unitOfWork.CemeteryAreas.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(byte siteId)
+        public IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(int siteId)
         {
             return _unitOfWork.CemeteryAreas.GetBySite(siteId);
         }
 
-        public IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(byte siteId)
+        public IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(GetAreaBySite(siteId));
         }

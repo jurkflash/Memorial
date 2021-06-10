@@ -27,7 +27,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<CemeteryArea> GetBySite(byte siteId)
+        public IEnumerable<CemeteryArea> GetBySite(int siteId)
         {
             return MemorialContext.CemeteryAreas
                 .Where(pa => pa.SiteId == siteId

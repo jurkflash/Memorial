@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Memorial.Core;
-using Memorial.Core.Domain;
+﻿using System.Web.Http;
 using Memorial.Core.Dtos;
-using AutoMapper;
-using Memorial.Lib;
-using Memorial.Lib.Applicant;
-using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 
 namespace Memorial.Controllers.Api
 {
+    [RoutePrefix("api/applicantdeceaseds")]
     public class ApplicantDeceasedsController : ApiController
     {
         private readonly IApplicantDeceased _applicantDeceased;
@@ -24,6 +14,7 @@ namespace Memorial.Controllers.Api
             _applicantDeceased = applicantDeceased;
         }
 
+        [Route("{applicantId:int}/flatten")]
         public IHttpActionResult GetFlattenByApplicant(int applicantId)
         {
             var result = _applicantDeceased.GetApplicantDeceasedFlattenDtosByApplicantId(applicantId);

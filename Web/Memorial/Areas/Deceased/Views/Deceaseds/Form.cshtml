@@ -89,7 +89,7 @@
             @Html.Raw(Resources.Mix.DeathDateBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
             @Html.ValidationMessageFor(d => d.DeceasedDto.DeathDate)
         </div>
     </div>

@@ -63,7 +63,7 @@ namespace Memorial.Lib.Space
 
         IEnumerable<Core.Domain.SpaceTransaction> GetTransactionByItemIdAndDeceasedId(int deceasedId, int itemId);
 
-        IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, byte siteId);
+        IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, int siteId);
 
     }
 }

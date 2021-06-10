@@ -5,12 +5,12 @@ namespace Memorial.Lib.Site
 {
     public interface ISite
     {
-        Core.Domain.Site CreateSite(SiteDto siteDto);
-        bool DeleteSite(byte id);
+        int CreateSite(SiteDto siteDto);
+        bool DeleteSite(int id);
         Core.Domain.Site GetSite();
-        Core.Domain.Site GetSite(byte id);
+        Core.Domain.Site GetSite(int id);
         SiteDto GetSiteDto();
-        SiteDto GetSiteDto(byte id);
+        SiteDto GetSiteDto(int id);
         IEnumerable<SiteDto> GetSiteDtos();
         IEnumerable<Core.Domain.Site> GetSites();
         void SetSite(int id);

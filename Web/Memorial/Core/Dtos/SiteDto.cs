@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Memorial.Core.Dtos
 {
     public class SiteDto
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -16,6 +13,8 @@ namespace Memorial.Core.Dtos
         public string Address { get; set; }
 
         public string Remark { get; set; }
+
+        public string Header { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

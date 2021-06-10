@@ -62,10 +62,10 @@
                     toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
 
+            var url = "/api/applicantdeceaseds/" + $("#Id").val() + "/flatten";
             var table = $("#linkedDeceaseds").DataTable({
                 ajax: {
-                    url: "/api/ApplicantDeceaseds/GetFlattenByApplicant",
-                    data: { applicantId: $("#Id").val() },
+                    url: url,
                     dataSrc: ""
                 },
                 columns: [
@@ -127,10 +127,11 @@
                 });
             });
 
+            var url = "/api/applicants/" + $("#Id").val() + "/deceaseds";
             var table2 = $("#unlinkedDeceaseds").DataTable({
+                
                 ajax: {
-                    url: "/api/Deceaseds/GetDeceasedsExcludeFilter",
-                    data: { applicantId: $("#Id").val() },
+                    url: url,
                     dataSrc: ""
                 },
                 columns: [
@@ -167,7 +168,7 @@
                         //$('#linkedDeceaseds').DataTable().ajax.reload();
 
                         $.ajax({
-                            url: "/api/ApplicantDeceaseds/CreateWithReturnId",
+                            url: "/api/applicantdeceaseds",
                             method: "POST",
                             data: {
                                 ApplicantId: $("#Id").val(),

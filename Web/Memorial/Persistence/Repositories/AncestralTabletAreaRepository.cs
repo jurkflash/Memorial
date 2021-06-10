@@ -29,7 +29,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<AncestralTabletArea> GetBySite(byte siteId)
+        public IEnumerable<AncestralTabletArea> GetBySite(int siteId)
         {
             return MemorialContext.AncestralTabletAreas
                 .Where(a => a.SiteId == siteId).ToList();

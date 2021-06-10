@@ -1,53 +1,68 @@
-﻿
+﻿@model Memorial.Core.Dtos.SiteDto
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Rental Form</h2>
+<h2>Site</h2>
 
 <form id="form">
-    <div class="form-group">
-        <label>Name</label>
-        <div class="tt-container">
-            <input id="name" name="name" required type="text" value="" class="form-control" required />
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.Name)
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Code</label>
-        <div class="tt-container">
-            <input id="code" name="code" data-rule-mustThreeCharacters="true" type="text" value="" class="form-control" required />
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.CodeBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Code, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.Code)
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Address</label>
-        <div class="tt-container">
-            <textarea id="address" name="address" type="text" value="" class="form-control"></textarea>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.AddressBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.Address, new { @class = "form-control" })
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Remark</label>
-        <div class="tt-container">
-            <textarea id="remark" name="remark" type="text" value="" class="form-control"></textarea>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.Remark, new { @class = "form-control" })
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Header</label>
-        <div class="tt-container">
-            <textarea id="header" name="header" type="text" value="" class="form-control" required></textarea>
+    <div class="form-group row">
+        <div class="col-md-3">
+            Header
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.Header, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.Header)
         </div>
     </div>
 
-    <button class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
+    @Html.HiddenFor(s => s.Id)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
 </form>
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
             $.validator.addMethod("mustThreeCharacters", function (value, element, arg) {
                 if (value.length != 3)
@@ -55,27 +70,44 @@
                 return true;
             }, "Must 3 characters");
 
-            var validator = $("#form").validate({
+            $("#Code").rules("add",
+            {
+                mustThreeCharacters: true
+            });
 
-                submitHandler: function () {
-
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
                     var vm = {
-                        name: $("#name").val(),
-                        code: $("#code").val(),
-                        address: $("#address").val(),
-                        remark: $("#remark").val(),
-                        header: $("#header").val()
+                        id: $("#Id").val(),
+                        name: $("#Name").val(),
+                        code: $("#Code").val(),
+                        address: $("#Address").val(),
+                        remark: $("#Remark").val(),
+                        header: $("#Header").val()
                     };
+                    var verb = "";
+                    var url = "/api/sites";
+                    if ($("#Id").val() == 0) {
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#Id").val();
+                    }
 
                     $.ajax({
-                        url: "/api/ConfigSites",
-                        method: "post",
+                        url: url,
+                        method: verb,
                         data: vm
                     })
                     .done(function (data) {
                         toastr.success(MEMORIAL_SUCCESS);
-
-                        window.location.href = window.location.href + '/' + data;
+                        if (verb == "post") {
+                            setTimeout(function () {
+                                window.location.href = window.location.href + '/' + data.id;
+                            }, 1000);
+                        }
                     })
                     .fail(function () {
                         toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
@@ -84,6 +116,7 @@
                     return false;
                 }
             });
+
         });</script>
 }
 

@@ -15,7 +15,7 @@ namespace Memorial.Core.Domain
 
         public Site Site { get; set; }
 
-        public byte SiteId { get; set; }
+        public int SiteId { get; set; }
 
         public DateTime CreateDate { get; set; }
 

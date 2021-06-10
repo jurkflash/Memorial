@@ -42,9 +42,9 @@
             },
             events: function (fetchInfo, successCallback, failureCallback) {
                 $.ajax({
-                    url: '/Api/Spaces/GetEvents',
+                    url: '/api/spaces/events',
                     type: "GET",
-                    data: { startDate: fetchInfo.startStr, endDate: fetchInfo.endStr, siteId: siteId },
+                    data: { from: fetchInfo.startStr, to: fetchInfo.endStr, siteId: siteId },
                     dataType: "JSON",
 
                     success: function (result) {

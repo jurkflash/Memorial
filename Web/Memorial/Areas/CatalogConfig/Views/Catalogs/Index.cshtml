@@ -5,7 +5,7 @@
 
 <h2>@Html.Raw(Resources.Mix.Catalog)</h2>
 <p>
-    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>
 
 <table id="tbl" class="table table-bordered table-hover">
@@ -23,12 +23,10 @@
 {
     <script>
         $(document).ready(function () {
-            var url_string = window.location.href
-            var url = new URL(url_string);
 
             var table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/configCatalogs",
+                    url: "/api/catalogs",
                     dataSrc: ""
                 },
                 columns: [
@@ -51,10 +49,10 @@
             $("#tbl").on("click", ".js-delete", function () {
                 var button = $(this);
 
-                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/configCatalogs/" + button.attr("data-catalog-id"),
+                            url: "/api/catalogs/" + button.attr("data-catalog-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();

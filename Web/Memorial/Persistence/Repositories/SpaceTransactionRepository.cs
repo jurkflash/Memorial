@@ -98,7 +98,7 @@ namespace Memorial.Persistence.Repositories
                 && st.AF != AF).Any();
         }
 
-        public IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, byte siteId)
+        public IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, int siteId)
         {
             return MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)

@@ -1,36 +1,38 @@
 ﻿using System;
 using System.Web.Http;
+using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Catalog;
 
 namespace Memorial.Controllers.Api
 {
-    public class ConfigCatalogsController : ApiController
+    [RoutePrefix("api/catalogs")]
+    public class CatalogsController : ApiController
     {
-        private readonly IConfig _config;
+        private readonly ICatalog _catalog;
 
-        public ConfigCatalogsController(IConfig config)
+        public CatalogsController(ICatalog catalog)
         {
-            _config = config;
+            _catalog = catalog;
         }
 
-        public IHttpActionResult GetCatalogs()
+        public IEnumerable<CatalogDto> GetCatalogs()
         {
-            return Ok(_config.GetCatalogDtos());
+            return _catalog.GetCatalogDtos();
         }
 
-        public IHttpActionResult GetCatalog(byte id)
+        public IHttpActionResult GetCatalog(int id)
         {
-            return Ok(_config.GetCatalogDto(id));
+            return Ok(_catalog.GetCatalogDto(id));
         }
 
         [HttpPost]
         public IHttpActionResult CreateCatalog(CatalogDto catalogDto)
         {
-            if (!ModelState.IsValid)
+            if (catalogDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            var id = _config.CreateCatalog(catalogDto);
+            var id = _catalog.CreateCatalog(catalogDto);
 
             if (id == 0)
                 return InternalServerError();
@@ -41,7 +43,7 @@ namespace Memorial.Controllers.Api
         [HttpDelete]
         public IHttpActionResult DeleteCatalog(byte id)
         {
-            if (_config.DeleteCatalog(id))
+            if (_catalog.DeleteCatalog(id))
                 return Ok();
             else
                 return InternalServerError();

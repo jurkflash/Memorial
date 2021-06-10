@@ -21,11 +21,11 @@ namespace Memorial.Controllers.Api
             _unitOfWork = unitOfWork;
         }
 
-        public IHttpActionResult GetRelationshipTypes()
+        public IEnumerable<RelationshipTypeDto> GetRelationshipTypes()
         {
             var result = _unitOfWork.RelationshipTypes.GetAllActive();
 
-            return Ok(Mapper.Map<IEnumerable<Core.Domain.RelationshipType>, IEnumerable<RelationshipTypeDto>>(result));
+            return Mapper.Map<IEnumerable<Core.Domain.RelationshipType>, IEnumerable<RelationshipTypeDto>>(result);
         }
 
     }

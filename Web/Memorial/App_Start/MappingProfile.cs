@@ -249,7 +249,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
 
             CreateMap<SiteDto, Site>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
 
             CreateMap<GenderType, GenderTypeDto>();
@@ -314,6 +315,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+
             CreateMap<SpaceItemDto, SpaceItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())

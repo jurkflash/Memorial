@@ -95,10 +95,10 @@
     <div class="form-group row">
         <div class="col-md-2" id="qName"></div>
         <div class="col-md-2" id="qPrice">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Price, new { @class = "form-control", @required = "required" })
         </div>
         <div class="col-md-2" id="qMaintenance">
-            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = Resources.Mix.Required })
+            @Html.TextBoxFor(c => c.AncestralTabletTransactionDto.Maintenance, new { @class = "form-control", @required = "required" })
         </div>
         <div class="col-md-1" id="qRemark"></div>
     </div>
@@ -149,9 +149,10 @@
         }
 
         function areas() {
+            var url = "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas";
+
             $.ajax({
-                url: "/api/AncestralTablets/GetArea",
-                data: { siteId: $("#Sites").val() }
+                url: url
             })
                 .done(function (response) {
                     var len = response.length;
@@ -169,9 +170,10 @@
         }
 
         function ancestralTablets() {
+            url = "/api/ancestraltablets/areas/" + $("#Areas").val() +"/availableAncestralTablets";
+
             $.ajax({
-                url: "/api/AncestralTablets/GetAvailableAncestralTabletByAreaId",
-                data: { areaId: $("#Areas").val() }
+                url: url
             })
                 .done(function (response) {
                     var len = response.length;
@@ -199,9 +201,9 @@
         function ancestralTablet() {
             clearAncestralTablet();
 
+            var url = "/api/ancestralrablets/" + $("#AncestralTablets").val();
             $.ajax({
-                url: "/api/AncestralTablets/GetAncestralTablet",
-                data: { id: $("#AncestralTablets").val() }
+                url: url
             })
                 .done(function (response) {
                     if (response != null) {

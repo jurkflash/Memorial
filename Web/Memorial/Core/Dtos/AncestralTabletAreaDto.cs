@@ -12,7 +12,7 @@ namespace Memorial.Core.Dtos
 
         public SiteDto SiteDto { get; set; }
 
-        public byte SiteDtoId { get; set; }
+        public int SiteDtoId { get; set; }
 
         public string Remark { get; set; }
     }

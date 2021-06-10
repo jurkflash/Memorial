@@ -56,22 +56,22 @@ namespace Memorial.Lib.Catalog
             return Mapper.Map<IEnumerable<Core.Domain.Catalog>, IEnumerable<CatalogDto>>(GetCatalogs());
         }
 
-        public IEnumerable<Core.Domain.Catalog> GetCatalogsBySite(byte id)
+        public IEnumerable<Core.Domain.Catalog> GetCatalogsBySite(int id)
         {
             return _unitOfWork.Catalogs.GetBySite(id);
         }
 
-        public IEnumerable<CatalogDto> GetCatalogDtosBySite(byte id)
+        public IEnumerable<CatalogDto> GetCatalogDtosBySite(int id)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Catalog>, IEnumerable<CatalogDto>>(GetCatalogsBySite(id));
         }
 
-        public Core.Domain.Catalog CreateCatalog(CatalogDto catalogDto)
+        public int CreateCatalog(CatalogDto catalogDto)
         {
             _catalog = new Core.Domain.Catalog();
 
             if (GetCatalogsBySite(catalogDto.SiteDtoId).Where(c => c.ProductId == catalogDto.ProductDtoId).Any())
-                return _catalog;
+                return 0;
 
             Mapper.Map(catalogDto, _catalog);
 
@@ -79,7 +79,9 @@ namespace Memorial.Lib.Catalog
 
             _unitOfWork.Catalogs.Add(_catalog);
 
-            return _catalog;
+            _unitOfWork.Complete();
+
+            return _catalog.Id;
         }
 
         public bool DeleteCatalog(int id)
@@ -116,6 +118,8 @@ namespace Memorial.Lib.Catalog
             SetCatalog(id);
 
             _unitOfWork.Catalogs.Remove(_catalog);
+
+            _unitOfWork.Complete();
 
             return true;
         }

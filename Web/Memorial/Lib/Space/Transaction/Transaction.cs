@@ -181,7 +181,7 @@ namespace Memorial.Lib.Space
             return _unitOfWork.SpaceTransactions.GetByItemAndDeceased(itemId, deceasedId);
         }
 
-        public IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, byte siteId)
+        public IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<Core.Domain.SpaceBooked>>(_unitOfWork.SpaceTransactions.GetBooked(from, to, siteId));
         }
