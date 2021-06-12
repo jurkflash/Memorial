@@ -1,5 +1,5 @@
 ﻿using System;
-using Memorial.Core.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -17,6 +17,7 @@ namespace Memorial.Core.Dtos
 
         public float OtherCharges { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public SpaceItemDto SpaceItemDto { get; set; }

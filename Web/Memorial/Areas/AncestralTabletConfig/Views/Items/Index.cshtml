@@ -5,9 +5,25 @@
 
 <h2>@Html.Raw(Resources.Mix.Item)</h2>
 <p>
-    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>
 
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Area)
+    </div>
+    <div class="col-md-6">
+        <select id="Areas" class="form-control"></select>
+    </div>
+</div>
 <table id="tbl" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -15,6 +31,21 @@
             <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
             <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<hr />
+<table id="tbl2" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
             <th></th>
         </tr>
     </thead>
@@ -24,31 +55,101 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            var url_string = window.location.href
-            var url = new URL(url_string);
+        var table;
+        var table2;
 
-            var table = $("#tbl").DataTable({
+        function sites() {
+            $.ajax({
+                url: "/api/ancestraltablet/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function bindtbls() {
+            table.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/Items").load();
+            table2.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/availableitems").load();
+        }
+        
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                areas();
+            })
+
+            $("#Areas").change(function () {
+                bindtbls();
+            })
+
+            table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/configAncestralTabletItems",
-                    data: { areaId: url.searchParams.get("areaId") },
+                    url: "/api/AncestralTablets/areas/0/Items",
                     dataSrc: ""
                 },
                 columns: [
                     {
-                        data: "name",
+                        data: "subProductServiceDto.name",
                         render: function (data, type, item) {
-                            return "<a href='/AncestralTabletItems/edit/" + item.id + "'>" + item.name + "</a>";
+                            return "<a href='/AncestralTabletItems/edit/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
                         }
                     },
                     {
-                        data: "description"
+                        data: "subProductServiceDto.description",
                     },
                     {
-                        data: "price"
+                        render: function (data, type, item) {
+                            if (item.price == null)
+                                return item.subProductServiceDto.price;
+                            else
+                                return item.price;
+                        }
                     },
                     {
-                        data: "code"
+                        render: function (data, type, item) {
+                            if (item.code == null)
+                                return item.subProductServiceDto.code;
+                            else
+                                return item.code;
+                        }
+                    },
+                    {
+                        render: function (data, type, item) {
+                            if (item.isOrder == null)
+                                return item.subProductServiceDto.isOrder;
+                            else
+                                return item.isOrder;
+                        }
                     },
                     {
                         data: "id",
@@ -59,22 +160,73 @@
                 ]
             });
 
+            table2 = $("#tbl2").DataTable({
+                ajax: {
+                    url: "/api/ancestraltablets/areas/0/availableitems",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data: "description",
+                    },
+                    {
+                        data: "price",
+                    },
+                    {
+                        data: "code",
+                    },
+                    {
+                        data: "isOrder",
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn btn-sm btn-primary js-add' data-availableitem-id=" + data + ">添加 Add</button>";
+                        }
+                    }
+                ]
+            });
+
 
             $("#tbl").on("click", ".js-delete", function () {
                 var button = $(this);
 
-                bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/configAncestralTabletItems/" + button.attr("data-item-id"),
+                            url: "/api/ancestraltablets/areas/items/" + button.attr("data-item-id"),
                             method: "DELETE",
                             success: function () {
-                                table.row(button.parents("tr")).remove().draw();
+                                bindtbls();
                             }
                         });
                     }
                 });
             });
+
+            $("#tbl2").on("click", ".js-add", function () {
+                var button = $(this);
+                var vm = {
+                    SubProductServiceDtoId: button.attr("data-availableitem-id"),
+                    AncestralTabletAreaDtoId: $("#Areas").val()
+                };
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/ancestraltablets/areas/items",
+                            method: "POST",
+                            data: vm,
+                            success: function () {
+                                bindtbls();
+                            }
+                        });
+                    }
+                });
+            });
+            
         });
     </script>
 }

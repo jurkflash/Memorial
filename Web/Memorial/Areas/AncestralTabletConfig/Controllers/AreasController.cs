@@ -1,23 +1,43 @@
 ﻿using System.Web.Mvc;
+using Memorial.Core.Dtos;
+using Memorial.Lib.AncestralTablet;
+using Memorial.Lib.Catalog;
+using Memorial.ViewModels;
 
 namespace Memorial.Areas.AncestralTabletConfig.Controllers
 {
     public class AreasController : Controller
     {
-        // GET: AncestralTabletConfig/Areas
+        private readonly IArea _area;
+        private readonly ICatalog _catalog;
+
+        public AreasController(IArea area, ICatalog catalog)
+        {
+            _area = area;
+            _catalog = catalog;
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Details()
+        public ActionResult Form(int? id)
         {
-            return View();
+            var vw = new AncestralTabletAreaFormViewModel();
+
+            vw.SiteDtos = _catalog.GetSiteDtosAncestralTablet();
+
+            var dto = new AncestralTabletAreaDto();
+            if (id != null)
+            {
+                dto = _area.GetAreaDto((int)id);
+            }
+
+            vw.AncestralTabletAreaDto = dto;
+
+            return View(vw);
         }
 
-        public ActionResult New()
-        {
-            return View();
-        }
     }
 }

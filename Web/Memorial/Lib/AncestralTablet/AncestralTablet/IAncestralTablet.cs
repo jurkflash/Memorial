@@ -23,6 +23,10 @@ namespace Memorial.Lib.AncestralTablet
 
         IEnumerable<AncestralTabletDto> GetAvailableAncestralTabletDtosByAreaId(int id);
 
+        Core.Domain.AncestralTablet GetAncestralTabletByAreaIdAndPostions(int areaId, int positionX, int positionY);
+
+        AncestralTabletDto GetAncestralTabletDtoByAreaIdAndPostions(int areaId, int positionX, int positionY);
+
         string GetName();
 
         float GetPrice();
@@ -47,9 +51,9 @@ namespace Memorial.Lib.AncestralTablet
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByAreaId(int areaId);
 
-        Core.Domain.AncestralTablet Create(AncestralTabletDto ancestralTabletDto);
+        int Create(AncestralTabletDto ancestralTabletDto);
 
-        bool Update(Core.Domain.AncestralTablet ancestralTablet);
+        bool Update(AncestralTabletDto ancestralTabletDto);
 
         bool Delete(int id);
     }

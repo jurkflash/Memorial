@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -81,7 +82,7 @@ namespace Memorial.Lib.AncestralTablet
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletArea>, IEnumerable<AncestralTabletAreaDto>>(GetAreaBySite(siteId));
         }
 
-        public Core.Domain.AncestralTabletArea Create(AncestralTabletAreaDto ancestralTabletAreaDto)
+        public int Create(AncestralTabletAreaDto ancestralTabletAreaDto)
         {
             _area = new Core.Domain.AncestralTabletArea();
             Mapper.Map(ancestralTabletAreaDto, _area);
@@ -90,21 +91,42 @@ namespace Memorial.Lib.AncestralTablet
 
             _unitOfWork.AncestralTabletAreas.Add(_area);
 
-            return _area;
+            _unitOfWork.Complete();
+
+            return _area.Id;
         }
 
-        public bool Update(Core.Domain.AncestralTabletArea ancestralTabletArea)
+        public bool Update(AncestralTabletAreaDto ancestralTabletAreaDto)
         {
-            ancestralTabletArea.ModifyDate = DateTime.Now;
+            var ancestralTabletAreaInDB = GetArea(ancestralTabletAreaDto.Id);
+
+            if (ancestralTabletAreaInDB.SiteId != ancestralTabletAreaDto.SiteDtoId
+                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(ancestralTabletAreaDto, ancestralTabletAreaInDB);
+
+            ancestralTabletAreaInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetArea(id);
 
             _area.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

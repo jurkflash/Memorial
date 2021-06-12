@@ -15,9 +15,5 @@ namespace Memorial.Core.Dtos
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
-
     }
 }

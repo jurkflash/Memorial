@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -14,6 +11,7 @@ namespace Memorial.Core.Dtos
 
         public float Amount { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public MiscellaneousItemDto MiscellaneousItemDto { get; set; }

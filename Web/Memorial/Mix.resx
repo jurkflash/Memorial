@@ -292,10 +292,10 @@
     <value>骨灰甕&lt;br /&gt;Urn</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>X</value>
+    <value>橫 X</value>
   </data>
   <data name="Y" xml:space="preserve">
-    <value>Y</value>
+    <value>直 Y</value>
   </data>
   <data name="Amount" xml:space="preserve">
     <value>數額 Amount</value>
@@ -557,5 +557,20 @@
   </data>
   <data name="Catalog" xml:space="preserve">
     <value>目錄 Catalog</value>
+  </data>
+  <data name="isOrderBR" xml:space="preserve">
+    <value>可以開單&lt;br/&gt;Allow Invoicing</value>
+  </data>
+  <data name="XBR" xml:space="preserve">
+    <value>橫&lt;br /&gt;X</value>
+  </data>
+  <data name="YBR" xml:space="preserve">
+    <value>直&lt;br /&gt;Y</value>
+  </data>
+  <data name="AncestralTabletEdit" xml:space="preserve">
+    <value>修改祖先牌位 Edit AncestralTablet</value>
+  </data>
+  <data name="AncestralTabletNew" xml:space="preserve">
+    <value>新祖先牌位 New AncestralTablet</value>
   </data>
 </root>

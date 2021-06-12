@@ -1,11 +1,16 @@
-﻿namespace Memorial.Core.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Memorial.Core.Dtos
 {
     public class NicheDto
     {
         public int Id { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
 
+        [StringLength(100)]
         public string Description { get; set; }
 
         public byte PositionX { get; set; }
@@ -18,6 +23,7 @@
 
         public float LifeTimeMaintenance { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public NicheTypeDto NicheTypeDto { get; set; }

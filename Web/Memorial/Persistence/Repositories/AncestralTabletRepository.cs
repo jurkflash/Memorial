@@ -27,6 +27,14 @@ namespace Memorial.Persistence.Repositories
                 .Where(a => a.AncestralTabletAreaId == areaId).ToList();
         }
 
+        public AncestralTablet GetByAreaAndPositions(int areaId, int positionX, int positionY)
+        {
+            return MemorialContext.AncestralTablets
+                .Where(a => a.AncestralTabletAreaId == areaId
+                && a.PositionX == positionX
+                && a.PositionY == positionY).SingleOrDefault();
+        }
+
         public IEnumerable<AncestralTablet> GetAvailableByArea(int ancestralTabletAreaId)
         {
             return MemorialContext.AncestralTablets
@@ -42,7 +50,7 @@ namespace Memorial.Persistence.Repositories
                 .Distinct()
                 .OrderBy(a => a.PositionY).ThenBy(a => a.PositionX).ToList();
 
-            if (t != null)
+            if (t.Any())
             {
                 byte y = t.Min(m => m.PositionY);
                 var x = new List<byte>();

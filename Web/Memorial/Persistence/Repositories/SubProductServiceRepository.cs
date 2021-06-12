@@ -12,6 +12,14 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
+        public IEnumerable<SubProductService> GetSubProductServicesByProduct(int productId)
+        {
+            return MemorialContext.SubProductServices
+                .Include(sp => sp.Product)
+                .Where(sp => sp.ProductId == productId)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

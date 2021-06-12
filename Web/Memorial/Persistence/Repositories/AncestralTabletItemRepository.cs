@@ -15,7 +15,8 @@ namespace Memorial.Persistence.Repositories
         public AncestralTabletItem GetActive(int id)
         {
             return MemorialContext.AncestralTabletItems
-                .Include(ai=>ai.SubProductService)
+                .Include(ai => ai.SubProductService)
+                .Include(ai => ai.AncestralTabletArea)
                 .Where(ai => ai.Id == id && ai.DeleteDate == null)
                 .SingleOrDefault();
         }
@@ -33,6 +34,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.AncestralTabletItems
                 .Include(ai => ai.SubProductService)
+                .Include(ai => ai.AncestralTabletArea)
                 .Where(ai => ai.AncestralTabletAreaId == areaId
                 && ai.DeleteDate == null).ToList();
         }

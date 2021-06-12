@@ -170,7 +170,7 @@
         }
 
         function ancestralTablets() {
-            url = "/api/ancestraltablets/areas/" + $("#Areas").val() +"/availableAncestralTablets";
+            url = "/api/ancestraltabletareas/" + $("#Areas").val() +"/availableAncestralTablets";
 
             $.ajax({
                 url: url
@@ -201,7 +201,7 @@
         function ancestralTablet() {
             clearAncestralTablet();
 
-            var url = "/api/ancestralrablets/" + $("#AncestralTablets").val();
+            var url = "/api/ancestraltablets/" + $("#AncestralTablets").val();
             $.ajax({
                 url: url
             })

@@ -35,7 +35,6 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("areas/{areaId:int}/availableNiches")]
-        [Route("availableNiches/{areaId:int}")]
         public IEnumerable<NicheDto> GetAvailableNichesByAreaId(int areaId)
         {
             return _niche.GetAvailableNicheDtosByAreaId(areaId);

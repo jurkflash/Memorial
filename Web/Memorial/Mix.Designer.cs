@@ -169,11 +169,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改祖先牌位 Edit AncestralTablet.
+        /// </summary>
+        public static string AncestralTabletEdit {
+            get {
+                return ResourceManager.GetString("AncestralTabletEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 祖先牌文&lt;br /&gt;Ancestral Tablet.
         /// </summary>
         public static string AncestralTabletLabelBR {
             get {
                 return ResourceManager.GetString("AncestralTabletLabelBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新祖先牌位 New AncestralTablet.
+        /// </summary>
+        public static string AncestralTabletNew {
+            get {
+                return ResourceManager.GetString("AncestralTabletNew", resourceCulture);
             }
         }
         
@@ -714,6 +732,15 @@ namespace Resources {
         public static string IsDepositBR {
             get {
                 return ResourceManager.GetString("IsDepositBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 可以開單&lt;br/&gt;Allow Invoicing.
+        /// </summary>
+        public static string isOrderBR {
+            get {
+                return ResourceManager.GetString("isOrderBR", resourceCulture);
             }
         }
         
@@ -1366,7 +1393,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to X.
+        ///   Looks up a localized string similar to 橫 X.
         /// </summary>
         public static string X {
             get {
@@ -1375,11 +1402,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Y.
+        ///   Looks up a localized string similar to 橫&lt;br /&gt;X.
+        /// </summary>
+        public static string XBR {
+            get {
+                return ResourceManager.GetString("XBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 直 Y.
         /// </summary>
         public static string Y {
             get {
                 return ResourceManager.GetString("Y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 直&lt;br /&gt;Y.
+        /// </summary>
+        public static string YBR {
+            get {
+                return ResourceManager.GetString("YBR", resourceCulture);
             }
         }
     }

@@ -1,0 +1,343 @@
+﻿@model Memorial.Core.Dtos.AncestralTabletDto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form">
+    @if (Model.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.AncestralTabletNew)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Sites" name="Sites" class="form-control"></select>
+                @Html.ValidationMessage("Sites")
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.AreaBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Areas" name="Areas" class="form-control"></select>
+                @Html.ValidationMessage("Areas")
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.AncestralTabletEdit)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.AreaBR)
+            </div>
+            <div class="col-md-6">
+                @Model.AncestralTabletAreaDto.Name
+            </div>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.XBR)
+        </div>
+        <div class="col-md-6">
+            <select id="SelectX" name="SelectX" class="form-control"></select>
+            @Html.ValidationMessage("SelectX")
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.YBR)
+        </div>
+        <div class="col-md-6">
+            <select id="SelectY" name="SelectY" class="form-control"></select>
+            @Html.ValidationMessage("SelectY")
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.PriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Price)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.MaintenanceFeesBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Maintenance, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Maintenance)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.Id)
+    @Html.HiddenFor(s => s.PositionX)
+    @Html.HiddenFor(s => s.PositionY)
+    @Html.HiddenFor(s => s.AncestralTabletAreaDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        
+        function sites() {
+            $.ajax({
+                url: "/api/ancestraltablet/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function checkAncestralTabletPositionTaken() {
+            var area = 0;
+            var available = false;
+            if ($("#Id").val() == 0) {
+                if ($("#Areas").val() != null && $("#Areas").val() != "0") {
+                    area = $("#Areas").val();
+                }
+                else {
+                    return true; 
+                }
+            }
+            else {
+                area = $("#AncestralTabletAreaDtoId").val();
+            }
+
+            $.ajax({
+                url: "/api/ancestraltablets/areas/" + area + "/ancestralTablets?positionX=" + $("#SelectX").val() + "&positionY=" + $("#SelectY").val(),
+                method: "GET",
+                async: false,
+                success:
+                    function (data) {
+                        if (data != null && data.id != $("#Id").val()) {
+                            toastr.error("Position X and Y taken");
+                            available = false;
+                        }
+                        else {
+                            available = true;
+                        }
+                    },
+                error: function () {
+                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                            available = false;
+                        }
+                });
+            return available;
+        }
+        
+
+        function bindXY() {
+            var x = $("#PositionX").val();
+            $("#SelectX").empty();
+            $("#SelectX").append("<option value='0'>Please Select</option>");
+            for (var i = 1; i <= MEMORIAL_ANCESTRALTABLET_X_MAX; i++) {
+                $("#SelectX").append("<option value='" + i + "'>" + i + "</option>");
+            }
+            $("#SelectX").val(x);
+
+            var y = $("#PositionY").val();
+            $("#SelectY").empty();
+            $("#SelectY").append("<option value='0'>Please Select</option>");
+            for (var i = 1; i <= MEMORIAL_ANCESTRALTABLET_Y_MAX; i++) {
+                $("#SelectY").append("<option value='" + i + "'>" + i + "</option>");
+            }
+            $("#SelectY").val(y);
+        }
+
+        
+
+        $(document).ready(function () {
+
+            bindXY();
+
+            $.validator.addMethod("AtLeastZero", function (value, element) {
+                if (value >= 0)
+                    return true;
+                return false;
+            }, MEMORIAL_AT_LEAST_ZERO);
+
+            $.validator.addMethod("mustSelect", function (value, element) {
+                if (value == "0")
+                    return false;
+                return true;
+            }, MEMORIAL_PLEASE_SELECT);
+
+            $.validator.addMethod("isAncestralTabletPositionTaken", function (value, element) {
+                if (checkAncestralTabletPositionTaken())
+                    return true;
+                return false;
+            }, MEMORIAL_PLEASE_SELECT_OTHER);
+
+
+
+
+            $("#SelectX").rules("add",
+                {
+                    mustSelect: true,
+                    isAncestralTabletPositionTaken: true
+                });
+
+            $("#SelectY").rules("add",
+                {
+                    mustSelect: true,
+                    isAncestralTabletPositionTaken: true
+                });
+
+            $("#Price").rules("add",
+            {
+                AtLeastZero: true
+            });
+
+            $("#Maintenance").rules("add",
+            {
+                AtLeastZero: true
+            });
+
+            if ($("#Id").val() == 0) {
+                $("#Sites").rules("add",
+                {
+                    mustSelect: true,
+                });
+
+                $("#Areas").rules("add",
+                {
+                    mustSelect: true,
+                });
+            }
+
+            
+            $("#SelectX").change(function () {
+                checkAncestralTabletPositionTaken();
+            })
+
+            $("#SelectY").change(function () {
+                checkAncestralTabletPositionTaken();
+            })
+            
+            $("#Sites").change(function () {
+                areas();
+            })
+
+
+            
+
+            if ($("#Id").val() == "0") {
+                sites();
+            }
+
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#Id").val(),
+                        positionX: $("#SelectX").val(),
+                        positionY: $("#SelectY").val(),
+                        ancestralTabletAreaDtoId: $("#AncestralTabletAreaDtoId").val(),
+                        name: $("#Name").val(),
+                        price: $("#Price").val(),
+                        maintenance: $("#Maintenance").val(),
+                        remark: $("#Remark").val()
+                    };
+                    var verb = "";
+                    var url = "/api/ancestraltablets";
+                    if ($("#Id").val() == 0) {
+                        vm.ancestralTabletAreaDtoId = $("#Areas").val();
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                        .done(function (data) {
+                            toastr.success(MEMORIAL_SUCCESS);
+                            if (verb == "post") {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href + '/' + data.id;
+                                }, 1000);
+                            }
+                        })
+                        .fail(function () {
+                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                        });
+
+                    return false;
+                }
+            });
+
+
+
+
+        });
+    </script>
+}
+

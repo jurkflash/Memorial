@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -29,6 +30,7 @@ namespace Memorial.Core.Dtos
 
         public float Total { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public int CemeteryItemId { get; set; }

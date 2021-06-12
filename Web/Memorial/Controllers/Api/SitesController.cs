@@ -23,11 +23,15 @@ namespace Memorial.Controllers.Api
             _site = site;
         }
 
+        [HttpGet]
+        [Route("")]
         public IEnumerable<SiteDto> GetSites()
         {
             return _site.GetSiteDtos();
         }
 
+        [HttpGet]
+        [Route("{id:int}")]
         public IHttpActionResult GetSite(int id)
         {
             return Ok(_site.GetSiteDto(id));
@@ -50,6 +54,7 @@ namespace Memorial.Controllers.Api
         }
 
         [HttpPut]
+        [Route("{id:int}")]
         public IHttpActionResult UpdateSite(int id, SiteDto siteDto)
         {
             if (_site.UpdateSite(siteDto))
@@ -59,6 +64,7 @@ namespace Memorial.Controllers.Api
         }
 
         [HttpDelete]
+        [Route("{id:int}")]
         public IHttpActionResult DeleteSite(int id)
         {
             if (_site.DeleteSite(id))

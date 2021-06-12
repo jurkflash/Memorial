@@ -54,5 +54,16 @@ namespace Memorial.Lib.SubProductService
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(GetSubProductServices());
         }
 
+        public IEnumerable<Core.Domain.SubProductService> GetSubProductServicesByProduct(int productId)
+        {
+            return _unitOfWork.SubProductServices.GetSubProductServicesByProduct(productId);
+        }
+
+        public IEnumerable<SubProductServiceDto> GetSubProductServiceDtosByProduct(int productId)
+        {
+            return
+                Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>
+                (_unitOfWork.SubProductServices.GetSubProductServicesByProduct(productId));
+        }
     }
 }

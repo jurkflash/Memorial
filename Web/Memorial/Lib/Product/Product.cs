@@ -82,5 +82,39 @@ namespace Memorial.Lib.Product
             return Mapper.Map<IEnumerable<Core.Domain.Product>, IEnumerable<ProductDto>>(GetProducts());
         }
 
+        public Core.Domain.Product GetAncestralTabletProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyAncestralTablet).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetCemeteryProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyCemetery).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetCremationProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyCremation).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetUrnProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyUrn).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetColumbariumProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyColumbarium).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetSpaceProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MySpace).FirstOrDefault();
+        }
+
+        public Core.Domain.Product GetMiscellaneousProduct()
+        {
+            return _unitOfWork.Products.Find(p => p.Area == MyMiscellaneous).FirstOrDefault();
+        }
     }
 }

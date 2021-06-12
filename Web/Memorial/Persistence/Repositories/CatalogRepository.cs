@@ -34,6 +34,15 @@ namespace Memorial.Persistence.Repositories
                 .Where(c => c.SiteId == id && c.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<Site> GetByProduct(int id)
+        {
+            return MemorialContext.Catalogs
+                .Include(c => c.Site)
+                .Where(c => c.ProductId == id && c.DeleteDate == null)
+                .Select(c => c.Site)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

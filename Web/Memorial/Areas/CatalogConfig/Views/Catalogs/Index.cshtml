@@ -4,29 +4,97 @@
 }
 
 <h2>@Html.Raw(Resources.Mix.Catalog)</h2>
-<p>
-    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
-</p>
 
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
 <table id="tbl" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<hr />
+<table id="tbl2" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
             <th></th>
         </tr>
     </thead>
     <tbody></tbody>
 </table>
 
+
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        var table;
+        var table2;
 
-            var table = $("#tbl").DataTable({
+        function sites() {
+            $.ajax({
+                url: "/api/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+
+        function bindtbls() {
+            table.ajax.url("/api/sites/" + $("#Sites").val() + "/catalogs").load();
+            table2.ajax.url("/api/sites/" + $("#Sites").val() + "/availablecatalogs").load();
+        }
+
+
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                bindtbls();
+            })
+
+
+            table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/catalogs",
+                    url: "/api/sites/0/catalogs",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "productDto.name",
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-catalog-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            table2 = $("#tbl2").DataTable({
+                ajax: {
+                    url: "/api/sites/0/availablecatalogs",
                     dataSrc: ""
                 },
                 columns: [
@@ -34,17 +102,13 @@
                         data: "name",
                     },
                     {
-                        data: "description"
-                    },
-                    {
                         data: "id",
-                        render: function(data) {
-                            return "<button class='btn btn-sm btn-danger js-delete' data-catalog-id=" + data + ">刪除 Delete</button>";
+                        render: function (data) {
+                            return "<button class='btn btn-sm btn-primary js-add' data-availablecatalog-id=" + data + ">添加 Add</button>";
                         }
                     }
                 ]
             });
-
 
             $("#tbl").on("click", ".js-delete", function () {
                 var button = $(this);
@@ -55,12 +119,34 @@
                             url: "/api/catalogs/" + button.attr("data-catalog-id"),
                             method: "DELETE",
                             success: function () {
-                                table.row(button.parents("tr")).remove().draw();
+                                bindtbls();
                             }
                         });
                     }
                 });
             });
+
+            $("#tbl2").on("click", ".js-add", function () {
+                var button = $(this);
+                var vm = {
+                    ProductDtoId: button.attr("data-availablecatalog-id"),
+                    SiteDtoId: $("#Sites").val()
+                };
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/catalogs",
+                            method: "POST",
+                            data: vm,
+                            success: function () {
+                                bindtbls();
+                            }
+                        });
+                    }
+                });
+            });
+
+
         });
     </script>
 }

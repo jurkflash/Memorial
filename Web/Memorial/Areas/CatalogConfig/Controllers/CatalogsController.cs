@@ -12,10 +12,5 @@ namespace Memorial.Areas.CatalogConfig.Controllers
         {
             return View();
         }
-
-        public ActionResult New()
-        {
-            return View();
-        }
     }
 }

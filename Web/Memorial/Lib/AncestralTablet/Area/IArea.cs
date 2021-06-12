@@ -31,9 +31,9 @@ namespace Memorial.Lib.AncestralTablet
 
         IEnumerable<AncestralTabletAreaDto> GetAreaDtosBySite(int siteId);
 
-        Core.Domain.AncestralTabletArea Create(AncestralTabletAreaDto ancestralTabletAreaDto);
+        int Create(AncestralTabletAreaDto ancestralTabletAreaDto);
 
-        bool Update(Core.Domain.AncestralTabletArea ancestralTabletArea);
+        bool Update(AncestralTabletAreaDto ancestralTabletAreaDto);
 
         bool Delete(int id);
 

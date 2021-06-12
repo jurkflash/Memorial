@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -8,6 +9,8 @@ namespace Memorial.Core.Dtos
 
         public float? Price { get; set; }
 
+        [Required]
+        [StringLength(5)]
         public string Code { get; set; }
 
         public bool? isOrder { get; set; }

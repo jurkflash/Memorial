@@ -745,6 +745,7 @@
     <Compile Include="Areas\AncestralTabletConfig\Controllers\AncestralTabletsController.cs" />
     <Compile Include="Areas\AncestralTabletConfig\Controllers\ItemsController.cs" />
     <Compile Include="Areas\AncestralTabletConfig\Controllers\AreasController.cs" />
+    <Compile Include="Areas\AncestralTabletConfig\Data\AncestralTabletAreaFormViewModel.cs" />
     <Compile Include="Areas\AncestralTablet\AncestralTabletAreaRegistration.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\AncestralTabletsController.cs" />
     <Compile Include="Areas\AncestralTablet\Controllers\FreeController.cs" />
@@ -791,9 +792,8 @@
     <Compile Include="Controllers\Api\ProductsController.cs" />
     <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Controllers\Api\CatalogsController.cs" />
-    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletsController.cs" />
-    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletItemsController.cs" />
-    <Compile Include="Controllers\ConfigApi\ConfigAncestralTabletAreasController.cs" />
+    <Compile Include="Controllers\Api\AncestralTabletItemsController.cs" />
+    <Compile Include="Controllers\Api\AncestralTabletAreasController.cs" />
     <Compile Include="Controllers\Api\SitesController.cs" />
     <Compile Include="Controllers\Api\ColumbariumsController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
@@ -1024,8 +1024,6 @@
     <Compile Include="Lib\AncestralTablet\AncestralTablet\IAncestralTablet.cs" />
     <Compile Include="Lib\AncestralTablet\Area\Area.cs" />
     <Compile Include="Lib\AncestralTablet\Area\IArea.cs" />
-    <Compile Include="Lib\AncestralTablet\Config\Config.cs" />
-    <Compile Include="Lib\AncestralTablet\Config\IConfig.cs" />
     <Compile Include="Lib\AncestralTablet\Item\IItem.cs" />
     <Compile Include="Lib\AncestralTablet\Item\Item.cs" />
     <Compile Include="Lib\AncestralTablet\Maintenance\IMaintenance.cs" />
@@ -1177,9 +1175,9 @@
     <Compile Include="Lib\Columbarium\Number\Number.cs" />
     <Compile Include="Lib\Columbarium\Transfer\ITransfer.cs" />
     <Compile Include="Lib\Columbarium\Transfer\Transfer.cs" />
+    <Compile Include="Lib\Product\IProduct.cs" />
     <Compile Include="Lib\SubProductService\ISubProductService.cs" />
     <Compile Include="Lib\SubProductService\SubProductService.cs" />
-    <Compile Include="Lib\Product\IProduct.cs" />
     <Compile Include="Lib\Product\Product.cs" />
     <Compile Include="Lib\Receipt\Ancestor\Ancestor.cs" />
     <Compile Include="Lib\Receipt\Ancestor\IAncestor.cs" />
@@ -2828,16 +2826,18 @@
     <Content Include="Areas\Space\Views\Free\Index.cshtml" />
     <Content Include="Areas\Space\Views\Free\Info.cshtml" />
     <Content Include="Areas\AncestralTabletConfig\Views\web.config" />
-    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Index.cshtml" />
     <Content Include="Areas\AncestralTabletConfig\Views\Items\Index.cshtml" />
     <Content Include="Areas\AncestralTabletConfig\Views\AncestralTablets\Index.cshtml" />
-    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Details.cshtml" />
     <Content Include="Areas\SiteConfig\Views\web.config" />
     <Content Include="Areas\SiteConfig\Views\Sites\Index.cshtml" />
     <Content Include="Areas\SiteConfig\Views\Sites\Details.cshtml" />
     <Content Include="Areas\CatalogConfig\Views\Catalogs\Index.cshtml" />
     <Content Include="Areas\CatalogConfig\Views\web.config" />
     <Content Include="Areas\SiteConfig\Views\Sites\Form.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Index.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Areas\Form.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\AncestralTabletConfig\Views\AncestralTablets\Form.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -2985,7 +2985,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AncestralTabletConfig\Data\" />
     <Folder Include="Areas\AncestralTabletConfig\Views\Shared\" />
     <Folder Include="Areas\CatalogConfig\Data\" />
     <Folder Include="Areas\CatalogConfig\Views\Shared\" />

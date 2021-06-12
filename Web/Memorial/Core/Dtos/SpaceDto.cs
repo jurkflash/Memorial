@@ -1,4 +1,4 @@
-﻿using Memorial.Core.Domain;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -6,16 +6,21 @@ namespace Memorial.Core.Dtos
     {
         public int Id { get; set; }
 
+        [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
+        [StringLength(255)]
         public string Description { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public SiteDto SiteDto { get; set; }
 
         public int SiteDtoId { get; set; }
 
+        [StringLength(6, MinimumLength = 6)]
         public string ColorCode { get; set; }
     }
 }

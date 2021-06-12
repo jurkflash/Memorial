@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
 {
@@ -22,6 +21,7 @@ namespace Memorial.Core.Dtos
 
         public string Address { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public GenderTypeDto GenderTypeDto { get; set; }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Memorial.Core.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Memorial.Core.Dtos
 {
@@ -37,6 +35,7 @@ namespace Memorial.Core.Dtos
 
         public string Text3 { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public ColumbariumItemDto ColumbariumItemDto { get; set; }

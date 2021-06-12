@@ -16,14 +16,70 @@ namespace Memorial.Controllers.Api
             _catalog = catalog;
         }
 
+        [Route("")]
         public IEnumerable<CatalogDto> GetCatalogs()
         {
             return _catalog.GetCatalogDtos();
         }
 
+        [Route("~/api/sites/{siteId:int}/catalogs")]
+        public IEnumerable<CatalogDto> GetCatalogsBySite(int siteId)
+        {
+            return _catalog.GetCatalogDtosBySite(siteId);
+        }
+
+        [Route("~/api/sites/{siteId:int}/availablecatalogs")]
+        public IEnumerable<ProductDto> GetAvailableCatalogsBySite(int siteId)
+        {
+            return _catalog.GetAvailableCatalogDtosBySite(siteId);
+        }
+
+        [Route("{id:int}")]
         public IHttpActionResult GetCatalog(int id)
         {
             return Ok(_catalog.GetCatalogDto(id));
+        }
+
+        [Route("~/api/ancestraltablet/sites")]
+        public IEnumerable<SiteDto> GetAncestralTabletSites()
+        {
+            return _catalog.GetSiteDtosAncestralTablet();
+        }
+
+        [Route("~/api/cemetery/sites")]
+        public IEnumerable<SiteDto> GetCemeterySites()
+        {
+            return _catalog.GetSiteDtosCemetery();
+        }
+
+        [Route("~/api/cremation/sites")]
+        public IEnumerable<SiteDto> GetCremationSites()
+        {
+            return _catalog.GetSiteDtosCremation();
+        }
+
+        [Route("~/api/urn/sites")]
+        public IEnumerable<SiteDto> GetUrnSites()
+        {
+            return _catalog.GetSiteDtosUrn();
+        }
+
+        [Route("~/api/columbarium/sites")]
+        public IEnumerable<SiteDto> GetColumbariumSites()
+        {
+            return _catalog.GetSiteDtosColumbarium();
+        }
+
+        [Route("~/api/space/sites")]
+        public IEnumerable<SiteDto> GetSpaceSites()
+        {
+            return _catalog.GetSiteDtosSpace();
+        }
+
+        [Route("~/api/miscellaneous/sites")]
+        public IEnumerable<SiteDto> GetMiscellaneousSites()
+        {
+            return _catalog.GetSiteDtosMiscellaneous();
         }
 
         [HttpPost]
@@ -41,7 +97,7 @@ namespace Memorial.Controllers.Api
         }
 
         [HttpDelete]
-        public IHttpActionResult DeleteCatalog(byte id)
+        public IHttpActionResult DeleteCatalog(int id)
         {
             if (_catalog.DeleteCatalog(id))
                 return Ok();

@@ -185,7 +185,9 @@ namespace Memorial.App_Start
 
             CreateMap<AncestralTablet, AncestralTabletDto>()
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
-                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId));
+                .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))
+                .ForMember(c => c.AncestralTabletAreaDto, opt => opt.MapFrom(x => x.AncestralTabletArea))
+                .ForMember(c => c.AncestralTabletAreaDtoId, opt => opt.MapFrom(x => x.AncestralTabletAreaId));
             CreateMap<AncestralTabletArea, AncestralTabletAreaDto>()
                 .ForMember(c => c.SiteDto, opt => opt.MapFrom(x => x.Site))
                 .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
@@ -435,7 +437,9 @@ namespace Memorial.App_Start
             CreateMap<AncestralTabletDto, AncestralTablet>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
-                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId));
+                .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
+                .ForMember(c => c.AncestralTabletArea, opt => opt.Ignore())
+                .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId));
             CreateMap<AncestralTabletAreaDto, AncestralTabletArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
@@ -445,7 +449,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.AncestralTabletArea, opt => opt.Ignore())
-                .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId));
+                .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletItem, opt => opt.Ignore())

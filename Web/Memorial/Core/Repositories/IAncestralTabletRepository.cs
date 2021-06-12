@@ -9,6 +9,8 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestralTablet> GetByArea(int ancestralTabletAreaId);
 
+        AncestralTablet GetByAreaAndPositions(int areaId, int positionX, int positionY);
+
         IEnumerable<AncestralTablet> GetAvailableByArea(int ancestralTabletAreaId);
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int ancestralTabletAreaId);

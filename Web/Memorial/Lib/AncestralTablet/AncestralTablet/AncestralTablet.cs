@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -59,6 +60,16 @@ namespace Memorial.Lib.AncestralTablet
         public IEnumerable<AncestralTabletDto> GetAvailableAncestralTabletDtosByAreaId(int id)
         {
             return Mapper.Map<IEnumerable<Core.Domain.AncestralTablet>, IEnumerable<AncestralTabletDto>>(GetAvailableAncestralTabletsByAreaId(id));
+        }
+
+        public Core.Domain.AncestralTablet GetAncestralTabletByAreaIdAndPostions(int areaId, int positionX, int positionY)
+        {
+            return _unitOfWork.AncestralTablets.GetByAreaAndPositions(areaId, positionX, positionY);
+        }
+
+        public AncestralTabletDto GetAncestralTabletDtoByAreaIdAndPostions(int areaId, int positionX, int positionY)
+        {
+            return Mapper.Map<Core.Domain.AncestralTablet, AncestralTabletDto>(GetAncestralTabletByAreaIdAndPostions(areaId, positionX, positionY));
         }
 
         public string GetName()
@@ -122,8 +133,15 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTablets.GetPositionsByArea(areaId);
         }
 
-        public Core.Domain.AncestralTablet Create(AncestralTabletDto ancestralTabletDto)
+        public int Create(AncestralTabletDto ancestralTabletDto)
         {
+            if (_unitOfWork.AncestralTablets.Find(a => a.PositionX == ancestralTabletDto.PositionX
+                 && a.PositionY == ancestralTabletDto.PositionY
+                 && a.AncestralTabletAreaId == ancestralTabletDto.AncestralTabletAreaDtoId).Any())
+            {
+                return 0;
+            }
+
             _ancestralTablet = new Core.Domain.AncestralTablet();
             Mapper.Map(ancestralTabletDto, _ancestralTablet);
 
@@ -131,21 +149,42 @@ namespace Memorial.Lib.AncestralTablet
 
             _unitOfWork.AncestralTablets.Add(_ancestralTablet);
 
-            return _ancestralTablet;
+            _unitOfWork.Complete();
+
+            return _ancestralTablet.Id;
         }
 
-        public bool Update(Core.Domain.AncestralTablet ancestralTablet)
+        public bool Update(AncestralTabletDto ancestralTabletDto)
         {
-            ancestralTablet.ModifyDate = DateTime.Now;
+            var ancestralTabletInDB = GetAncestralTablet(ancestralTabletDto.Id);
+
+            if (ancestralTabletInDB.AncestralTabletAreaId != ancestralTabletDto.AncestralTabletAreaDtoId
+                && (ancestralTabletInDB.ApplicantId != null || ancestralTabletInDB.hasDeceased))
+            {
+                return false;
+            }
+
+            Mapper.Map(ancestralTabletDto, ancestralTabletInDB);
+
+            ancestralTabletInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id) && at.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetAncestralTablet(id);
 
             _ancestralTablet.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

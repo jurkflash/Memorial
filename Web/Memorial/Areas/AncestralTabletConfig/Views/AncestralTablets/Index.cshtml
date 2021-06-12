@@ -5,15 +5,31 @@
 
 <h2>@Html.Raw(Resources.Mix.AncestralTablet)</h2>
 <p>
-    @Html.ActionLink(Resources.Mix.New, "New", "New", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>
 
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Area)
+    </div>
+    <div class="col-md-6">
+        <select id="Areas" class="form-control"></select>
+    </div>
+</div>
 <table id="tbl" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>X</th>
-            <th>Y</th>
+            <th>@Html.Raw(Resources.Mix.XBR)</th>
+            <th>@Html.Raw(Resources.Mix.YBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
             <th>@Html.Raw(Resources.Mix.MaintenanceFeesBR)</th>
             <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
@@ -26,21 +42,72 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            var url_string = window.location.href
-            var url = new URL(url_string);
+        var table;
 
-            var table = $("#tbl").DataTable({
+        function sites() {
+            $.ajax({
+                url: "/api/ancestraltablet/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+
+        function bindtbls() {
+            table.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/ancestralTablets").load();
+        }
+
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                areas();
+            })
+
+            $("#Areas").change(function () {
+                bindtbls();
+            })
+
+            table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/configAncestralTablets",
-                    data: { areaId: url.searchParams.get("areaId") },
+                    url: "/api/AncestralTablets/areas/0/ancestralTablets",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         data: "name",
                         render: function (data, type, item) {
-                            return "<a href='/AncestralTablets/" + item.id + "'>" + item.name + "</a>";
+                            return "<a href='/AncestralTabletConfig/AncestralTablets/Form/" + item.id + "'>" + item.name + "</a>";
                         }
                     },
                     {
@@ -60,13 +127,12 @@
                     },
                     {
                         data: "id",
-                        render: function(data) {
+                        render: function (data) {
                             return "<button class='btn btn-sm btn-danger js-delete' data-id=" + data + ">刪除 Delete</button>";
                         }
                     }
                 ]
             });
-
 
             $("#tbl").on("click", ".js-delete", function () {
                 var button = $(this);
@@ -74,7 +140,7 @@
                 bootbox.confirm(MEMORIAL_UNEXPECTED_HAPPENED, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/configAncestralTablets/" + button.attr("data-id"),
+                            url: "/api/ancestraltablets/" + button.attr("data-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();
@@ -83,6 +149,7 @@
                     }
                 });
             });
+            
         });
     </script>
 }

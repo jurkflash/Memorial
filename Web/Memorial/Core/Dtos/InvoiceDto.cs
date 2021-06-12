@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 using Memorial.Core.Domain;
 
 namespace Memorial.Core.Dtos
@@ -16,6 +14,7 @@ namespace Memorial.Core.Dtos
 
         public Boolean hasReceipt { get; set; }
 
+        [StringLength(255)]
         public string Remark { get; set; }
 
         public CemeteryTransaction CemeteryTransaction { get; set; }

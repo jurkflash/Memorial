@@ -12,5 +12,7 @@ namespace Memorial.Lib.SubProductService
         IEnumerable<SubProductServiceDto> GetSubProductServiceDtos();
         IEnumerable<Core.Domain.SubProductService> GetSubProductServices();
         void SetSubProductService(int id);
+        IEnumerable<Core.Domain.SubProductService> GetSubProductServicesByProduct(int productId);
+        IEnumerable<SubProductServiceDto> GetSubProductServiceDtosByProduct(int productId);
     }
 }
