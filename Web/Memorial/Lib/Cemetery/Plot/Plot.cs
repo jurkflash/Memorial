@@ -11,11 +11,13 @@ namespace Memorial.Lib.Cemetery
     public class Plot : IPlot
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IItem _item;
         private Core.Domain.Plot _plot;
 
-        public Plot(IUnitOfWork unitOfWork)
+        public Plot(IUnitOfWork unitOfWork, IItem item)
         {
             _unitOfWork = unitOfWork;
+            _item = item;
         }
 
         public void SetPlot(int id)
@@ -76,6 +78,12 @@ namespace Memorial.Lib.Cemetery
         public IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId)
         {
             return _unitOfWork.Plots.GetAvailableByTypeAndArea(typeId, areaId);
+        }
+
+        public IEnumerable<PlotDto> GetAvailablePlotDtosByTypeIdAndAreaId(int typeId, int areaId)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>
+                (_unitOfWork.Plots.GetAvailableByTypeAndArea(typeId, areaId));
         }
 
         public IEnumerable<PlotDto> GetAvailablePlotDtosByAreaId(int typeId, int areaId)
@@ -184,7 +192,7 @@ namespace Memorial.Lib.Cemetery
             return _plot.PlotType.isFengShuiPlot;
         }
 
-        public bool Create(PlotDto plotDto)
+        public int Create(PlotDto plotDto)
         {
             _plot = new Core.Domain.Plot();
             Mapper.Map(plotDto, _plot);
@@ -193,21 +201,47 @@ namespace Memorial.Lib.Cemetery
 
             _unitOfWork.Plots.Add(_plot);
 
-            return true;
+            _unitOfWork.Complete();
+
+            _item.AutoCreateItem(plotDto.PlotTypeDtoId, _plot.Id);
+
+            _unitOfWork.Complete();
+
+            return _plot.Id;
         }
 
-        public bool Update(Core.Domain.Plot plot)
+        public bool Update(PlotDto plotDto)
         {
-            plot.ModifyDate = DateTime.Now;
+            var plotInDB = GetPlot(plotDto.Id);
+
+            if ((plotInDB.PlotTypeId != plotDto.PlotTypeDtoId
+                || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaDtoId)
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(plotDto, plotInDB);
+
+            plotInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetPlot(id);
 
             _plot.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

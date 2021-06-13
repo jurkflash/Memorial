@@ -21,7 +21,6 @@
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
             <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
-            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
             <th></th>
         </tr>
     </thead>
@@ -35,7 +34,7 @@
 
         function sites() {
             $.ajax({
-                url: "/api/ancestraltablets/sites"
+                url: "/api/cemeteries/sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -54,7 +53,7 @@
 
 
         function bindtbls() {
-            table.ajax.url("/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas").load();
+            table.ajax.url("/api/sites/" + $("#Sites").val() + "/cemeteries/areas").load();
         }
 
 
@@ -68,21 +67,15 @@
 
             table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/sites/0/ancestraltablets/areas",
+                    url: "/api/sites/0/cemeteries/areas",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         data: "name",
-                        render: function(data, type, area) {
-                            return "<a href='/AncestralTabletConfig/Areas/Form/" + area.id + "'>" + area.name + "</a>";
-                        }
                     },
                     {
                         data: "description"
-                    },
-                    {
-                        data: "remark"
                     },
                     {
                         data: "id",
@@ -99,7 +92,7 @@
                 bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/ancestraltablets/areas/" + button.attr("data-area-id"),
+                            url: "/api/cemeteries/areas/" + button.attr("data-area-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();

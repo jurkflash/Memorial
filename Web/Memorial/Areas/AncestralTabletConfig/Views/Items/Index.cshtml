@@ -60,7 +60,7 @@
 
         function sites() {
             $.ajax({
-                url: "/api/ancestraltablet/sites"
+                url: "/api/ancestraltablets/sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -121,7 +121,7 @@
                     {
                         data: "subProductServiceDto.name",
                         render: function (data, type, item) {
-                            return "<a href='/AncestralTabletItems/edit/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
+                            return "<a href='/AncestralTabletConfig/Items/Form/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
                         }
                     },
                     {

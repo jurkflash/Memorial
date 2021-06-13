@@ -1,0 +1,412 @@
+﻿@model Memorial.Core.Dtos.PlotDto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form">
+    @if (Model.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.PlotNew)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Sites" name="Sites" class="form-control"></select>
+                @Html.ValidationMessage("Sites")
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.AreaBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Areas" name="Areas" class="form-control"></select>
+                @Html.ValidationMessage("Areas")
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.PlotType)
+            </div>
+            <div class="col-md-6">
+                <select id="PlotTypes" class="form-control"></select>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.PlotEdit)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.AreaBR)
+            </div>
+            <div class="col-md-6">
+                @Model.PlotTypeDto.Name
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.PlotType)
+            </div>
+            <div class="col-md-6">
+                @Model.PlotTypeDto.Name
+            </div>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DescriptionBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Description)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.SizeBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Size, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Size)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.PriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Price)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.TurfMaintenanceFeesBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Maintenance, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Maintenance)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.WallPriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Wall, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Wall)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DigPriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Dig, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Dig)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.BrickPriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Brick, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Brick)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.Id)
+    @Html.HiddenFor(s => s.CemeteryAreaDtoId)
+    @Html.HiddenFor(s => s.PlotTypeDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+
+@if (Model.Id != 0)
+{
+    <hr />
+    <h2>@Html.Raw(Resources.Mix.Item)</h2>
+    <table id="tbl" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>@Html.Raw(Resources.Mix.NameBR)</th>
+                <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+                <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+                <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+                <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+}
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        function sites() {
+            $.ajax({
+                url: "/api/cemeteries/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/cemeteries/areas"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function plotTypes() {
+            $.ajax({
+                url: "/api/cemeteries/types"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#PlotTypes").empty();
+                    $("#PlotTypes").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#PlotTypes").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+
+
+        $(document).ready(function () {
+
+            $.validator.addMethod("AtLeastZero", function (value, element) {
+                if (value >= 0)
+                    return true;
+                return false;
+            }, MEMORIAL_AT_LEAST_ZERO);
+
+            $.validator.addMethod("mustSelect", function (value, element) {
+                if (value == "0")
+                    return false;
+                return true;
+            }, MEMORIAL_PLEASE_SELECT);
+
+
+
+            $("#Price").rules("add",
+                {
+                    AtLeastZero: true
+                });
+
+            $("#Maintenance").rules("add",
+                {
+                    AtLeastZero: true
+                });
+
+            $("#Wall").rules("add",
+                {
+                    AtLeastZero: true
+                });
+
+            $("#Dig").rules("add",
+                {
+                    AtLeastZero: true
+                });
+
+            $("#Brick").rules("add",
+                {
+                    AtLeastZero: true
+                });
+
+
+
+            $("#Sites").change(function () {
+                areas();
+            })
+
+
+
+            if ($("#Id").val() == "0") {
+
+                $("#Sites").rules("add",
+                    {
+                        mustSelect: true,
+                    });
+
+                $("#Areas").rules("add",
+                    {
+                        mustSelect: true,
+                    });
+
+                $("#PlotTypes").rules("add",
+                    {
+                        mustSelect: true,
+                    });
+
+                sites();
+
+                plotTypes();
+
+            }
+            else {
+                var table = $("#tbl").DataTable({
+                    ajax: {
+                        url: "/api/cemeteries/plots/" + $("#Id").val() + "/items",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "subProductServiceDto.name",
+                            render: function (data, type, item) {
+                                return "<a href='/CemeteryConfig/Items/Form/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
+                            }
+                        },
+                        {
+                            data: "subProductServiceDto.description",
+                        },
+                        {
+                            render: function (data, type, item) {
+                                if (item.price == null)
+                                    return item.subProductServiceDto.price;
+                                else
+                                    return item.price;
+                            }
+                        },
+                        {
+                            render: function (data, type, item) {
+                                if (item.code == null)
+                                    return item.subProductServiceDto.code;
+                                else
+                                    return item.code;
+                            }
+                        },
+                        {
+                            render: function (data, type, item) {
+                                if (item.isOrder == null)
+                                    return item.subProductServiceDto.isOrder;
+                                else
+                                    return item.isOrder;
+                            }
+                        }
+                    ]
+                });
+            }
+
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#Id").val(),
+                        cemeteryAreaDtoId: $("#CemeteryAreaDtoId").val(),
+                        plotTypeDtoId: $("#PlotTypeDtoId").val(),
+                        name: $("#Name").val(),
+                        description: $("#Description").val(),
+                        size: $("#Size").val(),
+                        price: $("#Price").val(),
+                        maintenance: $("#Maintenance").val(),
+                        wall: $("#Wall").val(),
+                        dig: $("#Dig").val(),
+                        brick: $("#Brick").val(),
+                        remark: $("#Remark").val()
+                    };
+                    var verb = "";
+                    var url = "/api/cemeteries/plots";
+                    if ($("#Id").val() == 0) {
+                        vm.cemeteryAreaDtoId = $("#Areas").val();
+                        vm.plotTypeDtoId = $("#PlotTypes").val();
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                        .done(function (data) {
+                            toastr.success(MEMORIAL_SUCCESS);
+                            if (verb == "post") {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href + '/' + data.id;
+                                }, 1000);
+                            }
+                        })
+                        .fail(function () {
+                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                        });
+
+                    return false;
+                }
+            });
+
+        });
+    </script>
+}
+

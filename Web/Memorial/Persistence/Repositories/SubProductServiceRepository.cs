@@ -12,11 +12,19 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public IEnumerable<SubProductService> GetSubProductServicesByProduct(int productId)
+        public IEnumerable<SubProductService> GetSubProductServicesByProductId(int productId)
         {
             return MemorialContext.SubProductServices
                 .Include(sp => sp.Product)
                 .Where(sp => sp.ProductId == productId)
+                .ToList();
+        }
+
+        public IEnumerable<SubProductService> GetSubProductServicesByProductIdAndOtherId(int productId, int otherId)
+        {
+            return MemorialContext.SubProductServices
+                .Include(sp => sp.Product)
+                .Where(sp => sp.ProductId == productId && sp.OtherId == otherId)
                 .ToList();
         }
 

@@ -15,6 +15,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("{applicantId:int}/flatten")]
+        [HttpGet]
         public IHttpActionResult GetFlattenByApplicant(int applicantId)
         {
             var result = _applicantDeceased.GetApplicantDeceasedFlattenDtosByApplicantId(applicantId);
@@ -22,6 +23,7 @@ namespace Memorial.Controllers.Api
             return Ok(result);
         }
 
+        [Route("{id:int}")]
         [HttpDelete]
         public IHttpActionResult DeleteWithReturnDeceasedId(int id)
         {
@@ -31,6 +33,7 @@ namespace Memorial.Controllers.Api
             return Ok(result);
         }
 
+        [Route("")]
         [HttpPost]
         public IHttpActionResult CreateWithReturnId(ApplicantDeceasedDto applicantDeceasedDto)
         {

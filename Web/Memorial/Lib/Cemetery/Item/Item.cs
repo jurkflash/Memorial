@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.Cemetery
@@ -11,7 +13,10 @@ namespace Memorial.Lib.Cemetery
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.CemeteryItem _item;
+
         private const string _singleOrder = "CYSP1";
         private const float _singleOrderPrice = 0;
 
@@ -66,9 +71,11 @@ namespace Memorial.Lib.Cemetery
         private const string _clearanceName = "拾金 Clearance";
         private const string _clearanceSystemCode = "Clearances";
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -156,9 +163,21 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool Update(Core.Domain.CemeteryItem cemeteryItem)
+        public bool Update(CemeteryItemDto cemeteryItemDto)
         {
-            cemeteryItem.ModifyDate = DateTime.Now;
+            var cemeteryItemInDB = GetItem(cemeteryItemDto.Id);
+
+            if ((cemeteryItemInDB.isOrder != cemeteryItemDto.isOrder)
+                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id && pt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(cemeteryItemDto, cemeteryItemInDB);
+
+            cemeteryItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
@@ -174,26 +193,40 @@ namespace Memorial.Lib.Cemetery
 
         public void AutoCreateItem(int plotTypeId, int plotId)
         {
-            if (plotTypeId == 1)
+            var subs = _subProductService.GetSubProductServiceDtosByProductIdAndOtherId(
+                _product.GetCemeteryProduct().Id, plotTypeId
+                );
+
+            foreach(var sub in subs)
             {
-                Single(plotId);
+                Create(new Core.Domain.CemeteryItem()
+                {
+                    PlotId = plotId,
+                    SubProductServiceId = sub.Id
+                });
             }
-            else if (plotTypeId == 2)
-            {
-                Double(plotId);
-            }
-            else if (plotTypeId == 3)
-            {
-                NewDouble(plotId);
-            }
-            else if (plotTypeId == 4)
-            {
-                FengShui(plotId);
-            }
+
+            //if (plotTypeId == 1)
+            //{
+            //    Single(plotId);
+            //}
+            //else if (plotTypeId == 2)
+            //{
+            //    Double(plotId);
+            //}
+            //else if (plotTypeId == 3)
+            //{
+            //    NewDouble(plotId);
+            //}
+            //else if (plotTypeId == 4)
+            //{
+            //    FengShui(plotId);
+            //}
         }
 
         private void Single(int plotId)
         {
+            
             Create(new Core.Domain.CemeteryItem()
             {
                 Code = _singleOrder,

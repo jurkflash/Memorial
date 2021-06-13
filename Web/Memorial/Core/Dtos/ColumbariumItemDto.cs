@@ -9,7 +9,6 @@ namespace Memorial.Core.Dtos
 
         public float? Price { get; set; }
 
-        [Required]
         [StringLength(5)]
         public string Code { get; set; }
 

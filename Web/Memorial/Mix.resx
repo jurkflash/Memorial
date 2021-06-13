@@ -573,4 +573,10 @@
   <data name="AncestralTabletNew" xml:space="preserve">
     <value>新祖先牌位 New AncestralTablet</value>
   </data>
+  <data name="PlotEdit" xml:space="preserve">
+    <value>修改墓地 Edit Plot</value>
+  </data>
+  <data name="PlotNew" xml:space="preserve">
+    <value>新墓地 New Plot</value>
+  </data>
 </root>

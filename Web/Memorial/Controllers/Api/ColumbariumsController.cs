@@ -23,30 +23,35 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("~/api/sites/{siteId:int}/columbariums/centres")]
+        [HttpGet]
         public IEnumerable<ColumbariumCentreDto> GetCentres(int siteId)
         {
             return _centre.GetCentreDtosBySite(siteId);
         }
 
         [Route("centres/{centreId:int}/areas")]
+        [HttpGet]
         public IEnumerable<ColumbariumAreaDto> GetAreas(int centreId)
         {
             return _area.GetAreaDtosByCentre(centreId);
         }
 
         [Route("areas/{areaId:int}/availableNiches")]
+        [HttpGet]
         public IEnumerable<NicheDto> GetAvailableNichesByAreaId(int areaId)
         {
             return _niche.GetAvailableNicheDtosByAreaId(areaId);
         }
 
         [Route("niche/{id:int}")]
+        [HttpGet]
         public IHttpActionResult GetNiche(int id)
         {
             return Ok(_niche.GetNicheDto(id));
         }
 
         [Route("{itemId:int}/amount")]
+        [HttpGet]
         public IHttpActionResult GetAmount(int itemId, DateTime from, DateTime to)
         {
             if (from > to)

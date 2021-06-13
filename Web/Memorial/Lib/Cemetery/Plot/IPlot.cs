@@ -32,6 +32,8 @@ namespace Memorial.Lib.Cemetery
 
         IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId);
 
+        IEnumerable<PlotDto> GetAvailablePlotDtosByTypeIdAndAreaId(int typeId, int areaId);
+
         IEnumerable<PlotDto> GetAvailablePlotDtosByAreaId(int typeId, int areaId);
 
         string GetName();
@@ -74,9 +76,9 @@ namespace Memorial.Lib.Cemetery
 
         bool IsFengShuiPlot();
 
-        bool Create(PlotDto plotDto);
+        int Create(PlotDto plotDto);
 
-        bool Update(Core.Domain.Plot plot);
+        bool Update(PlotDto plotDto);
 
         bool Delete(int id);
     }

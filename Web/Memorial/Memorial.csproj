@@ -760,6 +760,11 @@
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
+    <Compile Include="Areas\CemeteryConfig\CemeteryConfigAreaRegistration.cs" />
+    <Compile Include="Areas\CemeteryConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\CemeteryConfig\Controllers\PlotsController.cs" />
+    <Compile Include="Areas\CemeteryConfig\Controllers\AreasController.cs" />
+    <Compile Include="Areas\CemeteryConfig\Data\CemeteryAreaFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Controllers\FreeController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\WithdrawsController.cs" />
     <Compile Include="Areas\Cremation\Controllers\FreeController.cs" />
@@ -787,6 +792,9 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\CemeteryItemsController.cs" />
+    <Compile Include="Controllers\Api\PlotsController.cs" />
+    <Compile Include="Controllers\Api\CemeteryAreasController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletsController.cs" />
     <Compile Include="Controllers\Api\SubProductServicesController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
@@ -1048,6 +1056,9 @@
     <Compile Include="Lib\Applicant\IApplicant.cs" />
     <Compile Include="Lib\Catalog\Catalog.cs" />
     <Compile Include="Lib\Catalog\ICatalog.cs" />
+    <Compile Include="Lib\Cemetery\Area\IArea.cs" />
+    <Compile Include="Lib\Cemetery\PlotType\IPlotType.cs" />
+    <Compile Include="Lib\Cemetery\PlotType\PlotType.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\IWithdraw.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\Withdraw.cs" />
     <Compile Include="Lib\Constant.cs" />
@@ -1110,11 +1121,8 @@
     <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\Transaction.cs" />
     <Compile Include="Lib\Cemetery\Area\Area.cs" />
-    <Compile Include="Lib\Cemetery\Area\IArea.cs" />
     <Compile Include="Lib\Cemetery\Clearance\Clearance.cs" />
     <Compile Include="Lib\Cemetery\Clearance\IClearance.cs" />
-    <Compile Include="Lib\Cemetery\Config\Config.cs" />
-    <Compile Include="Lib\Cemetery\Config\IConfig.cs" />
     <Compile Include="Lib\Cemetery\Item\IItem.cs" />
     <Compile Include="Lib\Cemetery\Item\Item.cs" />
     <Compile Include="Lib\Cemetery\Number\INumber.cs" />
@@ -2838,6 +2846,11 @@
     <Content Include="Areas\AncestralTabletConfig\Views\Areas\Form.cshtml" />
     <Content Include="Areas\AncestralTabletConfig\Views\Items\Form.cshtml" />
     <Content Include="Areas\AncestralTabletConfig\Views\AncestralTablets\Form.cshtml" />
+    <Content Include="Areas\CemeteryConfig\Views\web.config" />
+    <Content Include="Areas\CemeteryConfig\Views\Areas\Index.cshtml" />
+    <Content Include="Areas\CemeteryConfig\Views\Plots\Index.cshtml" />
+    <Content Include="Areas\CemeteryConfig\Views\Plots\Form.cshtml" />
+    <Content Include="Areas\CemeteryConfig\Views\Items\Form.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -2988,6 +3001,7 @@
     <Folder Include="Areas\AncestralTabletConfig\Views\Shared\" />
     <Folder Include="Areas\CatalogConfig\Data\" />
     <Folder Include="Areas\CatalogConfig\Views\Shared\" />
+    <Folder Include="Areas\CemeteryConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />

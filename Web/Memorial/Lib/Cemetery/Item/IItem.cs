@@ -21,6 +21,6 @@ namespace Memorial.Lib.Cemetery
         string GetSystemCode();
         bool IsOrder();
         void SetItem(int id);
-        bool Update(CemeteryItem cemeteryItem);
+        bool Update(CemeteryItemDto cemeteryItemDto);
     }
 }

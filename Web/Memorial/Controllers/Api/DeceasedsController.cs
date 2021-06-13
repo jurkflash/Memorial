@@ -17,6 +17,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("~/api/applicants/{applicantId:int}/deceaseds")]
+        [HttpGet]
         public IEnumerable<DeceasedDto> GetDeceasedsByApplicantId(int applicantId)
         {
             var result = _deceased.GetDeceasedsByApplicantId(applicantId);

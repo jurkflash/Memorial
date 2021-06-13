@@ -17,71 +17,83 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("")]
+        [HttpGet]
         public IEnumerable<CatalogDto> GetCatalogs()
         {
             return _catalog.GetCatalogDtos();
         }
 
         [Route("~/api/sites/{siteId:int}/catalogs")]
+        [HttpGet]
         public IEnumerable<CatalogDto> GetCatalogsBySite(int siteId)
         {
             return _catalog.GetCatalogDtosBySite(siteId);
         }
 
         [Route("~/api/sites/{siteId:int}/availablecatalogs")]
+        [HttpGet]
         public IEnumerable<ProductDto> GetAvailableCatalogsBySite(int siteId)
         {
             return _catalog.GetAvailableCatalogDtosBySite(siteId);
         }
 
         [Route("{id:int}")]
+        [HttpGet]
         public IHttpActionResult GetCatalog(int id)
         {
             return Ok(_catalog.GetCatalogDto(id));
         }
 
-        [Route("~/api/ancestraltablet/sites")]
+        [Route("~/api/ancestraltablets/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetAncestralTabletSites()
         {
             return _catalog.GetSiteDtosAncestralTablet();
         }
 
-        [Route("~/api/cemetery/sites")]
+        [Route("~/api/cemeteries/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetCemeterySites()
         {
             return _catalog.GetSiteDtosCemetery();
         }
 
-        [Route("~/api/cremation/sites")]
+        [Route("~/api/cremations/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetCremationSites()
         {
             return _catalog.GetSiteDtosCremation();
         }
 
-        [Route("~/api/urn/sites")]
+        [Route("~/api/urns/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetUrnSites()
         {
             return _catalog.GetSiteDtosUrn();
         }
 
-        [Route("~/api/columbarium/sites")]
+        [Route("~/api/columbariums/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetColumbariumSites()
         {
             return _catalog.GetSiteDtosColumbarium();
         }
 
-        [Route("~/api/space/sites")]
+        [Route("~/api/spaces/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetSpaceSites()
         {
             return _catalog.GetSiteDtosSpace();
         }
 
         [Route("~/api/miscellaneous/sites")]
+        [HttpGet]
         public IEnumerable<SiteDto> GetMiscellaneousSites()
         {
             return _catalog.GetSiteDtosMiscellaneous();
         }
 
+        [Route("")]
         [HttpPost]
         public IHttpActionResult CreateCatalog(CatalogDto catalogDto)
         {
@@ -96,6 +108,7 @@ namespace Memorial.Controllers.Api
             return Created(new Uri(Request.RequestUri + "/" + id), catalogDto);
         }
 
+        [Route("{id:int}")]
         [HttpDelete]
         public IHttpActionResult DeleteCatalog(int id)
         {

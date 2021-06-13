@@ -19,6 +19,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("{id:int}/amount")]
+        [HttpGet]
         public IHttpActionResult GetAmount(int id, DateTime from, DateTime to)
         {
             if (from > to)
@@ -33,6 +34,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("{id:int}/availability")]
+        [HttpGet]
         public IHttpActionResult GetAvailability(int id, DateTime from, DateTime to)
         {
             if (from > to)
@@ -44,6 +46,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("{AF}/availability")]
+        [HttpGet]
         public IHttpActionResult GetAvailability(string AF, DateTime from, DateTime to)
         {
             if (from > to)
@@ -55,6 +58,7 @@ namespace Memorial.Controllers.Api
         }
 
         [Route("events")]
+        [HttpGet]
         public IHttpActionResult GetEvents(int siteId, DateTime from, DateTime to)
         {
             var events = new List<SpaceCalendar>();

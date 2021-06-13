@@ -46,7 +46,8 @@ namespace Memorial.Persistence.Repositories
                     .Include(p => p.PlotType)
                     .Include(p => p.CemeteryArea.Site)
                     .Where(p => p.CemeteryAreaId == cemeteryAreaId)
-                    .Select(p => p.PlotType);
+                    .Select(p => p.PlotType)
+                    .Distinct();
 
             return plotTypes.ToList();
         }

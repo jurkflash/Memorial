@@ -1,42 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
+using System.Collections.Generic;
 
 namespace Memorial.Lib.Cemetery
 {
     public interface IArea
     {
-        void SetArea(int id);
-
-        int GetId();
-
-        string GetName();
-
-        string GetDescription();
-
-        int GetSiteId();
-
-        Core.Domain.CemeteryArea GetArea();
-
-        CemeteryAreaDto GetAreaDto();
-
-        Core.Domain.CemeteryArea GetArea(int areaId);
-
-        CemeteryAreaDto GetAreaDto(int areaId);
-
-        IEnumerable<CemeteryAreaDto> GetAreaDtos();
-
-        IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(int siteId);
-
-        IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(int siteId);
-
-        bool Create(CemeteryAreaDto cemeteryAreaDto);
-
-        bool Update(Core.Domain.CemeteryArea cemeteryArea);
-
+        int Create(CemeteryAreaDto cemeteryAreaDto);
         bool Delete(int id);
-
+        CemeteryArea GetArea();
+        CemeteryArea GetArea(int areaId);
+        IEnumerable<CemeteryArea> GetAreaBySite(int siteId);
+        CemeteryAreaDto GetAreaDto();
+        CemeteryAreaDto GetAreaDto(int areaId);
+        IEnumerable<CemeteryAreaDto> GetAreaDtos();
+        IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(int siteId);
+        string GetDescription();
+        int GetId();
+        string GetName();
+        int GetSiteId();
+        void SetArea(int id);
+        bool Update(CemeteryAreaDto cemeteryAreaDto);
     }
 }

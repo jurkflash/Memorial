@@ -78,7 +78,7 @@ namespace Memorial.Lib.Cemetery
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(GetAreaBySite(siteId));
         }
 
-        public bool Create(CemeteryAreaDto cemeteryAreaDto)
+        public int Create(CemeteryAreaDto cemeteryAreaDto)
         {
             _area = new Core.Domain.CemeteryArea();
             Mapper.Map(cemeteryAreaDto, _area);
@@ -87,21 +87,42 @@ namespace Memorial.Lib.Cemetery
 
             _unitOfWork.CemeteryAreas.Add(_area);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _area.Id;
         }
 
-        public bool Update(Core.Domain.CemeteryArea cemeteryArea)
+        public bool Update(CemeteryAreaDto cemeteryAreaDto)
         {
-            cemeteryArea.ModifyDate = DateTime.Now;
+            var cemeteryAreaInDB = GetArea(cemeteryAreaDto.Id);
+
+            if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteDtoId
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(cemeteryAreaDto, cemeteryAreaInDB);
+
+            cemeteryAreaInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetArea(id);
 
             _area.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

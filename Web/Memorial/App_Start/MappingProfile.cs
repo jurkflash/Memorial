@@ -370,12 +370,15 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Plot, opt => opt.Ignore())
                 .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
-                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId));
+                .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
 
             CreateMap<PlotTypeDto, PlotType>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<CemeteryLandscapeCompanyDto, CemeteryLandscapeCompany>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<CemeteryTransactionDto, CemeteryTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))

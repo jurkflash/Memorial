@@ -2,16 +2,16 @@
 using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
-using Memorial.Lib.AncestralTablet;
+using Memorial.Lib.Cemetery;
 
 namespace Memorial.Controllers.Api
 {
-    [RoutePrefix("api/ancestraltablets/areas")]
-    public class AncestralTabletAreasController : ApiController
+    [RoutePrefix("api/cemeteries/areas")]
+    public class CemeteryAreasController : ApiController
     {
         private readonly IArea _area;
 
-        public AncestralTabletAreasController(IArea area)
+        public CemeteryAreasController(IArea area)
         {
             _area = area;
         }
@@ -30,16 +30,16 @@ namespace Memorial.Controllers.Api
             return Ok(_area.GetAreaDto(id));
         }
 
-        [Route("~/api/sites/{siteId:int}/ancestraltablets/areas")]
+        [Route("~/api/sites/{siteId:int}/cemeteries/areas")]
         [HttpGet]
-        public IEnumerable<AncestralTabletAreaDto> GetAreaBySite(int siteId)
+        public IEnumerable<CemeteryAreaDto> GetAreaBySite(int siteId)
         {
             return _area.GetAreaDtosBySite(siteId);
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateArea(AncestralTabletAreaDto areaDto)
+        public IHttpActionResult CreateArea(CemeteryAreaDto areaDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -56,7 +56,7 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateArea(int id, AncestralTabletAreaDto areaDto)
+        public IHttpActionResult UpdateArea(int id, CemeteryAreaDto areaDto)
         {
             if (_area.Update(areaDto))
                 return Ok();

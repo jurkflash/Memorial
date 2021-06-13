@@ -63,6 +63,7 @@ namespace Memorial.Controllers.Api
                 return Ok(result);
         }
 
+        [Route("")]
         [HttpPost]
         public IHttpActionResult CreateAncestralTablet(AncestralTabletDto ancestralTabletDto)
         {

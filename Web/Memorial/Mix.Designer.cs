@@ -1015,6 +1015,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改墓地 Edit Plot.
+        /// </summary>
+        public static string PlotEdit {
+            get {
+                return ResourceManager.GetString("PlotEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新墓地 New Plot.
+        /// </summary>
+        public static string PlotNew {
+            get {
+                return ResourceManager.GetString("PlotNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 墓地費用&lt;br /&gt;Plot Price.
         /// </summary>
         public static string PlotPriceBR {

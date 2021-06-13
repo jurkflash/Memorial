@@ -1,9 +1,10 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.AncestralTablet)</h2>
+<h2>@Html.Raw(Resources.Mix.Plot)</h2>
 <p>
     @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>
@@ -24,14 +25,25 @@
         <select id="Areas" class="form-control"></select>
     </div>
 </div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.PlotType)
+    </div>
+    <div class="col-md-6">
+        <select id="PlotTypes" class="form-control"></select>
+    </div>
+</div>
 <table id="tbl" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>@Html.Raw(Resources.Mix.XBR)</th>
-            <th>@Html.Raw(Resources.Mix.YBR)</th>
+            <th>@Html.Raw(Resources.Mix.SizeBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
-            <th>@Html.Raw(Resources.Mix.MaintenanceFeesBR)</th>
+            <th>@Html.Raw(Resources.Mix.TurfMaintenanceFeesBR)</th>
+            <th>@Html.Raw(Resources.Mix.WallPriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.DigPriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.BrickPriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.PlotTypeBR)</th>
             <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
             <th></th>
         </tr>
@@ -46,7 +58,7 @@
 
         function sites() {
             $.ajax({
-                url: "/api/ancestraltablets/sites"
+                url: "/api/cemeteries/sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -65,7 +77,7 @@
 
         function areas() {
             $.ajax({
-                url: "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas"
+                url: "/api/sites/" + $("#Sites").val() + "/cemeteries/areas"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -82,9 +94,32 @@
                 });
         }
 
+        function plotTypes() {
+            var area = 0;
+            if ($("#Areas").val() != null)
+                area = $("#Areas").val();
+
+            $.ajax({
+                url: "/api/cemeteries/areas/" + area + "/types"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#PlotTypes").empty();
+                    $("#PlotTypes").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#PlotTypes").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
 
         function bindtbls() {
-            table.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/ancestralTablets").load();
+            if ($("#Areas").val() != null && $("#PlotTypes").val() != null)
+                table.ajax.url("/api/cemeteries/areas/" + $("#Areas").val() + "/types/" + $("#PlotTypes").val() + "/plots").load();
         }
 
         $(document).ready(function () {
@@ -95,32 +130,45 @@
             })
 
             $("#Areas").change(function () {
+                plotTypes();
+            })
+
+            $("#PlotTypes").change(function () {
                 bindtbls();
             })
 
             table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/AncestralTablets/areas/0/ancestralTablets",
+                    url: "/api/cemeteries/areas/0/types/0/plots",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         data: "name",
                         render: function (data, type, item) {
-                            return "<a href='/AncestralTabletConfig/AncestralTablets/Form/" + item.id + "'>" + item.name + "</a>";
+                            return "<a href='/CemeteryConfig/Plots/Form/" + item.id + "'>" + item.name + "</a>";
                         }
                     },
                     {
-                        data: "positionX"
-                    },
-                    {
-                        data: "positionY"
+                        data: "size"
                     },
                     {
                         data: "price"
                     },
                     {
                         data: "maintenance"
+                    },
+                    {
+                        data: "wall"
+                    },
+                    {
+                        data: "dig"
+                    },
+                    {
+                        data: "brick"
+                    },
+                    {
+                        data: "plotTypeDto.name"
                     },
                     {
                         data: "remark"
@@ -140,7 +188,7 @@
                 bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/ancestraltablets/" + button.attr("data-id"),
+                            url: "/api/cemeteries/plots/" + button.attr("data-id"),
                             method: "DELETE",
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();
@@ -149,9 +197,7 @@
                     }
                 });
             });
-            
+
         });
     </script>
 }
-
-

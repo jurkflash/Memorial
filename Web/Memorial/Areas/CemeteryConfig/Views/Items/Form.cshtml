@@ -1,4 +1,4 @@
-﻿@model Memorial.Core.Dtos.AncestralTabletItemDto
+﻿@model Memorial.Core.Dtos.CemeteryItemDto
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -44,7 +44,7 @@
 
     @Html.HiddenFor(s => s.Id)
     @Html.HiddenFor(s => s.SubProductServiceDtoId)
-    @Html.HiddenFor(s => s.AncestralTabletAreaDtoId)
+    @Html.HiddenFor(s => s.PlotDtoId)
     <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
 </form>
 @section scripts
@@ -77,14 +77,14 @@
                     var vm = {
                         id: $("#Id").val(),
                         subProductServiceDtoId: $("#SubProductServiceDtoId").val(),
-                        ancestralTabletAreaDtoId: $("#AncestralTabletAreaDtoId").val(),
+                        plotDtoId: $("#PlotDtoId").val(),
                         price: $("#Price").val(),
                         code: $("#Code").val(),
                         isOrder: $("input[name='isOrder']:checked").val()
                     };
 
                     $.ajax({
-                        url: "/api/ancestraltablets/areas/items/" + $("#Id").val(),
+                        url: "/api/cemeteries/plots/items/" + $("#Id").val(),
                         method: "put",
                         data: vm
                     })

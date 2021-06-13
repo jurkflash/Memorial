@@ -14,6 +14,7 @@ namespace Memorial.Core.Dtos
         [StringLength(255)]
         public string Description { get; set; }
 
+        [Required]
         public string Size { get; set; }
 
         public float Price { get; set; }
