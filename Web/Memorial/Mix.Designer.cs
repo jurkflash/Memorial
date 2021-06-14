@@ -241,6 +241,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改區 Edit Area.
+        /// </summary>
+        public static string AreaEdit {
+            get {
+                return ResourceManager.GetString("AreaEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新區 New Area.
+        /// </summary>
+        public static string AreaNew {
+            get {
+                return ResourceManager.GetString("AreaNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorised Signature of Applicant&lt;br /&gt;申請人簽名.
         /// </summary>
         public static string AuthorisedSignatureOfApplicantBR {
@@ -327,6 +345,24 @@ namespace Resources {
         public static string CentreBR {
             get {
                 return ResourceManager.GetString("CentreBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改中心 Edit Centre.
+        /// </summary>
+        public static string CentreEdit {
+            get {
+                return ResourceManager.GetString("CentreEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新中心 New Centre.
+        /// </summary>
+        public static string CentreNew {
+            get {
+                return ResourceManager.GetString("CentreNew", resourceCulture);
             }
         }
         
@@ -925,11 +961,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改骨灰閣 Edit Niche.
+        /// </summary>
+        public static string NicheEdit {
+            get {
+                return ResourceManager.GetString("NicheEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新骨灰閣 New Niche.
+        /// </summary>
+        public static string NicheNew {
+            get {
+                return ResourceManager.GetString("NicheNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 全骨灰閣&lt;br /&gt;Niches.
         /// </summary>
         public static string NichesBR {
             get {
                 return ResourceManager.GetString("NichesBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰閣種類 Niche Type.
+        /// </summary>
+        public static string NicheType {
+            get {
+                return ResourceManager.GetString("NicheType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨灰閣種類&lt;br /&gt;Niche Type.
+        /// </summary>
+        public static string NicheTypeBR {
+            get {
+                return ResourceManager.GetString("NicheTypeBR", resourceCulture);
             }
         }
         

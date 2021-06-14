@@ -118,18 +118,6 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        public float GetAmount(int itemId, DateTime from, DateTime to)
-        {
-            _item.SetItem(itemId);
-            
-            if (from > to)
-                return -1;
-
-            var total = (((to.Year - from.Year) * 12) + to.Month - from.Month) * _item.GetPrice();
-
-            return total;
-        }
-
         private void SummaryItem(ColumbariumTransactionDto trx)
         {
             _niche.SetNiche(trx.NicheDtoId);

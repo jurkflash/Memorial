@@ -78,7 +78,7 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumCentre>, IEnumerable<ColumbariumCentreDto>>(GetCentreBySite(siteId));
         }
 
-        public bool Create(ColumbariumCentreDto columbariumCentreDto)
+        public int Create(ColumbariumCentreDto columbariumCentreDto)
         {
             _centre = new Core.Domain.ColumbariumCentre();
             Mapper.Map(columbariumCentreDto, _centre);
@@ -87,21 +87,42 @@ namespace Memorial.Lib.Columbarium
 
             _unitOfWork.ColumbariumCentres.Add(_centre);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _centre.Id;
         }
 
-        public bool Update(Core.Domain.ColumbariumCentre columbariumCentre)
+        public bool Update(ColumbariumCentreDto columbariumCentreDto)
         {
-            columbariumCentre.ModifyDate = DateTime.Now;
+            var columbariumCentreInDB = GetCentre(columbariumCentreDto.Id);
+
+            if (columbariumCentreInDB.SiteId != columbariumCentreDto.SiteDtoId
+                && _unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.ColumbariumCentreId == columbariumCentreInDB.Id && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(columbariumCentreDto, columbariumCentreInDB);
+
+            columbariumCentreInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItem.ColumbariumCentreId == id && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetCentre(id);
 
             _centre.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

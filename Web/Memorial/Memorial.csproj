@@ -765,6 +765,13 @@
     <Compile Include="Areas\CemeteryConfig\Controllers\PlotsController.cs" />
     <Compile Include="Areas\CemeteryConfig\Controllers\AreasController.cs" />
     <Compile Include="Areas\CemeteryConfig\Data\CemeteryAreaFormViewModel.cs" />
+    <Compile Include="Areas\ColumbariumConfig\ColumbariumConfigAreaRegistration.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Controllers\AreasController.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Controllers\CentresController.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Controllers\NichesController.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Data\ColumbariumAreaFormViewModel.cs" />
+    <Compile Include="Areas\ColumbariumConfig\Data\ColumbariumCentreFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Controllers\FreeController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\WithdrawsController.cs" />
     <Compile Include="Areas\Cremation\Controllers\FreeController.cs" />
@@ -792,6 +799,9 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\ColumbariumItemsController.cs" />
+    <Compile Include="Controllers\Api\ColumbariumAreasController.cs" />
+    <Compile Include="Controllers\Api\ColumbariumCentresController.cs" />
     <Compile Include="Controllers\Api\CemeteryItemsController.cs" />
     <Compile Include="Controllers\Api\PlotsController.cs" />
     <Compile Include="Controllers\Api\CemeteryAreasController.cs" />
@@ -803,7 +813,7 @@
     <Compile Include="Controllers\Api\AncestralTabletItemsController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletAreasController.cs" />
     <Compile Include="Controllers\Api\SitesController.cs" />
-    <Compile Include="Controllers\Api\ColumbariumsController.cs" />
+    <Compile Include="Controllers\Api\ColumbariumNichesController.cs" />
     <Compile Include="Controllers\Api\RelationshipTypesController.cs" />
     <Compile Include="Controllers\Api\DeceasedsController.cs" />
     <Compile Include="Controllers\Api\ApplicantDeceasedsController.cs" />
@@ -1059,6 +1069,9 @@
     <Compile Include="Lib\Cemetery\Area\IArea.cs" />
     <Compile Include="Lib\Cemetery\PlotType\IPlotType.cs" />
     <Compile Include="Lib\Cemetery\PlotType\PlotType.cs" />
+    <Compile Include="Lib\Columbarium\NicheType\INicheType.cs" />
+    <Compile Include="Lib\Columbarium\NicheType\NicheType.cs" />
+    <Compile Include="Lib\Columbarium\Niche\INiche.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\IWithdraw.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\Withdraw.cs" />
     <Compile Include="Lib\Constant.cs" />
@@ -1147,8 +1160,6 @@
     <Compile Include="Lib\Cemetery\Transfer\Transfer.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\INicheDeceased.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\NicheDeceased.cs" />
-    <Compile Include="Lib\Columbarium\Config\Config.cs" />
-    <Compile Include="Lib\Columbarium\Config\IConfig.cs" />
     <Compile Include="Lib\Columbarium\Payment\IPayment.cs" />
     <Compile Include="Lib\Columbarium\Manage\IManage.cs" />
     <Compile Include="Lib\Columbarium\Manage\Manage.cs" />
@@ -1172,7 +1183,6 @@
     <Compile Include="Lib\Columbarium\Centre\ICentre.cs" />
     <Compile Include="Lib\Columbarium\Area\IArea.cs" />
     <Compile Include="Lib\Columbarium\Item\IItem.cs" />
-    <Compile Include="Lib\Columbarium\Niche\INiche.cs" />
     <Compile Include="Lib\Columbarium\Number\INumber.cs" />
     <Compile Include="Lib\Columbarium\Order\Order.cs" />
     <Compile Include="Lib\Columbarium\Niche\Niche.cs" />
@@ -2851,6 +2861,16 @@
     <Content Include="Areas\CemeteryConfig\Views\Plots\Index.cshtml" />
     <Content Include="Areas\CemeteryConfig\Views\Plots\Form.cshtml" />
     <Content Include="Areas\CemeteryConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\web.config" />
+    <Content Include="Areas\ColumbariumConfig\Views\Centres\Index.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Centres\Form.cshtml" />
+    <Content Include="Areas\CemeteryConfig\Views\Areas\Form.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Areas\Index.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Areas\Form.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Items\Index.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Niches\Index.cshtml" />
+    <Content Include="Areas\ColumbariumConfig\Views\Niches\Form.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3002,6 +3022,7 @@
     <Folder Include="Areas\CatalogConfig\Data\" />
     <Folder Include="Areas\CatalogConfig\Views\Shared\" />
     <Folder Include="Areas\CemeteryConfig\Views\Shared\" />
+    <Folder Include="Areas\ColumbariumConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />

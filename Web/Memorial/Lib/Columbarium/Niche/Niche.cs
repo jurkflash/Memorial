@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using AutoMapper;
@@ -48,7 +49,7 @@ namespace Memorial.Lib.Columbarium
 
         public IEnumerable<NicheDto> GetNicheDtosByAreaId(int id)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetNichesByAreaId(id));
+            return Mapper.Map<IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetNichesByAreaId(id));
         }
 
         public IEnumerable<Core.Domain.Niche> GetAvailableNichesByAreaId(int id)
@@ -56,9 +57,29 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.Niches.GetAvailableByArea(id);
         }
 
+        public IEnumerable<Core.Domain.Niche> GetNichesByAreaIdAndTypeId(int areaId, int typeId, string filter)
+        {
+            return _unitOfWork.Niches.GetByTypeAndArea(areaId, typeId, filter);
+        }
+
+        public IEnumerable<NicheDto> GetNicheDtosByAreaIdAndTypeId(int areaId, int typeId, string filter)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetNichesByAreaIdAndTypeId(areaId, typeId, filter));
+        }
+
         public IEnumerable<NicheDto> GetAvailableNicheDtosByAreaId(int id)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Niche>, IEnumerable<NicheDto>>(GetAvailableNichesByAreaId(id));
+        }
+
+        public Core.Domain.Niche GetNicheByAreaIdAndPostions(int areaId, int positionX, int positionY)
+        {
+            return _unitOfWork.Niches.GetByAreaAndPositions(areaId, positionX, positionY);
+        }
+
+        public NicheDto GetNicheDtoByAreaIdAndPostions(int areaId, int positionX, int positionY)
+        {
+            return Mapper.Map<Core.Domain.Niche, NicheDto>(GetNicheByAreaIdAndPostions(areaId, positionX, positionY));
         }
 
         public string GetName()
@@ -137,7 +158,7 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.Niches.GetPositionsByArea(areaId);
         }
 
-        public bool Create(NicheDto nicheDto)
+        public int Create(NicheDto nicheDto)
         {
             _niche = new Core.Domain.Niche();
             Mapper.Map(nicheDto, _niche);
@@ -146,21 +167,43 @@ namespace Memorial.Lib.Columbarium
 
             _unitOfWork.Niches.Add(_niche);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _niche.Id;
         }
 
-        public bool Update(Core.Domain.Niche niche)
+        public bool Update(NicheDto nicheDto)
         {
-            niche.ModifyDate = DateTime.Now;
+            var nicheInDB = GetNiche(nicheDto.Id);
+
+            if ((nicheInDB.NicheTypeId != nicheDto.NicheTypeDtoId
+                || nicheInDB.ColumbariumAreaId != nicheDto.ColumbariumAreaDtoId)
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == nicheDto.Id || qt.ShiftedNicheId == nicheDto.Id) && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(nicheDto, nicheInDB);
+
+            nicheInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == id || qt.ShiftedNicheId == id) && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetNiche(id);
 
             _niche.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

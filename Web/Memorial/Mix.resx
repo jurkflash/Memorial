@@ -579,4 +579,28 @@
   <data name="PlotNew" xml:space="preserve">
     <value>新墓地 New Plot</value>
   </data>
+  <data name="AreaEdit" xml:space="preserve">
+    <value>修改區 Edit Area</value>
+  </data>
+  <data name="AreaNew" xml:space="preserve">
+    <value>新區 New Area</value>
+  </data>
+  <data name="CentreEdit" xml:space="preserve">
+    <value>修改中心 Edit Centre</value>
+  </data>
+  <data name="CentreNew" xml:space="preserve">
+    <value>新中心 New Centre</value>
+  </data>
+  <data name="NicheType" xml:space="preserve">
+    <value>骨灰閣種類 Niche Type</value>
+  </data>
+  <data name="NicheTypeBR" xml:space="preserve">
+    <value>骨灰閣種類&lt;br /&gt;Niche Type</value>
+  </data>
+  <data name="NicheEdit" xml:space="preserve">
+    <value>修改骨灰閣 Edit Niche</value>
+  </data>
+  <data name="NicheNew" xml:space="preserve">
+    <value>新骨灰閣 New Niche</value>
+  </data>
 </root>

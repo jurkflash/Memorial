@@ -15,10 +15,10 @@
 </div>
 <div class="form-group row">
     <div class="col-md-3">
-        @Html.Raw(Resources.Mix.Area)
+        @Html.Raw(Resources.Mix.Centre)
     </div>
     <div class="col-md-6">
-        <select id="Areas" class="form-control"></select>
+        <select id="Centres" class="form-control"></select>
     </div>
 </div>
 <table id="tbl" class="table table-bordered table-hover">
@@ -57,7 +57,7 @@
 
         function sites() {
             $.ajax({
-                url: "/api/ancestraltablets/sites"
+                url: "/api/columbariums/sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -74,18 +74,18 @@
                 });
         }
 
-        function areas() {
+        function centres() {
             $.ajax({
-                url: "/api/sites/" + $("#Sites").val() + "/ancestraltablets/areas"
+                url: "/api/sites/" + $("#Sites").val() + "/columbariums/centres"
             })
                 .done(function (response) {
                     var len = response.length;
-                    $("#Areas").empty();
-                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    $("#Centres").empty();
+                    $("#Centres").append("<option value='0'>Please Select</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
-                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                        $("#Centres").append("<option value='" + id + "'>" + name + "</option>");
                     }
                 })
                 .fail(function () {
@@ -94,31 +94,31 @@
         }
 
         function bindtbls() {
-            table.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/Items").load();
-            table2.ajax.url("/api/AncestralTablets/areas/" + $("#Areas").val() + "/availableitems").load();
+            table.ajax.url("/api/columbariums/centres/" + $("#Centres").val() + "/Items").load();
+            table2.ajax.url("/api/columbariums/centres/" + $("#Centres").val() + "/availableitems").load();
         }
         
         $(document).ready(function () {
             sites();
 
             $("#Sites").change(function () {
-                areas();
+                centres();
             })
 
-            $("#Areas").change(function () {
+            $("#Centres").change(function () {
                 bindtbls();
             })
 
             table = $("#tbl").DataTable({
                 ajax: {
-                    url: "/api/AncestralTablets/areas/0/Items",
+                    url: "/api/columbariums/centres/0/Items",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         data: "subProductServiceDto.name",
                         render: function (data, type, item) {
-                            return "<a href='/AncestralTabletConfig/Items/Form/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
+                            return "<a href='/ColumbariumConfig/Items/Form/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
                         }
                     },
                     {
@@ -159,7 +159,7 @@
 
             table2 = $("#tbl2").DataTable({
                 ajax: {
-                    url: "/api/ancestraltablets/areas/0/availableitems",
+                    url: "/api/columbariums/centres/0/availableitems",
                     dataSrc: ""
                 },
                 columns: [
@@ -194,7 +194,7 @@
                 bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/ancestraltablets/areas/items/" + button.attr("data-item-id"),
+                            url: "/api/columbariums/centres/items/" + button.attr("data-item-id"),
                             method: "DELETE",
                             success: function () {
                                 bindtbls();
@@ -208,12 +208,12 @@
                 var button = $(this);
                 var vm = {
                     SubProductServiceDtoId: button.attr("data-availableitem-id"),
-                    AncestralTabletAreaDtoId: $("#Areas").val()
+                    ColumbariumCentreDtoId: $("#Centres").val()
                 };
                 bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         $.ajax({
-                            url: "/api/ancestraltablets/areas/items",
+                            url: "/api/columbariums/centres/items",
                             method: "POST",
                             data: vm,
                             success: function () {

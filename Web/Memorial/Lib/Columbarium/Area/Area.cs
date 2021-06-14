@@ -73,7 +73,7 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumArea>, IEnumerable<ColumbariumAreaDto>>(GetAreaByCentre(centreId));
         }
 
-        public bool Create(ColumbariumAreaDto columbariumAreaDto)
+        public int Create(ColumbariumAreaDto columbariumAreaDto)
         {
             _area = new Core.Domain.ColumbariumArea();
             Mapper.Map(columbariumAreaDto, _area);
@@ -82,21 +82,42 @@ namespace Memorial.Lib.Columbarium
 
             _unitOfWork.ColumbariumAreas.Add(_area);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _area.Id;
         }
 
-        public bool Update(Core.Domain.ColumbariumArea columbariumArea)
+        public bool Update(ColumbariumAreaDto columbariumAreaDto)
         {
-            columbariumArea.ModifyDate = DateTime.Now;
+            var columbariumAreaInDB = GetArea(columbariumAreaDto.Id);
+
+            if (columbariumAreaInDB.ColumbariumCentreId != columbariumAreaDto.ColumbariumCentreDtoId
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == columbariumAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == columbariumAreaInDB.Id) && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(columbariumAreaDto, columbariumAreaInDB);
+
+            columbariumAreaInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == id || qt.ShiftedNiche.ColumbariumAreaId == id) && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetArea(id);
 
             _area.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

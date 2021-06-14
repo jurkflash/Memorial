@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
 
@@ -12,12 +13,14 @@ namespace Memorial.Lib.Columbarium
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
         private Core.Domain.ColumbariumItem _item;
 
-        public Item(IUnitOfWork unitOfWork, ISubProductService subProductService)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
             _subProductService = subProductService;
         }
 
@@ -82,6 +85,18 @@ namespace Memorial.Lib.Columbarium
                 return _item.SubProductService.isOrder;
         }
 
+        public float GetAmountWithDateRange(int itemId, DateTime from, DateTime to)
+        {
+            SetItem(itemId);
+
+            if (from > to)
+                return -1;
+
+            var total = (((to.Year - from.Year) * 12) + to.Month - from.Month) * GetPrice();
+
+            return total;
+        }
+
         public IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId)
         {
             return _unitOfWork.ColumbariumItems.GetByCentre(centreId);
@@ -92,7 +107,20 @@ namespace Memorial.Lib.Columbarium
             return Mapper.Map<IEnumerable<Core.Domain.ColumbariumItem>, IEnumerable<ColumbariumItemDto>>(GetItemByCentre(centreId));
         }
 
-        public bool Create(ColumbariumItemDto columbariumItemDto)
+        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCentre(int centreId)
+        {
+            if (centreId == 0)
+                return new HashSet<SubProductServiceDto>();
+
+            var t = GetItemByCentre(centreId);
+            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetColumbariumProduct().Id);
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+
+            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+        }
+
+
+        public int Create(ColumbariumItemDto columbariumItemDto)
         {
             _item = new Core.Domain.ColumbariumItem();
             Mapper.Map(columbariumItemDto, _item);
@@ -101,21 +129,43 @@ namespace Memorial.Lib.Columbarium
 
             _unitOfWork.ColumbariumItems.Add(_item);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _item.Id;
         }
 
-        public bool Update(Core.Domain.ColumbariumItem columbariumItem)
+        public bool Update(ColumbariumItemDto columbariumItemDto)
         {
-            columbariumItem.ModifyDate = DateTime.Now;
+            var columbariumItemInDB = GetItem(columbariumItemDto.Id);
+
+            if ((columbariumItemInDB.isOrder != columbariumItemDto.isOrder
+                || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreDtoId)
+                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id && qi.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(columbariumItemDto, columbariumItemInDB);
+
+            columbariumItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItemId == id && qt.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetItem(id);
 
             _item.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

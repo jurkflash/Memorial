@@ -1,33 +1,34 @@
-﻿@model Memorial.ViewModels.AncestralTabletAreaFormViewModel
+﻿@model Memorial.ViewModels.ColumbariumCentreFormViewModel
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <form id="form">
-
-    @if (Model.AncestralTabletAreaDto.Id == 0)
+    @if (Model.ColumbariumCentreDto.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.AreaNew)</h2>
+        <h2>@Html.Raw(Resources.Mix.CentreNew)</h2>
 
         <div class="form-group row">
             <div class="col-md-3">
                 @Html.Raw(Resources.Mix.SiteBR)
             </div>
             <div class="col-md-6">
-                @Html.DropDownListFor(s => s.AncestralTabletAreaDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.AncestralTabletAreaDto.SiteDtoId)
+                @Html.DropDownListFor(s => s.ColumbariumCentreDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.ColumbariumCentreDto.SiteDtoId)
             </div>
         </div>
     }
     else
     {
+        <h2>@Html.Raw(Resources.Mix.CentreEdit)</h2>
+
         <div class="form-group row">
             <div class="col-md-3">
                 @Html.Raw(Resources.Mix.SiteBR)
             </div>
             <div class="col-md-6">
-                @Model.AncestralTabletAreaDto.SiteDto.Name
+                @Model.ColumbariumCentreDto.SiteDto.Name
             </div>
         </div>
     }
@@ -37,8 +38,8 @@
             @Html.Raw(Resources.Mix.NameBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(s => s.AncestralTabletAreaDto.Name, new { @class = "form-control", required = "required" })
-            @Html.ValidationMessageFor(s => s.AncestralTabletAreaDto.Name)
+            @Html.TextBoxFor(s => s.ColumbariumCentreDto.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.ColumbariumCentreDto.Name)
         </div>
     </div>
 
@@ -47,21 +48,12 @@
             @Html.Raw(Resources.Mix.DescriptionBR)
         </div>
         <div class="col-md-6">
-            @Html.TextAreaFor(s => s.AncestralTabletAreaDto.Description, new { @class = "form-control" })
+            @Html.TextAreaFor(s => s.ColumbariumCentreDto.Description, new { @class = "form-control" })
         </div>
     </div>
 
-    <div class="form-group row">
-        <div class="col-md-3">
-            @Html.Raw(Resources.Mix.RemarkBR)
-        </div>
-        <div class="col-md-6">
-            @Html.TextAreaFor(s => s.AncestralTabletAreaDto.Remark, new { @class = "form-control" })
-        </div>
-    </div>
-
-    @Html.HiddenFor(s => s.AncestralTabletAreaDto.Id)
-    @Html.HiddenFor(s => s.AncestralTabletAreaDto.SiteDtoId)
+    @Html.HiddenFor(s => s.ColumbariumCentreDto.Id)
+    @Html.HiddenFor(s => s.ColumbariumCentreDto.SiteDtoId)
     <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
 </form>
 @section scripts
@@ -77,7 +69,7 @@
                 return true;
             }, MEMORIAL_PLEASE_SELECT);
 
-            $("#AncestralTabletAreaDto_SiteDtoId").rules("add",
+            $("#ColumbariumCentreDto_SiteDtoId").rules("add",
             {
                 mustSelect: true
             });
@@ -86,21 +78,19 @@
                 e.preventDefault();
                 if ($("#form").valid()) {
                     var vm = {
-                        id: $("#AncestralTabletAreaDto_Id").val(),
-                        siteDtoId: $("#AncestralTabletAreaDto_SiteDtoId").val(),
-                        name: $("#AncestralTabletAreaDto_Name").val(),
-                        description: $("#AncestralTabletAreaDto_Description").val(),
-                        remark: $("#AncestralTabletAreaDto_Remark").val()
+                        id: $("#ColumbariumCentreDto_Id").val(),
+                        siteDtoId: $("#ColumbariumCentreDto_SiteDtoId").val(),
+                        name: $("#ColumbariumCentreDto_Name").val(),
+                        description: $("#ColumbariumCentreDto_Description").val()
                     };
                     var verb = "";
-                    var url = "/api/ancestraltablets/areas";
-                    if ($("#AncestralTabletAreaDto_Id").val() == 0) {
+                    var url = "/api/columbariums/centres";
+                    if ($("#ColumbariumCentreDto_Id").val() == 0) {
                         verb = "post";
                     }
                     else {
-                        vm.siteDtoId = $("#AncestralTabletAreaDto_SiteDtoId").val();
                         verb = "put";
-                        url = url + "/" + $("#AncestralTabletAreaDto_Id").val();
+                        url = url + "/" + $("#ColumbariumCentreDto_Id").val();
                     }
 
                     $.ajax({

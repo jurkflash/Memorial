@@ -9,6 +9,10 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Niche> GetByArea(int columbariumAreaId);
 
+        Niche GetByAreaAndPositions(int areaId, int positionX, int positionY);
+
+        IEnumerable<Niche> GetByTypeAndArea(int areaId, int nicheTypeId, string filter = null);
+
         IEnumerable<Niche> GetAvailableByArea(int columbariumAreaId);
 
         IDictionary<byte, IEnumerable<byte>> GetPositionsByArea(int columbariumAreaId);

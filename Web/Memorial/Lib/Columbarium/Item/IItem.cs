@@ -30,13 +30,17 @@ namespace Memorial.Lib.Columbarium
 
         bool IsOrder();
 
+        float GetAmountWithDateRange(int itemId, DateTime from, DateTime to);
+
         IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId);
 
         IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId);
 
-        bool Create(ColumbariumItemDto columbariumItemDto);
+        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCentre(int centreId);
 
-        bool Update(Core.Domain.ColumbariumItem columbariumItem);
+        int Create(ColumbariumItemDto columbariumItemDto);
+
+        bool Update(ColumbariumItemDto columbariumItemDto);
 
         bool Delete(int id);
     }

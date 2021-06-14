@@ -16,7 +16,5 @@ namespace Memorial.Lib.Columbarium
         bool Delete();
 
         bool ChangeNiche(int oldNicheId, int newNicheId);
-
-        float GetAmount(int itemId, DateTime from, DateTime to);
     }
 }

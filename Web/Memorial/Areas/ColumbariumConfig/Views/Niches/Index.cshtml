@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Plot)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
+</p>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Centre)
+    </div>
+    <div class="col-md-6">
+        <select id="Centres" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Area)
+    </div>
+    <div class="col-md-6">
+        <select id="Areas" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.NicheType)
+    </div>
+    <div class="col-md-6">
+        <select id="NicheTypes" class="form-control"></select>
+    </div>
+</div>
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.XBR)</th>
+            <th>@Html.Raw(Resources.Mix.YBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.MaintenanceFeesBR)</th>
+            <th>@Html.Raw(Resources.Mix.LifeTimeMaintenanceBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        var table;
+
+        function sites() {
+            $.ajax({
+                url: "/api/columbariums/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function centres() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/columbariums/centres"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Centres").empty();
+                    $("#Centres").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Centres").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function areas() {
+            $.ajax({
+                url: "/api/columbariums/centres/" + $("#Centres").val() + "/areas"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Areas").empty();
+                    $("#Areas").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Areas").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function nicheTypes() {
+            $.ajax({
+                url: "/api/columbariums/types"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#NicheTypes").empty();
+                    $("#NicheTypes").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#NicheTypes").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function bindtbls() {
+            if ($("#Areas").val() != null && $("#NicheTypes").val() != null)
+                table.ajax.url("/api/columbariums/areas/" + $("#Areas").val() + "/types/" + $("#NicheTypes").val() + "/niches").load();
+        }
+
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                centres();
+            })
+
+            $("#Centres").change(function () {
+                areas();
+            })
+
+            $("#Areas").change(function () {
+                nicheTypes();
+            })
+
+            $("#NicheTypes").change(function () {
+                bindtbls();
+            })
+
+            table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/columbariums/areas/0/types/0/niches",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, item) {
+                            return "<a href='/ColumbariumConfig/Niches/Form/" + item.id + "'>" + item.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "positionX"
+                    },
+                    {
+                        data: "positionY"
+                    },
+                    {
+                        data: "price"
+                    },
+                    {
+                        data: "maintenance"
+                    },
+                    {
+                        data: "lifeTimeMaintenance"
+                    },
+                    {
+                        data: "remark"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/columbariums/niches/" + button.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+}

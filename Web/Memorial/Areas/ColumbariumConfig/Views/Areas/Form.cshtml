@@ -1,0 +1,191 @@
+﻿@model Memorial.ViewModels.ColumbariumAreaFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form">
+    @if (Model.ColumbariumAreaDto.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.AreaNew)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Sites" name="Sites" class="form-control"></select>
+                @Html.ValidationMessage("Sites")
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.CentreBR)
+            </div>
+            <div class="col-md-6">
+                <select id="Centres" name="Centres" class="form-control"></select>
+                @Html.ValidationMessage("Centres")
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.AreaEdit)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.CentreBR)
+            </div>
+            <div class="col-md-6">
+                @Model.ColumbariumAreaDto.ColumbariumCentreDto.Name
+            </div>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.ColumbariumAreaDto.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.ColumbariumAreaDto.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DescriptionBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.ColumbariumAreaDto.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.ColumbariumAreaDto.Id)
+    @Html.HiddenFor(s => s.ColumbariumAreaDto.ColumbariumCentreDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        function sites() {
+            $.ajax({
+                url: "/api/columbariums/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function centres() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/columbariums/centres"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Centres").empty();
+                    $("#Centres").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Centres").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                    var x = $("#ColumbariumAreaDto_ColumbariumCentreDtoId").val();
+                    $("#Centres").val(x);
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        $(document).ready(function () {
+
+            $.validator.addMethod("mustSelect", function (value, element, arg) {
+                if (value == "0")
+                    return false;
+                return true;
+            }, MEMORIAL_PLEASE_SELECT);
+
+            $("#ColumbariumAreaDto_ColumbariumCentreDtoId").rules("add",
+            {
+                mustSelect: true
+            });
+
+            if ($("#ColumbariumAreaDto_Id").val() == 0) {
+
+                sites();
+
+                $("#Sites").rules("add",
+                    {
+                        mustSelect: true
+                    });
+
+                $("#Centres").rules("add",
+                    {
+                        mustSelect: true
+                    });
+
+                $("#Sites").change(function () {
+                    centres();
+                })
+            }
+
+            
+
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#ColumbariumAreaDto_Id").val(),
+                        columbariumCentreDtoId: $("#Centres").val(),
+                        name: $("#ColumbariumAreaDto_Name").val(),
+                        description: $("#ColumbariumAreaDto_Description").val()
+                    };
+                    var verb = "";
+                    var url = "/api/columbariums/centres/areas";
+                    if ($("#ColumbariumAreaDto_Id").val() == 0) {
+                        verb = "post";
+                    }
+                    else {
+                        vm.columbariumCentreDtoId = $("#ColumbariumAreaDto_ColumbariumCentreDtoId").val();
+                        verb = "put";
+                        url = url + "/" + $("#ColumbariumAreaDto_Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                    .done(function (data) {
+                        toastr.success(MEMORIAL_SUCCESS);
+                        if (verb == "post") {
+                            setTimeout(function () {
+                                window.location.href = window.location.href + '/' + data.id;
+                            }, 1000);
+                        }
+                    })
+                    .fail(function () {
+                        toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                    });
+
+                    return false;
+                }
+            });
+
+        });</script>
+}

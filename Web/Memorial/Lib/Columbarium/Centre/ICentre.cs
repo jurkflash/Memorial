@@ -32,9 +32,9 @@ namespace Memorial.Lib.Columbarium
 
         IEnumerable<ColumbariumCentreDto> GetCentreDtosBySite(int siteId);
 
-        bool Create(ColumbariumCentreDto columbariumCentreDto);
+        int Create(ColumbariumCentreDto columbariumCentreDto);
 
-        bool Update(Core.Domain.ColumbariumCentre columbariumCentre);
+        bool Update(ColumbariumCentreDto columbariumCentreDto);
 
         bool Delete(int id);
     }

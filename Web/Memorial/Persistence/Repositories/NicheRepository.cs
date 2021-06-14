@@ -28,6 +28,32 @@ namespace Memorial.Persistence.Repositories
                 .Where(q => q.ColumbariumAreaId == columbariumAreaId).ToList();
         }
 
+        public Niche GetByAreaAndPositions(int areaId, int positionX, int positionY)
+        {
+            return MemorialContext.Niches
+                .Where(a => a.ColumbariumAreaId == areaId
+                && a.PositionX == positionX
+                && a.PositionY == positionY).SingleOrDefault();
+        }
+
+        public IEnumerable<Niche> GetByTypeAndArea(int areaId, int nicheTypeId, string filter = null)
+        {
+            var niches = MemorialContext.Niches
+                .Include(p => p.NicheType)
+                .Include(p => p.ColumbariumArea.ColumbariumCentre)
+                .Where(p => p.NicheTypeId == nicheTypeId &&
+                        p.ColumbariumAreaId == areaId);
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                return niches.ToList();
+            }
+            else
+            {
+                return niches.Where(p => p.Name.Contains(filter)).ToList();
+            }
+        }
+
         public IEnumerable<Niche> GetAvailableByArea(int columbariumAreaId)
         {
             return MemorialContext.Niches
@@ -44,7 +70,7 @@ namespace Memorial.Persistence.Repositories
                 .Distinct()
                 .OrderBy(a => a.PositionY).ThenBy(a => a.PositionX).ToList();
 
-            if (t != null)
+            if (t.Count > 0)
             {
                 byte y = t.Min(m => m.PositionY);
                 var x = new List<byte>();

@@ -364,7 +364,8 @@ namespace Memorial.App_Start
             CreateMap<CemeteryAreaDto, CemeteryArea>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
-                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<CemeteryItemDto, CemeteryItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
@@ -399,17 +400,22 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ColumbariumAreaId, opt => opt.MapFrom(x => x.ColumbariumAreaDtoId));
 
             CreateMap<ColumbariumAreaDto, ColumbariumArea>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
+                .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<ColumbariumCentreDto, ColumbariumCentre>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
-                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
-                .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId));
+                .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<NicheTypeDto, NicheType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
