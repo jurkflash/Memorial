@@ -805,10 +805,16 @@
     <Compile Include="Areas\SiteConfig\SiteConfigAreaRegistration.cs" />
     <Compile Include="Areas\Space\Controllers\FreeController.cs" />
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
+    <Compile Include="Areas\UrnConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\UrnConfig\Controllers\MainsController.cs" />
+    <Compile Include="Areas\UrnConfig\Data\UrnFormViewModel.cs" />
+    <Compile Include="Areas\UrnConfig\UrnConfigAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\UrnItemsController.cs" />
     <Compile Include="Controllers\Api\MiscellaneousItemsController.cs" />
     <Compile Include="Controllers\Api\CremationItemsController.cs" />
+    <Compile Include="Controllers\Api\UrnMainsController.cs" />
     <Compile Include="Controllers\Api\MiscellaneousMainsController.cs" />
     <Compile Include="Controllers\Api\CremationMainsController.cs" />
     <Compile Include="Controllers\Api\ColumbariumItemsController.cs" />
@@ -1247,8 +1253,6 @@
     <Compile Include="Lib\Space\Space\Space.cs" />
     <Compile Include="Lib\Space\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Space\Transaction\Transaction.cs" />
-    <Compile Include="Lib\Urn\Config\Config.cs" />
-    <Compile Include="Lib\Urn\Config\IConfig.cs" />
     <Compile Include="Lib\Urn\Item\IItem.cs" />
     <Compile Include="Lib\Urn\Item\Item.cs" />
     <Compile Include="Lib\Urn\Payment\IPayment.cs" />
@@ -2893,6 +2897,11 @@
     <Content Include="Areas\MiscellaneousConfig\Views\Items\Index.cshtml" />
     <Content Include="Areas\MiscellaneousConfig\Views\Mains\Form.cshtml" />
     <Content Include="Areas\MiscellaneousConfig\Views\Mains\Index.cshtml" />
+    <Content Include="Areas\UrnConfig\Views\web.config" />
+    <Content Include="Areas\UrnConfig\Views\Mains\Form.cshtml" />
+    <Content Include="Areas\UrnConfig\Views\Mains\Index.cshtml" />
+    <Content Include="Areas\UrnConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\UrnConfig\Views\Items\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3053,6 +3062,7 @@
     <Folder Include="Areas\SiteConfig\Data\" />
     <Folder Include="Areas\SiteConfig\Views\Shared\" />
     <Folder Include="Areas\Space\Views\Shared\" />
+    <Folder Include="Areas\UrnConfig\Views\Shared\" />
     <Folder Include="Areas\Urn\Views\Shared\" />
     <Folder Include="Lib\Columbarium\Free\" />
     <Folder Include="Models\" />

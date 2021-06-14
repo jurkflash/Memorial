@@ -20,9 +20,9 @@ namespace Memorial.Lib.Urn
 
         IEnumerable<UrnDto> GetUrnDtos();
 
-        IEnumerable<Core.Domain.Urn> GetUrnsBySite(byte siteId);
+        IEnumerable<Core.Domain.Urn> GetUrnsBySite(int siteId);
 
-        IEnumerable<UrnDto> GetUrnDtosBySite(byte siteId);
+        IEnumerable<UrnDto> GetUrnDtosBySite(int siteId);
 
         string GetName();
 
@@ -30,9 +30,9 @@ namespace Memorial.Lib.Urn
 
         float GetPrice();
 
-        bool Create(UrnDto urnDto);
+        int Create(UrnDto urnDto);
 
-        bool Update(Core.Domain.Urn urn);
+        bool Update(UrnDto urnDto);
 
         bool Delete(int id);
     }

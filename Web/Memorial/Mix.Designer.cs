@@ -1501,6 +1501,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改骨灰甕 Edit Urn.
+        /// </summary>
+        public static string UrnEdit {
+            get {
+                return ResourceManager.GetString("UrnEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新骨灰甕 New Urn.
+        /// </summary>
+        public static string UrnNew {
+            get {
+                return ResourceManager.GetString("UrnNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 後牆及行人道費&lt;br /&gt;Wall Price.
         /// </summary>
         public static string WallPriceBR {

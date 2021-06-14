@@ -38,9 +38,11 @@ namespace Memorial.Lib.Urn
 
         IEnumerable<UrnItemDto> GetItemDtosByUrn(int urnId);
 
-        bool Create(UrnItemDto urnItemDto);
+        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByUrn(int urnId);
 
-        bool Update(Core.Domain.UrnItem urnItem);
+        int Create(UrnItemDto urnItemDto);
+
+        bool Update(UrnItemDto urnItemDto);
 
         bool Delete(int id);
     }

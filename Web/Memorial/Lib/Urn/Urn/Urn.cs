@@ -49,12 +49,12 @@ namespace Memorial.Lib.Urn
             return Mapper.Map<IEnumerable<Core.Domain.Urn>, IEnumerable<UrnDto>>(_unitOfWork.Urns.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.Urn> GetUrnsBySite(byte siteId)
+        public IEnumerable<Core.Domain.Urn> GetUrnsBySite(int siteId)
         {
             return _unitOfWork.Urns.GetBySite(siteId);
         }
 
-        public IEnumerable<UrnDto> GetUrnDtosBySite(byte siteId)
+        public IEnumerable<UrnDto> GetUrnDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Urn>, IEnumerable<UrnDto>>(_unitOfWork.Urns.GetBySite(siteId));
         }
@@ -74,7 +74,7 @@ namespace Memorial.Lib.Urn
             return _urn.Price;
         }
 
-        public bool Create(UrnDto urnDto)
+        public int Create(UrnDto urnDto)
         {
             _urn = new Core.Domain.Urn();
             Mapper.Map(urnDto, _urn);
@@ -83,21 +83,42 @@ namespace Memorial.Lib.Urn
 
             _unitOfWork.Urns.Add(_urn);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _urn.Id;
         }
 
-        public bool Update(Core.Domain.Urn urn)
+        public bool Update(UrnDto urnDto)
         {
-            urn.ModifyDate = DateTime.Now;
+            var urnInDB = GetUrn(urnDto.Id);
+
+            if (urnInDB.SiteId != urnDto.SiteDtoId
+                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.SiteId == urnInDB.SiteId && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(urnDto, urnInDB);
+
+            urnInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.Id == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetUrn(id);
 
             _urn.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

@@ -18,21 +18,21 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/sites/{siteId:int}/miscellaneous/mains")]
         [HttpGet]
-        public IEnumerable<MiscellaneousDto> GetCremationDtosBySite(int siteId)
+        public IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(int siteId)
         {
             return _miscellaneous.GetMiscellaneousDtosBySite(siteId);
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetCremationDto(int id)
+        public IHttpActionResult GetMiscellaneousDto(int id)
         {
             return Ok(_miscellaneous.GetMiscellaneousDto(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateCremation(MiscellaneousDto miscellaneousDto)
+        public IHttpActionResult CreateMiscellaneous(MiscellaneousDto miscellaneousDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -49,7 +49,7 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateArea(int id, MiscellaneousDto miscellaneousDto)
+        public IHttpActionResult UpdateMiscellaneous(int id, MiscellaneousDto miscellaneousDto)
         {
             if (_miscellaneous.Update(miscellaneousDto))
                 return Ok();
@@ -59,7 +59,7 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteArea(int id)
+        public IHttpActionResult DeleteMiscellaneous(int id)
         {
             if (_miscellaneous.Delete(id))
                 return Ok();

@@ -28,7 +28,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<Urn> GetBySite(byte siteId)
+        public IEnumerable<Urn> GetBySite(int siteId)
         {
             return MemorialContext.Urns
                 .Where(u => u.SiteId == siteId && u.DeleteDate == null).ToList();

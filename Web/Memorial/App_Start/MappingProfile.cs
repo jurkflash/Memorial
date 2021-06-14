@@ -342,13 +342,17 @@ namespace Memorial.App_Start
             CreateMap<UrnDto, Urn>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
-                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+
             CreateMap<UrnItemDto, UrnItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Urn, opt => opt.Ignore())
-                .ForMember(c => c.UrnId, opt => opt.MapFrom(x => x.UrnDtoId));
+                .ForMember(c => c.UrnId, opt => opt.MapFrom(x => x.UrnDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+
             CreateMap<UrnTransactionDto, UrnTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.UrnItem, opt => opt.Ignore())

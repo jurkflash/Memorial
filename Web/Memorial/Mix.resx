@@ -615,4 +615,10 @@
   <data name="MiscellaneousNew" xml:space="preserve">
     <value>新雜費 New Miscellaneous</value>
   </data>
+  <data name="UrnEdit" xml:space="preserve">
+    <value>修改骨灰甕 Edit Urn</value>
+  </data>
+  <data name="UrnNew" xml:space="preserve">
+    <value>新骨灰甕 New Urn</value>
+  </data>
 </root>

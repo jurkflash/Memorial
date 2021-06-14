@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.Urn
@@ -11,11 +13,15 @@ namespace Memorial.Lib.Urn
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.UrnItem _item;
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -99,7 +105,19 @@ namespace Memorial.Lib.Urn
             return Mapper.Map<IEnumerable<Core.Domain.UrnItem>, IEnumerable<UrnItemDto>>(GetItemByUrn(urnId));
         }
 
-        public bool Create(UrnItemDto urnItemDto)
+        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByUrn(int urnId)
+        {
+            if (urnId == 0)
+                return new HashSet<SubProductServiceDto>();
+
+            var t = GetItemByUrn(urnId);
+            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetUrnProduct().Id);
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+
+            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+        }
+
+        public int Create(UrnItemDto urnItemDto)
         {
             _item = new Core.Domain.UrnItem();
             Mapper.Map(urnItemDto, _item);
@@ -108,21 +126,43 @@ namespace Memorial.Lib.Urn
 
             _unitOfWork.UrnItems.Add(_item);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _item.Id;
         }
 
-        public bool Update(Core.Domain.UrnItem urnItem)
+        public bool Update(UrnItemDto urnItemDto)
         {
-            urnItem.ModifyDate = DateTime.Now;
+            var urnItemInDB = GetItem(urnItemDto.Id);
+
+            if ((urnItemInDB.UrnId != urnItemDto.UrnDtoId
+                || urnItemInDB.isOrder != urnItemDto.isOrder)
+                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == urnItemInDB.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(urnItemDto, urnItemInDB);
+
+            urnItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetItem(id);
 
             _item.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
