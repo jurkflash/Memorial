@@ -484,6 +484,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改火葬 Edit Cremation.
+        /// </summary>
+        public static string CremationEdit {
+            get {
+                return ResourceManager.GetString("CremationEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新火葬 New Cremation.
+        /// </summary>
+        public static string CremationNew {
+            get {
+                return ResourceManager.GetString("CremationNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 單日費用&lt;br /&gt;Daily Rental.
         /// </summary>
         public static string DailyRentalBR {

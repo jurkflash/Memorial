@@ -14,7 +14,7 @@ namespace Memorial.Core.Dtos
 
         public CremationDto CremationDto { get; set; }
 
-        public byte CremationDtoId { get; set; }
+        public int CremationDtoId { get; set; }
 
         public bool? isOrder { get; set; }
 

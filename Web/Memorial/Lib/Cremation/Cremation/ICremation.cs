@@ -20,17 +20,17 @@ namespace Memorial.Lib.Cremation
 
         CremationDto GetCremationDto(int id);
 
-        IEnumerable<Core.Domain.Cremation> GetCremationBySite(byte siteId);
+        IEnumerable<Core.Domain.Cremation> GetCremationBySite(int siteId);
 
-        IEnumerable<CremationDto> GetCremationDtosBySite(byte siteId);
+        IEnumerable<CremationDto> GetCremationDtosBySite(int siteId);
 
         string GetName();
 
         string GetDescription();
 
-        bool Create(CremationDto cremationDto);
+        int Create(CremationDto cremationDto);
 
-        bool Update(Core.Domain.Cremation cremation);
+        bool Update(CremationDto cremationDto);
 
         bool Delete(int id);
     }

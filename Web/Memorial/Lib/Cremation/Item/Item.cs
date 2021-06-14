@@ -5,6 +5,7 @@ using System.Web;
 using Memorial.Core;
 using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
 
@@ -13,12 +14,14 @@ namespace Memorial.Lib.Cremation
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
         private Core.Domain.CremationItem _item;
 
-        public Item(IUnitOfWork unitOfWork, ISubProductService subProductService)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
             _subProductService = subProductService;
         }
 
@@ -103,7 +106,19 @@ namespace Memorial.Lib.Cremation
             return Mapper.Map<IEnumerable<Core.Domain.CremationItem>, IEnumerable<CremationItemDto>>(GetItemByCremation(cremationId));
         }
 
-        public bool Create(CremationItemDto cremationItemDto)
+        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCremation(int cremationId)
+        {
+            if (cremationId == 0)
+                return new HashSet<SubProductServiceDto>();
+
+            var t = GetItemByCremation(cremationId);
+            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetCremationProduct().Id);
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+
+            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+        }
+
+        public int Create(CremationItemDto cremationItemDto)
         {
             _item = new Core.Domain.CremationItem();
             Mapper.Map(cremationItemDto, _item);
@@ -112,21 +127,43 @@ namespace Memorial.Lib.Cremation
 
             _unitOfWork.CremationItems.Add(_item);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _item.Id;
         }
 
-        public bool Update(Core.Domain.CremationItem cremationItem)
+        public bool Update(CremationItemDto cremationItemDto)
         {
-            cremationItem.ModifyDate = DateTime.Now;
+            var cremationItemInDB = GetItem(cremationItemDto.Id);
+
+            if ((cremationItemInDB.CremationId != cremationItemDto.CremationDtoId
+                || cremationItemInDB.isOrder != cremationItemDto.isOrder)
+                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == cremationItemInDB.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(cremationItemDto, cremationItemInDB);
+
+            cremationItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetItem(id);
 
             _item.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

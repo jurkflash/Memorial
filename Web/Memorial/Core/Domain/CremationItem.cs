@@ -20,7 +20,7 @@ namespace Memorial.Core.Domain
 
         public Cremation Cremation { get; set; }
 
-        public byte CremationId { get; set; }
+        public int CremationId { get; set; }
 
         public bool? isOrder { get; set; }
 

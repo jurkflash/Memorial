@@ -774,6 +774,10 @@
     <Compile Include="Areas\ColumbariumConfig\Data\ColumbariumCentreFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Controllers\FreeController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\WithdrawsController.cs" />
+    <Compile Include="Areas\CremationConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\CremationConfig\Controllers\MainsController.cs" />
+    <Compile Include="Areas\CremationConfig\CremationConfigAreaRegistration.cs" />
+    <Compile Include="Areas\CremationConfig\Data\CremationFormViewModel.cs" />
     <Compile Include="Areas\Cremation\Controllers\FreeController.cs" />
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
@@ -799,6 +803,8 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\CremationItemsController.cs" />
+    <Compile Include="Controllers\Api\CremationMainsController.cs" />
     <Compile Include="Controllers\Api\ColumbariumItemsController.cs" />
     <Compile Include="Controllers\Api\ColumbariumAreasController.cs" />
     <Compile Include="Controllers\Api\ColumbariumCentresController.cs" />
@@ -1075,8 +1081,6 @@
     <Compile Include="Lib\Columbarium\Withdraw\IWithdraw.cs" />
     <Compile Include="Lib\Columbarium\Withdraw\Withdraw.cs" />
     <Compile Include="Lib\Constant.cs" />
-    <Compile Include="Lib\Cremation\Config\Config.cs" />
-    <Compile Include="Lib\Cremation\Config\IConfig.cs" />
     <Compile Include="Lib\Cremation\Cremation\ICremation.cs" />
     <Compile Include="Lib\Cremation\Cremation\Cremation.cs" />
     <Compile Include="Lib\Cremation\Item\IItem.cs" />
@@ -2613,6 +2617,10 @@
     <Compile Include="Migrations\202106090600142_ChangeIdDatatypeToIntForSitesTable.designer.cs">
       <DependentUpon>202106090600142_ChangeIdDatatypeToIntForSitesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106141200175_ChangeTinyintToIntForCremationIdDataType.cs" />
+    <Compile Include="Migrations\202106141200175_ChangeTinyintToIntForCremationIdDataType.designer.cs">
+      <DependentUpon>202106141200175_ChangeTinyintToIntForCremationIdDataType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2871,6 +2879,11 @@
     <Content Include="Areas\ColumbariumConfig\Views\Items\Form.cshtml" />
     <Content Include="Areas\ColumbariumConfig\Views\Niches\Index.cshtml" />
     <Content Include="Areas\ColumbariumConfig\Views\Niches\Form.cshtml" />
+    <Content Include="Areas\CremationConfig\Views\web.config" />
+    <Content Include="Areas\CremationConfig\Views\Mains\Index.cshtml" />
+    <Content Include="Areas\CremationConfig\Views\Mains\Form.cshtml" />
+    <Content Include="Areas\CremationConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\CremationConfig\Views\Items\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3023,6 +3036,7 @@
     <Folder Include="Areas\CatalogConfig\Views\Shared\" />
     <Folder Include="Areas\CemeteryConfig\Views\Shared\" />
     <Folder Include="Areas\ColumbariumConfig\Views\Shared\" />
+    <Folder Include="Areas\CremationConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />
@@ -4058,6 +4072,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106090600142_ChangeIdDatatypeToIntForSitesTable.resx">
       <DependentUpon>202106090600142_ChangeIdDatatypeToIntForSitesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106141200175_ChangeTinyintToIntForCremationIdDataType.resx">
+      <DependentUpon>202106141200175_ChangeTinyintToIntForCremationIdDataType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

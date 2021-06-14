@@ -12,7 +12,7 @@ namespace Memorial.Core.Domain
             CremationItems = new HashSet<CremationItem>();
         }
 
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

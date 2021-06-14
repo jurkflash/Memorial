@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Cremation)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
+</p>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        var table;
+
+        function sites() {
+            $.ajax({
+                url: "/api/cremations/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+
+        function bindtbls() {
+            table.ajax.url("/api/sites/" + $("#Sites").val() + "/cremations/mains").load();
+        }
+
+
+        $(document).ready(function () {
+
+            sites();
+
+            $("#Sites").change(function () {
+                bindtbls();
+            })
+
+            table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/sites/0/cremations/mains",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-area-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/cremations/mains/" + button.attr("data-area-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+        });
+    </script>
+}
+
+

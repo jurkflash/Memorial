@@ -486,7 +486,9 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Cremation, opt => opt.Ignore())
-                .ForMember(c => c.CremationId, opt => opt.MapFrom(x => x.CremationDtoId));
+                .ForMember(c => c.CremationId, opt => opt.MapFrom(x => x.CremationDtoId))
+                .ForMember(i => i.CreateDate, opt => opt.Ignore());
+
             CreateMap<CremationTransactionDto, CremationTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.CremationItem, opt => opt.Ignore())

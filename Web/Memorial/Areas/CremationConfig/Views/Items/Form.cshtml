@@ -1,0 +1,104 @@
+﻿@model Memorial.Core.Dtos.CremationItemDto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Item)</h2>
+
+<form id="form">
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.PriceBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Price)
+            If left empty will use default value :(@Model.SubProductServiceDto.Price)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.CodeBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.Code, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.Code)
+            If left empty will use default value :(@Model.SubProductServiceDto.Code)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.isOrderBR)
+        </div>
+        <div class="col-md-6">
+            Default: @Html.RadioButtonFor(s => s.isOrder, "")<br />
+            True: @Html.RadioButtonFor(s => s.isOrder, "True")<br />
+            False: @Html.RadioButtonFor(s => s.isOrder, "False")<br />
+            If left empty will use default value :(@Model.SubProductServiceDto.isOrder)
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.Id)
+    @Html.HiddenFor(s => s.SubProductServiceDtoId)
+    @Html.HiddenFor(s => s.CremationDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+
+            $.validator.addMethod("onlyPositiveFloat", function (value, element, arg) {
+                if (!isNaN(s) && Number(s) > 0)
+                    return true;
+                return false;
+            }, "Postive numbers only");
+
+            $.validator.addMethod("optionFiveCharacters", function (value, element, arg) {
+                if (value.length != 0 && value.length != 5)
+                    return false;
+                return true;
+            }, "Must 5 characters");
+
+            $("#Code").rules("add",
+                {
+                    optionFiveCharacters: true
+                });
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#Id").val(),
+                        subProductServiceDtoId: $("#SubProductServiceDtoId").val(),
+                        cremationDtoId: $("#CremationDtoId").val(),
+                        price: $("#Price").val(),
+                        code: $("#Code").val(),
+                        isOrder: $("input[name='isOrder']:checked").val()
+                    };
+
+                    $.ajax({
+                        url: "/api/cremations/mains/items/" + $("#Id").val(),
+                        method: "put",
+                        data: vm
+                    })
+                        .done(function (data) {
+                            toastr.success(MEMORIAL_SUCCESS);
+                        })
+                        .fail(function () {
+                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                        });
+
+                    return false;
+                }
+            });
+
+        });
+    </script>
+}

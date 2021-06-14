@@ -49,12 +49,12 @@ namespace Memorial.Lib.Cremation
             return Mapper.Map<IEnumerable<Core.Domain.Cremation>, IEnumerable<CremationDto>>(_unitOfWork.Cremations.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.Cremation> GetCremationBySite(byte siteId)
+        public IEnumerable<Core.Domain.Cremation> GetCremationBySite(int siteId)
         {
             return _unitOfWork.Cremations.GetBySite(siteId);
         }
 
-        public IEnumerable<CremationDto> GetCremationDtosBySite(byte siteId)
+        public IEnumerable<CremationDto> GetCremationDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Cremation>, IEnumerable<CremationDto>>(_unitOfWork.Cremations.GetBySite(siteId));
         }
@@ -69,7 +69,7 @@ namespace Memorial.Lib.Cremation
             return _cremation.Description;
         }
 
-        public bool Create(CremationDto cremationDto)
+        public int Create(CremationDto cremationDto)
         {
             _cremation = new Core.Domain.Cremation();
             Mapper.Map(cremationDto, _cremation);
@@ -78,21 +78,42 @@ namespace Memorial.Lib.Cremation
 
             _unitOfWork.Cremations.Add(_cremation);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _cremation.Id;
         }
 
-        public bool Update(Core.Domain.Cremation cremation)
+        public bool Update(CremationDto cremationDto)
         {
-            cremation.ModifyDate = DateTime.Now;
+            var cremationInDB = GetCremation(cremationDto.Id);
+
+            if (cremationInDB.SiteId != cremationDto.SiteDtoId
+                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(cremationDto, cremationInDB);
+
+            cremationInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.Id == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetCremation(id);
 
             _cremation.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

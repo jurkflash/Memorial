@@ -4,7 +4,7 @@ namespace Memorial.Core.Dtos
 {
     public class CremationDto
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]

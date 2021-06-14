@@ -38,9 +38,11 @@ namespace Memorial.Lib.Cremation
 
         IEnumerable<CremationItemDto> GetItemDtosByCremation(int cremationId);
 
-        bool Create(CremationItemDto cremationItemDto);
+        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCremation(int cremationId);
 
-        bool Update(Core.Domain.CremationItem cremationItem);
+        int Create(CremationItemDto cremationItemDto);
+
+        bool Update(CremationItemDto cremationItemDto);
 
         bool Delete(int id);
     }

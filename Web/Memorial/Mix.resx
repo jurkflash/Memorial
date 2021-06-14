@@ -603,4 +603,10 @@
   <data name="NicheNew" xml:space="preserve">
     <value>新骨灰閣 New Niche</value>
   </data>
+  <data name="CremationEdit" xml:space="preserve">
+    <value>修改火葬 Edit Cremation</value>
+  </data>
+  <data name="CremationNew" xml:space="preserve">
+    <value>新火葬 New Cremation</value>
+  </data>
 </root>

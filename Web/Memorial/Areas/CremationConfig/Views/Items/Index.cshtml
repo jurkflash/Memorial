@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.Item)</h2>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Site)
+    </div>
+    <div class="col-md-6">
+        <select id="Sites" class="form-control"></select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-3">
+        @Html.Raw(Resources.Mix.Cremation)
+    </div>
+    <div class="col-md-6">
+        <select id="Cremations" class="form-control"></select>
+    </div>
+</div>
+<table id="tbl" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<hr />
+<table id="tbl2" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
+            <th>@Html.Raw(Resources.Mix.PriceBR)</th>
+            <th>@Html.Raw(Resources.Mix.CodeBR)</th>
+            <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        var table;
+        var table2;
+
+        function sites() {
+            $.ajax({
+                url: "/api/cremations/sites"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Sites").empty();
+                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Sites").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function cremations() {
+            $.ajax({
+                url: "/api/sites/" + $("#Sites").val() + "/cremations/mains"
+            })
+                .done(function (response) {
+                    var len = response.length;
+                    $("#Cremations").empty();
+                    $("#Cremations").append("<option value='0'>Please Select</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#Cremations").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                })
+                .fail(function () {
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                });
+        }
+
+        function bindtbls() {
+            table.ajax.url("/api/cremations/mains/" + $("#Cremations").val() + "/Items").load();
+            table2.ajax.url("/api/cremations/mains/" + $("#Cremations").val() + "/availableitems").load();
+        }
+        
+        $(document).ready(function () {
+            sites();
+
+            $("#Sites").change(function () {
+                cremations();
+            })
+
+            $("#Cremations").change(function () {
+                bindtbls();
+            })
+
+            table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/cremations/mains/0/Items",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "subProductServiceDto.name",
+                        render: function (data, type, item) {
+                            return "<a href='/CremationConfig/Items/Form/" + item.id + "'>" + item.subProductServiceDto.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "subProductServiceDto.description",
+                    },
+                    {
+                        render: function (data, type, item) {
+                            if (item.price == null)
+                                return item.subProductServiceDto.price;
+                            else
+                                return item.price;
+                        }
+                    },
+                    {
+                        render: function (data, type, item) {
+                            if (item.code == null)
+                                return item.subProductServiceDto.code;
+                            else
+                                return item.code;
+                        }
+                    },
+                    {
+                        render: function (data, type, item) {
+                            if (item.isOrder == null)
+                                return item.subProductServiceDto.isOrder;
+                            else
+                                return item.isOrder;
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-item-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            table2 = $("#tbl2").DataTable({
+                ajax: {
+                    url: "/api/cremations/mains/0/availableitems",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data: "description",
+                    },
+                    {
+                        data: "price",
+                    },
+                    {
+                        data: "code",
+                    },
+                    {
+                        data: "isOrder",
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn btn-sm btn-primary js-add' data-availableitem-id=" + data + ">添加 Add</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/cremations/mains/items/" + button.attr("data-item-id"),
+                            method: "DELETE",
+                            success: function () {
+                                bindtbls();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $("#tbl2").on("click", ".js-add", function () {
+                var button = $(this);
+                var vm = {
+                    SubProductServiceDtoId: button.attr("data-availableitem-id"),
+                    CremationDtoId: $("#Cremations").val()
+                };
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/cremations/mains/items",
+                            method: "POST",
+                            data: vm,
+                            success: function () {
+                                bindtbls();
+                            }
+                        });
+                    }
+                });
+            });
+            
+        });
+    </script>
+}
+
+
