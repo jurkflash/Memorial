@@ -782,6 +782,10 @@
     <Compile Include="Areas\Cremation\CremationAreaRegistration.cs" />
     <Compile Include="Areas\Deceased\DeceasedAreaRegistration.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
+    <Compile Include="Areas\MiscellaneousConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\MiscellaneousConfig\Controllers\MainsController.cs" />
+    <Compile Include="Areas\MiscellaneousConfig\Data\MiscellaneousFormViewModel.cs" />
+    <Compile Include="Areas\MiscellaneousConfig\MiscellaneousConfigAreaRegistration.cs" />
     <Compile Include="Areas\Miscellaneous\Controllers\ReciprocatesController.cs" />
     <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsFormViewModel.cs" />
     <Compile Include="Areas\Miscellaneous\Data\MiscellaneousTransactionsInfoViewModel.cs" />
@@ -803,7 +807,9 @@
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\MiscellaneousItemsController.cs" />
     <Compile Include="Controllers\Api\CremationItemsController.cs" />
+    <Compile Include="Controllers\Api\MiscellaneousMainsController.cs" />
     <Compile Include="Controllers\Api\CremationMainsController.cs" />
     <Compile Include="Controllers\Api\ColumbariumItemsController.cs" />
     <Compile Include="Controllers\Api\ColumbariumAreasController.cs" />
@@ -1121,8 +1127,6 @@
     <Compile Include="Lib\Invoice\Urn\Urn.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\ICompensate.cs" />
     <Compile Include="Lib\Miscellaneous\Compensate\Compensate.cs" />
-    <Compile Include="Lib\Miscellaneous\Config\Config.cs" />
-    <Compile Include="Lib\Miscellaneous\Config\IConfig.cs" />
     <Compile Include="Lib\Miscellaneous\Donation\Donation.cs" />
     <Compile Include="Lib\Miscellaneous\Donation\IDonation.cs" />
     <Compile Include="Lib\Miscellaneous\Item\IItem.cs" />
@@ -2884,6 +2888,11 @@
     <Content Include="Areas\CremationConfig\Views\Mains\Form.cshtml" />
     <Content Include="Areas\CremationConfig\Views\Items\Form.cshtml" />
     <Content Include="Areas\CremationConfig\Views\Items\Index.cshtml" />
+    <Content Include="Areas\MiscellaneousConfig\Views\web.config" />
+    <Content Include="Areas\MiscellaneousConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\MiscellaneousConfig\Views\Items\Index.cshtml" />
+    <Content Include="Areas\MiscellaneousConfig\Views\Mains\Form.cshtml" />
+    <Content Include="Areas\MiscellaneousConfig\Views\Mains\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3039,6 +3048,7 @@
     <Folder Include="Areas\CremationConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
+    <Folder Include="Areas\MiscellaneousConfig\Views\Shared\" />
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />
     <Folder Include="Areas\SiteConfig\Data\" />
     <Folder Include="Areas\SiteConfig\Views\Shared\" />

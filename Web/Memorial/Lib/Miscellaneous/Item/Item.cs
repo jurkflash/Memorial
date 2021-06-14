@@ -5,6 +5,8 @@ using System.Web;
 using Memorial.Core;
 using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.Miscellaneous
@@ -12,11 +14,15 @@ namespace Memorial.Lib.Miscellaneous
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.MiscellaneousItem _item;
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -100,7 +106,19 @@ namespace Memorial.Lib.Miscellaneous
             return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousItem>, IEnumerable<MiscellaneousItemDto>>(GetItemByMiscellaneous(miscellaneousId));
         }
 
-        public bool Create(MiscellaneousItemDto miscellaneousItemDto)
+        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByMiscellaneous(int miscellaneousId)
+        {
+            if (miscellaneousId == 0)
+                return new HashSet<SubProductServiceDto>();
+
+            var t = GetItemByMiscellaneous(miscellaneousId);
+            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetMiscellaneousProduct().Id);
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+
+            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+        }
+
+        public int Create(MiscellaneousItemDto miscellaneousItemDto)
         {
             _item = new Core.Domain.MiscellaneousItem();
             Mapper.Map(miscellaneousItemDto, _item);
@@ -109,21 +127,43 @@ namespace Memorial.Lib.Miscellaneous
 
             _unitOfWork.MiscellaneousItems.Add(_item);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _item.Id;
         }
 
-        public bool Update(Core.Domain.MiscellaneousItem miscellaneousItem)
+        public bool Update(MiscellaneousItemDto miscellaneousItemDto)
         {
-            miscellaneousItem.ModifyDate = DateTime.Now;
+            var miscellaneousItemInDB = GetItem(miscellaneousItemDto.Id);
+
+            if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousDtoId
+                || miscellaneousItemInDB.isOrder != miscellaneousItemDto.isOrder)
+                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == miscellaneousItemInDB.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
+
+            miscellaneousItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetItem(id);
 
             _item.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

@@ -20,9 +20,9 @@ namespace Memorial.Lib.Miscellaneous
 
         IEnumerable<MiscellaneousDto> GetMiscellaneousDtos();
 
-        IEnumerable<Core.Domain.Miscellaneous> GetMiscellaneousBySite(byte siteId);
+        IEnumerable<Core.Domain.Miscellaneous> GetMiscellaneousBySite(int siteId);
 
-        IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(byte siteId);
+        IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(int siteId);
 
         string GetName();
 
@@ -30,9 +30,9 @@ namespace Memorial.Lib.Miscellaneous
 
         string GetRemark();
 
-        bool Create(MiscellaneousDto miscellaneousDto);
+        int Create(MiscellaneousDto miscellaneousDto);
 
-        bool Update(Core.Domain.Miscellaneous miscellaneous);
+        bool Update(MiscellaneousDto miscellaneousDto);
 
         bool Delete(int id);
     }

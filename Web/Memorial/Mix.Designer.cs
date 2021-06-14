@@ -898,6 +898,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改雜費 Edit Miscellaneous.
+        /// </summary>
+        public static string MiscellaneousEdit {
+            get {
+                return ResourceManager.GetString("MiscellaneousEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新雜費 New Miscellaneous.
+        /// </summary>
+        public static string MiscellaneousNew {
+            get {
+                return ResourceManager.GetString("MiscellaneousNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 流動電話&lt;br /&gt;Mobile Number.
         /// </summary>
         public static string MobileNumberBR {

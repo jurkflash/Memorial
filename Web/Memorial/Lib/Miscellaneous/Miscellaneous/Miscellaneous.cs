@@ -49,12 +49,12 @@ namespace Memorial.Lib.Miscellaneous
             return Mapper.Map<IEnumerable<Core.Domain.Miscellaneous>, IEnumerable<MiscellaneousDto>>(_unitOfWork.Miscellaneous.GetAllActive());
         }
 
-        public IEnumerable<Core.Domain.Miscellaneous> GetMiscellaneousBySite(byte siteId)
+        public IEnumerable<Core.Domain.Miscellaneous> GetMiscellaneousBySite(int siteId)
         {
             return _unitOfWork.Miscellaneous.GetBySite(siteId);
         }
 
-        public IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(byte siteId)
+        public IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.Miscellaneous>, IEnumerable<MiscellaneousDto>>(_unitOfWork.Miscellaneous.GetBySite(siteId));
         }
@@ -74,7 +74,7 @@ namespace Memorial.Lib.Miscellaneous
             return _miscellaneous.Remark;
         }
 
-        public bool Create(MiscellaneousDto miscellaneousDto)
+        public int Create(MiscellaneousDto miscellaneousDto)
         {
             _miscellaneous = new Core.Domain.Miscellaneous();
             Mapper.Map(miscellaneousDto, _miscellaneous);
@@ -83,21 +83,42 @@ namespace Memorial.Lib.Miscellaneous
 
             _unitOfWork.Miscellaneous.Add(_miscellaneous);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _miscellaneous.Id;
         }
 
-        public bool Update(Core.Domain.Miscellaneous miscellaneous)
+        public bool Update(MiscellaneousDto miscellaneousDto)
         {
-            miscellaneous.ModifyDate = DateTime.Now;
+            var miscellaneousInDB = GetMiscellaneous(miscellaneousDto.Id);
+
+            if (miscellaneousInDB.SiteId != miscellaneousDto.SiteDtoId
+                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.SiteId == miscellaneousInDB.SiteId && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(miscellaneousDto, miscellaneousInDB);
+
+            miscellaneousInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.Id == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetMiscellaneous(id);
 
             _miscellaneous.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

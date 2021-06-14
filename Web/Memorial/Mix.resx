@@ -609,4 +609,10 @@
   <data name="CremationNew" xml:space="preserve">
     <value>新火葬 New Cremation</value>
   </data>
+  <data name="MiscellaneousEdit" xml:space="preserve">
+    <value>修改雜費 Edit Miscellaneous</value>
+  </data>
+  <data name="MiscellaneousNew" xml:space="preserve">
+    <value>新雜費 New Miscellaneous</value>
+  </data>
 </root>

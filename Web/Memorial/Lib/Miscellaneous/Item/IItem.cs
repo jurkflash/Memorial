@@ -38,9 +38,11 @@ namespace Memorial.Lib.Miscellaneous
 
         IEnumerable<MiscellaneousItemDto> GetItemDtosByMiscellaneous(int miscellaneousId);
 
-        bool Create(MiscellaneousItemDto miscellaneousItemDto);
+        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByMiscellaneous(int miscellaneousId);
 
-        bool Update(Core.Domain.MiscellaneousItem miscellaneousItem);
+        int Create(MiscellaneousItemDto miscellaneousItemDto);
+
+        bool Update(MiscellaneousItemDto miscellaneousItemDto);
 
         bool Delete(int id);
     }

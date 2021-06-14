@@ -296,13 +296,16 @@ namespace Memorial.App_Start
             CreateMap<MiscellaneousDto, Miscellaneous>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
-                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
             CreateMap<MiscellaneousItemDto, MiscellaneousItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Miscellaneous, opt => opt.Ignore())
-                .ForMember(c => c.MiscellaneousId, opt => opt.MapFrom(x => x.MiscellaneousDtoId));
+                .ForMember(c => c.MiscellaneousId, opt => opt.MapFrom(x => x.MiscellaneousDtoId))
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+
             CreateMap<MiscellaneousTransactionDto, MiscellaneousTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.MiscellaneousItem, opt => opt.Ignore())

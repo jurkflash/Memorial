@@ -1,0 +1,118 @@
+﻿@model Memorial.ViewModels.MiscellaneousFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form">
+    @if (Model.MiscellaneousDto.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.MiscellaneousNew)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownListFor(s => s.MiscellaneousDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.MiscellaneousDto.SiteDtoId)
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.MiscellaneousEdit)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                @Model.MiscellaneousDto.SiteDto.Name
+            </div>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.MiscellaneousDto.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.MiscellaneousDto.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DescriptionBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.MiscellaneousDto.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.MiscellaneousDto.Id)
+    @Html.HiddenFor(s => s.MiscellaneousDto.SiteDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+
+            $.validator.addMethod("mustSelect", function (value, element, arg) {
+                if (value == "")
+                    return false;
+                return true;
+            }, MEMORIAL_PLEASE_SELECT);
+
+            $("#MiscellaneousDto_SiteDtoId").rules("add",
+            {
+                mustSelect: true
+            });
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#MiscellaneousDto_Id").val(),
+                        siteDtoId: $("#MiscellaneousDto_SiteDtoId").val(),
+                        name: $("#MiscellaneousDto_Name").val(),
+                        description: $("#MiscellaneousDto_Description").val()
+                    };
+                    var verb = "";
+                    var url = "/api/miscellaneous/mains";
+                    if ($("#MiscellaneousDto_Id").val() == 0) {
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#MiscellaneousDto_Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                    .done(function (data) {
+                        toastr.success(MEMORIAL_SUCCESS);
+                        if (verb == "post") {
+                            setTimeout(function () {
+                                window.location.href = window.location.href + '/' + data.id;
+                            }, 1000);
+                        }
+                    })
+                    .fail(function () {
+                        toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                    });
+
+                    return false;
+                }
+            });
+
+        });</script>
+}
