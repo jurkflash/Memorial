@@ -26,7 +26,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(s => s.DeleteDate == null).ToList();
         }
 
-        public IEnumerable<Space> GetBySite(byte siteId)
+        public IEnumerable<Space> GetBySite(int siteId)
         {
             return MemorialContext.Spaces
                 .Where(s => s.SiteId == siteId && s.DeleteDate == null).ToList();

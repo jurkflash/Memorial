@@ -621,4 +621,19 @@
   <data name="UrnNew" xml:space="preserve">
     <value>新骨灰甕 New Urn</value>
   </data>
+  <data name="ColorBR" xml:space="preserve">
+    <value>顏色&lt;br /&gt;Color</value>
+  </data>
+  <data name="SpaceEdit" xml:space="preserve">
+    <value>修改空間 Edit Space</value>
+  </data>
+  <data name="SpaceNew" xml:space="preserve">
+    <value>新空間 New Space</value>
+  </data>
+  <data name="AllowDepositBR" xml:space="preserve">
+    <value>允許定金&lt;br /&gt;Allow Deposit</value>
+  </data>
+  <data name="AllowDoubleBookBR" xml:space="preserve">
+    <value>允許同樣日期時間多預定或單&lt;br /&gt; Allow double book</value>
+  </data>
 </root>

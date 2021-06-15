@@ -124,6 +124,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 允許定金&lt;br /&gt;Allow Deposit.
+        /// </summary>
+        public static string AllowDepositBR {
+            get {
+                return ResourceManager.GetString("AllowDepositBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 允許同樣日期時間多預定或單&lt;br /&gt; Allow double book.
+        /// </summary>
+        public static string AllowDoubleBookBR {
+            get {
+                return ResourceManager.GetString("AllowDoubleBookBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 數額 Amount.
         /// </summary>
         public static string Amount {
@@ -399,6 +417,15 @@ namespace Resources {
         public static string CodeBR {
             get {
                 return ResourceManager.GetString("CodeBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 顏色&lt;br /&gt;Color.
+        /// </summary>
+        public static string ColorBR {
+            get {
+                return ResourceManager.GetString("ColorBR", resourceCulture);
             }
         }
         
@@ -1371,6 +1398,24 @@ namespace Resources {
         public static string Space {
             get {
                 return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改空間 Edit Space.
+        /// </summary>
+        public static string SpaceEdit {
+            get {
+                return ResourceManager.GetString("SpaceEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新空間 New Space.
+        /// </summary>
+        public static string SpaceNew {
+            get {
+                return ResourceManager.GetString("SpaceNew", resourceCulture);
             }
         }
         

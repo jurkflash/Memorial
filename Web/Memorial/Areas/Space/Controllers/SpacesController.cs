@@ -25,7 +25,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceIndexesViewModel()
             {
-                SpaceDtos = _space.DtosGetBySite(siteId),
+                SpaceDtos = _space.GetSpaceDtosBySite(siteId),
                 ApplicantId = applicantId,
                 siteDto = _site.GetSiteDto(siteId)
             };
@@ -36,7 +36,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceIndexesViewModel()
             {
-                SpaceDtos = _space.DtosGetBySite(siteId),
+                SpaceDtos = _space.GetSpaceDtosBySite(siteId),
                 siteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);

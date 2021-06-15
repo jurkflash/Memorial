@@ -40,9 +40,11 @@ namespace Memorial.Lib.Space
 
         IEnumerable<SpaceItemDto> GetItemDtosBySpace(int spaceId);
 
-        bool Create(SpaceItemDto spaceItemDto);
+        IEnumerable<SubProductServiceDto> GetAvailableItemDtosBySpace(int spaceId);
 
-        bool Update(Core.Domain.SpaceItem spaceItem);
+        int Create(SpaceItemDto spaceItemDto);
+
+        bool Update(SpaceItemDto spaceItemDto);
 
         bool Delete(int id);
     }

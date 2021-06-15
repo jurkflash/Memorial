@@ -1,0 +1,142 @@
+﻿@model Memorial.ViewModels.SpaceFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/jqueryminicolor")
+<form id="form">
+    @if (Model.SpaceDto.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.SpaceNew)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownListFor(s => s.SpaceDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.SpaceDto.SiteDtoId)
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.SpaceEdit)</h2>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.Raw(Resources.Mix.SiteBR)
+            </div>
+            <div class="col-md-6">
+                @Model.SpaceDto.SiteDto.Name
+            </div>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.SpaceDto.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.SpaceDto.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.DescriptionBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.SpaceDto.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextAreaFor(s => s.SpaceDto.Remark, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.ColorBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.SpaceDto.ColorCode, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.SpaceDto.ColorCode)
+        </div>
+    </div>
+    @Html.HiddenFor(s => s.SpaceDto.Id)
+    @Html.HiddenFor(s => s.SpaceDto.SiteDtoId)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryminicolor")
+    <script>
+
+        $(document).ready(function () {
+
+            $('#SpaceDto_ColorCode').minicolors();
+
+            $.validator.addMethod("mustSelect", function (value, element, arg) {
+                if (value == "")
+                    return false;
+                return true;
+            }, MEMORIAL_PLEASE_SELECT);
+
+            $("#SpaceDto_SiteDtoId").rules("add",
+                {
+                    mustSelect: true
+                });
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#SpaceDto_Id").val(),
+                        siteDtoId: $("#SpaceDto_SiteDtoId").val(),
+                        name: $("#SpaceDto_Name").val(),
+                        description: $("#SpaceDto_Description").val(),
+                        remark: $("#SpaceDto_Remark").val(),
+                        colorCode: $("#SpaceDto_ColorCode").val(),
+                    };
+                    var verb = "";
+                    var url = "/api/spaces/mains";
+                    if ($("#SpaceDto_Id").val() == 0) {
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#SpaceDto_Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                        .done(function (data) {
+                            toastr.success(MEMORIAL_SUCCESS);
+                            if (verb == "post") {
+                                setTimeout(function () {
+                                    window.location.href = window.location.href + '/' + data.id;
+                                }, 1000);
+                            }
+                        })
+                        .fail(function () {
+                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                        });
+
+                    return false;
+                }
+            });
+
+        });</script>
+}

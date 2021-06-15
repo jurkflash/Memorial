@@ -57,27 +57,6 @@ namespace Memorial.Controllers.Api
             return Ok(result);
         }
 
-        [Route("events")]
-        [HttpGet]
-        public IHttpActionResult GetEvents(int siteId, DateTime from, DateTime to)
-        {
-            var events = new List<SpaceCalendar>();
-            var trx = _transaction.GetBookedTransaction(from, to, siteId);
-
-            foreach(var t in trx)
-            {
-                events.Add(new SpaceCalendar()
-                {
-                    Title = t.SpaceName,
-                    StartDate = t.FromDate.ToString("yyyy-MM-ddTHH:mm"),
-                    EndDate = t.ToDate.ToString("yyyy-MM-ddTHH:mm"),
-                    Desc = t.TransactionRemark,
-                    AF = t.AF,
-                    BackgroundColor = string.IsNullOrEmpty(t.SpaceColorCode) ? "#FFFFFF" : "#"+ t.SpaceColorCode
-                });
-            }
-
-            return Json(events.ToArray());
-        }
+        
     }
 }

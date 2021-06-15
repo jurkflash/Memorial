@@ -8,9 +8,10 @@ namespace Memorial.Lib.Space
     {
         bool CheckAvailability(DateTime from, DateTime to, int spaceItemId);
         bool CheckAvailability(DateTime from, DateTime to, string AF);
-        bool Create(SpaceDto spaceDto);
+        int Create(SpaceDto spaceDto);
         bool Delete(int id);
-        IEnumerable<SpaceDto> DtosGetBySite(byte siteId);
+        IEnumerable<Core.Domain.Space> GetSpacesBySite(int siteId);
+        IEnumerable<SpaceDto> GetSpaceDtosBySite(int siteId);
         double GetAmount(DateTime from, DateTime to, int spaceItemId);
         Core.Domain.Space GetSpace();
         Core.Domain.Space GetSpace(int id);
@@ -18,6 +19,6 @@ namespace Memorial.Lib.Space
         SpaceDto GetSpaceDto();
         IEnumerable<SpaceDto> GetSpaceDtos();
         void SetSpace(int id);
-        bool Update(Core.Domain.Space space);
+        bool Update(SpaceDto spaceDto);
     }
 }

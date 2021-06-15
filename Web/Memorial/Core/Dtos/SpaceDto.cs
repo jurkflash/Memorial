@@ -20,7 +20,8 @@ namespace Memorial.Core.Dtos
 
         public int SiteDtoId { get; set; }
 
-        [StringLength(6, MinimumLength = 6)]
+        [Required]
+        [StringLength(7, MinimumLength = 7)]
         public string ColorCode { get; set; }
     }
 }

@@ -51,9 +51,14 @@ namespace Memorial.Lib.Space
             return Mapper.Map<IEnumerable<Core.Domain.Space>, IEnumerable<SpaceDto>>(_unitOfWork.Spaces.GetAllActive());
         }
 
-        public IEnumerable<SpaceDto> DtosGetBySite(byte siteId)
+        public IEnumerable<Core.Domain.Space> GetSpacesBySite(int siteId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Space>, IEnumerable<SpaceDto>>(_unitOfWork.Spaces.GetBySite(siteId));
+            return _unitOfWork.Spaces.GetBySite(siteId);
+        }
+
+        public IEnumerable<SpaceDto> GetSpaceDtosBySite(int siteId)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Space>, IEnumerable<SpaceDto>>(GetSpacesBySite(siteId));
         }
 
         public double GetAmount(DateTime from, DateTime to, int spaceItemId)
@@ -92,7 +97,7 @@ namespace Memorial.Lib.Space
             return _unitOfWork.SpaceTransactions.GetAvailability(from, to, AF);
         }
 
-        public bool Create(SpaceDto spaceDto)
+        public int Create(SpaceDto spaceDto)
         {
             _space = new Core.Domain.Space();
             Mapper.Map(spaceDto, _space);
@@ -101,21 +106,42 @@ namespace Memorial.Lib.Space
 
             _unitOfWork.Spaces.Add(_space);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _space.Id;
         }
 
-        public bool Update(Core.Domain.Space space)
+        public bool Update(SpaceDto spaceDto)
         {
-            space.ModifyDate = DateTime.Now;
+            var spaceInDB = GetSpace(spaceDto.Id);
+
+            if (spaceInDB.SiteId != spaceDto.SiteDtoId
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(spaceDto, spaceInDB);
+
+            spaceInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetSpace(id);
 
             _space.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

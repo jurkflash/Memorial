@@ -315,6 +315,7 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
+    <Content Include="Content\jquery.minicolors.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -637,6 +638,8 @@
     <Content Include="Scripts\jquery-ui-sliderAccess.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.min.js" />
+    <Content Include="Scripts\jquery.minicolors.js" />
+    <Content Include="Scripts\jquery.minicolors.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -803,6 +806,10 @@
     <Compile Include="Areas\CatalogConfig\CatalogConfigAreaRegistration.cs" />
     <Compile Include="Areas\SiteConfig\Controllers\SitesController.cs" />
     <Compile Include="Areas\SiteConfig\SiteConfigAreaRegistration.cs" />
+    <Compile Include="Areas\SpaceConfig\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\SpaceConfig\Controllers\MainsController.cs" />
+    <Compile Include="Areas\SpaceConfig\Data\SpaceFormViewModel.cs" />
+    <Compile Include="Areas\SpaceConfig\SpaceConfigAreaRegistration.cs" />
     <Compile Include="Areas\Space\Controllers\FreeController.cs" />
     <Compile Include="Areas\Space\SpaceAreaRegistration.cs" />
     <Compile Include="Areas\UrnConfig\Controllers\ItemsController.cs" />
@@ -811,9 +818,11 @@
     <Compile Include="Areas\UrnConfig\UrnConfigAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\SpaceItemsController.cs" />
     <Compile Include="Controllers\Api\UrnItemsController.cs" />
     <Compile Include="Controllers\Api\MiscellaneousItemsController.cs" />
     <Compile Include="Controllers\Api\CremationItemsController.cs" />
+    <Compile Include="Controllers\Api\SpaceMainsController.cs" />
     <Compile Include="Controllers\Api\UrnMainsController.cs" />
     <Compile Include="Controllers\Api\MiscellaneousMainsController.cs" />
     <Compile Include="Controllers\Api\CremationMainsController.cs" />
@@ -1233,8 +1242,6 @@
     <Compile Include="Lib\ReligionType\ReligionType.cs" />
     <Compile Include="Lib\Site\ISite.cs" />
     <Compile Include="Lib\Site\Site.cs" />
-    <Compile Include="Lib\Space\Config\Config.cs" />
-    <Compile Include="Lib\Space\Config\IConfig.cs" />
     <Compile Include="Lib\Space\House\House.cs" />
     <Compile Include="Lib\Space\House\IHouse.cs" />
     <Compile Include="Lib\Space\Electric\Electric.cs" />
@@ -2629,6 +2636,10 @@
     <Compile Include="Migrations\202106141200175_ChangeTinyintToIntForCremationIdDataType.designer.cs">
       <DependentUpon>202106141200175_ChangeTinyintToIntForCremationIdDataType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.cs" />
+    <Compile Include="Migrations\202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.designer.cs">
+      <DependentUpon>202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2902,6 +2913,11 @@
     <Content Include="Areas\UrnConfig\Views\Mains\Index.cshtml" />
     <Content Include="Areas\UrnConfig\Views\Items\Form.cshtml" />
     <Content Include="Areas\UrnConfig\Views\Items\Index.cshtml" />
+    <Content Include="Areas\SpaceConfig\Views\web.config" />
+    <Content Include="Areas\SpaceConfig\Views\Mains\Form.cshtml" />
+    <Content Include="Areas\SpaceConfig\Views\Mains\Index.cshtml" />
+    <Content Include="Areas\SpaceConfig\Views\Items\Form.cshtml" />
+    <Content Include="Areas\SpaceConfig\Views\Items\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3061,6 +3077,7 @@
     <Folder Include="Areas\Miscellaneous\Views\Shared\" />
     <Folder Include="Areas\SiteConfig\Data\" />
     <Folder Include="Areas\SiteConfig\Views\Shared\" />
+    <Folder Include="Areas\SpaceConfig\Views\Shared\" />
     <Folder Include="Areas\Space\Views\Shared\" />
     <Folder Include="Areas\UrnConfig\Views\Shared\" />
     <Folder Include="Areas\Urn\Views\Shared\" />
@@ -4095,6 +4112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106141200175_ChangeTinyintToIntForCremationIdDataType.resx">
       <DependentUpon>202106141200175_ChangeTinyintToIntForCremationIdDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.resx">
+      <DependentUpon>202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

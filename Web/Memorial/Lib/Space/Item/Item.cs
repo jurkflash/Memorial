@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib.Product;
+using Memorial.Lib.SubProductService;
 using AutoMapper;
 
 namespace Memorial.Lib.Space
@@ -11,11 +13,15 @@ namespace Memorial.Lib.Space
     public class Item : IItem
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProduct _product;
+        private readonly ISubProductService _subProductService;
         private Core.Domain.SpaceItem _item;
 
-        public Item(IUnitOfWork unitOfWork)
+        public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
             _unitOfWork = unitOfWork;
+            _product = product;
+            _subProductService = subProductService;
         }
 
         public void SetItem(int id)
@@ -104,7 +110,19 @@ namespace Memorial.Lib.Space
             return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(GetItemBySpace(spaceId));
         }
 
-        public bool Create(SpaceItemDto spaceItemDto)
+        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosBySpace(int spaceId)
+        {
+            if (spaceId == 0)
+                return new HashSet<SubProductServiceDto>();
+
+            var t = GetItemBySpace(spaceId);
+            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetSpaceProduct().Id);
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+
+            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+        }
+
+        public int Create(SpaceItemDto spaceItemDto)
         {
             _item = new Core.Domain.SpaceItem();
             Mapper.Map(spaceItemDto, _item);
@@ -113,21 +131,45 @@ namespace Memorial.Lib.Space
 
             _unitOfWork.SpaceItems.Add(_item);
 
-            return true;
+            _unitOfWork.Complete();
+
+            return _item.Id;
         }
 
-        public bool Update(Core.Domain.SpaceItem spaceItem)
+        public bool Update(SpaceItemDto spaceItemDto)
         {
-            spaceItem.ModifyDate = DateTime.Now;
+            var spaceItemInDB = GetItem(spaceItemDto.Id);
+
+            if ((spaceItemInDB.SpaceId != spaceItemDto.SpaceDtoId
+                || spaceItemInDB.isOrder != spaceItemDto.isOrder
+                || spaceItemInDB.AllowDoubleBook != spaceItemDto.AllowDoubleBook
+                || spaceItemInDB.AllowDeposit != spaceItemDto.AllowDeposit)
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
+            Mapper.Map(spaceItemDto, spaceItemInDB);
+
+            spaceItemInDB.ModifyDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }
 
         public bool Delete(int id)
         {
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id && ct.DeleteDate == null).Any())
+            {
+                return false;
+            }
+
             SetItem(id);
 
             _item.DeleteDate = DateTime.Now;
+
+            _unitOfWork.Complete();
 
             return true;
         }

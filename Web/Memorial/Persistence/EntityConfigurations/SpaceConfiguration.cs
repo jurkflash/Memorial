@@ -18,7 +18,7 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(255);
 
             Property(s => s.ColorCode)
-                .HasMaxLength(6);
+                .HasMaxLength(7);
 
             HasRequired(s => s.Site)
                 .WithMany(s => s.Spaces)
