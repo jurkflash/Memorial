@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 id="Catalog">@Html.Raw(Resources.Mix.Catalog)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Catalog, "Index", "Catalogs", new { area = "CatalogConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Site">@Html.Raw(Resources.Mix.Site)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Site, "Index", "Sites", new { area = "SiteConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="FuneralCompany">@Html.Raw(Resources.Mix.FuneralCompany)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.FuneralCompany, "Index", "FuneralCompanies", new { area = "FuneralCompanyConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="FengShuiMaster">@Html.Raw(Resources.Mix.FengShuiMaster)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.FengShuiMaster, "Index", "FengShuiMasters", new { area = "FengShuiMasterConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="CemeteryLandscapeCompany">@Html.Raw(Resources.Mix.CemeteryLandscapeCompany)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.CemeteryLandscapeCompany, "Index", "CemeteryLandscapeCompanies", new { area = "CemeteryLandscapeCompanyConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="AncestralTablet">@Html.Raw(Resources.Mix.AncestralTablet)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Area, "Index", "Areas", new { area = "AncestralTabletConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "AncestralTabletConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.AncestralTablet, "Index", "AncestralTablets", new { area = "AncestralTabletConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Cemetery">@Html.Raw(Resources.Mix.Cemetery)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Area, "Index", "Areas", new { area = "CemeteryConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Plot, "Index", "Plots", new { area = "CemeteryConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Columbarium">@Html.Raw(Resources.Mix.Columbarium)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Centre, "Index", "Centres", new { area = "ColumbariumConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Area, "Index", "Areas", new { area = "ColumbariumConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "ColumbariumConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Niche, "Index", "Niches", new { area = "ColumbariumConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Cremation">@Html.Raw(Resources.Mix.Cremation)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Cremation, "Index", "Mains", new { area = "CremationConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "CremationConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Miscellaneous">@Html.Raw(Resources.Mix.Miscellaneous)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Miscellaneous, "Index", "Mains", new { area = "MiscellaneousConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "MiscellaneousConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Space">@Html.Raw(Resources.Mix.Space)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Space, "Index", "Mains", new { area = "SpaceConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "SpaceConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />
+<h4 id="Urn">@Html.Raw(Resources.Mix.Urn)</h4>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.Name)</th>
+            <th>@Html.Raw(Resources.Mix.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Urn, "Index", "Mains", new { area = "UrnConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(Resources.Mix.Item, "Index", "Items", new { area = "UrnConfig" }, null)
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<hr />
+<br />

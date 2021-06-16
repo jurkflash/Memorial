@@ -81,6 +81,11 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetAllExcludeFilter(applicantId, deceasedName);
         }
 
+        public IEnumerable<DeceasedDto> GetDeceasedDtosExcludeFilter(int applicantId, string deceasedName)
+        {
+            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(GetDeceasedsExcludeFilter(applicantId, deceasedName));
+        }
+
         public IEnumerable<Core.Domain.Deceased> GetDeceasedsByNicheId(int nicheId)
         {
             return _unitOfWork.Deceaseds.GetByNiche(nicheId);

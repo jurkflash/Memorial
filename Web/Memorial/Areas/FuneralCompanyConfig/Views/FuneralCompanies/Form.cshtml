@@ -4,14 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>@Html.ActionLink(Resources.Mix.FuneralCompany, "Index", "Links", null, null, "FuneralCompany", new { area = "ConfigLink" }, null)</h4>
 <form id="form">
     @if (Model.FuneralCompanyDto.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.FuneralCompanyNew)</h2>
+        <h4>@Html.Raw(Resources.Mix.FuneralCompanyNew)</h4>
     }
     else
     {
-        <h2>@Html.Raw(Resources.Mix.FuneralCompanyEdit)</h2>
+        <h4>@Html.Raw(Resources.Mix.FuneralCompanyEdit)</h4>
     }
 
     <div class="form-group row">

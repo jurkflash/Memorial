@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.FuneralCompany)</h2>
+<h4>@Html.ActionLink(Resources.Mix.FuneralCompany, "Index", "Links", null, null, "FuneralCompany", new { area = "ConfigLink" }, null)</h4>
 <p>
     @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>

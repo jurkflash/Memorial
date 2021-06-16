@@ -20,11 +20,19 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<DeceasedDto> GetDeceasedsByApplicantId(int applicantId)
         {
-            var result = _deceased.GetDeceasedsByApplicantId(applicantId);
+            var result = _deceased.GetDeceasedDtosByApplicantId(applicantId);
 
-            return Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(result);
+            return result;
         }
 
+        [Route("~/api/applicants/{applicantId:int}/unlinkeddeceaseds")]
+        [HttpGet]
+        public IEnumerable<DeceasedDto> GetUnlinkedDeceasedDtosByApplicantId(int applicantId)
+        {
+            var result = _deceased.GetDeceasedDtosExcludeFilter(applicantId, null);
 
+            return result;
+        }
+        
     }
 }

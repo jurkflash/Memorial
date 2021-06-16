@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Links", null, null, "Columbarium", new { area = "ConfigLink" }, null)</h4>
 <form id="form">
     @if (Model.ColumbariumCentreDto.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.CentreNew)</h2>
+        <h4>@Html.Raw(Resources.Mix.CentreNew)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">
@@ -21,7 +22,7 @@
     }
     else
     {
-        <h2>@Html.Raw(Resources.Mix.CentreEdit)</h2>
+        <h4>@Html.Raw(Resources.Mix.CentreEdit)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">

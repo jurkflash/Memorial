@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>@Html.ActionLink(Resources.Mix.Cemetery, "Index", "Links", null, null, "Cemetery", new { area = "ConfigLink" }, null)</h4>
 <form id="form">
     @if (Model.CemeteryAreaDto.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.AreaNew)</h2>
+        <h4>@Html.Raw(Resources.Mix.AreaNew)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">
@@ -21,7 +22,7 @@
     }
     else
     {
-        <h2>@Html.Raw(Resources.Mix.AreaEdit)</h2>
+        <h4>@Html.Raw(Resources.Mix.AreaEdit)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">

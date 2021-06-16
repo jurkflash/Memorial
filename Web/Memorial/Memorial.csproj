@@ -780,6 +780,8 @@
     <Compile Include="Areas\ColumbariumConfig\Data\ColumbariumCentreFormViewModel.cs" />
     <Compile Include="Areas\Columbarium\Controllers\FreeController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\WithdrawsController.cs" />
+    <Compile Include="Areas\ConfigLink\ConfigLinkAreaRegistration.cs" />
+    <Compile Include="Areas\ConfigLink\Controllers\LinksController.cs" />
     <Compile Include="Areas\CremationConfig\Controllers\ItemsController.cs" />
     <Compile Include="Areas\CremationConfig\Controllers\MainsController.cs" />
     <Compile Include="Areas\CremationConfig\CremationConfigAreaRegistration.cs" />
@@ -2938,6 +2940,8 @@
     <Content Include="Areas\CemeteryLandscapeCompanyConfig\Views\CemeteryLandscapeCompanies\Index.cshtml" />
     <Content Include="Areas\FuneralCompanyConfig\Views\FuneralCompanies\Form.cshtml" />
     <Content Include="Areas\FuneralCompanyConfig\Views\FuneralCompanies\Index.cshtml" />
+    <Content Include="Areas\ConfigLink\Views\web.config" />
+    <Content Include="Areas\ConfigLink\Views\Links\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3091,6 +3095,8 @@
     <Folder Include="Areas\CemeteryConfig\Views\Shared\" />
     <Folder Include="Areas\CemeteryLandscapeCompanyConfig\Views\Shared\" />
     <Folder Include="Areas\ColumbariumConfig\Views\Shared\" />
+    <Folder Include="Areas\ConfigLink\Data\" />
+    <Folder Include="Areas\ConfigLink\Views\Shared\" />
     <Folder Include="Areas\CremationConfig\Views\Shared\" />
     <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\FengShuiMasterConfig\Views\Shared\" />

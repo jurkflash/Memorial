@@ -10,7 +10,7 @@
 @Model.Name2
 @Html.HiddenFor(m => m.Id)
 
-<table id="linkedDeceaseds" class="table table-bordered table-hover">
+<table id="linkedDeceaseds" class="table table-bordered table-hover" style="width:100%">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.EnglishNameBR)</th>
@@ -25,7 +25,7 @@
 <hr />
 
 <h4>@Html.Raw(Resources.Mix.Deceaseds)</h4>
-<table id="unlinkedDeceaseds" class="table table-bordered table-hover">
+<table id="unlinkedDeceaseds" class="table table-bordered table-hover" style="width:100%">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.EnglishNameBR)</th>
@@ -41,6 +41,14 @@
 @section scripts
 {
     <script>
+        var table;
+        var table2;
+
+        function bindtbls() {
+            table.ajax.url("/api/applicantdeceaseds/" + $("#Id").val() + "/flatten").load();
+            table2.ajax.url("/api/applicants/" + $("#Id").val() + "/unlinkeddeceaseds").load();
+        }
+
         $(document).ready(function () {
             var relationshipType;
 
@@ -62,10 +70,9 @@
                     toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
                 });
 
-            var url = "/api/applicantdeceaseds/" + $("#Id").val() + "/flatten";
-            var table = $("#linkedDeceaseds").DataTable({
+            table = $("#linkedDeceaseds").DataTable({
                 ajax: {
-                    url: url,
+                    url: "/api/applicantdeceaseds/" + $("#Id").val() + "/flatten",
                     dataSrc: ""
                 },
                 columns: [
@@ -92,33 +99,15 @@
                 bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
                     if (result) {
                         var tr = table.row(button.parents("tr")).node();
-                        //addRow.childNodes[2].textContent = "";
-                        //addRow.childNodes[3].textContent = "";
-                        //table.row(button.parents("tr")).remove().draw();
-                        //table2.row.add(addRow).draw();
-
-                        //$.ajax({
-                        //    url: "/api/ApplicantDeceaseds/" + button.attr("data-applicantdeceased-id"),
-                        //    method: "DELETE",
-                        //    success: function () {
-                        //        table.row(button.parents("tr")).remove().draw();
-                        //    }
-                        //});
 
                         $.ajax({
-                            url: "/api/ApplicantDeceaseds/DeleteWithReturnDeceasedId/" + button.attr("data-applicantdeceased-id"),
+                            url: "/api/ApplicantDeceaseds/" + button.attr("data-applicantdeceased-id"),
                             method: "Delete"
                         })
                             .done(function (response) {
                                 toastr.success(MEMORIAL_SUCCESS);
 
-                                table.row(button.parents("tr")).remove().draw();
-                                table2.row.add({
-                                    "name": tr.childNodes[0].textContent,
-                                    "name2": tr.childNodes[1].textContent,
-                                    "": "",
-                                    "id": response
-                                }).draw();
+                                bindtbls();
                             })
                             .fail(function () {
                                 toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
@@ -127,11 +116,10 @@
                 });
             });
 
-            var url = "/api/applicants/" + $("#Id").val() + "/deceaseds";
-            var table2 = $("#unlinkedDeceaseds").DataTable({
+            table2 = $("#unlinkedDeceaseds").DataTable({
                 
                 ajax: {
-                    url: url,
+                    url: "/api/applicants/" + $("#Id").val() + "/unlinkeddeceaseds",
                     dataSrc: ""
                 },
                 columns: [
@@ -161,31 +149,25 @@
                     if (result) {
                         var addRow2 = table2.row(button.parents("tr")).node();
                         var ddl = $(addRow2.getElementsByTagName("select")).children("option:selected");
-                        //$(addRow2.getElementsByTagName("select")).children("option:selected").val()
-                        //addRow2.childNodes[2].textContent = $(addRow2.getElementsByTagName("select")).children("option:selected").text();
-                        //addRow2.childNodes[3].textContent = "";
 
-                        //$('#linkedDeceaseds').DataTable().ajax.reload();
+                        if (ddl.val() == "0") {
+                            alert('Please Select Relationship');
+                            return false;
+                        }
 
                         $.ajax({
                             url: "/api/applicantdeceaseds",
                             method: "POST",
                             data: {
-                                ApplicantId: $("#Id").val(),
-                                DeceasedId: button.attr("data-deceased-id"),
-                                RelationshipTypeId: ddl.val()
+                                ApplicantDtoId: $("#Id").val(),
+                                DeceasedDtoId: button.attr("data-deceased-id"),
+                                RelationshipTypeDtoId: ddl.val()
                             }
                         })
                             .done(function (response) {
                                 toastr.success(MEMORIAL_SUCCESS);
 
-                                table2.row(button.parents("tr")).remove().draw();
-                                table.row.add({
-                                    "deceasedName": addRow2.childNodes[0].textContent,
-                                    "deceasedName2": addRow2.childNodes[1].textContent,
-                                    "relationshipTypeName": ddl.text(),
-                                    "id": response
-                                }).draw();
+                                bindtbls();
                             })
                             .fail(function () {
                                 toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);

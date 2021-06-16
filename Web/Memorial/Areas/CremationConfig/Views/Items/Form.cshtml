@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.Item)</h2>
+<h4>@Html.ActionLink(Resources.Mix.Cremation, "Index", "Links", null, null, "Cremation", new { area = "ConfigLink" }, null)</h4>
+<h4>@Html.Raw(Resources.Mix.Item)</h4>
 
 <form id="form">
 

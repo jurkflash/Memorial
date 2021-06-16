@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.Item)</h2>
+<h4>@Html.ActionLink(Resources.Mix.Miscellaneous, "Index", "Links", null, null, "Miscellaneous", new { area = "ConfigLink" }, null)</h4>
+<h4>@Html.Raw(Resources.Mix.Item)</h4>
 
 <div class="form-group row">
     <div class="col-md-3">

@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Links", null, null, "Columbarium", new { area = "ConfigLink" }, null)</h4>
 <form id="form">
     @if (Model.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.NicheNew)</h2>
+        <h4>@Html.Raw(Resources.Mix.NicheNew)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">
@@ -50,7 +51,7 @@
     }
     else
     {
-        <h2>@Html.Raw(Resources.Mix.NicheEdit)</h2>
+        <h4>@Html.Raw(Resources.Mix.NicheEdit)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">

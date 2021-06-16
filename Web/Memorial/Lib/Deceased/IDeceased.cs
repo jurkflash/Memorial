@@ -26,6 +26,8 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsExcludeFilter(int applicantId, string deceasedName);
 
+        IEnumerable<DeceasedDto> GetDeceasedDtosExcludeFilter(int applicantId, string deceasedName);
+
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByNicheId(int nicheId);
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByAncestralTabletId(int ancestralTabletId);

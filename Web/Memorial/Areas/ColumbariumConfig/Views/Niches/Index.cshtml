@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.Plot)</h2>
+<h4>@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Links", null, null, "Columbarium", new { area = "ConfigLink" }, null)</h4>
+<h4>@Html.Raw(Resources.Mix.Niche)</h4>
 <p>
     @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
 </p>

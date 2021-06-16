@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h4>@Html.ActionLink(Resources.Mix.AncestralTablet, "Index", "Links", null, null, "AncestralTablet", new { area = "ConfigLink" }, null)</h4>
 <form id="form">
     @if (Model.Id == 0)
     {
-        <h2>@Html.Raw(Resources.Mix.AncestralTabletNew)</h2>
+        <h4>@Html.Raw(Resources.Mix.AncestralTabletNew)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">
@@ -31,7 +32,7 @@
     }
     else
     {
-        <h2>@Html.Raw(Resources.Mix.AncestralTabletEdit)</h2>
+        <h4>@Html.Raw(Resources.Mix.AncestralTabletEdit)</h4>
 
         <div class="form-group row">
             <div class="col-md-3">
