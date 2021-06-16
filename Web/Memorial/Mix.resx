@@ -666,4 +666,7 @@
   <data name="Name" xml:space="preserve">
     <value>名 Name</value>
   </data>
+  <data name="FindByName" xml:space="preserve">
+    <value>Find by Name:</value>
+  </data>
 </root>

@@ -21,7 +21,7 @@ namespace Memorial.Areas.Space.Controllers
             _item = item;
         }
 
-        public ActionResult Index(byte siteId, int applicantId = 0)
+        public ActionResult Index(int siteId, int applicantId = 0)
         {
             var viewModel = new SpaceIndexesViewModel()
             {
@@ -32,7 +32,7 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult ShowCalendar(byte siteId)
+        public ActionResult ShowCalendar(int siteId)
         {
             var viewModel = new SpaceIndexesViewModel()
             {
@@ -51,6 +51,12 @@ namespace Memorial.Areas.Space.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public ActionResult Menu(int siteId)
+        {
+
+            return View();
         }
 
     }

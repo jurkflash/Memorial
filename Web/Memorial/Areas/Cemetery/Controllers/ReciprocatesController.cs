@@ -40,6 +40,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
+                Filter = filter,
                 CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,

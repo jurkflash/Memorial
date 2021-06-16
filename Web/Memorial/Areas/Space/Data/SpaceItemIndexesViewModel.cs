@@ -7,6 +7,8 @@ namespace Memorial.ViewModels
     {
         public IPagedList<SpaceTransactionDto> SpaceTransactionDtos { get; set; }
 
+        public string Filter { get; set; }
+
         public int SpaceItemId { get; set; }
 
         public string SpaceName { get; set; }

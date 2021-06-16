@@ -39,6 +39,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
+                Filter = filter,
                 MiscellaneousItemId = itemId,
                 MiscellaneousItemName = _item.GetName(),
                 MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),

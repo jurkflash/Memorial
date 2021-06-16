@@ -16,13 +16,18 @@
 
 @using (Html.BeginForm("Index", "Clearances", new { area = "Cemetery" }))
 {
-    <p>
-        Find by Name: @Html.TextBox("filter")
-        @Html.Hidden("itemId", Model.CemeteryItemDto.Id.ToString())
-        @Html.Hidden("applicantId", Model.ApplicantId.ToString())
-        @Html.Hidden("id", Model.PlotId.ToString())
-        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
-    </p>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.FindByName)
+        </div>
+        <div class="col-md-6 input-group">
+            @Html.TextBoxFor(f => f.Filter, null, new { @id = "filter", @class = "form-control" })
+            <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
+        </div>
+    </div>
+    @Html.Hidden("itemId", Model.CemeteryItemDto.Id.ToString())
+    @Html.Hidden("applicantId", Model.ApplicantId.ToString())
+    @Html.Hidden("id", Model.PlotId.ToString())
 }
 
 <table class="table table-bordered table-hover">

@@ -35,6 +35,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 MiscellaneousItemId = itemId,
                 MiscellaneousItemName = _item.GetName(),

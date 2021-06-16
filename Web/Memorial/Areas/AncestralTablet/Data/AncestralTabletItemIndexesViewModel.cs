@@ -7,6 +7,8 @@ namespace Memorial.ViewModels
     {
         public IPagedList<AncestralTabletTransactionDto> AncestralTabletTransactionDtos { get; set; }
 
+        public string Filter { get; set; }
+
         public int AncestralTabletItemId { get; set; }
 
         public string AncestralTabletItemName { get; set; }

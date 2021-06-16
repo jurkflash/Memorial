@@ -8,5 +8,6 @@ namespace Memorial.Lib
     public static class Constant
     {
         public const int MaxRowPerPage = 2;
+        public const int RecentTransactions = 5;
     }
 }

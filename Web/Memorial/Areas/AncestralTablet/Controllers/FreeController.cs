@@ -47,6 +47,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             var viewModel = new AncestralTabletItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 AncestralTabletItemId = itemId,
                 AncestralTabletItemName = _item.GetName(),

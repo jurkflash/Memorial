@@ -44,6 +44,7 @@ namespace Memorial.Areas.Cremation.Controllers
 
             var viewModel = new CremationItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 CremationItemId = itemId,
                 CremationItemName = _item.GetName(),

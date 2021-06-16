@@ -12,6 +12,8 @@ namespace Memorial.ViewModels
     {
         public IPagedList<MiscellaneousTransactionDto> MiscellaneousTransactionDtos { get; set; }
 
+        public string Filter { get; set; }
+
         public int MiscellaneousItemId { get; set; }
 
         public string MiscellaneousItemName { get; set; }

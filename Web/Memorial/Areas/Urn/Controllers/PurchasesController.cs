@@ -42,6 +42,7 @@ namespace Memorial.Areas.Urn.Controllers
 
             var viewModel = new UrnItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 UrnItemId = itemId,
                 UrnItemName = _item.GetName(),

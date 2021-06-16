@@ -61,6 +61,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             var viewModel = new CemeteryItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 CemeteryItemDto = _item.GetItemDto(),
                 PlotDto = _plot.GetPlotDto(),

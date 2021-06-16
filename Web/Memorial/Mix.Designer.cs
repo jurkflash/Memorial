@@ -745,6 +745,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find by Name:.
+        /// </summary>
+        public static string FindByName {
+            get {
+                return ResourceManager.GetString("FindByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 表格 Form.
         /// </summary>
         public static string Form {

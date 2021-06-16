@@ -31,8 +31,10 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter)
         {
-            var transactions = MemorialContext.SpaceTransactions.Where(st => st.SpaceItemId == itemId
-                                            && st.DeleteDate == null).ToList();
+            var transactions = MemorialContext.SpaceTransactions
+                .Where(st => st.SpaceItemId == itemId
+                                            && st.DeleteDate == null)
+                .Include(st => st.Applicant).ToList();
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -40,7 +42,7 @@ namespace Memorial.Persistence.Repositories
             }
             else
             {
-                return transactions.Where(t => t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || t.Applicant.Name2.Contains(filter)).ToList();
+                return transactions.Where(t => t.AF.Contains(filter) || t.Applicant.Name.Contains(filter) || (t.Applicant.Name2 != null && t.Applicant.Name2.Contains(filter))).ToList();
             }
         }
 
@@ -111,6 +113,18 @@ namespace Memorial.Persistence.Repositories
                 || (from <= st.FromDate && st.FromDate <= to)
                 || (from <= st.ToDate && st.ToDate <= to))
                 && st.SpaceItem.Space.SiteId == siteId);
+        }
+
+        public IEnumerable<SpaceTransaction> GetRecent(int number, int siteId)
+        {
+            return MemorialContext.SpaceTransactions
+                .Where(t => t.DeleteDate == null && t.SpaceItem.Space.SiteId == siteId)
+                .Include(t => t.Applicant)
+                .Include(t => t.SpaceItem)
+                .Include(t => t.SpaceItem.Space)
+                .OrderByDescending(t => t.CreateDate)
+                .Take(number)
+                .ToList();
         }
 
         public MemorialContext MemorialContext

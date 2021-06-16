@@ -44,6 +44,7 @@ namespace Memorial.Areas.Space.Controllers
 
             var viewModel = new SpaceItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 SpaceItemId = itemId,
                 SpaceItemName = _item.GetName(),

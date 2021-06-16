@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Memorial.Core;
 using Memorial.Core.Dtos;
+using Memorial.Lib;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -185,7 +186,14 @@ namespace Memorial.Lib.Space
         {
             return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<Core.Domain.SpaceBooked>>(_unitOfWork.SpaceTransactions.GetBooked(from, to, siteId));
         }
-        
+
+        public IEnumerable<SpaceTransactionDto> GetRecent(int? number, int siteId)
+        {
+            if(number == null)
+                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            else
+                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent((int)number, siteId));
+        }
 
         protected bool CreateNewTransaction(SpaceTransactionDto spaceTransactionDto)
         {

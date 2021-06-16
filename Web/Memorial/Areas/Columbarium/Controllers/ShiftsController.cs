@@ -39,6 +39,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
+                Filter = filter,
                 ApplicantId = applicantId,
                 ColumbariumItemId = itemId,
                 ColumbariumItemName = _item.GetName(),

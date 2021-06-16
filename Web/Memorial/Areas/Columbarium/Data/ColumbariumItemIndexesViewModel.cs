@@ -7,6 +7,8 @@ namespace Memorial.ViewModels
     {
         public IPagedList<ColumbariumTransactionDto> ColumbariumTransactionDtos { get; set; }
 
+        public string Filter { get; set; }
+
         public int ColumbariumItemId { get; set; }
 
         public string ColumbariumItemName { get; set; }

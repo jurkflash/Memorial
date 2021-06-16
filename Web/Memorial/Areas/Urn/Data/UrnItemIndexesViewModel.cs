@@ -8,6 +8,8 @@ namespace Memorial.ViewModels
     {
         public IPagedList<UrnTransactionDto> UrnTransactionDtos { get; set; }
 
+        public string Filter { get; set; }
+
         public int UrnItemId { get; set; }
 
         public string UrnItemName { get; set; }
