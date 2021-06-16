@@ -1,0 +1,109 @@
+﻿@model Memorial.ViewModels.CemeteryLandscapeCompanyFormViewModel
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="form">
+    @if (Model.CemeteryLandscapeCompanyDto.Id == 0)
+    {
+        <h2>@Html.Raw(Resources.Mix.CemeteryLandscapeCompanyNew)</h2>
+    }
+    else
+    {
+        <h2>@Html.Raw(Resources.Mix.CemeteryLandscapeCompanyEdit)</h2>
+    }
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.NameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.CemeteryLandscapeCompanyDto.Name, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(s => s.CemeteryLandscapeCompanyDto.Name)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.ContactNameBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.CemeteryLandscapeCompanyDto.ContactPerson, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.CemeteryLandscapeCompanyDto.ContactPerson)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.ContactNumberBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.CemeteryLandscapeCompanyDto.ContactNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.CemeteryLandscapeCompanyDto.ContactNumber)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RemarkBR)
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(s => s.CemeteryLandscapeCompanyDto.Remark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(s => s.CemeteryLandscapeCompanyDto.Remark)
+        </div>
+    </div>
+
+    @Html.HiddenFor(s => s.CemeteryLandscapeCompanyDto.Id)
+    <button class="btn btn-primary" id="save">@Html.Raw(Resources.Mix.Save)</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+                if ($("#form").valid()) {
+                    var vm = {
+                        id: $("#CemeteryLandscapeCompanyDto_Id").val(),
+                        name: $("#CemeteryLandscapeCompanyDto_Name").val(),
+                        contactPerson: $("#CemeteryLandscapeCompanyDto_ContactPerson").val(),
+                        contactNumber: $("#CemeteryLandscapeCompanyDto_ContactNumber").val(),
+                        remark: $("#CemeteryLandscapeCompanyDto_Remark").val()
+                    };
+                    var verb = "";
+                    var url = "/api/CemeteryLandscapeCompanies";
+                    if ($("#CemeteryLandscapeCompanyDto_Id").val() == 0) {
+                        verb = "post";
+                    }
+                    else {
+                        verb = "put";
+                        url = url + "/" + $("#CemeteryLandscapeCompanyDto_Id").val();
+                    }
+
+                    $.ajax({
+                        url: url,
+                        method: verb,
+                        data: vm
+                    })
+                    .done(function (data) {
+                        toastr.success(MEMORIAL_SUCCESS);
+                        if (verb == "post") {
+                            setTimeout(function () {
+                                window.location.href = window.location.href + '/' + data.id;
+                            }, 1000);
+                        }
+                    })
+                    .fail(function () {
+                        toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                    });
+
+                    return false;
+                }
+            });
+
+        });</script>
+}

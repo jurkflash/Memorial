@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.Raw(Resources.Mix.FuneralCompany)</h2>
+<p>
+    @Html.ActionLink(Resources.Mix.New, "Form", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="tbl" class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.Raw(Resources.Mix.NameBR)</th>
+            <th>@Html.Raw(Resources.Mix.ContactNameBR)</th>
+            <th>@Html.Raw(Resources.Mix.ContactNumberBR)</th>
+            <th>@Html.Raw(Resources.Mix.RemarkBR)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        var table;
+
+        $(document).ready(function () {
+
+            table = $("#tbl").DataTable({
+                ajax: {
+                    url: "/api/funeralcompanies",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, main) {
+                            return "<a href='/FuneralCompanyConfig/FuneralCompanies/Form/" + main.id + "'>" + main.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "contactPerson"
+                    },
+                    {
+                        data: "contactNumber"
+                    },
+                    {
+                        data: "remark"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn btn-sm btn-danger js-delete' data-id=" + data + ">刪除 Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/FuneralCompanies/" + button.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+        });
+    </script>
+}
+
+

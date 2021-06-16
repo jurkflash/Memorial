@@ -43,10 +43,10 @@ namespace Memorial.Lib.FengShuiMaster
             return Mapper.Map<IEnumerable<Core.Domain.FengShuiMaster>, IEnumerable<FengShuiMasterDto>>(_unitOfWork.FengShuiMasters.GetAllActive());
         }
 
-        public bool CreateFengShuiMaster(FengShuiMasterDto FengShuiMasterDto)
+        public int Create(FengShuiMasterDto fengShuiMasterDto)
         {
             _fengShuiMaster = new Core.Domain.FengShuiMaster();
-            Mapper.Map(FengShuiMasterDto, _fengShuiMaster);
+            Mapper.Map(fengShuiMasterDto, _fengShuiMaster);
 
             _fengShuiMaster.CreateDate = DateTime.Now;
 
@@ -54,31 +54,28 @@ namespace Memorial.Lib.FengShuiMaster
 
             _unitOfWork.Complete();
 
-            return true;
+            return _fengShuiMaster.Id;
         }
 
-        public bool UpdateFengShuiMaster(FengShuiMasterDto FengShuiMasterDto)
+        public bool Update(FengShuiMasterDto fengShuiMasterDto)
         {
-            var FengShuiMasterInDB = GetFengShuiMaster(FengShuiMasterDto.Id);
+            var fengShuiMasterInDB = GetFengShuiMaster(fengShuiMasterDto.Id);
 
-            Mapper.Map(FengShuiMasterDto, FengShuiMasterInDB);
+            Mapper.Map(fengShuiMasterDto, fengShuiMasterInDB);
 
-            FengShuiMasterInDB.ModifyDate = DateTime.Now;
+            fengShuiMasterInDB.ModifyDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool DeleteFengShuiMaster(int id)
+        public bool Delete(int id)
         {
-            //if (
-            //    _unitOfWork.CremationTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any() ||
-            //    _unitOfWork.QuadrangleTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any() ||
-            //    _unitOfWork.SpaceTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any())
-            //{
-            //    return false;
-            //}
+            if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any())
+            {
+                return false;
+            }
 
             SetFengShuiMaster(id);
 

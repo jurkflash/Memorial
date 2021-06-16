@@ -331,11 +331,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 墓地美化公司 Landscape Company.
+        /// </summary>
+        public static string CemeteryLandscapeCompany {
+            get {
+                return ResourceManager.GetString("CemeteryLandscapeCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 墓地美化公司&lt;br /&gt;Landscape Company.
         /// </summary>
         public static string CemeteryLandscapeCompanyBR {
             get {
                 return ResourceManager.GetString("CemeteryLandscapeCompanyBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改墓地美化公司 Edit Landscape Company.
+        /// </summary>
+        public static string CemeteryLandscapeCompanyEdit {
+            get {
+                return ResourceManager.GetString("CemeteryLandscapeCompanyEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新墓地美化公司 New Landscape Company.
+        /// </summary>
+        public static string CemeteryLandscapeCompanyNew {
+            get {
+                return ResourceManager.GetString("CemeteryLandscapeCompanyNew", resourceCulture);
             }
         }
         
@@ -673,11 +700,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 風水師 Feng Shui Master.
+        /// </summary>
+        public static string FengShuiMaster {
+            get {
+                return ResourceManager.GetString("FengShuiMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 風水師&lt;br /&gt;Feng Shui Master.
         /// </summary>
         public static string FengShuiMasterBR {
             get {
                 return ResourceManager.GetString("FengShuiMasterBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改新風水師 Edit Feng Shui Master.
+        /// </summary>
+        public static string FengShuiMasterEdit {
+            get {
+                return ResourceManager.GetString("FengShuiMasterEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新風水師 New Feng Shui Master.
+        /// </summary>
+        public static string FengShuiMasterNew {
+            get {
+                return ResourceManager.GetString("FengShuiMasterNew", resourceCulture);
             }
         }
         
@@ -732,6 +786,24 @@ namespace Resources {
         public static string FuneralCompanyBR {
             get {
                 return ResourceManager.GetString("FuneralCompanyBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改壽板商 Edit Funeral Company.
+        /// </summary>
+        public static string FuneralCompanyEdit {
+            get {
+                return ResourceManager.GetString("FuneralCompanyEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 新壽板商 New Funeral Company.
+        /// </summary>
+        public static string FuneralCompanyNew {
+            get {
+                return ResourceManager.GetString("FuneralCompanyNew", resourceCulture);
             }
         }
         

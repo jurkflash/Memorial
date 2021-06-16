@@ -636,4 +636,28 @@
   <data name="AllowDoubleBookBR" xml:space="preserve">
     <value>允許同樣日期時間多預定或單&lt;br /&gt; Allow double book</value>
   </data>
+  <data name="CemeteryLandscapeCompany" xml:space="preserve">
+    <value>墓地美化公司 Landscape Company</value>
+  </data>
+  <data name="FengShuiMaster" xml:space="preserve">
+    <value>風水師 Feng Shui Master</value>
+  </data>
+  <data name="CemeteryLandscapeCompanyEdit" xml:space="preserve">
+    <value>修改墓地美化公司 Edit Landscape Company</value>
+  </data>
+  <data name="CemeteryLandscapeCompanyNew" xml:space="preserve">
+    <value>新墓地美化公司 New Landscape Company</value>
+  </data>
+  <data name="FengShuiMasterEdit" xml:space="preserve">
+    <value>修改新風水師 Edit Feng Shui Master</value>
+  </data>
+  <data name="FengShuiMasterNew" xml:space="preserve">
+    <value>新風水師 New Feng Shui Master</value>
+  </data>
+  <data name="FuneralCompanyEdit" xml:space="preserve">
+    <value>修改壽板商 Edit Funeral Company</value>
+  </data>
+  <data name="FuneralCompanyNew" xml:space="preserve">
+    <value>新壽板商 New Funeral Company</value>
+  </data>
 </root>

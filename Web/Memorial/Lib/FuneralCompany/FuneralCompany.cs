@@ -43,7 +43,7 @@ namespace Memorial.Lib.FuneralCompany
             return Mapper.Map<IEnumerable<Core.Domain.FuneralCompany>, IEnumerable<FuneralCompanyDto>>(_unitOfWork.FuneralCompanies.GetAllActive());
         }
 
-        public bool CreateFuneralCompany(FuneralCompanyDto funeralCompanyDto)
+        public int Create(FuneralCompanyDto funeralCompanyDto)
         {
             _funeralCompany = new Core.Domain.FuneralCompany();
             Mapper.Map(funeralCompanyDto, _funeralCompany);
@@ -54,10 +54,10 @@ namespace Memorial.Lib.FuneralCompany
 
             _unitOfWork.Complete();
 
-            return true;
+            return _funeralCompany.Id;
         }
 
-        public bool UpdateFuneralCompany(FuneralCompanyDto funeralCompanyDto)
+        public bool Update(FuneralCompanyDto funeralCompanyDto)
         {
             var funeralCompanyInDB = GetFuneralCompany(funeralCompanyDto.Id);
 
@@ -70,7 +70,7 @@ namespace Memorial.Lib.FuneralCompany
             return true;
         }
 
-        public bool DeleteFuneralCompany(int id)
+        public bool Delete(int id)
         {
             if (
                 _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||

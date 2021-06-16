@@ -39,6 +39,11 @@ namespace Memorial.App_Start
             CreateMap<NationalityType, NationalityTypeDto>();
             CreateMap<ReligionType, ReligionTypeDto>();
 
+            CreateMap<FengShuiMaster, FengShuiMasterDto>();
+            CreateMap<FuneralCompany, FuneralCompanyDto>();
+            CreateMap<CemeteryLandscapeCompany, CemeteryLandscapeCompanyDto>();
+
+
             CreateMap<Applicant, ApplicantDto>();
             CreateMap<Deceased, DeceasedDto>()
                 .ForMember(c => c.GenderTypeDto, opt => opt.MapFrom(x => x.GenderType))
@@ -57,7 +62,8 @@ namespace Memorial.App_Start
                 .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId))
                 .ForMember(c => c.RelationshipTypeDto, opt => opt.MapFrom(x => x.RelationshipType))
                 .ForMember(c => c.RelationshipTypeDtoId, opt => opt.MapFrom(x => x.RelationshipTypeId));
-            CreateMap<FuneralCompany, FuneralCompanyDto>();
+            
+
             CreateMap<CremationTransaction, CremationTransactionDto>();
 
             CreateMap<Miscellaneous, MiscellaneousDto>()
@@ -124,7 +130,6 @@ namespace Memorial.App_Start
                 .ForMember(c => c.PlotDto, opt => opt.MapFrom(x => x.Plot))
                 .ForMember(c => c.PlotDtoId, opt => opt.MapFrom(x => x.PlotId));
 
-            CreateMap<CemeteryLandscapeCompany, CemeteryLandscapeCompanyDto>();
             CreateMap<CemeteryTransaction, CemeteryTransactionDto>()
                 .ForMember(c => c.FuneralCompanyDto, opt => opt.MapFrom(x => x.FuneralCompany))
                 .ForMember(c => c.FuneralCompanyDtoId, opt => opt.MapFrom(x => x.FuneralCompanyId))
@@ -261,6 +266,15 @@ namespace Memorial.App_Start
             CreateMap<NationalityType, NationalityTypeDto>();
             CreateMap<ReligionType, ReligionTypeDto>();
 
+            CreateMap<FengShuiMasterDto, FengShuiMaster>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<FuneralCompanyDto, FuneralCompany>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<CemeteryLandscapeCompanyDto, CemeteryLandscapeCompany>()
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+
+
 
             CreateMap<ApplicantDto, Applicant>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
@@ -288,8 +302,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId))
                 .ForMember(c => c.RelationshipType, opt => opt.Ignore())
                 .ForMember(c => c.RelationshipTypeId, opt => opt.MapFrom(x => x.RelationshipTypeDtoId));
-            CreateMap<FuneralCompanyDto, FuneralCompany>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+            
             CreateMap<CremationTransactionDto, CremationTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore());
 
@@ -385,10 +398,7 @@ namespace Memorial.App_Start
 
             CreateMap<PlotTypeDto, PlotType>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
-            CreateMap<CemeteryLandscapeCompanyDto, CemeteryLandscapeCompany>()
-                .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreateDate, opt => opt.Ignore());              
             CreateMap<CemeteryTransactionDto, CemeteryTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))

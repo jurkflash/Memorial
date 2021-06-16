@@ -43,10 +43,10 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryLandscapeCompany>, IEnumerable<CemeteryLandscapeCompanyDto>>(_unitOfWork.CemeteryLandscapeCompanies.GetAllActive());
         }
 
-        public bool CreateCemeteryLandscapeCompany(CemeteryLandscapeCompanyDto CemeteryLandscapeCompanyDto)
+        public int Create(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
         {
             _cemeteryLandscapeCompany = new Core.Domain.CemeteryLandscapeCompany();
-            Mapper.Map(CemeteryLandscapeCompanyDto, _cemeteryLandscapeCompany);
+            Mapper.Map(cemeteryLandscapeCompanyDto, _cemeteryLandscapeCompany);
 
             _cemeteryLandscapeCompany.CreateDate = DateTime.Now;
 
@@ -54,23 +54,23 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
 
             _unitOfWork.Complete();
 
-            return true;
+            return _cemeteryLandscapeCompany.Id;
         }
 
-        public bool UpdateCemeteryLandscapeCompany(CemeteryLandscapeCompanyDto CemeteryLandscapeCompanyDto)
+        public bool Update(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
         {
-            var CemeteryLandscapeCompanyInDB = GetCemeteryLandscapeCompany(CemeteryLandscapeCompanyDto.Id);
+            var cemeteryLandscapeCompanyInDB = GetCemeteryLandscapeCompany(cemeteryLandscapeCompanyDto.Id);
 
-            Mapper.Map(CemeteryLandscapeCompanyDto, CemeteryLandscapeCompanyInDB);
+            Mapper.Map(cemeteryLandscapeCompanyDto, cemeteryLandscapeCompanyInDB);
 
-            CemeteryLandscapeCompanyInDB.ModifyDate = DateTime.Now;
+            cemeteryLandscapeCompanyInDB.ModifyDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool DeleteCemeteryLandscapeCompany(int id)
+        public bool Delete(int id)
         {
             if (_unitOfWork.MiscellaneousTransactions.Find(mt => mt.CemeteryLandscapeCompanyId == id && mt.DeleteDate == null).Any())
             {
