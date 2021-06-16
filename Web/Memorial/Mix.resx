@@ -669,4 +669,13 @@
   <data name="FindByName" xml:space="preserve">
     <value>Find by Name:</value>
   </data>
+  <data name="SpaceBR" xml:space="preserve">
+    <value>空間&lt;br /&gt;Space</value>
+  </data>
+  <data name="MiscellaneousBR" xml:space="preserve">
+    <value>雜費&lt;br /&gt;Miscellaneous</value>
+  </data>
+  <data name="CremationBR" xml:space="preserve">
+    <value>火葬&lt;br /&gt;Cremation</value>
+  </data>
 </root>

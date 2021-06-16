@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using Memorial.ViewModels;
+using Memorial.Core.Dtos;
 using Memorial.Lib.Cemetery;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
@@ -21,6 +23,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         private readonly IApplicant _applicant;
         private readonly IDeceased _deceased;
         private readonly IApplicantDeceased _applicantDeceased;
+        private readonly ITransaction _transaction;
 
         public CemeteriesController(
             IPlot plot,
@@ -29,7 +32,8 @@ namespace Memorial.Areas.Cemetery.Controllers
             IItem item,
             IApplicant applicant,
             IDeceased deceased,
-            IApplicantDeceased applicantDeceased)
+            IApplicantDeceased applicantDeceased,
+            ITransaction transaction)
         {
             _plot = plot;
             _site = site;
@@ -38,6 +42,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
+            _transaction = transaction;
         }
 
 
@@ -126,6 +131,31 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
 
             return PartialView("_PlotInfo", viewModel);
+        }
+
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.CemeteryItemDtoId,
+                    Text1 = transaction.PlotDto.CemeteryAreaDto.Name,
+                    Text2 = transaction.PlotDto.Name,
+                    ItemName = transaction.CemeteryItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.CemeteryItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.CemeteryItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
         }
 
     }

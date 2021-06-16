@@ -139,6 +139,14 @@ namespace Memorial.Lib.Cremation
             return _unitOfWork.CremationTransactions.GetByItemAndDeceased(itemId, deceasedId);
         }
 
+        public IEnumerable<CremationTransactionDto> GetRecent(int? number, int siteId)
+        {
+            if (number == null)
+                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            else
+                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent((int)number, siteId));
+        }
+
         protected bool CreateNewTransaction(CremationTransactionDto cremationTransactionDto)
         {
             if (_AFnumber == "")

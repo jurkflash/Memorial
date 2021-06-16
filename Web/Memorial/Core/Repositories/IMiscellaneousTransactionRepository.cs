@@ -10,5 +10,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<MiscellaneousTransaction> GetByItem(int itemId, string filter);
 
         IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId);
+
+        IEnumerable<MiscellaneousTransaction> GetRecent(int number, int siteId);
     }
 }

@@ -45,5 +45,7 @@ namespace Memorial.Lib.Miscellaneous
         IEnumerable<Core.Domain.MiscellaneousTransaction> GetTransactionsByItemId(int itemId, string filter);
 
         IEnumerable<MiscellaneousTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
+
+        IEnumerable<MiscellaneousTransactionDto> GetRecent(int? number, int siteId);
     }
 }

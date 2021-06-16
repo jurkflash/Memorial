@@ -885,7 +885,7 @@
     <Compile Include="Areas\Menu\Controllers\MenuController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\NonOrderReceiptsController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\ReceiptsController.cs" />
-    <Compile Include="Areas\Columbarium\Controllers\NichesController.cs" />
+    <Compile Include="Areas\Columbarium\Controllers\ColumbariumsController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\ManageController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Columbarium\Controllers\PhotosController.cs" />
@@ -960,6 +960,7 @@
     <Compile Include="Core\Domain\RelationshipType.cs" />
     <Compile Include="Core\Domain\PaymentMethod.cs" />
     <Compile Include="Core\Domain\Applicant.cs" />
+    <Compile Include="Core\Dtos\RecentDto.cs" />
     <Compile Include="Core\Dtos\AncestralTabletDto.cs" />
     <Compile Include="Core\Dtos\AncestralTabletAreaDto.cs" />
     <Compile Include="Core\Dtos\AncestralTabletItemDto.cs" />
@@ -2941,6 +2942,13 @@
     <Content Include="Areas\FuneralCompanyConfig\Views\FuneralCompanies\Index.cshtml" />
     <Content Include="Areas\ConfigLink\Views\web.config" />
     <Content Include="Areas\ConfigLink\Views\Links\Index.cshtml" />
+    <Content Include="Areas\Space\Views\Spaces\Menu.cshtml" />
+    <Content Include="Areas\Urn\Views\Urns\Menu.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Miscellaneous\Menu.cshtml" />
+    <Content Include="Areas\Cremation\Views\Cremations\Menu.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Columbariums\Menu.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Cemeteries\Menu.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\AncestralTablets\Menu.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />

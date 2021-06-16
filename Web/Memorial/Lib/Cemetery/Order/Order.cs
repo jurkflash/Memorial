@@ -78,7 +78,7 @@ namespace Memorial.Lib.Cemetery
                     return false;
             }
 
-            NewNumber(cemeteryTransactionDto.CemeteryItemId);
+            NewNumber(cemeteryTransactionDto.CemeteryItemDtoId);
 
             SummaryItem(cemeteryTransactionDto);
 

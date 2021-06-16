@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using Memorial.ViewModels;
+using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -19,6 +21,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         private readonly ICentre _centre;
         private readonly IItem _item;
         private readonly ISite _site;
+        private readonly ITransaction _transaction;
 
         public ColumbariumsController(
             IApplicant applicant,
@@ -28,7 +31,8 @@ namespace Memorial.Areas.Columbarium.Controllers
             ICentre centre, 
             IArea area, 
             IItem item,
-            ISite site)
+            ISite site,
+            ITransaction transaction)
         {
             _applicant = applicant;
             _deceased = deceased;
@@ -38,6 +42,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             _centre = centre;
             _item = item;
             _site = site;
+            _transaction = transaction;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -122,6 +127,32 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
 
             return PartialView("_NicheInfo", viewModel);
+        }
+
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.ColumbariumItemDtoId,
+                    Text1 = transaction.NicheDto.ColumbariumAreaDto.ColumbariumCentreDto.Name,
+                    Text2 = transaction.NicheDto.ColumbariumAreaDto.Name,
+                    Text3 = transaction.NicheDto.Name,
+                    ItemName = transaction.ColumbariumItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.ColumbariumItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.ColumbariumItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
         }
     }
 }

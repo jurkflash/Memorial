@@ -18,5 +18,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<AncestralTabletTransaction> GetByAncestralTabletId(int ancestralTabletId);
 
         IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItemAndApplicant(int ancestralTabletId, int itemId, int applicantId);
+
+        IEnumerable<AncestralTabletTransaction> GetRecent(int number, int siteId);
     }
 }

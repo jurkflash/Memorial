@@ -18,5 +18,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<ColumbariumTransaction> GetByNicheId(int nicheId);
 
         IEnumerable<ColumbariumTransaction> GetByNicheIdAndItemAndApplicant(int nicheId, int itemId, int applicantId);
+
+        IEnumerable<ColumbariumTransaction> GetRecent(int number, int siteId);
     }
 }

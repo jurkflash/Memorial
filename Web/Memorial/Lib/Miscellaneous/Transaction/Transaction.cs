@@ -134,6 +134,14 @@ namespace Memorial.Lib.Miscellaneous
             return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
+        public IEnumerable<MiscellaneousTransactionDto> GetRecent(int? number, int siteId)
+        {
+            if (number == null)
+                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            else
+                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent((int)number, siteId));
+        }
+
         protected bool CreateNewTransaction(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
             if (_AFnumber == "")

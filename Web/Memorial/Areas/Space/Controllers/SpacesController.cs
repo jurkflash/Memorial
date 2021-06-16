@@ -2,6 +2,8 @@
 using Memorial.ViewModels;
 using Memorial.Lib.Site;
 using Memorial.Lib.Space;
+using Memorial.Core.Dtos;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.Space.Controllers
 {
@@ -10,15 +12,19 @@ namespace Memorial.Areas.Space.Controllers
         private readonly ISpace _space;
         private readonly ISite _site;
         private readonly IItem _item;
+        private readonly ITransaction _transaction;
 
         public SpacesController(
             ISpace space,
             ISite site,
-            IItem item)
+            IItem item,
+            ITransaction transaction
+            )
         {
             _space = space;
             _site = site;
             _item = item;
+            _transaction = transaction;
         }
 
         public ActionResult Index(int siteId, int applicantId = 0)
@@ -53,10 +59,28 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Menu(int siteId, string filter)
+        public ActionResult Menu(int siteId)
         {
+            List<RecentDto> recents = new List<RecentDto>();
 
-            return View();
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach(var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.SpaceItemDto.Id,
+                    Text1 = transaction.SpaceItemDto.SpaceDto.Name,
+                    ItemName = transaction.SpaceItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.SpaceItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.SpaceItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
         }
 
     }

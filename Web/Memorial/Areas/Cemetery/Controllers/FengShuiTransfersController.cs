@@ -136,7 +136,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
+                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemDtoId,
                         id = viewModel.CemeteryTransactionDto.PlotDtoId,
                         applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
                     });
@@ -162,7 +162,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
+                itemId = viewModel.CemeteryTransactionDto.CemeteryItemDtoId,
                 id = viewModel.CemeteryTransactionDto.PlotDtoId,
                 applicantId = viewModel.CemeteryTransactionDto.ApplicantDtoId
             });

@@ -53,6 +53,20 @@ namespace Memorial.Persistence.Repositories
                                             && ut.DeleteDate == null).ToList();
         }
 
+        public IEnumerable<UrnTransaction> GetRecent(int number, int siteId)
+        {
+            return MemorialContext.UrnTransactions
+                .Where(t => t.DeleteDate == null && t.UrnItem.Urn.SiteId == siteId)
+                .Include(t => t.Applicant)
+                .Include(t => t.UrnItem)
+                .Include(t => t.UrnItem.Urn)
+                .Include(t => t.UrnItem.SubProductService)
+                .Include(t => t.UrnItem.SubProductService.Product)
+                .OrderByDescending(t => t.CreateDate)
+                .Take(number)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

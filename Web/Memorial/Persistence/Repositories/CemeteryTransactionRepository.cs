@@ -130,6 +130,23 @@ namespace Memorial.Persistence.Repositories
                 .Where(pt => pt.PlotId == plotId && pt.DeleteDate == null)
                 .ToList();
         }
+
+        public IEnumerable<CemeteryTransaction> GetRecent(int number, int siteId)
+        {
+            return MemorialContext.CemeteryTransactions
+                .Where(t => t.DeleteDate == null && t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
+                .Include(t => t.Applicant)
+                .Include(t => t.CemeteryItem)
+                .Include(t => t.Plot)
+                .Include(t => t.Plot.CemeteryArea)
+                .Include(t => t.CemeteryItem.SubProductService)
+                .Include(t => t.CemeteryItem.SubProductService.Product)
+                .OrderByDescending(t => t.CreateDate)
+                .Take(number)
+                .ToList();
+        }
+
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

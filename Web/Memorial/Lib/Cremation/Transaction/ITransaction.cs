@@ -47,5 +47,7 @@ namespace Memorial.Lib.Cremation
         IEnumerable<CremationTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
 
         IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemIdAndDeceasedId(int itemId, int deceasedId);
+
+        IEnumerable<CremationTransactionDto> GetRecent(int? number, int siteId);
     }
 }

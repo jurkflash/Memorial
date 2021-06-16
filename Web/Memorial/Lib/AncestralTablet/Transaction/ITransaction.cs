@@ -57,5 +57,7 @@ namespace Memorial.Lib.AncestralTablet
         IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestralTabletIdAndItemIdAndApplicantId(int ancestralTabletId, int itemId, int applicantId);
 
         Core.Domain.AncestralTabletTransaction GetTransactionsByShiftedAncestralTabletTransactionAF(string AF);
+
+        IEnumerable<AncestralTabletTransactionDto> GetRecent(int? number, int siteId);
     }
 }

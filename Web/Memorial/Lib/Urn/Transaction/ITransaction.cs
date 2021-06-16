@@ -45,5 +45,7 @@ namespace Memorial.Lib.Urn
         IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId, string filter);
 
         IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
+
+        IEnumerable<UrnTransactionDto> GetRecent(int? number, int siteId);
     }
 }

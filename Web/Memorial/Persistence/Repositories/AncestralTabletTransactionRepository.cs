@@ -97,6 +97,20 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
+        public IEnumerable<AncestralTabletTransaction> GetRecent(int number, int siteId)
+        {
+            return MemorialContext.AncestralTabletTransactions
+                .Where(t => t.DeleteDate == null && t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
+                .Include(t => t.Applicant)
+                .Include(t => t.AncestralTablet)
+                .Include(t => t.AncestralTabletItem.AncestralTabletArea)
+                .Include(t => t.AncestralTabletItem.SubProductService)
+                .Include(t => t.AncestralTabletItem.SubProductService.Product)
+                .OrderByDescending(t => t.CreateDate)
+                .Take(number)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -103,7 +103,7 @@ namespace Memorial.Lib.Cemetery
 
             _tracking.Remove(cemeteryTransactionDto.PlotDtoId, cemeteryTransactionDto.TransferredCemeteryTransactionAF);
 
-            NewNumber(cemeteryTransactionDto.CemeteryItemId);
+            NewNumber(cemeteryTransactionDto.CemeteryItemDtoId);
 
             SummaryItem(cemeteryTransactionDto);
 

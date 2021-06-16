@@ -99,6 +99,22 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
+        public IEnumerable<ColumbariumTransaction> GetRecent(int number, int siteId)
+        {
+            return MemorialContext.ColumbariumTransactions
+                .Where(t => t.DeleteDate == null && t.ColumbariumItem.ColumbariumCentre.SiteId == siteId)
+                .Include(t => t.Applicant)
+                .Include(t => t.ColumbariumItem)
+                .Include(t => t.Niche)
+                .Include(t => t.Niche.ColumbariumArea)
+                .Include(t => t.Niche.ColumbariumArea.ColumbariumCentre)
+                .Include(t => t.ColumbariumItem.SubProductService)
+                .Include(t => t.ColumbariumItem.SubProductService.Product)
+                .OrderByDescending(t => t.CreateDate)
+                .Take(number)
+                .ToList();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

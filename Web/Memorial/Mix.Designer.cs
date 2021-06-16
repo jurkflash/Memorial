@@ -538,6 +538,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 火葬&lt;br /&gt;Cremation.
+        /// </summary>
+        public static string CremationBR {
+            get {
+                return ResourceManager.GetString("CremationBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 修改火葬 Edit Cremation.
         /// </summary>
         public static string CremationEdit {
@@ -1011,6 +1020,15 @@ namespace Resources {
         public static string MiscellaneousApplicationFormBR {
             get {
                 return ResourceManager.GetString("MiscellaneousApplicationFormBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 雜費&lt;br /&gt;Miscellaneous.
+        /// </summary>
+        public static string MiscellaneousBR {
+            get {
+                return ResourceManager.GetString("MiscellaneousBR", resourceCulture);
             }
         }
         
@@ -1497,6 +1515,15 @@ namespace Resources {
         public static string Space {
             get {
                 return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 空間&lt;br /&gt;Space.
+        /// </summary>
+        public static string SpaceBR {
+            get {
+                return ResourceManager.GetString("SpaceBR", resourceCulture);
             }
         }
         

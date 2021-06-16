@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Memorial.ViewModels;
+using Memorial.Core.Dtos;
 using Memorial.Lib.Site;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
@@ -20,6 +21,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         private readonly IApplicant _applicant;
         private readonly IDeceased _deceased;
         private readonly IApplicantDeceased _applicantDeceased;
+        private readonly ITransaction _transaction;
 
         public AncestralTabletsController(
             IAncestralTablet ancestralTablet,
@@ -28,7 +30,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             IItem item,
             IApplicant applicant,
             IDeceased deceased,
-            IApplicantDeceased applicantDeceased)
+            IApplicantDeceased applicantDeceased,
+            ITransaction transaction)
         {
             _ancestralTablet = ancestralTablet;
             _site = site;
@@ -37,6 +40,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
+            _transaction = transaction;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -100,5 +104,29 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             return PartialView("_AncestralTabletInfo", viewModel);
         }
 
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.AncestralTabletItemDtoId,
+                    Text1 = transaction.AncestralTabletDto.AncestralTabletAreaDto.Name,
+                    Text2 = transaction.AncestralTabletDto.Name,
+                    ItemName = transaction.AncestralTabletItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.AncestralTabletItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.AncestralTabletItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
+        }
     }
 }

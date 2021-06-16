@@ -88,7 +88,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
                 var cemeteryTransactionDto = new CemeteryTransactionDto();
                 cemeteryTransactionDto.PlotDtoId = id;
-                cemeteryTransactionDto.CemeteryItemId = itemId;
+                cemeteryTransactionDto.CemeteryItemDtoId = itemId;
                 viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
                 viewModel.CemeteryTransactionDto.Price = _reciprocate.GetItemPrice();
             }
@@ -109,7 +109,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     return RedirectToAction("Index", new
                     {
-                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
+                        itemId = viewModel.CemeteryTransactionDto.CemeteryItemDtoId,
                         id = viewModel.CemeteryTransactionDto.PlotDtoId
                     });
                 }
@@ -130,7 +130,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             return RedirectToAction("Index", new
             {
-                itemId = viewModel.CemeteryTransactionDto.CemeteryItemId,
+                itemId = viewModel.CemeteryTransactionDto.CemeteryItemDtoId,
                 id = viewModel.CemeteryTransactionDto.PlotDtoId
             });
         }

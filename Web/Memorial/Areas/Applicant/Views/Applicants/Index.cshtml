@@ -13,10 +13,15 @@
 
 @using (Html.BeginForm("Index", "Applicants", new { area = "Applicant" }))
 {
-    <p>
-        Find by Name/IC: @Html.TextBox("filter")
-        <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
-    </p>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.FindByName)
+        </div>
+        <div class="col-md-6 input-group">
+            @Html.TextBox("filter")
+            <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
+        </div>
+    </div>
 }
 
 <table class="table table-bordered table-hover">

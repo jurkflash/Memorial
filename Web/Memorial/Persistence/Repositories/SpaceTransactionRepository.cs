@@ -122,6 +122,8 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.Applicant)
                 .Include(t => t.SpaceItem)
                 .Include(t => t.SpaceItem.Space)
+                .Include(t => t.SpaceItem.SubProductService)
+                .Include(t => t.SpaceItem.SubProductService.Product)
                 .OrderByDescending(t => t.CreateDate)
                 .Take(number)
                 .ToList();

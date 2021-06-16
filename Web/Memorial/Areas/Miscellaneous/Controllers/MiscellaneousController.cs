@@ -20,17 +20,20 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         private readonly IMiscellaneous _miscellaneous;
         private readonly IItem _item;
         private readonly ISite _site;
+        private readonly ITransaction _transaction;
 
         public MiscellaneousController(
             IApplicant applicant,
             IMiscellaneous miscellaneous,
             IItem item,
-            ISite site)
+            ISite site,
+            ITransaction transaction)
         {
             _applicant = applicant;
             _miscellaneous = miscellaneous;
             _item = item;
             _site = site;
+            _transaction = transaction;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -51,6 +54,30 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ApplicantId = applicantId
             };
             return View(viewModel);
+        }
+
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.MiscellaneousItemDtoId,
+                    Text1 = transaction.MiscellaneousItemDto.MiscellaneousDto.Name,
+                    ItemName = transaction.MiscellaneousItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.MiscellaneousItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.MiscellaneousItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
         }
 
     }

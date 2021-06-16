@@ -131,6 +131,14 @@ namespace Memorial.Lib.Urn
             return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
+        public IEnumerable<UrnTransactionDto> GetRecent(int? number, int siteId)
+        {
+            if (number == null)
+                return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(_unitOfWork.UrnTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            else
+                return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(_unitOfWork.UrnTransactions.GetRecent((int)number, siteId));
+        }
+
         protected bool CreateNewTransaction(UrnTransactionDto urnTransactionDto)
         {
             if (_AFnumber == "")

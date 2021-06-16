@@ -189,6 +189,14 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.CemeteryTransactions.GetLastCemeteryTransactionByPlotId(plotId);
         }
 
+        public IEnumerable<CemeteryTransactionDto> GetRecent(int? number, int siteId)
+        {
+            if (number == null)
+                return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(_unitOfWork.CemeteryTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            else
+                return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(_unitOfWork.CemeteryTransactions.GetRecent((int)number, siteId));
+        }
+
         protected bool CreateNewTransaction(CemeteryTransactionDto cemeteryTransactionDto)
         {
             if (_AFnumber == "")

@@ -20,17 +20,20 @@ namespace Memorial.Areas.Cremation.Controllers
         private readonly ICremation _cremation;
         private readonly IItem _item;
         private readonly ISite _site;
+        private readonly ITransaction _transaction;
 
         public CremationsController(
             IApplicant applicant,
             ICremation cremation,
             IItem item,
-            ISite site)
+            ISite site,
+            ITransaction transaction)
         {
             _applicant = applicant;
             _cremation = cremation;
             _item = item;
             _site = site;
+            _transaction = transaction;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -53,5 +56,28 @@ namespace Memorial.Areas.Cremation.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.CremationItemDtoId,
+                    Text1 = transaction.CremationItemDto.CremationDto.Name,
+                    ItemName = transaction.CremationItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.CremationItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.CremationItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
+        }
     }
 }

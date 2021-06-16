@@ -20,17 +20,20 @@ namespace Memorial.Areas.Urn.Controllers
         private readonly IUrn _urn;
         private readonly IItem _item;
         private readonly ISite _site;
+        private readonly ITransaction _transaction;
 
         public UrnsController(
             IApplicant applicant,
             IUrn urn,
             IItem item,
-            ISite site)
+            ISite site,
+            ITransaction transaction)
         {
             _applicant = applicant;
             _urn = urn;
             _item = item;
             _site = site;
+            _transaction = transaction;
         }
 
         public ActionResult Index(byte siteId, int applicantId = 0)
@@ -53,5 +56,28 @@ namespace Memorial.Areas.Urn.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Menu(int siteId)
+        {
+            List<RecentDto> recents = new List<RecentDto>();
+
+            var transactions = _transaction.GetRecent(null, siteId);
+
+            foreach (var transaction in transactions)
+            {
+                recents.Add(new RecentDto()
+                {
+                    Code = transaction.AF,
+                    ApplicantName = transaction.ApplicantDto.Name,
+                    CreateDate = transaction.CreateDate,
+                    ItemId = transaction.UrnItemDtoId,
+                    Text1 = transaction.UrnItemDto.UrnDto.Name,
+                    ItemName = transaction.UrnItemDto.SubProductServiceDto.Name,
+                    LinkArea = transaction.UrnItemDto.SubProductServiceDto.ProductDto.Area,
+                    LinkController = transaction.UrnItemDto.SubProductServiceDto.SystemCode
+                });
+            }
+
+            return View(recents);
+        }
     }
 }
