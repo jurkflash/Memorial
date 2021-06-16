@@ -39,7 +39,7 @@ namespace Memorial.Lib.Receipt
         override
         public void NewNumber(int itemId)
         {
-            _reNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
+            _reNumber = _number.GetNewRE(itemId, System.DateTime.Now.Year);
         }
 
         public float GetTotalIssuedNonOrderReceiptAmount(string AF)

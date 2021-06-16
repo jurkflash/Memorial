@@ -42,6 +42,8 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Info(string IV, bool exportToPDF = false)
         {
+            _invoice.SetInvoice(IV);
+
             _transaction.SetTransaction(_invoice.GetAF());
 
             var viewModel = new InvoiceInfoViewModel();

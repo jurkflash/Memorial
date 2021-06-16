@@ -235,7 +235,9 @@ namespace Memorial.App_Start
                 .ForMember(c => c.DeceasedDtoId, opt => opt.MapFrom(x => x.DeceasedId));
 
             CreateMap<Invoice, InvoiceDto>();
-            CreateMap<Receipt, ReceiptDto>();
+            CreateMap<Receipt, ReceiptDto>()
+                .ForMember(c => c.InvoiceDto, opt => opt.MapFrom(x => x.Invoice))
+                .ForMember(c => c.InvoiceDtoIV, opt => opt.MapFrom(x => x.InvoiceIV));
             CreateMap<PaymentMethod, PaymentMethodDto>();
 
 
@@ -532,6 +534,7 @@ namespace Memorial.App_Start
             CreateMap<ReceiptDto, Receipt>()
                 .ForMember(i => i.RE, opt => opt.Ignore())
                 .ForMember(i => i.Invoice, opt => opt.Ignore())
+                .ForMember(i => i.InvoiceIV, opt => opt.MapFrom(x => x.InvoiceDtoIV))
                 .ForMember(i => i.PaymentMethod, opt => opt.Ignore())
                 .ForMember(i => i.AncestralTabletTransaction, opt => opt.Ignore())
                 .ForMember(i => i.CremationTransaction, opt => opt.Ignore())

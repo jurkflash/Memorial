@@ -12,5 +12,7 @@ namespace Memorial.Lib.Miscellaneous
         string GetNewAF(int miscellaneousItemId, int year);
 
         string GetNewIV(int miscellaneousItemId, int year);
+
+        string GetNewRE(int miscellaneousItemId, int year);
     }
 }

@@ -21,5 +21,10 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.ColumbariumNumbers.GetNewIV(columbariumItemId, year);
         }
 
+        public string GetNewRE(int columbariumItemId, int year)
+        {
+            return _unitOfWork.ColumbariumNumbers.GetNewRE(columbariumItemId, year);
+        }
+
     }
 }

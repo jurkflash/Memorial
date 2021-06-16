@@ -29,5 +29,10 @@ namespace Memorial.Lib.Urn
             return _unitOfWork.UrnNumbers.GetNewIV(urnItemId, year);
         }
 
+        public string GetNewRE(int urnItemId, int year)
+        {
+            return _unitOfWork.UrnNumbers.GetNewRE(urnItemId, year);
+        }
+
     }
 }

@@ -21,5 +21,9 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletNumbers.GetNewIV(ancestralTabletItemId, year);
         }
 
+        public string GetNewRE(int ancestralTabletItemId, int year)
+        {
+            return _unitOfWork.AncestralTabletNumbers.GetNewRE(ancestralTabletItemId, year);
+        }
     }
 }

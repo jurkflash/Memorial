@@ -38,7 +38,7 @@
         @foreach (var receipt in Model.ReceiptDtos)
         {
             <tr>
-                <td>@receipt.RE</td>
+                <td>@Html.ActionLink(receipt.RE, "Info", new { RE = receipt.RE, area = "Cremation" })</td>
                 <td>@receipt.Amount</td>
                 <td>@receipt.Remark</td>
                 <td>@receipt.PaymentMethod.Name</td>

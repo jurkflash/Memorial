@@ -29,5 +29,10 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.CemeteryNumbers.GetNewIV(cemeteryItemId, year);
         }
 
+        public string GetNewRE(int cemeteryItemId, int year)
+        {
+            return _unitOfWork.CemeteryNumbers.GetNewRE(cemeteryItemId, year);
+        }
+
     }
 }

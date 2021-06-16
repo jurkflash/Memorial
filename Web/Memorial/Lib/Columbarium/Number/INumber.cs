@@ -6,5 +6,7 @@ namespace Memorial.Lib.Columbarium
         string GetNewAF(int columbariumItemId, int year);
 
         string GetNewIV(int columbariumItemId, int year);
+
+        string GetNewRE(int columbariumItemId, int year);
     }
 }

@@ -33,6 +33,45 @@ namespace Memorial.Controllers.Api
             return Ok(_space.GetSpaceDto(id));
         }
 
+        [Route("{id:int}/amount")]
+        [HttpGet]
+        public IHttpActionResult GetAmount(int id, DateTime from, DateTime to)
+        {
+            if (from > to)
+                return BadRequest();
+
+            var result = _space.GetAmount(from, to, id);
+
+            if (result == -1)
+                return BadRequest();
+            else
+                return Ok(result);
+        }
+
+        [Route("{id:int}/availability")]
+        [HttpGet]
+        public IHttpActionResult GetAvailability(int id, DateTime from, DateTime to)
+        {
+            if (from > to)
+                return BadRequest();
+
+            var result = _space.CheckAvailability(from, to, id);
+
+            return Ok(result);
+        }
+
+        [Route("{AF}/availability")]
+        [HttpGet]
+        public IHttpActionResult GetAvailability(string AF, DateTime from, DateTime to)
+        {
+            if (from > to)
+                return BadRequest();
+
+            var result = _space.CheckAvailability(from, to, AF);
+
+            return Ok(result);
+        }
+
         [Route("~/api/sites/{siteId:int}/spaces/events")]
         [HttpGet]
         public IHttpActionResult GetEvents(int siteId, DateTime from, DateTime to)

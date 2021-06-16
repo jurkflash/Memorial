@@ -29,5 +29,10 @@ namespace Memorial.Lib.Miscellaneous
             return _unitOfWork.MiscellaneousNumbers.GetNewIV(miscellaneousItemId, year);
         }
 
+        public string GetNewRE(int miscellaneousItemId, int year)
+        {
+            return _unitOfWork.MiscellaneousNumbers.GetNewRE(miscellaneousItemId, year);
+        }
+
     }
 }

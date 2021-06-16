@@ -28,7 +28,7 @@
         @foreach (var invoice in Model.InvoiceDtos)
         {
             <tr>
-                <td>@invoice.IV</td>
+                <td>@Html.ActionLink(invoice.IV, "Info", new { IV = invoice.IV, area = "AncestralTablet" })</td>
                 <td>@invoice.Remark</td>
                 <td>@invoice.Amount</td>
                 <td>@invoice.isPaid</td>

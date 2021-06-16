@@ -29,5 +29,9 @@ namespace Memorial.Lib.Cremation
             return _unitOfWork.CremationNumbers.GetNewIV(cremationItemId, year);
         }
 
+        public string GetNewRE(int cremationItemId, int year)
+        {
+            return _unitOfWork.CremationNumbers.GetNewRE(cremationItemId, year);
+        }
     }
 }

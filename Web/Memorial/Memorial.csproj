@@ -848,7 +848,6 @@
     <Compile Include="Controllers\Api\AncestralTabletsController.cs" />
     <Compile Include="Controllers\Api\SubProductServicesController.cs" />
     <Compile Include="Controllers\Api\ProductsController.cs" />
-    <Compile Include="Controllers\Api\SpacesController.cs" />
     <Compile Include="Controllers\Api\CatalogsController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletItemsController.cs" />
     <Compile Include="Controllers\Api\AncestralTabletAreasController.cs" />

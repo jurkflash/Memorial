@@ -53,12 +53,15 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Info(string RE, bool exportToPDF = false)
         {
+            _receipt.SetReceipt(RE);
+            _invoice.SetInvoice(_receipt.GetInvoiceIV());
+            _transaction.SetTransaction(_invoice.GetAF());
+
             var viewModel = new OrderReceiptInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ReceiptDto = _receipt.GetReceiptDto(RE);
+            viewModel.ReceiptDto = _receipt.GetReceiptDto();
             viewModel.InvoiceDto = viewModel.ReceiptDto.InvoiceDto;
 
-            _transaction.SetTransaction(_invoice.GetAF());
             viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
             viewModel.Header = _transaction.GetSiteHeader();
 

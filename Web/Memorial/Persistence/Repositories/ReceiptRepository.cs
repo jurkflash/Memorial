@@ -95,6 +95,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.Receipts
                 .Where(r => r.RE == RE && r.DeleteDate == null)
                 .Include(r => r.Invoice)
+                .Include(r => r.PaymentMethod)
                 .SingleOrDefault();
         }
 

@@ -29,5 +29,10 @@ namespace Memorial.Lib.Space
             return _unitOfWork.SpaceNumbers.GetNewIV(spaceItemId, year);
         }
 
+        public string GetNewRE(int spaceItemId, int year)
+        {
+            return _unitOfWork.SpaceNumbers.GetNewRE(spaceItemId, year);
+        }
+
     }
 }

@@ -12,5 +12,7 @@ namespace Memorial.Lib.Cremation
         string GetNewAF(int cremationItemId, int year);
 
         string GetNewIV(int cremationItemId, int year);
+
+        string GetNewRE(int cremationItemId, int year);
     }
 }
