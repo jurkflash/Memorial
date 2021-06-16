@@ -53,7 +53,7 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        public ActionResult Menu(int siteId, string filter)
         {
 
             return View();

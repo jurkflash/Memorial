@@ -38,7 +38,7 @@ namespace Memorial.Persistence.Repositories
             }
             else
             {
-                return transactions.Where(ct => ct.AF.Contains(filter) || ct.Applicant.Name.Contains(filter) || ct.Applicant.Name2.Contains(filter)).ToList();
+                return transactions.Where(ct => ct.AF.Contains(filter) || ct.Applicant.Name.Contains(filter) || (ct.Applicant.Name2 != null && ct.Applicant.Name2.Contains(filter))).ToList();
             }
         }
 

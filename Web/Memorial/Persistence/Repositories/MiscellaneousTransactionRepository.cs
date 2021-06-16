@@ -40,7 +40,7 @@ namespace Memorial.Persistence.Repositories
             }
             else
             {
-                return miscellaneousTransactions.Where(mt=>mt.AF.Contains(filter) || mt.Applicant.Name.Contains(filter) || mt.Applicant.Name2.Contains(filter)).ToList();
+                return miscellaneousTransactions.Where(mt=>mt.AF.Contains(filter) || mt.Applicant.Name.Contains(filter) || (mt.Applicant.Name2 != null && mt.Applicant.Name2.Contains(filter))).ToList();
             }
         }
 
