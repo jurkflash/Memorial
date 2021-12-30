@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class MiscellaneousItem
+    public class MiscellaneousItem : Base
     {
         public MiscellaneousItem()
         {
@@ -27,12 +27,6 @@ namespace Memorial.Core.Domain
         public SubProductService SubProductService { get; set; }
 
         public int SubProductServiceId { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<MiscellaneousTransaction> MiscellaneousTransactions { get; set; }
     }

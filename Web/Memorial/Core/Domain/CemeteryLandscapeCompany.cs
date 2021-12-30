@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class CemeteryLandscapeCompany
+    public class CemeteryLandscapeCompany : Base
     {
         public CemeteryLandscapeCompany()
         {
@@ -21,12 +21,6 @@ namespace Memorial.Core.Domain
         public string ContactNumber { get; set; }
 
         public string Remark { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<MiscellaneousTransaction> MiscellaneousTransactions { get; set; }
     }

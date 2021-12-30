@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Plot
+    public class Plot : Base
     {
         public Plot()
         {
@@ -53,12 +53,6 @@ namespace Memorial.Core.Domain
         public bool hasDeceased { get; set; }
 
         public bool hasCleared { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<Deceased> Deceaseds { get; set; }
 

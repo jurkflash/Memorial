@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class ColumbariumCentre
+    public class ColumbariumCentre : Base
     {
         public ColumbariumCentre()
         {
@@ -27,11 +27,5 @@ namespace Memorial.Core.Domain
         public ICollection<ColumbariumArea> ColumbariumAreas { get; set; }
 
         public ICollection<ColumbariumItem> ColumbariumItems { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

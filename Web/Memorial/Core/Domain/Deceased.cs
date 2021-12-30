@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Deceased
+    public class Deceased : Base
     {
         public Deceased()
         {
@@ -97,12 +97,6 @@ namespace Memorial.Core.Domain
         public AncestralTablet AncestralTablet { get; set; }
 
         public int? AncestralTabletId { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<SpaceTransaction> SpaceTransactions { get; set; }
 

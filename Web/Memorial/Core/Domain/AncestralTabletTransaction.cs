@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class AncestralTabletTransaction
+    public class AncestralTabletTransaction : Base
     {
         public AncestralTabletTransaction()
         {
@@ -59,12 +59,6 @@ namespace Memorial.Core.Domain
         public int? WithdrewAncestralTabletApplicantId { get; set; }
 
         public string SummaryItem { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<Invoice> Invoices { get; set; }
 

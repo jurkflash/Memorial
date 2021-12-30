@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class ApplicantDeceased
+    public class ApplicantDeceased : Base
     {
         public int Id { get; set; }
 
@@ -21,12 +21,6 @@ namespace Memorial.Core.Domain
         public RelationshipType RelationshipType { get; set; }
 
         public byte RelationshipTypeId { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
     }
 }

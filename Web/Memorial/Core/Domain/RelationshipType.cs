@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class RelationshipType
+    public class RelationshipType : Base
     {
         public RelationshipType()
         {
@@ -17,12 +17,5 @@ namespace Memorial.Core.Domain
         public string Name { get; set; }
 
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
-
     }
 }

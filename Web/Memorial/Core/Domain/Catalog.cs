@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Catalog
+    public class Catalog : Base
     {
         public int Id { get; set; }
 
@@ -16,11 +16,5 @@ namespace Memorial.Core.Domain
         public Site Site { get; set; }
 
         public int SiteId { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

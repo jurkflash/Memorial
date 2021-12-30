@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Invoice
+    public class Invoice : Base
     {
         public Invoice()
         {
@@ -51,12 +51,6 @@ namespace Memorial.Core.Domain
         public string UrnTransactionAF { get; set; }
 
         public bool AllowDeposit { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<Receipt> Receipts { get; set; }
     }

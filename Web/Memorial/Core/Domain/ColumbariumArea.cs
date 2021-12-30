@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Memorial.Core.Domain
 {
-    public class ColumbariumArea
+    public class ColumbariumArea : Base
     {
         public ColumbariumArea()
         {
@@ -21,11 +21,5 @@ namespace Memorial.Core.Domain
         public int ColumbariumCentreId { get; set; }
 
         public ICollection<Niche> Niches { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

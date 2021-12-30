@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class SpaceItem
+    public class SpaceItem : Base
     {
         public SpaceItem()
         {
@@ -35,12 +35,6 @@ namespace Memorial.Core.Domain
         public int SubProductServiceId { get; set; }
 
         public string FormView { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<SpaceTransaction> SpaceTransactions { get; set; }
     }

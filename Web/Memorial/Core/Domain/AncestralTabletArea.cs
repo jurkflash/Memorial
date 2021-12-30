@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Memorial.Core.Domain
 {
-    public class AncestralTabletArea
+    public class AncestralTabletArea : Base
     {
         public AncestralTabletArea()
         {
@@ -27,11 +27,5 @@ namespace Memorial.Core.Domain
         public ICollection<AncestralTablet> AncestralTablets { get; set; }
 
         public ICollection<AncestralTabletItem> AncestralTabletItems { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

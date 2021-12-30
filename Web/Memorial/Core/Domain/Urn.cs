@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Urn
+    public class Urn : Base
     {
         public Urn()
         {
@@ -25,12 +25,6 @@ namespace Memorial.Core.Domain
         public Site Site { get; set; }
 
         public int SiteId { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<UrnItem> UrnItems { get; set; }
     }

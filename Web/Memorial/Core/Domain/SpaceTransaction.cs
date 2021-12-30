@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class SpaceTransaction
+    public class SpaceTransaction : Base
     {
         public SpaceTransaction()
         {
@@ -49,11 +49,5 @@ namespace Memorial.Core.Domain
         public ICollection<Invoice> Invoices { get; set; }
 
         public ICollection<Receipt> Receipts { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
     }
 }

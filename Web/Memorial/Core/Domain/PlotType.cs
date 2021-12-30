@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class PlotType
+    public class PlotType : Base
     {
         public PlotType()
         {
@@ -19,12 +19,6 @@ namespace Memorial.Core.Domain
         public byte NumberOfPlacement { get; set; }
 
         public Boolean isFengShuiPlot { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<Plot> Plots { get; set; }
 

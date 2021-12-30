@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Memorial.Core.Domain
 {
-    public class CemeteryTransaction
+    public class CemeteryTransaction : Base
     {
         public CemeteryTransaction()
         {
@@ -79,12 +79,6 @@ namespace Memorial.Core.Domain
         public DateTime? ClearanceDate { get; set; }
 
         public DateTime? ClearanceGroundDate { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<Invoice> Invoices { get; set; }
 

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class FuneralCompany
+    public class FuneralCompany : Base
     {
         public FuneralCompany()
         {
@@ -33,12 +33,6 @@ namespace Memorial.Core.Domain
 
         [MaxLength(255)]
         public string Remark { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<SpaceTransaction> SpaceTransactions { get; set; }
 

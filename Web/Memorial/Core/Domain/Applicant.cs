@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Memorial.Core.Domain
 {
-    public class Applicant
+    public class Applicant : Base
     {
         public Applicant()
         {
@@ -66,12 +66,6 @@ namespace Memorial.Core.Domain
         public string MobileNumber { get; set; }
 
         public string Remark { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime? ModifyDate { get; set; }
-
-        public DateTime? DeleteDate { get; set; }
 
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
