@@ -2654,6 +2654,10 @@
     <Compile Include="Migrations\202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.designer.cs">
       <DependentUpon>202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112301542084_AddActivteStatusForAllBaseInherited.cs" />
+    <Compile Include="Migrations\202112301542084_AddActivteStatusForAllBaseInherited.designer.cs">
+      <DependentUpon>202112301542084_AddActivteStatusForAllBaseInherited.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -4152,6 +4156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.resx">
       <DependentUpon>202106150553258_ExtendColorCodeColumnTo7ForSpacesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301542084_AddActivteStatusForAllBaseInherited.resx">
+      <DependentUpon>202112301542084_AddActivteStatusForAllBaseInherited.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
