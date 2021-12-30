@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Persistence.EntityConfigurations;
 
@@ -146,5 +148,63 @@ namespace Memorial.Persistence
            
             modelBuilder.Configurations.Add(new CatalogConfiguration());
         }
+
+        public override int SaveChanges()
+        {
+            UpdateAuditColumns();
+
+            return base.SaveChanges();
+        }
+
+        private void UpdateAuditColumns()
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                                    .Where(a => a.Entity is Base && (a.State == EntityState.Added || a.State == EntityState.Modified || a.State == EntityState.Deleted));
+
+            //get user id from http context if available (passed from UserInformationMiddleware)
+            int? userId = 1;
+
+            //if (_httpContextAccessor?.HttpContext?.Items["UserId"] != null)
+            //{
+            //    userId = (long)_httpContextAccessor?.HttpContext.Items["UserId"];
+            //}
+
+            foreach (var entry in modifiedEntries)
+            {
+                if (entry.Entity is Base entity)
+                {
+                    DateTime now = DateTime.Now;
+
+                    if (entry.State == EntityState.Added)
+                    {
+                        if (entity.ActiveStatus == default)
+                        {
+                            entity.ActiveStatus = true;
+                        }
+
+                        if (entity.CreatedById == default && userId.HasValue)
+                        {
+                            entity.CreatedById = userId.Value;
+                        }
+
+                        entity.CreateDate = now;
+                    }
+                    else if (entry.State == EntityState.Deleted)
+                    {
+                        entry.State = EntityState.Modified;
+                        entity.ActiveStatus = false;
+                        entity.DeletedById = userId.Value;
+                        entity.DeleteDate = now;
+                    }
+
+                    if (entity.ModifiedById == default && userId.HasValue)
+                    {
+                        entity.ModifiedById = userId.Value;
+                        entity.ModifyDate = now;
+                    }                    
+                }
+            }
+        }
+
     }
 }

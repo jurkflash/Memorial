@@ -2658,6 +2658,10 @@
     <Compile Include="Migrations\202112301542084_AddActivteStatusForAllBaseInherited.designer.cs">
       <DependentUpon>202112301542084_AddActivteStatusForAllBaseInherited.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112301551503_AddAuditById.cs" />
+    <Compile Include="Migrations\202112301551503_AddAuditById.designer.cs">
+      <DependentUpon>202112301551503_AddAuditById.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -4159,6 +4163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112301542084_AddActivteStatusForAllBaseInherited.resx">
       <DependentUpon>202112301542084_AddActivteStatusForAllBaseInherited.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301551503_AddAuditById.resx">
+      <DependentUpon>202112301551503_AddAuditById.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
