@@ -163,8 +163,6 @@ namespace Memorial.Lib.Columbarium
             _niche = new Core.Domain.Niche();
             Mapper.Map(nicheDto, _niche);
 
-            _niche.CreatedDate = DateTime.Now;
-
             _unitOfWork.Niches.Add(_niche);
 
             _unitOfWork.Complete();
@@ -185,8 +183,6 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(nicheDto, nicheInDB);
 
-            nicheInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -201,7 +197,12 @@ namespace Memorial.Lib.Columbarium
 
             SetNiche(id);
 
-            _niche.DeletedDate = DateTime.Now;
+            if(_niche == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Niches.Remove(_niche);
 
             _unitOfWork.Complete();
 

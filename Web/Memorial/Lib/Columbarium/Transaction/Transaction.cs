@@ -196,7 +196,6 @@ namespace Memorial.Lib.Columbarium
             Mapper.Map(columbariumTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.ColumbariumTransactions.Add(_transaction);
 
@@ -209,27 +208,23 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumTransactionDto, columbariumTransactionInDb);
 
-            columbariumTransactionInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeletedDate = System.DateTime.Now;
+            _unitOfWork.ColumbariumTransactions.Remove(_transaction);
 
             return true;
         }
 
         protected bool DeleteAllTransactionWithSameNicheId()
         {
-            var datetimeNow = System.DateTime.Now;
-
             var transactions = GetTransactionsByNicheId(_transaction.NicheId);
 
             foreach(var transaction in transactions)
             {
-                transaction.DeletedDate = datetimeNow;
+                _unitOfWork.ColumbariumTransactions.Remove(transaction);
             }
 
             return true;

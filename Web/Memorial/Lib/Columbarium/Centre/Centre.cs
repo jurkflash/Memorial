@@ -83,8 +83,6 @@ namespace Memorial.Lib.Columbarium
             _centre = new Core.Domain.ColumbariumCentre();
             Mapper.Map(columbariumCentreDto, _centre);
 
-            _centre.CreatedDate = DateTime.Now;
-
             _unitOfWork.ColumbariumCentres.Add(_centre);
 
             _unitOfWork.Complete();
@@ -104,8 +102,6 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumCentreDto, columbariumCentreInDB);
 
-            columbariumCentreInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -120,7 +116,12 @@ namespace Memorial.Lib.Columbarium
 
             SetCentre(id);
 
-            _centre.DeletedDate = DateTime.Now;
+            if(_centre == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.ColumbariumCentres.Remove(_centre);
 
             _unitOfWork.Complete();
 

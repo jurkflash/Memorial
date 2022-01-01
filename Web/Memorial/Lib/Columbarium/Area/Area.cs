@@ -78,8 +78,6 @@ namespace Memorial.Lib.Columbarium
             _area = new Core.Domain.ColumbariumArea();
             Mapper.Map(columbariumAreaDto, _area);
 
-            _area.CreatedDate = DateTime.Now;
-
             _unitOfWork.ColumbariumAreas.Add(_area);
 
             _unitOfWork.Complete();
@@ -99,8 +97,6 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumAreaDto, columbariumAreaInDB);
 
-            columbariumAreaInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -115,7 +111,12 @@ namespace Memorial.Lib.Columbarium
 
             SetArea(id);
 
-            _area.DeletedDate = DateTime.Now;
+            if(_area == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.ColumbariumAreas.Remove(_area);
 
             _unitOfWork.Complete();
 

@@ -125,8 +125,6 @@ namespace Memorial.Lib.Columbarium
             _item = new Core.Domain.ColumbariumItem();
             Mapper.Map(columbariumItemDto, _item);
 
-            _item.CreatedDate = DateTime.Now;
-
             _unitOfWork.ColumbariumItems.Add(_item);
 
             _unitOfWork.Complete();
@@ -147,8 +145,6 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumItemDto, columbariumItemInDB);
 
-            columbariumItemInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -163,7 +159,12 @@ namespace Memorial.Lib.Columbarium
 
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if(_item == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.ColumbariumItems.Remove(_item);
 
             _unitOfWork.Complete();
 
