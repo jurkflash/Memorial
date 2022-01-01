@@ -201,12 +201,11 @@ namespace Memorial.Persistence
                         entity.DeletedById = userId.Value;
                         entity.DeletedDate = now;
                     }
-
-                    if (entity.ModifiedById == default && userId.HasValue)
+                    else
                     {
                         entity.ModifiedById = userId.Value;
                         entity.ModifiedDate = now;
-                    }                    
+                    }
                 }
             }
         }
