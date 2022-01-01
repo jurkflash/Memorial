@@ -121,8 +121,6 @@ namespace Memorial.Lib.AncestralTablet
             _item = new Core.Domain.AncestralTabletItem();
             Mapper.Map(ancestralTabletItemDto, _item);
 
-            _item.CreatedDate = DateTime.Now;
-
             _unitOfWork.AncestralTabletItems.Add(_item);
 
             _unitOfWork.Complete();
@@ -143,8 +141,6 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletItemDto, ancestralTabletItemInDB);
 
-            ancestralTabletItemInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -159,8 +155,13 @@ namespace Memorial.Lib.AncestralTablet
 
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if (_item == null)
+            {
+                return false;
+            }
 
+            _unitOfWork.AncestralTabletItems.Remove(_item);
+            
             _unitOfWork.Complete();
 
             return true;

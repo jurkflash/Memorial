@@ -195,7 +195,6 @@ namespace Memorial.Lib.AncestralTablet
             Mapper.Map(ancestralTabletTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.AncestralTabletTransactions.Add(_transaction);
 
@@ -208,27 +207,23 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletTransactionDto, ancestralTabletTransactionInDb);
 
-            ancestralTabletTransactionInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeletedDate = System.DateTime.Now;
+            _unitOfWork.AncestralTabletTransactions.Remove(_transaction);
 
             return true;
         }
 
         protected bool DeleteAllTransactionWithSameAncestralTabletId()
         {
-            var datetimeNow = System.DateTime.Now;
-
             var transactions = GetTransactionsByAncestralTabletId(_transaction.AncestralTabletId);
 
             foreach (var transaction in transactions)
             {
-                transaction.DeletedDate = datetimeNow;
+                _unitOfWork.AncestralTabletTransactions.Remove(transaction);
             }
 
             return true;

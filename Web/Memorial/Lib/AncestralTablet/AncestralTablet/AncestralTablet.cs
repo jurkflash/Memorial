@@ -145,8 +145,6 @@ namespace Memorial.Lib.AncestralTablet
             _ancestralTablet = new Core.Domain.AncestralTablet();
             Mapper.Map(ancestralTabletDto, _ancestralTablet);
 
-            _ancestralTablet.CreatedDate = DateTime.Now;
-
             _unitOfWork.AncestralTablets.Add(_ancestralTablet);
 
             _unitOfWork.Complete();
@@ -166,8 +164,6 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletDto, ancestralTabletInDB);
 
-            ancestralTabletInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -180,9 +176,14 @@ namespace Memorial.Lib.AncestralTablet
                 return false;
             }
 
-            SetAncestralTablet(id);
+            var ancestralTablet = _unitOfWork.AncestralTablets.Find(at => at.Id == id).SingleOrDefault();
 
-            _ancestralTablet.DeletedDate = DateTime.Now;
+            if (ancestralTablet == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.AncestralTablets.Remove(ancestralTablet);
 
             _unitOfWork.Complete();
 

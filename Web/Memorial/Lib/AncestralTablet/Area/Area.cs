@@ -87,8 +87,6 @@ namespace Memorial.Lib.AncestralTablet
             _area = new Core.Domain.AncestralTabletArea();
             Mapper.Map(ancestralTabletAreaDto, _area);
 
-            _area.CreatedDate = DateTime.Now;
-
             _unitOfWork.AncestralTabletAreas.Add(_area);
 
             _unitOfWork.Complete();
@@ -108,8 +106,6 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletAreaDto, ancestralTabletAreaInDB);
 
-            ancestralTabletAreaInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -124,8 +120,13 @@ namespace Memorial.Lib.AncestralTablet
 
             SetArea(id);
 
-            _area.DeletedDate = DateTime.Now;
+            if (_area == null)
+            {
+                return false;
+            }
 
+            _unitOfWork.AncestralTabletAreas.Remove(_area);
+            
             _unitOfWork.Complete();
 
             return true;

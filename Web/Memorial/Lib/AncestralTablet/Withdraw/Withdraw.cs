@@ -68,7 +68,7 @@ namespace Memorial.Lib.AncestralTablet
             var trnsAF = string.Join(",", trns.Select(t => t.AF));
             foreach (var trn in trns)
             {
-                trn.DeletedDate = DateTime.Now;
+                _unitOfWork.AncestralTabletTransactions.Remove(trn);
             }
             ancestralTabletTransactionDto.WithdrewAFS = trnsAF;
 
@@ -131,9 +131,7 @@ namespace Memorial.Lib.AncestralTablet
                 _ancestralTablet.SetHasDeceased(true);
             }
 
-
             _ancestralTablet.SetApplicant((int)_transaction.WithdrewAncestralTabletApplicantId);
-            
 
             var trackings = _tracking.GetTrackingByAncestralTabletId(_transaction.AncestralTabletId, true);
 
