@@ -207,7 +207,7 @@ namespace Memorial.Lib.Cemetery
             Mapper.Map(cemeteryTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
+            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.CemeteryTransactions.Add(_transaction);
 

@@ -107,7 +107,7 @@ namespace Memorial.Lib.Deceased
 
             Mapper.Map(deceasedDto, _deceased);
 
-            _deceased.CreateDate = System.DateTime.Now;
+            _deceased.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.Deceaseds.Add(_deceased);
 

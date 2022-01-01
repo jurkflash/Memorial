@@ -125,7 +125,7 @@ namespace Memorial.Lib.Columbarium
             _item = new Core.Domain.ColumbariumItem();
             Mapper.Map(columbariumItemDto, _item);
 
-            _item.CreateDate = DateTime.Now;
+            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.ColumbariumItems.Add(_item);
 

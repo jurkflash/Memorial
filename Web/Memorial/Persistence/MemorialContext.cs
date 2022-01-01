@@ -192,7 +192,7 @@ namespace Memorial.Persistence
                             entity.CreatedById = userId.Value;
                         }
 
-                        entity.CreateDate = now;
+                        entity.CreatedDate = now;
                     }
                     else if (entry.State == EntityState.Deleted)
                     {

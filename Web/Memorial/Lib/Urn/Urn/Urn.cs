@@ -79,7 +79,7 @@ namespace Memorial.Lib.Urn
             _urn = new Core.Domain.Urn();
             Mapper.Map(urnDto, _urn);
 
-            _urn.CreateDate = DateTime.Now;
+            _urn.CreatedDate = DateTime.Now;
 
             _unitOfWork.Urns.Add(_urn);
 

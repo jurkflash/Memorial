@@ -123,7 +123,7 @@ namespace Memorial.Lib.Cremation
             _item = new Core.Domain.CremationItem();
             Mapper.Map(cremationItemDto, _item);
 
-            _item.CreateDate = DateTime.Now;
+            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.CremationItems.Add(_item);
 

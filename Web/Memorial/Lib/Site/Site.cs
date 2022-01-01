@@ -60,7 +60,7 @@ namespace Memorial.Lib.Site
             _site = new Core.Domain.Site();
             Mapper.Map(siteDto, _site);
 
-            _site.CreateDate = DateTime.Now;
+            _site.CreatedDate = DateTime.Now;
 
             _unitOfWork.Sites.Add(_site);
 

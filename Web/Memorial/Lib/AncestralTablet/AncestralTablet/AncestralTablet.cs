@@ -145,7 +145,7 @@ namespace Memorial.Lib.AncestralTablet
             _ancestralTablet = new Core.Domain.AncestralTablet();
             Mapper.Map(ancestralTabletDto, _ancestralTablet);
 
-            _ancestralTablet.CreateDate = DateTime.Now;
+            _ancestralTablet.CreatedDate = DateTime.Now;
 
             _unitOfWork.AncestralTablets.Add(_ancestralTablet);
 

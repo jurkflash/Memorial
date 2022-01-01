@@ -127,7 +127,7 @@ namespace Memorial.Lib.Space
             _item = new Core.Domain.SpaceItem();
             Mapper.Map(spaceItemDto, _item);
 
-            _item.CreateDate = DateTime.Now;
+            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.SpaceItems.Add(_item);
 

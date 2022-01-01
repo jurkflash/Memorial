@@ -163,7 +163,7 @@ namespace Memorial.Lib.Columbarium
             _niche = new Core.Domain.Niche();
             Mapper.Map(nicheDto, _niche);
 
-            _niche.CreateDate = DateTime.Now;
+            _niche.CreatedDate = DateTime.Now;
 
             _unitOfWork.Niches.Add(_niche);
 

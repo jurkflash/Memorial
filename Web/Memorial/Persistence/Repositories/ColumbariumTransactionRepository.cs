@@ -110,7 +110,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.Niche.ColumbariumArea.ColumbariumCentre)
                 .Include(t => t.ColumbariumItem.SubProductService)
                 .Include(t => t.ColumbariumItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

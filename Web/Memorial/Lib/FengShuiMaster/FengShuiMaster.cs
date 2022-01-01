@@ -48,7 +48,7 @@ namespace Memorial.Lib.FengShuiMaster
             _fengShuiMaster = new Core.Domain.FengShuiMaster();
             Mapper.Map(fengShuiMasterDto, _fengShuiMaster);
 
-            _fengShuiMaster.CreateDate = DateTime.Now;
+            _fengShuiMaster.CreatedDate = DateTime.Now;
 
             _unitOfWork.FengShuiMasters.Add(_fengShuiMaster);
 

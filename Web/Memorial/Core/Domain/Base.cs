@@ -11,7 +11,7 @@ namespace Memorial.Core.Domain
 
         public int CreatedById { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public int ModifiedById { get; set; }
 

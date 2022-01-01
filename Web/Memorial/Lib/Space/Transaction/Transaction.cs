@@ -205,7 +205,7 @@ namespace Memorial.Lib.Space
             Mapper.Map(spaceTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
+            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.SpaceTransactions.Add(_transaction);
 

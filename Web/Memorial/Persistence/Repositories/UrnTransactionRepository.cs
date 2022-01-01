@@ -62,7 +62,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.UrnItem.Urn)
                 .Include(t => t.UrnItem.SubProductService)
                 .Include(t => t.UrnItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

@@ -113,7 +113,7 @@ namespace Memorial.Lib.Invoice
 
             _invoice.IV = _ivNumber;
             _invoice.hasReceipt = false;
-            _invoice.CreateDate = System.DateTime.Now;
+            _invoice.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.Invoices.Add(_invoice);
 

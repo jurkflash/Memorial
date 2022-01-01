@@ -78,7 +78,7 @@ namespace Memorial.Lib.Columbarium
             _area = new Core.Domain.ColumbariumArea();
             Mapper.Map(columbariumAreaDto, _area);
 
-            _area.CreateDate = DateTime.Now;
+            _area.CreatedDate = DateTime.Now;
 
             _unitOfWork.ColumbariumAreas.Add(_area);
 

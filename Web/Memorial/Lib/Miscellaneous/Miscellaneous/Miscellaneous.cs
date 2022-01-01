@@ -79,7 +79,7 @@ namespace Memorial.Lib.Miscellaneous
             _miscellaneous = new Core.Domain.Miscellaneous();
             Mapper.Map(miscellaneousDto, _miscellaneous);
 
-            _miscellaneous.CreateDate = DateTime.Now;
+            _miscellaneous.CreatedDate = DateTime.Now;
 
             _unitOfWork.Miscellaneous.Add(_miscellaneous);
 

@@ -83,7 +83,7 @@ namespace Memorial.Lib.Cemetery
             _area = new Core.Domain.CemeteryArea();
             Mapper.Map(cemeteryAreaDto, _area);
 
-            _area.CreateDate = DateTime.Now;
+            _area.CreatedDate = DateTime.Now;
 
             _unitOfWork.CemeteryAreas.Add(_area);
 

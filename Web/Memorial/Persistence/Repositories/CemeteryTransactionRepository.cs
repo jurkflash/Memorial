@@ -105,7 +105,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.PlotId == plotId
-                                            && pt.DeleteDate == null).OrderByDescending(pt => pt.CreateDate).FirstOrDefault();
+                                            && pt.DeleteDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public CemeteryTransaction GetLastCemeteryTransactionByShiftedPlotId(int plotId)
@@ -116,7 +116,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.DeleteDate == null).OrderByDescending(pt => pt.CreateDate).FirstOrDefault();
+                .Where(pt => pt.DeleteDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public IEnumerable<CemeteryTransaction> GetByPlotId(int plotId)
@@ -141,7 +141,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.Plot.CemeteryArea)
                 .Include(t => t.CemeteryItem.SubProductService)
                 .Include(t => t.CemeteryItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

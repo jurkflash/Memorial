@@ -74,7 +74,7 @@ namespace Memorial.Lib.Cremation
             _cremation = new Core.Domain.Cremation();
             Mapper.Map(cremationDto, _cremation);
 
-            _cremation.CreateDate = DateTime.Now;
+            _cremation.CreatedDate = DateTime.Now;
 
             _unitOfWork.Cremations.Add(_cremation);
 

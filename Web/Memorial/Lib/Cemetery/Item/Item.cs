@@ -156,7 +156,7 @@ namespace Memorial.Lib.Cemetery
 
         private bool Create(Core.Domain.CemeteryItem cemeteryItem)
         {
-            cemeteryItem.CreateDate = DateTime.Now;
+            cemeteryItem.CreatedDate = DateTime.Now;
 
             _unitOfWork.CemeteryItems.Add(cemeteryItem);
 

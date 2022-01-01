@@ -195,7 +195,7 @@ namespace Memorial.Lib.AncestralTablet
             Mapper.Map(ancestralTabletTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
+            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.AncestralTabletTransactions.Add(_transaction);
 

@@ -83,7 +83,7 @@ namespace Memorial.Lib.Columbarium
             _centre = new Core.Domain.ColumbariumCentre();
             Mapper.Map(columbariumCentreDto, _centre);
 
-            _centre.CreateDate = DateTime.Now;
+            _centre.CreatedDate = DateTime.Now;
 
             _unitOfWork.ColumbariumCentres.Add(_centre);
 

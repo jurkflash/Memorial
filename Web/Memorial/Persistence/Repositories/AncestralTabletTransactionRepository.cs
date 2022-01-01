@@ -106,7 +106,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.AncestralTabletItem.AncestralTabletArea)
                 .Include(t => t.AncestralTabletItem.SubProductService)
                 .Include(t => t.AncestralTabletItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

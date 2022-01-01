@@ -136,7 +136,7 @@ namespace Memorial.Lib.Catalog
 
             Mapper.Map(catalogDto, _catalog);
 
-            _catalog.CreateDate = DateTime.Now;
+            _catalog.CreatedDate = DateTime.Now;
 
             _unitOfWork.Catalogs.Add(_catalog);
 

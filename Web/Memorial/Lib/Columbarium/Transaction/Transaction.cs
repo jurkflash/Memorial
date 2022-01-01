@@ -196,7 +196,7 @@ namespace Memorial.Lib.Columbarium
             Mapper.Map(columbariumTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
+            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.ColumbariumTransactions.Add(_transaction);
 

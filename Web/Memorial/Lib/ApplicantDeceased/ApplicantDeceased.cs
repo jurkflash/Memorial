@@ -121,7 +121,7 @@ namespace Memorial.Lib.ApplicantDeceased
                 _applicantDeceased.ApplicantId = applicantId;
                 _applicantDeceased.DeceasedId = deceasedId;
                 _applicantDeceased.RelationshipTypeId = relationshipTypeId;
-                _applicantDeceased.CreateDate = System.DateTime.Now;
+                _applicantDeceased.CreatedDate = System.DateTime.Now;
                 _unitOfWork.ApplicantDeceaseds.Add(_applicantDeceased);
                 _unitOfWork.Complete();
             }

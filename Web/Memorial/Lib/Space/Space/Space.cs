@@ -102,7 +102,7 @@ namespace Memorial.Lib.Space
             _space = new Core.Domain.Space();
             Mapper.Map(spaceDto, _space);
 
-            _space.CreateDate = DateTime.Now;
+            _space.CreatedDate = DateTime.Now;
 
             _unitOfWork.Spaces.Add(_space);
 

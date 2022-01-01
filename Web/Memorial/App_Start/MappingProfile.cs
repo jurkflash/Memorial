@@ -261,7 +261,7 @@ namespace Memorial.App_Start
 
             CreateMap<SiteDto, Site>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
 
             CreateMap<GenderType, GenderTypeDto>();
@@ -276,7 +276,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<CemeteryLandscapeCompanyDto, CemeteryLandscapeCompany>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
 
 
@@ -294,7 +294,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ReligionTypeId, opt => opt.MapFrom(x => x.ReligionTypeDtoId))
                 .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore())
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore())
                 .ForMember(c => c.ModifyDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
@@ -314,14 +314,14 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<MiscellaneousItemDto, MiscellaneousItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Miscellaneous, opt => opt.Ignore())
                 .ForMember(c => c.MiscellaneousId, opt => opt.MapFrom(x => x.MiscellaneousDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<MiscellaneousTransactionDto, MiscellaneousTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
@@ -344,7 +344,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Space, opt => opt.Ignore())
                 .ForMember(c => c.SpaceId, opt => opt.MapFrom(x => x.SpaceDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<SpaceTransactionDto, SpaceTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
@@ -356,13 +356,13 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.Deceased, opt => opt.Ignore())
                 .ForMember(c => c.DeceasedId, opt => opt.MapFrom(x => x.DeceasedDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<UrnDto, Urn>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<UrnItemDto, UrnItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
@@ -370,7 +370,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Urn, opt => opt.Ignore())
                 .ForMember(c => c.UrnId, opt => opt.MapFrom(x => x.UrnDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<UrnTransactionDto, UrnTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
@@ -391,18 +391,18 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<CemeteryItemDto, CemeteryItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
                 .ForMember(c => c.PlotId, opt => opt.MapFrom(x => x.PlotDtoId))
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<PlotTypeDto, PlotType>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());              
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());              
             CreateMap<CemeteryTransactionDto, CemeteryTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.Applicant, opt => opt.Ignore())
@@ -419,7 +419,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.FengShuiMasterId, opt => opt.MapFrom(x => x.FengShuiMasterDtoId))
                 .ForMember(c => c.CemeteryItem, opt => opt.Ignore())
                 .ForMember(c => c.CemeteryItemId, opt => opt.MapFrom(x => x.CemeteryItemDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<NicheDto, Niche>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
@@ -432,19 +432,19 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<ColumbariumCentreDto, ColumbariumCentre>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.Site, opt => opt.Ignore())
                 .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<ColumbariumItemDto, ColumbariumItem>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.SubProductService, opt => opt.Ignore())
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.ColumbariumCentre, opt => opt.Ignore())
                 .ForMember(c => c.ColumbariumCentreId, opt => opt.MapFrom(x => x.ColumbariumCentreDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<NicheTypeDto, NicheType>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
             CreateMap<ColumbariumTransactionDto, ColumbariumTransaction>()
@@ -469,7 +469,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.TransferredApplicantId, opt => opt.MapFrom(x => x.TransferredApplicantDtoId))
                 .ForMember(c => c.TransferredColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(c => c.TransferredColumbariumTransactionAF, opt => opt.MapFrom(x => x.TransferredColumbariumTransactionDtoAF))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
 
             CreateMap<AncestralTabletDto, AncestralTablet>()
@@ -488,7 +488,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.AncestralTabletArea, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletAreaId, opt => opt.MapFrom(x => x.AncestralTabletAreaDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
             CreateMap<AncestralTabletTransactionDto, AncestralTabletTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
                 .ForMember(c => c.AncestralTabletItem, opt => opt.Ignore())
@@ -502,7 +502,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ShiftedAncestralTablet, opt => opt.Ignore())
                 .ForMember(c => c.ShiftedAncestralTabletId, opt => opt.MapFrom(x => x.ShiftedAncestralTabletDtoId))
                 .ForMember(c => c.ShiftedAncestralTabletTransactionAF, opt => opt.MapFrom(x => x.ShiftedAncestralTabletTransactionDtoAF))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore())
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore())
                 .ForMember(c => c.ModifyDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
@@ -516,7 +516,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.SubProductServiceId, opt => opt.MapFrom(x => x.SubProductServiceDtoId))
                 .ForMember(c => c.Cremation, opt => opt.Ignore())
                 .ForMember(c => c.CremationId, opt => opt.MapFrom(x => x.CremationDtoId))
-                .ForMember(i => i.CreateDate, opt => opt.Ignore());
+                .ForMember(i => i.CreatedDate, opt => opt.Ignore());
 
             CreateMap<CremationTransactionDto, CremationTransaction>()
                 .ForMember(c => c.AF, opt => opt.Ignore())
@@ -537,7 +537,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
-                .ForMember(i => i.CreateDate, opt => opt.Ignore());
+                .ForMember(i => i.CreatedDate, opt => opt.Ignore());
 
             CreateMap<ReceiptDto, Receipt>()
                 .ForMember(i => i.RE, opt => opt.Ignore())
@@ -550,7 +550,7 @@ namespace Memorial.App_Start
                 .ForMember(i => i.ColumbariumTransaction, opt => opt.Ignore())
                 .ForMember(i => i.SpaceTransaction, opt => opt.Ignore())
                 .ForMember(i => i.UrnTransaction, opt => opt.Ignore())
-                .ForMember(i => i.CreateDate, opt => opt.Ignore());
+                .ForMember(i => i.CreatedDate, opt => opt.Ignore());
 
             CreateMap<PaymentMethodDto, PaymentMethod>()
                 .ForMember(pm => pm.Id, opt => opt.Ignore());

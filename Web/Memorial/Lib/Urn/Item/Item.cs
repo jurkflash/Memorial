@@ -122,7 +122,7 @@ namespace Memorial.Lib.Urn
             _item = new Core.Domain.UrnItem();
             Mapper.Map(urnItemDto, _item);
 
-            _item.CreateDate = DateTime.Now;
+            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.UrnItems.Add(_item);
 

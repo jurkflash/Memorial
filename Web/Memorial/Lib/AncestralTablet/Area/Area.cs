@@ -87,7 +87,7 @@ namespace Memorial.Lib.AncestralTablet
             _area = new Core.Domain.AncestralTabletArea();
             Mapper.Map(ancestralTabletAreaDto, _area);
 
-            _area.CreateDate = DateTime.Now;
+            _area.CreatedDate = DateTime.Now;
 
             _unitOfWork.AncestralTabletAreas.Add(_area);
 

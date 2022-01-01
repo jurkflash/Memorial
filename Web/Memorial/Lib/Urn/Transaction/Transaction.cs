@@ -149,7 +149,7 @@ namespace Memorial.Lib.Urn
             Mapper.Map(urnTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
+            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.UrnTransactions.Add(_transaction);
 

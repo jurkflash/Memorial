@@ -123,7 +123,7 @@ namespace Memorial.Lib.Miscellaneous
             _item = new Core.Domain.MiscellaneousItem();
             Mapper.Map(miscellaneousItemDto, _item);
 
-            _item.CreateDate = DateTime.Now;
+            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.MiscellaneousItems.Add(_item);
 

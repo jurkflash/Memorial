@@ -130,7 +130,7 @@ namespace Memorial.Lib.Receipt
             Mapper.Map(receiptDto, _receipt);
 
             _receipt.RE = _reNumber;
-            _receipt.CreateDate = System.DateTime.Now;
+            _receipt.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.Receipts.Add(_receipt);
 

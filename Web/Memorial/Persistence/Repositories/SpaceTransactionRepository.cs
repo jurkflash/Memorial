@@ -124,7 +124,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(t => t.SpaceItem.Space)
                 .Include(t => t.SpaceItem.SubProductService)
                 .Include(t => t.SpaceItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

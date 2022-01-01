@@ -48,7 +48,7 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
             _cemeteryLandscapeCompany = new Core.Domain.CemeteryLandscapeCompany();
             Mapper.Map(cemeteryLandscapeCompanyDto, _cemeteryLandscapeCompany);
 
-            _cemeteryLandscapeCompany.CreateDate = DateTime.Now;
+            _cemeteryLandscapeCompany.CreatedDate = DateTime.Now;
 
             _unitOfWork.CemeteryLandscapeCompanies.Add(_cemeteryLandscapeCompany);
 

@@ -48,7 +48,7 @@ namespace Memorial.Lib.FuneralCompany
             _funeralCompany = new Core.Domain.FuneralCompany();
             Mapper.Map(funeralCompanyDto, _funeralCompany);
 
-            _funeralCompany.CreateDate = DateTime.Now;
+            _funeralCompany.CreatedDate = DateTime.Now;
 
             _unitOfWork.FuneralCompanies.Add(_funeralCompany);
 

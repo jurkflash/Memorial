@@ -197,7 +197,7 @@ namespace Memorial.Lib.Cemetery
             _plot = new Core.Domain.Plot();
             Mapper.Map(plotDto, _plot);
 
-            _plot.CreateDate = DateTime.Now;
+            _plot.CreatedDate = DateTime.Now;
 
             _unitOfWork.Plots.Add(_plot);
 
