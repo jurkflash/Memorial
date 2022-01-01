@@ -175,14 +175,14 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id) && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id) && at.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetAncestralTablet(id);
 
-            _ancestralTablet.DeleteDate = DateTime.Now;
+            _ancestralTablet.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

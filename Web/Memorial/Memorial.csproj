@@ -2679,6 +2679,10 @@
     <Compile Include="Migrations\202201010930200_AuditRenameModifyDateToModifiedDate.designer.cs">
       <DependentUpon>202201010930200_AuditRenameModifyDateToModifiedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201010933149_AuditRenameDeleteDateToDeletedDate.cs" />
+    <Compile Include="Migrations\202201010933149_AuditRenameDeleteDateToDeletedDate.designer.cs">
+      <DependentUpon>202201010933149_AuditRenameDeleteDateToDeletedDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -4189,6 +4193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201010930200_AuditRenameModifyDateToModifiedDate.resx">
       <DependentUpon>202201010930200_AuditRenameModifyDateToModifiedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201010933149_AuditRenameDeleteDateToDeletedDate.resx">
+      <DependentUpon>202201010933149_AuditRenameDeleteDateToDeletedDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

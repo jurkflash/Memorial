@@ -110,7 +110,7 @@ namespace Memorial.Lib.Columbarium
 
             columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF = _tracking.GetLatestFirstTransactionByNicheId((int)columbariumTransactionDto.ShiftedNicheDtoId).ColumbariumTransactionAF;
 
-            GetTransaction(columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF).DeleteDate = System.DateTime.Now;
+            GetTransaction(columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF).DeletedDate = System.DateTime.Now;
 
             _tracking.Remove((int)columbariumTransactionDto.ShiftedNicheDtoId, columbariumTransactionDto.ShiftedColumbariumTransactionDtoAF);
 
@@ -235,7 +235,7 @@ namespace Memorial.Lib.Columbarium
                 _niche.SetHasDeceased(true);
             }
 
-            previousTransaction.DeleteDate = null;
+            previousTransaction.DeletedDate = null;
 
             _tracking.Add(previousTransaction.NicheId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.Deceased1Id, previousTransaction.Deceased2Id);
 

@@ -74,15 +74,15 @@ namespace Memorial.Lib.FuneralCompany
         {
             if (
                 _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.ColumbariumTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any())
+                _unitOfWork.ColumbariumTransactions.Find(at => at.FuneralCompanyId == id && at.DeletedDate == null).Any() ||
+                _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id && at.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetFuneralCompany(id);
 
-            _funeralCompany.DeleteDate = DateTime.Now;
+            _funeralCompany.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

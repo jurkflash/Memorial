@@ -156,7 +156,7 @@ namespace Memorial.Lib.ApplicantDeceased
 
         public bool Delete()
         {
-            _applicantDeceased.DeleteDate = System.DateTime.Now;
+            _applicantDeceased.DeletedDate = System.DateTime.Now;
 
             _unitOfWork.Complete();
 

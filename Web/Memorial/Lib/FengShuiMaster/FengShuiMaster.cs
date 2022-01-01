@@ -72,14 +72,14 @@ namespace Memorial.Lib.FengShuiMaster
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id && at.DeleteDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id && at.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetFengShuiMaster(id);
 
-            _fengShuiMaster.DeleteDate = DateTime.Now;
+            _fengShuiMaster.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

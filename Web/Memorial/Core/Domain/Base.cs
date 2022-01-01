@@ -19,6 +19,6 @@ namespace Memorial.Core.Domain
 
         public int DeletedById { get; set; }
 
-        public DateTime? DeleteDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

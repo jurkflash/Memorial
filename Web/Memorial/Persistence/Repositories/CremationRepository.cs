@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Cremations
                 .Include(c => c.Site)
-                .Where(c => c.Id == id && c.DeleteDate == null)
+                .Where(c => c.Id == id && c.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -24,14 +24,14 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Cremations
                 .Include(c => c.Site)
-                .Where(c => c.DeleteDate == null)
+                .Where(c => c.DeletedDate == null)
                 .ToList();
         }
 
         public IEnumerable<Cremation> GetBySite(int siteId)
         {
             return MemorialContext.Cremations
-                .Where(c => c.SiteId == siteId && c.DeleteDate == null).ToList();
+                .Where(c => c.SiteId == siteId && c.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

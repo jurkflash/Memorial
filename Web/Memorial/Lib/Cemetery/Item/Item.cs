@@ -168,7 +168,7 @@ namespace Memorial.Lib.Cemetery
             var cemeteryItemInDB = GetItem(cemeteryItemDto.Id);
 
             if ((cemeteryItemInDB.isOrder != cemeteryItemDto.isOrder)
-                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id && pt.DeleteDate == null).Any())
+                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id && pt.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -186,7 +186,7 @@ namespace Memorial.Lib.Cemetery
         {
             SetItem(id);
 
-            _item.DeleteDate = DateTime.Now;
+            _item.DeletedDate = DateTime.Now;
 
             return true;
         }

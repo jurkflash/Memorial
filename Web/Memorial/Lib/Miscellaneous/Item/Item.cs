@@ -113,7 +113,7 @@ namespace Memorial.Lib.Miscellaneous
 
             var t = GetItemByMiscellaneous(miscellaneousId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetMiscellaneousProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -161,7 +161,7 @@ namespace Memorial.Lib.Miscellaneous
 
             SetItem(id);
 
-            _item.DeleteDate = DateTime.Now;
+            _item.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

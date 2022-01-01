@@ -15,14 +15,14 @@ namespace Memorial.Persistence.Repositories
         public FengShuiMaster GetActive(int id)
         {
             return MemorialContext.FengShuiMasters
-                .Where(fs => fs.DeleteDate == null &&
+                .Where(fs => fs.DeletedDate == null &&
                         fs.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<FengShuiMaster> GetAllActive()
         {
             return MemorialContext.FengShuiMasters
-                .Where(fs => fs.DeleteDate == null).ToList();
+                .Where(fs => fs.DeletedDate == null).ToList();
         }
 
 

@@ -111,7 +111,7 @@ namespace Memorial.Lib.Cremation
 
             SetCremation(id);
 
-            _cremation.DeleteDate = DateTime.Now;
+            _cremation.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

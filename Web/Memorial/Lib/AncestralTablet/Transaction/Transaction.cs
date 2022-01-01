@@ -215,7 +215,7 @@ namespace Memorial.Lib.AncestralTablet
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeleteDate = System.DateTime.Now;
+            _transaction.DeletedDate = System.DateTime.Now;
 
             return true;
         }
@@ -228,7 +228,7 @@ namespace Memorial.Lib.AncestralTablet
 
             foreach (var transaction in transactions)
             {
-                transaction.DeleteDate = datetimeNow;
+                transaction.DeletedDate = datetimeNow;
             }
 
             return true;

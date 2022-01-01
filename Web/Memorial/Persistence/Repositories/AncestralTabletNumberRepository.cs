@@ -20,7 +20,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeleteDate == null).SingleOrDefault();
+                                a.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewAF(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
@@ -45,7 +45,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeleteDate == null).SingleOrDefault();
+                                a.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewIV(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
@@ -70,7 +70,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeleteDate == null).SingleOrDefault();
+                                a.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewRE(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 

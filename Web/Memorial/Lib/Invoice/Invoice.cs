@@ -133,7 +133,7 @@ namespace Memorial.Lib.Invoice
 
         protected bool DeleteInvoice()
         {
-            _invoice.DeleteDate = System.DateTime.Now;
+            _invoice.DeletedDate = System.DateTime.Now;
 
             return true;
         }

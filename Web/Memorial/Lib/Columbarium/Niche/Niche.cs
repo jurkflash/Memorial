@@ -178,7 +178,7 @@ namespace Memorial.Lib.Columbarium
 
             if ((nicheInDB.NicheTypeId != nicheDto.NicheTypeDtoId
                 || nicheInDB.ColumbariumAreaId != nicheDto.ColumbariumAreaDtoId)
-                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == nicheDto.Id || qt.ShiftedNicheId == nicheDto.Id) && qt.DeleteDate == null).Any())
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == nicheDto.Id || qt.ShiftedNicheId == nicheDto.Id) && qt.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -194,14 +194,14 @@ namespace Memorial.Lib.Columbarium
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == id || qt.ShiftedNicheId == id) && qt.DeleteDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.NicheId == id || qt.ShiftedNicheId == id) && qt.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetNiche(id);
 
-            _niche.DeleteDate = DateTime.Now;
+            _niche.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

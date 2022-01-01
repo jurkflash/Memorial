@@ -113,7 +113,7 @@ namespace Memorial.Lib.Cremation
 
             var t = GetItemByCremation(cremationId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetCremationProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -161,7 +161,7 @@ namespace Memorial.Lib.Cremation
 
             SetItem(id);
 
-            _item.DeleteDate = DateTime.Now;
+            _item.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

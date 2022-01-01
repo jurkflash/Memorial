@@ -117,7 +117,7 @@ namespace Memorial.Lib.Space
 
             var t = GetItemBySpace(spaceId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetSpaceProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -144,7 +144,7 @@ namespace Memorial.Lib.Space
                 || spaceItemInDB.isOrder != spaceItemDto.isOrder
                 || spaceItemInDB.AllowDoubleBook != spaceItemDto.AllowDoubleBook
                 || spaceItemInDB.AllowDeposit != spaceItemDto.AllowDeposit)
-                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id && ct.DeleteDate == null).Any())
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -160,14 +160,14 @@ namespace Memorial.Lib.Space
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetItem(id);
 
-            _item.DeleteDate = DateTime.Now;
+            _item.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

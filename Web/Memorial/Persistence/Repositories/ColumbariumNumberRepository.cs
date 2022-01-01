@@ -20,7 +20,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(q => q.ColumbariumCentre.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
-                                q.DeleteDate == null).SingleOrDefault();
+                                q.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetColumbariumNewAF(
                 (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 
@@ -45,7 +45,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(q => q.ColumbariumCentre.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
-                                q.DeleteDate == null).SingleOrDefault();
+                                q.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetColumbariumNewIV(
                 (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 
@@ -70,7 +70,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(q => q.ColumbariumCentre.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(q => q.Id == columbariumItemId &&
-                                q.DeleteDate == null).SingleOrDefault();
+                                q.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetColumbariumNewRE(
                 (string.IsNullOrWhiteSpace(columbariumItem.Code) ? columbariumItem.SubProductService.Code : columbariumItem.Code), 

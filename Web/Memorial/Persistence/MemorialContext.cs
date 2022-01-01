@@ -199,7 +199,7 @@ namespace Memorial.Persistence
                         entry.State = EntityState.Modified;
                         entity.ActiveStatus = false;
                         entity.DeletedById = userId.Value;
-                        entity.DeleteDate = now;
+                        entity.DeletedDate = now;
                     }
 
                     if (entity.ModifiedById == default && userId.HasValue)

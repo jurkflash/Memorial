@@ -14,49 +14,49 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<Invoice> GetByActiveAncestralTabletAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.AncestralTabletTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.AncestralTabletTransactionAF == AF && i.DeletedDate == null)
                 .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveCremationAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.CremationTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.CremationTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveCemeteryAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.CemeteryTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.CemeteryTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveSpaceAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.SpaceTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.SpaceTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveUrnAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.UrnTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.UrnTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveColumbariumAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.ColumbariumTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.ColumbariumTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public IEnumerable<Invoice> GetByActiveMiscellaneousAF(string AF)
         {
-            return MemorialContext.Invoices.Where(i => i.MiscellaneousTransactionAF == AF && i.DeleteDate == null)
+            return MemorialContext.Invoices.Where(i => i.MiscellaneousTransactionAF == AF && i.DeletedDate == null)
                             .ToList().OrderBy(i => i.CreatedDate);
         }
 
         public Invoice GetByActiveIV(string IV)
         {
-            return MemorialContext.Invoices.Where(i => i.IV == IV && i.DeleteDate == null).SingleOrDefault();
+            return MemorialContext.Invoices.Where(i => i.IV == IV && i.DeletedDate == null).SingleOrDefault();
         }
 
         public MemorialContext MemorialContext

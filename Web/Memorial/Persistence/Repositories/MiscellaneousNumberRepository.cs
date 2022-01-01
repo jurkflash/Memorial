@@ -21,7 +21,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeleteDate == null).SingleOrDefault();
+                                m.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewAF(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
@@ -46,7 +46,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeleteDate == null).SingleOrDefault();
+                                m.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewIV(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
@@ -71,7 +71,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
                                 .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeleteDate == null).SingleOrDefault();
+                                m.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewRE(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),

@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumCentres
                 .Include(qc => qc.Site)
-                .Where(qc => qc.Id == id && qc.DeleteDate == null)
+                .Where(qc => qc.Id == id && qc.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -24,7 +24,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumCentres
                 .Include(qc => qc.Site)
-                .Where(qc => qc.DeleteDate == null)
+                .Where(qc => qc.DeletedDate == null)
                 .ToList();
         }
 
@@ -32,7 +32,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumCentres
                 .Where(qc => qc.SiteId == siteId
-                && qc.DeleteDate == null).ToList();
+                && qc.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

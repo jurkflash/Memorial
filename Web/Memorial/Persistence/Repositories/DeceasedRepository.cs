@@ -17,7 +17,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Deceaseds
                 .Where(d => d.IC == IC &&
-                    d.DeleteDate == null).FirstOrDefault();
+                    d.DeletedDate == null).FirstOrDefault();
         }
 
         public Deceased GetActive(int id)
@@ -27,18 +27,18 @@ namespace Memorial.Persistence.Repositories
                 .Include(d => d.MaritalType)
                 .Include(d => d.NationalityType)
                 .Include(d => d.ReligionType)
-                .Where(d => d.DeleteDate == null &&
+                .Where(d => d.DeletedDate == null &&
                         d.Id == id).SingleOrDefault();
         }
 
         public IEnumerable<Deceased> GetByApplicant(int id)
         {
             var t = MemorialContext.Deceaseds.Join(
-                MemorialContext.ApplicantDeceaseds.Where(ad => ad.ApplicantId == id && ad.DeleteDate == null),
+                MemorialContext.ApplicantDeceaseds.Where(ad => ad.ApplicantId == id && ad.DeletedDate == null),
                 d => d.Id,
                 ad => ad.DeceasedId,
                 (d, ad) => d)
-                .Where(d => d.DeleteDate == null)
+                .Where(d => d.DeletedDate == null)
                 .AsEnumerable();
 
             return t;
@@ -49,11 +49,11 @@ namespace Memorial.Persistence.Repositories
             var deceasedsQuery =
                 MemorialContext.Deceaseds.Except(
                     MemorialContext.Deceaseds.Join(
-                    MemorialContext.ApplicantDeceaseds.Where(a => a.ApplicantId == applicantId && a.DeleteDate == null),
+                    MemorialContext.ApplicantDeceaseds.Where(a => a.ApplicantId == applicantId && a.DeletedDate == null),
                     d => d.Id,
                     ad => ad.DeceasedId,
                     (d, ad) => d).AsEnumerable()
-                ).Where(d => d.DeleteDate == null);
+                ).Where(d => d.DeletedDate == null);
 
             if (!String.IsNullOrWhiteSpace(deceasedName))
                 deceasedsQuery = deceasedsQuery.Where(d => d.Name.Contains(deceasedName));
@@ -65,21 +65,21 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Deceaseds
                     .Where(d => d.NicheId == nicheId &&
-                    d.DeleteDate == null).ToList();
+                    d.DeletedDate == null).ToList();
         }
 
         public IEnumerable<Deceased> GetByAncestralTablet(int ancestralTabletId)
         {
             return MemorialContext.Deceaseds
                     .Where(d => d.AncestralTabletId == ancestralTabletId &&
-                    d.DeleteDate == null).ToList();
+                    d.DeletedDate == null).ToList();
         }
 
         public IEnumerable<Deceased> GetByPlot(int plotId)
         {
             return MemorialContext.Deceaseds
                     .Where(d => d.PlotId == plotId &&
-                    d.DeleteDate == null).ToList();
+                    d.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

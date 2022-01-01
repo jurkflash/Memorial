@@ -21,7 +21,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(ci => ci.Cremation.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
-                                ci.DeleteDate == null).SingleOrDefault();
+                                ci.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetCremationNewAF(
                 (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 
@@ -46,7 +46,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(ci => ci.Cremation.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
-                                ci.DeleteDate == null).SingleOrDefault();
+                                ci.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetCremationNewIV(
                 (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 
@@ -71,7 +71,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(ci => ci.Cremation.Site)
                                 .Include(a => a.SubProductService)
                                 .Where(ci => ci.Id == CremationItemId &&
-                                ci.DeleteDate == null).SingleOrDefault();
+                                ci.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetCremationNewRE(
                 (string.IsNullOrWhiteSpace(cremationItem.Code) ? cremationItem.SubProductService.Code : cremationItem.Code), 

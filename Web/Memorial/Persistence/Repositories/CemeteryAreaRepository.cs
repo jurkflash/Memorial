@@ -15,7 +15,7 @@ namespace Memorial.Persistence.Repositories
         public CemeteryArea GetActive(int id)
         {
             return MemorialContext.CemeteryAreas
-                .Where(pa => pa.Id == id && pa.DeleteDate == null)
+                .Where(pa => pa.Id == id && pa.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -23,7 +23,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.CemeteryAreas
                 .Include(pa => pa.Site)
-                .Where(pa => pa.DeleteDate == null)
+                .Where(pa => pa.DeletedDate == null)
                 .ToList();
         }
 
@@ -31,7 +31,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.CemeteryAreas
                 .Where(pa => pa.SiteId == siteId
-                && pa.DeleteDate == null).ToList();
+                && pa.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

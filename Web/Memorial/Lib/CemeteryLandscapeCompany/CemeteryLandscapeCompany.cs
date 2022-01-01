@@ -79,7 +79,7 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
 
             SetCemeteryLandscapeCompany(id);
 
-            _cemeteryLandscapeCompany.DeleteDate = DateTime.Now;
+            _cemeteryLandscapeCompany.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

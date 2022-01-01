@@ -97,7 +97,7 @@ namespace Memorial.Lib.Cemetery
             var cemeteryAreaInDB = GetArea(cemeteryAreaDto.Id);
 
             if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteDtoId
-                && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id && ct.DeleteDate == null).Any())
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -113,14 +113,14 @@ namespace Memorial.Lib.Cemetery
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetArea(id);
 
-            _area.DeleteDate = DateTime.Now;
+            _area.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

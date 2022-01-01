@@ -20,7 +20,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(u => u.Urn.Site)
                                 .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
-                                u.DeleteDate == null).SingleOrDefault();
+                                u.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetUrnNewAF(
                 (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 
@@ -45,7 +45,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(u => u.Urn.Site)
                                 .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
-                                u.DeleteDate == null).SingleOrDefault();
+                                u.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetUrnNewIV(
                 (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 
@@ -70,7 +70,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(u => u.Urn.Site)
                                 .Include(u => u.SubProductService)
                                 .Where(u => u.Id == UrnItemId &&
-                                u.DeleteDate == null).SingleOrDefault();
+                                u.DeletedDate == null).SingleOrDefault();
 
             var number = numberRepository.GetUrnNewRE(
                 (string.IsNullOrWhiteSpace(urnItem.Code) ? urnItem.SubProductService.Code : urnItem.Code), 

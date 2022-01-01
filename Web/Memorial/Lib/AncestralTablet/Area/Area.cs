@@ -101,7 +101,7 @@ namespace Memorial.Lib.AncestralTablet
             var ancestralTabletAreaInDB = GetArea(ancestralTabletAreaDto.Id);
 
             if (ancestralTabletAreaInDB.SiteId != ancestralTabletAreaDto.SiteDtoId
-                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeleteDate == null).Any())
+                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == ancestralTabletAreaInDB.SiteId && at.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -117,14 +117,14 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeleteDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetArea(id);
 
-            _area.DeleteDate = DateTime.Now;
+            _area.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

@@ -77,7 +77,7 @@ namespace Memorial.Lib.Receipt
             var receipts = GetNonOrderReceipts(AF);
             foreach (var receipt in receipts)
             {
-                receipt.DeleteDate = System.DateTime.Now;
+                receipt.DeletedDate = System.DateTime.Now;
             }
 
             return true;

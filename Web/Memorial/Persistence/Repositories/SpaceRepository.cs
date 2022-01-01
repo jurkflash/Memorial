@@ -16,20 +16,20 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Spaces
                 .Include(s => s.Site)
-                .Where(s => s.Id == id && s.DeleteDate == null).SingleOrDefault();
+                .Where(s => s.Id == id && s.DeletedDate == null).SingleOrDefault();
         }
 
         public IEnumerable<Space> GetAllActive()
         {
             return MemorialContext.Spaces
                 .Include(s => s.Site)
-                .Where(s => s.DeleteDate == null).ToList();
+                .Where(s => s.DeletedDate == null).ToList();
         }
 
         public IEnumerable<Space> GetBySite(int siteId)
         {
             return MemorialContext.Spaces
-                .Where(s => s.SiteId == siteId && s.DeleteDate == null).ToList();
+                .Where(s => s.SiteId == siteId && s.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

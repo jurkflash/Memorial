@@ -15,14 +15,14 @@ namespace Memorial.Persistence.Repositories
         public FuneralCompany GetActive(int id)
         {
             return MemorialContext.FuneralCompanies
-                .Where(fc => fc.DeleteDate == null &&
+                .Where(fc => fc.DeletedDate == null &&
                         fc.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<FuneralCompany> GetAllActive()
         {
             return MemorialContext.FuneralCompanies
-                .Where(fc => fc.DeleteDate == null).ToList();
+                .Where(fc => fc.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

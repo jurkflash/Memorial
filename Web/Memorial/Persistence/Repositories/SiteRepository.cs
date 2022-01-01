@@ -14,14 +14,14 @@ namespace Memorial.Persistence.Repositories
         public Site GetActive(int id)
         {
             return MemorialContext.Sites
-                .Where(s => s.Id == id && s.DeleteDate == null)
+                .Where(s => s.Id == id && s.DeletedDate == null)
                 .SingleOrDefault();
         }
 
         public IEnumerable<Site> GetAllActive()
         {
             return MemorialContext.Sites
-                .Where(s => s.DeleteDate == null);
+                .Where(s => s.DeletedDate == null);
         }
 
         public MemorialContext MemorialContext

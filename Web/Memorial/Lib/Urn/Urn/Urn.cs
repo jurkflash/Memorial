@@ -93,7 +93,7 @@ namespace Memorial.Lib.Urn
             var urnInDB = GetUrn(urnDto.Id);
 
             if (urnInDB.SiteId != urnDto.SiteDtoId
-                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.SiteId == urnInDB.SiteId && ct.DeleteDate == null).Any())
+                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.SiteId == urnInDB.SiteId && ct.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -109,14 +109,14 @@ namespace Memorial.Lib.Urn
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.Id == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItem.Urn.Id == id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetUrn(id);
 
-            _urn.DeleteDate = DateTime.Now;
+            _urn.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

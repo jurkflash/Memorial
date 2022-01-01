@@ -21,7 +21,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTabletItem)
                 .Include(at => at.AncestralTabletItem.AncestralTabletArea)
                 .Include(at => at.AncestralTabletItem.AncestralTabletArea.Site)
-                .Where(at => at.AF == AF && at.DeleteDate == null)
+                .Where(at => at.AF == AF && at.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -41,7 +41,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<AncestralTabletTransaction> GetByApplicant(int id)
         {
             return MemorialContext.AncestralTabletTransactions.Where(at => at.ApplicantId == id
-                                            && at.DeleteDate == null).ToList();
+                                            && at.DeletedDate == null).ToList();
         }
 
         public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter)
@@ -53,7 +53,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AncestralTabletItemId == itemId
                                             && (at.AncestralTabletId == ancestralTabletId || at.ShiftedAncestralTabletId == ancestralTabletId)
-                                            && at.DeleteDate == null);
+                                            && at.DeletedDate == null);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -74,7 +74,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(at => at.ApplicantId == applicantId
                                             && at.AncestralTabletItemId == itemId
                                             && at.AncestralTabletId == ancestralTabletId
-                                            && at.DeleteDate == null).ToList();
+                                            && at.DeletedDate == null).ToList();
         }
 
         public AncestralTabletTransaction GetByShiftedAncestralTabletTransactionAF(string AF)
@@ -93,14 +93,14 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.Applicant)
                 .Include(at => at.AncestralTablet)
                 .Include(at => at.AncestralTabletItem)
-                .Where(at => at.AncestralTabletId == ancestralTabletId && at.DeleteDate == null)
+                .Where(at => at.AncestralTabletId == ancestralTabletId && at.DeletedDate == null)
                 .ToList();
         }
 
         public IEnumerable<AncestralTabletTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.AncestralTabletTransactions
-                .Where(t => t.DeleteDate == null && t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
+                .Where(t => t.DeletedDate == null && t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.AncestralTablet)
                 .Include(t => t.AncestralTabletItem.AncestralTabletArea)

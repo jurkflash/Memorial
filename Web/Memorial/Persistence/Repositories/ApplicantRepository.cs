@@ -16,20 +16,20 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Applicants
                 .Where(a => a.IC == IC &&
-                    a.DeleteDate == null).FirstOrDefault();
+                    a.DeletedDate == null).FirstOrDefault();
         }
 
         public Applicant GetActive(int id)
         {
             return MemorialContext.Applicants
-                .Where(a => a.DeleteDate == null &&
+                .Where(a => a.DeletedDate == null &&
                         a.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<Applicant> GetAllActive(string filter)
         {
             var applicants = MemorialContext.Applicants
-                .Where(a => a.DeleteDate == null);
+                .Where(a => a.DeletedDate == null);
 
             if (string.IsNullOrEmpty(filter))
             {

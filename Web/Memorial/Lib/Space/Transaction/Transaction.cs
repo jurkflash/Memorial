@@ -225,7 +225,7 @@ namespace Memorial.Lib.Space
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeleteDate = System.DateTime.Now;
+            _transaction.DeletedDate = System.DateTime.Now;
 
             return true;
         }

@@ -22,7 +22,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
-                .Where(pt => pt.AF == AF && pt.DeleteDate == null)
+                .Where(pt => pt.AF == AF && pt.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -43,7 +43,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CemeteryTransaction> GetByApplicant(int id)
         {
             return MemorialContext.CemeteryTransactions.Where(pt => pt.ApplicantId == id
-                                            && pt.DeleteDate == null).ToList();
+                                            && pt.DeletedDate == null).ToList();
         }
 
         public IEnumerable<CemeteryTransaction> GetByPlotIdAndItem(int plotId, int itemId, string filter)
@@ -57,7 +57,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.Deceased1)
                 .Where(pt => pt.CemeteryItemId == itemId
                                             && pt.PlotId == plotId
-                                            && pt.DeleteDate == null);
+                                            && pt.DeletedDate == null);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -80,7 +80,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(pt => pt.ApplicantId == applicantId
                                             && pt.CemeteryItemId == itemId
                                             && pt.PlotId == plotId
-                                            && pt.DeleteDate == null).ToList();
+                                            && pt.DeletedDate == null).ToList();
         }
 
         public CemeteryTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id)
@@ -93,7 +93,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.Deceased1Id == deceased1Id
                                             && pt.PlotId == plotId
-                                            && pt.DeleteDate == null).SingleOrDefault();
+                                            && pt.DeletedDate == null).SingleOrDefault();
         }
 
         public CemeteryTransaction GetLastCemeteryTransactionByPlotId(int plotId)
@@ -105,7 +105,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.PlotId == plotId
-                                            && pt.DeleteDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
+                                            && pt.DeletedDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public CemeteryTransaction GetLastCemeteryTransactionByShiftedPlotId(int plotId)
@@ -116,7 +116,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.DeleteDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
+                .Where(pt => pt.DeletedDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public IEnumerable<CemeteryTransaction> GetByPlotId(int plotId)
@@ -127,14 +127,14 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.PlotId == plotId && pt.DeleteDate == null)
+                .Where(pt => pt.PlotId == plotId && pt.DeletedDate == null)
                 .ToList();
         }
 
         public IEnumerable<CemeteryTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.CemeteryTransactions
-                .Where(t => t.DeleteDate == null && t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
+                .Where(t => t.DeletedDate == null && t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.CemeteryItem)
                 .Include(t => t.Plot)

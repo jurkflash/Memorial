@@ -153,7 +153,7 @@ namespace Memorial.Lib.Receipt
             if (_receipt == null)
                 return false;
 
-            _receipt.DeleteDate = System.DateTime.Now;
+            _receipt.DeletedDate = System.DateTime.Now;
 
             return true;
         }
@@ -163,7 +163,7 @@ namespace Memorial.Lib.Receipt
             var receipts = GetOrderReceiptsByInvoiceIV(IV);
             foreach(var receipt in receipts)
             {
-                receipt.DeleteDate = System.DateTime.Now;
+                receipt.DeletedDate = System.DateTime.Now;
             }
 
             //_invoice.SetInvoice(_receipt.InvoiceIV);

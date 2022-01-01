@@ -116,7 +116,7 @@ namespace Memorial.Lib.Miscellaneous
 
             SetMiscellaneous(id);
 
-            _miscellaneous.DeleteDate = DateTime.Now;
+            _miscellaneous.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

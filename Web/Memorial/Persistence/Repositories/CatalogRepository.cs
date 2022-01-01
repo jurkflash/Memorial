@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Catalogs
                 .Include(c=>c.Product)
-                .Where(c => c.Id == id && c.DeleteDate == null)
+                .Where(c => c.Id == id && c.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -24,21 +24,21 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Catalogs
                 .Include(c => c.Product)
-                .Where(c => c.DeleteDate == null);
+                .Where(c => c.DeletedDate == null);
         }
 
         public IEnumerable<Catalog> GetBySite(int id)
         {
             return MemorialContext.Catalogs
                 .Include(c => c.Product)
-                .Where(c => c.SiteId == id && c.DeleteDate == null).ToList();
+                .Where(c => c.SiteId == id && c.DeletedDate == null).ToList();
         }
 
         public IEnumerable<Site> GetByProduct(int id)
         {
             return MemorialContext.Catalogs
                 .Include(c => c.Site)
-                .Where(c => c.ProductId == id && c.DeleteDate == null)
+                .Where(c => c.ProductId == id && c.DeletedDate == null)
                 .Select(c => c.Site)
                 .ToList();
         }

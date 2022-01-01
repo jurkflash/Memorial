@@ -22,7 +22,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre.Site)
                 .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
-                .Where(qt => qt.AF == AF && qt.DeleteDate == null)
+                .Where(qt => qt.AF == AF && qt.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -43,7 +43,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<ColumbariumTransaction> GetByApplicant(int id)
         {
             return MemorialContext.ColumbariumTransactions.Where(qt => qt.ApplicantId == id
-                                            && qt.DeleteDate == null).ToList();
+                                            && qt.DeletedDate == null).ToList();
         }
 
         public IEnumerable<ColumbariumTransaction> GetByNicheIdAndItem(int nicheId, int itemId, string filter)
@@ -55,7 +55,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ColumbariumItemId == itemId
                                             && (qt.NicheId == nicheId || qt.ShiftedNicheId == nicheId)
-                                            && qt.DeleteDate == null);
+                                            && qt.DeletedDate == null);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -76,7 +76,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(qt => qt.ApplicantId == applicantId
                                             && qt.ColumbariumItemId == itemId
                                             && qt.NicheId == nicheId
-                                            && qt.DeleteDate == null).ToList();
+                                            && qt.DeletedDate == null).ToList();
         }
 
         public ColumbariumTransaction GetByShiftedColumbariumTransactionAF(string AF)
@@ -95,14 +95,14 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Niche)
                 .Include(qt => qt.ColumbariumItem)
-                .Where(qt => qt.NicheId == nicheId && qt.DeleteDate == null)
+                .Where(qt => qt.NicheId == nicheId && qt.DeletedDate == null)
                 .ToList();
         }
 
         public IEnumerable<ColumbariumTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.ColumbariumTransactions
-                .Where(t => t.DeleteDate == null && t.ColumbariumItem.ColumbariumCentre.SiteId == siteId)
+                .Where(t => t.DeletedDate == null && t.ColumbariumItem.ColumbariumCentre.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.ColumbariumItem)
                 .Include(t => t.Niche)

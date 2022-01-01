@@ -15,14 +15,14 @@ namespace Memorial.Persistence.Repositories
         public NationalityType GetActive(int id)
         {
             return MemorialContext.NationalityTypes
-                .Where(nt => nt.Id == id && nt.DeleteDate == null)
+                .Where(nt => nt.Id == id && nt.DeletedDate == null)
                 .SingleOrDefault();
         }
 
         public IEnumerable<NationalityType> GetAllActive()
         {
             return MemorialContext.NationalityTypes
-                .Where(nt => nt.DeleteDate == null);
+                .Where(nt => nt.DeletedDate == null);
         }
 
         public MemorialContext MemorialContext

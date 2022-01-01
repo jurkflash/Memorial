@@ -16,7 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.AncestralTabletAreas
                 .Include(at => at.Site)
-                .Where(aa => aa.Id == id && aa.DeleteDate == null)
+                .Where(aa => aa.Id == id && aa.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -25,7 +25,7 @@ namespace Memorial.Persistence.Repositories
             MemorialContext.Configuration.LazyLoadingEnabled = false;
             return MemorialContext.AncestralTabletAreas
                 .Include(at => at.Site)
-                .Where(aa => aa.DeleteDate == null)
+                .Where(aa => aa.DeletedDate == null)
                 .ToList();
         }
 

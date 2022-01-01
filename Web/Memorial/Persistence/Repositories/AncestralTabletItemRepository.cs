@@ -17,7 +17,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletItems
                 .Include(ai => ai.SubProductService)
                 .Include(ai => ai.AncestralTabletArea)
-                .Where(ai => ai.Id == id && ai.DeleteDate == null)
+                .Where(ai => ai.Id == id && ai.DeletedDate == null)
                 .SingleOrDefault();
         }
 
@@ -26,7 +26,7 @@ namespace Memorial.Persistence.Repositories
             MemorialContext.Configuration.LazyLoadingEnabled = false;
             return MemorialContext.AncestralTabletItems
                 .Include(ai => ai.SubProductService)
-                .Where(ai => ai.DeleteDate == null)
+                .Where(ai => ai.DeletedDate == null)
                 .ToList();
         }
 
@@ -36,7 +36,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ai => ai.SubProductService)
                 .Include(ai => ai.AncestralTabletArea)
                 .Where(ai => ai.AncestralTabletAreaId == areaId
-                && ai.DeleteDate == null).ToList();
+                && ai.DeletedDate == null).ToList();
         }
 
         public MemorialContext MemorialContext

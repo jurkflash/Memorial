@@ -112,7 +112,7 @@ namespace Memorial.Lib.Urn
 
             var t = GetItemByUrn(urnId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetUrnProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeleteDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -137,7 +137,7 @@ namespace Memorial.Lib.Urn
 
             if ((urnItemInDB.UrnId != urnItemDto.UrnDtoId
                 || urnItemInDB.isOrder != urnItemDto.isOrder)
-                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == urnItemInDB.Id && ct.DeleteDate == null).Any())
+                && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == urnItemInDB.Id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -153,14 +153,14 @@ namespace Memorial.Lib.Urn
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetItem(id);
 
-            _item.DeleteDate = DateTime.Now;
+            _item.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

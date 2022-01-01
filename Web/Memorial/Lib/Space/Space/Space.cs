@@ -116,7 +116,7 @@ namespace Memorial.Lib.Space
             var spaceInDB = GetSpace(spaceDto.Id);
 
             if (spaceInDB.SiteId != spaceDto.SiteDtoId
-                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeleteDate == null).Any())
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeletedDate == null).Any())
             {
                 return false;
             }
@@ -132,14 +132,14 @@ namespace Memorial.Lib.Space
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id && ct.DeletedDate == null).Any())
             {
                 return false;
             }
 
             SetSpace(id);
 
-            _space.DeleteDate = DateTime.Now;
+            _space.DeletedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
