@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using Memorial.Core.Domain;
 using Memorial.Persistence.EntityConfigurations;
+using Z.EntityFramework.Plus;
 
 namespace Memorial.Persistence
 {
@@ -12,6 +13,10 @@ namespace Memorial.Persistence
             : base("name=MemorialContext")
         {
             this.Configuration.LazyLoadingEnabled = false;
+
+            QueryFilterManager.Filter<Base>(x => x.Where(a => a.ActiveStatus == true));
+
+            QueryFilterManager.InitilizeGlobalFilter(this);
         }
 
         public DbSet<Product> Products { get; set; }
