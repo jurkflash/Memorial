@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
 using Memorial.Core.Dtos;
 using AutoMapper;
 
@@ -121,7 +120,6 @@ namespace Memorial.Lib.ApplicantDeceased
                 _applicantDeceased.ApplicantId = applicantId;
                 _applicantDeceased.DeceasedId = deceasedId;
                 _applicantDeceased.RelationshipTypeId = relationshipTypeId;
-                _applicantDeceased.CreatedDate = System.DateTime.Now;
                 _unitOfWork.ApplicantDeceaseds.Add(_applicantDeceased);
                 _unitOfWork.Complete();
             }
@@ -146,8 +144,6 @@ namespace Memorial.Lib.ApplicantDeceased
             {
                 _applicantDeceased.RelationshipTypeId = relationshipTypeId;
 
-                _applicantDeceased.ModifiedDate = System.DateTime.Now;
-
                 _unitOfWork.Complete();
             }
 
@@ -156,7 +152,7 @@ namespace Memorial.Lib.ApplicantDeceased
 
         public bool Delete()
         {
-            _applicantDeceased.DeletedDate = System.DateTime.Now;
+            _unitOfWork.ApplicantDeceaseds.Remove(_applicantDeceased);
 
             _unitOfWork.Complete();
 
