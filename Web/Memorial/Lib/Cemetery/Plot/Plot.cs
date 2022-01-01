@@ -197,8 +197,6 @@ namespace Memorial.Lib.Cemetery
             _plot = new Core.Domain.Plot();
             Mapper.Map(plotDto, _plot);
 
-            _plot.CreatedDate = DateTime.Now;
-
             _unitOfWork.Plots.Add(_plot);
 
             _unitOfWork.Complete();
@@ -223,8 +221,6 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(plotDto, plotInDB);
 
-            plotInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -239,7 +235,12 @@ namespace Memorial.Lib.Cemetery
 
             SetPlot(id);
 
-            _plot.DeletedDate = DateTime.Now;
+            if(_plot == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Plots.Remove(_plot);
 
             _unitOfWork.Complete();
 

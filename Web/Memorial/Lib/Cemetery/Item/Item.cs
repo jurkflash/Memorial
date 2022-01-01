@@ -156,8 +156,6 @@ namespace Memorial.Lib.Cemetery
 
         private bool Create(Core.Domain.CemeteryItem cemeteryItem)
         {
-            cemeteryItem.CreatedDate = DateTime.Now;
-
             _unitOfWork.CemeteryItems.Add(cemeteryItem);
 
             return true;
@@ -175,8 +173,6 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(cemeteryItemDto, cemeteryItemInDB);
 
-            cemeteryItemInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -186,7 +182,12 @@ namespace Memorial.Lib.Cemetery
         {
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if (_item == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.CemeteryItems.Remove(_item);
 
             return true;
         }

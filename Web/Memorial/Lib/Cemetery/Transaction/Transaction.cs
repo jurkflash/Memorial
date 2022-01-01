@@ -207,7 +207,6 @@ namespace Memorial.Lib.Cemetery
             Mapper.Map(cemeteryTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.CemeteryTransactions.Add(_transaction);
 
@@ -219,8 +218,6 @@ namespace Memorial.Lib.Cemetery
             var cemeteryTransactionInDb = GetTransaction(cemeteryTransactionDto.AF);
 
             Mapper.Map(cemeteryTransactionDto, cemeteryTransactionInDb);
-
-            cemeteryTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }
@@ -234,13 +231,11 @@ namespace Memorial.Lib.Cemetery
 
         protected bool DeleteAllTransactionWithSamePlotId()
         {
-            var datetimeNow = System.DateTime.Now;
-
             var transactions = GetTransactionsByPlotId(_transaction.PlotId);
 
             foreach (var transaction in transactions)
             {
-                transaction.DeletedDate = datetimeNow;
+                _unitOfWork.CemeteryTransactions.Remove(transaction);
             }
 
             return true;

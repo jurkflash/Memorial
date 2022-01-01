@@ -83,8 +83,6 @@ namespace Memorial.Lib.Cemetery
             _area = new Core.Domain.CemeteryArea();
             Mapper.Map(cemeteryAreaDto, _area);
 
-            _area.CreatedDate = DateTime.Now;
-
             _unitOfWork.CemeteryAreas.Add(_area);
 
             _unitOfWork.Complete();
@@ -104,8 +102,6 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(cemeteryAreaDto, cemeteryAreaInDB);
 
-            cemeteryAreaInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -120,7 +116,12 @@ namespace Memorial.Lib.Cemetery
 
             SetArea(id);
 
-            _area.DeletedDate = DateTime.Now;
+            if (_area == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.CemeteryAreas.Remove(_area);
 
             _unitOfWork.Complete();
 
