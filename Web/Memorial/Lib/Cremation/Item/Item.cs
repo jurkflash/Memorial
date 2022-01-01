@@ -123,8 +123,6 @@ namespace Memorial.Lib.Cremation
             _item = new Core.Domain.CremationItem();
             Mapper.Map(cremationItemDto, _item);
 
-            _item.CreatedDate = DateTime.Now;
-
             _unitOfWork.CremationItems.Add(_item);
 
             _unitOfWork.Complete();
@@ -145,8 +143,6 @@ namespace Memorial.Lib.Cremation
 
             Mapper.Map(cremationItemDto, cremationItemInDB);
 
-            cremationItemInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -161,7 +157,12 @@ namespace Memorial.Lib.Cremation
 
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if(_item == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.CremationItems.Remove(_item);
 
             _unitOfWork.Complete();
 

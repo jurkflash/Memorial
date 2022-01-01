@@ -157,7 +157,6 @@ namespace Memorial.Lib.Cremation
             Mapper.Map(cremationTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
 
             _unitOfWork.CremationTransactions.Add(_transaction);
 
@@ -170,14 +169,12 @@ namespace Memorial.Lib.Cremation
 
             Mapper.Map(cremationTransactionDto, cremationTransactionInDb);
 
-            cremationTransactionInDb.ModifyDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeleteDate = System.DateTime.Now;
+            _unitOfWork.CremationTransactions.Remove(_transaction);
 
             return true;
         }
