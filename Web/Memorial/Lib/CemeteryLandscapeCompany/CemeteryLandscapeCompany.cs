@@ -48,8 +48,6 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
             _cemeteryLandscapeCompany = new Core.Domain.CemeteryLandscapeCompany();
             Mapper.Map(cemeteryLandscapeCompanyDto, _cemeteryLandscapeCompany);
 
-            _cemeteryLandscapeCompany.CreatedDate = DateTime.Now;
-
             _unitOfWork.CemeteryLandscapeCompanies.Add(_cemeteryLandscapeCompany);
 
             _unitOfWork.Complete();
@@ -62,8 +60,6 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
             var cemeteryLandscapeCompanyInDB = GetCemeteryLandscapeCompany(cemeteryLandscapeCompanyDto.Id);
 
             Mapper.Map(cemeteryLandscapeCompanyDto, cemeteryLandscapeCompanyInDB);
-
-            cemeteryLandscapeCompanyInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
@@ -79,7 +75,11 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
 
             SetCemeteryLandscapeCompany(id);
 
-            _cemeteryLandscapeCompany.DeletedDate = DateTime.Now;
+            if(_cemeteryLandscapeCompany == null)
+            {
+                return false;
+            }
+            _unitOfWork.CemeteryLandscapeCompanies.Remove(_cemeteryLandscapeCompany);
 
             _unitOfWork.Complete();
 
