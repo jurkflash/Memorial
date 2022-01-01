@@ -63,7 +63,7 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
 
             Mapper.Map(cemeteryLandscapeCompanyDto, cemeteryLandscapeCompanyInDB);
 
-            cemeteryLandscapeCompanyInDB.ModifyDate = DateTime.Now;
+            cemeteryLandscapeCompanyInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

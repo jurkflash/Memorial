@@ -63,7 +63,7 @@ namespace Memorial.Lib.FengShuiMaster
 
             Mapper.Map(fengShuiMasterDto, fengShuiMasterInDB);
 
-            fengShuiMasterInDB.ModifyDate = DateTime.Now;
+            fengShuiMasterInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

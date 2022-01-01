@@ -162,7 +162,7 @@ namespace Memorial.Lib.Urn
 
             Mapper.Map(urnTransactionDto, urnTransactionInDb);
 
-            urnTransactionInDb.ModifyDate = System.DateTime.Now;
+            urnTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

@@ -75,7 +75,7 @@ namespace Memorial.Lib.Site
 
             Mapper.Map(siteDto, siteInDB);
 
-            siteInDB.ModifyDate = DateTime.Now;
+            siteInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

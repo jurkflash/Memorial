@@ -208,7 +208,7 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletTransactionDto, ancestralTabletTransactionInDb);
 
-            ancestralTabletTransactionInDb.ModifyDate = System.DateTime.Now;
+            ancestralTabletTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

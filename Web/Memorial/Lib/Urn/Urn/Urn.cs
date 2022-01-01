@@ -100,7 +100,7 @@ namespace Memorial.Lib.Urn
 
             Mapper.Map(urnDto, urnInDB);
 
-            urnInDB.ModifyDate = DateTime.Now;
+            urnInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

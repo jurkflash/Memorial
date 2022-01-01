@@ -205,7 +205,7 @@ namespace Memorial.Persistence
                     if (entity.ModifiedById == default && userId.HasValue)
                     {
                         entity.ModifiedById = userId.Value;
-                        entity.ModifyDate = now;
+                        entity.ModifiedDate = now;
                     }                    
                 }
             }

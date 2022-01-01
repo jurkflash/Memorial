@@ -175,7 +175,7 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(cemeteryItemDto, cemeteryItemInDB);
 
-            cemeteryItemInDB.ModifyDate = DateTime.Now;
+            cemeteryItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

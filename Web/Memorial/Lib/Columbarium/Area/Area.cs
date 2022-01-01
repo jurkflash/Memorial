@@ -99,7 +99,7 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumAreaDto, columbariumAreaInDB);
 
-            columbariumAreaInDB.ModifyDate = DateTime.Now;
+            columbariumAreaInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

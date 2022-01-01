@@ -63,7 +63,7 @@ namespace Memorial.Lib.FuneralCompany
 
             Mapper.Map(funeralCompanyDto, funeralCompanyInDB);
 
-            funeralCompanyInDB.ModifyDate = DateTime.Now;
+            funeralCompanyInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

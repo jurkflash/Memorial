@@ -104,7 +104,7 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(cemeteryAreaDto, cemeteryAreaInDB);
 
-            cemeteryAreaInDB.ModifyDate = DateTime.Now;
+            cemeteryAreaInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

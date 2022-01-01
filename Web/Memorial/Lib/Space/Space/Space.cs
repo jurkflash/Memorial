@@ -123,7 +123,7 @@ namespace Memorial.Lib.Space
 
             Mapper.Map(spaceDto, spaceInDB);
 
-            spaceInDB.ModifyDate = DateTime.Now;
+            spaceInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

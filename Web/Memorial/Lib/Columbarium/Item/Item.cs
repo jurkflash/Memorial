@@ -147,7 +147,7 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumItemDto, columbariumItemInDB);
 
-            columbariumItemInDB.ModifyDate = DateTime.Now;
+            columbariumItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

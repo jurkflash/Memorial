@@ -295,7 +295,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.Niche, opt => opt.Ignore())
                 .ForMember(c => c.Plot, opt => opt.Ignore())
                 .ForMember(c => c.CreatedDate, opt => opt.Ignore())
-                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
+                .ForMember(c => c.ModifiedDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<ApplicantDeceasedDto, ApplicantDeceased>()
@@ -503,7 +503,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ShiftedAncestralTabletId, opt => opt.MapFrom(x => x.ShiftedAncestralTabletDtoId))
                 .ForMember(c => c.ShiftedAncestralTabletTransactionAF, opt => opt.MapFrom(x => x.ShiftedAncestralTabletTransactionDtoAF))
                 .ForMember(c => c.CreatedDate, opt => opt.Ignore())
-                .ForMember(c => c.ModifyDate, opt => opt.Ignore())
+                .ForMember(c => c.ModifiedDate, opt => opt.Ignore())
                 .ForMember(c => c.DeleteDate, opt => opt.Ignore());
 
             CreateMap<CremationDto, Cremation>()

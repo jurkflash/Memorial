@@ -144,7 +144,7 @@ namespace Memorial.Lib.Urn
 
             Mapper.Map(urnItemDto, urnItemInDB);
 
-            urnItemInDB.ModifyDate = DateTime.Now;
+            urnItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

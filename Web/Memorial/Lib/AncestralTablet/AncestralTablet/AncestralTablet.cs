@@ -166,7 +166,7 @@ namespace Memorial.Lib.AncestralTablet
 
             Mapper.Map(ancestralTabletDto, ancestralTabletInDB);
 
-            ancestralTabletInDB.ModifyDate = DateTime.Now;
+            ancestralTabletInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

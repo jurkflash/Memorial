@@ -220,7 +220,7 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(cemeteryTransactionDto, cemeteryTransactionInDb);
 
-            cemeteryTransactionInDb.ModifyDate = System.DateTime.Now;
+            cemeteryTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

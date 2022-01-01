@@ -126,7 +126,7 @@ namespace Memorial.Lib.Invoice
 
             Mapper.Map(invoiceDto, invoiceInDb);
 
-            invoiceInDb.ModifyDate = System.DateTime.Now;
+            invoiceInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

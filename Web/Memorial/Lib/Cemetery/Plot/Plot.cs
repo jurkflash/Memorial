@@ -223,7 +223,7 @@ namespace Memorial.Lib.Cemetery
 
             Mapper.Map(plotDto, plotInDB);
 
-            plotInDB.ModifyDate = DateTime.Now;
+            plotInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

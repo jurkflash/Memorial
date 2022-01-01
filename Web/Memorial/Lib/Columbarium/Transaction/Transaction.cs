@@ -209,7 +209,7 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(columbariumTransactionDto, columbariumTransactionInDb);
 
-            columbariumTransactionInDb.ModifyDate = System.DateTime.Now;
+            columbariumTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

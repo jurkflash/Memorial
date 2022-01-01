@@ -122,7 +122,7 @@ namespace Memorial.Lib.Deceased
 
             Mapper.Map(deceasedDto, deceasedInDb);
 
-            deceasedInDb.ModifyDate = System.DateTime.Now;
+            deceasedInDb.ModifiedDate = System.DateTime.Now;
 
             _unitOfWork.Complete();
 

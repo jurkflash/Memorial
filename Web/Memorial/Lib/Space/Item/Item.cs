@@ -151,7 +151,7 @@ namespace Memorial.Lib.Space
 
             Mapper.Map(spaceItemDto, spaceItemInDB);
 
-            spaceItemInDB.ModifyDate = DateTime.Now;
+            spaceItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

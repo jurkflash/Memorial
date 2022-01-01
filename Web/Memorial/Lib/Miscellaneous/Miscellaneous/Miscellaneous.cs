@@ -100,7 +100,7 @@ namespace Memorial.Lib.Miscellaneous
 
             Mapper.Map(miscellaneousDto, miscellaneousInDB);
 
-            miscellaneousInDB.ModifyDate = DateTime.Now;
+            miscellaneousInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

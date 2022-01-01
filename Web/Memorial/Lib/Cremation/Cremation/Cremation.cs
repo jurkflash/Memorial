@@ -95,7 +95,7 @@ namespace Memorial.Lib.Cremation
 
             Mapper.Map(cremationDto, cremationInDB);
 
-            cremationInDB.ModifyDate = DateTime.Now;
+            cremationInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

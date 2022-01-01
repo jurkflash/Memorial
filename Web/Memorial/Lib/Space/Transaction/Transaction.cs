@@ -218,7 +218,7 @@ namespace Memorial.Lib.Space
 
             Mapper.Map(spaceTransactionDto, spaceTransactionInDb);
 
-            spaceTransactionInDb.ModifyDate = System.DateTime.Now;
+            spaceTransactionInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

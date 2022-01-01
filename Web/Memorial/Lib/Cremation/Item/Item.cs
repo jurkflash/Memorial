@@ -145,7 +145,7 @@ namespace Memorial.Lib.Cremation
 
             Mapper.Map(cremationItemDto, cremationItemInDB);
 
-            cremationItemInDB.ModifyDate = DateTime.Now;
+            cremationItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

@@ -145,7 +145,7 @@ namespace Memorial.Lib.Miscellaneous
 
             Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
 
-            miscellaneousItemInDB.ModifyDate = DateTime.Now;
+            miscellaneousItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

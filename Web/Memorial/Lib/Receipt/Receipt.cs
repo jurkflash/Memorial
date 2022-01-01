@@ -143,7 +143,7 @@ namespace Memorial.Lib.Receipt
 
             Mapper.Map(receiptDto, receiptInDb);
 
-            receiptInDb.ModifyDate = System.DateTime.Now;
+            receiptInDb.ModifiedDate = System.DateTime.Now;
 
             return true;
         }

@@ -185,7 +185,7 @@ namespace Memorial.Lib.Columbarium
 
             Mapper.Map(nicheDto, nicheInDB);
 
-            nicheInDB.ModifyDate = DateTime.Now;
+            nicheInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 

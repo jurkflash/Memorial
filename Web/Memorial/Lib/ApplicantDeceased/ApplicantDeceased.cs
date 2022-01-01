@@ -146,7 +146,7 @@ namespace Memorial.Lib.ApplicantDeceased
             {
                 _applicantDeceased.RelationshipTypeId = relationshipTypeId;
 
-                _applicantDeceased.ModifyDate = System.DateTime.Now;
+                _applicantDeceased.ModifiedDate = System.DateTime.Now;
 
                 _unitOfWork.Complete();
             }
