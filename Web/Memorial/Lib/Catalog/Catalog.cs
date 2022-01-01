@@ -73,7 +73,7 @@ namespace Memorial.Lib.Catalog
 
             var t = GetCatalogsBySite(id);
             var p = _product.GetProductDtos();
-            var f = p.Where(s => !t.Any(y => y.ProductId == s.Id && y.DeletedDate == null));
+            var f = p.Where(s => !t.Any(y => y.ProductId == s.Id));
 
             return f;
         }
@@ -136,8 +136,6 @@ namespace Memorial.Lib.Catalog
 
             Mapper.Map(catalogDto, _catalog);
 
-            _catalog.CreatedDate = DateTime.Now;
-
             _unitOfWork.Catalogs.Add(_catalog);
 
             _unitOfWork.Complete();
@@ -151,25 +149,25 @@ namespace Memorial.Lib.Catalog
             bool checkResult = false;
 
             if (catalog.Product.Area == _product.Cemetery)
-                checkResult = _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == catalog.SiteId && at.DeleteDate == null).Any();
+                checkResult = _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.AncestralTablet)
-                checkResult = _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == catalog.SiteId && at.DeletedDate == null).Any();
+                checkResult = _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.Cremation)
-                checkResult = _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == catalog.SiteId && at.DeleteDate == null).Any();
+                checkResult = _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.Urn)
-                checkResult = _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == catalog.SiteId && at.DeletedDate == null).Any();
+                checkResult = _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.Columbarium)
-                checkResult = _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.ColumbariumCentre.SiteId == catalog.SiteId && at.DeletedDate == null).Any();
+                checkResult = _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.ColumbariumCentre.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.Space)
-                checkResult = _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == catalog.SiteId && at.DeletedDate == null).Any();
+                checkResult = _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == catalog.SiteId).Any();
 
             if (catalog.Product.Area == _product.Miscellaneous)
-                checkResult = _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == catalog.SiteId && at.DeleteDate == null).Any();
+                checkResult = _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == catalog.SiteId).Any();
 
             if (checkResult)
             {
@@ -178,7 +176,7 @@ namespace Memorial.Lib.Catalog
 
             SetCatalog(id);
 
-            _catalog.DeletedDate = DateTime.Now;
+            _unitOfWork.Catalogs.Remove(_catalog);
 
             _unitOfWork.Complete();
 
