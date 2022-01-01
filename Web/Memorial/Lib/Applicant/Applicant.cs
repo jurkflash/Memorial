@@ -63,7 +63,6 @@ namespace Memorial.Lib.Applicant
         public bool Create(ApplicantDto applicantDto)
         {
             var applicant = Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto);
-            applicant.CreateDate = System.DateTime.Now;
             _unitOfWork.Applicants.Add(applicant);
             _unitOfWork.Complete();
             return true;
@@ -71,10 +70,8 @@ namespace Memorial.Lib.Applicant
 
         public bool Update(ApplicantDto applicantDto)
         {
-            var applicant = Mapper.Map<ApplicantDto, Core.Domain.Applicant>(applicantDto);
-            SetApplicant(applicant.Id);
-            Mapper.Map(applicant, GetApplicant());
-            applicant.ModifyDate = System.DateTime.Now;
+            SetApplicant(applicantDto.Id);
+            Mapper.Map(applicantDto, GetApplicant());
             _unitOfWork.Complete();
             return true;
         }
