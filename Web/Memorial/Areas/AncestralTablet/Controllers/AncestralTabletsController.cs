@@ -116,7 +116,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreateDate = transaction.CreateDate,
+                    CreateDate = transaction.CreatedDate,
                     ItemId = transaction.AncestralTabletItemDtoId,
                     Text1 = transaction.AncestralTabletDto.AncestralTabletAreaDto.Name,
                     Text2 = transaction.AncestralTabletDto.Name,

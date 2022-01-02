@@ -145,7 +145,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreateDate = transaction.CreateDate,
+                    CreateDate = transaction.CreatedDate,
                     ItemId = transaction.CemeteryItemDtoId,
                     Text1 = transaction.PlotDto.CemeteryAreaDto.Name,
                     Text2 = transaction.PlotDto.Name,

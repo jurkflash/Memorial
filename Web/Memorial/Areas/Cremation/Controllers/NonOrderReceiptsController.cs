@@ -41,7 +41,7 @@ namespace Memorial.Areas.Cremation.Controllers
                 AF = AF,
                 Amount = _transaction.GetTransactionAmount(),
                 RemainingAmount = _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
-                ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreateDate)
+                ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreatedDate)
             };
 
             return View(viewModel);

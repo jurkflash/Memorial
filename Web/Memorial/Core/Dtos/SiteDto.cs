@@ -21,6 +21,6 @@ namespace Memorial.Core.Dtos
         [Required]
         public string Header { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

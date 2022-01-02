@@ -68,7 +68,7 @@ namespace Memorial.Areas.Urn.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreateDate = transaction.CreateDate,
+                    CreateDate = transaction.CreatedDate,
                     ItemId = transaction.UrnItemDtoId,
                     Text1 = transaction.UrnItemDto.UrnDto.Name,
                     ItemName = transaction.UrnItemDto.SubProductServiceDto.Name,

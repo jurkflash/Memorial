@@ -71,7 +71,7 @@ namespace Memorial.Areas.Space.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreateDate = transaction.CreateDate,
+                    CreateDate = transaction.CreatedDate,
                     ItemId = transaction.SpaceItemDto.Id,
                     Text1 = transaction.SpaceItemDto.SpaceDto.Name,
                     ItemName = transaction.SpaceItemDto.SubProductServiceDto.Name,

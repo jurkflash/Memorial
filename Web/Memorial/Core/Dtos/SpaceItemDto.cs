@@ -30,7 +30,7 @@ namespace Memorial.Core.Dtos
 
         public string FormView { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
     }
 }

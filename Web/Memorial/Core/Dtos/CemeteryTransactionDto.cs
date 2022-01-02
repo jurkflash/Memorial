@@ -77,7 +77,7 @@ namespace Memorial.Core.Dtos
 
         public DateTime? ClearanceGroundDate { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
     }
 }

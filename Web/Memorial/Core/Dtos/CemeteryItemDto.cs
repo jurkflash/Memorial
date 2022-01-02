@@ -22,7 +22,7 @@ namespace Memorial.Core.Dtos
 
         public int SubProductServiceDtoId { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
     }
 }

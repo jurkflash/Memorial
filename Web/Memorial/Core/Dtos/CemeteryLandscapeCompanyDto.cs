@@ -20,6 +20,6 @@ namespace Memorial.Core.Dtos
         [StringLength(255)]
         public string Remark { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

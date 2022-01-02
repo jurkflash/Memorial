@@ -12,7 +12,7 @@ namespace Memorial.Core.Dtos
 
         public Boolean isFengShuiPlot { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
     }
 }

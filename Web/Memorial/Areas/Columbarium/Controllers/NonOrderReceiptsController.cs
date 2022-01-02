@@ -33,7 +33,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 AF = AF,
                 Amount = _transaction.GetTransactionTotalAmount(),
                 RemainingAmount = _transaction.GetTransactionTotalAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
-                ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreateDate)
+                ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreatedDate)
             };
 
             return View(viewModel);

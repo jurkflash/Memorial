@@ -22,10 +22,10 @@ namespace Memorial.Core.Dtos
 
         public int SubProductServiceDtoId { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public DateTime? ModifyDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
-        public DateTime? DeleteDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }
