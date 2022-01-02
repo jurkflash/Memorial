@@ -48,8 +48,6 @@ namespace Memorial.Lib.FuneralCompany
             _funeralCompany = new Core.Domain.FuneralCompany();
             Mapper.Map(funeralCompanyDto, _funeralCompany);
 
-            _funeralCompany.CreatedDate = DateTime.Now;
-
             _unitOfWork.FuneralCompanies.Add(_funeralCompany);
 
             _unitOfWork.Complete();
@@ -63,8 +61,6 @@ namespace Memorial.Lib.FuneralCompany
 
             Mapper.Map(funeralCompanyDto, funeralCompanyInDB);
 
-            funeralCompanyInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -73,16 +69,21 @@ namespace Memorial.Lib.FuneralCompany
         public bool Delete(int id)
         {
             if (
-                _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.ColumbariumTransactions.Find(at => at.FuneralCompanyId == id && at.DeletedDate == null).Any() ||
-                _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id && at.DeletedDate == null).Any())
+                _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id).Any() ||
+                _unitOfWork.ColumbariumTransactions.Find(at => at.FuneralCompanyId == id).Any() ||
+                _unitOfWork.SpaceTransactions.Find(at => at.FuneralCompanyId == id).Any())
             {
                 return false;
             }
 
             SetFuneralCompany(id);
 
-            _funeralCompany.DeletedDate = DateTime.Now;
+            if(_funeralCompany == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.FuneralCompanies.Remove(_funeralCompany);
 
             _unitOfWork.Complete();
 

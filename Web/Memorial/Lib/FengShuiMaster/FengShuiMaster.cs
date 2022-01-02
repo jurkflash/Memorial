@@ -48,8 +48,6 @@ namespace Memorial.Lib.FengShuiMaster
             _fengShuiMaster = new Core.Domain.FengShuiMaster();
             Mapper.Map(fengShuiMasterDto, _fengShuiMaster);
 
-            _fengShuiMaster.CreatedDate = DateTime.Now;
-
             _unitOfWork.FengShuiMasters.Add(_fengShuiMaster);
 
             _unitOfWork.Complete();
@@ -63,8 +61,6 @@ namespace Memorial.Lib.FengShuiMaster
 
             Mapper.Map(fengShuiMasterDto, fengShuiMasterInDB);
 
-            fengShuiMasterInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -72,14 +68,19 @@ namespace Memorial.Lib.FengShuiMaster
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id && at.DeletedDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id).Any())
             {
                 return false;
             }
 
             SetFengShuiMaster(id);
 
-            _fengShuiMaster.DeletedDate = DateTime.Now;
+            if(_fengShuiMaster == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.FengShuiMasters.Remove(_fengShuiMaster);
 
             _unitOfWork.Complete();
 

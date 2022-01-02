@@ -114,7 +114,7 @@ namespace Memorial.Lib.Columbarium
 
             var t = GetItemByCentre(centreId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetColumbariumProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -138,7 +138,7 @@ namespace Memorial.Lib.Columbarium
 
             if ((columbariumItemInDB.isOrder != columbariumItemDto.isOrder
                 || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreDtoId)
-                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id && qi.DeletedDate == null).Any())
+                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id).Any())
             {
                 return false;
             }
@@ -152,7 +152,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItemId == id && qt.DeletedDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItemId == id).Any())
             {
                 return false;
             }

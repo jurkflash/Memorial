@@ -68,7 +68,7 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.MiscellaneousTransactions.Find(mt => mt.CemeteryLandscapeCompanyId == id && mt.DeleteDate == null).Any())
+            if (_unitOfWork.MiscellaneousTransactions.Find(mt => mt.CemeteryLandscapeCompanyId == id).Any())
             {
                 return false;
             }

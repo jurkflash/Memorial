@@ -102,8 +102,6 @@ namespace Memorial.Lib.Space
             _space = new Core.Domain.Space();
             Mapper.Map(spaceDto, _space);
 
-            _space.CreatedDate = DateTime.Now;
-
             _unitOfWork.Spaces.Add(_space);
 
             _unitOfWork.Complete();
@@ -116,14 +114,12 @@ namespace Memorial.Lib.Space
             var spaceInDB = GetSpace(spaceDto.Id);
 
             if (spaceInDB.SiteId != spaceDto.SiteDtoId
-                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId && ct.DeletedDate == null).Any())
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId).Any())
             {
                 return false;
             }
 
             Mapper.Map(spaceDto, spaceInDB);
-
-            spaceInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
@@ -132,14 +128,19 @@ namespace Memorial.Lib.Space
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id && ct.DeletedDate == null).Any())
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id).Any())
             {
                 return false;
             }
 
             SetSpace(id);
 
-            _space.DeletedDate = DateTime.Now;
+            if(_space == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Spaces.Remove(_space);
 
             _unitOfWork.Complete();
 

@@ -19,8 +19,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
-                                .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeletedDate == null).SingleOrDefault();
+                                .Where(a => a.Id == AncestralTabletItemId).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewAF(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
@@ -44,8 +43,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
-                                .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeletedDate == null).SingleOrDefault();
+                                .Where(a => a.Id == AncestralTabletItemId).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewIV(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 
@@ -69,8 +67,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(a => a.AncestralTabletArea)
                                 .Include(a => a.AncestralTabletArea.Site)
                                 .Include(a => a.SubProductService)
-                                .Where(a => a.Id == AncestralTabletItemId &&
-                                a.DeletedDate == null).SingleOrDefault();
+                                .Where(a => a.Id == AncestralTabletItemId).SingleOrDefault();
 
             var number = numberRepository.GetAncestralTabletNewRE(
                 (string.IsNullOrWhiteSpace(ancestralTabletItem.Code) ? ancestralTabletItem.SubProductService.Code : ancestralTabletItem.Code), 

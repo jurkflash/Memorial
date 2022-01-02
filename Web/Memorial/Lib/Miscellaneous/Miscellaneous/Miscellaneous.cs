@@ -79,8 +79,6 @@ namespace Memorial.Lib.Miscellaneous
             _miscellaneous = new Core.Domain.Miscellaneous();
             Mapper.Map(miscellaneousDto, _miscellaneous);
 
-            _miscellaneous.CreatedDate = DateTime.Now;
-
             _unitOfWork.Miscellaneous.Add(_miscellaneous);
 
             _unitOfWork.Complete();
@@ -93,14 +91,12 @@ namespace Memorial.Lib.Miscellaneous
             var miscellaneousInDB = GetMiscellaneous(miscellaneousDto.Id);
 
             if (miscellaneousInDB.SiteId != miscellaneousDto.SiteDtoId
-                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.SiteId == miscellaneousInDB.SiteId && ct.DeleteDate == null).Any())
+                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.SiteId == miscellaneousInDB.SiteId).Any())
             {
                 return false;
             }
 
             Mapper.Map(miscellaneousDto, miscellaneousInDB);
-
-            miscellaneousInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
@@ -109,14 +105,19 @@ namespace Memorial.Lib.Miscellaneous
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.Id == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItem.Miscellaneous.Id == id).Any())
             {
                 return false;
             }
 
             SetMiscellaneous(id);
 
-            _miscellaneous.DeletedDate = DateTime.Now;
+            if(_miscellaneous == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Miscellaneous.Remove(_miscellaneous);
 
             _unitOfWork.Complete();
 

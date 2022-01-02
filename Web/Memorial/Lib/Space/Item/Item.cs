@@ -117,7 +117,7 @@ namespace Memorial.Lib.Space
 
             var t = GetItemBySpace(spaceId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetSpaceProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -126,8 +126,6 @@ namespace Memorial.Lib.Space
         {
             _item = new Core.Domain.SpaceItem();
             Mapper.Map(spaceItemDto, _item);
-
-            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.SpaceItems.Add(_item);
 
@@ -144,14 +142,12 @@ namespace Memorial.Lib.Space
                 || spaceItemInDB.isOrder != spaceItemDto.isOrder
                 || spaceItemInDB.AllowDoubleBook != spaceItemDto.AllowDoubleBook
                 || spaceItemInDB.AllowDeposit != spaceItemDto.AllowDeposit)
-                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id && ct.DeletedDate == null).Any())
+                && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id).Any())
             {
                 return false;
             }
 
             Mapper.Map(spaceItemDto, spaceItemInDB);
-
-            spaceItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
@@ -160,14 +156,19 @@ namespace Memorial.Lib.Space
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id && ct.DeletedDate == null).Any())
+            if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id).Any())
             {
                 return false;
             }
 
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if(_item == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.SpaceItems.Remove(_item);
 
             _unitOfWork.Complete();
 

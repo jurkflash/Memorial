@@ -152,7 +152,6 @@ namespace Memorial.Lib.Miscellaneous
             Mapper.Map(miscellaneousTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreateDate = System.DateTime.Now;
 
             _unitOfWork.MiscellaneousTransactions.Add(_transaction);
 
@@ -165,14 +164,12 @@ namespace Memorial.Lib.Miscellaneous
 
             Mapper.Map(miscellaneousTransactionDto, miscellaneousTransactionInDb);
 
-            miscellaneousTransactionInDb.ModifyDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeleteDate = System.DateTime.Now;
+            _unitOfWork.MiscellaneousTransactions.Remove(_transaction);
 
             return true;
         }

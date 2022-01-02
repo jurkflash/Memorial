@@ -90,7 +90,7 @@ namespace Memorial.Lib.Columbarium
             var columbariumAreaInDB = GetArea(columbariumAreaDto.Id);
 
             if (columbariumAreaInDB.ColumbariumCentreId != columbariumAreaDto.ColumbariumCentreDtoId
-                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == columbariumAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == columbariumAreaInDB.Id) && qt.DeletedDate == null).Any())
+                && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == columbariumAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == columbariumAreaInDB.Id)).Any())
             {
                 return false;
             }
@@ -104,7 +104,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == id || qt.ShiftedNiche.ColumbariumAreaId == id) && qt.DeletedDate == null).Any())
+            if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == id || qt.ShiftedNiche.ColumbariumAreaId == id)).Any())
             {
                 return false;
             }

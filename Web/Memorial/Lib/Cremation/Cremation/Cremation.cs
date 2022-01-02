@@ -86,7 +86,7 @@ namespace Memorial.Lib.Cremation
             var cremationInDB = GetCremation(cremationDto.Id);
 
             if (cremationInDB.SiteId != cremationDto.SiteDtoId
-                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId && ct.DeleteDate == null).Any())
+                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.SiteId == cremationInDB.SiteId).Any())
             {
                 return false;
             }
@@ -100,7 +100,7 @@ namespace Memorial.Lib.Cremation
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.Id == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItem.Cremation.Id == id).Any())
             {
                 return false;
             }

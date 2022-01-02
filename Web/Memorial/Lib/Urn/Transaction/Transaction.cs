@@ -149,7 +149,6 @@ namespace Memorial.Lib.Urn
             Mapper.Map(urnTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.UrnTransactions.Add(_transaction);
 
@@ -162,14 +161,12 @@ namespace Memorial.Lib.Urn
 
             Mapper.Map(urnTransactionDto, urnTransactionInDb);
 
-            urnTransactionInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeletedDate = System.DateTime.Now;
+            _unitOfWork.UrnTransactions.Remove(_transaction);
 
             return true;
         }

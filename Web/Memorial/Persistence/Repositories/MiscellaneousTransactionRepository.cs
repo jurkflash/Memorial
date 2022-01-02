@@ -58,13 +58,13 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<MiscellaneousTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.MiscellaneousTransactions
-                .Where(t => t.DeleteDate == null && t.MiscellaneousItem.Miscellaneous.SiteId == siteId)
+                .Where(t => t.MiscellaneousItem.Miscellaneous.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.MiscellaneousItem)
                 .Include(t => t.MiscellaneousItem.Miscellaneous)
                 .Include(t => t.MiscellaneousItem.SubProductService)
                 .Include(t => t.MiscellaneousItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

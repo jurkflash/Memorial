@@ -111,7 +111,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<SpaceTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.SpaceTransactions
-                .Where(t => t.DeletedDate == null && t.SpaceItem.Space.SiteId == siteId)
+                .Where(t => t.SpaceItem.Space.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.SpaceItem)
                 .Include(t => t.SpaceItem.Space)

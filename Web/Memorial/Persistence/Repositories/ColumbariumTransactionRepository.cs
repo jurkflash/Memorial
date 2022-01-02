@@ -99,7 +99,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<ColumbariumTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.ColumbariumTransactions
-                .Where(t => t.DeletedDate == null && t.ColumbariumItem.ColumbariumCentre.SiteId == siteId)
+                .Where(t => t.ColumbariumItem.ColumbariumCentre.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.ColumbariumItem)
                 .Include(t => t.Niche)

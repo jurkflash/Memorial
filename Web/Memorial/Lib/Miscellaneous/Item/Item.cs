@@ -113,7 +113,7 @@ namespace Memorial.Lib.Miscellaneous
 
             var t = GetItemByMiscellaneous(miscellaneousId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetMiscellaneousProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -122,8 +122,6 @@ namespace Memorial.Lib.Miscellaneous
         {
             _item = new Core.Domain.MiscellaneousItem();
             Mapper.Map(miscellaneousItemDto, _item);
-
-            _item.CreatedDate = DateTime.Now;
 
             _unitOfWork.MiscellaneousItems.Add(_item);
 
@@ -138,14 +136,12 @@ namespace Memorial.Lib.Miscellaneous
 
             if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousDtoId
                 || miscellaneousItemInDB.isOrder != miscellaneousItemDto.isOrder)
-                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == miscellaneousItemInDB.Id && ct.DeleteDate == null).Any())
+                && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == miscellaneousItemInDB.Id).Any())
             {
                 return false;
             }
 
             Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
-
-            miscellaneousItemInDB.ModifiedDate = DateTime.Now;
 
             _unitOfWork.Complete();
 
@@ -154,14 +150,19 @@ namespace Memorial.Lib.Miscellaneous
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == id).Any())
             {
                 return false;
             }
 
             SetItem(id);
 
-            _item.DeletedDate = DateTime.Now;
+            if(_item == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.MiscellaneousItems.Remove(_item);
 
             _unitOfWork.Complete();
 

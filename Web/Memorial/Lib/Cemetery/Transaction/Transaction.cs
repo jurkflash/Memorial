@@ -224,7 +224,7 @@ namespace Memorial.Lib.Cemetery
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeletedDate = System.DateTime.Now;
+            _unitOfWork.CemeteryTransactions.Remove(_transaction);
 
             return true;
         }

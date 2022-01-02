@@ -55,7 +55,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<UrnTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.UrnTransactions
-                .Where(t => t.DeletedDate == null && t.UrnItem.Urn.SiteId == siteId)
+                .Where(t => t.UrnItem.Urn.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.UrnItem)
                 .Include(t => t.UrnItem.Urn)

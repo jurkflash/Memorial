@@ -166,7 +166,7 @@ namespace Memorial.Lib.Cemetery
             var cemeteryItemInDB = GetItem(cemeteryItemDto.Id);
 
             if ((cemeteryItemInDB.isOrder != cemeteryItemDto.isOrder)
-                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id && pt.DeletedDate == null).Any())
+                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id).Any())
             {
                 return false;
             }

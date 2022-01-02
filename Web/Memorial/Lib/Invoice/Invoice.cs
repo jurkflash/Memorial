@@ -113,7 +113,6 @@ namespace Memorial.Lib.Invoice
 
             _invoice.IV = _ivNumber;
             _invoice.hasReceipt = false;
-            _invoice.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.Invoices.Add(_invoice);
 
@@ -126,14 +125,12 @@ namespace Memorial.Lib.Invoice
 
             Mapper.Map(invoiceDto, invoiceInDb);
 
-            invoiceInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteInvoice()
         {
-            _invoice.DeletedDate = System.DateTime.Now;
+            _unitOfWork.Invoices.Remove(_invoice);
 
             return true;
         }

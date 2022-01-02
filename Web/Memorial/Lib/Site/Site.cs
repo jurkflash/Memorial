@@ -60,8 +60,6 @@ namespace Memorial.Lib.Site
             _site = new Core.Domain.Site();
             Mapper.Map(siteDto, _site);
 
-            _site.CreatedDate = DateTime.Now;
-
             _unitOfWork.Sites.Add(_site);
 
             _unitOfWork.Complete();
@@ -75,8 +73,6 @@ namespace Memorial.Lib.Site
 
             Mapper.Map(siteDto, siteInDB);
 
-            siteInDB.ModifiedDate = DateTime.Now;
-
             _unitOfWork.Complete();
 
             return true;
@@ -85,20 +81,25 @@ namespace Memorial.Lib.Site
         public bool DeleteSite(int id)
         {
             if (
-                _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id && at.DeletedDate == null).Any() ||
-                _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == id && at.DeleteDate == null).Any() ||
-                _unitOfWork.CemeteryTransactions.Find(at => at.Plot.CemeteryArea.SiteId == id && at.DeletedDate == null).Any() ||
-                _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.ColumbariumCentre.SiteId == id && at.DeletedDate == null).Any() ||
-                _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == id && at.DeletedDate == null).Any() ||
-                _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == id && at.DeletedDate == null).Any())
+                _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id).Any() ||
+                _unitOfWork.CremationTransactions.Find(at => at.CremationItem.Cremation.SiteId == id).Any() ||
+                _unitOfWork.MiscellaneousTransactions.Find(at => at.MiscellaneousItem.Miscellaneous.SiteId == id).Any() ||
+                _unitOfWork.CemeteryTransactions.Find(at => at.Plot.CemeteryArea.SiteId == id).Any() ||
+                _unitOfWork.ColumbariumTransactions.Find(at => at.ColumbariumItem.ColumbariumCentre.SiteId == id).Any() ||
+                _unitOfWork.SpaceTransactions.Find(at => at.SpaceItem.Space.SiteId == id).Any() ||
+                _unitOfWork.UrnTransactions.Find(at => at.UrnItem.Urn.SiteId == id).Any())
             {
                 return false;
             }
 
             SetSite(id);
 
-            _site.DeletedDate = DateTime.Now;
+            if(_site == null)
+            {
+                return false;
+            }
+
+            _unitOfWork.Sites.Remove(_site);
 
             _unitOfWork.Complete();
 

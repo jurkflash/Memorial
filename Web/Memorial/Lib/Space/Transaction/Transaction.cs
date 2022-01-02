@@ -205,7 +205,6 @@ namespace Memorial.Lib.Space
             Mapper.Map(spaceTransactionDto, _transaction);
 
             _transaction.AF = _AFnumber;
-            _transaction.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.SpaceTransactions.Add(_transaction);
 
@@ -218,14 +217,12 @@ namespace Memorial.Lib.Space
 
             Mapper.Map(spaceTransactionDto, spaceTransactionInDb);
 
-            spaceTransactionInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
         protected bool DeleteTransaction()
         {
-            _transaction.DeletedDate = System.DateTime.Now;
+            _unitOfWork.SpaceTransactions.Remove(_transaction);
 
             return true;
         }

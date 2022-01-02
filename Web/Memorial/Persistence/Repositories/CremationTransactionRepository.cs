@@ -15,7 +15,7 @@ namespace Memorial.Persistence.Repositories
         public CremationTransaction GetActive(string AF)
         {
             return MemorialContext.CremationTransactions
-                .Where(ct => ct.AF == AF && ct.DeleteDate == null)                                            
+                .Where(ct => ct.AF == AF)                                            
                 .Include(ct => ct.FuneralCompany)
                 .Include(ct => ct.CremationItem)
                 .Include(ct => ct.CremationItem.Cremation)
@@ -75,13 +75,13 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CremationTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.CremationTransactions
-                .Where(t => t.DeleteDate == null && t.CremationItem.Cremation.SiteId == siteId)
+                .Where(t => t.CremationItem.Cremation.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.CremationItem)
                 .Include(t => t.CremationItem.Cremation)
                 .Include(t => t.CremationItem.SubProductService)
                 .Include(t => t.CremationItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreateDate)
+                .OrderByDescending(t => t.CreatedDate)
                 .Take(number)
                 .ToList();
         }

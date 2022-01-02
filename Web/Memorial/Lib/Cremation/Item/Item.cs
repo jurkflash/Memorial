@@ -113,7 +113,7 @@ namespace Memorial.Lib.Cremation
 
             var t = GetItemByCremation(cremationId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetCremationProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -136,7 +136,7 @@ namespace Memorial.Lib.Cremation
 
             if ((cremationItemInDB.CremationId != cremationItemDto.CremationDtoId
                 || cremationItemInDB.isOrder != cremationItemDto.isOrder)
-                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == cremationItemInDB.Id && ct.DeleteDate == null).Any())
+                && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == cremationItemInDB.Id).Any())
             {
                 return false;
             }
@@ -150,7 +150,7 @@ namespace Memorial.Lib.Cremation
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == id && ct.DeleteDate == null).Any())
+            if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == id).Any())
             {
                 return false;
             }

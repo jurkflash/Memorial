@@ -42,8 +42,7 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<CemeteryTransaction> GetByApplicant(int id)
         {
-            return MemorialContext.CemeteryTransactions.Where(pt => pt.ApplicantId == id
-                                            && pt.DeletedDate == null).ToList();
+            return MemorialContext.CemeteryTransactions.Where(pt => pt.ApplicantId == id).ToList();
         }
 
         public IEnumerable<CemeteryTransaction> GetByPlotIdAndItem(int plotId, int itemId, string filter)
@@ -130,7 +129,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<CemeteryTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.CemeteryTransactions
-                .Where(t => t.DeletedDate == null && t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
+                .Where(t => t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.CemeteryItem)
                 .Include(t => t.Plot)

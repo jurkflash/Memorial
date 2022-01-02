@@ -331,7 +331,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ApplicantId, opt => opt.MapFrom(x => x.ApplicantDtoId))
                 .ForMember(c => c.CemeteryLandscapeCompany, opt => opt.Ignore())
                 .ForMember(c => c.CemeteryLandscapeCompanyId, opt => opt.MapFrom(x => x.CemeteryLandscapeCompanyDtoId))
-                .ForMember(c => c.CreateDate, opt => opt.Ignore());
+                .ForMember(c => c.CreatedDate, opt => opt.Ignore());
 
             CreateMap<SpaceDto, Space>()
                 .ForMember(c => c.Id, opt => opt.Ignore())

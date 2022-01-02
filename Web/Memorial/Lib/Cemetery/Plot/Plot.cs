@@ -214,7 +214,7 @@ namespace Memorial.Lib.Cemetery
 
             if ((plotInDB.PlotTypeId != plotDto.PlotTypeDtoId
                 || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaDtoId)
-                && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id && ct.DeletedDate == null).Any())
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id).Any())
             {
                 return false;
             }
@@ -228,7 +228,7 @@ namespace Memorial.Lib.Cemetery
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == id && ct.DeletedDate == null).Any())
+            if (_unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == id).Any())
             {
                 return false;
             }

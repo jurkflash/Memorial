@@ -15,8 +15,7 @@ namespace Memorial.Persistence.Repositories
         public CemeteryLandscapeCompany GetActive(int id)
         {
             return MemorialContext.CemeteryLandscapeCompanies
-                .Where(plc => plc.DeletedDate == null &&
-                        plc.Id == id).FirstOrDefault();
+                .Where(plc => plc.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<CemeteryLandscapeCompany> GetAllActive()

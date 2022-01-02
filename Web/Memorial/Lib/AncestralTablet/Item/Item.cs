@@ -111,7 +111,7 @@ namespace Memorial.Lib.AncestralTablet
 
             var t = GetItemByArea(areaId);
             var sp = _subProductService.GetSubProductServicesByProduct(_product.GetAncestralTabletProduct().Id);
-            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id && y.DeletedDate == null));
+            var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
         }
@@ -134,7 +134,7 @@ namespace Memorial.Lib.AncestralTablet
 
             if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItemDto.AncestralTabletAreaDtoId
                 || ancestralTabletItemInDB.isOrder != ancestralTabletItemDto.isOrder)
-                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == ancestralTabletItemInDB.Id && at.DeletedDate == null).Any())
+                && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == ancestralTabletItemInDB.Id).Any())
             {
                 return false;
             }
@@ -148,7 +148,7 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == id && at.DeletedDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == id).Any())
             {
                 return false;
             }

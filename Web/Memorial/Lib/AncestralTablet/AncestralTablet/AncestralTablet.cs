@@ -171,7 +171,7 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Delete(int id)
         {
-            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id) && at.DeletedDate == null).Any())
+            if (_unitOfWork.AncestralTabletTransactions.Find(at => (at.AncestralTabletId == id || at.ShiftedAncestralTabletId == id)).Any())
             {
                 return false;
             }

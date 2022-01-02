@@ -130,7 +130,6 @@ namespace Memorial.Lib.Receipt
             Mapper.Map(receiptDto, _receipt);
 
             _receipt.RE = _reNumber;
-            _receipt.CreatedDate = System.DateTime.Now;
 
             _unitOfWork.Receipts.Add(_receipt);
 
@@ -143,8 +142,6 @@ namespace Memorial.Lib.Receipt
 
             Mapper.Map(receiptDto, receiptInDb);
 
-            receiptInDb.ModifiedDate = System.DateTime.Now;
-
             return true;
         }
 
@@ -153,7 +150,7 @@ namespace Memorial.Lib.Receipt
             if (_receipt == null)
                 return false;
 
-            _receipt.DeletedDate = System.DateTime.Now;
+            _unitOfWork.Receipts.Remove(_receipt);
 
             return true;
         }
@@ -163,7 +160,7 @@ namespace Memorial.Lib.Receipt
             var receipts = GetOrderReceiptsByInvoiceIV(IV);
             foreach(var receipt in receipts)
             {
-                receipt.DeletedDate = System.DateTime.Now;
+                _unitOfWork.Receipts.Remove(receipt);
             }
 
             //_invoice.SetInvoice(_receipt.InvoiceIV);

@@ -16,8 +16,7 @@ namespace Memorial.Persistence.Repositories
         public Deceased GetByIC(string IC)
         {
             return MemorialContext.Deceaseds
-                .Where(d => d.IC == IC &&
-                    d.DeletedDate == null).FirstOrDefault();
+                .Where(d => d.IC == IC).FirstOrDefault();
         }
 
         public Deceased GetActive(int id)
@@ -33,7 +32,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Deceased> GetByApplicant(int id)
         {
             var t = MemorialContext.Deceaseds.Join(
-                MemorialContext.ApplicantDeceaseds.Where(ad => ad.ApplicantId == id && ad.DeletedDate == null),
+                MemorialContext.ApplicantDeceaseds.Where(ad => ad.ApplicantId == id),
                 d => d.Id,
                 ad => ad.DeceasedId,
                 (d, ad) => d)

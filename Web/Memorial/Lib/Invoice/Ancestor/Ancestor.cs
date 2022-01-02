@@ -74,7 +74,7 @@ namespace Memorial.Lib.Invoice
             var invoices = GetInvoicesByAF(AF);
             foreach (var invoice in invoices)
             {
-                invoice.DeletedDate = System.DateTime.Now;
+                _unitOfWork.Invoices.Remove(invoice);
             }
 
             return true;

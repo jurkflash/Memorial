@@ -34,8 +34,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletItems
                 .Include(ai => ai.SubProductService)
                 .Include(ai => ai.AncestralTabletArea)
-                .Where(ai => ai.AncestralTabletAreaId == areaId
-                && ai.DeletedDate == null).ToList();
+                .Where(ai => ai.AncestralTabletAreaId == areaId).ToList();
         }
 
         public MemorialContext MemorialContext

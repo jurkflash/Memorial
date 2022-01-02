@@ -40,8 +40,7 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<AncestralTabletTransaction> GetByApplicant(int id)
         {
-            return MemorialContext.AncestralTabletTransactions.Where(at => at.ApplicantId == id
-                                            && at.DeletedDate == null).ToList();
+            return MemorialContext.AncestralTabletTransactions.Where(at => at.ApplicantId == id).ToList();
         }
 
         public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter)
@@ -98,7 +97,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<AncestralTabletTransaction> GetRecent(int number, int siteId)
         {
             return MemorialContext.AncestralTabletTransactions
-                .Where(t => t.DeletedDate == null && t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
+                .Where(t => t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.AncestralTablet)
                 .Include(t => t.AncestralTabletItem.AncestralTabletArea)

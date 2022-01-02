@@ -16,7 +16,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.AncestralTabletTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -26,7 +25,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.CremationTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -36,7 +34,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.CemeteryTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -46,7 +43,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.SpaceTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -56,7 +52,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.UrnTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -66,7 +61,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.ColumbariumTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -76,7 +70,6 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Receipts
                 .Where(r => r.MiscellaneousTransactionAF == AF &&
-                    r.DeletedDate == null &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
@@ -85,7 +78,7 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Receipt> GetByActiveIV(string IV)
         {
             return MemorialContext.Receipts
-                .Where(r => r.InvoiceIV == IV && r.DeletedDate == null)
+                .Where(r => r.InvoiceIV == IV)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedDate);
         }
@@ -93,7 +86,7 @@ namespace Memorial.Persistence.Repositories
         public Receipt GetByActiveRE(string RE)
         {
             return MemorialContext.Receipts
-                .Where(r => r.RE == RE && r.DeletedDate == null)
+                .Where(r => r.RE == RE)
                 .Include(r => r.Invoice)
                 .Include(r => r.PaymentMethod)
                 .SingleOrDefault();
