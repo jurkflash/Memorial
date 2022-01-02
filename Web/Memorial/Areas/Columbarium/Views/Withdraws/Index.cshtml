@@ -49,7 +49,7 @@
                 <td>@Html.ActionLink(columbariumTransaction.AF, "Info", new { AF = columbariumTransaction.AF }, new { target = "ColumbariumTransactionInfo", area = "Columbarium" })</td>
                 <td>@columbariumTransaction.NicheDto.Name</td>
                 <td>@columbariumTransaction.NicheDto.ApplicantDto.Name &nbsp; @columbariumTransaction.NicheDto.ApplicantDto.Name2</td>
-                <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@columbariumTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoice", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>

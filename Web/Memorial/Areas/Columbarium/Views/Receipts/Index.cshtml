@@ -43,7 +43,7 @@
                 <td>@receipt.Remark</td>
                 <td>@receipt.PaymentMethod.Name</td>
                 <td>@receipt.PaymentRemark</td>
-                <td>@receipt.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@receipt.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, RE = receipt.RE, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { RE = receipt.RE, IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Columbarium" })</td>
             </tr>

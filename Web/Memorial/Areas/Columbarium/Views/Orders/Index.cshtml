@@ -57,7 +57,7 @@
                 <td>@columbariumTransaction.Price</td>
                 <td>@columbariumTransaction.Maintenance</td>
                 <td>@columbariumTransaction.LifeTimeMaintenance</td>
-                <td>@columbariumTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@columbariumTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = columbariumTransaction.AF, area = "Columbarium" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>

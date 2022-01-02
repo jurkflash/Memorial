@@ -42,6 +42,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 Filter = filter,
                 CemeteryItemDto = _item.GetItemDto(),
+                CemeteryItemDtoId = itemId,
                 PlotDto = _plot.GetPlotDto(),
                 PlotId = id,
                 CemeteryTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)

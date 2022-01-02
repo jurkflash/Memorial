@@ -50,7 +50,7 @@
                 <td>@miscellaneousTransaction.ApplicantDto.Name &nbsp; @miscellaneousTransaction.ApplicantDto.Name2</td>
                 <td>@miscellaneousTransaction.Amount</td>
                 <td>@miscellaneousTransaction.Remark</td>
-                <td>@miscellaneousTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@miscellaneousTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink(Resources.Mix.Receipt, "Receipts", new { AF = miscellaneousTransaction.AF, area = "Miscellaneous" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = miscellaneousTransaction.AF, itemId = miscellaneousTransaction.MiscellaneousItemDtoId, applicantId = Model.ApplicantId, area = "Miscellaneous" })</td>
                 <td>

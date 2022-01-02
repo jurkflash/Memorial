@@ -32,7 +32,7 @@
                 <td>@invoice.Remark</td>
                 <td>@invoice.Amount</td>
                 <td>@invoice.isPaid</td>
-                <td>@invoice.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@invoice.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@invoice.hasReceipt</td>
                 <td>@Html.ActionLink(Resources.Mix.Receipt, "Receipt", new { IV = invoice.IV })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { IV = invoice.IV, AF = Model.AF })</td>

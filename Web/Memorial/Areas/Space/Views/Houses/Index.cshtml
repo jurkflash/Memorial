@@ -53,7 +53,7 @@
                 <td>@spaceTransaction.ToDate</td>
                 <td>@spaceTransaction.Remark</td>
                 <td>@spaceTransaction.Amount</td>
-                <td>@spaceTransaction.CreateDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@spaceTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = spaceTransaction.AF, area = "Space" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = spaceTransaction.AF, applicantId = Model.ApplicantId, area = "Space" })</td>
                 <td>
