@@ -11,7 +11,7 @@ namespace Memorial.Core.Dtos
 
         public float TotalAmount { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public int ItemId { get; set; }
 

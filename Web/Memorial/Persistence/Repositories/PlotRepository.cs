@@ -19,7 +19,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(p => p.PlotType)
                 .Include(p => p.CemeteryArea)
                 .Include(p => p.CemeteryArea.Site)
-                .Where(p => p.Id == id && p.DeletedDate == null)
+                .Where(p => p.Id == id)
                 .SingleOrDefault();
         }
 

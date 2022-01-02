@@ -20,7 +20,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous.Site)
                 .Include(mt => mt.CemeteryLandscapeCompany)
-                .Where(mt => mt.AF == AF && mt.DeleteDate == null)
+                .Where(mt => mt.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -32,7 +32,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous.Site)
                 .Include(mt => mt.CemeteryLandscapeCompany)
-                .Where(mt => mt.MiscellaneousItemId == itemId && mt.DeleteDate == null);
+                .Where(mt => mt.MiscellaneousItemId == itemId);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -52,8 +52,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(mt => mt.MiscellaneousItem.Miscellaneous)
                 .Include(mt => mt.CemeteryLandscapeCompany)
                 .Where(mt => mt.ApplicantId == applicantId
-                                            && mt.MiscellaneousItemId == itemId
-                                            && mt.DeleteDate == null).ToList();
+                                            && mt.MiscellaneousItemId == itemId).ToList();
         }
 
         public IEnumerable<MiscellaneousTransaction> GetRecent(int number, int siteId)

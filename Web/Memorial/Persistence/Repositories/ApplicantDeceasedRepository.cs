@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ad => ad.Applicant)
                 .Include(ad => ad.Deceased)
                 .Include(ad => ad.RelationshipType)
-                .Where(a => a.DeletedDate == null && a.Id == id).SingleOrDefault();
+                .Where(a => a.Id == id).SingleOrDefault();
         }
 
         public IEnumerable<ApplicantDeceased> GetByDeceasedId(int id)
@@ -27,7 +27,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ad => ad.Applicant)
                 .Include(ad => ad.Deceased)
                 .Include(ad => ad.RelationshipType)
-                .Where(a => a.DeletedDate == null && a.DeceasedId == id).ToList();
+                .Where(a => a.DeceasedId == id).ToList();
         }
 
         public IEnumerable<ApplicantDeceased> GetByApplicantId(int id)
@@ -36,7 +36,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ad => ad.Applicant)
                 .Include(ad => ad.Deceased)
                 .Include(ad => ad.RelationshipType)
-                .Where(a => a.DeletedDate == null && a.ApplicantId == id).ToList();
+                .Where(a => a.ApplicantId == id).ToList();
         }
 
         public ApplicantDeceased GetByApplicantDeceasedId(int applicantId, int deceasedId)
@@ -45,8 +45,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ad => ad.Applicant)
                 .Include(ad => ad.Deceased)
                 .Include(ad => ad.RelationshipType)
-                .Where(a => a.DeletedDate == null &&
-                a.ApplicantId == applicantId &&
+                .Where(a => a.ApplicantId == applicantId &&
                 a.DeceasedId == deceasedId).FirstOrDefault();
         }
 

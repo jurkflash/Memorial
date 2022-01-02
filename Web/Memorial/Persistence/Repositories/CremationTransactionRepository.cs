@@ -30,7 +30,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ct => ct.Applicant)
                 .Include(ct => ct.Deceased)
                 .Include(ct => ct.FuneralCompany)
-                .Where(ct => ct.CremationItemId == itemId && ct.DeleteDate == null);
+                .Where(ct => ct.CremationItemId == itemId);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -50,8 +50,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ct => ct.Deceased)
                 .Include(ct => ct.FuneralCompany)
                 .Where(ct => ct.CremationItemId == itemId 
-                    && ct.DeceasedId == deceasedId
-                    && ct.DeleteDate == null).ToList();
+                    && ct.DeceasedId == deceasedId).ToList();
         }
 
         public IEnumerable<CremationTransaction> GetByApplicant(int id)
@@ -60,8 +59,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ct => ct.CremationItem)
                 .Include(ct => ct.Applicant)
                 .Include(ct => ct.Deceased)
-                .Where(ct => ct.ApplicantId == id
-                                            && ct.DeleteDate == null).ToList();
+                .Where(ct => ct.ApplicantId == id).ToList();
         }
 
         public IEnumerable<CremationTransaction> GetByItemAndApplicant(int itemId, int applicantId)
@@ -71,8 +69,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(ct => ct.Applicant)
                 .Include(ct => ct.Deceased)
                 .Where(ct => ct.ApplicantId == applicantId
-                                            && ct.CremationItemId == itemId
-                                            && ct.DeleteDate == null).ToList();
+                                            && ct.CremationItemId == itemId).ToList();
         }
 
         public IEnumerable<CremationTransaction> GetRecent(int number, int siteId)

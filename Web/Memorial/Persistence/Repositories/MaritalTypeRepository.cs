@@ -15,14 +15,13 @@ namespace Memorial.Persistence.Repositories
         public MaritalType GetActive(int id)
         {
             return MemorialContext.MaritalTypes
-                .Where(mt => mt.Id == id && mt.DeletedDate == null)
+                .Where(mt => mt.Id == id)
                 .SingleOrDefault();
         }
 
         public IEnumerable<MaritalType> GetAllActive()
         {
-            return MemorialContext.MaritalTypes
-                .Where(mt => mt.DeletedDate == null);
+            return MemorialContext.MaritalTypes.ToList();
         }
 
         public MemorialContext MemorialContext

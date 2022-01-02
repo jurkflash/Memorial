@@ -68,7 +68,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreateDate = transaction.CreatedDate,
+                    CreatedDate = transaction.CreatedDate,
                     ItemId = transaction.MiscellaneousItemDtoId,
                     Text1 = transaction.MiscellaneousItemDto.MiscellaneousDto.Name,
                     ItemName = transaction.MiscellaneousItemDto.SubProductServiceDto.Name,

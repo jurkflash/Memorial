@@ -19,8 +19,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Include(s => s.SubProductService)
-                                .Where(s => s.Id == SpaceItemId &&
-                                s.DeletedDate == null).SingleOrDefault();
+                                .Where(s => s.Id == SpaceItemId).SingleOrDefault();
 
             var number = numberRepository.GetSpaceNewAF(
                 (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),
@@ -44,8 +43,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Include(s => s.SubProductService)
-                                .Where(s => s.Id == SpaceItemId &&
-                                s.DeletedDate == null).SingleOrDefault();
+                                .Where(s => s.Id == SpaceItemId).SingleOrDefault();
 
             var number = numberRepository.GetSpaceNewIV(
                 (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),
@@ -69,8 +67,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(s => s.Space)
                                 .Include(s => s.Space.Site)
                                 .Include(s => s.SubProductService)
-                                .Where(s => s.Id == SpaceItemId &&
-                                s.DeletedDate == null).SingleOrDefault();
+                                .Where(s => s.Id == SpaceItemId).SingleOrDefault();
 
             var number = numberRepository.GetSpaceNewRE(
                 (string.IsNullOrWhiteSpace(spaceItem.Code) ? spaceItem.SubProductService.Code : spaceItem.Code),

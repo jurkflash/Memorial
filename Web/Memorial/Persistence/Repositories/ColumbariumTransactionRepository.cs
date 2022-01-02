@@ -22,7 +22,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.Niche.ColumbariumArea.ColumbariumCentre.Site)
                 .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
-                .Where(qt => qt.AF == AF && qt.DeletedDate == null)
+                .Where(qt => qt.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -42,8 +42,7 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<ColumbariumTransaction> GetByApplicant(int id)
         {
-            return MemorialContext.ColumbariumTransactions.Where(qt => qt.ApplicantId == id
-                                            && qt.DeletedDate == null).ToList();
+            return MemorialContext.ColumbariumTransactions.Where(qt => qt.ApplicantId == id).ToList();
         }
 
         public IEnumerable<ColumbariumTransaction> GetByNicheIdAndItem(int nicheId, int itemId, string filter)
@@ -54,8 +53,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.ShiftedNiche)
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ColumbariumItemId == itemId
-                                            && (qt.NicheId == nicheId || qt.ShiftedNicheId == nicheId)
-                                            && qt.DeletedDate == null);
+                                            && (qt.NicheId == nicheId || qt.ShiftedNicheId == nicheId));
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -75,8 +73,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.ColumbariumItem)
                 .Where(qt => qt.ApplicantId == applicantId
                                             && qt.ColumbariumItemId == itemId
-                                            && qt.NicheId == nicheId
-                                            && qt.DeletedDate == null).ToList();
+                                            && qt.NicheId == nicheId).ToList();
         }
 
         public ColumbariumTransaction GetByShiftedColumbariumTransactionAF(string AF)
@@ -95,7 +92,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(qt => qt.Applicant)
                 .Include(qt => qt.Niche)
                 .Include(qt => qt.ColumbariumItem)
-                .Where(qt => qt.NicheId == nicheId && qt.DeletedDate == null)
+                .Where(qt => qt.NicheId == nicheId)
                 .ToList();
         }
 

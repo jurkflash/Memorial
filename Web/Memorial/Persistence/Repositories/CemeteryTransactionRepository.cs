@@ -22,7 +22,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.CemeteryItem)
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
-                .Where(pt => pt.AF == AF && pt.DeletedDate == null)
+                .Where(pt => pt.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -56,8 +56,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.Deceased1)
                 .Where(pt => pt.CemeteryItemId == itemId
-                                            && pt.PlotId == plotId
-                                            && pt.DeletedDate == null);
+                                            && pt.PlotId == plotId);
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -79,8 +78,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.ApplicantId == applicantId
                                             && pt.CemeteryItemId == itemId
-                                            && pt.PlotId == plotId
-                                            && pt.DeletedDate == null).ToList();
+                                            && pt.PlotId == plotId).ToList();
         }
 
         public CemeteryTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id)
@@ -92,8 +90,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
                 .Where(pt => pt.Deceased1Id == deceased1Id
-                                            && pt.PlotId == plotId
-                                            && pt.DeletedDate == null).SingleOrDefault();
+                                            && pt.PlotId == plotId).SingleOrDefault();
         }
 
         public CemeteryTransaction GetLastCemeteryTransactionByPlotId(int plotId)
@@ -104,8 +101,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.PlotId == plotId
-                                            && pt.DeletedDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
+                .Where(pt => pt.PlotId == plotId).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public CemeteryTransaction GetLastCemeteryTransactionByShiftedPlotId(int plotId)
@@ -116,7 +112,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.DeletedDate == null).OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
+                .OrderByDescending(pt => pt.CreatedDate).FirstOrDefault();
         }
 
         public IEnumerable<CemeteryTransaction> GetByPlotId(int plotId)
@@ -127,7 +123,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(pt => pt.FengShuiMaster)
                 .Include(pt => pt.FuneralCompany)
                 .Include(pt => pt.CemeteryItem)
-                .Where(pt => pt.PlotId == plotId && pt.DeletedDate == null)
+                .Where(pt => pt.PlotId == plotId)
                 .ToList();
         }
 

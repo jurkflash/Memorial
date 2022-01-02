@@ -20,8 +20,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
-                                .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeletedDate == null).SingleOrDefault();
+                                .Where(m => m.Id == MiscellaneousItemId).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewAF(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
@@ -45,8 +44,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
-                                .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeletedDate == null).SingleOrDefault();
+                                .Where(m => m.Id == MiscellaneousItemId).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewIV(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),
@@ -70,8 +68,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(m => m.Miscellaneous)
                                 .Include(m => m.Miscellaneous.Site)
                                 .Include(m => m.SubProductService)
-                                .Where(m => m.Id == MiscellaneousItemId &&
-                                m.DeletedDate == null).SingleOrDefault();
+                                .Where(m => m.Id == MiscellaneousItemId).SingleOrDefault();
 
             var number = numberRepository.GetMiscellaneousNewRE(
                 (string.IsNullOrWhiteSpace(miscellaneousItem.Code) ? miscellaneousItem.SubProductService.Code : miscellaneousItem.Code),

@@ -15,14 +15,13 @@ namespace Memorial.Persistence.Repositories
         public GenderType GetActive(int id)
         {
             return MemorialContext.GenderTypes
-                .Where(gt => gt.Id == id && gt.DeletedDate == null)
+                .Where(gt => gt.Id == id)
                 .SingleOrDefault();
         }
 
         public IEnumerable<GenderType> GetAllActive()
         {
-            return MemorialContext.GenderTypes
-                .Where(gt => gt.DeletedDate == null);
+            return MemorialContext.GenderTypes.ToList();
         }
 
 

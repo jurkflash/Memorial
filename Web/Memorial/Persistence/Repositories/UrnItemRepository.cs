@@ -17,7 +17,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.UrnItems
                 .Include(ui => ui.Urn)
                 .Include(ui => ui.SubProductService)
-                .Where(ui => ui.Id == id && ui.DeletedDate == null)
+                .Where(ui => ui.Id == id)
                 .SingleOrDefault();
         }
 
@@ -26,7 +26,6 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.UrnItems
                 .Include(ui => ui.Urn)
                 .Include(ui => ui.SubProductService)
-                .Where(ui => ui.DeletedDate == null)
                 .ToList();
         }
 
@@ -35,7 +34,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.UrnItems
                 .Include(ui => ui.Urn)
                 .Include(ui => ui.SubProductService)
-                .Where(ui => ui.Id == urnId && ui.DeletedDate == null).ToList();
+                .Where(ui => ui.Id == urnId).ToList();
         }
 
         public MemorialContext MemorialContext

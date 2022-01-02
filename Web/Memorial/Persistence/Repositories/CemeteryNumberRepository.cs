@@ -20,8 +20,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
                                 .Include(p => p.SubProductService)
-                                .Where(p => p.Id == CemeteryItemId &&
-                                p.DeletedDate == null).SingleOrDefault();
+                                .Where(p => p.Id == CemeteryItemId).SingleOrDefault();
 
             var number = numberRepository.GetPlotNewAF(
                 (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code), 
@@ -46,8 +45,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
                                 .Include(p => p.SubProductService)
-                                .Where(p => p.Id == CemeteryItemId &&
-                                p.DeletedDate == null).SingleOrDefault();
+                                .Where(p => p.Id == CemeteryItemId).SingleOrDefault();
 
             var number = numberRepository.GetPlotNewIV(
                  (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code),
@@ -72,8 +70,7 @@ namespace Memorial.Persistence.Repositories
                                 .Include(p => p.Plot.CemeteryArea)
                                 .Include(p => p.Plot.CemeteryArea.Site)
                                 .Include(p => p.SubProductService)
-                                .Where(p => p.Id == CemeteryItemId &&
-                                p.DeletedDate == null).SingleOrDefault();
+                                .Where(p => p.Id == CemeteryItemId).SingleOrDefault();
 
             var number = numberRepository.GetPlotNewRE(
                  (string.IsNullOrWhiteSpace(cemeteryItem.Code) ? cemeteryItem.SubProductService.Code : cemeteryItem.Code),

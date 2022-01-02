@@ -15,14 +15,13 @@ namespace Memorial.Persistence.Repositories
         public ReligionType GetActive(int id)
         {
             return MemorialContext.ReligionTypes
-                .Where(rt => rt.Id == id && rt.DeletedDate == null)
+                .Where(rt => rt.Id == id)
                 .SingleOrDefault();
         }
 
         public IEnumerable<ReligionType> GetAllActive()
         {
-            return MemorialContext.ReligionTypes
-                .Where(rt => rt.DeletedDate == null);
+            return MemorialContext.ReligionTypes.ToList();
         }
         public MemorialContext MemorialContext
         {

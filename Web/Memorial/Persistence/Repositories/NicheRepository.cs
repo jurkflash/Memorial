@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(q => q.Applicant)
                 .Include(q => q.NicheType)
                 .Include(q => q.ColumbariumArea)
-                .Where(q => q.Id == id && q.DeletedDate == null)
+                .Where(q => q.Id == id)
                 .SingleOrDefault();
         }
 

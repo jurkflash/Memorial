@@ -19,21 +19,19 @@ namespace Memorial.Persistence.Repositories
                 .Include(st => st.SpaceItem)
                 .Include(st => st.SpaceItem.Space)
                 .Include(st => st.SpaceItem.Space.Site)
-                .Where(st => st.AF == AF && st.DeletedDate == null)
+                .Where(st => st.AF == AF)
                 .SingleOrDefault();
         }
 
         public IEnumerable<SpaceTransaction> GetByApplicant(int id)
         {
-            return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == id
-                                            && st.DeletedDate == null).ToList();
+            return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == id).ToList();
         }
 
         public IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter)
         {
             var transactions = MemorialContext.SpaceTransactions
-                .Where(st => st.SpaceItemId == itemId
-                                            && st.DeletedDate == null)
+                .Where(st => st.SpaceItemId == itemId)
                 .Include(st => st.Applicant).ToList();
 
             if(string.IsNullOrEmpty(filter))
@@ -49,15 +47,13 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<SpaceTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
             return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == applicantId
-                                            && st.SpaceItemId == itemId
-                                            && st.DeletedDate == null).ToList();
+                                            && st.SpaceItemId == itemId).ToList();
         }
 
         public IEnumerable<SpaceTransaction> GetByItemAndDeceased(int itemId, int deceasedId)
         {
             return MemorialContext.SpaceTransactions.Where(st => st.DeceasedId == deceasedId
-                                            && st.SpaceItemId == itemId
-                                            && st.DeletedDate == null).ToList();
+                                            && st.SpaceItemId == itemId).ToList();
         }
 
 
@@ -70,8 +66,7 @@ namespace Memorial.Persistence.Repositories
 
             return !MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)
-                .Where(st => st.DeletedDate == null
-                && st.SpaceItem.SpaceId == spaceItem.SpaceId
+                .Where(st => st.SpaceItem.SpaceId == spaceItem.SpaceId
                 && st.SpaceItem.AllowDoubleBook == false
                 && (
                 (st.FromDate <= from && from <= st.ToDate)
@@ -89,8 +84,7 @@ namespace Memorial.Persistence.Repositories
 
             return !MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)
-                .Where(st => st.DeletedDate == null
-                && st.SpaceItemId == transaction.SpaceItemId
+                .Where(st => st.SpaceItemId == transaction.SpaceItemId
                 && st.SpaceItem.AllowDoubleBook == false
                 && (
                 (st.FromDate <= from && from <= st.ToDate)
@@ -105,8 +99,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)
                 .Include(st => st.SpaceItem.Space)
-                .Where(st => st.DeletedDate == null
-                && st.SpaceItem.AllowDoubleBook == false
+                .Where(st => st.SpaceItem.AllowDoubleBook == false
                 && (
                 (st.FromDate <= from && from <= st.ToDate)
                 || (st.FromDate <= to && to <= st.ToDate)

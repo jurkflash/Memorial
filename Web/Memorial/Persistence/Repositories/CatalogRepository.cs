@@ -16,29 +16,28 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.Catalogs
                 .Include(c=>c.Product)
-                .Where(c => c.Id == id && c.DeletedDate == null)
+                .Where(c => c.Id == id)
                 .SingleOrDefault();
         }
 
         public IEnumerable<Catalog> GetAllActive()
         {
             return MemorialContext.Catalogs
-                .Include(c => c.Product)
-                .Where(c => c.DeletedDate == null);
+                .Include(c => c.Product);
         }
 
         public IEnumerable<Catalog> GetBySite(int id)
         {
             return MemorialContext.Catalogs
                 .Include(c => c.Product)
-                .Where(c => c.SiteId == id && c.DeletedDate == null).ToList();
+                .Where(c => c.SiteId == id).ToList();
         }
 
         public IEnumerable<Site> GetByProduct(int id)
         {
             return MemorialContext.Catalogs
                 .Include(c => c.Site)
-                .Where(c => c.ProductId == id && c.DeletedDate == null)
+                .Where(c => c.ProductId == id)
                 .Select(c => c.Site)
                 .ToList();
         }

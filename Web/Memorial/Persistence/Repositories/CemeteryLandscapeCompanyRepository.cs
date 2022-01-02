@@ -21,8 +21,7 @@ namespace Memorial.Persistence.Repositories
 
         public IEnumerable<CemeteryLandscapeCompany> GetAllActive()
         {
-            return MemorialContext.CemeteryLandscapeCompanies
-                .Where(plc => plc.DeletedDate == null).ToList();
+            return MemorialContext.CemeteryLandscapeCompanies.ToList();
         }
         public MemorialContext MemorialContext
         {

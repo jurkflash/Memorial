@@ -21,7 +21,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTabletItem)
                 .Include(at => at.AncestralTabletItem.AncestralTabletArea)
                 .Include(at => at.AncestralTabletItem.AncestralTabletArea.Site)
-                .Where(at => at.AF == AF && at.DeletedDate == null)
+                .Where(at => at.AF == AF)
                 .SingleOrDefault();
         }
 
@@ -52,8 +52,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.ShiftedAncestralTablet)
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.AncestralTabletItemId == itemId
-                                            && (at.AncestralTabletId == ancestralTabletId || at.ShiftedAncestralTabletId == ancestralTabletId)
-                                            && at.DeletedDate == null);
+                                            && (at.AncestralTabletId == ancestralTabletId || at.ShiftedAncestralTabletId == ancestralTabletId));
 
             if(string.IsNullOrEmpty(filter))
             {
@@ -73,8 +72,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.AncestralTabletItem)
                 .Where(at => at.ApplicantId == applicantId
                                             && at.AncestralTabletItemId == itemId
-                                            && at.AncestralTabletId == ancestralTabletId
-                                            && at.DeletedDate == null).ToList();
+                                            && at.AncestralTabletId == ancestralTabletId).ToList();
         }
 
         public AncestralTabletTransaction GetByShiftedAncestralTabletTransactionAF(string AF)
@@ -93,7 +91,7 @@ namespace Memorial.Persistence.Repositories
                 .Include(at => at.Applicant)
                 .Include(at => at.AncestralTablet)
                 .Include(at => at.AncestralTabletItem)
-                .Where(at => at.AncestralTabletId == ancestralTabletId && at.DeletedDate == null)
+                .Where(at => at.AncestralTabletId == ancestralTabletId)
                 .ToList();
         }
 
