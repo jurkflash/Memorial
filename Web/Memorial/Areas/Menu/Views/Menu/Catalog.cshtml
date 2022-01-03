@@ -4,10 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.ApplicantId != 0)
+@if (Model.ApplicantId != null)
 {
     Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantId });
 }
+
+@Html.ActionLink("Recent", "Recent", new { siteId = Model.SiteId, applicantId = Model.ApplicantId }, null)
 
 <h4>Items</h4>
 

@@ -33,7 +33,7 @@ namespace Memorial.Areas.Cremation.Controllers
             _deceased = deceased;
         }
 
-        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -49,7 +49,7 @@ namespace Memorial.Areas.Cremation.Controllers
                 CremationItemId = itemId,
                 CremationItemName = _item.GetName(),
                 CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0
+                AllowNew = applicantId != null
             };
 
             return View(viewModel);

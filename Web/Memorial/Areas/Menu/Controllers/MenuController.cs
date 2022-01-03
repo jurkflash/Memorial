@@ -29,11 +29,22 @@ namespace Memorial.Areas.Menu.Controllers
             return View(_site.GetSites());
         }
 
-        public ActionResult Catalog(byte siteId, int applicantId)
+        public ActionResult Catalog(byte siteId, int? applicantId)
         {
             var viewModel = new ListCatalogViewModel()
             {
                 CatalogDtos = _catalog.GetCatalogDtosBySite(siteId),
+                SiteId = siteId,
+                ApplicantId = applicantId
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult Recent(byte siteId, int? applicantId)
+        {
+            var viewModel = new RecentViewModel()
+            {
+                SiteId = siteId,
                 ApplicantId = applicantId
             };
             return View(viewModel);

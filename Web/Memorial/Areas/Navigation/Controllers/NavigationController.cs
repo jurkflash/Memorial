@@ -19,12 +19,12 @@ namespace Memorial.Areas.Navigation.Controllers
             _site = site;
         }
 
-        public ActionResult Navigation(int? applicantId = 0)
+        public ActionResult Navigation(int? applicantId)
         {
             var viewModel = new NavigationViewModel()
             {
                 SiteDtos = _site.GetSiteDtos(),
-                ApplicantId = (int)applicantId
+                ApplicantId = applicantId
             };
             
             return PartialView("_Navigation", viewModel);

@@ -7,6 +7,6 @@ namespace Memorial.ViewModels
     {
         public IEnumerable<CremationDto> CremationDtos { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
     }
 }

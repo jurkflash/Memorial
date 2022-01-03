@@ -187,12 +187,12 @@ namespace Memorial.Lib.Space
             return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<Core.Domain.SpaceBooked>>(_unitOfWork.SpaceTransactions.GetBooked(from, to, siteId));
         }
 
-        public IEnumerable<SpaceTransactionDto> GetRecent(int? number, int siteId)
+        public IEnumerable<SpaceTransactionDto> GetRecent(int siteId, int? applicantId)
         {
-            if(number == null)
-                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            if(applicantId == null)
+                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
             else
-                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent((int)number, siteId));
+                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(null, siteId, applicantId));
         }
 
         protected bool CreateNewTransaction(SpaceTransactionDto spaceTransactionDto)

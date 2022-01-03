@@ -126,19 +126,24 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<CemeteryTransaction> GetRecent(int number, int siteId)
+        public IEnumerable<CemeteryTransaction> GetRecent(int? number, int siteId, int? applicantId)
         {
-            return MemorialContext.CemeteryTransactions
+            var result = MemorialContext.CemeteryTransactions
                 .Where(t => t.CemeteryItem.Plot.CemeteryArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.CemeteryItem)
                 .Include(t => t.Plot)
                 .Include(t => t.Plot.CemeteryArea)
                 .Include(t => t.CemeteryItem.SubProductService)
-                .Include(t => t.CemeteryItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreatedDate)
-                .Take(number)
-                .ToList();
+                .Include(t => t.CemeteryItem.SubProductService.Product);
+
+            if (applicantId != null)
+                result = result.Where(t => t.ApplicantId == applicantId);
+
+            if (number != null)
+                result = result.Take((int)number);
+
+            return result.OrderByDescending(t => t.CreatedDate).ToList();
         }
 
 

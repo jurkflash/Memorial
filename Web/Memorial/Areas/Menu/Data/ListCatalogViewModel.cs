@@ -9,6 +9,7 @@ namespace Memorial.ViewModels
     public class ListCatalogViewModel
     {
         public IEnumerable<CatalogDto> CatalogDtos { get; set; }
-        public int ApplicantId { get; set; }
+        public byte SiteId { get; set; }
+        public int? ApplicantId { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace Memorial.Areas.Space.Controllers
             _booking = booking;
         }
 
-        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -50,7 +50,7 @@ namespace Memorial.Areas.Space.Controllers
                 SpaceItemName = _item.GetName(),
                 SpaceName = _item.GetItem().Space.Name,
                 SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0
+                AllowNew = applicantId != null
             };
 
             return View(viewModel);

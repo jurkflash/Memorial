@@ -139,12 +139,12 @@ namespace Memorial.Lib.Cremation
             return _unitOfWork.CremationTransactions.GetByItemAndDeceased(itemId, deceasedId);
         }
 
-        public IEnumerable<CremationTransactionDto> GetRecent(int? number, int siteId)
+        public IEnumerable<CremationTransactionDto> GetRecent(int siteId, int? applicantId)
         {
-            if (number == null)
-                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            if (applicantId == null)
+                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
             else
-                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent((int)number, siteId));
+                return Mapper.Map<IEnumerable<Core.Domain.CremationTransaction>, IEnumerable<CremationTransactionDto>>(_unitOfWork.CremationTransactions.GetRecent(null, siteId, applicantId));
         }
 
         protected bool CreateNewTransaction(CremationTransactionDto cremationTransactionDto)

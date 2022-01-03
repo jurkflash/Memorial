@@ -804,6 +804,7 @@
     <Compile Include="Areas\FuneralCompanyConfig\Controllers\FuneralCompaniesController.cs" />
     <Compile Include="Areas\FuneralCompanyConfig\Data\FuneralCompanyFormViewModel.cs" />
     <Compile Include="Areas\FuneralCompanyConfig\FuneralCompanyConfigAreaRegistration.cs" />
+    <Compile Include="Areas\Menu\Data\RecentViewModel.cs" />
     <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
     <Compile Include="Areas\MiscellaneousConfig\Controllers\ItemsController.cs" />
     <Compile Include="Areas\MiscellaneousConfig\Controllers\MainsController.cs" />
@@ -2683,6 +2684,10 @@
     <Compile Include="Migrations\202201010933149_AuditRenameDeleteDateToDeletedDate.designer.cs">
       <DependentUpon>202201010933149_AuditRenameDeleteDateToDeletedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201021639531_ChangeAuditFieldsForMiscellaneousAndCremationTransactionsTable.cs" />
+    <Compile Include="Migrations\202201021639531_ChangeAuditFieldsForMiscellaneousAndCremationTransactionsTable.designer.cs">
+      <DependentUpon>202201021639531_ChangeAuditFieldsForMiscellaneousAndCremationTransactionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2979,6 +2984,14 @@
     <Content Include="Areas\Columbarium\Views\Columbariums\Menu.cshtml" />
     <Content Include="Areas\Cemetery\Views\Cemeteries\Menu.cshtml" />
     <Content Include="Areas\AncestralTablet\Views\AncestralTablets\Menu.cshtml" />
+    <Content Include="Areas\AncestralTablet\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Cemetery\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Columbarium\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Cremation\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Miscellaneous\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Space\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Urn\Views\Shared\_Recent.cshtml" />
+    <Content Include="Areas\Menu\Views\Menu\Recent.cshtml" />
     <None Include="packages.config" />
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Menu\Views\Menu\Catalog.cshtml" />
@@ -3135,18 +3148,14 @@
     <Folder Include="Areas\ConfigLink\Data\" />
     <Folder Include="Areas\ConfigLink\Views\Shared\" />
     <Folder Include="Areas\CremationConfig\Views\Shared\" />
-    <Folder Include="Areas\Cremation\Views\Shared\" />
     <Folder Include="Areas\FengShuiMasterConfig\Views\Shared\" />
     <Folder Include="Areas\FuneralCompanyConfig\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\MiscellaneousConfig\Views\Shared\" />
-    <Folder Include="Areas\Miscellaneous\Views\Shared\" />
     <Folder Include="Areas\SiteConfig\Data\" />
     <Folder Include="Areas\SiteConfig\Views\Shared\" />
     <Folder Include="Areas\SpaceConfig\Views\Shared\" />
-    <Folder Include="Areas\Space\Views\Shared\" />
     <Folder Include="Areas\UrnConfig\Views\Shared\" />
-    <Folder Include="Areas\Urn\Views\Shared\" />
     <Folder Include="Lib\Columbarium\Free\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -4196,6 +4205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201010933149_AuditRenameDeleteDateToDeletedDate.resx">
       <DependentUpon>202201010933149_AuditRenameDeleteDateToDeletedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201021639531_ChangeAuditFieldsForMiscellaneousAndCremationTransactionsTable.resx">
+      <DependentUpon>202201021639531_ChangeAuditFieldsForMiscellaneousAndCremationTransactionsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

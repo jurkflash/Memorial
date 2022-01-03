@@ -31,7 +31,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -50,7 +50,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 NicheDto = _niche.GetNicheDto(),
                 NicheId = id,
                 ColumbariumTransactionDtos = _manage.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0 && _niche.HasApplicant()
+                AllowNew = applicantId != null && _niche.HasApplicant()
             };
             return View(viewModel);
         }

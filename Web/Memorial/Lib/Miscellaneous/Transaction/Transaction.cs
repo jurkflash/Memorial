@@ -134,12 +134,12 @@ namespace Memorial.Lib.Miscellaneous
             return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(GetTransactionsByItemId(itemId, filter));
         }
 
-        public IEnumerable<MiscellaneousTransactionDto> GetRecent(int? number, int siteId)
+        public IEnumerable<MiscellaneousTransactionDto> GetRecent(int siteId, int? applicantId)
         {
-            if (number == null)
-                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            if (applicantId == null)
+                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
             else
-                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent((int)number, siteId));
+                return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousTransaction>, IEnumerable<MiscellaneousTransactionDto>>(_unitOfWork.MiscellaneousTransactions.GetRecent(null, siteId, applicantId));
         }
 
         protected bool CreateNewTransaction(MiscellaneousTransactionDto miscellaneousTransactionDto)

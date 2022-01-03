@@ -14,7 +14,7 @@ namespace Memorial.ViewModels
 
         public string UrnItemName { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public bool AllowNew { get; set; }
     }

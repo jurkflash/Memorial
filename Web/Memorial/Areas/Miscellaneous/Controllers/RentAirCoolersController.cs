@@ -24,7 +24,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             _rentAirCooler = rentAirCooler;
         }
 
-        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -40,7 +40,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 MiscellaneousItemId = itemId,
                 MiscellaneousItemName = _item.GetName(),
                 MiscellaneousTransactionDtos = _rentAirCooler.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0
+                AllowNew = applicantId != null
             };
 
             return View(viewModel);

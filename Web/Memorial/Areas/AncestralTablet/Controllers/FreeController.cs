@@ -35,7 +35,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             _tracking = tracking;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -56,7 +56,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            if (applicantId == 0 || _ancestralTablet.HasApplicant())
+            if (applicantId == null || _ancestralTablet.HasApplicant())
             {
                 viewModel.AllowNew = false;
             }

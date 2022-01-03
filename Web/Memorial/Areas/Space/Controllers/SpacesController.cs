@@ -27,14 +27,17 @@ namespace Memorial.Areas.Space.Controllers
             _transaction = transaction;
         }
 
-        public ActionResult Index(int siteId, int applicantId = 0)
+        public ActionResult Index(int siteId, int? applicantId)
         {
-            var viewModel = new SpaceIndexesViewModel()
+            var viewModel = new SpaceIndexesViewModel();
+            viewModel.SpaceDtos = _space.GetSpaceDtosBySite(siteId);
+            viewModel.siteDto = _site.GetSiteDto(siteId);
+
+            if (applicantId != null)
             {
-                SpaceDtos = _space.GetSpaceDtosBySite(siteId),
-                ApplicantId = applicantId,
-                siteDto = _site.GetSiteDto(siteId)
-            };
+                viewModel.ApplicantId = applicantId;
+            }
+
             return View(viewModel);
         }
 
@@ -59,13 +62,14 @@ namespace Memorial.Areas.Space.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        [ChildActionOnly]
+        public PartialViewResult Recent(int siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(null, siteId);
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
-            foreach(var transaction in transactions)
+            foreach (var transaction in transactions)
             {
                 recents.Add(new RecentDto()
                 {
@@ -80,7 +84,7 @@ namespace Memorial.Areas.Space.Controllers
                 });
             }
 
-            return View(recents);
+            return PartialView("_Recent", recents);
         }
 
     }

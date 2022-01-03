@@ -16,7 +16,7 @@ namespace Memorial.ViewModels
 
         public int PlotId { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public bool OrderFlag { get; set; }
 

@@ -45,52 +45,60 @@ namespace Memorial.Areas.Columbarium.Controllers
             _transaction = transaction;
         }
 
-        public ActionResult Index(byte siteId, int applicantId = 0)
+        public ActionResult Index(byte siteId, int? applicantId)
         {
             return Centre(siteId, applicantId);
         }
 
-        public ActionResult Centre(byte siteId, int applicantId)
+        public ActionResult Centre(byte siteId, int? applicantId)
         {
-            var viewModel = new ColumbariumCentreIndexesViewModel()
+            var viewModel = new ColumbariumCentreIndexesViewModel();
+            viewModel.ColumbariumCentreDtos = _centre.GetCentreDtosBySite(siteId);
+
+            if(applicantId != null)
             {
-                ColumbariumCentreDtos = _centre.GetCentreDtosBySite(siteId),
-                ApplicantId = applicantId
+                viewModel.ApplicantId = applicantId;
             };
             return View("Centre", viewModel);
         }
 
-        public ActionResult Area(int centreId, int applicantId)
+        public ActionResult Area(int centreId, int? applicantId)
         {
-            var viewModel = new ColumbariumAreaIndexesViewModel()
+            var viewModel = new ColumbariumAreaIndexesViewModel();
+            viewModel.ColumbariumAreaDtos = _area.GetAreaDtosByCentre(centreId);
+
+            if (applicantId != null)
             {
-                ColumbariumAreaDtos = _area.GetAreaDtosByCentre(centreId),
-                ApplicantId = applicantId
+                viewModel.ApplicantId = applicantId;
             };
             return View(viewModel);
         }
 
-        public ActionResult Niches(int areaId, int applicantId)
+        public ActionResult Niches(int areaId, int? applicantId)
         {
-            var viewModel = new NicheIndexesViewModel()
+            var viewModel = new NicheIndexesViewModel();
+            viewModel.NicheDtos = _niche.GetNicheDtosByAreaId(areaId);
+            viewModel.Positions = _niche.GetPositionsByAreaId(areaId);
+
+            if (applicantId != null)
             {
-                NicheDtos = _niche.GetNicheDtosByAreaId(areaId),
-                Positions = _niche.GetPositionsByAreaId(areaId),
-                ApplicantId = applicantId
+                viewModel.ApplicantId = applicantId;
             };
             return View(viewModel);
         }
 
-        public ActionResult Items(int id, int applicantId)
+        public ActionResult Items(int id, int? applicantId)
         {
             _niche.SetNiche(id);
             _area.SetArea(_niche.GetAreaId());
             _centre.SetCentre(_area.GetCentreId());
-            var viewModel = new ColumbariumItemsViewModel()
+            var viewModel = new ColumbariumItemsViewModel();
+            viewModel.ColumbariumItemDtos = _item.GetItemDtosByCentre(_centre.GetID());
+            viewModel.NicheDto = _niche.GetNicheDto();
+
+            if (applicantId != null)
             {
-                ColumbariumItemDtos = _item.GetItemDtosByCentre(_centre.GetID()),
-                NicheDto = _niche.GetNicheDto(),
-                ApplicantId = applicantId
+                viewModel.ApplicantId = applicantId;
             };
             return View(viewModel);
         }
@@ -129,11 +137,12 @@ namespace Memorial.Areas.Columbarium.Controllers
             return PartialView("_NicheInfo", viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        [ChildActionOnly]
+        public PartialViewResult Recent(int siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(null, siteId);
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
             foreach (var transaction in transactions)
             {
@@ -152,7 +161,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 });
             }
 
-            return View(recents);
+            return PartialView("_Recent", recents);
         }
     }
 }

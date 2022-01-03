@@ -133,11 +133,12 @@ namespace Memorial.Areas.Cemetery.Controllers
             return PartialView("_PlotInfo", viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        [ChildActionOnly]
+        public PartialViewResult Recent(int siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(null, siteId);
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
             foreach (var transaction in transactions)
             {
@@ -155,7 +156,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 });
             }
 
-            return View(recents);
+            return PartialView("_Recent", recents);
         }
 
     }

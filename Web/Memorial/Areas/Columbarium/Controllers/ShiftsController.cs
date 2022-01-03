@@ -31,7 +31,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             var columbariumTransactionDtos = _shift.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
 
@@ -48,7 +48,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             _niche.SetNiche(id);
 
-            viewModel.AllowNew = applicantId != 0 && !_niche.HasFreeOrder();
+            viewModel.AllowNew = applicantId != null && !_niche.HasFreeOrder();
 
             viewModel.NicheDto = _niche.GetNicheDto();
 

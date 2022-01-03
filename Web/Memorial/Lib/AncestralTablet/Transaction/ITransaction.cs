@@ -58,6 +58,6 @@ namespace Memorial.Lib.AncestralTablet
 
         Core.Domain.AncestralTabletTransaction GetTransactionsByShiftedAncestralTabletTransactionAF(string AF);
 
-        IEnumerable<AncestralTabletTransactionDto> GetRecent(int? number, int siteId);
+        IEnumerable<AncestralTabletTransactionDto> GetRecent(int siteId, int? applicantId);
     }
 }

@@ -108,18 +108,23 @@ namespace Memorial.Persistence.Repositories
                 && st.SpaceItem.Space.SiteId == siteId);
         }
 
-        public IEnumerable<SpaceTransaction> GetRecent(int number, int siteId)
+        public IEnumerable<SpaceTransaction> GetRecent(int? number, int siteId, int? applicantId)
         {
-            return MemorialContext.SpaceTransactions
+            var result = MemorialContext.SpaceTransactions
                 .Where(t => t.SpaceItem.Space.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.SpaceItem)
                 .Include(t => t.SpaceItem.Space)
                 .Include(t => t.SpaceItem.SubProductService)
-                .Include(t => t.SpaceItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreatedDate)
-                .Take(number)
-                .ToList();
+                .Include(t => t.SpaceItem.SubProductService.Product);
+
+            if (applicantId != null)
+                result = result.Where(t => t.ApplicantId == applicantId);
+
+            if (number != null)
+                result = result.Take((int)number);
+
+            return result.OrderByDescending(t => t.CreatedDate).ToList();
         }
 
         public MemorialContext MemorialContext

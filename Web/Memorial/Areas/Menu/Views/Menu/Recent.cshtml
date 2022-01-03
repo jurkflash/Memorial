@@ -1,0 +1,20 @@
+﻿@model Memorial.ViewModels.RecentViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.ApplicantId != null)
+{
+    Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantId });
+}
+
+<h4>Recent</h4>
+
+@{Html.RenderAction("Recent", "AncestralTablets", new { area = "AncestralTablet", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Cemeteries", new { area = "Cemetery", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Columbariums", new { area = "Columbarium", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Cremations", new { area = "Cremation", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Miscellaneous", new { area = "Miscellaneous", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Spaces", new { area = "Space", siteId = Model.SiteId, applicantId = Model.ApplicantId });}
+@{Html.RenderAction("Recent", "Urns", new { area = "Urn", siteId = Model.SiteId, applicantId = Model.ApplicantId });}

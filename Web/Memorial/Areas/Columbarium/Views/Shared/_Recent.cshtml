@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Memorial.Core.Dtos.RecentDto>
+
+@if (Model.Any())
+{
+    <h4>@Html.Raw(Resources.Mix.Niche)</h4>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>@Html.Raw(Resources.Mix.AFBR)</th>
+                <th>@Html.Raw(Resources.Mix.ApplicantBR)</th>
+                <th>@Html.Raw(Resources.Mix.ItemBR)</th>
+                <th>@Html.Raw(Resources.Mix.CentreBR)</th>
+                <th>@Html.Raw(Resources.Mix.AreaBR)</th>
+                <th>@Html.Raw(Resources.Mix.NicheBR)</th>
+                <th>@Html.Raw(Resources.Mix.CreateDateBR)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recent in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(recent.Code, "Index", recent.LinkController, new { itemId = recent.ItemId, filter = recent.Code, area = recent.LinkArea, applicantId = 0 }, null)</td>
+                    <td>@recent.ApplicantName</td>
+                    <td>@recent.ItemName</td>
+                    <td>@recent.Text1</td>
+                    <td>@recent.Text2</td>
+                    <td>@recent.Text3</td>
+                    <td>@recent.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

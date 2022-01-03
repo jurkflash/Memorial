@@ -49,7 +49,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -69,7 +69,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 CemeteryTransactionDtos = _order.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            if (applicantId == 0 || _plot.HasApplicant() || _plot.HasCleared())
+            if (applicantId == null || _plot.HasApplicant() || _plot.HasCleared())
             {
                 viewModel.AllowNew = false;
             }

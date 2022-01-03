@@ -13,7 +13,7 @@ namespace Memorial.ViewModels
 
         public NicheDto NicheDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
     }
 }

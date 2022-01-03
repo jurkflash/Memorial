@@ -36,13 +36,16 @@ namespace Memorial.Areas.Urn.Controllers
             _transaction = transaction;
         }
 
-        public ActionResult Index(byte siteId, int applicantId = 0)
+        public ActionResult Index(byte siteId, int? applicantId)
         {
-            var viewModel = new UrnIndexesViewModel()
-            {
-                UrnDtos = _urn.GetUrnDtosBySite(siteId),
-                ApplicantId = applicantId
+            var viewModel = new UrnIndexesViewModel();
+            viewModel.UrnDtos = _urn.GetUrnDtosBySite(siteId);
+
+            if (applicantId != null)
+            { 
+                viewModel.ApplicantId = applicantId;
             };
+
             return View(viewModel);
         }
 
@@ -56,11 +59,12 @@ namespace Memorial.Areas.Urn.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        [ChildActionOnly]
+        public PartialViewResult Recent(int siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(null, siteId);
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
             foreach (var transaction in transactions)
             {
@@ -77,7 +81,7 @@ namespace Memorial.Areas.Urn.Controllers
                 });
             }
 
-            return View(recents);
+            return PartialView("_Recent", recents);
         }
     }
 }

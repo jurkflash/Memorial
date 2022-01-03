@@ -65,7 +65,7 @@ namespace Memorial.Lib.Space
 
         IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, int siteId);
 
-        IEnumerable<SpaceTransactionDto> GetRecent(int? number, int siteId);
+        IEnumerable<SpaceTransactionDto> GetRecent(int siteId, int? applicantId);
 
     }
 }

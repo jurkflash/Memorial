@@ -48,6 +48,6 @@ namespace Memorial.Lib.Cremation
 
         IEnumerable<Core.Domain.CremationTransaction> GetTransactionsByItemIdAndDeceasedId(int itemId, int deceasedId);
 
-        IEnumerable<CremationTransactionDto> GetRecent(int? number, int siteId);
+        IEnumerable<CremationTransactionDto> GetRecent(int siteId, int? applicantId);
     }
 }

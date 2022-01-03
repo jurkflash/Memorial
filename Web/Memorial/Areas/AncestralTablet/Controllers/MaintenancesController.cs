@@ -32,7 +32,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -51,7 +51,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
                 AncestralTabletId = id,
                 AncestralTabletTransactionDtos = _maintenance.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0 && _ancestralTablet.HasApplicant()
+                AllowNew = applicantId != null && _ancestralTablet.HasApplicant()
             };
 
             return View(viewModel);

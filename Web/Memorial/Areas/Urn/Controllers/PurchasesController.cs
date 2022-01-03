@@ -31,7 +31,7 @@ namespace Memorial.Areas.Urn.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -47,7 +47,7 @@ namespace Memorial.Areas.Urn.Controllers
                 UrnItemId = itemId,
                 UrnItemName = _item.GetName(),
                 UrnTransactionDtos = _purchase.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != 0
+                AllowNew = applicantId != null
             };
 
             return View(viewModel);

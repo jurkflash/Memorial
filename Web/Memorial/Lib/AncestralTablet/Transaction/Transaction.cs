@@ -177,12 +177,12 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletTransactions.GetByAncestralTabletId(nicheId);
         }
 
-        public IEnumerable<AncestralTabletTransactionDto> GetRecent(int? number, int siteId)
+        public IEnumerable<AncestralTabletTransactionDto> GetRecent(int siteId, int? applicantId)
         {
-            if (number == null)
-                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            if (applicantId == null)
+                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
             else
-                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent((int)number, siteId));
+                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent(null, siteId, applicantId));
         }
 
         protected bool CreateNewTransaction(AncestralTabletTransactionDto ancestralTabletTransactionDto)

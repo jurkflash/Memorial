@@ -56,6 +56,6 @@ namespace Memorial.Lib.Columbarium
 
         Core.Domain.ColumbariumTransaction GetTransactionsByShiftedColumbariumTransactionAF(string AF);
 
-        IEnumerable<ColumbariumTransactionDto> GetRecent(int? number, int siteId);
+        IEnumerable<ColumbariumTransactionDto> GetRecent(int siteId, int? applicantId);
     }
 }

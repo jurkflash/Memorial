@@ -7,7 +7,7 @@ namespace Memorial.ViewModels
     {
         public IEnumerable<SpaceDto> SpaceDtos { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public SiteDto siteDto { get; set; }
     }

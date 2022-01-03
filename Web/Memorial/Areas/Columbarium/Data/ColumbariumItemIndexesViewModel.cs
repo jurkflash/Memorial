@@ -17,7 +17,7 @@ namespace Memorial.ViewModels
 
         public int NicheId { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public bool OrderFlag { get; set; }
 

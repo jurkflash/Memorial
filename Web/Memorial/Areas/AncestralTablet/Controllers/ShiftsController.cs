@@ -34,7 +34,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             _invoice = invoice;
         }
 
-        public ActionResult Index(int itemId, int id, int applicantId, string filter, int? page)
+        public ActionResult Index(int itemId, int id, int? applicantId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -55,7 +55,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             _ancestralTablet.SetAncestralTablet(id);
 
-            viewModel.AllowNew = applicantId != 0 && !_ancestralTablet.HasFreeOrder();
+            viewModel.AllowNew = applicantId != null && !_ancestralTablet.HasFreeOrder();
 
             viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
 

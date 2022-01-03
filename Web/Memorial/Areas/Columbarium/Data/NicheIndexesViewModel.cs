@@ -9,6 +9,6 @@ namespace Memorial.ViewModels
 
         public IDictionary<byte, IEnumerable<byte>> Positions { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
     }
 }

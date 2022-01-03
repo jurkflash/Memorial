@@ -52,18 +52,23 @@ namespace Memorial.Persistence.Repositories
                                             && ut.UrnItemId == itemId).ToList();
         }
 
-        public IEnumerable<UrnTransaction> GetRecent(int number, int siteId)
+        public IEnumerable<UrnTransaction> GetRecent(int? number, int siteId, int? applicantId)
         {
-            return MemorialContext.UrnTransactions
+            var result = MemorialContext.UrnTransactions
                 .Where(t => t.UrnItem.Urn.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.UrnItem)
                 .Include(t => t.UrnItem.Urn)
                 .Include(t => t.UrnItem.SubProductService)
-                .Include(t => t.UrnItem.SubProductService.Product)
-                .OrderByDescending(t => t.CreatedDate)
-                .Take(number)
-                .ToList();
+                .Include(t => t.UrnItem.SubProductService.Product);
+
+            if (applicantId != null)
+                result = result.Where(t => t.ApplicantId == applicantId);
+
+            if (number != null)
+                result = result.Take((int)number);
+
+            return result.OrderByDescending(t => t.CreatedDate).ToList();
         }
 
         public MemorialContext MemorialContext

@@ -15,7 +15,7 @@ namespace Memorial.ViewModels
 
         public string SpaceItemName { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public bool AllowNew { get; set; }
     }

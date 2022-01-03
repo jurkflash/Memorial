@@ -36,13 +36,16 @@ namespace Memorial.Areas.Cremation.Controllers
             _transaction = transaction;
         }
 
-        public ActionResult Index(byte siteId, int applicantId = 0)
+        public ActionResult Index(byte siteId, int? applicantId)
         {
-            var viewModel = new CremationIndexesViewModel()
+            var viewModel = new CremationIndexesViewModel();
+            viewModel.CremationDtos = _cremation.GetCremationDtosBySite(siteId);
+
+            if (applicantId == null)
             {
-                CremationDtos = _cremation.GetCremationDtosBySite(siteId),
-                ApplicantId = applicantId
-            };
+                viewModel.ApplicantId = applicantId;
+            }
+
             return View(viewModel);
         }
 
@@ -56,11 +59,12 @@ namespace Memorial.Areas.Cremation.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Menu(int siteId)
+        [ChildActionOnly]
+        public PartialViewResult Recent(int siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(null, siteId);
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
             foreach (var transaction in transactions)
             {
@@ -77,7 +81,7 @@ namespace Memorial.Areas.Cremation.Controllers
                 });
             }
 
-            return View(recents);
+            return PartialView("_Recent", recents);
         }
     }
 }

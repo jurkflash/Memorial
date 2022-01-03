@@ -22,6 +22,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<SpaceTransaction> GetBooked(DateTime from, DateTime to, int siteId);
 
-        IEnumerable<SpaceTransaction> GetRecent(int number, int siteId);
+        IEnumerable<SpaceTransaction> GetRecent(int? number, int siteId, int? applicantId);
     }
 }

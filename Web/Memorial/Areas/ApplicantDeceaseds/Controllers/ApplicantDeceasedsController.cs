@@ -28,14 +28,16 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult Index(int id)
+        public PartialViewResult Index(int? id)
         {
-            var viewModel = new AppplicantDeceasedsIndexViewModel()
+            var viewModel = new AppplicantDeceasedsIndexViewModel();
+
+            if (id != null)
             {
-                ApplicantDto = _applicant.GetApplicantDto(id),
-                DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId(id)),
-                ApplicantDeceasedDtos = _applicantDeceased.GetApplicantDeceasedDtosByApplicantId(id)
-            };
+                viewModel.ApplicantDto = _applicant.GetApplicantDto((int)id);
+                viewModel.DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId((int)id));
+                viewModel.ApplicantDeceasedDtos = _applicantDeceased.GetApplicantDeceasedDtosByApplicantId((int)id);
+            }
 
             return PartialView("_ApplicantDeceasedsIndex", viewModel);
         }

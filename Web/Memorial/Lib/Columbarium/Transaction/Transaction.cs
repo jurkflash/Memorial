@@ -178,12 +178,12 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.ColumbariumTransactions.GetByNicheId(nicheId);
         }
 
-        public IEnumerable<ColumbariumTransactionDto> GetRecent(int? number, int siteId)
+        public IEnumerable<ColumbariumTransactionDto> GetRecent(int siteId, int? applicantId)
         {
-            if (number == null)
-                return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(_unitOfWork.ColumbariumTransactions.GetRecent(Constant.RecentTransactions, siteId));
+            if (applicantId == null)
+                return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(_unitOfWork.ColumbariumTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
             else
-                return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(_unitOfWork.ColumbariumTransactions.GetRecent((int)number, siteId));
+                return Mapper.Map<IEnumerable<Core.Domain.ColumbariumTransaction>, IEnumerable<ColumbariumTransactionDto>>(_unitOfWork.ColumbariumTransactions.GetRecent(null, siteId, applicantId));
         }
 
         protected bool CreateNewTransaction(ColumbariumTransactionDto columbariumTransactionDto)
