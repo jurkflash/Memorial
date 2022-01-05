@@ -31,7 +31,8 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<AncestralTabletArea> GetBySite(int siteId)
         {
             return MemorialContext.AncestralTabletAreas
-                .Where(a => a.SiteId == siteId).ToList();
+                .Include(at => at.Site)
+                .Where(at => at.SiteId == siteId).ToList();
         }
 
         public MemorialContext MemorialContext

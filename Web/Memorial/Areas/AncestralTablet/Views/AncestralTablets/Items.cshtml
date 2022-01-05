@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.AncestralTablet, "Index", "AncestralTablets", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "AncestralTablet" }, null) > 
+@Html.ActionLink(Model.AncestralTabletDto.Name, "Items", "AncestralTablets", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "AncestralTablet" }, null)
+
+
 <h2>@Html.Raw(Resources.Mix.Items)</h2>
 
 @{Html.RenderAction("AncestralTabletInfo", "AncestralTablets", new { id = Model.AncestralTabletDto.Id, area = "AncestralTablet" });}

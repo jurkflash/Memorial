@@ -91,12 +91,13 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
+            _ancestralTablet.SetAncestralTablet(id);
+
             var viewModel = new AncestralTabletTransactionsFormViewModel();
+            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
 
             if (AF == null)
             {
-                _ancestralTablet.SetAncestralTablet(id);
-
                 var ancestralTabletTransactionDto = new AncestralTabletTransactionDto();
 
                 ancestralTabletTransactionDto.ApplicantDtoId = applicantId;

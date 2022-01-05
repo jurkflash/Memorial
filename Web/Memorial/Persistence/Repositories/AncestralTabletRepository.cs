@@ -17,6 +17,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTablets
                 .Include(a => a.Applicant)
                 .Include(a => a.AncestralTabletArea)
+                .Include(a => a.AncestralTabletArea.Site)
                 .Where(a => a.Id == id)
                 .SingleOrDefault();
         }

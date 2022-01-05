@@ -49,18 +49,20 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             var viewModel = new AncestralTabletAreaIndexesViewModel()
             {
                 AncestralTabletAreaDtos = _area.GetAreaDtosBySite(siteId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);
         }
 
-        public ActionResult AncestralTablets(int areaId, int applicantId)
+        public ActionResult AncestralTablets(int areaId, int applicantId, byte siteId)
         {
             var viewModel = new AncestralTabletIndexesViewModel()
             {
                 AncestralTabletDtos = _ancestralTablet.GetAncestralTabletDtosByAreaId(areaId),
                 Positions = _ancestralTablet.GetPositionsByAreaId(areaId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);
         }
@@ -73,7 +75,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             {
                 AncestralTabletItemDtos = _item.GetItemDtosByArea(_area.GetId()),
                 AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _ancestralTablet.GetAncestralTabletDto().AncestralTabletAreaDto.SiteDto
             };
             return View(viewModel);
         }

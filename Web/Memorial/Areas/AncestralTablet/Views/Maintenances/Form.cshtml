@@ -10,6 +10,10 @@
     }
 }
 
+@Html.ActionLink(Model.AncestralTabletDto.AncestralTabletAreaDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.AncestralTabletDto.AncestralTabletAreaDto.SiteDto.Id, applicantId = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.AncestralTablet, "Index", "AncestralTablets", new { siteId = Model.AncestralTabletDto.AncestralTabletAreaDto.SiteDto.Id, applicantId = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "AncestralTablet" }, null) >
+@Html.ActionLink(Model.AncestralTabletDto.Name, "Items", "AncestralTablets", new { itemId = Model.AncestralTabletTransactionDto.AncestralTabletItemDtoId, id = Model.AncestralTabletTransactionDto.AncestralTabletDtoId, applicantId = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "AncestralTablet" }, null)
+
 @{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.AncestralTabletTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
