@@ -15,21 +15,22 @@ namespace Memorial.Persistence.Repositories
         public CemeteryArea GetActive(int id)
         {
             return MemorialContext.CemeteryAreas
-                .Where(pa => pa.Id == id)
+                .Include(ca => ca.Site)
+                .Where(ca => ca.Id == id)
                 .SingleOrDefault();
         }
 
         public IEnumerable<CemeteryArea> GetAllActive()
         {
             return MemorialContext.CemeteryAreas
-                .Include(pa => pa.Site)
+                .Include(ca => ca.Site)
                 .ToList();
         }
 
         public IEnumerable<CemeteryArea> GetBySite(int siteId)
         {
             return MemorialContext.CemeteryAreas
-                .Where(pa => pa.SiteId == siteId).ToList();
+                .Where(ca => ca.SiteId == siteId).ToList();
         }
 
         public MemorialContext MemorialContext

@@ -13,7 +13,8 @@ namespace Memorial.ViewModels
 
         public PlotDto PlotDto { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
+        public CemeteryAreaDto CemeteryAreaDto { get; set; }
 
     }
 }

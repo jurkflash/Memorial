@@ -89,12 +89,13 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
+            _plot.SetPlot(id);
+
             var viewModel = new CemeteryTransactionsFormViewModel();
+            viewModel.PlotDto = _plot.GetPlotDto();
 
             if (AF == null)
             {
-                _plot.SetPlot(id);
-
                 var cemeteryTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
                 cemeteryTransactionDto.ApplicantDto = _applicant.GetApplicantDto(applicantId);
                 cemeteryTransactionDto.PlotDto = _plot.GetPlotDto();

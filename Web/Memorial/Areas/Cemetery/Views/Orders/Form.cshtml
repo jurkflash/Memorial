@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cemetery, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.Name, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.Name, "Items", "Cemeteries", new { id = Model.PlotDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null)
+
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.CemeteryTransactionDto.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
@@ -82,7 +87,7 @@
             @Html.TextAreaFor(c => c.CemeteryTransactionDto.Remark, new { @class = "form-control" })
         </div>
     </div>
-    @Html.HiddenFor(c => c.CemeteryTransactionDto.CemeteryItemId)
+    @Html.HiddenFor(c => c.CemeteryTransactionDto.CemeteryItemDtoId)
     @Html.HiddenFor(c => c.CemeteryTransactionDto.PlotDtoId)
     @Html.HiddenFor(c => c.CemeteryTransactionDto.ApplicantDtoId)
     @Html.HiddenFor(c => c.CemeteryTransactionDto.AF)

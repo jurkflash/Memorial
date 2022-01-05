@@ -78,15 +78,16 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, string AF = null)
         {
+            _plot.SetPlot(id);
+
             var viewModel = new CemeteryTransactionsFormViewModel()
             {
-                FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos()
+                FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos(),
+                PlotDto = _plot.GetPlotDto()
             };
 
             if (AF == null)
             {
-                _plot.SetPlot(id);
-
                 var cemeteryTransactionDto = new CemeteryTransactionDto();
                 cemeteryTransactionDto.PlotDtoId = id;
                 cemeteryTransactionDto.CemeteryItemDtoId = itemId;

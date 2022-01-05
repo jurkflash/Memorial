@@ -12,8 +12,9 @@ namespace Memorial.ViewModels
 
         public int? SelectedPlotTypeId { get; set; }
 
-        public int ApplicantId { get; set; }
+        public int? ApplicantId { get; set; }
 
         public int AreaId { get; set; }
+        public CemeteryAreaDto CemeteryAreaDto { get; set; }
     }
 }

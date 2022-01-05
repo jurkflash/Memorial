@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.CemeteryAreaDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cemetery, "Index", "Cemeteries", new { siteId = Model.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null) > 
+@Html.ActionLink(Model.CemeteryAreaDto.Name, "Index", "Cemeteries", new { siteId = Model.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.Name, "Items", "Cemeteries", new { id = Model.PlotDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null)
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>

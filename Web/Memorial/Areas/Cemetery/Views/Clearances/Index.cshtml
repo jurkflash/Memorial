@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cemetery, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null) > 
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.Name, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.Name, "Items", "Cemeteries", new { id = Model.PlotDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null)
+
 <h2>@Model.CemeteryItemDto.SubProductServiceDto.Name</h2>
 
 @if (Model.AllowNew)

@@ -35,6 +35,7 @@ namespace Memorial.Areas.Menu.Controllers
             {
                 CatalogDtos = _catalog.GetCatalogDtosBySite(siteId),
                 SiteId = siteId,
+                SiteDto = _site.GetSiteDto(siteId),
                 ApplicantId = applicantId
             };
             return View(viewModel);

@@ -46,17 +46,18 @@ namespace Memorial.Areas.Cemetery.Controllers
         }
 
 
-        public ActionResult Index(byte siteId, int applicantId = 0)
+        public ActionResult Index(byte siteId, int? applicantId)
         {
             var viewModel = new CemeteryAreaIndexesViewModel()
             {
                 CemeteryAreaDtos = _area.GetAreaDtosBySite(siteId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);
         }
 
-        public ActionResult Plots(int areaId, int applicantId, int? plotTypeId, string filter, int? page)
+        public ActionResult Plots(int areaId, int? applicantId, int? plotTypeId, string filter, int? page)
         {
             if (!string.IsNullOrEmpty(filter))
             {
@@ -66,6 +67,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             var viewModel = new PlotIndexesViewModel()
             {
                 PlotTypeDtos = _plot.GetPlotTypeDtosByAreaId(areaId),
+                CemeteryAreaDto = _area.GetAreaDto(areaId),
                 SelectedPlotTypeId = plotTypeId,
                 ApplicantId = applicantId,
                 AreaId = areaId
@@ -83,12 +85,13 @@ namespace Memorial.Areas.Cemetery.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Items(int id, int applicantId)
+        public ActionResult Items(int id, int? applicantId)
         {
             _plot.SetPlot(id);
             var viewModel = new CemeteryItemsViewModel()
             {
                 CemeteryItemDtos = _item.GetItemDtosByPlot(id),
+                CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId()),
                 PlotDto = _plot.GetPlotDto(),
                 ApplicantId = applicantId
             };
