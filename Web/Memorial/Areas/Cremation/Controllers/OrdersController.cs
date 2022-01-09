@@ -46,8 +46,7 @@ namespace Memorial.Areas.Cremation.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                CremationItemId = itemId,
-                CremationItemName = _item.GetName(),
+                CremationItemDto = _item.GetItemDto(),
                 CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
@@ -90,6 +89,7 @@ namespace Memorial.Areas.Cremation.Controllers
             if (AF == null)
             {
                 cremationTransactionDto.ApplicantDtoId = applicantId;
+                cremationTransactionDto.CremationItemDto = _item.GetItemDto();
                 cremationTransactionDto.CremationItemDtoId = itemId;
                 cremationTransactionDto.Price = _item.GetPrice();
                 viewModel.CremationTransactionDto = cremationTransactionDto;

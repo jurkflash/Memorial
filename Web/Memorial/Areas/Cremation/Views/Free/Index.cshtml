@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.CremationItemName</h2>
+@Html.ActionLink(Model.CremationItemDto.CremationDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.CremationItemDto.CremationDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cremation, "Index", "Cremations", new { siteId = Model.CremationItemDto.CremationDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cremation" }, null)
+
+<h2>@Model.CremationItemDto.SubProductServiceDto.Name</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.CremationItemDto.Id, applicantId = Model.ApplicantId, area = "Cremation" })
     </p>
 }
 
@@ -25,7 +28,7 @@
             <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
         </div>
     </div>
-    @Html.Hidden("itemId", Model.CremationItemId.ToString())
+    @Html.Hidden("itemId", Model.CremationItemDto.Id.ToString())
     @Html.Hidden("applicantId", Model.ApplicantId.ToString())
 }
 
@@ -55,7 +58,7 @@
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cremationTransaction.AF, applicantId = Model.ApplicantId, area = "Cremation" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = cremationTransaction.AF, itemId = Model.CremationItemId, applicantId = Model.ApplicantId, area = "Cremation" },
+                    new { AF = cremationTransaction.AF, itemId = Model.CremationItemDto.Id, applicantId = Model.ApplicantId, area = "Cremation" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm(MEMORIAL_CONFIRM);" })
                 </td>
             </tr>
@@ -64,6 +67,6 @@
 </table>
 Page @(Model.CremationTransactionDtos.PageCount < Model.CremationTransactionDtos.PageNumber ? 0 : Model.CremationTransactionDtos.PageNumber) of @Model.CremationTransactionDtos.PageCount
 @Html.PagedListPager(Model.CremationTransactionDtos, page => Url.Action("Index",
-    new { page, itemId = Model.CremationItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, itemId = Model.CremationItemDto.Id.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

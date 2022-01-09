@@ -40,6 +40,7 @@ namespace Memorial.Areas.Cremation.Controllers
         {
             var viewModel = new CremationIndexesViewModel();
             viewModel.CremationDtos = _cremation.GetCremationDtosBySite(siteId);
+            viewModel.SiteDto = _site.GetSiteDto(siteId);
 
             if (applicantId == null)
             {

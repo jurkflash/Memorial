@@ -14,9 +14,7 @@ namespace Memorial.ViewModels
 
         public string Filter { get; set; }
 
-        public int CremationItemId { get; set; }
-
-        public string CremationItemName { get; set; }
+        public CremationItemDto CremationItemDto { get; set; }
 
         public int? ApplicantId { get; set; }
 
