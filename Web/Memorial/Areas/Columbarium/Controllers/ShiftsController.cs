@@ -41,8 +41,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                ColumbariumItemId = itemId,
-                ColumbariumItemName = _item.GetName(),
+                ColumbariumItemDto = _item.GetItemDto(),
                 ColumbariumTransactionDtos = columbariumTransactionDtos
             };
 
@@ -83,7 +82,9 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
+            var item = _item.GetItemDto(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel();
+            viewModel.ColumbariumCentreDto = item.ColumbariumCentreDto;
 
             if (AF == null)
             {

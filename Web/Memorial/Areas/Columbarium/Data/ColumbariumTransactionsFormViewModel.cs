@@ -11,6 +11,8 @@ namespace Memorial.ViewModels
 
         public ColumbariumTransactionDto ColumbariumTransactionDto { get; set; }
 
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
+
         public int ShiftedNicheId { get; set; }
 
         public ApplicantDto ApplicantDto { get; set; }

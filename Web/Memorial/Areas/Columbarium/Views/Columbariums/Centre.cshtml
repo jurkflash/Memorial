@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) > 
+@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Columbariums", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)
+
 <h2>@Html.Raw(Resources.Mix.Centre)</h2>
 
 <table class="table table-bordered table-hover">

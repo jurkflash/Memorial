@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.ColumbariumCentreDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Columbariums", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.ColumbariumCentreDto.Name, "Area", "Columbariums", new { centreId = Model.ColumbariumCentreDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.ColumbariumAreaDto.Name, "Niches", "Columbariums", new { areaId = Model.NicheDto.ColumbariumAreaDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.Name, "Items", "Columbariums", new { id = Model.NicheDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)
+
 <h2>@Html.Raw(Resources.Mix.Items)</h2>
 
 @{Html.RenderAction("NicheInfo", "Columbariums", new { id = Model.NicheDto.Id, area = "Columbarium" });}

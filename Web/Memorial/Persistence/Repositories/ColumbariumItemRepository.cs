@@ -16,6 +16,8 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.ColumbariumItems
                 .Include(ci => ci.SubProductService)
+                .Include(ci => ci.ColumbariumCentre)
+                .Include(ci => ci.ColumbariumCentre.Site)
                 .Where(qi => qi.Id == id)
                 .SingleOrDefault();
         }

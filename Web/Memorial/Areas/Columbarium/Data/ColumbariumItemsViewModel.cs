@@ -15,5 +15,7 @@ namespace Memorial.ViewModels
 
         public int? ApplicantId { get; set; }
 
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
+
     }
 }

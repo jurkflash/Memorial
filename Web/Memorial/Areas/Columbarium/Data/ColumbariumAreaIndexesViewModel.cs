@@ -8,5 +8,7 @@ namespace Memorial.ViewModels
         public IEnumerable<ColumbariumAreaDto> ColumbariumAreaDtos { get; set; }
 
         public int? ApplicantId { get; set; }
+
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
     }
 }

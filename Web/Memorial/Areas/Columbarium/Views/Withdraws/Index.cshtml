@@ -5,12 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.ColumbariumItemName</h2>
+@Html.ActionLink(Model.ColumbariumItemDto.ColumbariumCentreDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.ColumbariumItemDto.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Columbariums", new { siteId = Model.ColumbariumItemDto.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.ColumbariumItemDto.ColumbariumCentreDto.Name, "Area", "Columbariums", new { centreId = Model.ColumbariumItemDto.ColumbariumCentreDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.ColumbariumAreaDto.Name, "Niches", "Columbariums", new { centreId = Model.ColumbariumItemDto.ColumbariumCentreDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.Name, "Items", "Columbariums", new { id = Model.NicheDto.Id, applicantId = Model.ApplicantId, area = "Columbarium" }, null)
+
+<h2>@Model.ColumbariumItemDto.SubProductServiceDto.Name</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.ColumbariumItemId, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.ColumbariumItemDto.Id, applicantId = Model.ApplicantId, id = Model.NicheId, area = "Columbarium" })
     </p>
 }
 
@@ -25,7 +31,7 @@
             <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
         </div>
     </div>
-    @Html.Hidden("itemId", Model.ColumbariumItemId.ToString())
+    @Html.Hidden("itemId", Model.ColumbariumItemDto.Id.ToString())
     @Html.Hidden("applicantId", Model.ApplicantId.ToString())
     @Html.Hidden("id", Model.NicheId.ToString())
 }
@@ -54,7 +60,7 @@
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = columbariumTransaction.AF, applicantId = Model.ApplicantId, area = "Columbarium" })</td>
                 <td>
                     @Html.ActionLink(Resources.Mix.Delete, "Delete",
-                    new { AF = columbariumTransaction.AF, itemId = Model.ColumbariumItemId, id = Model.NicheId, applicantId = Model.ApplicantId, area = "Columbarium" },
+                    new { AF = columbariumTransaction.AF, itemId = Model.ColumbariumItemDto.Id, id = Model.NicheId, applicantId = Model.ApplicantId, area = "Columbarium" },
                     new { @class = "btn btn-danger btn-sm", onclick = "return confirm(MEMORIAL_CONFIRM);" })
                 </td>
             </tr>
@@ -63,7 +69,7 @@
 </table>
 Page @(Model.ColumbariumTransactionDtos.PageCount < Model.ColumbariumTransactionDtos.PageNumber ? 0 : Model.ColumbariumTransactionDtos.PageNumber) of @Model.ColumbariumTransactionDtos.PageCount
 @Html.PagedListPager(Model.ColumbariumTransactionDtos, page => Url.Action("Index",
-    new { page, id = Model.NicheId.ToString(), itemId = Model.ColumbariumItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, id = Model.NicheId.ToString(), itemId = Model.ColumbariumItemDto.Id.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 
 

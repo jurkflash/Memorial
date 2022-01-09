@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.ColumbariumCentreDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Columbariums", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.ColumbariumCentreDto.Name, "Area", "Columbariums", new { centreId = Model.ColumbariumCentreDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.ColumbariumAreaDto.Name, "Niches", "Columbariums", new { centreId = Model.ColumbariumCentreDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.Name, "Items", "Columbariums", new { id = Model.NicheDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null)
+
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ColumbariumTransactionDto.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>

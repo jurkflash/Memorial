@@ -10,5 +10,9 @@ namespace Memorial.ViewModels
         public IDictionary<byte, IEnumerable<byte>> Positions { get; set; }
 
         public int? ApplicantId { get; set; }
+
+        public ColumbariumCentreDto ColumbariumCentreDto { get; set; }
+
+        public ColumbariumAreaDto ColumbariumAreaDto { get; set; }
     }
 }

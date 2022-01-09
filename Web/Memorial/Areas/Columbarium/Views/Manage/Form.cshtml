@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.ColumbariumCentreDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Columbarium, "Index", "Columbariums", new { siteId = Model.ColumbariumCentreDto.SiteDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.ColumbariumCentreDto.Name, "Area", "Columbariums", new { centreId = Model.ColumbariumCentreDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.ColumbariumAreaDto.Name, "Niches", "Columbariums", new { centreId = Model.ColumbariumCentreDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null) >
+@Html.ActionLink(Model.NicheDto.Name, "Items", "Columbariums", new { id = Model.NicheDto.Id, applicantId = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Columbarium" }, null)
+
 @{Html.RenderAction("ApplicantBrief", "Applicants", new { id = Model.ColumbariumTransactionDto.ApplicantDtoId, area = "Applicant" });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
@@ -78,7 +84,7 @@
                 $.ajax({
                     url: url,
                     type: 'GET',
-                    data: { from: f, to: t}
+                    data: { from: f, to: t }
                 }).done(function (data) {
                     $("#ColumbariumTransactionDto_Price").val(data);
                 }).fail(function () {

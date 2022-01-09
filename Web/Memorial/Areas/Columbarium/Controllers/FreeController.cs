@@ -53,8 +53,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                ColumbariumItemId = itemId,
-                ColumbariumItemName = _item.GetName(),
+                ColumbariumItemDto = _item.GetItemDto(),
                 NicheDto = _niche.GetNicheDto(),
                 NicheId = id,
                 ColumbariumTransactionDtos = _order.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
@@ -97,10 +96,12 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
+            var item = _item.GetItemDto(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel()
             {
                 FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
+                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
+                ColumbariumCentreDto = item.ColumbariumCentreDto
             };
             
             if (AF == null)
