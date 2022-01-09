@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cemetery, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.CemeteryAreaDto.Name, "Index", "Cemeteries", new { siteId = Model.PlotDto.CemeteryAreaDto.SiteDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null) >
+@Html.ActionLink(Model.PlotDto.Name, "Items", "Cemeteries", new { id = Model.PlotDto.Id, applicantId = Model.CemeteryTransactionDto.ApplicantDtoId, area = "Cemetery" }, null)
+
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
 
 @using (Html.BeginForm("Save", "Reciprocates", new { area = "Cemetery" }))
@@ -14,7 +19,7 @@
             @Html.Raw(Resources.Mix.FengShuiMasterBR)
         </div>
         <div class="col-md-6">
-            @Html.DropDownListFor(pt => pt.CemeteryTransactionDto.FengShuiMasterId, new SelectList(Model.FengShuiMasterDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
+            @Html.DropDownListFor(pt => pt.CemeteryTransactionDto.FengShuiMasterDtoId, new SelectList(Model.FengShuiMasterDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
