@@ -55,7 +55,8 @@ namespace Memorial.Areas.Cremation.Controllers
             var viewModel = new CremationItemsViewModel()
             {
                 CremationItemDtos = _item.GetItemDtosByCremation(cremationId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _cremation.GetCremationDto(cremationId).SiteDto
             };
             return View(viewModel);
         }
