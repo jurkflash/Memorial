@@ -44,8 +44,7 @@ namespace Memorial.Areas.Urn.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                UrnItemId = itemId,
-                UrnItemName = _item.GetName(),
+                UrnItemDto = _item.GetItemDto(),
                 UrnTransactionDtos = _purchase.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };

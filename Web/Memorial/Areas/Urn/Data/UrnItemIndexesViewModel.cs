@@ -10,9 +10,7 @@ namespace Memorial.ViewModels
 
         public string Filter { get; set; }
 
-        public int UrnItemId { get; set; }
-
-        public string UrnItemName { get; set; }
+        public UrnItemDto UrnItemDto { get; set; }
 
         public int? ApplicantId { get; set; }
 

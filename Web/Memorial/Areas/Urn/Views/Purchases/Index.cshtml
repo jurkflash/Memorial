@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.UrnItemName</h2>
+@Html.ActionLink(Model.UrnItemDto.UrnDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.UrnItemDto.UrnDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Urn, "Index", "Urns", new { siteId = Model.UrnItemDto.UrnDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Urn" }, null)
+
+<h2>@Model.UrnItemDto.SubProductServiceDto.Name</h2>
 
 @if (Model.AllowNew)
 {
     <p>
-        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.UrnItemId, applicantId = Model.ApplicantId, area = "Urn" })
+        @Html.ActionLink(Resources.Mix.New, "Form", new { itemId = Model.UrnItemDto.Id, applicantId = Model.ApplicantId, area = "Urn" })
     </p>
 }
 
@@ -25,7 +28,7 @@
             <input type="submit" value=@Html.Raw(Resources.Mix.Search) class="btn btn-secondary" />
         </div>
     </div>
-    @Html.Hidden("itemId", Model.UrnItemId.ToString())
+    @Html.Hidden("itemId", Model.UrnItemDto.Id.ToString())
     @Html.Hidden("applicantId", Model.ApplicantId.ToString())
 }
 
@@ -66,6 +69,6 @@
 </table>
 Page @(Model.UrnTransactionDtos.PageCount < Model.UrnTransactionDtos.PageNumber ? 0 : Model.UrnTransactionDtos.PageNumber) of @Model.UrnTransactionDtos.PageCount
 @Html.PagedListPager(Model.UrnTransactionDtos, page => Url.Action("Index",
-    new { page, itemId = Model.UrnItemId.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
+    new { page, itemId = Model.UrnItemDto.Id.ToString(), applicantId = Model.ApplicantId.ToString(), filter = ViewBag.CurrentFilter }))
 
 

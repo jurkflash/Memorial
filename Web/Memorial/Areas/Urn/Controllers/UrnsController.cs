@@ -54,7 +54,8 @@ namespace Memorial.Areas.Urn.Controllers
             var viewModel = new UrnItemsViewModel()
             {
                 UrnItemDtos = _item.GetItemDtosByUrn(urnId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _urn.GetUrnDto(urnId).SiteDto
             };
             return View(viewModel);
         }
