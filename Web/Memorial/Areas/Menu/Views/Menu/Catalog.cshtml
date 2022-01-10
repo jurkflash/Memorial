@@ -17,7 +17,6 @@
 
 @foreach (var catalog in Model.CatalogDtos)
 {
-    @Html.ActionLink(catalog.ProductDto.Name + "menu", "Menu", catalog.ProductDto.Controller, new { siteId = catalog.SiteDtoId, applicantId = Model.ApplicantId, area = catalog.ProductDto.Area }, null)
     @Html.ActionLink(catalog.ProductDto.Name, "Index", catalog.ProductDto.Controller, new { siteId = catalog.SiteDtoId, applicantId = Model.ApplicantId, area = catalog.ProductDto.Area }, null)
     <br />
 }
