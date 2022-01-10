@@ -41,8 +41,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                MiscellaneousItemId = itemId,
-                MiscellaneousItemName = _item.GetName(),
+                MiscellaneousItemDto = _item.GetItemDto(),
                 MiscellaneousTransactionDtos = _compensate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
@@ -79,6 +78,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             if (AF == null)
             {
                 miscellaneousTransactionDto.ApplicantDtoId = applicantId;
+                miscellaneousTransactionDto.MiscellaneousItemDto = _item.GetItemDto();
                 miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
                 miscellaneousTransactionDto.Amount = _item.GetPrice();
             }

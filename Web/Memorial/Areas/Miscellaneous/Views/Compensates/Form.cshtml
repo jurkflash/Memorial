@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.MiscellaneousItemDto.MiscellaneousDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.MiscellaneousItemDto.MiscellaneousDto.SiteDto.Id, applicantId = Model.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Resources.Mix.Cremation, "Index", "Cremations", new { siteId = Model.MiscellaneousItemDto.MiscellaneousDto.SiteDto.Id, applicantId = Model.ApplicantDtoId, area = "Cremation" }, null)
+
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>

@@ -40,8 +40,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 Filter = filter,
-                MiscellaneousItemId = itemId,
-                MiscellaneousItemName = _item.GetName(),
+                MiscellaneousItemDto = _item.GetItemDto(),
                 MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = true
             };
@@ -58,9 +57,10 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
             if (AF == null)
             {
-                var miscellanousTransactionDto = new MiscellaneousTransactionDto();
-                miscellanousTransactionDto.MiscellaneousItemDtoId = itemId;
-                viewModel.MiscellaneousTransactionDto = miscellanousTransactionDto;
+                var miscellaneousTransactionDto = new MiscellaneousTransactionDto();
+                miscellaneousTransactionDto.MiscellaneousItemDto = _item.GetItemDto();
+                miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
+                viewModel.MiscellaneousTransactionDto = miscellaneousTransactionDto;
                 viewModel.MiscellaneousTransactionDto.Amount = _reciprocate.GetItemPrice(itemId);
             }
             else

@@ -40,6 +40,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var viewModel = new MiscellaneousIndexesViewModel();
             viewModel.MiscellaneousDtos = _miscellaneous.GetMiscellaneousDtosBySite(siteId);
+            viewModel.SiteDto = _site.GetSiteDto(siteId);
 
             if (applicantId != null)
             {
@@ -54,7 +55,8 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             var viewModel = new MiscellaneousItemsViewModel()
             {
                 MiscellaneousItemDtos = _item.GetItemDtosByMiscellaneous(miscellaneousId),
-                ApplicantId = applicantId
+                ApplicantId = applicantId,
+                SiteDto = _miscellaneous.GetMiscellaneousDto(miscellaneousId).SiteDto
             };
             return View(viewModel);
         }
