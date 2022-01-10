@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.SpaceDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SpaceDto.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
+@Html.ActionLink(Model.SpaceDto.Name, "Items", "Spaces", new { spaceId = Model.SpaceDto.Id, applicantId = Model.ApplicantId, area = "Space" }, null)
+
+<h2>@Html.Raw(Resources.Mix.Items)</h2>
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>

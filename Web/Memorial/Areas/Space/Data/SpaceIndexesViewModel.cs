@@ -9,6 +9,6 @@ namespace Memorial.ViewModels
 
         public int? ApplicantId { get; set; }
 
-        public SiteDto siteDto { get; set; }
+        public SiteDto SiteDto { get; set; }
     }
 }

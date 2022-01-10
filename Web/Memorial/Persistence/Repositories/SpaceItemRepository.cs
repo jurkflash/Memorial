@@ -16,6 +16,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.SpaceItems
                 .Include(si => si.Space)
+                .Include(si => si.Space.Site)
                 .Include(si => si.SubProductService)
                 .Where(si => si.Id == id)
                 .SingleOrDefault();

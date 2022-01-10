@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.SpaceItemDto.SpaceDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SpaceItemDto.SpaceDto.SiteDto.Id, applicantId = Model.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Model.SpaceItemDto.SpaceDto.Name, "Items", "Spaces", new { spaceId = Model.SpaceItemDto.SpaceDto.Id, applicantId = Model.ApplicantDtoId, area = "Space" }, null)
+
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
@@ -16,7 +19,7 @@
             @Html.Raw(Resources.Mix.FromBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(s => s.FromDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker"})
+            @Html.TextBoxFor(s => s.FromDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker" })
             @Html.ValidationMessageFor(s => s.FromDate)
         </div>
     </div>
@@ -72,9 +75,9 @@
             }, MEMORIAL_AT_LEAST_ONE);
 
             $("#Amount").rules("add",
-            {
-                AtLeastOne: true
-            });
+                {
+                    AtLeastOne: true
+                });
 
             var dateNow = new Date();
             $('.datepicker').datetimepicker({

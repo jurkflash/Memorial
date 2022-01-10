@@ -31,7 +31,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceIndexesViewModel();
             viewModel.SpaceDtos = _space.GetSpaceDtosBySite(siteId);
-            viewModel.siteDto = _site.GetSiteDto(siteId);
+            viewModel.SiteDto = _site.GetSiteDto(siteId);
 
             if (applicantId != null)
             {
@@ -46,7 +46,7 @@ namespace Memorial.Areas.Space.Controllers
             var viewModel = new SpaceIndexesViewModel()
             {
                 SpaceDtos = _space.GetSpaceDtosBySite(siteId),
-                siteDto = _site.GetSiteDto(siteId)
+                SiteDto = _site.GetSiteDto(siteId)
             };
             return View(viewModel);
         }
@@ -55,6 +55,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceItemsViewModel()
             {
+                SpaceDto = _space.GetSpaceDto(spaceId),
                 SpaceItemDtos = _item.GetItemDtosBySpace(spaceId),
                 ApplicantId = applicantId
             };

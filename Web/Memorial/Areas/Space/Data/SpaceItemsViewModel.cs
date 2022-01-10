@@ -10,5 +10,6 @@ namespace Memorial.ViewModels
     {
         public IEnumerable<SpaceItemDto> SpaceItemDtos { get; set; }
         public int ApplicantId { get; set; }
+        public SpaceDto SpaceDto { get; set; }
     }
 }

@@ -44,8 +44,7 @@ namespace Memorial.Areas.Space.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                SpaceItemId = itemId,
-                SpaceItemName = _item.GetName(),
+                SpaceItemDto = _item.GetItemDto(),
                 SpaceName = _item.GetItem().Space.Name,
                 SpaceTransactionDtos = _house.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
@@ -88,6 +87,7 @@ namespace Memorial.Areas.Space.Controllers
             {
                 spaceTransactionDto.ApplicantDtoId = applicantId;
                 spaceTransactionDto.SpaceItemDtoId = itemId;
+                spaceTransactionDto.SpaceItemDto = _item.GetItemDto();
                 spaceTransactionDto.Amount = _item.GetPrice();
             }
             else

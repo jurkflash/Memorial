@@ -9,11 +9,9 @@ namespace Memorial.ViewModels
 
         public string Filter { get; set; }
 
-        public int SpaceItemId { get; set; }
-
         public string SpaceName { get; set; }
 
-        public string SpaceItemName { get; set; }
+        public SpaceItemDto SpaceItemDto { get; set; }
 
         public int? ApplicantId { get; set; }
 

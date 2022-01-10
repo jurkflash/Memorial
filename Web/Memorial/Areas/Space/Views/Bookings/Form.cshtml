@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.ActionLink(Model.SpaceTransactionDto.SpaceItemDto.SpaceDto.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SpaceTransactionDto.SpaceItemDto.SpaceDto.SiteDto.Id, applicantId = Model.SpaceTransactionDto.ApplicantDtoId, area = "Menu" }, null) >
+@Html.ActionLink(Model.SpaceTransactionDto.SpaceItemDto.SpaceDto.Name, "Items", "Spaces", new { spaceId = Model.SpaceTransactionDto.SpaceItemDto.SpaceDto.Id, applicantId = Model.SpaceTransactionDto.ApplicantDtoId, area = "Space" }, null)
+
 @{Html.RenderAction("Index", "ApplicantDeceaseds", new { area = "ApplicantDeceaseds", id = Model.SpaceTransactionDto.ApplicantDtoId });}
 
 <h2>@Html.Raw(Resources.Mix.Form)</h2>
@@ -134,7 +137,7 @@
                     url = '/api/spaces/mains/' + sii + '/availability';
                 }
 
-                
+
                 $.ajax({
                     url: url,
                     type: 'GET',

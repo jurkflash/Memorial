@@ -3,7 +3,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.ActionLink("Calendar", "ShowCalendar", new { siteId = Model.siteDto.Id, area = "Space" })
+
+@Html.ActionLink(Model.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null)
+<br />
+<br />
+@Html.ActionLink("Calendar", "ShowCalendar", new { siteId = Model.SiteDto.Id, area = "Space" })
+
+<h2>@Html.Raw(Resources.Mix.Space)</h2>
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>

@@ -46,8 +46,7 @@ namespace Memorial.Areas.Space.Controllers
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                SpaceItemId = itemId,
-                SpaceItemName = _item.GetName(),
+                SpaceItemDto = _item.GetItemDto(),
                 SpaceName = _item.GetItem().Space.Name,
                 SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
@@ -96,6 +95,7 @@ namespace Memorial.Areas.Space.Controllers
             {
                 var spaceTransactionDto = new SpaceTransactionDto();
                 spaceTransactionDto.ApplicantDtoId = applicantId;
+                spaceTransactionDto.SpaceItemDto = _item.GetItemDto();
                 spaceTransactionDto.SpaceItemDtoId = itemId;
                 spaceTransactionDto.BasePrice = _item.GetPrice();
                 spaceTransactionDto.Amount = _item.GetPrice();
