@@ -11,6 +11,7 @@ namespace Memorial.Persistence
         public UnitOfWork(MemorialContext context)
         {
             _context = context;
+            AccessControls = new AccessControlRepository(_context);
             Products = new ProductRepository(_context);
             SubProductServices = new SubProductServiceRepository(_context);
 
@@ -77,6 +78,7 @@ namespace Memorial.Persistence
             
             Catalogs = new CatalogRepository(_context);
         }
+        public IAccessControlRepository AccessControls { get; private set; }
         public IProductRepository Products { get; private set; }
         public ISubProductServiceRepository SubProductServices { get; private set; }
 

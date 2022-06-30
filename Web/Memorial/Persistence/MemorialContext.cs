@@ -19,6 +19,7 @@ namespace Memorial.Persistence
             QueryFilterManager.InitilizeGlobalFilter(this);
         }
 
+        public DbSet<AccessControl> AccessControls { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<SubProductService> SubProductServices { get; set; }
         public DbSet<MaritalType> MaritalTypes { get; set; }
@@ -87,6 +88,7 @@ namespace Memorial.Persistence
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AccessControlConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new SubProductServiceConfiguration());
 
