@@ -30,6 +30,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(plc => plc.MiscellaneousTransactions)
                 .HasForeignKey(mt => mt.CemeteryLandscapeCompanyId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

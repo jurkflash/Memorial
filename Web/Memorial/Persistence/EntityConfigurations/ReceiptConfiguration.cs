@@ -61,6 +61,7 @@ namespace Memorial.Persistence.EntityConfigurations
                  .HasForeignKey(r => r.PaymentMethodId)
                  .WillCascadeOnDelete(false);
 
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

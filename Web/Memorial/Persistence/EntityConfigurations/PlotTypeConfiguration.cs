@@ -10,6 +10,8 @@ namespace Memorial.Persistence.EntityConfigurations
             Property(pt => pt.Name)
             .IsRequired()
             .HasMaxLength(255);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

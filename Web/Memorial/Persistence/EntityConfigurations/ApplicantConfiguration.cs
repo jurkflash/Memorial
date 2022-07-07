@@ -17,6 +17,8 @@ namespace Memorial.Persistence.EntityConfigurations
 
             Property(a => a.Remark)
                 .HasMaxLength(255);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

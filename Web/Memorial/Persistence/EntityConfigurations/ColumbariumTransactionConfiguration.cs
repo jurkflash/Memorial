@@ -70,6 +70,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany()
                 .HasForeignKey(qt => qt.TransferredColumbariumTransactionAF)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

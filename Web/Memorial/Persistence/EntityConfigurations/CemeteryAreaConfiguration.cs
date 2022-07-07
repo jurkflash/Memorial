@@ -11,11 +11,12 @@ namespace Memorial.Persistence.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(255);
 
-
             HasRequired(pa => pa.Site)
                 .WithMany(s => s.CemeteryAreas)
                 .HasForeignKey(pa => pa.SiteId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

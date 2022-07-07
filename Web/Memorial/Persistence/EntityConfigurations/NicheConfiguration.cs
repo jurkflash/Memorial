@@ -36,6 +36,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(a => a.Niches)
                 .HasForeignKey(q => q.ApplicantId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

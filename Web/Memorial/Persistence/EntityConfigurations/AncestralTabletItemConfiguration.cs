@@ -20,6 +20,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(aa => aa.AncestralTabletItems)
                 .HasForeignKey(ai => ai.SubProductServiceId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

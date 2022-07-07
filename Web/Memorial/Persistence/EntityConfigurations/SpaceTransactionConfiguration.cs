@@ -35,6 +35,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(d => d.SpaceTransactions)
                 .HasForeignKey(st => st.DeceasedId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

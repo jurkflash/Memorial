@@ -15,6 +15,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(qc => qc.ColumbariumAreas)
                 .HasForeignKey(qa => qa.ColumbariumCentreId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

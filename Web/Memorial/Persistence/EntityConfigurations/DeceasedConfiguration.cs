@@ -40,6 +40,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(d => d.Deceaseds)
                 .HasForeignKey(r => r.ReligionTypeId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

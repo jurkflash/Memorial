@@ -16,6 +16,8 @@ namespace Memorial.Persistence.EntityConfigurations
 
             Property(f => f.ContactNumber)
             .HasMaxLength(255);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

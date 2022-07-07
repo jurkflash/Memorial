@@ -50,6 +50,8 @@ namespace Memorial.Persistence.EntityConfigurations
                .WithMany(ut => ut.Invoices)
                .HasForeignKey(i => i.UrnTransactionAF)
                .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

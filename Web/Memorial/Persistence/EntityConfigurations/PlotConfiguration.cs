@@ -34,6 +34,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithOptional(p => p.Plot)
                 .HasForeignKey(d => d.PlotId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

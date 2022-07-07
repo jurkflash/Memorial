@@ -21,6 +21,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany(c => c.Urns)
                 .HasForeignKey(s => s.SiteId)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

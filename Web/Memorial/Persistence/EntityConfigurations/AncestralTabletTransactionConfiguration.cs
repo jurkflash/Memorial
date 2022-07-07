@@ -45,6 +45,8 @@ namespace Memorial.Persistence.EntityConfigurations
                 .WithMany()
                 .HasForeignKey(at => at.ShiftedAncestralTabletTransactionAF)
                 .WillCascadeOnDelete(false);
+
+            EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }
 }

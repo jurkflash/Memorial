@@ -169,7 +169,7 @@ namespace Memorial.Persistence
                                     .Where(a => a.Entity is Base && (a.State == EntityState.Added || a.State == EntityState.Modified || a.State == EntityState.Deleted));
 
             //get user id from http context if available (passed from UserInformationMiddleware)
-            int? userId = 1;
+            string userId = "";
 
             //if (_httpContextAccessor?.HttpContext?.Items["UserId"] != null)
             //{
@@ -189,23 +189,19 @@ namespace Memorial.Persistence
                             entity.ActiveStatus = true;
                         }
 
-                        if (entity.CreatedById == default && userId.HasValue)
-                        {
-                            entity.CreatedById = userId.Value;
-                        }
-
+                        entity.CreatedById = userId;
                         entity.CreatedDate = now;
                     }
                     else if (entry.State == EntityState.Deleted)
                     {
                         entry.State = EntityState.Modified;
                         entity.ActiveStatus = false;
-                        entity.DeletedById = userId.Value;
+                        entity.DeletedById = userId;
                         entity.DeletedDate = now;
                     }
                     else
                     {
-                        entity.ModifiedById = userId.Value;
+                        entity.ModifiedById = userId;
                         entity.ModifiedDate = now;
                     }
                 }
