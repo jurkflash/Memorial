@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
+using System.Web;
 using Memorial.Core.Domain;
 using Memorial.Persistence.EntityConfigurations;
 using Z.EntityFramework.Plus;
@@ -171,6 +173,12 @@ namespace Memorial.Persistence
             //get user id from http context if available (passed from UserInformationMiddleware)
             string userId = "";
 
+            if(HttpContext.Current != null && HttpContext.Current.User != null)
+            {
+                ClaimsPrincipal cp = HttpContext.Current.User as ClaimsPrincipal;
+                var claim = cp.Claims.ToList().Find(c => c.Type == "UserId");
+                userId = claim.Value.ToString();
+            }    
             //if (_httpContextAccessor?.HttpContext?.Items["UserId"] != null)
             //{
             //    userId = (long)_httpContextAccessor?.HttpContext.Items["UserId"];
@@ -180,8 +188,6 @@ namespace Memorial.Persistence
             {
                 if (entry.Entity is Base entity)
                 {
-                    DateTime now = DateTime.Now;
-
                     if (entry.State == EntityState.Added)
                     {
                         if (entity.ActiveStatus == default)
@@ -190,19 +196,19 @@ namespace Memorial.Persistence
                         }
 
                         entity.CreatedById = userId;
-                        entity.CreatedDate = now;
+                        entity.CreatedUtcTime = DateTime.UtcNow;
                     }
                     else if (entry.State == EntityState.Deleted)
                     {
                         entry.State = EntityState.Modified;
                         entity.ActiveStatus = false;
                         entity.DeletedById = userId;
-                        entity.DeletedDate = now;
+                        entity.DeletedUtcTime = DateTime.UtcNow;
                     }
                     else
                     {
                         entity.ModifiedById = userId;
-                        entity.ModifiedDate = now;
+                        entity.ModifiedUtcTime = DateTime.UtcNow;
                     }
                 }
             }
