@@ -14,21 +14,21 @@ namespace Memorial.Persistence.EntityConfigurations
                 .HasMaxLength(40)
                 .HasColumnOrder(1001);
 
-            builder.Property(a => a.CreatedDate)
+            builder.Property(a => a.CreatedUtcTime)
                 .HasColumnOrder(1002);
 
             builder.Property(a => a.ModifiedById)
                 .HasMaxLength(40)
                 .HasColumnOrder(1003);
 
-            builder.Property(a => a.ModifiedDate)
+            builder.Property(a => a.ModifiedUtcTime)
                 .HasColumnOrder(1004);
 
             builder.Property(a => a.DeletedById)
                 .HasMaxLength(40)
                 .HasColumnOrder(1005);
 
-            builder.Property(a => a.DeletedDate)
+            builder.Property(a => a.DeletedUtcTime)
                 .HasColumnOrder(1006);
 
             return builder;

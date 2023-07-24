@@ -120,7 +120,7 @@ namespace Memorial.Lib.AncestralTablet
 
             foreach(var AF in AFs)
             {
-                GetTransaction(AF).DeletedDate = null;
+                GetTransaction(AF).DeletedUtcTime = null;
             }
 
             _ancestralTablet.SetAncestralTablet(_transaction.AncestralTabletId);
@@ -156,7 +156,7 @@ namespace Memorial.Lib.AncestralTablet
                 return false;
             }
 
-            trans.ElementAt(0).DeletedDate = DateTime.Now;
+            trans.ElementAt(0).DeletedUtcTime = DateTime.UtcNow;
 
             var trackings = _tracking.GetTrackingByAncestralTabletId(_transaction.AncestralTabletId, true);
 

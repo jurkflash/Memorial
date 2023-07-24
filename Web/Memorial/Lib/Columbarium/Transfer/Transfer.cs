@@ -101,7 +101,7 @@ namespace Memorial.Lib.Columbarium
 
             columbariumTransactionDto.TransferredColumbariumTransactionDtoAF = _tracking.GetLatestFirstTransactionByNicheId(columbariumTransactionDto.NicheDtoId).ColumbariumTransactionAF;
 
-            GetTransaction(columbariumTransactionDto.TransferredColumbariumTransactionDtoAF).DeletedDate = System.DateTime.Now;
+            GetTransaction(columbariumTransactionDto.TransferredColumbariumTransactionDtoAF).DeletedUtcTime = System.DateTime.UtcNow;
 
             _tracking.Remove(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.TransferredColumbariumTransactionDtoAF);
 
@@ -197,7 +197,7 @@ namespace Memorial.Lib.Columbarium
 
             DeleteTransaction();
 
-            previousTransaction.DeletedDate = null;
+            previousTransaction.DeletedUtcTime = null;
 
             _tracking.Add(previousTransaction.NicheId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.Deceased1Id, previousTransaction.Deceased2Id);
 

@@ -107,8 +107,6 @@ namespace Memorial.Lib.Deceased
 
             Mapper.Map(deceasedDto, _deceased);
 
-            _deceased.CreatedDate = System.DateTime.Now;
-
             _unitOfWork.Deceaseds.Add(_deceased);
 
             _unitOfWork.Complete();
@@ -121,8 +119,6 @@ namespace Memorial.Lib.Deceased
             var deceasedInDb = GetDeceased(deceasedDto.Id);
 
             Mapper.Map(deceasedDto, deceasedInDb);
-
-            deceasedInDb.ModifiedDate = System.DateTime.Now;
 
             _unitOfWork.Complete();
 

@@ -68,7 +68,7 @@ namespace Memorial.Lib.Columbarium
             var trnsAF = string.Join(",", trns.Select(t => t.AF));
             foreach (var trn in trns)
             {
-                trn.DeletedDate = DateTime.Now;
+                trn.DeletedUtcTime = DateTime.UtcNow;
             }
             columbariumTransactionDto.WithdrewAFS = trnsAF;
 
@@ -127,7 +127,7 @@ namespace Memorial.Lib.Columbarium
 
             foreach(var AF in AFs)
             {
-                GetTransaction(AF).DeletedDate = null;
+                GetTransaction(AF).DeletedUtcTime = null;
             }
 
             _niche.SetNiche(_transaction.NicheId);
@@ -172,7 +172,7 @@ namespace Memorial.Lib.Columbarium
                 return false;
             }
 
-            trans.ElementAt(0).DeletedDate = DateTime.Now;
+            trans.ElementAt(0).DeletedUtcTime = DateTime.UtcNow;
 
             var trackings = _tracking.GetTrackingByNicheId(_transaction.NicheId, true);
 

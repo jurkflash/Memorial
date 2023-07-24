@@ -99,7 +99,7 @@ namespace Memorial.Lib.Cemetery
 
             cemeteryTransactionDto.TransferredCemeteryTransactionAF = _tracking.GetLatestFirstTransactionByPlotId(cemeteryTransactionDto.PlotDtoId).CemeteryTransactionAF;
 
-            GetTransaction(cemeteryTransactionDto.TransferredCemeteryTransactionAF).DeletedDate = System.DateTime.Now;
+            GetTransaction(cemeteryTransactionDto.TransferredCemeteryTransactionAF).DeletedUtcTime = System.DateTime.UtcNow;
 
             _tracking.Remove(cemeteryTransactionDto.PlotDtoId, cemeteryTransactionDto.TransferredCemeteryTransactionAF);
 
@@ -207,7 +207,7 @@ namespace Memorial.Lib.Cemetery
 
             DeleteTransaction();
 
-            previousTransaction.DeletedDate = null;
+            previousTransaction.DeletedUtcTime = null;
 
             _tracking.Add(previousTransaction.PlotId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.Deceased1Id, previousTransaction.Deceased2Id, previousTransaction.Deceased3Id);
 

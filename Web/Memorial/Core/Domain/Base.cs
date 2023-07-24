@@ -9,16 +9,16 @@ namespace Memorial.Core.Domain
     {
         public bool ActiveStatus { get; set; }
 
-        public int CreatedById { get; set; }
+        public string CreatedById { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedUtcTime { get; set; }
 
-        public int ModifiedById { get; set; }
+        public string ModifiedById { get; set; }
 
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? ModifiedUtcTime { get; set; }
 
-        public int DeletedById { get; set; }
+        public string DeletedById { get; set; }
 
-        public DateTime? DeletedDate { get; set; }
+        public DateTime? DeletedUtcTime { get; set; }
     }
 }

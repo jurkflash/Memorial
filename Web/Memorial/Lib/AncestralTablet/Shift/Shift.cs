@@ -107,7 +107,7 @@ namespace Memorial.Lib.AncestralTablet
 
             ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF = _tracking.GetLatestFirstTransactionByAncestralTabletId((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId).AncestralTabletTransactionAF;
 
-            GetTransaction(ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF).DeletedDate = System.DateTime.Now;
+            GetTransaction(ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF).DeletedUtcTime = System.DateTime.UtcNow;
 
             _tracking.Remove((int)ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId, ancestralTabletTransactionDto.ShiftedAncestralTabletTransactionDtoAF);
 
@@ -216,7 +216,7 @@ namespace Memorial.Lib.AncestralTablet
                 _ancestralTablet.SetHasDeceased(true);
             }
 
-            previousTransaction.DeletedDate = null;
+            previousTransaction.DeletedUtcTime = null;
 
             _tracking.Add(previousTransaction.AncestralTabletId, previousTransaction.AF, previousTransaction.ApplicantId, previousTransaction.DeceasedId);
 
