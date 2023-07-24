@@ -15,43 +15,43 @@ namespace Memorial.Persistence.Repositories
         public IEnumerable<Invoice> GetByActiveAncestralTabletAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.AncestralTabletTransactionAF == AF)
-                .ToList().OrderBy(i => i.CreatedDate);
+                .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveCremationAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.CremationTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveCemeteryAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.CemeteryTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveSpaceAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.SpaceTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveUrnAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.UrnTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveColumbariumAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.ColumbariumTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public IEnumerable<Invoice> GetByActiveMiscellaneousAF(string AF)
         {
             return MemorialContext.Invoices.Where(i => i.MiscellaneousTransactionAF == AF)
-                            .ToList().OrderBy(i => i.CreatedDate);
+                            .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
         public Invoice GetByActiveIV(string IV)

@@ -18,7 +18,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.AncestralTabletTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveCremationAF(string AF)
@@ -27,7 +27,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.CremationTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveCemeteryAF(string AF)
@@ -36,7 +36,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.CemeteryTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveSpaceAF(string AF)
@@ -45,7 +45,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.SpaceTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveUrnAF(string AF)
@@ -54,7 +54,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.UrnTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveColumbariumAF(string AF)
@@ -63,7 +63,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.ColumbariumTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByNonOrderActiveMiscellaneousAF(string AF)
@@ -72,7 +72,7 @@ namespace Memorial.Persistence.Repositories
                 .Where(r => r.MiscellaneousTransactionAF == AF &&
                     r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public IEnumerable<Receipt> GetByActiveIV(string IV)
@@ -80,7 +80,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.Receipts
                 .Where(r => r.InvoiceIV == IV)
                 .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedDate);
+                .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
         public Receipt GetByActiveRE(string RE)

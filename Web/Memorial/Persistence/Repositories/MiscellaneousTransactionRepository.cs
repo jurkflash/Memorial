@@ -71,7 +71,7 @@ namespace Memorial.Persistence.Repositories
             if (number != null)
                 result = result.Take((int)number);
 
-            return result.OrderByDescending(t => t.CreatedDate).ToList();
+            return result.OrderByDescending(t => t.CreatedUtcTime).ToList();
         }
 
         public MemorialContext MemorialContext
