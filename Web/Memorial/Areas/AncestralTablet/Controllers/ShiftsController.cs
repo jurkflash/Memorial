@@ -102,6 +102,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
                 ancestralTabletTransactionDto.ApplicantDtoId = applicantId;
 
+                ancestralTabletTransactionDto.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+
                 ancestralTabletTransactionDto.AncestralTabletItemDtoId = itemId;
 
                 ancestralTabletTransactionDto.ShiftedAncestralTabletDtoId = id;
@@ -162,6 +164,23 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult FormForResubmit(AncestralTabletTransactionsFormViewModel viewModel)
         {
+            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+
+            if (viewModel.AncestralTabletTransactionDto.AF == null)
+            {
+                viewModel.AncestralTabletTransactionDto.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+
+                viewModel.AncestralTabletTransactionDto.ShiftedAncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+            }
+            else
+            {
+                viewModel.AncestralTabletTransactionDto = _shift.GetTransactionDto(viewModel.AncestralTabletTransactionDto.AF);
+
+                _ancestralTablet.SetAncestralTablet((int)viewModel.AncestralTabletTransactionDto.ShiftedAncestralTabletDtoId);
+
+                viewModel.AncestralTabletTransactionDto.ShiftedAncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+            }
+
             return View("Form", viewModel);
         }
 
@@ -180,7 +199,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Invoice(string AF)
         {
-            return RedirectToAction("Index", "AncestralTabletInvoices", new { AF = AF, area = "AncestralTablet" });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "AncestralTablet" });
         }
     }
 }

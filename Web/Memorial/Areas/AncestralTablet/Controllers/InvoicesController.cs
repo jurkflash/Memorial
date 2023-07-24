@@ -119,7 +119,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Receipt(string IV, string AF)
         {
-            return RedirectToAction("Index", "AncestralTabletReceipts", new { IV = IV, AF = AF });
+            return RedirectToAction("Index", "Receipts", new { IV = IV, AF = AF });
         }
 
         public ActionResult Delete(string IV, string AF)

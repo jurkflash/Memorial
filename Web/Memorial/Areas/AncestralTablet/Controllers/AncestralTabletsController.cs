@@ -13,6 +13,7 @@ using Memorial.Lib;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
+    [Authorize]
     public class AncestralTabletsController : Controller
     {
         private readonly IAncestralTablet _ancestralTablet;

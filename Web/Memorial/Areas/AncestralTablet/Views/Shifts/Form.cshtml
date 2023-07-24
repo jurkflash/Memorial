@@ -135,7 +135,7 @@
     <script>
         function sites() {
             $.ajax({
-                url: "/api/Sites/GetSites"
+                url: "/api/Sites"
             })
                 .done(function (response) {
                     var len = response.length;
@@ -174,7 +174,7 @@
         }
 
         function ancestralTablets() {
-            url = "/api/ancestraltabletareas/" + $("#Areas").val() + "/availableAncestralTablets";
+            url = "/api/ancestraltablets/areas/" + $("#Areas").val() + "/availableAncestralTablets";
 
             $.ajax({
                 url: url

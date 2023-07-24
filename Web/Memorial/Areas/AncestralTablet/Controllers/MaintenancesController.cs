@@ -159,7 +159,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Invoice(string AF)
         {
-            return RedirectToAction("Index", "AncestralTabletInvoices", new { AF = AF, area = "AncestralTablet" });
+            return RedirectToAction("Index", "Invoices", new { AF = AF, area = "AncestralTablet" });
         }
     }
 }
