@@ -30,7 +30,6 @@ namespace Memorial.DependencyResolution {
 					scan.With(new ControllerConvention());
                 });
             //For<IExample>().Use<Example>();
-            //For<Memorial.Lib.ISpace>().Use<Memorial.Lib.Space>();
         }
 
         #endregion
