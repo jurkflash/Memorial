@@ -12,5 +12,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<UrnTransaction> GetByItemAndApplicant(int itemId, int applicantId);
 
         IEnumerable<UrnTransaction> GetRecent(int? number, int siteId, int? applicantId);
+
+        bool GetExistsByApplicant(int id);
     }
 }

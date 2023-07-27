@@ -42,6 +42,11 @@ namespace Memorial.Core.Dtos
 
         public byte ReligionTypeDtoId { get; set; }
 
+        public RelationshipTypeDto RelationshipTypeDto { get; set; }
+
+        public byte RelationshipTypeDtoId { get; set; }
+        public int ApplicationDtoId { get; set; }
+
         public string DeathPlace { get; set; }
 
         [Required]

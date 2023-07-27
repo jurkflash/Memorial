@@ -10,6 +10,10 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<SpaceTransaction> GetByApplicant(int id);
 
+        bool GetExistsByApplicant(int id);
+
+        bool GetExistsByDeceased(int id);
+
         IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter);
 
         IEnumerable<SpaceTransaction> GetByItemAndApplicant(int itemId, int applicantId);

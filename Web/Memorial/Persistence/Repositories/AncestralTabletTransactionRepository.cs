@@ -43,6 +43,16 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTransactions.Where(at => at.ApplicantId == id).ToList();
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.AncestralTabletTransactions.Where(at => at.ApplicantId == id).Any();
+        }
+
+        public bool GetExistsByDeceased(int id)
+        {
+            return MemorialContext.AncestralTabletTransactions.Where(at => at.DeceasedId == id).Any();
+        }
+
         public IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter)
         {
             var transactions = MemorialContext.AncestralTabletTransactions

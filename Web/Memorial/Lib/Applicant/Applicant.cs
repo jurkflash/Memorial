@@ -30,6 +30,11 @@ namespace Memorial.Lib.Applicant
             return _unitOfWork.Applicants.GetByIC(ic);
         }
 
+        public bool GetExistsByIC(string ic, int? excludeId = null)
+        {
+            return _unitOfWork.Applicants.GetExistsByIC(ic, excludeId);
+        }
+
         public Core.Domain.Applicant GetApplicant()
         {
             return _applicant;
@@ -73,6 +78,49 @@ namespace Memorial.Lib.Applicant
             SetApplicant(applicantDto.Id);
             Mapper.Map(applicantDto, GetApplicant());
             _unitOfWork.Complete();
+            return true;
+        }
+
+        public bool IsRecordLinked(int id)
+        {
+            if (_unitOfWork.ApplicantDeceaseds.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.SpaceTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.MiscellaneousTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.ColumbariumTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.CemeteryTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.UrnTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.CremationTransactions.GetExistsByApplicant(id))
+                return true;
+
+            if (_unitOfWork.AncestralTabletTransactions.GetExistsByApplicant(id))
+                return true;
+
+            return false;
+        }
+
+        public bool Remove(int id)
+        {
+            if (IsRecordLinked(id))
+                return false;
+
+            var applicantInDb = GetApplicant(id);
+
+            _unitOfWork.Applicants.Remove(applicantInDb);
+
+            _unitOfWork.Complete();
+
             return true;
         }
     }

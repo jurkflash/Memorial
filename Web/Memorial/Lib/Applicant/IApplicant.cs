@@ -14,6 +14,8 @@ namespace Memorial.Lib.Applicant
 
         Core.Domain.Applicant GetApplicant();
 
+        bool GetExistsByIC(string ic, int? excludeId = null);
+
         ApplicantDto GetApplicantDto();
 
         Core.Domain.Applicant GetApplicant(int id);
@@ -27,5 +29,9 @@ namespace Memorial.Lib.Applicant
         bool Create(ApplicantDto applicantDto);
 
         bool Update(ApplicantDto applicantDto);
+
+        bool Remove(int id);
+
+        bool IsRecordLinked(int id);
     }
 }

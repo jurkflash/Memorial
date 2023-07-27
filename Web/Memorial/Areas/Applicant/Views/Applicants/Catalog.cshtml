@@ -12,3 +12,29 @@
     @Html.ActionLink(site.Name, "Site", new { siteId = site.Id, applicantId = Model.ApplicantId, area = "Applicant" })
     <br />
 }
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/deceaseds/" + button.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            },
+                            error: function () {
+                                toastr.error(MEMORIAL_RECORD_LINKED);
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

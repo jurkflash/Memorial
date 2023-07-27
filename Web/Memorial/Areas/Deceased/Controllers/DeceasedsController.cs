@@ -15,6 +15,7 @@ using Memorial.Lib.RelationshipType;
 using Memorial.Lib.ReligionType;
 using Memorial.Lib.ApplicantDeceased;
 using AutoMapper;
+using Memorial.Lib.Applicant;
 
 namespace Memorial.Areas.Deceased.Controllers
 {
@@ -85,7 +86,7 @@ namespace Memorial.Areas.Deceased.Controllers
                 _applicantDeceased.SetApplicantDeceased(applicantId, id);
                 viewModel.ApplicantId = applicantId;
                 viewModel.DeceasedDto = deceased;
-                viewModel.RelationshipTypeId = _applicantDeceased.GetRelationshipTypeId();
+                viewModel.DeceasedDto.RelationshipTypeDtoId = _applicantDeceased.GetRelationshipTypeId();
             }
 
             return View("Form", viewModel);
@@ -98,9 +99,8 @@ namespace Memorial.Areas.Deceased.Controllers
             viewModel.NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos();
             viewModel.RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos();
             viewModel.ReligionTypeDtos = _religionType.GetReligionTypeDtos();
-            
-            var deceasedIC = _deceased.GetDeceasedByIC(viewModel.DeceasedDto.IC);
-            if (deceasedIC != null && ((viewModel.DeceasedDto.Id == 0) || (viewModel.DeceasedDto.Id != deceasedIC.Id)))
+
+            if (_deceased.GetExistsByIC(viewModel.DeceasedDto.IC, viewModel.DeceasedDto.Id == 0 ? (int?)null : viewModel.DeceasedDto.Id))
             {
                 ModelState.AddModelError("DeceasedDto.IC", "IC exists");
                 return View("Form", viewModel);
@@ -114,22 +114,15 @@ namespace Memorial.Areas.Deceased.Controllers
 
             if (viewModel.DeceasedDto.Id == 0)
             {
-                var id = _deceased.Create(viewModel.DeceasedDto);
+                viewModel.DeceasedDto.ApplicationDtoId = viewModel.ApplicantId;
 
-                if (id != 0)
-                {
-                    _applicantDeceased.Create(viewModel.ApplicantId, id, viewModel.RelationshipTypeId);
-                }
-                else
-                {
-                    return View("Form", viewModel);
-                }
+                _deceased.Add(viewModel.DeceasedDto);
             }
             else
             {
                 if (_deceased.Update(viewModel.DeceasedDto))
                 {
-                    _applicantDeceased.Update(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.RelationshipTypeId);
+                    _applicantDeceased.Update(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.DeceasedDto.RelationshipTypeDtoId);
                 }
                 else
                 {
@@ -137,7 +130,7 @@ namespace Memorial.Areas.Deceased.Controllers
                 }
             }
 
-            return RedirectToAction("Catalog", "Applicants", new { id = viewModel.ApplicantId });
+            return RedirectToAction("Catalog", "Applicants", new { id = viewModel.ApplicantId, area = "Applicant" });
         }
 
         public ActionResult Info(int id)

@@ -8,6 +8,7 @@ using Memorial.Lib.Columbarium;
 using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Cemetery;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Deceased
 {
@@ -39,6 +40,11 @@ namespace Memorial.Lib.Deceased
         public Core.Domain.Deceased GetDeceasedByIC(string ic)
         {
             return _unitOfWork.Deceaseds.GetByIC(ic);
+        }
+
+        public bool GetExistsByIC(string ic, int? excludeId = null)
+        {
+            return _unitOfWork.Deceaseds.GetExistsByIC(ic, excludeId);
         }
 
         public Core.Domain.Deceased GetDeceased()
@@ -101,11 +107,41 @@ namespace Memorial.Lib.Deceased
             return _unitOfWork.Deceaseds.GetByPlot(plotId);
         }
 
-        public int Create(DeceasedDto deceasedDto)
+        public bool IsRecordLinked(int id)
+        {
+            var deceased = GetDeceased(id);
+            if (deceased.AncestralTabletId != null || deceased.NicheId != null || deceased.PlotId != null)
+                return true;
+
+            if (_unitOfWork.AncestralTabletTransactions.GetExistsByDeceased(id))
+                return true;
+
+            if (_unitOfWork.CemeteryTransactions.GetExistsByDeceased(id))
+                return true;
+
+            if (_unitOfWork.ColumbariumTransactions.GetExistsByDeceased(id))
+                return true;
+
+            if (_unitOfWork.CremationTransactions.GetExistsByDeceased(id))
+                return true;
+
+            if (_unitOfWork.SpaceTransactions.GetExistsByDeceased(id))
+                return true;
+
+            return false;
+        }
+
+        public int Add(DeceasedDto deceasedDto)
         {
             _deceased = new Core.Domain.Deceased();
 
             Mapper.Map(deceasedDto, _deceased);
+
+            _deceased.ApplicantDeceaseds.Add(new Core.Domain.ApplicantDeceased()
+            {
+                ApplicantId = deceasedDto.ApplicationDtoId,
+                RelationshipTypeId = deceasedDto.RelationshipTypeDtoId
+            });
 
             _unitOfWork.Deceaseds.Add(_deceased);
 
@@ -119,6 +155,20 @@ namespace Memorial.Lib.Deceased
             var deceasedInDb = GetDeceased(deceasedDto.Id);
 
             Mapper.Map(deceasedDto, deceasedInDb);
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(int id)
+        {
+            if (IsRecordLinked(id))
+                return false;
+
+            var deceasedInDb = GetDeceased(id);
+
+            _unitOfWork.Deceaseds.Remove(deceasedInDb);
 
             _unitOfWork.Complete();
 

@@ -49,6 +49,11 @@ namespace Memorial.Persistence.Repositories
                 a.DeceasedId == deceasedId).FirstOrDefault();
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.ApplicantDeceaseds.Where(a => a.ApplicantId == id).Any();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -889,6 +889,7 @@
     <Compile Include="Areas\UrnConfig\UrnConfigAreaRegistration.cs" />
     <Compile Include="Areas\Urn\Data\UrnTransactionsInfoViewModel.cs" />
     <Compile Include="Areas\Urn\UrnAreaRegistration.cs" />
+    <Compile Include="Controllers\Api\ApplicantsController.cs" />
     <Compile Include="Controllers\Api\CemeteryLandscapeCompaniesController.cs" />
     <Compile Include="Controllers\Api\FengShuiMastersController.cs" />
     <Compile Include="Controllers\Api\SpaceItemsController.cs" />

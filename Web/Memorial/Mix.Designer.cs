@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Mix {
@@ -700,11 +700,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 修改申請者 Edit Applicant.
+        /// </summary>
+        public static string EditApplicant {
+            get {
+                return ResourceManager.GetString("EditApplicant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 修改&lt;br /&gt;Edit.
         /// </summary>
         public static string EditBR {
             get {
                 return ResourceManager.GetString("EditBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 修改逝世者 Edit Deceased.
+        /// </summary>
+        public static string EditDeceased {
+            get {
+                return ResourceManager.GetString("EditDeceased", resourceCulture);
             }
         }
         

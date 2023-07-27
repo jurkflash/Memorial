@@ -24,13 +24,14 @@
     </div>
 }
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="tbl">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.EnglishNameBR)</th>
             <th>@Html.Raw(Resources.Mix.ChineseNameBR)</th>
             <th>@Html.Raw(Resources.Mix.ICBR)</th>
             <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +42,7 @@
                 <td>@applicant.Name2</td>
                 <td>@applicant.IC</td>
                 <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", new { id = applicant.Id, area = "Applicant" })</td>
+                <td><button class="btn btn-sm btn-danger js-delete" data-id=@applicant.Id>@Resources.Mix.Delete</button></td>
             </tr>
         }
     </tbody>
@@ -48,3 +50,29 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, filter = ViewBag.CurrentFilter }))
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#tbl").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm(MEMORIAL_CONFIRM, function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/applicants/" + button.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            },
+                            error: function () {
+                                toastr.error(MEMORIAL_RECORD_LINKED);
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

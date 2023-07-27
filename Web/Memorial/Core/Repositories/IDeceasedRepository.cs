@@ -9,6 +9,8 @@ namespace Memorial.Core.Repositories
 
         Deceased GetActive(int id);
 
+        bool GetExistsByIC(string IC, int? excludeId = null);
+
         IEnumerable<Deceased> GetByApplicant(int id);
 
         IEnumerable<Deceased> GetAllExcludeFilter(int applicantId, string deceasedName);

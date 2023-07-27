@@ -18,6 +18,8 @@ namespace Memorial.Lib.Deceased
 
         DeceasedDto GetDeceasedDto(int id);
 
+        bool GetExistsByIC(string ic, int? excludeId = null);
+
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByApplicantId(int applicantId);
 
         IEnumerable<DeceasedDto> GetDeceasedDtosByApplicantId(int applicantId);
@@ -34,9 +36,13 @@ namespace Memorial.Lib.Deceased
 
         IEnumerable<Core.Domain.Deceased> GetDeceasedsByPlotId(int plotId);
 
-        int Create(DeceasedDto deceasedDto);
+        bool IsRecordLinked(int id);
+
+        int Add(DeceasedDto deceasedDto);
 
         bool Update(DeceasedDto deceasedDto);
+
+        bool Remove(int id);
 
         Core.Domain.Niche GetNiche();
 

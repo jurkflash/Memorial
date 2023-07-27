@@ -4,7 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(Resources.Mix.NewDeceased)</h2>
+@if (Model.DeceasedDto.Id == 0)
+{
+    <h2>@Html.Raw(Resources.Mix.NewDeceased)</h2>
+}
+else
+{
+    <h2>@Html.Raw(Resources.Mix.EditApplicant)</h2>
+}
 
 @using (Html.BeginForm("Save", "Deceaseds", new { area = "Deceased" }))
 {
@@ -86,10 +93,18 @@
     </div>
     <div class="form-group row">
         <div class="col-md-3">
+            @Html.Raw(Resources.Mix.RelationshipBR)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.DeceasedDto.RelationshipTypeDtoId, new SelectList(Model.RelationshipTypeDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
             @Html.Raw(Resources.Mix.DeathDateBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control datetimepicker", @required = "required" })
+            @Html.TextBoxFor(d => d.DeceasedDto.DeathDate, DateTime.Now.ToString("yyyy-MM-dd ") + "00:00", new { @class = "form-control datetimepicker", @required = "required" })
             @Html.ValidationMessageFor(d => d.DeceasedDto.DeathDate)
         </div>
     </div>
@@ -153,9 +168,12 @@
         $(document).ready(function () {   // will trigger when the document is ready
             $('.datetimepicker').datetimepicker({
                 dateFormat: 'yy-mm-dd',
-                timeFormat: 'HH:mm',
-                useCurrent: true
+                timeFormat: 'HH:mm'
             }); //Initialise any date pickers
+        });
+
+        $(document).on("blur", ":input", function () {
+            this.value = this.value.trim();
         });
     </script>
 

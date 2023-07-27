@@ -19,6 +19,13 @@ namespace Memorial.Persistence.Repositories
                 .Where(d => d.IC == IC).FirstOrDefault();
         }
 
+        public bool GetExistsByIC(string IC, int? excludeId = null)
+        {
+            if(excludeId == null)
+                return MemorialContext.Deceaseds.Where(d => d.IC == IC).Any();
+            return MemorialContext.Deceaseds.Where(d => d.IC == IC && d.Id != excludeId).Any();
+        }
+
         public Deceased GetActive(int id)
         {
             return MemorialContext.Deceaseds

@@ -71,6 +71,11 @@ namespace Memorial.Persistence.Repositories
             return result.OrderByDescending(t => t.CreatedUtcTime).ToList();
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.UrnTransactions.Where(ut => ut.ApplicantId == id).Any();
+        }
+
         public MemorialContext MemorialContext
         {
             get { return Context as MemorialContext; }

@@ -678,4 +678,10 @@
   <data name="CremationBR" xml:space="preserve">
     <value>火葬&lt;br /&gt;Cremation</value>
   </data>
+  <data name="EditApplicant" xml:space="preserve">
+    <value>修改申請者 Edit Applicant</value>
+  </data>
+  <data name="EditDeceased" xml:space="preserve">
+    <value>修改逝世者 Edit Deceased</value>
+  </data>
 </root>

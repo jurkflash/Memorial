@@ -11,6 +11,10 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<AncestralTabletTransaction> GetByApplicant(int id);
 
+        bool GetExistsByApplicant(int id);
+
+        bool GetExistsByDeceased(int id);
+
         IEnumerable<AncestralTabletTransaction> GetByAncestralTabletIdAndItem(int ancestralTabletId, int itemId, string filter);
 
         AncestralTabletTransaction GetByShiftedAncestralTabletTransactionAF(string AF);

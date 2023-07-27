@@ -12,5 +12,7 @@ namespace Memorial.Core.Repositories
         IEnumerable<ApplicantDeceased> GetByApplicantId(int id);
 
         ApplicantDeceased GetByApplicantDeceasedId(int applicantId, int deceasedId);
+
+        bool GetExistsByApplicant(int id);
     }
 }

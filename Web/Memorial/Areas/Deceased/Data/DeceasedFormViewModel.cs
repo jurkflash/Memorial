@@ -21,7 +21,5 @@ namespace Memorial.ViewModels
         public int ApplicantId { get; set; }
 
         public DeceasedDto DeceasedDto { get; set; }
-
-        public byte RelationshipTypeId { get; set; }
     }
 }

@@ -28,6 +28,16 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == id).ToList();
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.SpaceTransactions.Where(st => st.ApplicantId == id).Any();
+        }
+
+        public bool GetExistsByDeceased(int id)
+        {
+            return MemorialContext.SpaceTransactions.Where(st => st.DeceasedId == id).Any();
+        }
+
         public IEnumerable<SpaceTransaction> GetByItem(int itemId, string filter)
         {
             var transactions = MemorialContext.SpaceTransactions

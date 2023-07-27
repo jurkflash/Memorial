@@ -61,13 +61,14 @@
     </div>
 </div>
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="tbl">
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.EnglishNameBR)</th>
             <th>@Html.Raw(Resources.Mix.ChineseNameBR)</th>
             <th>@Html.Raw(Resources.Mix.RelationshipBR)</th>
             <th>@Html.Raw(Resources.Mix.Edit)</th>
+            <th>@Html.Raw(Resources.Mix.Delete)</th>
         </tr>
     </thead>
     <tbody>
@@ -78,6 +79,7 @@
                 <td>@deceased.Name2</td>
                 <td>@Model.ApplicantDeceasedDtos.Where(a => a.DeceasedDtoId == deceased.Id).FirstOrDefault().RelationshipTypeDto.Name</td>
                 <td>@Html.ActionLink(@Resources.Mix.Edit, "Edit", "Deceaseds", new { id = deceased.Id, applicantId = Model.ApplicantDto.Id, area = "Deceased" }, null)</td>
+                <td><button class="btn btn-sm btn-danger js-delete" data-id=@deceased.Id>@Resources.Mix.Delete</button></td>
             </tr>
         }
     </tbody>

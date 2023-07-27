@@ -13,6 +13,10 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<CremationTransaction> GetByApplicant(int id);
 
+        bool GetExistsByApplicant(int id);
+
+        bool GetExistsByDeceased(int id);
+
         IEnumerable<CremationTransaction> GetByItemAndApplicant(int itemId, int applicantId);
 
         IEnumerable<CremationTransaction> GetRecent(int? number, int siteId, int? applicantId);

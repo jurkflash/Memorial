@@ -12,6 +12,7 @@ using PagedList;
 
 namespace Memorial.Areas.Applicant.Controllers
 {
+    [Authorize]
     public class ApplicantsController : Controller
     {
         private readonly IApplicant _applicant;
@@ -27,6 +28,7 @@ namespace Memorial.Areas.Applicant.Controllers
 
         public ActionResult Index(string filter, int? page)
         {
+            string name = User.Identity.Name;
             if (!string.IsNullOrEmpty(filter))
             {
                 ViewBag.CurrentFilter = filter;
@@ -44,8 +46,13 @@ namespace Memorial.Areas.Applicant.Controllers
         [HttpPost]
         public ActionResult Save(ApplicantDto applicantDto)
         {
-            var applicantIC = _applicant.GetApplicantByIC(applicantDto.IC);
-            if (applicantIC != null && ((applicantDto.Id == 0) || (applicantDto.Id != applicantIC.Id)))
+            if (_deceased.GetExistsByIC(applicantDto.IC, applicantDto.Id == 0 ? (int?)null : applicantDto.Id))
+            {
+                ModelState.AddModelError("IC", "IC exists");
+                return View("Form", applicantDto);
+            }
+
+            if (_applicant.GetExistsByIC(applicantDto.IC, applicantDto.Id == 0 ? (int?)null : applicantDto.Id))
             {
                 ModelState.AddModelError("IC", "IC exists");
                 return View("Form", applicantDto);

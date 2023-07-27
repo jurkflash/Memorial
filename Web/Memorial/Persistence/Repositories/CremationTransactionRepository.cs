@@ -62,6 +62,16 @@ namespace Memorial.Persistence.Repositories
                 .Where(ct => ct.ApplicantId == id).ToList();
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.CremationTransactions.Where(ct => ct.ApplicantId == id).Any();
+        }
+
+        public bool GetExistsByDeceased(int id)
+        {
+            return MemorialContext.CremationTransactions.Where(ct => ct.DeceasedId == id).Any();
+        }
+
         public IEnumerable<CremationTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
             return MemorialContext.CremationTransactions

@@ -7,6 +7,8 @@ namespace Memorial.Core.Repositories
     {
         Applicant GetByIC(string IC);
 
+        bool GetExistsByIC(string IC, int? excludeId = null);
+
         Applicant GetActive(int id);
 
         IEnumerable<Applicant> GetAllActive(string filter);

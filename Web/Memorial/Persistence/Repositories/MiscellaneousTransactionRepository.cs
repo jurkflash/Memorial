@@ -44,6 +44,11 @@ namespace Memorial.Persistence.Repositories
             }
         }
 
+        public bool GetExistsByApplicant(int id)
+        {
+            return MemorialContext.MiscellaneousTransactions.Where(mt => mt.ApplicantId == id).Any();
+        }
+
         public IEnumerable<MiscellaneousTransaction> GetByItemAndApplicant(int itemId, int applicantId)
         {
             return MemorialContext.MiscellaneousTransactions

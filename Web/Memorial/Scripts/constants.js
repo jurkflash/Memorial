@@ -1,5 +1,6 @@
 ﻿const MEMORIAL_CONFIRM = "確定? Are you sure?"
 const MEMORIAL_UNEXPECTED_HAPPENED = "有問題發生 Something unexpected happened"
+const MEMORIAL_RECORD_LINKED = "已有链接记录 Record Linked"
 const MEMORIAL_SUCCESS = "成功 Success"
 const MEMORIAL_PLEASE_ENTER = "請填入 Please input"
 const MEMORIAL_PLEASE_SELECT = "請選擇 Please select"

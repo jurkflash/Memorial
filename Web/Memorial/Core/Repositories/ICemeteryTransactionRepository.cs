@@ -11,6 +11,10 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<CemeteryTransaction> GetByApplicant(int id);
 
+        bool GetExistsByApplicant(int id);
+
+        bool GetExistsByDeceased(int id);
+
         IEnumerable<CemeteryTransaction> GetByPlotIdAndItem(int plotId, int itemId, string filter);
 
         CemeteryTransaction GetByPlotIdAndDeceased(int plotId, int deceased1Id);

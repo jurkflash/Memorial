@@ -3,9 +3,11 @@ using System.Web.Http;
 using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib.Deceased;
+using Memorial.Core.Domain;
 
 namespace Memorial.Controllers.Api
 {
+    [Authorize]
     [RoutePrefix("api/deceaseds")]
     public class DeceasedsController : ApiController
     {
@@ -33,6 +35,18 @@ namespace Memorial.Controllers.Api
 
             return result;
         }
-        
+
+        [Route("{id:int}")]
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            if(_deceased.IsRecordLinked(id))
+                return BadRequest("Record linked");
+
+            if(_deceased.Remove(id))
+                return Ok();
+
+            return BadRequest("Record linked");
+        }
     }
 }
