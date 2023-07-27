@@ -9,18 +9,13 @@ namespace Memorial.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController()
         {
-            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            var maritalTypes = _unitOfWork.MaritalTypes.GetAll();
-
-            return View(maritalTypes);
+            return View();
         }
 
         

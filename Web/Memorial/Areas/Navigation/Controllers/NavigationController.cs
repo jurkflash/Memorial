@@ -9,7 +9,6 @@ using Memorial.Core.Dtos;
 
 namespace Memorial.Areas.Navigation.Controllers
 {
-    [ChildActionOnly]
     public class NavigationController : Controller
     {
         private readonly ISite _site;
@@ -19,6 +18,7 @@ namespace Memorial.Areas.Navigation.Controllers
             _site = site;
         }
 
+        [ChildActionOnly]
         public ActionResult Navigation(int? applicantId)
         {
             var viewModel = new NavigationViewModel()
@@ -28,6 +28,12 @@ namespace Memorial.Areas.Navigation.Controllers
             };
             
             return PartialView("_Navigation", viewModel);
+        }
+
+        public EmptyResult Logout()
+        {
+            Request.GetOwinContext().Authentication.SignOut();
+            return new EmptyResult();
         }
     }
 }
