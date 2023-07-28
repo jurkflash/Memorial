@@ -55,7 +55,14 @@ namespace Memorial.Areas.Urn.Controllers
 
         public ActionResult PrintAll(string IV)
         {
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
             var report = new Rotativa.ActionAsPdf("Info", new { IV = IV, exportToPDF = true });
+            report.Cookies = cookieCollection;
+
             return report;
         }
 

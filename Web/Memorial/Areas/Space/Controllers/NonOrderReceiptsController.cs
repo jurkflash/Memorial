@@ -62,7 +62,14 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult PrintAll(string RE)
         {
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
             var report = new Rotativa.ActionAsPdf("Info", new { RE = RE, exportToPDF = true });
+            report.Cookies = cookieCollection;
+
             return report;
         }
 

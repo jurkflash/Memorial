@@ -4,6 +4,7 @@ using Memorial.Lib;
 using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -63,7 +64,14 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult PrintAll(string RE)
         {
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
             var report = new Rotativa.ActionAsPdf("Info", new { RE = RE, exportToPDF = true });
+            report.Cookies = cookieCollection;
+
             return report;
         }
 

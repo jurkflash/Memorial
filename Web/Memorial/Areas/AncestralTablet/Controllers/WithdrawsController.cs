@@ -5,6 +5,7 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -79,7 +80,14 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult PrintAll(string AF)
         {
+            Dictionary<string, string> cookieCollection = new Dictionary<string, string>();
+            foreach (var key in Request.Cookies.AllKeys)
+            {
+                cookieCollection.Add(key, Request.Cookies.Get(key).Value);
+            }
             var report = new Rotativa.ActionAsPdf("Info", new { AF = AF, exportToPDF = true });
+            report.Cookies = cookieCollection;
+
             return report;
         }
 
