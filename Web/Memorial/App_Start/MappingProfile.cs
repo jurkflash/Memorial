@@ -44,7 +44,9 @@ namespace Memorial.App_Start
             CreateMap<CemeteryLandscapeCompany, CemeteryLandscapeCompanyDto>();
 
 
-            CreateMap<Applicant, ApplicantDto>();
+            CreateMap<Applicant, ApplicantDto>()
+                .ForMember(c => c.SiteDtoId, opt => opt.MapFrom(x => x.SiteId));
+
             CreateMap<Deceased, DeceasedDto>()
                 .ForMember(c => c.GenderTypeDto, opt => opt.MapFrom(x => x.GenderType))
                 .ForMember(c => c.GenderTypeDtoId, opt => opt.MapFrom(x => x.GenderTypeId))
@@ -281,7 +283,9 @@ namespace Memorial.App_Start
 
 
             CreateMap<ApplicantDto, Applicant>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+                .ForMember(c => c.Id, opt => opt.Ignore())
+                .ForMember(c => c.Site, opt => opt.Ignore())
+                .ForMember(c => c.SiteId, opt => opt.MapFrom(x => x.SiteDtoId));
             CreateMap<DeceasedDto, Deceased>()
                 .ForMember(c => c.Id, opt => opt.Ignore())
                 .ForMember(c => c.GenderType, opt => opt.Ignore())
