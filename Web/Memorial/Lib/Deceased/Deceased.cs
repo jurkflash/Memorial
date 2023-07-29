@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
 using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Cemetery;
 using AutoMapper;
-using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Deceased
 {
@@ -169,6 +167,9 @@ namespace Memorial.Lib.Deceased
             var deceasedInDb = GetDeceased(id);
 
             _unitOfWork.Deceaseds.Remove(deceasedInDb);
+
+            var applicantDeceaseds = _unitOfWork.ApplicantDeceaseds.GetByDeceasedId(id).ToList();
+            _unitOfWork.ApplicantDeceaseds.RemoveRange(applicantDeceaseds);
 
             _unitOfWork.Complete();
 
