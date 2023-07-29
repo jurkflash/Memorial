@@ -1,4 +1,4 @@
-﻿function GetURLLastParameter() {
+﻿function getURLLastParameter() {
     var sPageURL = window.location.href;
     var indexOfLastSlash = sPageURL.lastIndexOf("/");
 
@@ -8,3 +8,16 @@
         return 0;
 }
 
+$(function () {
+    $('[data-utcTime]').each(function () {
+        var date = new Date($(this).attr('data-utcTime') + "Z");
+
+        var year = date.toLocaleString("default", { year: "numeric" });
+        var month = date.toLocaleString("default", { month: "2-digit" });
+        var day = date.toLocaleString("default", { day: "2-digit" });
+        var hour = date.toLocaleString("default", { hour: "2-digit", hour12: false });
+        var minute = date.toLocaleString("default", { minute: "2-digit" });
+        var formattedDate = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+        $(this).html(formattedDate);
+    });
+});

@@ -39,7 +39,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 AF = _invoice.GetAF(),
                 RemainingAmount = _invoice.GetAmount() - _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(IV),
                 InvoiceDto = _invoice.GetInvoiceDto(),
-                ReceiptDtos = _receipt.GetOrderReceiptDtosByInvoiceIV(IV).OrderByDescending(r => r.CreatedDate)
+                ReceiptDtos = _receipt.GetOrderReceiptDtosByInvoiceIV(IV).OrderByDescending(r => r.CreatedUtcTime)
             };
 
             return View(viewModel);

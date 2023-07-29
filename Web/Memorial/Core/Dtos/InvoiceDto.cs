@@ -47,7 +47,7 @@ namespace Memorial.Core.Dtos
 
         public bool AllowDeposit { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedUtcTime { get; set; }
 
     }
 }

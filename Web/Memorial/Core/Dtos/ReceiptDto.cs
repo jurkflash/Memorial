@@ -54,7 +54,7 @@ namespace Memorial.Core.Dtos
         [MaxLength(255)]
         public string Remark { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedUtcTime { get; set; }
 
     }
 }

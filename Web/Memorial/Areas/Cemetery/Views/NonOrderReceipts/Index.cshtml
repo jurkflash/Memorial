@@ -40,7 +40,7 @@
                 <td>@receipt.Remark</td>
                 <td>@receipt.PaymentMethod.Name</td>
                 <td>@receipt.PaymentRemark</td>
-                <td>@receipt.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><span data-utcTime="@receipt.CreatedUtcTime.ToString("yyyy-MM-dd HH:mm")"></span></td>
                 <td>@Html.ActionLink(Resources.Mix.Delete, "Delete", new { RE = receipt.RE, AF = Model.AF, MasterCatalog = Model.MasterCatalog, area = "Cemetery" })</td>
             </tr>
         }
