@@ -1,10 +1,10 @@
-﻿@model Memorial.Core.Dtos.ApplicantDto
+﻿@model Memorial.ViewModels.ApplicantFormViewModel
 @{
     ViewBag.Title = "New";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model == null || Model.Id == 0)
+@if (Model.ApplicantDto == null || Model.ApplicantDto.Id == 0)
 {
     <h2>@Html.Raw(Resources.Mix.NewApplicant)</h2>
 }
@@ -20,8 +20,8 @@ else
             @Html.Raw(Resources.Mix.ICBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(a => a.IC, new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.IC)
+            @Html.TextBoxFor(a => a.ApplicantDto.IC, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.ApplicantDto.IC)
         </div>
     </div>
     <div class="form-group row">
@@ -29,8 +29,8 @@ else
             @Html.Raw(Resources.Mix.EnglishNameBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(a => a.Name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(a => a.Name)
+            @Html.TextBoxFor(a => a.ApplicantDto.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.ApplicantDto.Name)
         </div>
     </div>
     <div class="form-group row">
@@ -38,7 +38,7 @@ else
             @Html.Raw(Resources.Mix.ChineseNameBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(a => a.Name2, new { @class = "form-control" })
+            @Html.TextBoxFor(a => a.ApplicantDto.Name2, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -46,7 +46,7 @@ else
             @Html.Raw(Resources.Mix.AddressBR)
         </div>
         <div class="col-md-6">
-            @Html.TextAreaFor(a => a.Address, new { @class = "form-control" })
+            @Html.TextAreaFor(a => a.ApplicantDto.Address, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -54,7 +54,7 @@ else
             @Html.Raw(Resources.Mix.HousePhoneBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(a => a.HousePhone, new { @class = "form-control" })
+            @Html.TextBoxFor(a => a.ApplicantDto.HousePhone, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -62,7 +62,7 @@ else
             @Html.Raw(Resources.Mix.MobileNumberBR)
         </div>
         <div class="col-md-6">
-            @Html.TextBoxFor(a => a.MobileNumber, new { @class = "form-control" })
+            @Html.TextBoxFor(a => a.ApplicantDto.MobileNumber, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -70,10 +70,19 @@ else
             @Html.Raw(Resources.Mix.RemarkBR)
         </div>
         <div class="col-md-6">
-            @Html.TextAreaFor(a => a.Remark, new { @class = "form-control" })
+            @Html.TextAreaFor(a => a.ApplicantDto.Remark, new { @class = "form-control" })
         </div>
     </div>
-    @Html.HiddenFor(a => a.Id)
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.Raw(Resources.Mix.SiteBR)
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownListFor(d => d.ApplicantDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(a => a.ApplicantDto.Id)
     <button type="submit" class="btn btn-primary">@Html.Raw(Resources.Mix.Save)</button>
 }
 

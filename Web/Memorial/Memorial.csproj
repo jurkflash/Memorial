@@ -822,6 +822,7 @@
     <Compile Include="Areas\AncestralTablet\Data\AncestralTabletDeceasedsViewModel.cs" />
     <Compile Include="Areas\ApplicantDeceaseds\ApplicantDeceasedsAreaRegistration.cs" />
     <Compile Include="Areas\Applicant\ApplicantAreaRegistration.cs" />
+    <Compile Include="Areas\Applicant\Data\ApplicantFormViewModel.cs" />
     <Compile Include="Areas\CemeteryConfig\CemeteryConfigAreaRegistration.cs" />
     <Compile Include="Areas\CemeteryConfig\Controllers\ItemsController.cs" />
     <Compile Include="Areas\CemeteryConfig\Controllers\PlotsController.cs" />
@@ -1398,6 +1399,14 @@
     <Compile Include="Migrations\202307241246589_RenameAuditDateColumns.designer.cs">
       <DependentUpon>202307241246589_RenameAuditDateColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307291551502_AddSiteFieldToApplicantsTable.cs" />
+    <Compile Include="Migrations\202307291551502_AddSiteFieldToApplicantsTable.designer.cs">
+      <DependentUpon>202307291551502_AddSiteFieldToApplicantsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307291602273_ApplicantsTableSiteFieldOffCascadeDelete.cs" />
+    <Compile Include="Migrations\202307291602273_ApplicantsTableSiteFieldOffCascadeDelete.designer.cs">
+      <DependentUpon>202307291602273_ApplicantsTableSiteFieldOffCascadeDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1924,6 +1933,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307241246589_RenameAuditDateColumns.resx">
       <DependentUpon>202307241246589_RenameAuditDateColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307291551502_AddSiteFieldToApplicantsTable.resx">
+      <DependentUpon>202307291551502_AddSiteFieldToApplicantsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307291602273_ApplicantsTableSiteFieldOffCascadeDelete.resx">
+      <DependentUpon>202307291602273_ApplicantsTableSiteFieldOffCascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

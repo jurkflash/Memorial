@@ -9,6 +9,7 @@ using Memorial.Lib.Site;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Applicant.Controllers
 {
@@ -40,7 +41,13 @@ namespace Memorial.Areas.Applicant.Controllers
 
         public ActionResult New()
         {
-            return View("Form");
+            var viewModel = new ApplicantFormViewModel
+            {
+                SiteDtos = _site.GetSiteDtos(),
+                ApplicantDto = new ApplicantDto()
+            };
+
+            return View("Form", viewModel);
         }
 
         [HttpPost]
@@ -70,7 +77,12 @@ namespace Memorial.Areas.Applicant.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View("Form", _applicant.GetApplicantDto(id));
+            var viewModel = new ApplicantFormViewModel
+            {
+                SiteDtos = _site.GetSiteDtos(),
+                ApplicantDto = _applicant.GetApplicantDto(id)
+            };
+            return View("Form", viewModel);
         }
 
         public ActionResult Catalog(int id)

@@ -67,6 +67,10 @@ namespace Memorial.Core.Domain
 
         public string Remark { get; set; }
 
+        public Site Site { get; set; }
+
+        public int SiteId { get; set; }
+
         public ICollection<ApplicantDeceased> ApplicantDeceaseds { get; set; }
 
         public ICollection<AncestralTablet> AncestralTablets { get; set; }

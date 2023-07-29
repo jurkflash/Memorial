@@ -7,6 +7,8 @@ namespace Memorial.Core.Domain
     {
         public Site()
         {
+            Applicants = new HashSet<Applicant>();
+
             CemeteryAreas = new HashSet<CemeteryArea>();
 
             AncestralTabletAreas = new HashSet<AncestralTabletArea>();
@@ -33,6 +35,8 @@ namespace Memorial.Core.Domain
         public string Header { get; set; }
 
         public string Remark { get; set; }
+
+        public ICollection<Applicant> Applicants { get; set; }
 
         public ICollection<CemeteryArea> CemeteryAreas { get; set; }
 

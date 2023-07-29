@@ -18,6 +18,11 @@ namespace Memorial.Persistence.EntityConfigurations
             Property(a => a.Remark)
                 .HasMaxLength(255);
 
+            HasRequired(a => a.Site)
+                .WithMany(s => s.Applicants)
+                .HasForeignKey(a => a.SiteId)
+                .WillCascadeOnDelete(false);
+
             EntityTypeConfigurationExtension.ConfigureAuditColumns(this);
         }
     }

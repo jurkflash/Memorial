@@ -23,5 +23,9 @@ namespace Memorial.Core.Dtos
         public string MobileNumber { get; set; }
 
         public string Remark { get; set; }
+
+        public SiteDto SiteDto { get; set; }
+
+        public int SiteDtoId { get; set; }
     }
 }
