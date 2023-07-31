@@ -157,7 +157,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreatedDate = transaction.CreatedDate,
+                    CreatedDate = transaction.CreatedUtcTime,
                     ItemId = transaction.ColumbariumItemDtoId,
                     Text1 = transaction.NicheDto.ColumbariumAreaDto.ColumbariumCentreDto.Name,
                     Text2 = transaction.NicheDto.ColumbariumAreaDto.Name,

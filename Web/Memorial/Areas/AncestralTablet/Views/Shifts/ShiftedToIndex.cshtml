@@ -52,7 +52,7 @@
                 <td>@ancestralTabletTransaction.AncestralTabletDto.Name</td>
                 <td>@ancestralTabletTransaction.ApplicantDto.Name &nbsp; @ancestralTabletTransaction.ApplicantDto.Name2</td>
                 <td>@ancestralTabletTransaction.Price</td>
-                <td>@ancestralTabletTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><span data-utcTime="@ancestralTabletTransaction.CreatedUtcTime.ToString("yyyy-MM-dd HH:mm")"></span></td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoice", new { AF = ancestralTabletTransaction.AF })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = ancestralTabletTransaction.AF, applicantId = Model.ApplicantId, area = "AncestralTablet" })</td>
                 <td>

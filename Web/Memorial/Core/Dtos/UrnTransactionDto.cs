@@ -22,8 +22,6 @@ namespace Memorial.Core.Dtos
 
         public string SummaryItem { get; set; }
 
-        public DateTime CreatedDate { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime CreatedUtcTime { get; set; }
     }
 }

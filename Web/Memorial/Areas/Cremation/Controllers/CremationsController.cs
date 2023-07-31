@@ -74,7 +74,7 @@ namespace Memorial.Areas.Cremation.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreatedDate = transaction.CreatedDate,
+                    CreatedDate = transaction.CreatedUtcTime,
                     ItemId = transaction.CremationItemDtoId,
                     Text1 = transaction.CremationItemDto.CremationDto.Name,
                     ItemName = transaction.CremationItemDto.SubProductServiceDto.Name,

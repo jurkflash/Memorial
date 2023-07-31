@@ -122,7 +122,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 {
                     Code = transaction.AF,
                     ApplicantName = transaction.ApplicantDto.Name,
-                    CreatedDate = transaction.CreatedDate,
+                    CreatedDate = transaction.CreatedUtcTime,
                     ItemId = transaction.AncestralTabletItemDtoId,
                     Text1 = transaction.AncestralTabletDto.AncestralTabletAreaDto.Name,
                     Text2 = transaction.AncestralTabletDto.Name,

@@ -59,7 +59,7 @@
                 <td>@Convert.ToDateTime(ancestralTabletTransaction.FromDate).ToString("yyyy-MMM")</td>
                 <td>@Convert.ToDateTime(ancestralTabletTransaction.ToDate).ToString("yyyy-MMM")</td>
                 <td>@ancestralTabletTransaction.Price</td>
-                <td>@ancestralTabletTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><span data-utcTime="@ancestralTabletTransaction.CreatedUtcTime.ToString("yyyy-MM-dd HH:mm")"></span></td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoice", new { AF = ancestralTabletTransaction.AF, area = "AncestralTablet" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = ancestralTabletTransaction.AF, applicantId = Model.ApplicantId, area = "AncestralTablet" })</td>
                 <td>

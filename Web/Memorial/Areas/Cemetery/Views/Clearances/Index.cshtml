@@ -56,7 +56,7 @@
                 <td>@cemeteryTransaction.PlotDto.Name</td>
                 <td>@cemeteryTransaction.ApplicantDto.Name &nbsp; @cemeteryTransaction.ApplicantDto.Name2</td>
                 <td>@cemeteryTransaction.Price</td>
-                <td>@cemeteryTransaction.CreatedDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td><span data-utcTime="@cemeteryTransaction.CreatedUtcTime.ToString("yyyy-MM-dd HH:mm")"></span></td>
                 <td>@Html.ActionLink(Resources.Mix.Invoice, "Invoices", new { AF = cemeteryTransaction.AF, area = "Cemetery" })</td>
                 <td>@Html.ActionLink(Resources.Mix.Edit, "Form", new { AF = cemeteryTransaction.AF, applicantId = Model.ApplicantId, area = "Cemetery" })</td>
                 <td>

@@ -21,3 +21,15 @@ $(function () {
         $(this).html(formattedDate);
     });
 });
+
+$(function () {
+    $('[data-utcDate]').each(function () {
+        var date = new Date($(this).attr('data-utcDate') + "Z");
+
+        var year = date.toLocaleString("default", { year: "numeric" });
+        var month = date.toLocaleString("default", { month: "short" });
+        var day = date.toLocaleString("default", { day: "2-digit" });
+        var formattedDate = year + "-" + month + "-" + day;
+        $(this).html(formattedDate);
+    });
+});
