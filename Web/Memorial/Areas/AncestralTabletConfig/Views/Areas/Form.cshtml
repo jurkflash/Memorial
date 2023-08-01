@@ -16,8 +16,7 @@
                 @Html.Raw(Resources.Mix.SiteBR)
             </div>
             <div class="col-md-6">
-                @Html.DropDownListFor(s => s.AncestralTabletAreaDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "Please Select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.AncestralTabletAreaDto.SiteDtoId)
+                @Html.DropDownListFor(s => s.AncestralTabletAreaDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
             </div>
         </div>
     }

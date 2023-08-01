@@ -59,7 +59,7 @@
                 (function (response) {
                     if (response.length > 0) {
                         relationshipType = '<select id="jsonStatusList" class="form-control">';
-                        relationshipType += '<option value="0">Please Select</option>';
+                        relationshipType += '<option value="0">請選擇 Please Select</option>';
                         for (var i = 0; i < response.length; i++) {
                             relationshipType += '<option value="' + response[i].id + '">' + response[i].name + '</option>';
                         }
@@ -151,7 +151,7 @@
                         var ddl = $(addRow2.getElementsByTagName("select")).children("option:selected");
 
                         if (ddl.val() == "0") {
-                            alert('Please Select Relationship');
+                            alert('請選擇 Please Select Relationship');
                             return false;
                         }
 

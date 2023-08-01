@@ -132,7 +132,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         {
             if (viewModel.CemeteryTransactionDto.DeceasedDto1Id == null)
             {
-                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Please Select");
+                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "請選擇 Please Select");
                 return FormForResubmit(viewModel);
             }
 

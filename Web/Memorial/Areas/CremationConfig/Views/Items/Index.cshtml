@@ -63,7 +63,7 @@
                 .done(function (response) {
                     var len = response.length;
                     $("#Sites").empty();
-                    $("#Sites").append("<option value='0'>Please Select</option>");
+                    $("#Sites").append("<option value='0'>請選擇 Please Select</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
@@ -82,7 +82,7 @@
                 .done(function (response) {
                     var len = response.length;
                     $("#Cremations").empty();
-                    $("#Cremations").append("<option value='0'>Please Select</option>");
+                    $("#Cremations").append("<option value='0'>請選擇 Please Select</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];

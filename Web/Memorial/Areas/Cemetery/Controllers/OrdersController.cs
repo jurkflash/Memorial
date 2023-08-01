@@ -161,7 +161,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             _plot.SetPlot(viewModel.CemeteryTransactionDto.PlotDtoId);
             if (viewModel.CemeteryTransactionDto.DeceasedDto1Id == null && !_plot.IsFengShuiPlot())
             {
-                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "Please Select");
+                ModelState.AddModelError("CemeteryTransactionDto.DeceasedDto1Id", "請選擇 Please Select");
                 return FormForResubmit(viewModel);
             }
 
