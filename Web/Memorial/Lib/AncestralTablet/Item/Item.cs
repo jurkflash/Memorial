@@ -110,7 +110,7 @@ namespace Memorial.Lib.AncestralTablet
                 return new HashSet<SubProductServiceDto>();
 
             var t = GetItemByArea(areaId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetAncestralTabletProduct().Id);
+            var sp = _subProductService.GetByProduct(_product.GetAncestralTabletProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);

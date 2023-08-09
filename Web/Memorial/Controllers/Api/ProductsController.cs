@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -16,14 +17,14 @@ namespace Memorial.Controllers.Api
             _product = product;
         }
 
-        public IEnumerable<ProductDto> GetProducts()
+        public IEnumerable<ProductDto> GetAll()
         {
-            return _product.GetProductDtos();
+            return Mapper.Map<IEnumerable<ProductDto>>(_product.GetAll());
         }
 
-        public IHttpActionResult GetProduct(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_product.GetProductDto(id));
+            return Ok(Mapper.Map<ProductDto>(_product.Get(id)));
         }
 
     }

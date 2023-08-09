@@ -16,5 +16,7 @@ namespace Memorial.Core.Domain
 
         public string TransactionRemark { get; set; }
 
+        public int SpaceItemId { get; set; }
+
     }
 }

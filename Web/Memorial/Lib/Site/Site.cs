@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.Site
@@ -13,72 +9,42 @@ namespace Memorial.Lib.Site
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private Core.Domain.Site _site;
-
         public Site(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetSite(int id)
-        {
-            _site = _unitOfWork.Sites.GetActive(id);
-        }
-
-        public Core.Domain.Site GetSite()
-        {
-            return _site;
-        }
-
-        public SiteDto GetSiteDto()
-        {
-            return Mapper.Map<Core.Domain.Site, SiteDto>(_site);
-        }
-
-        public Core.Domain.Site GetSite(int id)
+        public Core.Domain.Site Get(int id)
         {
             return _unitOfWork.Sites.GetActive(id);
         }
 
-        public SiteDto GetSiteDto(int id)
-        {
-            return Mapper.Map<Core.Domain.Site, SiteDto>(GetSite(id));
-        }
-
-        public IEnumerable<Core.Domain.Site> GetSites()
+        public IEnumerable<Core.Domain.Site> GetAll()
         {
             return _unitOfWork.Sites.GetAllActive();
         }
 
-        public IEnumerable<SiteDto> GetSiteDtos()
+        public int Add(Core.Domain.Site site)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>(GetSites());
-        }
-
-        public int CreateSite(SiteDto siteDto)
-        {
-            _site = new Core.Domain.Site();
-            Mapper.Map(siteDto, _site);
-
-            _unitOfWork.Sites.Add(_site);
+            _unitOfWork.Sites.Add(site);
 
             _unitOfWork.Complete();
 
-            return _site.Id;
+            return site.Id;
         }
 
-        public bool UpdateSite(SiteDto siteDto)
+        public bool Change(int id, Core.Domain.Site site)
         {
-            var siteInDB = GetSite(siteDto.Id);
+            var siteInDb = _unitOfWork.Sites.Get(id);
 
-            Mapper.Map(siteDto, siteInDB);
+            Mapper.Map(site, siteInDb);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool DeleteSite(int id)
+        public bool Remove(int id)
         {
             if (
                 _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItem.AncestralTabletArea.SiteId == id).Any() ||
@@ -92,16 +58,12 @@ namespace Memorial.Lib.Site
                 return false;
             }
 
-            SetSite(id);
-
-            if(_site == null)
+            var siteInDb = _unitOfWork.Sites.Get(id);
+            if (siteInDb != null)
             {
-                return false;
+                _unitOfWork.Sites.Remove(siteInDb);
+                _unitOfWork.Complete();
             }
-
-            _unitOfWork.Sites.Remove(_site);
-
-            _unitOfWork.Complete();
 
             return true;
         }

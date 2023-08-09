@@ -113,7 +113,7 @@ namespace Memorial.Lib.Columbarium
                 return new HashSet<SubProductServiceDto>();
 
             var t = GetItemByCentre(centreId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetColumbariumProduct().Id);
+            var sp = _subProductService.GetByProduct(_product.GetColumbariumProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);

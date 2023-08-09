@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.FuneralCompany
@@ -12,61 +8,43 @@ namespace Memorial.Lib.FuneralCompany
     public class FuneralCompany : IFuneralCompany
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.FuneralCompany _funeralCompany;
+
         public FuneralCompany(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetFuneralCompany(int id)
+        public Core.Domain.FuneralCompany Get(int id)
         {
-            _funeralCompany = _unitOfWork.FuneralCompanies.GetActive(id);
+            return _unitOfWork.FuneralCompanies.Get(id);
         }
 
-        public Core.Domain.FuneralCompany GetFuneralCompany()
+        public IEnumerable<Core.Domain.FuneralCompany> GetAll()
         {
-            return _funeralCompany;
+            return _unitOfWork.FuneralCompanies.GetAllActive();
         }
 
-        public Core.Domain.FuneralCompany GetFuneralCompany(int id)
+        public int Add(Core.Domain.FuneralCompany funeralCompany)
         {
-            return _unitOfWork.FuneralCompanies.GetActive(id);
-        }
-
-        public FuneralCompanyDto GetFuneralCompanyDto(int id)
-        {
-            return Mapper.Map<Core.Domain.FuneralCompany, FuneralCompanyDto>(GetFuneralCompany(id));
-        }
-
-        public IEnumerable<FuneralCompanyDto> GetFuneralCompanyDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.FuneralCompany>, IEnumerable<FuneralCompanyDto>>(_unitOfWork.FuneralCompanies.GetAllActive());
-        }
-
-        public int Create(FuneralCompanyDto funeralCompanyDto)
-        {
-            _funeralCompany = new Core.Domain.FuneralCompany();
-            Mapper.Map(funeralCompanyDto, _funeralCompany);
-
-            _unitOfWork.FuneralCompanies.Add(_funeralCompany);
+            _unitOfWork.FuneralCompanies.Add(funeralCompany);
 
             _unitOfWork.Complete();
 
-            return _funeralCompany.Id;
+            return funeralCompany.Id;
         }
 
-        public bool Update(FuneralCompanyDto funeralCompanyDto)
+        public bool Change(int id, Core.Domain.FuneralCompany funeralCompany)
         {
-            var funeralCompanyInDB = GetFuneralCompany(funeralCompanyDto.Id);
+            var funeralCompanyInDb = _unitOfWork.FuneralCompanies.Get(id);
 
-            Mapper.Map(funeralCompanyDto, funeralCompanyInDB);
+            Mapper.Map(funeralCompany, funeralCompanyInDb);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (
                 _unitOfWork.CremationTransactions.Find(at => at.FuneralCompanyId == id).Any() ||
@@ -76,16 +54,13 @@ namespace Memorial.Lib.FuneralCompany
                 return false;
             }
 
-            SetFuneralCompany(id);
+            var funeralCompanyInDb = _unitOfWork.FuneralCompanies.Get(id);
 
-            if(_funeralCompany == null)
+            if (funeralCompanyInDb != null)
             {
-                return false;
+                _unitOfWork.FuneralCompanies.Remove(funeralCompanyInDb);
+                _unitOfWork.Complete();
             }
-
-            _unitOfWork.FuneralCompanies.Remove(_funeralCompany);
-
-            _unitOfWork.Complete();
 
             return true;
         }

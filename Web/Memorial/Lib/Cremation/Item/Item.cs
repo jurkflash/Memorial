@@ -112,7 +112,7 @@ namespace Memorial.Lib.Cremation
                 return new HashSet<SubProductServiceDto>();
 
             var t = GetItemByCremation(cremationId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetCremationProduct().Id);
+            var sp = _subProductService.GetByProduct(_product.GetCremationProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);

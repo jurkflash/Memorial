@@ -6,6 +6,14 @@ namespace Memorial.Lib.Deceased
 {
     public interface IDeceased
     {
+        IEnumerable<Core.Domain.Deceased> GetByApplicantId(int applicantId);
+
+
+
+
+
+
+
         void SetDeceased(int id);
 
         Core.Domain.Deceased GetDeceasedByIC(string ic);

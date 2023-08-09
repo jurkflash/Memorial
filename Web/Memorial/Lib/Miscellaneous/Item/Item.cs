@@ -112,7 +112,7 @@ namespace Memorial.Lib.Miscellaneous
                 return new HashSet<SubProductServiceDto>();
 
             var t = GetItemByMiscellaneous(miscellaneousId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetMiscellaneousProduct().Id);
+            var sp = _subProductService.GetByProduct(_product.GetMiscellaneousProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);

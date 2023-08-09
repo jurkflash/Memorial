@@ -90,7 +90,7 @@ namespace Memorial.Lib.Columbarium
 
                 _invoice.SetIsPaid(false);
 
-                if (_receipt.GetOrderReceiptsByInvoiceIV(_receipt.GetInvoiceIV()).Count() == 1)
+                if (_receipt.GetReceiptsByInvoiceIV(_receipt.GetInvoiceIV()).Count() == 1)
                 {
                     _invoice.SetHasReceipt(false);                   
                 }
@@ -106,10 +106,10 @@ namespace Memorial.Lib.Columbarium
             if (_transaction.GetTransactionTotalAmount() < invoiceDto.Amount)
                 return false;
 
-            if (_receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(invoiceDto.IV) > invoiceDto.Amount)
+            if (_receipt.GetTotalIssuedReceiptAmountByIV(invoiceDto.IV) > invoiceDto.Amount)
                 return false;
 
-            if (_receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(invoiceDto.IV) == invoiceDto.Amount)
+            if (_receipt.GetTotalIssuedReceiptAmountByIV(invoiceDto.IV) == invoiceDto.Amount)
             {
                 invoiceDto.isPaid = true;
             }
@@ -127,7 +127,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool UpdateReceipt(ReceiptDto receiptDto)
         {
-            if (_paymentMethod.GetPaymentMethod(receiptDto.PaymentMethodId).RequireRemark && receiptDto.PaymentRemark == "")
+            if (_paymentMethod.Get(receiptDto.PaymentMethodId).RequireRemark && receiptDto.PaymentRemark == "")
                 return false;
 
             if (_transaction.IsItemOrder())
@@ -136,7 +136,7 @@ namespace Memorial.Lib.Columbarium
 
                 _receipt.SetReceipt(receiptDto.RE);
 
-                if (_invoice.GetAmount() < _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(receiptDto.InvoiceDtoIV) - _receipt.GetAmount() + receiptDto.Amount)
+                if (_invoice.GetAmount() < _receipt.GetTotalIssuedReceiptAmountByIV(receiptDto.InvoiceDtoIV) - _receipt.GetAmount() + receiptDto.Amount)
                     return false;
             }
             else
@@ -171,7 +171,7 @@ namespace Memorial.Lib.Columbarium
 
                 _invoice.SetHasReceipt(true);
 
-                if (_invoice.GetAmount() == _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(_invoice.GetIV()) + receiptDto.Amount)
+                if (_invoice.GetAmount() == _receipt.GetTotalIssuedReceiptAmountByIV(_invoice.GetIV()) + receiptDto.Amount)
                     _invoice.SetIsPaid(true);
             }
 
@@ -182,7 +182,7 @@ namespace Memorial.Lib.Columbarium
 
         public float GetInvoiceUnpaidAmount()
         {
-            return _invoice.GetAmount() - _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(_invoice.GetIV());
+            return _invoice.GetAmount() - _receipt.GetTotalIssuedReceiptAmountByIV(_invoice.GetIV());
         }
 
         public float GetNonOrderTransactionUnpaidAmount()

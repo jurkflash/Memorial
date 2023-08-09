@@ -7,6 +7,7 @@ using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.Core.Repositories;
 using AutoMapper;
+using Memorial.Persistence;
 
 namespace Memorial.Lib.Receipt
 {
@@ -23,9 +24,57 @@ namespace Memorial.Lib.Receipt
             _unitOfWork = unitOfWork;
         }
 
+        public Core.Domain.Receipt GetByRE(string RE)
+        {
+            return _unitOfWork.Receipts.GetByRE(RE);
+        }
+
+        virtual
+        public bool Remove(Core.Domain.Receipt receipt)
+        {
+            var receiptInDb = _unitOfWork.Receipts.GetByRE(receipt.RE);
+            _unitOfWork.Receipts.Remove(receiptInDb);
+
+            if (receiptInDb.InvoiceIV != null)
+            {
+                var receipts = _unitOfWork.Receipts.GetByIV(receiptInDb.InvoiceIV).ToList();
+                var invoiceInDb = _unitOfWork.Invoices.GetByIV(receiptInDb.InvoiceIV);
+                invoiceInDb.hasReceipt = receipts.Any();
+                invoiceInDb.isPaid = receipts.Select(r => r.Amount).DefaultIfEmpty(0).Sum() == invoiceInDb.Amount;
+                _unitOfWork.Complete();
+            }
+            return true;
+        }
+
+        protected bool Change(Core.Domain.Receipt receipt)
+        {
+            var receiptInDb = _unitOfWork.Receipts.GetByRE(receipt.RE);
+            receiptInDb.Remark = receipt.Remark;
+            receiptInDb.PaymentRemark = receipt.PaymentRemark;
+            receiptInDb.PaymentMethodId = receipt.PaymentMethodId;
+            receiptInDb.Amount = receipt.Amount;
+            _unitOfWork.Complete();
+            return true;
+        }
+
+        abstract
+        public string GenerateRENumber(int itemId);
+
+        protected bool Add(Core.Domain.Receipt receipt)
+        {
+            _unitOfWork.Receipts.Add(receipt);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+
+
+
+
         public void SetReceipt(string RE)
         {
-            _receipt = _unitOfWork.Receipts.GetByActiveRE(RE);
+            _receipt = _unitOfWork.Receipts.GetByRE(RE);
         }
 
         public void SetReceipt(Core.Domain.Receipt receipt)
@@ -44,7 +93,7 @@ namespace Memorial.Lib.Receipt
 
         public Core.Domain.Receipt GetReceipt(string RE)
         {
-            return _unitOfWork.Receipts.GetByActiveRE(RE);
+            return _unitOfWork.Receipts.GetByRE(RE);
         }
 
         public ReceiptDto GetReceiptDto(string RE)
@@ -52,14 +101,14 @@ namespace Memorial.Lib.Receipt
             return Mapper.Map<Core.Domain.Receipt, ReceiptDto>(GetReceipt(RE));
         }
 
-        public IEnumerable<Core.Domain.Receipt> GetOrderReceiptsByInvoiceIV(string IV)
+        public IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV)
         {
-            return _unitOfWork.Receipts.GetByActiveIV(IV);
+            return _unitOfWork.Receipts.GetByIV(IV);
         }
 
-        public IEnumerable<ReceiptDto> GetOrderReceiptDtosByInvoiceIV(string IV)
+        public IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV)
         {
-            return Mapper.Map< IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetOrderReceiptsByInvoiceIV(IV));
+            return Mapper.Map< IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetReceiptsByInvoiceIV(IV));
         }
 
         public string GetInvoiceIV()
@@ -112,9 +161,9 @@ namespace Memorial.Lib.Receipt
             return _receipt.InvoiceIV == null ? false : true;
         }
 
-        public float GetTotalIssuedOrderReceiptAmountByInvoiceIV(string IV)
+        public float GetTotalIssuedReceiptAmountByIV(string IV)
         {
-            return GetOrderReceiptsByInvoiceIV(IV).Sum(r => r.Amount);
+            return GetReceiptsByInvoiceIV(IV).Sum(r => r.Amount);
         }
 
         abstract
@@ -157,7 +206,7 @@ namespace Memorial.Lib.Receipt
 
         public bool DeleteOrderReceiptsByInvoiceIV(string IV)
         {
-            var receipts = GetOrderReceiptsByInvoiceIV(IV);
+            var receipts = GetReceiptsByInvoiceIV(IV);
             foreach(var receipt in receipts)
             {
                 _unitOfWork.Receipts.Remove(receipt);

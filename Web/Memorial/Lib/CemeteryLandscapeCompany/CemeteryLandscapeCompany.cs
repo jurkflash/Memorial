@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.CemeteryLandscapeCompany
@@ -12,76 +8,54 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
     public class CemeteryLandscapeCompany : ICemeteryLandscapeCompany
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.CemeteryLandscapeCompany _cemeteryLandscapeCompany;
         public CemeteryLandscapeCompany(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetCemeteryLandscapeCompany(int id)
-        {
-            _cemeteryLandscapeCompany = _unitOfWork.CemeteryLandscapeCompanies.GetActive(id);
-        }
-
-        public Core.Domain.CemeteryLandscapeCompany GetCemeteryLandscapeCompany()
-        {
-            return _cemeteryLandscapeCompany;
-        }
-
-        public Core.Domain.CemeteryLandscapeCompany GetCemeteryLandscapeCompany(int id)
+        public Core.Domain.CemeteryLandscapeCompany Get(int id)
         {
             return _unitOfWork.CemeteryLandscapeCompanies.GetActive(id);
         }
 
-        public CemeteryLandscapeCompanyDto GetCemeteryLandscapeCompanyDto(int id)
+        public IEnumerable<Core.Domain.CemeteryLandscapeCompany> GetAll()
         {
-            return Mapper.Map<Core.Domain.CemeteryLandscapeCompany, CemeteryLandscapeCompanyDto>(GetCemeteryLandscapeCompany(id));
+            return _unitOfWork.CemeteryLandscapeCompanies.GetAllActive();
         }
 
-        public IEnumerable<CemeteryLandscapeCompanyDto> GetCemeteryLandscapeCompanyDtos()
+        public int Add(Core.Domain.CemeteryLandscapeCompany cemeteryLandscapeCompany)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.CemeteryLandscapeCompany>, IEnumerable<CemeteryLandscapeCompanyDto>>(_unitOfWork.CemeteryLandscapeCompanies.GetAllActive());
-        }
-
-        public int Create(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
-        {
-            _cemeteryLandscapeCompany = new Core.Domain.CemeteryLandscapeCompany();
-            Mapper.Map(cemeteryLandscapeCompanyDto, _cemeteryLandscapeCompany);
-
-            _unitOfWork.CemeteryLandscapeCompanies.Add(_cemeteryLandscapeCompany);
+            _unitOfWork.CemeteryLandscapeCompanies.Add(cemeteryLandscapeCompany);
 
             _unitOfWork.Complete();
 
-            return _cemeteryLandscapeCompany.Id;
+            return cemeteryLandscapeCompany.Id;
         }
 
-        public bool Update(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
+        public bool Change(int id, Core.Domain.CemeteryLandscapeCompany cemeteryLandscapeCompany)
         {
-            var cemeteryLandscapeCompanyInDB = GetCemeteryLandscapeCompany(cemeteryLandscapeCompanyDto.Id);
+            var cemeteryLandscapeCompanyInDB = _unitOfWork.CemeteryLandscapeCompanies.GetActive(id);
 
-            Mapper.Map(cemeteryLandscapeCompanyDto, cemeteryLandscapeCompanyInDB);
+            Mapper.Map(cemeteryLandscapeCompany, cemeteryLandscapeCompanyInDB);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.MiscellaneousTransactions.Find(mt => mt.CemeteryLandscapeCompanyId == id).Any())
             {
                 return false;
             }
 
-            SetCemeteryLandscapeCompany(id);
-
-            if(_cemeteryLandscapeCompany == null)
+            var cemeteryLandscapeCompanyInDB = _unitOfWork.CemeteryLandscapeCompanies.GetActive(id);
+            if(cemeteryLandscapeCompanyInDB != null)
             {
-                return false;
+                _unitOfWork.CemeteryLandscapeCompanies.Remove(cemeteryLandscapeCompanyInDB);
+                _unitOfWork.Complete();
             }
-            _unitOfWork.CemeteryLandscapeCompanies.Remove(_cemeteryLandscapeCompany);
-
-            _unitOfWork.Complete();
 
             return true;
         }

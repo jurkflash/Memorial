@@ -54,7 +54,7 @@ namespace Memorial.Persistence.Repositories
                             .ToList().OrderBy(i => i.CreatedUtcTime);
         }
 
-        public Invoice GetByActiveIV(string IV)
+        public Invoice GetByIV(string IV)
         {
             return MemorialContext.Invoices.Where(i => i.IV == IV).SingleOrDefault();
         }

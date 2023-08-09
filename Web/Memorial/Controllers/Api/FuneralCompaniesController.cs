@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.FuneralCompany;
 
@@ -18,26 +19,27 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<FuneralCompanyDto> GetUrnDtos()
+        public IEnumerable<FuneralCompanyDto> GetAll()
         {
-            return _funeralCompany.GetFuneralCompanyDtos();
+            return Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll());
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public FuneralCompanyDto GetFuneralCompanyDto(int id)
+        public FuneralCompanyDto Get(int id)
         {
-            return _funeralCompany.GetFuneralCompanyDto(id);
+            return Mapper.Map<FuneralCompanyDto>(_funeralCompany.Get(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateFuneralCompany(FuneralCompanyDto funeralCompanyDto)
+        public IHttpActionResult Add(FuneralCompanyDto funeralCompanyDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _funeralCompany.Create(funeralCompanyDto);
+            var funeralCompany = Mapper.Map<Core.Domain.FuneralCompany>(funeralCompanyDto);
+            var id = _funeralCompany.Add(funeralCompany);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +51,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateFuneralCompany(int id, FuneralCompanyDto funeralCompanyDto)
+        public IHttpActionResult Change(int id, FuneralCompanyDto funeralCompanyDto)
         {
-            if (_funeralCompany.Update(funeralCompanyDto))
+            var funeralCompany = Mapper.Map<Core.Domain.FuneralCompany>(funeralCompanyDto);
+            if (_funeralCompany.Change(id, funeralCompany))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +62,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteFuneralCompany(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_funeralCompany.Delete(id))
+            if (_funeralCompany.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

@@ -76,7 +76,7 @@ namespace Memorial.Lib.Columbarium
                 var deceaseds = _deceased.GetDeceasedsByNicheId(nicheId);
                 foreach (var deceased in deceaseds)
                 {
-                    var applicantDeceased = _applicantDeceased.GetApplicantDeceased(applicantId, deceased.Id);
+                    var applicantDeceased = _applicantDeceased.GetByApplicantDeceasedId(applicantId, deceased.Id);
                     if (applicantDeceased != null)
                     {
                         return true;
@@ -212,12 +212,10 @@ namespace Memorial.Lib.Columbarium
 
         private void SummaryItem(ColumbariumTransactionDto trx)
         {
-            _applicant.SetApplicant(trx.ApplicantDtoId);
-
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Niche + ": " + _applicant.GetApplicant((int)trx.TransferredApplicantDtoId).Name + "<BR/>" +
+                Resources.Mix.Niche + ": " + _applicant.Get((int)trx.TransferredApplicantDtoId).Name + "<BR/>" +
                 Resources.Mix.TransferTo + "<BR/>" +
-                Resources.Mix.Niche + ": " + _applicant.GetApplicant().Name + "<BR/>" +
+                Resources.Mix.Niche + ": " + _applicant.Get((int)trx.ApplicantDtoId).Name + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
     }

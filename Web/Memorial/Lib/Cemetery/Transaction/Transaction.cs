@@ -254,7 +254,7 @@ namespace Memorial.Lib.Cemetery
 
                 if (deceaseds.Count() > 2)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
                     {
                         return false;
                     }
@@ -264,7 +264,7 @@ namespace Memorial.Lib.Cemetery
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
@@ -274,7 +274,7 @@ namespace Memorial.Lib.Cemetery
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
@@ -306,13 +306,13 @@ namespace Memorial.Lib.Cemetery
             if (lastCemeteryTransaction != null)
             {
                 if (lastCemeteryTransaction.Deceased1Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased1Id) == null)
+                    _applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased1Id) == null)
                 {
                     return false;
                 }
 
                 if (lastCemeteryTransaction.Deceased2Id != null &&
-                    _applicantDeceased.GetApplicantDeceased(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased2Id) == null)
+                    _applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased2Id) == null)
                 {
                     return false;
                 }

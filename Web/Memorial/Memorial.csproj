@@ -970,6 +970,7 @@
     <Compile Include="Core\Domain\AncestralTabletNumber.cs" />
     <Compile Include="Core\Domain\AncestralTabletItem.cs" />
     <Compile Include="Core\Domain\ApplicantDeceased.cs" />
+    <Compile Include="Core\Domain\ApplicantDeceasedFlatten.cs" />
     <Compile Include="Core\Domain\Base.cs" />
     <Compile Include="Core\Domain\SubProductService.cs" />
     <Compile Include="Core\Domain\Product.cs" />
@@ -1333,8 +1334,6 @@
     <Compile Include="Lib\Space\Item\Item.cs" />
     <Compile Include="Lib\Space\Number\INumber.cs" />
     <Compile Include="Lib\Space\Number\Number.cs" />
-    <Compile Include="Lib\Space\Payment\IPayment.cs" />
-    <Compile Include="Lib\Space\Payment\Payment.cs" />
     <Compile Include="Lib\Space\Space\ISpace.cs" />
     <Compile Include="Lib\Space\Space\Space.cs" />
     <Compile Include="Lib\Space\Transaction\ITransaction.cs" />

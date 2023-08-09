@@ -194,9 +194,7 @@ namespace Memorial.Lib.Cemetery
 
         public void AutoCreateItem(int plotTypeId, int plotId)
         {
-            var subs = _subProductService.GetSubProductServiceDtosByProductIdAndOtherId(
-                _product.GetCemeteryProduct().Id, plotTypeId
-                );
+            var subs = _subProductService.GetByProductIdAndOtherId(_product.GetCemeteryProduct().Id, plotTypeId);
 
             foreach(var sub in subs)
             {

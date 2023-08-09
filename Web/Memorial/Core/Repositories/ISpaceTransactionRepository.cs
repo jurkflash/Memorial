@@ -6,7 +6,7 @@ namespace Memorial.Core.Repositories
 {
     public interface ISpaceTransactionRepository : IRepository<SpaceTransaction>
     {
-        SpaceTransaction GetActive(string AF);
+        SpaceTransaction GetByAF(string AF);
 
         IEnumerable<SpaceTransaction> GetByApplicant(int id);
 

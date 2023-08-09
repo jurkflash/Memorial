@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.FengShuiMaster
@@ -12,79 +8,56 @@ namespace Memorial.Lib.FengShuiMaster
     public class FengShuiMaster : IFengShuiMaster
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.FengShuiMaster _fengShuiMaster;
         public FengShuiMaster(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetFengShuiMaster(int id)
-        {
-            _fengShuiMaster = _unitOfWork.FengShuiMasters.GetActive(id);
-        }
-
-        public Core.Domain.FengShuiMaster GetFengShuiMaster()
-        {
-            return _fengShuiMaster;
-        }
-
-        public Core.Domain.FengShuiMaster GetFengShuiMaster(int id)
+        public Core.Domain.FengShuiMaster Get(int id)
         {
             return _unitOfWork.FengShuiMasters.GetActive(id);
         }
 
-        public FengShuiMasterDto GetFengShuiMasterDto(int id)
+        public IEnumerable<Core.Domain.FengShuiMaster> GetAll()
         {
-            return Mapper.Map<Core.Domain.FengShuiMaster, FengShuiMasterDto>(GetFengShuiMaster(id));
+            return _unitOfWork.FengShuiMasters.GetAll();
         }
 
-        public IEnumerable<FengShuiMasterDto> GetFengShuiMasterDtos()
+        public int Add(Core.Domain.FengShuiMaster fengShuiMaster)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.FengShuiMaster>, IEnumerable<FengShuiMasterDto>>(_unitOfWork.FengShuiMasters.GetAllActive());
-        }
-
-        public int Create(FengShuiMasterDto fengShuiMasterDto)
-        {
-            _fengShuiMaster = new Core.Domain.FengShuiMaster();
-            Mapper.Map(fengShuiMasterDto, _fengShuiMaster);
-
-            _unitOfWork.FengShuiMasters.Add(_fengShuiMaster);
+            _unitOfWork.FengShuiMasters.Add(fengShuiMaster);
 
             _unitOfWork.Complete();
 
-            return _fengShuiMaster.Id;
+            return fengShuiMaster.Id;
         }
 
-        public bool Update(FengShuiMasterDto fengShuiMasterDto)
+        public bool Change(int id, Core.Domain.FengShuiMaster fengShuiMaster)
         {
-            var fengShuiMasterInDB = GetFengShuiMaster(fengShuiMasterDto.Id);
+            var fengShuiMasterInDB = _unitOfWork.FengShuiMasters.Get(id);
 
-            Mapper.Map(fengShuiMasterDto, fengShuiMasterInDB);
+            Mapper.Map(fengShuiMaster, fengShuiMasterInDB);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.CemeteryTransactions.Find(at => at.FengShuiMasterId == id).Any())
             {
                 return false;
             }
 
-            SetFengShuiMaster(id);
-
-            if(_fengShuiMaster == null)
+            var fengShuiMasterInDb = _unitOfWork.FengShuiMasters.Get(id);
+            if(fengShuiMasterInDb != null)
             {
-                return false;
+                _unitOfWork.FengShuiMasters.Remove(fengShuiMasterInDb);
+                _unitOfWork.Complete();
             }
 
-            _unitOfWork.FengShuiMasters.Remove(_fengShuiMaster);
-
-            _unitOfWork.Complete();
-
             return true;
-        }
+        }        
     }
 }

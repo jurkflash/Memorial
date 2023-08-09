@@ -10,6 +10,7 @@ using Memorial.Core.Dtos;
 using AutoMapper;
 using Memorial.Lib;
 using Memorial.Lib.Site;
+using System.Security.Policy;
 
 namespace Memorial.Controllers.Api
 {
@@ -25,26 +26,27 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<SiteDto> GetSites()
+        public IEnumerable<SiteDto> GetAll()
         {
-            return _site.GetSiteDtos();
+            return Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll());
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetSite(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_site.GetSiteDto(id));
+            return Ok(Mapper.Map<SiteDto>(_site.Get(id)));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateSite(SiteDto siteDto)
+        public IHttpActionResult Add(SiteDto siteDto)
         {
             if (siteDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            var id = _site.CreateSite(siteDto);
+            var site = Mapper.Map<Core.Domain.Site>(siteDto);
+            var id = _site.Add(site);
 
             if (id == 0)
                 return InternalServerError();
@@ -56,9 +58,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateSite(int id, SiteDto siteDto)
+        public IHttpActionResult Change(int id, SiteDto siteDto)
         {
-            if (_site.UpdateSite(siteDto))
+            var site = Mapper.Map<Core.Domain.Site>(siteDto);
+            if (_site.Change(id, site))
                 return Ok();
             else
                 return InternalServerError();
@@ -66,9 +69,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteSite(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_site.DeleteSite(id))
+            if (_site.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

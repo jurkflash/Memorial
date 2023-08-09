@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using AutoMapper;
 
@@ -13,139 +11,92 @@ namespace Memorial.Lib.Catalog
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
 
-        private Core.Domain.Catalog _catalog;
-
         public Catalog(IUnitOfWork unitOfWork, IProduct product)
         {
             _unitOfWork = unitOfWork;
             _product = product;
         }
 
-        public void SetCatalog(int id)
+        public Core.Domain.Catalog Get(int id)
         {
-            _catalog = _unitOfWork.Catalogs.Get(id);
+            return _unitOfWork.Catalogs.Get(id);
         }
 
-        public Core.Domain.Catalog GetCatalog()
-        {
-            return _catalog;
-        }
-
-        public CatalogDto GetCatalogDto()
-        {
-            return Mapper.Map<Core.Domain.Catalog, CatalogDto>(_catalog);
-        }
-
-        public Core.Domain.Catalog GetCatalog(int id)
-        {
-            return _unitOfWork.Catalogs.GetActive(id);
-        }
-
-        public CatalogDto GetCatalogDto(int id)
-        {
-            return Mapper.Map<Core.Domain.Catalog, CatalogDto>(GetCatalog(id));
-        }
-
-        public IEnumerable<Core.Domain.Catalog> GetCatalogs()
+        public IEnumerable<Core.Domain.Catalog> GetAll()
         {
             return _unitOfWork.Catalogs.GetAllActive();
         }
 
-        public IEnumerable<CatalogDto> GetCatalogDtos()
+        public IEnumerable<Core.Domain.Catalog> GetBySite(int siteId)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Catalog>, IEnumerable<CatalogDto>>(GetCatalogs());
+            return _unitOfWork.Catalogs.GetBySite(siteId);
         }
 
-        public IEnumerable<Core.Domain.Catalog> GetCatalogsBySite(int id)
+        public IEnumerable<Core.Domain.Product> GetAvailableBySite(int siteId)
         {
-            return _unitOfWork.Catalogs.GetBySite(id);
-        }
+            if (siteId == 0)
+                return new HashSet<Core.Domain.Product>();
 
-        public IEnumerable<CatalogDto> GetCatalogDtosBySite(int id)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Catalog>, IEnumerable<CatalogDto>>(GetCatalogsBySite(id));
-        }
-
-        public IEnumerable<ProductDto> GetAvailableCatalogDtosBySite(int id)
-        {
-            if (id == 0)
-                return new HashSet<ProductDto>();
-
-            var t = GetCatalogsBySite(id);
-            var p = _product.GetProductDtos();
+            var t = _unitOfWork.Catalogs.GetBySite(siteId);
+            var p = Mapper.Map<IEnumerable<Core.Domain.Product>>(_product.GetAll());
             var f = p.Where(s => !t.Any(y => y.ProductId == s.Id));
 
             return f;
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosAncestralTablet()
+        public IEnumerable<Core.Domain.Site> GetSitesAncestralTablet()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetAncestralTabletProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetAncestralTabletProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosCemetery()
+        public IEnumerable<Core.Domain.Site> GetSitesCemetery()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetCemeteryProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetCemeteryProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosCremation()
+        public IEnumerable<Core.Domain.Site> GetSitesCremation()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetCremationProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetCremationProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosUrn()
+        public IEnumerable<Core.Domain.Site> GetSitesUrn()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetUrnProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetUrnProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosColumbarium()
+        public IEnumerable<Core.Domain.Site> GetSitesColumbarium()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetColumbariumProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetColumbariumProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosSpace()
+        public IEnumerable<Core.Domain.Site> GetSitesSpace()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetSpaceProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetSpaceProduct().Id);
         }
 
-        public IEnumerable<SiteDto> GetSiteDtosMiscellaneous()
+        public IEnumerable<Core.Domain.Site> GetSitesMiscellaneous()
         {
-            return
-                Mapper.Map<IEnumerable<Core.Domain.Site>, IEnumerable<SiteDto>>
-                (_unitOfWork.Catalogs.GetByProduct(_product.GetMiscellaneousProduct().Id));
+            return _unitOfWork.Catalogs.GetByProduct(_product.GetMiscellaneousProduct().Id);
         }
 
-        public int CreateCatalog(CatalogDto catalogDto)
+        public int Add(Core.Domain.Catalog catalog)
         {
-            _catalog = new Core.Domain.Catalog();
-
-            if (GetCatalogsBySite(catalogDto.SiteDtoId).Where(c => c.ProductId == catalogDto.ProductDtoId).Any())
+            if (_unitOfWork.Catalogs.GetBySite(catalog.SiteId).Where(c => c.ProductId == catalog.ProductId).Any())
                 return 0;
 
-            Mapper.Map(catalogDto, _catalog);
-
-            _unitOfWork.Catalogs.Add(_catalog);
+            _unitOfWork.Catalogs.Add(catalog);
 
             _unitOfWork.Complete();
 
-            return _catalog.Id;
+            return catalog.Id;
         }
 
-        public bool DeleteCatalog(int id)
+        public bool Remove(int id)
         {
-            var catalog = GetCatalog(id);
+            var catalog = _unitOfWork.Catalogs.Get(id);
+            if(catalog == null) 
+                return false;
+
             bool checkResult = false;
 
             if (catalog.Product.Area == _product.Cemetery)
@@ -174,9 +125,7 @@ namespace Memorial.Lib.Catalog
                 return false;
             }
 
-            SetCatalog(id);
-
-            _unitOfWork.Catalogs.Remove(_catalog);
+            _unitOfWork.Catalogs.Remove(catalog);
 
             _unitOfWork.Complete();
 

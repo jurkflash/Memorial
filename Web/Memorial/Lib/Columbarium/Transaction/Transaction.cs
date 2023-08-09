@@ -243,7 +243,7 @@ namespace Memorial.Lib.Columbarium
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
@@ -253,7 +253,7 @@ namespace Memorial.Lib.Columbarium
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(columbariumTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }

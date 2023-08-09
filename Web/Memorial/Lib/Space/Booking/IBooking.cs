@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Space
 {
@@ -12,12 +9,10 @@ namespace Memorial.Lib.Space
 
         bool IsAvailable(string AF, DateTime from, DateTime to);
 
-        void SetBooking(string AF);
+        bool Add(SpaceTransaction spaceTransaction);
 
-        bool Create(SpaceTransactionDto spaceTransactionDto);
+        bool Change(string AF, SpaceTransaction spaceTransaction);
 
-        bool Update(SpaceTransactionDto spaceTransactionDto);
-
-        bool Delete();
+        bool Remove(string AF);
     }
 }

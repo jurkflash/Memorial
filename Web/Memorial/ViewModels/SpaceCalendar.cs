@@ -13,5 +13,6 @@ namespace Memorial.ViewModels
         public string EndDate { get; set; }
         public string AF { get; set; }
         public string BackgroundColor { get; set; }
+        public int ItemId { get; set; }
     }
 }

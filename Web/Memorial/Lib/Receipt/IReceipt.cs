@@ -9,6 +9,10 @@ namespace Memorial.Lib
 {
     public interface IReceipt
     {
+        Core.Domain.Receipt GetByRE(string RE);
+        bool Remove(Core.Domain.Receipt receipt);
+
+
         void SetReceipt(string RE);
 
         void SetReceipt(Core.Domain.Receipt receipt);
@@ -21,9 +25,9 @@ namespace Memorial.Lib
 
         ReceiptDto GetReceiptDto(string RE);
 
-        IEnumerable<Core.Domain.Receipt> GetOrderReceiptsByInvoiceIV(string IV);
+        IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV);
 
-        IEnumerable<ReceiptDto> GetOrderReceiptDtosByInvoiceIV(string IV);
+        IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV);
 
         string GetInvoiceIV();
 
@@ -45,7 +49,7 @@ namespace Memorial.Lib
 
         bool isOrderReceipt();
 
-        float GetTotalIssuedOrderReceiptAmountByInvoiceIV(string IV);
+        float GetTotalIssuedReceiptAmountByIV(string IV);
 
         bool DeleteOrderReceiptsByInvoiceIV(string IV);
     }

@@ -1,17 +1,13 @@
-﻿using Memorial.Core.Dtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.FengShuiMaster
 {
     public interface IFengShuiMaster
     {
-        int Create(FengShuiMasterDto fengShuiMasterDto);
-        bool Delete(int id);
-        Core.Domain.FengShuiMaster GetFengShuiMaster();
-        Core.Domain.FengShuiMaster GetFengShuiMaster(int id);
-        FengShuiMasterDto GetFengShuiMasterDto(int id);
-        IEnumerable<FengShuiMasterDto> GetFengShuiMasterDtos();
-        void SetFengShuiMaster(int id);
-        bool Update(FengShuiMasterDto fengShuiMasterDto);
+        Core.Domain.FengShuiMaster Get(int id);
+        IEnumerable<Core.Domain.FengShuiMaster> GetAll();
+        int Add(Core.Domain.FengShuiMaster fengShuiMaster);
+        bool Change(int id, Core.Domain.FengShuiMaster fengShuiMaster);
+        bool Remove(int id);
     }
 }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
-using AutoMapper;
+﻿using Memorial.Core;
 
 namespace Memorial.Lib.Space
 {
@@ -33,6 +25,5 @@ namespace Memorial.Lib.Space
         {
             return _unitOfWork.SpaceNumbers.GetNewRE(spaceItemId, year);
         }
-
     }
 }

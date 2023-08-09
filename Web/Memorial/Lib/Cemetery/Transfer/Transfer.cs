@@ -74,7 +74,7 @@ namespace Memorial.Lib.Cemetery
                 var deceaseds = _deceased.GetDeceasedsByPlotId(plot.GetPlot().Id);
                 foreach (var deceased in deceaseds)
                 {
-                    var applicantDeceased = _applicantDeceased.GetApplicantDeceased(applicantId, deceased.Id);
+                    var applicantDeceased = _applicantDeceased.GetByApplicantDeceasedId(applicantId, deceased.Id);
                     if (applicantDeceased != null)
                     {
                         return true;
@@ -226,7 +226,7 @@ namespace Memorial.Lib.Cemetery
             trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
                 Resources.Mix.Applicant + ": " + _plot.GetName() + "<BR/>" +
                 Resources.Mix.TransferToBR + 
-                Resources.Mix.Applicant + ": " + _applicant.GetApplicant((int)trx.TransferredApplicantId).Name + "<BR/>" +
+                Resources.Mix.Applicant + ": " + _applicant.Get((int)trx.TransferredApplicantId).Name + "<BR/>" +
                 Resources.Mix.Remark + ": " + trx.Remark;
         }
     }

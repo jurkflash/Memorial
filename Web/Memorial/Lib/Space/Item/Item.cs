@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Space
 {
@@ -23,6 +22,23 @@ namespace Memorial.Lib.Space
             _product = product;
             _subProductService = subProductService;
         }
+
+        public SpaceItem GetById(int id)
+        {
+            return _unitOfWork.SpaceItems.GetActive(id);
+        }
+
+        public float GetPrice(Core.Domain.SpaceItem spaceItem)
+        {
+            if (spaceItem.Price.HasValue)
+                return spaceItem.Price.Value;
+            else
+                return spaceItem.SubProductService.Price;
+        }
+
+
+
+
 
         public void SetItem(int id)
         {
@@ -49,24 +65,9 @@ namespace Memorial.Lib.Space
             return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem(id));
         }
 
-        public IEnumerable<SpaceItemDto> GetItemDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(_unitOfWork.SpaceItems.GetAllActive());
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
         public string GetName()
         {
             return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
         }
 
         public float GetPrice()
@@ -77,22 +78,12 @@ namespace Memorial.Lib.Space
                 return _item.SubProductService.Price;
         }
 
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
         public bool IsOrder()
         {
             if (_item.isOrder.HasValue)
                 return _item.isOrder.Value;
             else
                 return _item.SubProductService.isOrder;
-        }
-
-        public bool AllowDoubleBook()
-        {
-            return _item.AllowDoubleBook;
         }
 
         public bool AllowDeposit()
@@ -116,7 +107,7 @@ namespace Memorial.Lib.Space
                 return new HashSet<SubProductServiceDto>();
 
             var t = GetItemBySpace(spaceId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetSpaceProduct().Id);
+            var sp = _subProductService.GetByProduct(_product.GetSpaceProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
             return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);

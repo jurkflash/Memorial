@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Space;
 using Memorial.ViewModels;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -21,16 +22,16 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/sites/{siteId:int}/spaces/mains")]
         [HttpGet]
-        public IEnumerable<SpaceDto> GetSpaceDtosBySite(int siteId)
+        public IEnumerable<SpaceDto> GetBySite(int siteId)
         {
-            return _space.GetSpaceDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<SpaceDto>>(_space.GetBySite(siteId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetSpaceDto(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_space.GetSpaceDto(id));
+            return Ok(Mapper.Map<SpaceDto>(_space.Get(id)));
         }
 
         [Route("{id:int}/amount")]
@@ -88,6 +89,7 @@ namespace Memorial.Controllers.Api
                     EndDate = t.ToDate.ToString("yyyy-MM-ddTHH:mm"),
                     Desc = t.TransactionRemark,
                     AF = t.AF,
+                    ItemId = t.SpaceItemId,
                     BackgroundColor = string.IsNullOrEmpty(t.SpaceColorCode) ? "#FFFFFF" : t.SpaceColorCode
                 });
             }
@@ -97,12 +99,13 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateSpace(SpaceDto spaceDto)
+        public IHttpActionResult Add(SpaceDto spaceDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _space.Create(spaceDto);
+            var space = Mapper.Map<Core.Domain.Space>(spaceDto);
+            var id = _space.Add(space);
 
             if (id == 0)
                 return InternalServerError();
@@ -114,9 +117,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateSpace(int id, SpaceDto spaceDto)
+        public IHttpActionResult Change(int id, SpaceDto spaceDto)
         {
-            if (_space.Update(spaceDto))
+            var space = Mapper.Map<Core.Domain.Space>(spaceDto);
+            if (_space.Change(id, space))
                 return Ok();
             else
                 return InternalServerError();
@@ -124,9 +128,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteSpace(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_space.Delete(id))
+            if (_space.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

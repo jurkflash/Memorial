@@ -12,7 +12,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public Catalog GetActive(int id)
+        public Catalog Get(int id)
         {
             return MemorialContext.Catalogs
                 .Include(c=>c.Product)

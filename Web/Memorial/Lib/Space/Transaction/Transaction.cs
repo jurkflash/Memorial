@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Memorial.Core;
-using Memorial.Core.Dtos;
-using Memorial.Lib;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
@@ -19,8 +17,6 @@ namespace Memorial.Lib.Space
         protected IDeceased _deceased;
         protected IApplicantDeceased _applicantDeceased;
         protected INumber _number;
-        protected Core.Domain.SpaceTransaction _transaction;
-        protected string _AFnumber;
 
         public Transaction(
             IUnitOfWork unitOfWork,
@@ -41,190 +37,32 @@ namespace Memorial.Lib.Space
             _number = number;
         }
 
-        public void SetTransaction(string AF)
+        public Core.Domain.SpaceTransaction GetByAF(string AF)
         {
-            _transaction = _unitOfWork.SpaceTransactions.GetActive(AF);
+            return _unitOfWork.SpaceTransactions.GetByAF(AF);
         }
 
-        public void SetTransaction(Core.Domain.SpaceTransaction transaction)
-        {
-            _transaction = transaction;
-        }
-
-        public Core.Domain.SpaceTransaction GetTransaction()
-        {
-            return _transaction;
-        }
-
-        public SpaceTransactionDto GetTransactionDto()
-        {
-            return Mapper.Map<Core.Domain.SpaceTransaction, SpaceTransactionDto>(GetTransaction());
-        }
-
-        public Core.Domain.SpaceTransaction GetTransaction(string AF)
-        {
-            return _unitOfWork.SpaceTransactions.GetActive(AF);
-        }
-
-        public SpaceTransactionDto GetTransactionDto(string AF)
-        {
-            return Mapper.Map<Core.Domain.SpaceTransaction, SpaceTransactionDto>(GetTransaction(AF));
-        }
-
-        public string GetTransactionAF()
-        {
-            return _transaction.AF;
-        }
-
-        public float GetTransactionAmount()
-        {
-            return _transaction.Amount;
-        }
-
-        public string GetTransactionSummaryItem()
-        {
-            return _transaction.SummaryItem;
-        }
-
-        public float GetTransactionOtherCharges()
-        {
-            return _transaction.OtherCharges;
-        }
-
-        public float GetTransactionTotalAmount()
-        {
-            return GetTransactionAmount() + GetTransactionOtherCharges();
-        }
-
-        public int GetTransactionSpaceItemId()
-        {
-            return _transaction.SpaceItemId;
-        }
-
-        public string GetSiteHeader()
-        {
-            return _transaction.SpaceItem.Space.Site.Header;
-        }
-
-        public int GetItemId()
-        {
-            return _transaction.SpaceItemId;
-        }
-
-        public string GetItemName()
-        {
-            _item.SetItem(_transaction.SpaceItemId);
-            return _item.GetName();
-        }
-
-        public string GetItemName(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetName();
-        }
-
-        public float GetItemPrice()
-        {
-            _item.SetItem(_transaction.SpaceItemId);
-            return _item.GetPrice();
-        }
-
-        public float GetItemPrice(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetPrice();
-        }
-
-        public bool IsItemOrder()
-        {
-            _item.SetItem(_transaction.SpaceItemId);
-            return _item.IsOrder();
-        }
-
-        public bool IsItemAllowDeposit()
-        {
-            _item.SetItem(_transaction.SpaceItemId);
-            return _item.AllowDeposit();
-        }
-
-        public int GetTransactionApplicantId()
-        {
-            return _transaction.ApplicantId;
-        }
-
-        public int? GetTransactionDeceasedId()
-        {
-            return _transaction.DeceasedId;
-        }
-
-        public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemId(int itemId, string filter)
+        public IEnumerable<Core.Domain.SpaceTransaction> GetByItemId(int itemId, string filter)
         {
             return _unitOfWork.SpaceTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
+        public float GetTotalAmount(Core.Domain.SpaceTransaction spaceTransaction)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(GetTransactionsByItemId(itemId, filter));
+            return spaceTransaction.Amount + spaceTransaction.OtherCharges;
         }
 
-        public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionsByItemIdAndApplicantId(int applicantId, int itemId)
+        public IEnumerable<Core.Domain.SpaceTransaction> GetRecent(int siteId, int? applicantId)
         {
-            return _unitOfWork.SpaceTransactions.GetByItemAndApplicant(itemId, applicantId);
-        }
-
-        public IEnumerable<SpaceTransactionDto> GetTransactionDtosByItemIdAndApplicantId(int applicantId, int itemId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(GetTransactionsByItemIdAndApplicantId(itemId, applicantId));
-        }
-
-        public IEnumerable<Core.Domain.SpaceTransaction> GetTransactionByItemIdAndDeceasedId(int deceasedId, int itemId)
-        {
-            return _unitOfWork.SpaceTransactions.GetByItemAndDeceased(itemId, deceasedId);
+            if (applicantId == null)
+                return _unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);
+            else
+                return _unitOfWork.SpaceTransactions.GetRecent(null, siteId, applicantId);
         }
 
         public IEnumerable<Core.Domain.SpaceBooked> GetBookedTransaction(DateTime from, DateTime to, int siteId)
         {
             return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<Core.Domain.SpaceBooked>>(_unitOfWork.SpaceTransactions.GetBooked(from, to, siteId));
-        }
-
-        public IEnumerable<SpaceTransactionDto> GetRecent(int siteId, int? applicantId)
-        {
-            if(applicantId == null)
-                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
-            else
-                return Mapper.Map<IEnumerable<Core.Domain.SpaceTransaction>, IEnumerable<SpaceTransactionDto>>(_unitOfWork.SpaceTransactions.GetRecent(null, siteId, applicantId));
-        }
-
-        protected bool CreateNewTransaction(SpaceTransactionDto spaceTransactionDto)
-        {
-            if (_AFnumber == "")
-                return false;
-
-            _transaction = new Core.Domain.SpaceTransaction();
-
-            Mapper.Map(spaceTransactionDto, _transaction);
-
-            _transaction.AF = _AFnumber;
-
-            _unitOfWork.SpaceTransactions.Add(_transaction);
-
-            return true;
-        }
-
-        protected bool UpdateTransaction(SpaceTransactionDto spaceTransactionDto)
-        {
-            var spaceTransactionInDb = GetTransaction(spaceTransactionDto.AF);
-
-            Mapper.Map(spaceTransactionDto, spaceTransactionInDb);
-
-            return true;
-        }
-
-        protected bool DeleteTransaction()
-        {
-            _unitOfWork.SpaceTransactions.Remove(_transaction);
-
-            return true;
         }
     }
 }

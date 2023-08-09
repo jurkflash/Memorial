@@ -13,7 +13,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public SpaceTransaction GetActive(string AF)
+        public SpaceTransaction GetByAF(string AF)
         {
             return MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)
@@ -109,8 +109,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.SpaceTransactions
                 .Include(st => st.SpaceItem)
                 .Include(st => st.SpaceItem.Space)
-                .Where(st => st.SpaceItem.AllowDoubleBook == false
-                && (
+                .Where(st => (
                 (st.FromDate <= from && from <= st.ToDate)
                 || (st.FromDate <= to && to <= st.ToDate)
                 || (from <= st.FromDate && st.FromDate <= to)

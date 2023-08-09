@@ -19,6 +19,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Invoice> GetByActiveMiscellaneousAF(string AF);
 
-        Invoice GetByActiveIV(string IV);
+        Invoice GetByIV(string IV);
     }
 }

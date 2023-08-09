@@ -19,14 +19,36 @@ namespace Memorial.Lib.Invoice
             _number = number;
         }
 
-        public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
+        public bool Change(string IV, Core.Domain.Invoice invoice)
         {
-            return _unitOfWork.Invoices.GetByActiveSpaceAF(AF);
+            var transaction = _unitOfWork.SpaceTransactions.GetByAF(invoice.SpaceTransactionAF);
+            if (transaction.Amount + transaction.OtherCharges < invoice.Amount)
+                return false;
+
+            var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountBySpaceAF(invoice.SpaceTransactionAF);
+            if (totalReceiptAmount < transaction.Amount)
+                return false;
+
+            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
+            if (invoiceInDB.Amount < invoice.Amount)
+                return false;
+
+            if (invoice.Amount == totalReceiptAmount)
+                invoice.isPaid = true;
+            else
+                invoice.isPaid = false;
+
+            Change(invoice);
+            _unitOfWork.Complete();
+            return true;
         }
 
-        public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
+
+
+
+        public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByAF(AF));
+            return _unitOfWork.Invoices.GetByActiveSpaceAF(AF);
         }
 
         public bool HasInvoiceByAF(string AF)
@@ -41,18 +63,17 @@ namespace Memorial.Lib.Invoice
         }
 
         override
-        public void NewNumber(int itemId)
+        public string GenerateIVNumber(int itemId)
         {
-            _ivNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
+            return _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        public bool Create(int itemId, InvoiceDto invoiceDto)
+        public bool Add(int itemId, Core.Domain.Invoice invoice)
         {
-            NewNumber(itemId);
+            var iv = GenerateIVNumber(itemId);
 
-            CreateNewInvoice(invoiceDto);
-
-            return true;
+            invoice.IV = iv;
+            return Add(invoice);
         }
 
         public bool Update(InvoiceDto invoiceDto)
@@ -71,7 +92,7 @@ namespace Memorial.Lib.Invoice
 
         public bool DeleteByApplication(string AF)
         {
-            var invoices = GetInvoicesByAF(AF);
+            var invoices = GetByAF(AF);
             foreach (var invoice in invoices)
             {
                 _unitOfWork.Invoices.Remove(invoice);

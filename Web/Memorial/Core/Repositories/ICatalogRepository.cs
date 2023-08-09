@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface ICatalogRepository : IRepository<Catalog>
     {
-        Catalog GetActive(int id);
+        Catalog Get(int id);
         IEnumerable<Catalog> GetAllActive();
         IEnumerable<Catalog> GetBySite(int id);
 

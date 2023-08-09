@@ -30,6 +30,16 @@ namespace Memorial.Lib.Deceased
             _plot = plot;
         }
 
+        public IEnumerable<Core.Domain.Deceased> GetByApplicantId(int applicantId)
+        {
+            return _unitOfWork.Deceaseds.GetByApplicant(applicantId);
+        }
+
+
+
+
+
+
         public void SetDeceased(int id)
         {
             _deceased = _unitOfWork.Deceaseds.GetActive(id);

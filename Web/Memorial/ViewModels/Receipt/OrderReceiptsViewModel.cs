@@ -11,6 +11,10 @@ namespace Memorial.ViewModels
     {
         public string AF { get; set; }
 
+        public float AFTotalAmount { get; set; }
+
+        public float AFTotalAmountPaid { get; set; }
+
         public float RemainingAmount { get; set; } 
 
         public InvoiceDto InvoiceDto { get; set; }

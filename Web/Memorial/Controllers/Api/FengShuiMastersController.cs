@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.FengShuiMaster;
 
@@ -18,26 +19,27 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<FengShuiMasterDto> GetFengShuiMasterDtos()
+        public IEnumerable<FengShuiMasterDto> GetAll()
         {
-            return _fengShuiMaster.GetFengShuiMasterDtos();
+            return Mapper.Map<IEnumerable<FengShuiMasterDto>>(_fengShuiMaster.GetAll());
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public FengShuiMasterDto GetFuneralCompanyDto(int id)
+        public FengShuiMasterDto Get(int id)
         {
-            return _fengShuiMaster.GetFengShuiMasterDto(id);
+            return Mapper.Map<FengShuiMasterDto>(_fengShuiMaster.Get(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateFengShuiMaster(FengShuiMasterDto fengShuiMasterDto)
+        public IHttpActionResult Add(FengShuiMasterDto fengShuiMasterDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _fengShuiMaster.Create(fengShuiMasterDto);
+            var fengShuiMaster = Mapper.Map<Core.Domain.FengShuiMaster>(fengShuiMasterDto);
+            var id = _fengShuiMaster.Add(fengShuiMaster);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +51,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateFengShuiMaster(int id, FengShuiMasterDto fengShuiMasterDto)
+        public IHttpActionResult Change(int id, FengShuiMasterDto fengShuiMasterDto)
         {
-            if (_fengShuiMaster.Update(fengShuiMasterDto))
+            var fengShuiMaster = Mapper.Map<Core.Domain.FengShuiMaster>(fengShuiMasterDto);
+            if (_fengShuiMaster.Change(id, fengShuiMaster))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +62,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteFengShuiMaster(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_fengShuiMaster.Delete(id))
+            if (_fengShuiMaster.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.ApplicantDeceased;
 
@@ -18,26 +20,25 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IHttpActionResult GetFlattenByApplicant(int applicantId)
         {
-            var result = _applicantDeceased.GetApplicantDeceasedFlattenDtosByApplicantId(applicantId);
+            var result = Mapper.Map<IEnumerable<ApplicantDeceasedFlattenDto>>(_applicantDeceased.GetApplicantDeceasedFlattensByApplicantId(applicantId));
 
             return Ok(result);
         }
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteWithReturnDeceasedId(int id)
+        public IHttpActionResult Remove(int id)
         {
-            _applicantDeceased.SetApplicantDeceased(id);
-            var result = _applicantDeceased.DeleteWithReturnDeceasedId();
+            var result = _applicantDeceased.Remove(id);
 
             return Ok(result);
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateWithReturnId(ApplicantDeceasedDto applicantDeceasedDto)
+        public IHttpActionResult Add(ApplicantDeceasedDto applicantDeceasedDto)
         {
-            var result = _applicantDeceased.CreateWithReturnId(applicantDeceasedDto.ApplicantDtoId, applicantDeceasedDto.DeceasedDtoId, applicantDeceasedDto.RelationshipTypeDtoId);
+            var result = _applicantDeceased.Add(applicantDeceasedDto.ApplicantDtoId, applicantDeceasedDto.DeceasedDtoId, applicantDeceasedDto.RelationshipTypeDtoId);
 
             return Ok(result);
         }

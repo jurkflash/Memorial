@@ -13,6 +13,10 @@ namespace Memorial.ViewModels
 
         public float Amount { get; set; }
 
+        public float AFTotalAmount { get; set; }
+
+        public float AFTotalAmountPaid { get; set; }
+
         public float RemainingAmount { get; set; }
 
         public MasterCatalog MasterCatalog { get; set; }

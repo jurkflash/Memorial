@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
+using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 using Memorial.Lib.CemeteryLandscapeCompany;
 
@@ -18,26 +20,27 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<CemeteryLandscapeCompanyDto> GetCemeteryLandscapeCompanyDtos()
+        public IEnumerable<CemeteryLandscapeCompanyDto> GetAll()
         {
-            return _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDtos();
+            return Mapper.Map<IEnumerable<CemeteryLandscapeCompanyDto>>(_cemeteryLandscapeCompany.GetAll());
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public CemeteryLandscapeCompanyDto GetCemeteryLandscapeCompanyDto(int id)
+        public CemeteryLandscapeCompanyDto Get(int id)
         {
-            return _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDto(id);
+            return Mapper.Map<CemeteryLandscapeCompanyDto>(_cemeteryLandscapeCompany.Get(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateFengShuiMaster(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
+        public IHttpActionResult Add(CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _cemeteryLandscapeCompany.Create(cemeteryLandscapeCompanyDto);
+            var cemeteryLandscapeCompany = Mapper.Map<Core.Domain.CemeteryLandscapeCompany>(cemeteryLandscapeCompanyDto);
+            var id = _cemeteryLandscapeCompany.Add(cemeteryLandscapeCompany);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +52,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateCemeteryLandscapeCompany(int id, CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
+        public IHttpActionResult Change(int id, CemeteryLandscapeCompanyDto cemeteryLandscapeCompanyDto)
         {
-            if (_cemeteryLandscapeCompany.Update(cemeteryLandscapeCompanyDto))
+            var cemeteryLandscapeCompany = Mapper.Map<Core.Domain.CemeteryLandscapeCompany>(cemeteryLandscapeCompanyDto);
+            if (_cemeteryLandscapeCompany.Change(id, cemeteryLandscapeCompany))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +63,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteCemeteryLandscapeCompany(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_cemeteryLandscapeCompany.Delete(id))
+            if (_cemeteryLandscapeCompany.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

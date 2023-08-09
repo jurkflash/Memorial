@@ -1,20 +1,15 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Space
 {
     public class Chair : Transaction, IChair
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.ISpace _invoice;
-        private readonly IPayment _payment;
 
         public Chair(
             IUnitOfWork unitOfWork,
@@ -23,9 +18,7 @@ namespace Memorial.Lib.Space
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
-            INumber number,
-            Invoice.ISpace invoice,
-            IPayment payment
+            INumber number
             ) : 
             base(
                 unitOfWork, 
@@ -44,74 +37,63 @@ namespace Memorial.Lib.Space
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
         }
 
-        public void SetChair(string AF)
+        public bool Add(Core.Domain.SpaceTransaction spaceTransaction)
         {
-            SetTransaction(AF);
-        }
+            spaceTransaction.AF = _number.GetNewAF(spaceTransaction.SpaceItemId, System.DateTime.Now.Year);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
+            SummaryItem(spaceTransaction);
 
-        public bool Create(SpaceTransactionDto spaceTransactionDto)
-        {
-            NewNumber(spaceTransactionDto.SpaceItemDtoId);
-
-            SummaryItem(spaceTransactionDto);
-
-            if (CreateNewTransaction(spaceTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool Update(SpaceTransactionDto spaceTransactionDto)
-        {
-            if (_invoice.GetInvoicesByAF(spaceTransactionDto.AF).Any() && spaceTransactionDto.Amount < 
-                _invoice.GetInvoicesByAF(spaceTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            var spaceTransactionInDb = GetTransaction(spaceTransactionDto.AF);
-
-            SummaryItem(spaceTransactionDto);
-
-            if (UpdateTransaction(spaceTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteTransaction();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            _unitOfWork.SpaceTransactions.Add(spaceTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(SpaceTransactionDto trx)
+        public bool Change(string AF, Core.Domain.SpaceTransaction spaceTransaction)
         {
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            var invoices = _unitOfWork.Invoices.GetByActiveSpaceAF(spaceTransaction.AF).ToList();
+
+            if (invoices.Any() && spaceTransaction.Amount < invoices.Max(i => i.Amount))
+                return false;
+
+            SummaryItem(spaceTransaction);
+
+            var spaceTransactionInDb = GetByAF(spaceTransaction.AF);
+            spaceTransactionInDb.Amount = spaceTransaction.Amount;
+            spaceTransactionInDb.SummaryItem = spaceTransaction.SummaryItem;
+            spaceTransactionInDb.Remark = spaceTransaction.Remark;
+            spaceTransactionInDb.FuneralCompanyId = spaceTransaction.FuneralCompanyId;
+            spaceTransactionInDb.FromDate = spaceTransaction.FromDate;
+            spaceTransactionInDb.ToDate = spaceTransaction.ToDate;
+            spaceTransactionInDb.BasePrice = spaceTransaction.BasePrice;
+            spaceTransactionInDb.OtherCharges = spaceTransaction.OtherCharges;
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveSpaceAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetBySpaceAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.SpaceTransactions.GetByAF(AF);
+            _unitOfWork.SpaceTransactions.Remove(transactionInDb);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        private void SummaryItem(SpaceTransaction spaceTransaction)
+        {
+            spaceTransaction.SummaryItem = "AF: " + spaceTransaction.AF + "<BR/>" +
+                Resources.Mix.Remark + ": " + spaceTransaction.Remark;
         }
 
     }

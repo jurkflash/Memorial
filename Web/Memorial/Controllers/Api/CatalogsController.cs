@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Catalog;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,89 +19,90 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IEnumerable<CatalogDto> GetCatalogs()
+        public IEnumerable<CatalogDto> GetAll()
         {
-            return _catalog.GetCatalogDtos();
+            return Mapper.Map<IEnumerable<CatalogDto>>(_catalog.GetAll());
         }
 
         [Route("~/api/sites/{siteId:int}/catalogs")]
         [HttpGet]
-        public IEnumerable<CatalogDto> GetCatalogsBySite(int siteId)
+        public IEnumerable<CatalogDto> GetBySite(int siteId)
         {
-            return _catalog.GetCatalogDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<CatalogDto>>(_catalog.GetBySite(siteId));
         }
 
         [Route("~/api/sites/{siteId:int}/availablecatalogs")]
         [HttpGet]
-        public IEnumerable<ProductDto> GetAvailableCatalogsBySite(int siteId)
+        public IEnumerable<ProductDto> GetAvailableBySite(int siteId)
         {
-            return _catalog.GetAvailableCatalogDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<ProductDto>>(_catalog.GetAvailableBySite(siteId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetCatalog(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_catalog.GetCatalogDto(id));
+            return Ok(Mapper.Map<CatalogDto>(_catalog.Get(id)));
         }
 
         [Route("~/api/ancestraltablets/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetAncestralTabletSites()
         {
-            return _catalog.GetSiteDtosAncestralTablet();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesAncestralTablet());
         }
 
         [Route("~/api/cemeteries/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetCemeterySites()
         {
-            return _catalog.GetSiteDtosCemetery();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesCemetery());
         }
 
         [Route("~/api/cremations/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetCremationSites()
         {
-            return _catalog.GetSiteDtosCremation();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesCremation());
         }
 
         [Route("~/api/urns/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetUrnSites()
         {
-            return _catalog.GetSiteDtosUrn();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesUrn());
         }
 
         [Route("~/api/columbariums/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetColumbariumSites()
         {
-            return _catalog.GetSiteDtosColumbarium();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesColumbarium());
         }
 
         [Route("~/api/spaces/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetSpaceSites()
         {
-            return _catalog.GetSiteDtosSpace();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesSpace());
         }
 
         [Route("~/api/miscellaneous/sites")]
         [HttpGet]
         public IEnumerable<SiteDto> GetMiscellaneousSites()
         {
-            return _catalog.GetSiteDtosMiscellaneous();
+            return Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesMiscellaneous());
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateCatalog(CatalogDto catalogDto)
+        public IHttpActionResult Add(CatalogDto catalogDto)
         {
             if (catalogDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            var id = _catalog.CreateCatalog(catalogDto);
+            var catalog = Mapper.Map<Core.Domain.Catalog>(catalogDto);
+            var id = _catalog.Add(catalog);
 
             if (id == 0)
                 return InternalServerError();
@@ -110,9 +112,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteCatalog(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_catalog.DeleteCatalog(id))
+            if (_catalog.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

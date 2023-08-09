@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Memorial.Core.Domain;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Space
 {
     public interface IItem
     {
+        SpaceItem GetById(int id);
+        float GetPrice(Core.Domain.SpaceItem spaceItem);
+
+        
+
+
+
         void SetItem(int id);
 
         Core.Domain.SpaceItem GetItem();
@@ -18,23 +23,13 @@ namespace Memorial.Lib.Space
 
         SpaceItemDto GetItemDto(int id);
 
-        IEnumerable<SpaceItemDto> GetItemDtos();
-
-        int GetId();
-
         string GetName();
 
-        string GetDescription();
-
         float GetPrice();
-
-        string GetSystemCode();
 
         bool IsOrder();
 
         bool AllowDeposit();
-
-        bool AllowDoubleBook();
 
         IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId);
 

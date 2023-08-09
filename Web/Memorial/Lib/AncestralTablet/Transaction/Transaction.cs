@@ -239,7 +239,7 @@ namespace Memorial.Lib.AncestralTablet
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetApplicantDeceased(ancestralTabletTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(ancestralTabletTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }

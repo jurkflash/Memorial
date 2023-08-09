@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Lib.Product
 {
@@ -37,49 +34,21 @@ namespace Memorial.Lib.Product
         public string Spaces { get { return MySpaces; } }
         public string Miscellaneous { get { return MyMiscellaneous; } }
 
-
         private readonly IUnitOfWork _unitOfWork;
-
-        private Core.Domain.Product _product;
 
         public Product(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetProduct(int id)
-        {
-            _product = _unitOfWork.Products.Get(id);
-        }
-
-        public Core.Domain.Product GetProduct()
-        {
-            return _product;
-        }
-
-        public ProductDto GetProductDto()
-        {
-            return Mapper.Map<Core.Domain.Product, ProductDto>(_product);
-        }
-
-        public Core.Domain.Product GetProduct(int id)
+        public Core.Domain.Product Get(int id)
         {
             return _unitOfWork.Products.Get(id);
         }
 
-        public ProductDto GetProductDto(int id)
-        {
-            return Mapper.Map<Core.Domain.Product, ProductDto>(GetProduct(id));
-        }
-
-        public IEnumerable<Core.Domain.Product> GetProducts()
+        public IEnumerable<Core.Domain.Product> GetAll()
         {
             return _unitOfWork.Products.GetAll();
-        }
-
-        public IEnumerable<ProductDto> GetProductDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Product>, IEnumerable<ProductDto>>(GetProducts());
         }
 
         public Core.Domain.Product GetAncestralTabletProduct()

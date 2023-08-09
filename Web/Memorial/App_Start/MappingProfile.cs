@@ -57,6 +57,7 @@ namespace Memorial.App_Start
                 .ForMember(c => c.ReligionTypeDto, opt => opt.MapFrom(x => x.ReligionType))
                 .ForMember(c => c.ReligionTypeDtoId, opt => opt.MapFrom(x => x.ReligionTypeId));
             CreateMap<Deceased, DeceasedBriefDto>();
+            CreateMap<ApplicantDeceasedFlatten, ApplicantDeceasedFlattenDto>();
             CreateMap<ApplicantDeceased, ApplicantDeceasedDto>()
                 .ForMember(c => c.ApplicantDto, opt => opt.MapFrom(x => x.Applicant))
                 .ForMember(c => c.ApplicantDtoId, opt => opt.MapFrom(x => x.ApplicantId))

@@ -1,5 +1,4 @@
-﻿using Memorial.Core.Dtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Product
 {
@@ -18,20 +17,14 @@ namespace Memorial.Lib.Product
         string Spaces { get; }
         string Urn { get; }
         string Urns { get; }
-
+        Core.Domain.Product Get(int id);
+        IEnumerable<Core.Domain.Product> GetAll();
         Core.Domain.Product GetAncestralTabletProduct();
         Core.Domain.Product GetCemeteryProduct();
         Core.Domain.Product GetColumbariumProduct();
         Core.Domain.Product GetCremationProduct();
         Core.Domain.Product GetMiscellaneousProduct();
-        Core.Domain.Product GetProduct();
-        Core.Domain.Product GetProduct(int id);
-        ProductDto GetProductDto();
-        ProductDto GetProductDto(int id);
-        IEnumerable<ProductDto> GetProductDtos();
-        IEnumerable<Core.Domain.Product> GetProducts();
         Core.Domain.Product GetSpaceProduct();
         Core.Domain.Product GetUrnProduct();
-        void SetProduct(int id);
     }
 }

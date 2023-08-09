@@ -1,6 +1,12 @@
-﻿namespace Memorial.Core.Dtos
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace Memorial.Core.Domain
 {
-    public class ApplicantDeceasedFlattenDto
+    public class ApplicantDeceasedFlatten
     {
         public int Id { get; set; }
 

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
-using Memorial.Core.Repositories;
-using Memorial.Lib.Columbarium;
+﻿using Memorial.Core;
 using AutoMapper;
+using System.Linq;
 
 namespace Memorial.Lib.Invoice
 {
@@ -22,33 +15,56 @@ namespace Memorial.Lib.Invoice
             _unitOfWork = unitOfWork;
         }
 
-        public void SetInvoice(string IV)
+        public Core.Domain.Invoice GetByIV(string IV)
         {
-            _invoice = _unitOfWork.Invoices.GetByActiveIV(IV);
+            return _unitOfWork.Invoices.GetByIV(IV);
         }
 
-        public void SetInvoice(InvoiceDto invoiceDto)
+        protected bool Change(Core.Domain.Invoice invoice)
         {
-            _invoice = Mapper.Map<InvoiceDto, Core.Domain.Invoice>(invoiceDto);
+            var invoiceInDb = _unitOfWork.Invoices.GetByIV(invoice.IV);
+            invoiceInDb.hasReceipt = invoice.hasReceipt;
+            invoiceInDb.isPaid = invoice.isPaid;
+            invoiceInDb.AllowDeposit = invoice.AllowDeposit;
+            invoiceInDb.Amount = invoice.Amount;
+            invoiceInDb.Remark = invoice.Remark;
+            _unitOfWork.Complete();
+            return true;
         }
+
+        virtual
+        public bool Remove(Core.Domain.Invoice invoice)
+        {
+            var invoiceInDb = _unitOfWork.Invoices.GetByIV(invoice.IV);
+            if(invoiceInDb != null && !_unitOfWork.Receipts.GetByIV(invoice.IV).Any())
+            {
+                _unitOfWork.Invoices.Remove(invoiceInDb);
+                _unitOfWork.Complete();
+                return true;
+            }
+            return false;
+        }
+
+        public float GetUnpaidAmount(Core.Domain.Invoice invoice)
+        {
+            var totalPaid = _unitOfWork.Receipts.GetByIV(invoice.IV).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+            return invoice.Amount - totalPaid;
+        }
+
+
+        public void SetInvoice(string IV)
+        {
+            _invoice = _unitOfWork.Invoices.GetByIV(IV);
+        }
+
         public Core.Domain.Invoice GetInvoice()
         {
             return _invoice;
         }
 
-        public InvoiceDto GetInvoiceDto()
-        {
-            return Mapper.Map<Core.Domain.Invoice, InvoiceDto>(_invoice);
-        }
-
         public Core.Domain.Invoice GetInvoice(string IV)
         {
-            return _unitOfWork.Invoices.GetByActiveIV(IV);
-        }
-
-        public InvoiceDto GetInvoiceDto(string IV)
-        {
-            return Mapper.Map<Core.Domain.Invoice, InvoiceDto>(GetInvoice(IV));
+            return _unitOfWork.Invoices.GetByIV(IV);
         }
 
         public string GetIV()
@@ -100,21 +116,12 @@ namespace Memorial.Lib.Invoice
         public string GetAF();
 
         abstract
-        public void NewNumber(int itemId);
+        public string GenerateIVNumber(int itemId);
 
-        protected bool CreateNewInvoice(InvoiceDto invoiceDto)
+        protected bool Add(Core.Domain.Invoice invoice)
         {
-            if (string.IsNullOrEmpty(_ivNumber))
-                return false;
-
-            _invoice = new Core.Domain.Invoice();
-
-            Mapper.Map(invoiceDto, _invoice);
-
-            _invoice.IV = _ivNumber;
-            _invoice.hasReceipt = false;
-
-            _unitOfWork.Invoices.Add(_invoice);
+            _unitOfWork.Invoices.Add(invoice);
+            _unitOfWork.Complete();
 
             return true;
         }

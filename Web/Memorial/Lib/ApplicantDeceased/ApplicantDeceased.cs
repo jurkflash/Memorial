@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Memorial.Core;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Lib.ApplicantDeceased
 {
@@ -19,74 +14,66 @@ namespace Memorial.Lib.ApplicantDeceased
             _unitOfWork = unitOfWork;
         }
 
-        public void SetApplicantDeceased(int id)
-        {
-            _applicantDeceased = _unitOfWork.ApplicantDeceaseds.GetActive(id);
-        }
-
-        public void SetApplicantDeceased(int applicantId, int deceasedId)
-        {
-            _applicantDeceased = _unitOfWork.ApplicantDeceaseds.GetByApplicantDeceasedId(applicantId, deceasedId);
-        }
-
-        public Core.Domain.ApplicantDeceased GetApplicantDeceased()
-        {
-            return _applicantDeceased;
-        }
-
-        public ApplicantDeceasedDto GetApplicantDeceasedDto()
-        {
-            return Mapper.Map<Core.Domain.ApplicantDeceased, ApplicantDeceasedDto>(GetApplicantDeceased());
-        }
-
-        public Core.Domain.ApplicantDeceased GetApplicantDeceased(int applicantId, int deceasedId)
+        public Core.Domain.ApplicantDeceased GetByApplicantDeceasedId(int applicantId, int deceasedId)
         {
             return _unitOfWork.ApplicantDeceaseds.GetByApplicantDeceasedId(applicantId, deceasedId);
         }
 
-        public ApplicantDeceasedDto GetApplicantDeceasedDto(int applicantId, int deceasedId)
-        {
-            return Mapper.Map<Core.Domain.ApplicantDeceased, ApplicantDeceasedDto>(GetApplicantDeceased(applicantId, deceasedId));
-        }
-
-        public ApplicantDeceasedFlattenDto GetApplicantDeceasedFlattenDto(int applicantId, int deceasedId)
-        {
-            var ad = GetApplicantDeceasedDto(applicantId, deceasedId);
-
-            return new Core.Dtos.ApplicantDeceasedFlattenDto()
-            {
-                ApplicantId = ad.ApplicantDtoId,
-                ApplicantName = ad.ApplicantDto.Name,
-                ApplicantName2 = ad.ApplicantDto.Name2,
-                DeceasedId = ad.DeceasedDtoId,
-                DeceasedName = ad.DeceasedDto.Name,
-                DeceasedName2 = ad.DeceasedDto.Name2,
-                Id = ad.Id,
-                RelationshipTypeId = ad.RelationshipTypeDtoId,
-                RelationshipTypeName = ad.RelationshipTypeDto.Name
-            };
-        }
-
-        public byte GetRelationshipTypeId()
-        {
-            return _applicantDeceased.RelationshipTypeId;
-        }
-
-        public IEnumerable<Core.Domain.ApplicantDeceased> GetApplicantDeceasedsByApplicantId(int applicantId)
+        public IEnumerable<Core.Domain.ApplicantDeceased> GetByApplicantId(int applicantId)
         {
             return _unitOfWork.ApplicantDeceaseds.GetByApplicantId(applicantId);
         }
 
-        public IEnumerable<ApplicantDeceasedDto> GetApplicantDeceasedDtosByApplicantId(int applicantId)
+        public bool Remove(int id)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.ApplicantDeceased>, IEnumerable<ApplicantDeceasedDto>>(GetApplicantDeceasedsByApplicantId(applicantId));
+            var applicantDeceasedInDb = _unitOfWork.ApplicantDeceaseds.Get(id);
+
+            if(applicantDeceasedInDb != null)
+            {
+                _unitOfWork.ApplicantDeceaseds.Remove(_applicantDeceased);
+                _unitOfWork.Complete();
+
+            }
+
+            return true;
         }
 
-        public IEnumerable<ApplicantDeceasedFlattenDto> GetApplicantDeceasedFlattenDtosByApplicantId(int applicantId)
+        public bool Change(int applicantId, int deceasedId, byte relationshipTypeId)
         {
-            foreach(var a in GetApplicantDeceasedsByApplicantId(applicantId))
+            var ad = _unitOfWork.ApplicantDeceaseds.GetByApplicantDeceasedId(applicantId, deceasedId);
+
+            if (ad != null && ad.RelationshipTypeId != relationshipTypeId)
             {
-                yield return new Core.Dtos.ApplicantDeceasedFlattenDto()
+                ad.RelationshipTypeId = relationshipTypeId;
+                _unitOfWork.Complete();
+            }
+
+            return true;
+        }
+
+        public Core.Domain.ApplicantDeceasedFlatten GetApplicantDeceasedFlatten(int applicantId, int deceasedId)
+        {
+            var ad = _unitOfWork.ApplicantDeceaseds.GetByApplicantDeceasedId(applicantId, deceasedId);
+
+            return new Core.Domain.ApplicantDeceasedFlatten()
+            {
+                ApplicantId = ad.ApplicantId,
+                ApplicantName = ad.Applicant.Name,
+                ApplicantName2 = ad.Applicant.Name2,
+                DeceasedId = ad.DeceasedId,
+                DeceasedName = ad.Deceased.Name,
+                DeceasedName2 = ad.Deceased.Name2,
+                Id = ad.Id,
+                RelationshipTypeId = ad.RelationshipTypeId,
+                RelationshipTypeName = ad.RelationshipType.Name
+            };
+        }
+
+        public IEnumerable<Core.Domain.ApplicantDeceasedFlatten> GetApplicantDeceasedFlattensByApplicantId(int applicantId)
+        {
+            foreach(var a in GetByApplicantId(applicantId))
+            {
+                yield return new Core.Domain.ApplicantDeceasedFlatten()
                 {
                     ApplicantId = a.ApplicantId,
                     ApplicantName = a.Applicant.Name,
@@ -101,69 +88,19 @@ namespace Memorial.Lib.ApplicantDeceased
             }
         }
 
-        public IEnumerable<Core.Domain.ApplicantDeceased> GetApplicantDeceasedsByDeceasedId(int deceasedId)
+        public int Add(int applicantId, int deceasedId, byte relationshipTypeId)
         {
-            return _unitOfWork.ApplicantDeceaseds.GetByDeceasedId(deceasedId);
-        }
+            var ad = _unitOfWork.ApplicantDeceaseds.GetByApplicantDeceasedId(applicantId, deceasedId);
+            if (ad != null)
+                return ad.Id;
 
-        public IEnumerable<ApplicantDeceasedDto> GetApplicantDeceasedDtosByDeceasedId(int deceasedId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.ApplicantDeceased>, IEnumerable<ApplicantDeceasedDto>>(GetApplicantDeceasedsByDeceasedId(deceasedId));
-        }
-
-        public bool Create(int applicantId, int deceasedId, byte relationshipTypeId)
-        {
-            SetApplicantDeceased(applicantId, deceasedId);
-            if (_applicantDeceased == null)
-            {
-                _applicantDeceased = new Core.Domain.ApplicantDeceased();
-                _applicantDeceased.ApplicantId = applicantId;
-                _applicantDeceased.DeceasedId = deceasedId;
-                _applicantDeceased.RelationshipTypeId = relationshipTypeId;
-                _unitOfWork.ApplicantDeceaseds.Add(_applicantDeceased);
-                _unitOfWork.Complete();
-            }
-            else
-                return false;
-
-            return true;
-        }
-
-        public int CreateWithReturnId(int applicantId, int deceasedId, byte relationshipTypeId)
-        {
-            Create(applicantId, deceasedId, relationshipTypeId);
-
-            return _applicantDeceased.Id;
-        }
-
-        public bool Update(int applicantId, int deceasedId, byte relationshipTypeId)
-        {
-            SetApplicantDeceased(applicantId, deceasedId);
-
-            if(_applicantDeceased.RelationshipTypeId != relationshipTypeId)
-            {
-                _applicantDeceased.RelationshipTypeId = relationshipTypeId;
-
-                _unitOfWork.Complete();
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            _unitOfWork.ApplicantDeceaseds.Remove(_applicantDeceased);
-
+            var applicantDeceased = new Core.Domain.ApplicantDeceased();
+            applicantDeceased.ApplicantId = applicantId;
+            applicantDeceased.DeceasedId = deceasedId;
+            applicantDeceased.RelationshipTypeId = relationshipTypeId;
+            _unitOfWork.ApplicantDeceaseds.Add(applicantDeceased);
             _unitOfWork.Complete();
-
-            return true;
-        }
-
-        public int DeleteWithReturnDeceasedId()
-        {
-            Delete();
-
-            return _applicantDeceased.DeceasedId;
-        }
+            return applicantDeceased.Id;
+        }        
     }
 }

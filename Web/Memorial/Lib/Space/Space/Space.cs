@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
-using Memorial.Lib.Space;
 using AutoMapper;
 
 namespace Memorial.Lib.Space
@@ -13,7 +10,6 @@ namespace Memorial.Lib.Space
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IItem _item;
-        private Core.Domain.Space _space;
 
         public Space(IUnitOfWork unitOfWork, IItem item)
         {
@@ -21,44 +17,14 @@ namespace Memorial.Lib.Space
             _item = item;
         }
 
-        public void SetSpace(int id)
-        {
-            _space = _unitOfWork.Spaces.GetActive(id);
-        }
-
-        public Core.Domain.Space GetSpace()
-        {
-            return _space;
-        }
-
-        public Core.Domain.Space GetSpace(int id)
+        public Core.Domain.Space Get(int id)
         {
             return _unitOfWork.Spaces.GetActive(id);
         }
 
-        public SpaceDto GetSpaceDto(int id)
-        {
-            return Mapper.Map<Core.Domain.Space, SpaceDto>(GetSpace(id));
-        }
-
-        public SpaceDto GetSpaceDto()
-        {
-            return Mapper.Map<Core.Domain.Space, SpaceDto>(GetSpace());
-        }
-
-        public IEnumerable<SpaceDto> GetSpaceDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Space>, IEnumerable<SpaceDto>>(_unitOfWork.Spaces.GetAllActive());
-        }
-
-        public IEnumerable<Core.Domain.Space> GetSpacesBySite(int siteId)
+        public IEnumerable<Core.Domain.Space> GetBySite(int siteId)
         {
             return _unitOfWork.Spaces.GetBySite(siteId);
-        }
-
-        public IEnumerable<SpaceDto> GetSpaceDtosBySite(int siteId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Space>, IEnumerable<SpaceDto>>(GetSpacesBySite(siteId));
         }
 
         public double GetAmount(DateTime from, DateTime to, int spaceItemId)
@@ -97,50 +63,47 @@ namespace Memorial.Lib.Space
             return _unitOfWork.SpaceTransactions.GetAvailability(from, to, AF);
         }
 
-        public int Create(SpaceDto spaceDto)
+        public int Add(Core.Domain.Space space)
         {
-            _space = new Core.Domain.Space();
-            Mapper.Map(spaceDto, _space);
-
-            _unitOfWork.Spaces.Add(_space);
+            _unitOfWork.Spaces.Add(space);
 
             _unitOfWork.Complete();
 
-            return _space.Id;
+            return space.Id;
         }
 
-        public bool Update(SpaceDto spaceDto)
+        public bool Change(int spaceId, Core.Domain.Space space)
         {
-            var spaceInDB = GetSpace(spaceDto.Id);
+            var spaceInDB = _unitOfWork.Spaces.Get(spaceId);
 
-            if (spaceInDB.SiteId != spaceDto.SiteDtoId
+            if (spaceInDB.SiteId != space.SiteId
                 && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.SiteId == spaceInDB.SiteId).Any())
             {
                 return false;
             }
 
-            Mapper.Map(spaceDto, spaceInDB);
+            Mapper.Map(space, spaceInDB);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItem.Space.Id == id).Any())
             {
                 return false;
             }
 
-            SetSpace(id);
+            var spaceInDB = _unitOfWork.Spaces.Get(id);
 
-            if(_space == null)
+            if (spaceInDB == null)
             {
                 return false;
             }
 
-            _unitOfWork.Spaces.Remove(_space);
+            _unitOfWork.Spaces.Remove(spaceInDB);
 
             _unitOfWork.Complete();
 

@@ -5,22 +5,36 @@ namespace Memorial.Core.Repositories
 {
     public interface IReceiptRepository : IRepository<Receipt>
     {
-        IEnumerable<Receipt> GetByNonOrderActiveAncestralTabletAF(string AF);
+        IEnumerable<Receipt> GetByAncestralTabletAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByNonOrderActiveCremationAF(string AF);
+        IEnumerable<Receipt> GetByCremationAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByNonOrderActiveCemeteryAF(string AF);
+        IEnumerable<Receipt> GetByCemeteryAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByNonOrderActiveSpaceAF(string AF);
+        IEnumerable<Receipt> GetBySpaceAF(string AF);
 
-        IEnumerable<Receipt> GetByNonOrderActiveUrnAF(string AF);
+        IEnumerable<Receipt> GetByUrnAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByNonOrderActiveColumbariumAF(string AF);
+        IEnumerable<Receipt> GetByColumbariumAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByNonOrderActiveMiscellaneousAF(string AF);
+        IEnumerable<Receipt> GetByMiscellaneousAF(string AF, bool isOrder);
 
-        IEnumerable<Receipt> GetByActiveIV(string IV);
+        float GetTotalAmountByAncestralTabletAF(string AF);
 
-        Receipt GetByActiveRE(string RE);
+        float GetTotalAmountByCremationAF(string AF);
+
+        float GetTotalAmountByCemeteryAF(string AF);
+
+        float GetTotalAmountBySpaceAF(string AF);
+
+        float GetTotalAmountByUrnAF(string AF);
+
+        float GetTotalAmountByColumbariumAF(string AF);
+
+        float GetTotalAmountByMiscellaneousAF(string AF);
+
+        IEnumerable<Receipt> GetByIV(string IV);
+
+        Receipt GetByRE(string RE);
     }
 }

@@ -25,7 +25,7 @@ namespace Memorial.Lib.Receipt
 
         public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
-            return _unitOfWork.Receipts.GetByNonOrderActiveMiscellaneousAF(AF);
+            return _unitOfWork.Receipts.GetByMiscellaneousAF(AF, false);
         }
 
         public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)

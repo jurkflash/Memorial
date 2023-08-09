@@ -8,15 +8,16 @@ namespace Memorial.Lib.Invoice
 {
     public interface ISpace : IInvoice
     {
-        IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF);
+        bool Change(string IV, Core.Domain.Invoice invoice);
 
-        IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF);
+
+        IEnumerable<Core.Domain.Invoice> GetByAF(string AF);
 
         bool HasInvoiceByAF(string AF);
 
         string GetAF();
 
-        bool Create(int itemId, InvoiceDto invoiceDto);
+        bool Add(int itemId, Core.Domain.Invoice invoice);
 
         bool Update(InvoiceDto invoiceDto);
 

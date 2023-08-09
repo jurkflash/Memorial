@@ -9,17 +9,18 @@ namespace Memorial.Lib.Invoice
 {
     public interface IInvoice
     {
-        void SetInvoice(string IV);
+        Core.Domain.Invoice GetByIV(string IV);
+        bool Remove(Core.Domain.Invoice invoice);
+        float GetUnpaidAmount(Core.Domain.Invoice invoice);
 
-        void SetInvoice(InvoiceDto invoiceDto);
+
+
+
+        void SetInvoice(string IV);
 
         Core.Domain.Invoice GetInvoice();
 
-        InvoiceDto GetInvoiceDto();
-
         Core.Domain.Invoice GetInvoice(string IV);
-
-        InvoiceDto GetInvoiceDto(string IV);
 
         string GetIV();
 

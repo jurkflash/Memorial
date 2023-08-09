@@ -12,70 +12,148 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveAncestralTabletAF(string AF)
+        public IEnumerable<Receipt> GetByAncestralTabletAF(string AF, bool isOrder)
         {
+            if(isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.AncestralTabletTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList()
+                .OrderBy(r => r.CreatedUtcTime);
+            }
+
             return MemorialContext.Receipts
-                .Where(r => r.AncestralTabletTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.AncestralTabletTransactionAF == AF && r.InvoiceIV == null)
+                .Include(r => r.PaymentMethod)
+                .ToList()
+                .OrderBy(r => r.CreatedUtcTime);
+        }
+
+        public IEnumerable<Receipt> GetByCremationAF(string AF, bool isOrder)
+        {
+            if (isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.CremationTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList().OrderBy(r => r.CreatedUtcTime);
+            }
+
+            return MemorialContext.Receipts
+                .Where(r => r.CremationTransactionAF == AF && r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveCremationAF(string AF)
+        public IEnumerable<Receipt> GetByCemeteryAF(string AF, bool isOrder)
         {
+            if(isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.CemeteryTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList().OrderBy(r => r.CreatedUtcTime);
+            }
+
             return MemorialContext.Receipts
-                .Where(r => r.CremationTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.CemeteryTransactionAF == AF && r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveCemeteryAF(string AF)
+        public IEnumerable<Receipt> GetBySpaceAF(string AF)
         {
             return MemorialContext.Receipts
-                .Where(r => r.CemeteryTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.SpaceTransactionAF == AF)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveSpaceAF(string AF)
+        public IEnumerable<Receipt> GetByUrnAF(string AF, bool isOrder)
         {
+            if(isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.UrnTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList().OrderBy(r => r.CreatedUtcTime);
+            }
+
             return MemorialContext.Receipts
-                .Where(r => r.SpaceTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.UrnTransactionAF == AF && r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveUrnAF(string AF)
+        public IEnumerable<Receipt> GetByColumbariumAF(string AF, bool isOrder)
         {
+            if (isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.ColumbariumTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList().OrderBy(r => r.CreatedUtcTime);
+            }
+
             return MemorialContext.Receipts
-                .Where(r => r.UrnTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.ColumbariumTransactionAF == AF && r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveColumbariumAF(string AF)
+        public IEnumerable<Receipt> GetByMiscellaneousAF(string AF, bool isOrder)
         {
+            if(isOrder)
+            {
+                return MemorialContext.Receipts
+                .Where(r => r.MiscellaneousTransactionAF == AF && r.InvoiceIV != null)
+                .Include(r => r.PaymentMethod)
+                .ToList().OrderBy(r => r.CreatedUtcTime);
+            }
+
             return MemorialContext.Receipts
-                .Where(r => r.ColumbariumTransactionAF == AF &&
-                    r.InvoiceIV == null)
+                .Where(r => r.MiscellaneousTransactionAF == AF && r.InvoiceIV == null)
                 .Include(r => r.PaymentMethod)
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public IEnumerable<Receipt> GetByNonOrderActiveMiscellaneousAF(string AF)
+        public float GetTotalAmountByAncestralTabletAF(string AF)
         {
-            return MemorialContext.Receipts
-                .Where(r => r.MiscellaneousTransactionAF == AF &&
-                    r.InvoiceIV == null)
-                .Include(r => r.PaymentMethod)
-                .ToList().OrderBy(r => r.CreatedUtcTime);
+            return MemorialContext.Receipts.Where(r => r.AncestralTabletTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
         }
 
-        public IEnumerable<Receipt> GetByActiveIV(string IV)
+        public float GetTotalAmountByCremationAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.CremationTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public float GetTotalAmountByCemeteryAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.CemeteryTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public float GetTotalAmountBySpaceAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.SpaceTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public float GetTotalAmountByUrnAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.UrnTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public float GetTotalAmountByColumbariumAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.ColumbariumTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public float GetTotalAmountByMiscellaneousAF(string AF)
+        {
+            return MemorialContext.Receipts.Where(r => r.MiscellaneousTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
+        public IEnumerable<Receipt> GetByIV(string IV)
         {
             return MemorialContext.Receipts
                 .Where(r => r.InvoiceIV == IV)
@@ -83,7 +161,7 @@ namespace Memorial.Persistence.Repositories
                 .ToList().OrderBy(r => r.CreatedUtcTime);
         }
 
-        public Receipt GetByActiveRE(string RE)
+        public Receipt GetByRE(string RE)
         {
             return MemorialContext.Receipts
                 .Where(r => r.RE == RE)

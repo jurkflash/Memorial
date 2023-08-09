@@ -11,13 +11,18 @@ namespace Memorial.Lib.Receipt
 {
     public interface ISpace : IReceipt
     {
-        IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF);
+        bool Change(string RE, Core.Domain.Receipt receipt);
+        bool Add(int itemId, Core.Domain.Receipt receipt);
+        IEnumerable<Core.Domain.Receipt> GetByAF(string AF);
 
-        IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF);
+
+
+
+
 
         string GetApplicationAF();
 
-        float GetTotalIssuedNonOrderReceiptAmount(string AF);
+        float GetTotalIssuedReceiptAmount(string AF);
 
         bool Create(int itemId, ReceiptDto receiptDto);
 

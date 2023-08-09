@@ -23,7 +23,7 @@ namespace Memorial.Lib.Receipt
 
         public IEnumerable<Core.Domain.Receipt> GetNonOrderReceipts(string AF)
         {
-            return _unitOfWork.Receipts.GetByNonOrderActiveColumbariumAF(AF);
+            return _unitOfWork.Receipts.GetByColumbariumAF(AF, false);
         }
 
         public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)

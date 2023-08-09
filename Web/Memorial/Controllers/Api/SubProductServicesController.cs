@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.SubProductService;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -16,14 +17,14 @@ namespace Memorial.Controllers.Api
             _subProductService = subProductService;
         }
 
-        public IEnumerable<SubProductServiceDto> GetSubProductServices()
+        public IEnumerable<SubProductServiceDto> GetAll()
         {
-            return _subProductService.GetSubProductServiceDtos();
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_subProductService.GetAll());
         }
 
-        public IHttpActionResult GetSubProductService(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_subProductService.GetSubProductServiceDto(id));
+            return Ok(Mapper.Map<SubProductServiceDto>(_subProductService.Get(id)));
         }
 
     }
