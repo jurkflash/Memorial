@@ -5,6 +5,8 @@ using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Columbarium;
 using System.Web.Mvc;
 using Memorial.ViewModels;
+using AutoMapper;
+using Memorial.Core.Dtos;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -51,19 +53,17 @@ namespace Memorial.Areas.Columbarium.Controllers
 
                 if (_niche.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_niche.GetApplicantId());
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_niche.GetApplicantId()));
                     var deceaseds = _deceased.GetDeceasedsByNicheId(_niche.GetNiche().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[0].Id).ToList();
-                        viewModel.DeceasedFlatten1Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_niche.GetApplicantId(), deceaseds[0].Id);
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[1].Id).ToList();
-                        viewModel.DeceasedFlatten2Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_niche.GetApplicantId(), deceaseds[1].Id);
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[1].Id));
                     }
                 }
 

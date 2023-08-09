@@ -7,6 +7,7 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -103,7 +104,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                 _niche.SetNiche(id);
 
                 var columbariumTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
-                columbariumTransactionDto.ApplicantDto = _applicant.GetApplicantDto(applicantId);
+                columbariumTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(applicantId));
                 columbariumTransactionDto.NicheDto = _niche.GetNicheDto();
                 columbariumTransactionDto.TransferredApplicantDtoId = columbariumTransactionDto.NicheDto.ApplicantDtoId;
 
@@ -175,7 +176,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult FormForResubmit(ColumbariumTransactionsFormViewModel viewModel)
         {
-            viewModel.ColumbariumTransactionDto.ApplicantDto = _applicant.GetApplicantDto(viewModel.ColumbariumTransactionDto.ApplicantDtoId);
+            viewModel.ColumbariumTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(viewModel.ColumbariumTransactionDto.ApplicantDtoId));
             viewModel.ColumbariumTransactionDto.NicheDto = _niche.GetNicheDto(viewModel.ColumbariumTransactionDto.NicheDtoId);
 
             return View("Form", viewModel);

@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.CemeteryLandscapeCompany;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.CemeteryLandscapeCompanyConfig.Controllers
 {
@@ -26,12 +28,12 @@ namespace Memorial.Areas.CemeteryLandscapeCompanyConfig.Controllers
         {
             var vw = new CemeteryLandscapeCompanyFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosUrn();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesUrn());
 
             var dto = new CemeteryLandscapeCompanyDto();
             if (id != null)
             {
-                dto = _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDto((int)id);
+                dto = Mapper.Map<CemeteryLandscapeCompanyDto>(_cemeteryLandscapeCompany.Get((int)id));
             }
 
             vw.CemeteryLandscapeCompanyDto = dto;

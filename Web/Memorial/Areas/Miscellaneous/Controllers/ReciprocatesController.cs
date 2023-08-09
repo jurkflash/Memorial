@@ -5,6 +5,8 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -52,7 +54,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var viewModel = new MiscellaneousTransactionsFormViewModel()
             {
-                CemeteryLandscapeCompanyDtos = _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDtos()
+                CemeteryLandscapeCompanyDtos = Mapper.Map<IEnumerable<CemeteryLandscapeCompanyDto>>(_cemeteryLandscapeCompany.GetAll())
             };
 
             if (AF == null)
@@ -99,7 +101,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult FormForResubmit(MiscellaneousTransactionsFormViewModel viewModel)
         {
-            viewModel.CemeteryLandscapeCompanyDtos = _cemeteryLandscapeCompany.GetCemeteryLandscapeCompanyDtos();
+            viewModel.CemeteryLandscapeCompanyDtos = Mapper.Map<IEnumerable<CemeteryLandscapeCompanyDto>>(_cemeteryLandscapeCompany.GetAll());
 
             return View("Form", viewModel);
         }

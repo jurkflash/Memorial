@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Memorial.ViewModels;
 using Memorial.Lib.Site;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.Navigation.Controllers
 {
@@ -23,7 +24,7 @@ namespace Memorial.Areas.Navigation.Controllers
         {
             var viewModel = new NavigationViewModel()
             {
-                SiteDtos = _site.GetSiteDtos(),
+                SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll()),
                 ApplicantId = applicantId
             };
             

@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Cemetery;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.CemeteryConfig.Controllers
 {
@@ -26,7 +28,7 @@ namespace Memorial.Areas.CemeteryConfig.Controllers
         {
             var vw = new CemeteryAreaFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosAncestralTablet();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesAncestralTablet());
 
             var dto = new CemeteryAreaDto();
             if (id != null)

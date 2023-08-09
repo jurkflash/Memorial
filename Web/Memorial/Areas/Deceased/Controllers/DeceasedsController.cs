@@ -57,11 +57,11 @@ namespace Memorial.Areas.Deceased.Controllers
         {
             var viewModel = new DeceasedFormViewModel
             {
-                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
-                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
-                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
-                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
-                ReligionTypeDtos = _religionType.GetReligionTypeDtos(),
+                GenderTypeDtos = Mapper.Map<IEnumerable<GenderTypeDto>>(_genderType.GetAll()),
+                MaritalTypeDtos = Mapper.Map<IEnumerable<MaritalTypeDto>>(_maritalType.GetAll()),
+                NationalityTypeDtos = Mapper.Map<IEnumerable<NationalityTypeDto>>(_nationalityType.GetAll()),
+                RelationshipTypeDtos = Mapper.Map<IEnumerable<RelationshipTypeDto>>(_relationshipType.GetAll()),
+                ReligionTypeDtos = Mapper.Map<IEnumerable<ReligionTypeDto>>(_religionType.GetAll()),
                 ApplicantId = applicantId,
                 DeceasedDto = new DeceasedDto()
             };
@@ -73,20 +73,19 @@ namespace Memorial.Areas.Deceased.Controllers
         {
             var viewModel = new DeceasedFormViewModel
             {
-                GenderTypeDtos = _genderType.GetGenderTypeDtos(),
-                MaritalTypeDtos = _maritalType.GetMaritalTypeDtos(),
-                NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos(),
-                RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos(),
-                ReligionTypeDtos = _religionType.GetReligionTypeDtos()
+                GenderTypeDtos = Mapper.Map<IEnumerable<GenderTypeDto>>(_genderType.GetAll()),
+                MaritalTypeDtos = Mapper.Map<IEnumerable<MaritalTypeDto>>(_maritalType.GetAll()),
+                NationalityTypeDtos = Mapper.Map<IEnumerable<NationalityTypeDto>>(_nationalityType.GetAll()),
+                RelationshipTypeDtos = Mapper.Map<IEnumerable<RelationshipTypeDto>>(_relationshipType.GetAll()),
+                ReligionTypeDtos = Mapper.Map<IEnumerable<ReligionTypeDto>>(_religionType.GetAll())
             };
 
             var deceased = _deceased.GetDeceasedDto(id);
             if (deceased != null)
             {
-                _applicantDeceased.SetApplicantDeceased(applicantId, id);
                 viewModel.ApplicantId = applicantId;
                 viewModel.DeceasedDto = deceased;
-                viewModel.DeceasedDto.RelationshipTypeDtoId = _applicantDeceased.GetRelationshipTypeId();
+                viewModel.DeceasedDto.RelationshipTypeDtoId = _applicantDeceased.GetByApplicantDeceasedId(applicantId, id).RelationshipTypeId;
             }
 
             return View("Form", viewModel);
@@ -94,11 +93,11 @@ namespace Memorial.Areas.Deceased.Controllers
 
         public ActionResult Save(DeceasedFormViewModel viewModel)
         {
-            viewModel.GenderTypeDtos = _genderType.GetGenderTypeDtos();
-            viewModel.MaritalTypeDtos = _maritalType.GetMaritalTypeDtos();
-            viewModel.NationalityTypeDtos = _nationalityType.GetNationalityTypeDtos();
-            viewModel.RelationshipTypeDtos = _relationshipType.GetRelationshipTypeDtos();
-            viewModel.ReligionTypeDtos = _religionType.GetReligionTypeDtos();
+            viewModel.GenderTypeDtos = Mapper.Map<IEnumerable<GenderTypeDto>>(_genderType.GetAll());
+            viewModel.MaritalTypeDtos = Mapper.Map<IEnumerable<MaritalTypeDto>>(_maritalType.GetAll());
+            viewModel.NationalityTypeDtos = Mapper.Map<IEnumerable<NationalityTypeDto>>(_nationalityType.GetAll());
+            viewModel.RelationshipTypeDtos = Mapper.Map<IEnumerable<RelationshipTypeDto>>(_relationshipType.GetAll());
+            viewModel.ReligionTypeDtos = Mapper.Map<IEnumerable<ReligionTypeDto>>(_religionType.GetAll());
 
             if (_deceased.GetExistsByIC(viewModel.DeceasedDto.IC, viewModel.DeceasedDto.Id == 0 ? (int?)null : viewModel.DeceasedDto.Id))
             {
@@ -122,7 +121,7 @@ namespace Memorial.Areas.Deceased.Controllers
             {
                 if (_deceased.Update(viewModel.DeceasedDto))
                 {
-                    _applicantDeceased.Update(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.DeceasedDto.RelationshipTypeDtoId);
+                    _applicantDeceased.Change(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.DeceasedDto.RelationshipTypeDtoId);
                 }
                 else
                 {

@@ -8,6 +8,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -110,7 +111,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             var item = _item.GetItemDto(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel()
             {
-                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
+                FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll()),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
                 ColumbariumCentreDto = item.ColumbariumCentreDto
             };
@@ -205,8 +206,8 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult FormForResubmit(ColumbariumTransactionsFormViewModel viewModel)
         {
-            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.ColumbariumTransactionDto.ApplicantDtoId);
+            viewModel.FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll());
+            viewModel.DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(viewModel.ColumbariumTransactionDto.ApplicantDtoId));
 
             return View("Form", viewModel);
         }

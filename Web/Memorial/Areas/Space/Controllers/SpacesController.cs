@@ -4,6 +4,7 @@ using Memorial.Lib.Site;
 using Memorial.Lib.Space;
 using Memorial.Core.Dtos;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Space.Controllers
 {
@@ -30,8 +31,8 @@ namespace Memorial.Areas.Space.Controllers
         public ActionResult Index(int siteId, int? applicantId)
         {
             var viewModel = new SpaceIndexesViewModel();
-            viewModel.SpaceDtos = _space.GetSpaceDtosBySite(siteId);
-            viewModel.SiteDto = _site.GetSiteDto(siteId);
+            viewModel.SpaceDtos = Mapper.Map<IEnumerable<SpaceDto>>(_space.GetBySite(siteId));
+            viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId));
 
             if (applicantId != null)
             {
@@ -45,8 +46,8 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceIndexesViewModel()
             {
-                SpaceDtos = _space.GetSpaceDtosBySite(siteId),
-                SiteDto = _site.GetSiteDto(siteId)
+                SpaceDtos = Mapper.Map<IEnumerable<SpaceDto>>(_space.GetBySite(siteId)),
+                SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
             return View(viewModel);
         }
@@ -55,7 +56,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceItemsViewModel()
             {
-                SpaceDto = _space.GetSpaceDto(spaceId),
+                SpaceDto = Mapper.Map<SpaceDto>(_space.Get(spaceId)),
                 SpaceItemDtos = _item.GetItemDtosBySpace(spaceId),
                 ApplicantId = applicantId
             };
@@ -68,7 +69,7 @@ namespace Memorial.Areas.Space.Controllers
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = _transaction.GetRecent(siteId, applicantId);
+            var transactions = Mapper.Map<IEnumerable<SpaceTransactionDto>>(_transaction.GetRecent(siteId, applicantId));
 
             foreach (var transaction in transactions)
             {

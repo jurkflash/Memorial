@@ -49,7 +49,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             var viewModel = new InvoiceInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
             viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
-            viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+            viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
             viewModel.Header = _transaction.GetSiteHeader();
 
             return View(viewModel);
@@ -84,7 +84,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
             }
 
             return View("Form", viewModel);

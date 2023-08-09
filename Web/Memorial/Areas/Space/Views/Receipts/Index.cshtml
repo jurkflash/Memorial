@@ -14,7 +14,7 @@
 <br />
 @Html.Raw(Resources.Mix.RemainingAmount): @Model.RemainingAmount
 
-@if (!Model.InvoiceDto.isPaid)
+@if (!Model.InvoiceDto.isPaid && (Model.AFTotalAmount != Model.AFTotalAmountPaid))
 {
     <p>
         @Html.ActionLink(@Resources.Mix.New, "Form", new { IV = Model.InvoiceDto.IV, AF = Model.AF, area = "Space" })

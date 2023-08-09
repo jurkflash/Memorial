@@ -81,7 +81,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 AF = AF,
                 Amount = _transaction.GetTransactionTotalAmount(),
                 RemainingAmount = _transaction.GetTransactionTotalAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
-                PaymentMethods = _paymentMethod.GetPaymentMethods()
+                PaymentMethods = _paymentMethod.GetAll()
             };
             return View(viewModel);
         }
@@ -96,7 +96,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount invalid");
                 viewModel.Amount = _transaction.GetTransactionTotalAmount();
                 viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
-                viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
+                viewModel.PaymentMethods = _paymentMethod.GetAll();
                 return View("Form", viewModel);
             }
 
@@ -114,7 +114,7 @@ namespace Memorial.Areas.Cemetery.Controllers
                 {
                     viewModel.Amount = _transaction.GetTransactionTotalAmount();
                     viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
-                    viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
+                    viewModel.PaymentMethods = _paymentMethod.GetAll();
                     return View("Form", viewModel);
                 }
             }

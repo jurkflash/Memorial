@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Miscellaneous;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.MiscellaneousConfig.Controllers
 {
@@ -26,7 +28,7 @@ namespace Memorial.Areas.MiscellaneousConfig.Controllers
         {
             var vw = new MiscellaneousFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosMiscellaneous();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesMiscellaneous());
 
             var dto = new MiscellaneousDto();
             if (id != null)

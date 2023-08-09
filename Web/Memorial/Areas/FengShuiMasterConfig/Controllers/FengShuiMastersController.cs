@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.FengShuiMaster;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.FengShuiMasterConfig.Controllers
 {
@@ -26,12 +28,12 @@ namespace Memorial.Areas.FengShuiMasterConfig.Controllers
         {
             var vw = new FengShuiMasterFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosUrn();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesUrn());
 
             var dto = new FengShuiMasterDto();
             if (id != null)
             {
-                dto = _fengShuiMaster.GetFengShuiMasterDto((int)id);
+                dto = Mapper.Map<FengShuiMasterDto>(_fengShuiMaster.Get((int)id));
             }
 
             vw.FengShuiMasterDto = dto;

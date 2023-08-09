@@ -8,6 +8,7 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Columbarium;
 using Memorial.Lib.Site;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -54,7 +55,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         {
             var viewModel = new ColumbariumCentreIndexesViewModel();
             viewModel.ColumbariumCentreDtos = _centre.GetCentreDtosBySite(siteId);
-            viewModel.SiteDto = _site.GetSiteDto(siteId);
+            viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId));
 
             if(applicantId != null)
             {
@@ -122,21 +123,19 @@ namespace Memorial.Areas.Columbarium.Controllers
                 viewModel.NumberOfPlacements = _niche.GetNumberOfPlacement();
                 viewModel.ColumbariumAreaDto = _area.GetAreaDto(_niche.GetNicheDto().ColumbariumAreaDtoId);
                 viewModel.ColumbariumCentreDto = _centre.GetCentreDto(viewModel.ColumbariumAreaDto.ColumbariumCentreDtoId);
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.ColumbariumCentreDto.SiteDtoId);
+                viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.ColumbariumCentreDto.SiteDtoId));
 
                 if(_niche.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_niche.GetApplicantId());
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_niche.GetApplicantId()));
                     var deceaseds = _deceased.GetDeceasedsByNicheId(_niche.GetNiche().Id).ToList();
                     if(deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlatten1Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_niche.GetApplicantId(), deceaseds[0].Id);
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
-                        viewModel.DeceasedFlatten2Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_niche.GetApplicantId(), deceaseds[1].Id);
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[1].Id));
                     }
                 }
             }

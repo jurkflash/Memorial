@@ -6,6 +6,7 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Space.Controllers
 {
@@ -15,21 +16,18 @@ namespace Memorial.Areas.Space.Controllers
         private readonly IItem _item;
         private readonly IChair _chair;
         private readonly IApplicant _applicant;
-        private readonly Lib.Invoice.ISpace _invoice;
 
         public ChairsController(
             ISpace space,
             IItem item,
             IApplicant applicant,
-            IChair chair,
-            Lib.Invoice.ISpace invoice
+            IChair chair
             )
         {
             _space = space;
             _item = item;
             _applicant = applicant;
             _chair = chair;
-            _invoice = invoice;
         }
 
         public ActionResult Index(int itemId, int? applicantId, string filter, int? page)
@@ -39,15 +37,14 @@ namespace Memorial.Areas.Space.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             var viewModel = new SpaceItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                SpaceItemDto = _item.GetItemDto(),
-                SpaceName = _item.GetItem().Space.Name,
-                SpaceTransactionDtos = _chair.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                SpaceItemDto = Mapper.Map<SpaceItemDto>(item),
+                SpaceName = item.Space.Name,
+                SpaceTransactionDtos = Mapper.Map<IEnumerable<SpaceTransactionDto>>(_chair.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
 
@@ -56,18 +53,17 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _chair.SetTransaction(AF);
-            _item.SetItem(_chair.GetTransactionSpaceItemId());
-            _space.SetSpace(_item.GetItem().SpaceId);
+            var transaction = _chair.GetByAF(AF);
+            var item = _item.GetById(transaction.SpaceItemId);
 
             var viewModel = new SpaceTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _chair.GetItemName();
-            viewModel.SpaceDto = _space.GetSpaceDto();
-            viewModel.SpaceTransactionDto = _chair.GetTransactionDto();
-            viewModel.ApplicantId = _chair.GetTransactionApplicantId();
-            viewModel.DeceasedId = _chair.GetTransactionDeceasedId();
-            viewModel.Header = _chair.GetSiteHeader();
+            viewModel.ItemName = item.SubProductService.Name;
+            viewModel.SpaceDto = Mapper.Map<SpaceDto>(transaction.SpaceItem.Space);
+            viewModel.SpaceTransactionDto = Mapper.Map<SpaceTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.DeceasedId = transaction.DeceasedId;
+            viewModel.Header = transaction.SpaceItem.Space.Site.Header;
 
             return View(viewModel);
         }
@@ -90,18 +86,17 @@ namespace Memorial.Areas.Space.Controllers
         {
             var spaceTransactionDto = new SpaceTransactionDto();
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             if (AF == null)
             {
                 spaceTransactionDto.ApplicantDtoId = applicantId;
+                spaceTransactionDto.SpaceItemDto = Mapper.Map<SpaceItemDto>(item);
                 spaceTransactionDto.SpaceItemDtoId = itemId;
-                spaceTransactionDto.SpaceItemDto = _item.GetItemDto();
-                spaceTransactionDto.Amount = _item.GetPrice();
+                spaceTransactionDto.Amount = _item.GetPrice(item);
             }
             else
             {
-                spaceTransactionDto = _chair.GetTransactionDto(AF);
+                spaceTransactionDto = Mapper.Map<SpaceTransactionDto>(_chair.GetByAF(AF));
             }
 
             return View(spaceTransactionDto);
@@ -109,10 +104,11 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Save(SpaceTransactionDto spaceTransactionDto)
         {
-            if ((spaceTransactionDto.AF == null && _chair.Create(spaceTransactionDto)) ||
-                (spaceTransactionDto.AF != null && _chair.Update(spaceTransactionDto)))
+            var spaceTransaction = Mapper.Map<Core.Domain.SpaceTransaction>(spaceTransactionDto);
+            if ((spaceTransactionDto.AF == null && _chair.Add(spaceTransaction)) ||
+                (spaceTransactionDto.AF != null && _chair.Change(spaceTransaction.AF, spaceTransaction)))
             {
-                return RedirectToAction("Index", new { itemId = spaceTransactionDto.SpaceItemDtoId, applicantId = spaceTransactionDto.ApplicantDtoId });
+                return RedirectToAction("Index", new { itemId = spaceTransaction.SpaceItemId, applicantId = spaceTransaction.ApplicantId });
             }
 
             return View("Form", spaceTransactionDto);
@@ -120,8 +116,7 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _chair.SetTransaction(AF);
-            _chair.Delete();
+            var status = _chair.Remove(AF);
 
             return RedirectToAction("Index", new
             {

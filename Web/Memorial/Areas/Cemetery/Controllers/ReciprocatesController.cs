@@ -5,6 +5,8 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
+using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
@@ -82,7 +84,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             var viewModel = new CemeteryTransactionsFormViewModel()
             {
-                FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos(),
+                FengShuiMasterDtos = Mapper.Map<IEnumerable<FengShuiMasterDto>>(_fengShuiMaster.GetAll()),
                 PlotDto = _plot.GetPlotDto()
             };
 
@@ -139,7 +141,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
-            viewModel.FengShuiMasterDtos = _fengShuiMaster.GetFengShuiMasterDtos();
+            viewModel.FengShuiMasterDtos = Mapper.Map<IEnumerable<FengShuiMasterDto>>(_fengShuiMaster.GetAll());
 
             return View("Form", viewModel);
         }

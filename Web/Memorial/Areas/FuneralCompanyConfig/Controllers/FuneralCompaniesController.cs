@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.FuneralCompany;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.FuneralCompanyConfig.Controllers
 {
@@ -26,12 +28,12 @@ namespace Memorial.Areas.FuneralCompanyConfig.Controllers
         {
             var vw = new FuneralCompanyFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosUrn();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesUrn());
 
             var dto = new FuneralCompanyDto();
             if (id != null)
             {
-                dto = _funeralCompany.GetFuneralCompanyDto((int)id);
+                dto = Mapper.Map<FuneralCompanyDto>(_funeralCompany.Get((int)id));
             }
 
             vw.FuneralCompanyDto = dto;

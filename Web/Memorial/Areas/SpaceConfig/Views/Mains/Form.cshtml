@@ -17,7 +17,6 @@
             </div>
             <div class="col-md-6">
                 @Html.DropDownListFor(s => s.SpaceDto.SiteDtoId, new SelectList(Model.SiteDtos, "Id", "Name"), "請選擇 Please Select", new { @class = "form-control" })
-                @Html.ValidationMessageFor(s => s.SpaceDto.SiteDtoId)
             </div>
         </div>
     }

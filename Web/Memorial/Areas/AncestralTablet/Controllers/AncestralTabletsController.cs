@@ -10,6 +10,7 @@ using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.AncestralTablet;
 using Memorial.Lib;
+using AutoMapper;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -51,7 +52,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             {
                 AncestralTabletAreaDtos = _area.GetAreaDtosBySite(siteId),
                 ApplicantId = applicantId,
-                SiteDto = _site.GetSiteDto(siteId)
+                SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
             return View(viewModel);
         }
@@ -63,7 +64,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 AncestralTabletDtos = _ancestralTablet.GetAncestralTabletDtosByAreaId(areaId),
                 Positions = _ancestralTablet.GetPositionsByAreaId(areaId),
                 ApplicantId = applicantId,
-                SiteDto = _site.GetSiteDto(siteId)
+                SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
             return View(viewModel);
         }
@@ -92,16 +93,15 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             {
                 viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
                 viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestralTablet.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.AncestralTabletAreaDto.SiteDtoId);
+                viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.AncestralTabletAreaDto.SiteDtoId));
 
                 if (_ancestralTablet.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestralTablet.GetApplicantId());
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_ancestralTablet.GetApplicantId()));
                     var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlattenDto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id);
+                        viewModel.DeceasedFlattenDto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id));
                     }
                 }
             }

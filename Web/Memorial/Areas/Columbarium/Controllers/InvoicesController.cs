@@ -3,6 +3,7 @@ using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -42,7 +43,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             var viewModel = new InvoiceInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
             viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
-            viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+            viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
             viewModel.Header = _transaction.GetSiteHeader();
 
             return View(viewModel);
@@ -77,7 +78,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
             else
             {
-                viewModel.InvoiceDto = _invoice.GetInvoiceDto(IV);
+                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
             }
 
             return View("Form", viewModel);

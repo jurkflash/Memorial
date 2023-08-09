@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.ColumbariumConfig.Controllers
 {
@@ -26,7 +28,7 @@ namespace Memorial.Areas.ColumbariumConfig.Controllers
         {
             var vw = new ColumbariumAreaFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosColumbarium();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesColumbarium());
 
             var dto = new ColumbariumAreaDto();
             if (id != null)

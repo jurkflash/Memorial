@@ -34,9 +34,9 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
 
             if (id != null)
             {
-                viewModel.ApplicantDto = _applicant.GetApplicantDto((int)id);
-                viewModel.DeceasedDtos = Mapper.Map<IEnumerable<Core.Domain.Deceased>, IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId((int)id));
-                viewModel.ApplicantDeceasedDtos = _applicantDeceased.GetApplicantDeceasedDtosByApplicantId((int)id);
+                viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)id));
+                viewModel.DeceasedDtos = Mapper.Map<IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId((int)id));
+                viewModel.ApplicantDeceasedDtos = Mapper.Map<IEnumerable<ApplicantDeceasedDto>>(_applicantDeceased.GetByApplicantId((int)id));
             }
 
             return PartialView("_ApplicantDeceasedsIndex", viewModel);
@@ -54,7 +54,7 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
 
             if (applicantId != null && deceasedId != null)
             {
-                viewModel.RelationshipTypeName = _applicantDeceased.GetApplicantDeceased((int)applicantId, (int)deceasedId).RelationshipType.Name;
+                viewModel.RelationshipTypeName = _applicantDeceased.GetByApplicantDeceasedId((int)applicantId, (int)deceasedId).RelationshipType.Name;
             }
 
             return PartialView("_ApplicantDeceasedsInfo", viewModel);
@@ -62,7 +62,7 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
 
         public ActionResult LinkDeceased(int id)
         {
-            return View(_applicant.GetApplicantDto(id));
+            return View(Mapper.Map<ApplicantDto>(_applicant.Get(id)));
         }
     }
 }

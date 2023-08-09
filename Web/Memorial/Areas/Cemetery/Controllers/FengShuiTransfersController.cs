@@ -7,6 +7,8 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
@@ -75,7 +77,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             viewModel.ItemName = _transfer.GetItemName();
             viewModel.PlotDto = _plot.GetPlotDto();
             viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto();
-            viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_transfer.GetTransactionTransferredApplicantId());
+            viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_transfer.GetTransactionTransferredApplicantId()));
             viewModel.ApplicantId = (int)_transfer.GetTransactionTransferredApplicantId();
             viewModel.Header = _area.GetArea().Site.Header;
 
@@ -105,7 +107,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             if (AF == null)
             {
                 var cemeteryTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
-                cemeteryTransactionDto.ApplicantDto = _applicant.GetApplicantDto(applicantId);
+                cemeteryTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(applicantId));
                 cemeteryTransactionDto.PlotDto = _plot.GetPlotDto();
                 cemeteryTransactionDto.TransferredApplicantId = _plot.GetApplicantId();
 
@@ -117,7 +119,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 _transfer.SetTransaction(AF);
                 viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto(AF);
-                viewModel.ApplicantDto = _applicant.GetApplicantDto((int)viewModel.CemeteryTransactionDto.TransferredApplicantId);
+                viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)viewModel.CemeteryTransactionDto.TransferredApplicantId));
             }
 
             return View(viewModel);
@@ -179,7 +181,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
-            viewModel.CemeteryTransactionDto.ApplicantDto = _applicant.GetApplicantDto(viewModel.CemeteryTransactionDto.ApplicantDtoId);
+            viewModel.CemeteryTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(viewModel.CemeteryTransactionDto.ApplicantDtoId));
             viewModel.CemeteryTransactionDto.PlotDto = _plot.GetPlotDto(viewModel.CemeteryTransactionDto.PlotDtoId);
 
             return View("Form", viewModel);

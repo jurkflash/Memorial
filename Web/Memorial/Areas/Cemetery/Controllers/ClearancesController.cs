@@ -8,6 +8,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
@@ -113,7 +114,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 PlotDto = _plot.GetPlotDto(),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
-                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos()
+                FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll())
             };
 
             if (AF == null)

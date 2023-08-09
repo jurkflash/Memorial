@@ -11,6 +11,7 @@ using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Site;
 using Memorial.Lib;
 using PagedList;
+using AutoMapper;
 
 namespace Memorial.Areas.Cemetery.Controllers
 {
@@ -52,7 +53,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             {
                 CemeteryAreaDtos = _area.GetAreaDtosBySite(siteId),
                 ApplicantId = applicantId,
-                SiteDto = _site.GetSiteDto(siteId)
+                SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
             return View(viewModel);
         }
@@ -109,26 +110,23 @@ namespace Memorial.Areas.Cemetery.Controllers
                 viewModel.PlotDto = _plot.GetPlotDto();
                 viewModel.NumberOfPlacements = _plot.GetNumberOfPlacement();
                 viewModel.CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId());
-                viewModel.SiteDto = _site.GetSiteDto(viewModel.CemeteryAreaDto.SiteDtoId);
+                viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.CemeteryAreaDto.SiteDtoId));
 
                 if (_plot.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_plot.GetApplicantId());
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_plot.GetApplicantId()));
                     var deceaseds = _deceased.GetDeceasedsByPlotId(_plot.GetPlot().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlatten1Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[0].Id);
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
-                        viewModel.DeceasedFlatten2Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[1].Id);
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[1].Id));
                     }
                     if (deceaseds.Count > 2)
                     {
-                        viewModel.DeceasedFlatten3Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_plot.GetApplicantId(), deceaseds[2].Id);
+                        viewModel.DeceasedFlatten3Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[2].Id));
                     }
                 }
             }

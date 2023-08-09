@@ -43,9 +43,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             var viewModel = new OrderReceiptsViewModel()
             {
                 AF = _invoice.GetAF(),
-                RemainingAmount = _invoice.GetAmount() - _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(IV),
-                InvoiceDto = _invoice.GetInvoiceDto(),
-                ReceiptDtos = _receipt.GetOrderReceiptDtosByInvoiceIV(IV).OrderByDescending(r => r.CreatedUtcTime)
+                RemainingAmount = _invoice.GetAmount() - _receipt.GetTotalIssuedReceiptAmountByIV(IV),
+                InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice()),
+                ReceiptDtos = _receipt.GetReceiptDtosByInvoiceIV(IV).OrderByDescending(r => r.CreatedUtcTime)
             };
 
             return View(viewModel);
@@ -89,9 +89,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             var viewModel = new NewOrderReceiptFormViewModel()
             {
                 AF = AF,
-                RemainingAmount = _invoice.GetAmount() - _receipt.GetTotalIssuedOrderReceiptAmountByInvoiceIV(IV),
-                InvoiceDto = _invoice.GetInvoiceDto(),
-                PaymentMethods = _paymentMethod.GetPaymentMethods()
+                RemainingAmount = _invoice.GetAmount() - _receipt.GetTotalIssuedReceiptAmountByIV(IV),
+                InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice()),
+                PaymentMethods = _paymentMethod.GetAll()
             };
 
             if (RE == null)
@@ -114,8 +114,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             {
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount invalid");
                 viewModel.RemainingAmount = _payment.GetInvoiceUnpaidAmount();
-                viewModel.InvoiceDto = _invoice.GetInvoiceDto(viewModel.InvoiceDto.IV);
-                viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
+                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(viewModel.InvoiceDto.IV));
+                viewModel.PaymentMethods = _paymentMethod.GetAll();
                 return View("Form", viewModel);
             }
 
@@ -133,9 +133,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 }
                 else
                 {
-                    viewModel.PaymentMethods = _paymentMethod.GetPaymentMethods();
+                    viewModel.PaymentMethods = _paymentMethod.GetAll();
                     viewModel.RemainingAmount = _payment.GetInvoiceUnpaidAmount();
-                    viewModel.InvoiceDto = _invoice.GetInvoiceDto(viewModel.InvoiceDto.IV);
+                    viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(viewModel.InvoiceDto.IV));
                     return View("Form", viewModel);
                 }
             }

@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Cremation;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.CremationConfig.Controllers
 {
@@ -26,7 +28,7 @@ namespace Memorial.Areas.CremationConfig.Controllers
         {
             var vw = new CremationFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosCremation();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesCremation());
 
             var dto = new CremationDto();
             if (id != null)

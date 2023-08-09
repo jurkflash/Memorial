@@ -11,6 +11,7 @@ using Memorial.Lib.Site;
 using Memorial.Core.Dtos;
 using Memorial.Core.Domain;
 using Memorial.ViewModels;
+using AutoMapper;
 
 namespace Memorial.Areas.Cremation.Controllers
 {
@@ -40,7 +41,7 @@ namespace Memorial.Areas.Cremation.Controllers
         {
             var viewModel = new CremationIndexesViewModel();
             viewModel.CremationDtos = _cremation.GetCremationDtosBySite(siteId);
-            viewModel.SiteDto = _site.GetSiteDto(siteId);
+            viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId));
 
             if (applicantId == null)
             {

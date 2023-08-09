@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Catalog;
@@ -26,7 +28,7 @@ namespace Memorial.Areas.AncestralTabletConfig.Controllers
         {
             var vw = new AncestralTabletAreaFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosAncestralTablet();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesAncestralTablet());
 
             var dto = new AncestralTabletAreaDto();
             if (id != null)

@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Space;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.SpaceConfig.Controllers
 {
@@ -26,12 +28,12 @@ namespace Memorial.Areas.SpaceConfig.Controllers
         {
             var vw = new SpaceFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosSpace();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesSpace());
 
             var dto = new SpaceDto();
             if (id != null)
             {
-                dto = _space.GetSpaceDto((int)id);
+                dto = Mapper.Map<SpaceDto>(_space.Get((int)id));
             }
 
             vw.SpaceDto = dto;

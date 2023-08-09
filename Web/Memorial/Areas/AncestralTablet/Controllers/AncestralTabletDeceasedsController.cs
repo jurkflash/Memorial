@@ -5,6 +5,8 @@ using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.AncestralTablet;
 using System.Web.Mvc;
 using Memorial.ViewModels;
+using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -50,13 +52,12 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
                 if (_ancestralTablet.HasApplicant())
                 {
-                    viewModel.ApplicantDto = _applicant.GetApplicantDto((int)_ancestralTablet.GetApplicantId());
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_ancestralTablet.GetApplicantId()));
                     var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[0].Id).ToList();
-                        viewModel.DeceasedFlatten1Dto =
-                        _applicantDeceased.GetApplicantDeceasedFlattenDto((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id);
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id));
                     }
                 }
 

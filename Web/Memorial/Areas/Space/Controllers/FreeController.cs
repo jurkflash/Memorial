@@ -8,6 +8,8 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Space.Controllers
 {
@@ -41,15 +43,14 @@ namespace Memorial.Areas.Space.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             var viewModel = new SpaceItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                SpaceItemDto = _item.GetItemDto(),
-                SpaceName = _item.GetItem().Space.Name,
-                SpaceTransactionDtos = _booking.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                SpaceItemDto = Mapper.Map<SpaceItemDto>(item),
+                SpaceName = item.Space.Name,
+                SpaceTransactionDtos = Mapper.Map<IEnumerable<SpaceTransactionDto>>(_booking.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
 
@@ -58,19 +59,18 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _booking.SetTransaction(AF);
-            _item.SetItem(_booking.GetTransactionSpaceItemId());
-            _space.SetSpace(_item.GetItem().SpaceId);
+            var transaction = _booking.GetByAF(AF);
+            var item = _item.GetById(transaction.SpaceItemId);
 
             var viewModel = new SpaceTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _booking.GetItemName();
-            viewModel.SpaceDto = _space.GetSpaceDto();
-            viewModel.SpaceTransactionDto = _booking.GetTransactionDto();
-            viewModel.TotalDays = (int)Math.Ceiling(((DateTime)_booking.GetTransactionDto().ToDate - (DateTime)_booking.GetTransactionDto().FromDate).TotalDays);
-            viewModel.ApplicantId = _booking.GetTransactionApplicantId();
-            viewModel.DeceasedId = _booking.GetTransactionDeceasedId();
-            viewModel.Header = _booking.GetSiteHeader();
+            viewModel.ItemName = item.SubProductService.Name;
+            viewModel.SpaceDto = Mapper.Map<SpaceDto>(transaction.SpaceItem.Space);
+            viewModel.SpaceTransactionDto = Mapper.Map<SpaceTransactionDto>(transaction);
+            viewModel.TotalDays = (int)Math.Ceiling(((DateTime)transaction.ToDate - (DateTime)transaction.FromDate).TotalDays);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.DeceasedId = transaction.DeceasedId;
+            viewModel.Header = transaction.SpaceItem.Space.Site.Header;
 
             return View("Info", viewModel);
         }
@@ -92,23 +92,22 @@ namespace Memorial.Areas.Space.Controllers
         {
             var viewModel = new SpaceTransactionsFormViewModel()
             {
-                FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos(),
+                FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll()),
                 DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
             };
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             if (AF == null)
             {
                 var spaceTransactionDto = new SpaceTransactionDto();
                 spaceTransactionDto.ApplicantDtoId = applicantId;
+                spaceTransactionDto.SpaceItemDto = Mapper.Map<SpaceItemDto>(item);
                 spaceTransactionDto.SpaceItemDtoId = itemId;
-                spaceTransactionDto.SpaceItemDto = _item.GetItemDto();
                 viewModel.SpaceTransactionDto = spaceTransactionDto;
             }
             else
             {
-                viewModel.SpaceTransactionDto = _booking.GetTransactionDto(AF);
+                viewModel.SpaceTransactionDto = Mapper.Map<SpaceTransactionDto>(_booking.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -116,26 +115,26 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult FormForResubmit(SpaceTransactionsFormViewModel viewModel)
         {
-            viewModel.FuneralCompanyDtos = _funeralCompany.GetFuneralCompanyDtos();
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.SpaceTransactionDto.ApplicantDtoId);
+            viewModel.FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll());
+            viewModel.DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(viewModel.SpaceTransactionDto.ApplicantDtoId));
 
             return View("Form", viewModel);
         }
 
         public ActionResult Save(SpaceTransactionsFormViewModel viewModel)
         {
-            if((viewModel.SpaceTransactionDto.AF == null &&
-                !_booking.IsAvailable(viewModel.SpaceTransactionDto.SpaceItemDtoId, (DateTime)viewModel.SpaceTransactionDto.FromDate, (DateTime)viewModel.SpaceTransactionDto.ToDate)) ||
-                (viewModel.SpaceTransactionDto.AF != null &&
-                !_booking.IsAvailable(viewModel.SpaceTransactionDto.AF, (DateTime)viewModel.SpaceTransactionDto.FromDate, (DateTime)viewModel.SpaceTransactionDto.ToDate)))
+            var spaceTransaction = Mapper.Map<Core.Domain.SpaceTransaction>(viewModel.SpaceTransactionDto);
+            if ((spaceTransaction.AF == null &&
+                !_booking.IsAvailable(spaceTransaction.SpaceItemId, (DateTime)spaceTransaction.FromDate, (DateTime)spaceTransaction.ToDate)) ||
+                (spaceTransaction.AF != null &&
+                !_booking.IsAvailable(spaceTransaction.AF, (DateTime)spaceTransaction.FromDate, (DateTime)spaceTransaction.ToDate)))
             {
                 ModelState.AddModelError("SpaceTransactionDto.FromDate", "Not available");
                 ModelState.AddModelError("SpaceTransactionDto.ToDate", "Not available");
             }
 
-
-            if ((viewModel.SpaceTransactionDto.AF == null && _booking.Create(viewModel.SpaceTransactionDto)) ||
-                (viewModel.SpaceTransactionDto.AF != null && _booking.Update(viewModel.SpaceTransactionDto)))
+            if ((spaceTransaction.AF == null && _booking.Add(spaceTransaction)) ||
+                (spaceTransaction.AF != null && _booking.Change(spaceTransaction.AF, spaceTransaction)))
             {
                 return RedirectToAction("Index", new { itemId = viewModel.SpaceTransactionDto.SpaceItemDtoId, applicantId = viewModel.SpaceTransactionDto.ApplicantDtoId });
             }
@@ -146,8 +145,7 @@ namespace Memorial.Areas.Space.Controllers
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _booking.SetTransaction(AF);
-            _booking.Delete();
+            var status = _booking.Remove(AF);
 
             return RedirectToAction("Index", new
             {

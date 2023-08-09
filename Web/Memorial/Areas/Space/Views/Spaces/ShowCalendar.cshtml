@@ -7,6 +7,7 @@
 <h2>ShowCalendar</h2>
 
 <div class="container">
+    <input id="refresh" type="button" value="刷新 Refresh" />
     <div id='calendar'></div>
 </div>
 @Html.HiddenFor(s=>s.SiteDto.Id)
@@ -23,7 +24,7 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        var siteId = $("#siteDto_Id").val();
+        var siteId = $("#SiteDto_Id").val();
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
@@ -34,8 +35,9 @@
             },
             eventClick: function (info) {
                 if (info.event.extendedProps.af) {
-                    var link = '@Url.Action("Info", "Bookings", new { area = "Space", AF = "-1" })';
-                    link = link.replace("-1", info.event.extendedProps.af);
+                    var link = '@Html.Raw(Url.Action("Index", "Bookings", new { area = "Space", filter = "-1", itemId = "-2", applicantId = "0" }))';
+                    link = link.replace("filter=-1", "filter=" + info.event.extendedProps.af);
+                    link = link.replace("itemId=-2", "itemId=" + info.event.extendedProps.itemId);
 
                     window.open(link);
                 }
@@ -58,6 +60,7 @@
                                     start: data.StartDate,
                                     end: data.EndDate,
                                     af: data.AF,
+                                    itemId: data.ItemId,
                                     backgroundColor: data.BackgroundColor,
                                     textColor: '#000000'
                                 });
@@ -69,6 +72,10 @@
             },
 
         });
+        $('#refresh').on('click', function () {
+            calendar.refetchEvents();
+        });
+
         calendar.render();
     });
 

@@ -4,6 +4,7 @@ using System.Linq;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Site;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace Memorial.Areas.SiteConfig.Controllers
 {
@@ -31,7 +32,7 @@ namespace Memorial.Areas.SiteConfig.Controllers
             var siteDto = new SiteDto();
             if(id != null)
             {
-                siteDto = _site.GetSiteDto((int)id);
+                siteDto = Mapper.Map<SiteDto>(_site.Get((int)id));
             }
             return View(siteDto);
         }

@@ -10,6 +10,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using Memorial.Core.Domain;
+using AutoMapper;
 
 namespace Memorial.Areas.Applicant.Controllers
 {
@@ -35,7 +36,7 @@ namespace Memorial.Areas.Applicant.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            var applicants = _applicant.GetApplicantDtos(filter);
+            var applicants = Mapper.Map<IEnumerable<Core.Domain.Applicant>>(_applicant.GetAll(filter));
             return View(applicants.ToPagedList(page ?? 1, Constant.MaxRowPerPage));
         }
 
@@ -43,7 +44,7 @@ namespace Memorial.Areas.Applicant.Controllers
         {
             var viewModel = new ApplicantFormViewModel
             {
-                SiteDtos = _site.GetSiteDtos(),
+                SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll()),
                 ApplicantDto = new ApplicantDto()
             };
 
@@ -53,22 +54,23 @@ namespace Memorial.Areas.Applicant.Controllers
         [HttpPost]
         public ActionResult Save(ApplicantDto applicantDto)
         {
-            if (_deceased.GetExistsByIC(applicantDto.IC, applicantDto.Id == 0 ? (int?)null : applicantDto.Id))
+            var applicant = Mapper.Map<Core.Domain.Applicant>(applicantDto);
+            if (_deceased.GetExistsByIC(applicant.IC, applicant.Id == 0 ? (int?)null : applicant.Id))
             {
                 ModelState.AddModelError("IC", "IC exists");
                 return View("Form", applicantDto);
             }
 
-            if (_applicant.GetExistsByIC(applicantDto.IC, applicantDto.Id == 0 ? (int?)null : applicantDto.Id))
+            if (_applicant.GetExistsByIC(applicant.IC, applicant.Id == 0 ? (int?)null : applicant.Id))
             {
                 ModelState.AddModelError("IC", "IC exists");
                 return View("Form", applicantDto);
             }
 
-            if (applicantDto.Id == 0 && !_applicant.Create(applicantDto))
+            if (applicantDto.Id == 0 && _applicant.Add(applicant) > 0)
                 return View("Form", applicantDto);
 
-            if (applicantDto.Id != 0 && !_applicant.Update(applicantDto))
+            if (applicantDto.Id != 0 && !_applicant.Change(applicant.Id, applicant))
                 return View("Form", applicantDto);
 
 
@@ -79,8 +81,8 @@ namespace Memorial.Areas.Applicant.Controllers
         {
             var viewModel = new ApplicantFormViewModel
             {
-                SiteDtos = _site.GetSiteDtos(),
-                ApplicantDto = _applicant.GetApplicantDto(id)
+                SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll()),
+                ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(id))
             };
             return View("Form", viewModel);
         }
@@ -90,7 +92,7 @@ namespace Memorial.Areas.Applicant.Controllers
             var viewModel = new ApplicantInfoViewModel()
             {
                 ApplicantId = id,
-                SiteDtos = _site.GetSiteDtos()
+                SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll())
             };
             return View(viewModel);
         }
@@ -103,14 +105,14 @@ namespace Memorial.Areas.Applicant.Controllers
         [ChildActionOnly]
         public PartialViewResult PartialViewInfo(int id)
         {
-            var applicantDto = _applicant.GetApplicantDto(id);
+            var applicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(id));
             return PartialView("_ApplicantInfo", applicantDto);
         }
 
         [ChildActionOnly]
         public PartialViewResult ApplicantBrief(int id)
         {
-            var applicant = _applicant.GetApplicant(id);
+            var applicant = _applicant.Get(id);
             var deceaseds = _deceased.GetDeceasedBriefDtosByApplicantId(id);
             var applicantBriefViewModel = new ApplicantBriefViewModel()
             {
