@@ -1,27 +1,20 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
-using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Miscellaneous
 {
     public class RentAirCooler : Transaction, IRentAirCooler
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IMiscellaneous _invoice;
-        private readonly IPayment _payment;
 
         public RentAirCooler(
             IUnitOfWork unitOfWork,
             IItem item,
             IMiscellaneous miscellaneous,
             IApplicant applicant,
-            INumber number,
-            Invoice.IMiscellaneous invoice,
-            IPayment payment
+            INumber number
             ) : 
             base(
                 unitOfWork, 
@@ -36,76 +29,58 @@ namespace Memorial.Lib.Miscellaneous
             _miscellaneous = miscellaneous;
             _applicant = applicant;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.MiscellaneousTransaction miscellaneousTransaction)
         {
-            SetTransaction(AF);
-        }
+            miscellaneousTransaction.AF = _number.GetNewAF(miscellaneousTransaction.MiscellaneousItemId, System.DateTime.Now.Year);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
+            SummaryItem(miscellaneousTransaction);
 
-        public bool Create(MiscellaneousTransactionDto miscellaneousTransactionDto)
-        {
-            NewNumber(miscellaneousTransactionDto.MiscellaneousItemDtoId);
-
-            SummaryItem(miscellaneousTransactionDto);
-
-            if (CreateNewTransaction(miscellaneousTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool Update(MiscellaneousTransactionDto miscellaneousTransactionDto)
-        {
-            if (_invoice.GetInvoicesByAF(miscellaneousTransactionDto.AF).Any() && miscellaneousTransactionDto.Amount < 
-                _invoice.GetInvoicesByAF(miscellaneousTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            SummaryItem(miscellaneousTransactionDto);
-
-            if (UpdateTransaction(miscellaneousTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteTransaction();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            _unitOfWork.MiscellaneousTransactions.Add(miscellaneousTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(MiscellaneousTransactionDto trx)
+        public bool Change(string AF, Core.Domain.MiscellaneousTransaction miscellaneousTransaction)
         {
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            var invoices = _unitOfWork.Invoices.GetByActiveMiscellaneousAF(miscellaneousTransaction.AF).ToList();
+
+            if (invoices.Any() && miscellaneousTransaction.Amount < invoices.Max(i => i.Amount))
+                return false;
+
+            SummaryItem(miscellaneousTransaction);
+
+            var miscellaneousTransactionInDb = GetByAF(miscellaneousTransaction.AF);
+            miscellaneousTransactionInDb.Amount = miscellaneousTransaction.Amount;
+            miscellaneousTransactionInDb.SummaryItem = miscellaneousTransaction.SummaryItem;
+            miscellaneousTransactionInDb.Remark = miscellaneousTransaction.Remark;
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveMiscellaneousAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByMiscellaneousAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.MiscellaneousTransactions.GetByAF(AF);
+            _unitOfWork.MiscellaneousTransactions.Remove(transactionInDb);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        private void SummaryItem(MiscellaneousTransaction miscellaneousTransaction)
+        {
+            miscellaneousTransaction.SummaryItem = "AF: " + miscellaneousTransaction.AF + "<BR/>" +
+                Resources.Mix.Remark + ": " + miscellaneousTransaction.Remark;
         }
     }
 }

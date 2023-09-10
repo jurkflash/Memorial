@@ -57,7 +57,7 @@ namespace Memorial.Areas.Space.Controllers
             var viewModel = new SpaceItemsViewModel()
             {
                 SpaceDto = Mapper.Map<SpaceDto>(_space.Get(spaceId)),
-                SpaceItemDtos = _item.GetItemDtosBySpace(spaceId),
+                SpaceItemDtos = Mapper.Map<IEnumerable<SpaceItemDto>>(_item.GetBySpace(spaceId)),
                 ApplicantId = applicantId
             };
 
@@ -69,20 +69,20 @@ namespace Memorial.Areas.Space.Controllers
         {
             List<RecentDto> recents = new List<RecentDto>();
 
-            var transactions = Mapper.Map<IEnumerable<SpaceTransactionDto>>(_transaction.GetRecent(siteId, applicantId));
+            var transactions = _transaction.GetRecent(siteId, applicantId);
 
             foreach (var transaction in transactions)
             {
                 recents.Add(new RecentDto()
                 {
                     Code = transaction.AF,
-                    ApplicantName = transaction.ApplicantDto.Name,
+                    ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
-                    ItemId = transaction.SpaceItemDto.Id,
-                    Text1 = transaction.SpaceItemDto.SpaceDto.Name,
-                    ItemName = transaction.SpaceItemDto.SubProductServiceDto.Name,
-                    LinkArea = transaction.SpaceItemDto.SubProductServiceDto.ProductDto.Area,
-                    LinkController = transaction.SpaceItemDto.SubProductServiceDto.SystemCode
+                    ItemId = transaction.SpaceItem.Id,
+                    Text1 = transaction.SpaceItem.Space.Name,
+                    ItemName = transaction.SpaceItem.SubProductService.Name,
+                    LinkArea = transaction.SpaceItem.SubProductService.Product.Area,
+                    LinkController = transaction.SpaceItem.SubProductService.SystemCode
                 });
             }
 

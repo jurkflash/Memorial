@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Urn;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.UrnConfig.Controllers
 {
@@ -28,7 +29,7 @@ namespace Memorial.Areas.UrnConfig.Controllers
             var dto = new UrnItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<UrnItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

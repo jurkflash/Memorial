@@ -37,8 +37,11 @@ namespace Memorial.Lib.Site
         {
             var siteInDb = _unitOfWork.Sites.Get(id);
 
-            Mapper.Map(site, siteInDb);
-
+            siteInDb.Name = site.Name;
+            siteInDb.Code = site.Code;
+            siteInDb.Address = site.Address;
+            siteInDb.Remark = site.Remark;
+            siteInDb.Header = site.Header;
             _unitOfWork.Complete();
 
             return true;

@@ -33,7 +33,7 @@ namespace Memorial.Areas.CemeteryConfig.Controllers
             var dto = new CemeteryAreaDto();
             if (id != null)
             {
-                dto = _area.GetAreaDto((int)id);
+                dto = Mapper.Map<CemeteryAreaDto>(_area.GetById((int)id));
             }
 
             vw.CemeteryAreaDto = dto;

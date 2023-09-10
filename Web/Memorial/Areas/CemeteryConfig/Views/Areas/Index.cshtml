@@ -74,6 +74,9 @@
                 columns: [
                     {
                         data: "name",
+                        render: function (data, type, area) {
+                            return "<a href='/CemeteryConfig/Areas/Form/" + area.id + "'>" + area.name + "</a>";
+                        }
                     },
                     {
                         data: "description"

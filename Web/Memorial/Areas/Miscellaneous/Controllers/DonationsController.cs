@@ -4,6 +4,8 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -31,14 +33,13 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId); 
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                MiscellaneousItemDto = _item.GetItemDto(),
-                MiscellaneousTransactionDtos = _donation.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item),
+                MiscellaneousTransactionDtos = Mapper.Map<IEnumerable<MiscellaneousTransactionDto>>(_donation.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
 
@@ -49,19 +50,17 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var miscellaneousTransactionDto = new MiscellaneousTransactionDto();
 
-            _item.SetItem(itemId);
-            _miscellaneous.SetMiscellaneous(_item.GetMiscellaneousId());
-
+            var item = _item.GetById(itemId); 
             if (AF == null)
             {
                 miscellaneousTransactionDto.ApplicantDtoId = applicantId;
-                miscellaneousTransactionDto.MiscellaneousItemDto = _item.GetItemDto();
+                miscellaneousTransactionDto.MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item);
                 miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
-                miscellaneousTransactionDto.Amount = _item.GetPrice();
+                miscellaneousTransactionDto.Amount = _item.GetPrice(item);
             }
             else
             {
-                miscellaneousTransactionDto = _donation.GetTransactionDto(AF);
+                miscellaneousTransactionDto = Mapper.Map<MiscellaneousTransactionDto>(_donation.GetByAF(AF));
             }
 
             return View(miscellaneousTransactionDto);
@@ -69,33 +68,20 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Save(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            if (miscellaneousTransactionDto.AF == null)
+            var miscellaneousTransaction = Mapper.Map<Core.Domain.MiscellaneousTransaction>(miscellaneousTransactionDto);
+            if ((miscellaneousTransactionDto.AF == null && _donation.Add(miscellaneousTransaction)) ||
+                (miscellaneousTransactionDto.AF != null && _donation.Change(miscellaneousTransaction.AF, miscellaneousTransaction)))
             {
-                if (!_donation.Create(miscellaneousTransactionDto))
-                {
-                    return View("Form", miscellaneousTransactionDto);
-                }
-            }
-            else
-            {
-                if (!_donation.Update(miscellaneousTransactionDto))
-                {
-                    return View("Form", miscellaneousTransactionDto);
-                }
+                return RedirectToAction("Index", new { itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = miscellaneousTransaction.ApplicantId });
             }
 
-            return RedirectToAction("Index", new
-            {
-                itemId = miscellaneousTransactionDto.MiscellaneousItemDtoId,
-                applicantId = miscellaneousTransactionDto.ApplicantDtoId
-            });
+            return View("Form", miscellaneousTransactionDto);
         }
 
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _donation.SetTransaction(AF);
-            _donation.Delete();
+            var status = _donation.Remove(AF);
 
             return RedirectToAction("Index", new
             {

@@ -1,10 +1,6 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Memorial.Lib.AncestralTablet;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Lib.Invoice
 {
@@ -19,64 +15,47 @@ namespace Memorial.Lib.Invoice
             _number = number;
         }
 
-        public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
+        public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
         {
             return _unitOfWork.Invoices.GetByActiveAncestralTabletAF(AF);
         }
 
-        public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByAF(AF));
-        }
-
-        public bool HasInvoiceByAF(string AF)
-        {
-            return _unitOfWork.Invoices.GetByActiveAncestralTabletAF(AF).Any();
-        }
-
         override
-        public string GetAF()
+        public string GenerateIVNumber(int itemId)
         {
-            return _invoice.AncestralTabletTransactionAF;
+            return _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        override
-        public void NewNumber(int itemId)
+        public bool Add(int itemId, Core.Domain.Invoice invoice)
         {
-            _ivNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
+            var iv = GenerateIVNumber(itemId);
+
+            invoice.IV = iv;
+            return Add(invoice);
         }
 
-        public bool Create(int itemId, InvoiceDto invoiceDto)
+        public bool Change(string IV, Core.Domain.Invoice invoice)
         {
-            NewNumber(itemId);
+            var transaction = _unitOfWork.AncestralTabletTransactions.GetByAF(invoice.AncestralTabletTransactionAF);
+            var total = transaction.Price + (transaction.Maintenance == null ? 0 : (float)transaction.Maintenance);
+            if (total < invoice.Amount)
+                return false;
 
-            CreateNewInvoice(invoiceDto);
+            var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountByAncestralTabletAF(invoice.AncestralTabletTransactionAF);
+            if (totalReceiptAmount < total)
+                return false;
 
-            return true;
-        }
+            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
+            if (invoiceInDB.Amount < invoice.Amount)
+                return false;
 
-        public bool Update(InvoiceDto invoiceDto)
-        {
-            UpdateInvoice(invoiceDto);
+            if (invoice.Amount == totalReceiptAmount)
+                invoice.isPaid = true;
+            else
+                invoice.isPaid = false;
 
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteInvoice();
-
-            return true;
-        }
-
-        public bool DeleteByApplication(string AF)
-        {
-            var invoices = GetInvoicesByAF(AF);
-            foreach (var invoice in invoices)
-            {
-                _unitOfWork.Invoices.Remove(invoice);
-            }
-
+            Change(invoice);
+            _unitOfWork.Complete();
             return true;
         }
     }

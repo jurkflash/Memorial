@@ -1,8 +1,7 @@
 ﻿using Memorial.Core;
 using System.Collections.Generic;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Space;
-using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Receipt
 {
@@ -25,7 +24,9 @@ namespace Memorial.Lib.Receipt
 
         public bool Change(string RE, Core.Domain.Receipt receipt)
         {
+            float total = 0;
             var transaction = _unitOfWork.SpaceTransactions.GetByAF(receipt.SpaceTransactionAF);
+            total = transaction.Amount + transaction.OtherCharges;
 
             var receiptInDb = _unitOfWork.Receipts.GetByRE(RE);
             if (_paymentMethod.Get(receipt.PaymentMethodId).RequireRemark && receipt.PaymentRemark == "")
@@ -38,8 +39,10 @@ namespace Memorial.Lib.Receipt
                     return false;
             }
 
-            if (transaction.Amount < GetTotalIssuedReceiptAmount(receipt.SpaceTransactionAF))
+            if(receiptInDb.Amount != receipt.Amount && total < (GetTotalIssuedReceiptAmountByAF(receipt.SpaceTransactionAF) - receiptInDb.Amount + receipt.Amount))
+            {
                 return false;
+            }
 
             return Change(receipt);
         }
@@ -52,89 +55,49 @@ namespace Memorial.Lib.Receipt
 
         public bool Add(int itemId, Core.Domain.Receipt receipt)
         {
+            float total = 0;
+            Core.Domain.Invoice invoiceInDb = null;
+            var transaction = _unitOfWork.SpaceTransactions.GetByAF(receipt.SpaceTransactionAF);
+            var receiptsTotalAmount = _unitOfWork.Receipts.GetTotalAmountBySpaceAF(receipt.SpaceTransactionAF);
+            total = transaction.Amount + transaction.OtherCharges;
+
+            if (receipt.InvoiceIV != null)
+            {
+                invoiceInDb = _unitOfWork.Invoices.GetByIV(receipt.InvoiceIV);
+                total = invoiceInDb.Amount;
+            }
+
+            if (total < receipt.Amount || receiptsTotalAmount < receipt.Amount)
+                return false;
+
+            if(receipt.InvoiceIV != null)
+            {
+                invoiceInDb.hasReceipt = true;
+                var amount = GetTotalIssuedReceiptAmountByIV(receipt.InvoiceIV);
+                if(invoiceInDb.Amount - amount == receipt.Amount)
+                {
+                    invoiceInDb.isPaid = true;
+                }
+            }
+
             var re = GenerateRENumber(itemId);
 
             receipt.RE = re;
             var status = Add(receipt);
-            
-            if(receipt.InvoiceIV != null)
-            {
-                var invoiceInDb = _unitOfWork.Invoices.GetByIV(receipt.InvoiceIV);
-                invoiceInDb.hasReceipt = true;
-                var amount = GetTotalIssuedReceiptAmountByIV(receipt.InvoiceIV);
-                if(amount == invoiceInDb.Amount)
-                {
-                    invoiceInDb.isPaid = true;
-                }
-                _unitOfWork.Complete();
-            }
 
             return true;
         }
 
+        override
         public IEnumerable<Core.Domain.Receipt> GetByAF(string AF)
         {
             return _unitOfWork.Receipts.GetBySpaceAF(AF);
         }
 
-
-
-
-
-        public IEnumerable<ReceiptDto> GetNonOrderReceiptDtos(string AF)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetNonOrderReceipts(AF));
-        }
-
-        public string GetApplicationAF()
-        {
-            return _receipt.SpaceTransactionAF;
-        }
-
         override
-        public void NewNumber(int itemId)
-        {
-            _reNumber = _number.GetNewRE(itemId, System.DateTime.Now.Year);
-        }
-
-        public float GetTotalIssuedReceiptAmount(string AF)
+        public float GetTotalIssuedReceiptAmountByAF(string AF)
         {
             return _unitOfWork.Receipts.GetTotalAmountBySpaceAF(AF);
         }
-
-        public bool Create(int itemId, ReceiptDto receiptDto)
-        {
-            NewNumber(itemId);
-
-            CreateNewReceipt(receiptDto);
-
-            return true;
-        }
-
-        public bool Update(ReceiptDto receiptDto)
-        {
-            UpdateReceipt(receiptDto);
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteReceipt();
-
-            return true;
-        }
-
-        public bool DeleteNonOrderReceiptsByApplicationAF(string AF)
-        {
-            var receipts = GetNonOrderReceipts(AF);
-            foreach (var receipt in receipts)
-            {
-                _unitOfWork.Receipts.Remove(receipt);
-            }
-
-            return true;
-        }
-
     }
 }

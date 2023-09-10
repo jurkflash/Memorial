@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Memorial.Lib;
-using Memorial.Lib.Receipt;
 using Memorial.Lib.Miscellaneous;
-using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
 using Memorial.ViewModels;
 using AutoMapper;
 
@@ -19,29 +15,29 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         private readonly ITransaction _transaction;
         private readonly Lib.Receipt.IMiscellaneous _receipt;
         private readonly IPaymentMethod _paymentMethod;
-        private readonly IPayment _payment;
 
         public NonOrderReceiptsController(
             ITransaction transaction,
             Lib.Receipt.IMiscellaneous receipt,
-            IPaymentMethod paymentMethod,
-            IPayment payment)
+            IPaymentMethod paymentMethod)
         {
             _transaction = transaction;
             _receipt = receipt;
             _paymentMethod = paymentMethod;
-            _payment = payment;
         }
 
         public ActionResult Index(string AF)
         {
-            _transaction.SetTransaction(AF);
+            var transaction = _transaction.GetByAF(AF);
+            var receipts = _receipt.GetByAF(AF).OrderByDescending(r => r.CreatedUtcTime);
             var viewModel = new NonOrderReceiptsViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount(),
-                RemainingAmount = _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
-                ReceiptDtos = _receipt.GetNonOrderReceiptDtos(AF).OrderByDescending(r => r.CreatedUtcTime)
+                AFTotalAmount = _transaction.GetTotalAmount(transaction),
+                AFTotalAmountPaid = receipts.Sum(r => r.Amount),
+                Amount = _transaction.GetTotalAmount(transaction),
+                RemainingAmount = _transaction.GetTotalAmount(transaction) - receipts.Sum(r => r.Amount),
+                ReceiptDtos = Mapper.Map<IEnumerable<ReceiptDto>>(receipts)
             };
 
             return View(viewModel);
@@ -49,13 +45,15 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Info(string RE, bool exportToPDF = false)
         {
+            var receipt = _receipt.GetByRE(RE);
+            var transaction = _transaction.GetByAF(receipt.MiscellaneousTransactionAF);
+
             var viewModel = new NonOrderReceiptInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ReceiptDto = _receipt.GetReceiptDto(RE);
+            viewModel.ReceiptDto = Mapper.Map<ReceiptDto>(receipt);
 
-            _transaction.SetTransaction(_receipt.GetApplicationAF());
-            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
-            viewModel.Header = _transaction.GetSiteHeader();
+            viewModel.SummaryItem = transaction.SummaryItem;
+            viewModel.Header = transaction.MiscellaneousItem.Miscellaneous.Site.Header;
 
             return View(viewModel);
         }
@@ -75,12 +73,12 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Form(string AF)
         {
-            _transaction.SetTransaction(AF);
+            var transaction = _transaction.GetByAF(AF);
             var viewModel = new NewNonOrderReceiptFormViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount(),
-                RemainingAmount = _transaction.GetTransactionAmount() - _receipt.GetTotalIssuedNonOrderReceiptAmount(AF),
+                Amount = _transaction.GetTotalAmount(transaction),
+                RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(AF),
                 PaymentMethods = _paymentMethod.GetAll()
             };
             return View(viewModel);
@@ -88,39 +86,44 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Save(NewNonOrderReceiptFormViewModel viewModel)
         {
-            _transaction.SetTransaction(viewModel.AF);
-            _payment.SetTransaction(viewModel.AF);
+            var transaction = _transaction.GetByAF(viewModel.AF);
+            var receipt = Mapper.Map<Core.Domain.Receipt>(viewModel.ReceiptDto);
 
-            if (viewModel.ReceiptDto.Amount > _payment.GetNonOrderTransactionUnpaidAmount())
+            viewModel.Amount = _transaction.GetTotalAmount(transaction);
+            viewModel.RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
+            viewModel.PaymentMethods = _paymentMethod.GetAll();
+
+            if (viewModel.ReceiptDto.Amount > viewModel.RemainingAmount)
             {
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount invalid");
-                viewModel.Amount = _transaction.GetTransactionAmount();
-                viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
-                viewModel.PaymentMethods = _paymentMethod.GetAll();
+
                 return View("Form", viewModel);
             }
 
-            _payment.SetTransaction(viewModel.AF);
+            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
+            if (viewModel.ReceiptDto.Amount > totalRemainingAmount)
+            {
+                ModelState.AddModelError("ReceiptDto.Amount", "Amount over total");
 
-            viewModel.ReceiptDto.MiscellaneousTransactionAF = viewModel.AF;
+                return View("Form", viewModel);
+            }
+
+            receipt.MiscellaneousTransactionAF = viewModel.AF;
 
             if (viewModel.ReceiptDto.RE == null)
             {
-                if (_payment.CreateReceipt(viewModel.ReceiptDto))
+                if (_receipt.Add(transaction.MiscellaneousItemId, receipt))
                 {
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 }
                 else
                 {
-                    viewModel.Amount = _transaction.GetTransactionAmount();
-                    viewModel.RemainingAmount = _payment.GetNonOrderTransactionUnpaidAmount();
-                    viewModel.PaymentMethods = _paymentMethod.GetAll();
                     return View("Form", viewModel);
                 }
             }
             else
             {
-                _payment.UpdateReceipt(viewModel.ReceiptDto);
+                var status = _receipt.Change(receipt.RE, receipt);
             }
 
             return RedirectToAction("Index", new { AF = viewModel.AF });
@@ -128,8 +131,8 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Delete(string RE, string AF)
         {
-            _payment.SetReceipt(RE);
-            _payment.DeleteReceipt();
+            var receipt = _receipt.GetByRE(RE);
+            var status = _receipt.Remove(receipt);
 
             return RedirectToAction("Index", new { AF = AF });
         }

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
 
@@ -22,7 +23,7 @@ namespace Memorial.Areas.ColumbariumConfig.Controllers
             var dto = new NicheDto();
             if (id != null)
             {
-                dto = _niche.GetNicheDto((int)id);
+                dto = Mapper.Map<NicheDto>(_niche.GetById((int)id));
             }
             return View(dto);
         }

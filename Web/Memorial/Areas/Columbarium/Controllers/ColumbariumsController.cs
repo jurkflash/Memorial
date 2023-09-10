@@ -9,6 +9,7 @@ using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.Columbarium;
 using Memorial.Lib.Site;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -54,7 +55,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         public ActionResult Centre(byte siteId, int? applicantId)
         {
             var viewModel = new ColumbariumCentreIndexesViewModel();
-            viewModel.ColumbariumCentreDtos = _centre.GetCentreDtosBySite(siteId);
+            viewModel.ColumbariumCentreDtos = Mapper.Map<IEnumerable<ColumbariumCentreDto>>(_centre.GetBySite(siteId));
             viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId));
 
             if(applicantId != null)
@@ -67,8 +68,8 @@ namespace Memorial.Areas.Columbarium.Controllers
         public ActionResult Area(int centreId, int? applicantId)
         {
             var viewModel = new ColumbariumAreaIndexesViewModel();
-            viewModel.ColumbariumAreaDtos = _area.GetAreaDtosByCentre(centreId);
-            viewModel.ColumbariumCentreDto = _centre.GetCentreDto(centreId);
+            viewModel.ColumbariumAreaDtos = Mapper.Map<IEnumerable<ColumbariumAreaDto>>(_area.GetByCentre(centreId));
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(_centre.GetById(centreId));
 
             if (applicantId != null)
             {
@@ -79,12 +80,12 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Niches(int areaId, int? applicantId)
         {
-            var area = _area.GetAreaDto(areaId);
+            var area = _area.GetById(areaId);
 
             var viewModel = new NicheIndexesViewModel();
-            viewModel.ColumbariumCentreDto = area.ColumbariumCentreDto;
-            viewModel.ColumbariumAreaDto = area;
-            viewModel.NicheDtos = _niche.GetNicheDtosByAreaId(areaId);
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(area.ColumbariumCentre);
+            viewModel.ColumbariumAreaDto = Mapper.Map<ColumbariumAreaDto>(area);
+            viewModel.NicheDtos = Mapper.Map<IEnumerable<NicheDto>>(_niche.GetByAreaId(areaId));
             viewModel.Positions = _niche.GetPositionsByAreaId(areaId);
 
             if (applicantId != null)
@@ -96,13 +97,12 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Items(int id, int? applicantId)
         {
-            _niche.SetNiche(id);
-            _area.SetArea(_niche.GetAreaId());
-            _centre.SetCentre(_area.GetCentreId());
+            var niche = _niche.GetById(id);
+            var area = _area.GetById(niche.ColumbariumAreaId);
             var viewModel = new ColumbariumItemsViewModel();
-            viewModel.ColumbariumCentreDto = _centre.GetCentreDto();
-            viewModel.ColumbariumItemDtos = _item.GetItemDtosByCentre(_centre.GetID());
-            viewModel.NicheDto = _niche.GetNicheDto();
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(area.ColumbariumCentre);
+            viewModel.ColumbariumItemDtos = Mapper.Map<IEnumerable<ColumbariumItemDto>>(_item.GetByCentre(area.ColumbariumCentreId));
+            viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
 
             if (applicantId != null)
             {
@@ -115,27 +115,26 @@ namespace Memorial.Areas.Columbarium.Controllers
         public PartialViewResult NicheInfo(int id)
         {
             var viewModel = new ColumbariumInfoViewModel();
-            _niche.SetNiche(id);
-            
-            if(_niche.GetNicheDto() != null)
+            var niche = _niche.GetById(id);
+            if(niche != null)
             {
-                viewModel.NicheDto = _niche.GetNicheDto();
-                viewModel.NumberOfPlacements = _niche.GetNumberOfPlacement();
-                viewModel.ColumbariumAreaDto = _area.GetAreaDto(_niche.GetNicheDto().ColumbariumAreaDtoId);
-                viewModel.ColumbariumCentreDto = _centre.GetCentreDto(viewModel.ColumbariumAreaDto.ColumbariumCentreDtoId);
-                viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.ColumbariumCentreDto.SiteDtoId));
+                viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
+                viewModel.NumberOfPlacements = niche.NicheType.NumberOfPlacement;
+                viewModel.ColumbariumAreaDto = Mapper.Map<ColumbariumAreaDto>(niche.ColumbariumArea);
+                viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(_centre.GetById(niche.ColumbariumAreaId));
+                viewModel.SiteDto = Mapper.Map<SiteDto>(viewModel.ColumbariumCentreDto.SiteDto);
 
-                if(_niche.HasApplicant())
+                if(niche.ApplicantId != null)
                 {
-                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_niche.GetApplicantId()));
-                    var deceaseds = _deceased.GetDeceasedsByNicheId(_niche.GetNiche().Id).ToList();
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(niche.Applicant);
+                    var deceaseds = _deceased.GetByNicheId(niche.Id).ToList();
                     if(deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[0].Id));
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)niche.ApplicantId, deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
-                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[1].Id));
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)niche.ApplicantId, deceaseds[1].Id));
                     }
                 }
             }
@@ -155,15 +154,15 @@ namespace Memorial.Areas.Columbarium.Controllers
                 recents.Add(new RecentDto()
                 {
                     Code = transaction.AF,
-                    ApplicantName = transaction.ApplicantDto.Name,
+                    ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
-                    ItemId = transaction.ColumbariumItemDtoId,
-                    Text1 = transaction.NicheDto.ColumbariumAreaDto.ColumbariumCentreDto.Name,
-                    Text2 = transaction.NicheDto.ColumbariumAreaDto.Name,
-                    Text3 = transaction.NicheDto.Name,
-                    ItemName = transaction.ColumbariumItemDto.SubProductServiceDto.Name,
-                    LinkArea = transaction.ColumbariumItemDto.SubProductServiceDto.ProductDto.Area,
-                    LinkController = transaction.ColumbariumItemDto.SubProductServiceDto.SystemCode
+                    ItemId = transaction.ColumbariumItemId,
+                    Text1 = transaction.Niche.ColumbariumArea.ColumbariumCentre.Name,
+                    Text2 = transaction.Niche.ColumbariumArea.Name,
+                    Text3 = transaction.Niche.Name,
+                    ItemName = transaction.ColumbariumItem.SubProductService.Name,
+                    LinkArea = transaction.ColumbariumItem.SubProductService.Product.Area,
+                    LinkController = transaction.ColumbariumItem.SubProductService.SystemCode
                 });
             }
 

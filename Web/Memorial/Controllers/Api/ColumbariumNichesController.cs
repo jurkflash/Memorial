@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
 
@@ -20,37 +21,37 @@ namespace Memorial.Controllers.Api
 
         [Route("types")]
         [HttpGet]
-        public IEnumerable<NicheTypeDto> GetNicheTypeDtos()
+        public IEnumerable<NicheTypeDto> GetAll()
         {
-            return _nicheType.GetNicheTypeDtos();
+            return Mapper.Map<IEnumerable<NicheTypeDto>>(_nicheType.GetAll());
         }
 
         [Route("areas/{areaId:int}/availableNiches")]
         [HttpGet]
-        public IEnumerable<NicheDto> GetAvailableNicheDtosByAreaId(int areaId)
+        public IEnumerable<NicheDto> GetAvailableNicheByAreaId(int areaId)
         {
-            return _niche.GetAvailableNicheDtosByAreaId(areaId);
+            return Mapper.Map<IEnumerable<NicheDto>>(_niche.GetAvailableNichesByAreaId(areaId));
         }
 
         [Route("areas/{areaId:int}/niches")]
         [HttpGet]
-        public IHttpActionResult GetNicheDtoByAreaIdAndPositions(int areaId, int positionX, int positionY)
+        public IHttpActionResult GetByAreaIdAndPositions(int areaId, int positionX, int positionY)
         {
-            return Ok(_niche.GetNicheDtoByAreaIdAndPostions(areaId, positionX, positionY));
+            return Ok(Mapper.Map< NicheDto>(_niche.GetByAreaIdAndPostions(areaId, positionX, positionY)));
         }
 
         [Route("areas/{areaId:int}/types/{nicheTypeId:int}/niches")]
         [HttpGet]
-        public IEnumerable<NicheDto> GetNicheDtosByAreaIdAndTypeId(int areaId, int nicheTypeId)
+        public IEnumerable<NicheDto> GetByAreaIdAndTypeId(int areaId, int nicheTypeId)
         {
-            return _niche.GetNicheDtosByAreaIdAndTypeId(areaId, nicheTypeId, null);
+            return Mapper.Map<IEnumerable<NicheDto>>(_niche.GetByAreaIdAndTypeId(areaId, nicheTypeId, null));
         }
 
         [Route("niches/{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetNicheDto(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_niche.GetNicheDto(id));
+            return Ok(Mapper.Map<NicheDto>(_niche.GetById(id)));
         }
 
         [Route("niches")]
@@ -60,7 +61,8 @@ namespace Memorial.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _niche.Create(nicheDto);
+            var niche = Mapper.Map<Core.Domain.Niche>(nicheDto);
+            var id = _niche.Add(niche);
 
             if (id == 0)
                 return InternalServerError();
@@ -74,7 +76,8 @@ namespace Memorial.Controllers.Api
         [HttpPut]
         public IHttpActionResult UpdateNiche(int id, NicheDto nicheDto)
         {
-            if (_niche.Update(nicheDto))
+            var niche = Mapper.Map<Core.Domain.Niche>(nicheDto);
+            if (_niche.Change(id, niche))
                 return Ok();
             else
                 return InternalServerError();
@@ -82,9 +85,9 @@ namespace Memorial.Controllers.Api
 
         [Route("niches/{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteNiche(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_niche.Delete(id))
+            if (_niche.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

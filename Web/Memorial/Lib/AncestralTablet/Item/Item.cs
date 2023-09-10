@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using System.Linq;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
@@ -14,7 +12,6 @@ namespace Memorial.Lib.AncestralTablet
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISubProductService _subProductService;
         private readonly IProduct _product;
-        private Core.Domain.AncestralTabletItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -23,149 +20,82 @@ namespace Memorial.Lib.AncestralTablet
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.AncestralTabletItems.GetActive(id);
-        }
-
-        public Core.Domain.AncestralTabletItem GetItem()
-        {
-            return _item;
-        }
-
-        public AncestralTabletItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.AncestralTabletItem, AncestralTabletItemDto>(GetItem());
-        }
-
-        public Core.Domain.AncestralTabletItem GetItem(int id)
+        public Core.Domain.AncestralTabletItem GetById(int id)
         {
             return _unitOfWork.AncestralTabletItems.GetActive(id);
         }
 
-        public AncestralTabletItemDto GetItemDto(int id)
+        public float GetPrice(Core.Domain.AncestralTabletItem ancestralTabletItem)
         {
-            return Mapper.Map<Core.Domain.AncestralTabletItem, AncestralTabletItemDto>(GetItem(id));
-        }
-
-        public IEnumerable<Core.Domain.AncestralTabletItem> GetItems()
-        {
-            return _unitOfWork.AncestralTabletItems.GetAllActive();
-        }
-
-        public IEnumerable<AncestralTabletItemDto> GetItemDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletItem>, IEnumerable<AncestralTabletItemDto>>(GetItems());
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (ancestralTabletItem.Price.HasValue)
+                return ancestralTabletItem.Price.Value;
             else
-                return _item.SubProductService.Price;
+                return ancestralTabletItem.SubProductService.Price;
         }
 
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
-        }
-
-        public IEnumerable<Core.Domain.AncestralTabletItem> GetItemByArea(int areaId)
+        public IEnumerable<Core.Domain.AncestralTabletItem> GetByArea(int areaId)
         {
             return _unitOfWork.AncestralTabletItems.GetByArea(areaId);
         }
 
-        public IEnumerable<AncestralTabletItemDto> GetItemDtosByArea(int areaId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletItem>, IEnumerable<AncestralTabletItemDto>>(GetItemByArea(areaId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByArea(int areaId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByArea(int areaId)
         {
             if (areaId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemByArea(areaId);
+            var t = GetByArea(areaId);
             var sp = _subProductService.GetByProduct(_product.GetAncestralTabletProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return f;
         }
 
-        public int Create(AncestralTabletItemDto ancestralTabletItemDto)
+        public int Add(Core.Domain.AncestralTabletItem ancestralTabletItem)
         {
-            _item = new Core.Domain.AncestralTabletItem();
-            Mapper.Map(ancestralTabletItemDto, _item);
-
-            _unitOfWork.AncestralTabletItems.Add(_item);
+            _unitOfWork.AncestralTabletItems.Add(ancestralTabletItem);
 
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return ancestralTabletItem.Id;
         }
 
-        public bool Update(AncestralTabletItemDto ancestralTabletItemDto)
+        public bool Change(int id, Core.Domain.AncestralTabletItem ancestralTabletItem)
         {
-            var ancestralTabletItemInDB = GetItem(ancestralTabletItemDto.Id);
+            var ancestralTabletItemInDB = _unitOfWork.AncestralTabletItems.GetActive(id);
 
-            if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItemDto.AncestralTabletAreaDtoId
-                || ancestralTabletItemInDB.isOrder != ancestralTabletItemDto.isOrder)
+            if ((ancestralTabletItemInDB.AncestralTabletAreaId != ancestralTabletItem.AncestralTabletAreaId
+                || ancestralTabletItemInDB.isOrder != ancestralTabletItem.isOrder)
                 && _unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == ancestralTabletItemInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(ancestralTabletItemDto, ancestralTabletItemInDB);
-
+            ancestralTabletItemInDB.Price = ancestralTabletItem.Price;
+            ancestralTabletItemInDB.Code = ancestralTabletItem.Code;
+            ancestralTabletItemInDB.isOrder = ancestralTabletItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.AncestralTabletTransactions.Find(at => at.AncestralTabletItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
-
-            if (_item == null)
+            var ancestralTabletItemInDB = _unitOfWork.AncestralTabletItems.GetActive(id);
+            if (ancestralTabletItemInDB == null)
             {
                 return false;
             }
 
-            _unitOfWork.AncestralTabletItems.Remove(_item);
+            _unitOfWork.AncestralTabletItems.Remove(ancestralTabletItemInDB);
             
             _unitOfWork.Complete();
 
             return true;
         }
-
     }
 }

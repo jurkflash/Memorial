@@ -74,6 +74,9 @@
                 columns: [
                     {
                         data: "name",
+                        render: function (data, type, centre) {
+                            return "<a href='/ColumbariumConfig/Centres/Form/" + centre.id + "'>" + centre.name + "</a>";
+                        }
                     },
                     {
                         data: "description"

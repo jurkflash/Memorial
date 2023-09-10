@@ -35,7 +35,7 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.UrnItems
                 .Include(ui => ui.Urn)
                 .Include(ui => ui.SubProductService)
-                .Where(ui => ui.Id == urnId).ToList();
+                .Where(ui => ui.UrnId == urnId).ToList();
         }
 
         public MemorialContext MemorialContext

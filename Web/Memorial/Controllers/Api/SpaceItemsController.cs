@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Space;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,33 +19,34 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/spaces/mains/{id:int}/items")]
         [HttpGet]
-        public IEnumerable<SpaceItemDto> GetItems(int id)
+        public IEnumerable<SpaceItemDto> GetAlls(int id)
         {
-            return _item.GetItemDtosBySpace(id);
+            return Mapper.Map<IEnumerable<SpaceItemDto>>(_item.GetBySpace(id));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetItem(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_item.GetItemDto(id));
+            return Ok(Mapper.Map<SpaceItemDto>(_item.GetById(id)));
         }
 
         [Route("~/api/spaces/mains/{id:int}/availableitems")]
         [HttpGet]
         public IEnumerable<SubProductServiceDto> GetAvailableItemsBySpace(int id)
         {
-            return _item.GetAvailableItemDtosBySpace(id);
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_item.GetAvailableItemBySpace(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateItem(SpaceItemDto itemDto)
+        public IHttpActionResult Add(SpaceItemDto itemDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _item.Create(itemDto);
+            var item = Mapper.Map<Core.Domain.SpaceItem>(itemDto);
+            var id = _item.Add(item);
 
             if (id == 0)
                 return InternalServerError();
@@ -54,9 +56,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateItem(int id, SpaceItemDto itemDto)
+        public IHttpActionResult Change(int id, SpaceItemDto itemDto)
         {
-            if (_item.Update(itemDto))
+            var item = Mapper.Map<Core.Domain.SpaceItem>(itemDto);
+            if (_item.Change(id, item))
                 return Ok();
             else
                 return InternalServerError();
@@ -64,9 +67,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteItem(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_item.Delete(id))
+            if (_item.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

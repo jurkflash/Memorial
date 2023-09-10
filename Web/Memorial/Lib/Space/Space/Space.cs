@@ -32,12 +32,11 @@ namespace Memorial.Lib.Space
             if (from > to)
                 return -1;
 
-            _item.SetItem(spaceItemId);
-            
-            if (_item.GetItem() == null)
+            var item = _item.GetById(spaceItemId);
+            if (item == null)
                 return -1;
 
-            var diff = Math.Ceiling(((to - from).TotalMinutes / 60.0) / 24.0) * _item.GetPrice();
+            var diff = Math.Ceiling(((to - from).TotalMinutes / 60.0) / 24.0) * _item.GetPrice(item);
 
             return diff;
         }
@@ -47,9 +46,8 @@ namespace Memorial.Lib.Space
             if (from > to)
                 return false;
 
-            _item.SetItem(spaceItemId);
-
-            if (_item.GetItem() == null)
+            var item = _item.GetById(spaceItemId);
+            if (item == null) 
                 return false;
 
             return _unitOfWork.SpaceTransactions.GetAvailability(from, to, spaceItemId);
@@ -82,8 +80,10 @@ namespace Memorial.Lib.Space
                 return false;
             }
 
-            Mapper.Map(space, spaceInDB);
-
+            spaceInDB.Name = space.Name;
+            spaceInDB.Description = space.Description;
+            spaceInDB.Remark = space.Remark;
+            spaceInDB.ColorCode = space.ColorCode;
             _unitOfWork.Complete();
 
             return true;

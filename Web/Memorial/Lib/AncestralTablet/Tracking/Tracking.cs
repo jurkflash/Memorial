@@ -44,7 +44,7 @@ namespace Memorial.Lib.AncestralTablet
 
         public void Change(int ancestralTabletId, string ancestralTabletTransactionAF, int? applicantId, int? deceasedId)
         {
-            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
+            var tracking = _unitOfWork.AncestralTabletTrackings.GetByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
 
             tracking.ApplicantId = applicantId;
 
@@ -55,7 +55,7 @@ namespace Memorial.Lib.AncestralTablet
 
         public void Remove(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
-            var tracking = _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
+            var tracking = _unitOfWork.AncestralTabletTrackings.GetByAncestralTabletIdAndTransactionAF(ancestralTabletId, ancestralTabletTransactionAF);
 
             _unitOfWork.AncestralTabletTrackings.Remove(tracking);
 
@@ -66,24 +66,24 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletTrackings.GetLatestFirstTransactionByAncestralTabletId(ancestralTabletId);
         }
 
-        public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId)
+        public IEnumerable<Core.Domain.AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId, false);
+            return _unitOfWork.AncestralTabletTrackings.GetByAncestralTabletId(ancestralTabletId, false);
         }
 
-        public IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag)
+        public IEnumerable<Core.Domain.AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetTrackingByAncestralTabletId(ancestralTabletId, ToDeleteFlag);
+            return _unitOfWork.AncestralTabletTrackings.GetByAncestralTabletId(ancestralTabletId, ToDeleteFlag);
         }
 
-        public Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
+        public Core.Domain.AncestralTabletTracking GetByAF(string ancestralTabletTransactionAF)
         {
-            return _unitOfWork.AncestralTabletTrackings.GetTrackingByTransactionAF(ancestralTabletTransactionAF);
+            return _unitOfWork.AncestralTabletTrackings.GetByAF(ancestralTabletTransactionAF);
         }
 
         public void Delete(string ancestralTabletTransactionAF)
         {
-            var tracking = GetTrackingByTransactionAF(ancestralTabletTransactionAF);
+            var tracking = GetByAF(ancestralTabletTransactionAF);
             if (tracking != null)
                 _unitOfWork.AncestralTabletTrackings.Remove(tracking);
         }

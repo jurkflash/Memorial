@@ -12,7 +12,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public CemeteryTransaction GetActive(string AF)
+        public CemeteryTransaction GetByAF(string AF)
         {
             return MemorialContext.CemeteryTransactions
                 .Include(pt => pt.Applicant)

@@ -20,9 +20,9 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/applicants/{applicantId:int}/deceaseds")]
         [HttpGet]
-        public IEnumerable<DeceasedDto> GetDeceasedsByApplicantId(int applicantId)
+        public IEnumerable<DeceasedDto> GetByApplicantId(int applicantId)
         {
-            var result = _deceased.GetDeceasedDtosByApplicantId(applicantId);
+            var result = Mapper.Map<IEnumerable<DeceasedDto>>(_deceased.GetByApplicantId(applicantId));
 
             return result;
         }
@@ -31,7 +31,7 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<DeceasedDto> GetUnlinkedDeceasedDtosByApplicantId(int applicantId)
         {
-            var result = _deceased.GetDeceasedDtosExcludeFilter(applicantId, null);
+            var result = Mapper.Map<IEnumerable<DeceasedDto>>(_deceased.GetExcludeFilter(applicantId, null));
 
             return result;
         }

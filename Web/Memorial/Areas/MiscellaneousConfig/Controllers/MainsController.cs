@@ -33,7 +33,7 @@ namespace Memorial.Areas.MiscellaneousConfig.Controllers
             var dto = new MiscellaneousDto();
             if (id != null)
             {
-                dto = _miscellaneous.GetMiscellaneousDto((int)id);
+                dto = Mapper.Map<MiscellaneousDto>(_miscellaneous.Get((int)id));
             }
 
             vw.MiscellaneousDto = dto;

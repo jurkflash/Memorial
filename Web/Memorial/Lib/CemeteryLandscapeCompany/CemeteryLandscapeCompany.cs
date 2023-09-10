@@ -36,8 +36,10 @@ namespace Memorial.Lib.CemeteryLandscapeCompany
         {
             var cemeteryLandscapeCompanyInDB = _unitOfWork.CemeteryLandscapeCompanies.GetActive(id);
 
-            Mapper.Map(cemeteryLandscapeCompany, cemeteryLandscapeCompanyInDB);
-
+            cemeteryLandscapeCompanyInDB.Name = cemeteryLandscapeCompany.Name;
+            cemeteryLandscapeCompanyInDB.ContactPerson = cemeteryLandscapeCompany.ContactPerson;
+            cemeteryLandscapeCompanyInDB.ContactNumber = cemeteryLandscapeCompany.ContactNumber;
+            cemeteryLandscapeCompanyInDB.Remark = cemeteryLandscapeCompany.Remark;
             _unitOfWork.Complete();
 
             return true;

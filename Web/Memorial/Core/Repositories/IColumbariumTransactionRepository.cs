@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface IColumbariumTransactionRepository : IRepository<ColumbariumTransaction>
     {
-        ColumbariumTransaction GetActive(string AF);
+        ColumbariumTransaction GetByAF(string AF);
 
         ColumbariumTransaction GetExclusive(string AF);
 

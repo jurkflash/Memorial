@@ -7,10 +7,10 @@ namespace Memorial.Core.Repositories
     {
         AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag);
+        IEnumerable<AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag);
 
-        AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
+        AncestralTabletTracking GetByAF(string ancestralTabletTransactionAF);
 
-        AncestralTabletTracking GetTrackingByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF);
+        AncestralTabletTracking GetByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF);
     }
 }

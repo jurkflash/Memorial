@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Miscellaneous;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.MiscellaneousConfig.Controllers
 {
@@ -28,7 +29,7 @@ namespace Memorial.Areas.MiscellaneousConfig.Controllers
             var dto = new MiscellaneousItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<MiscellaneousItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

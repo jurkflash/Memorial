@@ -33,7 +33,7 @@ namespace Memorial.Persistence.Repositories
         {
             return MemorialContext.MiscellaneousItems
                 .Include(mi => mi.SubProductService)
-                .Where(mi => mi.Id == miscellaneousId).ToList();
+                .Where(mi => mi.MiscellaneousId == miscellaneousId).ToList();
         }
 
         public MemorialContext MemorialContext

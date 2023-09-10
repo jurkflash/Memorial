@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
-using AutoMapper;
 
 namespace Memorial.Lib.Urn
 {
@@ -13,8 +11,6 @@ namespace Memorial.Lib.Urn
         protected IItem _item;
         protected IApplicant _applicant;
         protected INumber _number;
-        protected Core.Domain.UrnTransaction _transaction;
-        protected string _AFnumber;
 
         public Transaction(
             IUnitOfWork unitOfWork,
@@ -31,144 +27,27 @@ namespace Memorial.Lib.Urn
             _number = number;
         }
 
-        public void SetTransaction(string AF)
+        public Core.Domain.UrnTransaction GetByAF(string AF)
         {
-            _transaction = _unitOfWork.UrnTransactions.GetActive(AF);
+            return _unitOfWork.UrnTransactions.GetByAF(AF);
         }
 
-        public void SetTransaction(Core.Domain.UrnTransaction transaction)
+        public float GetTotalAmount(Core.Domain.UrnTransaction urnTransaction)
         {
-            _transaction = transaction;
+            return urnTransaction.Price;
         }
 
-        public Core.Domain.UrnTransaction GetTransaction()
+        public IEnumerable<Core.Domain.UrnTransaction> GetByItemId(int itemId, string filter)
         {
-            return _transaction;
+            return _unitOfWork.UrnTransactions.GetByItem(itemId, filter);        
         }
 
-        public UrnTransactionDto GetTransactionDto()
-        {
-            return Mapper.Map<Core.Domain.UrnTransaction, UrnTransactionDto>(GetTransaction());
-        }
-
-        public Core.Domain.UrnTransaction GetTransaction(string AF)
-        {
-            return _unitOfWork.UrnTransactions.GetActive(AF);
-        }
-
-        public UrnTransactionDto GetTransactionDto(string AF)
-        {
-            return Mapper.Map<Core.Domain.UrnTransaction, UrnTransactionDto>(GetTransaction(AF));
-        }
-
-        public string GetTransactionAF()
-        {
-            return _transaction.AF;
-        }
-
-        public float GetTransactionAmount()
-        {
-            return _transaction.Price;
-        }
-
-        public string GetTransactionSummaryItem()
-        {
-            return _transaction.SummaryItem;
-        }
-
-        public string GetSiteHeader()
-        {
-            return _transaction.UrnItem.Urn.Site.Header;
-        }
-
-        public int GetItemId()
-        {
-            return _transaction.UrnItemId;
-        }
-
-        public string GetItemName()
-        {
-            _item.SetItem(_transaction.UrnItemId);
-            return _item.GetName();
-        }
-
-        public string GetItemName(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetName();
-        }
-
-        public float GetItemPrice()
-        {
-            _item.SetItem(_transaction.UrnItemId);
-            return _item.GetPrice();
-        }
-
-        public float GetItemPrice(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetPrice();
-        }
-
-        public bool IsItemOrder()
-        {
-            _item.SetItem(_transaction.UrnItemId);
-            return _item.IsOrder();
-        }
-
-        public int GetTransactionApplicantId()
-        {
-            return _transaction.ApplicantId;
-        }
-
-        public IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId, string filter)
-        {
-            return _unitOfWork.UrnTransactions.GetByItem(itemId, filter);
-        }
-
-        public IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId, string filter)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(GetTransactionsByItemId(itemId, filter));
-        }
-
-        public IEnumerable<UrnTransactionDto> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.UrnTransaction> GetRecent(int siteId, int? applicantId)
         {
             if (applicantId == null)
-                return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(_unitOfWork.UrnTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
+                return _unitOfWork.UrnTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);
             else
-                return Mapper.Map<IEnumerable<Core.Domain.UrnTransaction>, IEnumerable<UrnTransactionDto>>(_unitOfWork.UrnTransactions.GetRecent(null, siteId, applicantId));
-        }
-
-        protected bool CreateNewTransaction(UrnTransactionDto urnTransactionDto)
-        {
-            if (_AFnumber == "")
-                return false;
-
-            _transaction = new Core.Domain.UrnTransaction();
-
-            Mapper.Map(urnTransactionDto, _transaction);
-
-            _transaction.AF = _AFnumber;
-
-            _unitOfWork.UrnTransactions.Add(_transaction);
-
-            return true;
-        }
-
-        protected bool UpdateTransaction(UrnTransactionDto urnTransactionDto)
-        {
-            var urnTransactionInDb = GetTransaction(urnTransactionDto.AF);
-
-            Mapper.Map(urnTransactionDto, urnTransactionInDb);
-
-            return true;
-        }
-
-        protected bool DeleteTransaction()
-        {
-            _unitOfWork.UrnTransactions.Remove(_transaction);
-
-            return true;
+                return _unitOfWork.UrnTransactions.GetRecent(null, siteId, applicantId);
         }
     }
 }

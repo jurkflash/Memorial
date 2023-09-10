@@ -1,12 +1,8 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Cemetery
 {
@@ -14,9 +10,7 @@ namespace Memorial.Lib.Cemetery
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly Invoice.IPlot _invoice;
-        private readonly IPayment _payment;
         private readonly ITracking _tracking;
-        private readonly IPlotApplicantDeceaseds _plotApplicantDeceaseds;
 
         public Order(
             IUnitOfWork unitOfWork,
@@ -27,9 +21,7 @@ namespace Memorial.Lib.Cemetery
             IApplicantDeceased applicantDeceased,
             INumber number,
             Invoice.IPlot invoice,
-            IPayment payment,
-            ITracking tracking,
-            IPlotApplicantDeceaseds plotApplicantDeceaseds
+            ITracking tracking
             ) : 
             base(
                 unitOfWork, 
@@ -49,177 +41,150 @@ namespace Memorial.Lib.Cemetery
             _applicantDeceased = applicantDeceased;
             _number = number;
             _invoice = invoice;
-            _payment = payment;
             _tracking = tracking;
-            _plotApplicantDeceaseds = plotApplicantDeceaseds;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.CemeteryTransaction cemeteryTransaction)
         {
-            SetTransaction(AF);
-        }
-
-        private void SetDeceased(int id)
-        {
-            _deceased.SetDeceased(id);
-        }
-
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            if (cemeteryTransactionDto.DeceasedDto1Id != null)
-            {
-                SetDeceased((int)cemeteryTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetPlot() != null)
-                    return false;
-            }
-
-            NewNumber(cemeteryTransactionDto.CemeteryItemDtoId);
-
-            SummaryItem(cemeteryTransactionDto);
-
-            if (CreateNewTransaction(cemeteryTransactionDto))
-            {
-                _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
-                _plot.SetApplicant(cemeteryTransactionDto.ApplicantDtoId);
-
-                if (cemeteryTransactionDto.DeceasedDto1Id != null)
-                {
-                    SetDeceased((int)cemeteryTransactionDto.DeceasedDto1Id);
-                    if (_deceased.SetPlot(cemeteryTransactionDto.PlotDtoId))
-                    {
-                        _plot.SetHasDeceased(true);
-                    }
-                    else
-                        return false;
-                }
-
-                _tracking.Add(cemeteryTransactionDto.PlotDtoId, _AFnumber, cemeteryTransactionDto.ApplicantDtoId, cemeteryTransactionDto.DeceasedDto1Id);
-
-                _unitOfWork.Complete();
-            }
-            else
+            if (cemeteryTransaction.Deceased1Id != null)
             {
                 return false;
             }
+
+            cemeteryTransaction.AF = _number.GetNewAF(cemeteryTransaction.CemeteryItemId, System.DateTime.Now.Year);
+
+            SummaryItem(cemeteryTransaction);
+
+            _unitOfWork.CemeteryTransactions.Add(cemeteryTransaction);
+
+            var plot = _plot.GetById(cemeteryTransaction.PlotId);
+            plot.ApplicantId = cemeteryTransaction.ApplicantId;
+
+            if (cemeteryTransaction.Deceased1Id != null)
+            {
+                var d = _deceased.GetById((int)cemeteryTransaction.Deceased1Id);
+                d.PlotId = cemeteryTransaction.PlotId;
+                plot.hasDeceased = true;
+            }
+
+            _tracking.Add(cemeteryTransaction.PlotId, cemeteryTransaction.AF, cemeteryTransaction.ApplicantId, cemeteryTransaction.Deceased1Id);
+
+            _unitOfWork.Complete();
             
             return true;
         }
 
-        public bool Update(CemeteryTransactionDto cemeteryTransactionDto)
+        public bool Change(string AF, Core.Domain.CemeteryTransaction cemeteryTransaction)
         {
-            if (_invoice.GetInvoicesByAF(cemeteryTransactionDto.AF).Any() && 
-                cemeteryTransactionDto.Price + 
-                (float)cemeteryTransactionDto.Maintenance + 
-                (float)cemeteryTransactionDto.Dig + 
-                (float)cemeteryTransactionDto.Brick + 
-                (float)cemeteryTransactionDto.Wall 
-                <
-                _invoice.GetInvoicesByAF(cemeteryTransactionDto.AF).Max(i => i.Amount))
+            if (_invoice.GetByAF(cemeteryTransaction.AF).Any() && GetTotalAmount(cemeteryTransaction) <
+                _invoice.GetByAF(cemeteryTransaction.AF).Max(i => i.Amount))
             {
                 return false;
             }
 
-            var cemeteryTransactionInDb = GetTransaction(cemeteryTransactionDto.AF);
+            var cemeteryTransactionInDb = GetByAF(cemeteryTransaction.AF);
 
             var deceased1InDb = cemeteryTransactionInDb.Deceased1Id;
 
-            SummaryItem(cemeteryTransactionDto);
+            SummaryItem(cemeteryTransaction);
 
-            if (UpdateTransaction(cemeteryTransactionDto))
-            {
-                _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
+            cemeteryTransactionInDb.Total = cemeteryTransaction.Total;
+            cemeteryTransactionInDb.SummaryItem = cemeteryTransaction.SummaryItem;
+            cemeteryTransactionInDb.Remark = cemeteryTransaction.Remark;
 
-                PlotApplicantDeceaseds(cemeteryTransactionDto.DeceasedDto1Id, deceased1InDb);
+            var plot = _plot.GetById(cemeteryTransaction.PlotId);
 
-                if (cemeteryTransactionDto.DeceasedDto1Id == null)
-                    _plot.SetHasDeceased(false);
+            PlotApplicantDeceaseds(plot, cemeteryTransaction.Deceased1Id, deceased1InDb);
 
-                _tracking.Change(cemeteryTransactionDto.PlotDtoId, cemeteryTransactionDto.AF, cemeteryTransactionDto.ApplicantDtoId, cemeteryTransactionDto.DeceasedDto1Id);
+            if (cemeteryTransaction.Deceased1Id == null)
+                plot.hasDeceased = false;
 
-                _unitOfWork.Complete();
-            }
-
-            return true;
-        }
-
-        private bool PlotApplicantDeceaseds(int? deceasedId, int? dbDeceasedId)
-        {
-            if (deceasedId != dbDeceasedId)
-            {
-                if (deceasedId == null)
-                {
-                    _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemovePlot();
-
-                    return true;
-                }
-
-                _deceased.SetDeceased((int)deceasedId);
-                if (_deceased.GetPlot() != null && _deceased.GetPlot().Id != _plot.GetPlot().Id)
-                {
-                    return false;
-                }
-
-                if (dbDeceasedId != null)
-                {
-                    _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemovePlot();
-                }
-
-                _deceased.SetDeceased((int)deceasedId);
-                _deceased.SetPlot(_plot.GetPlot().Id);
-                _plot.SetHasDeceased(true);
-
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            if (!_tracking.IsLatestTransaction(_transaction.PlotId, _transaction.AF))
-                return false;
-
-            DeleteAllTransactionWithSamePlotId();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
-
-
-            _plot.SetPlot(_transaction.PlotId);
-
-            var deceaseds = _deceased.GetDeceasedsByPlotId(_transaction.PlotId);
-
-            foreach (var deceased in deceaseds)
-            {
-                _deceased.SetDeceased(deceased.Id);
-                _deceased.RemovePlot();
-            }
-
-            _plot.SetHasDeceased(false);
-
-            _plot.RemoveApplicant();
-
-            _tracking.Delete(_transaction.AF);
+            _tracking.Change(cemeteryTransaction.PlotId, cemeteryTransaction.AF, cemeteryTransaction.ApplicantId, cemeteryTransaction.Deceased1Id);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(CemeteryTransactionDto trx)
+        private bool PlotApplicantDeceaseds(Core.Domain.Plot plot, int? deceasedId, int? dbDeceasedId)
         {
-            _plot.SetPlot(trx.PlotDtoId);
+            if (deceasedId != dbDeceasedId)
+            {
+                if (deceasedId == null)
+                {
+                    var d = _deceased.GetById((int)dbDeceasedId);
+                    d.Plot = null;
+                    d.PlotId = null;
 
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Plot + ": " + _plot.GetName() + "<BR/>" +
-                Resources.Mix.Type + ": " + _plot.GetPlot().PlotType.Name + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+                    return true;
+                }
+
+                var deceased = _deceased.GetById((int)deceasedId);
+                if (deceased.PlotId != null && deceased.PlotId != plot.Id)
+                {
+                    return false;
+                }
+
+                if (dbDeceasedId != null)
+                {
+                    var d = _deceased.GetById((int)dbDeceasedId);
+                    d.Plot = null;
+                    d.PlotId = null;
+                }
+
+                var deceased1 = _deceased.GetById((int)deceasedId);
+                deceased1.PlotId = plot.Id;
+                plot.hasDeceased = true;
+            }
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            var transactionInDb = _unitOfWork.CemeteryTransactions.GetByAF(AF);
+
+            if (!_tracking.IsLatestTransaction(transactionInDb.PlotId, transactionInDb.AF))
+                return false;
+
+            if (_unitOfWork.Invoices.GetByActiveCemeteryAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByCemeteryAF(AF).Any())
+                return false;
+
+            DeleteAllTransactionWithSamePlotId(transactionInDb.PlotId);
+
+            _unitOfWork.CemeteryTransactions.Remove(transactionInDb);
+
+            var plot = _plot.GetById(transactionInDb.PlotId);
+
+            var deceaseds = _deceased.GetByPlotId(transactionInDb.PlotId);
+
+            foreach (var deceased in deceaseds)
+            {
+                deceased.PlotId = null;
+            }
+
+            plot.hasDeceased = false;
+            plot.Applicant = null;
+            plot.ApplicantId = null;
+
+            _tracking.Delete(transactionInDb.AF);
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        private void SummaryItem(Core.Domain.CemeteryTransaction cemeteryTransaction)
+        {
+            var plot = _plot.GetById(cemeteryTransaction.PlotId);
+
+            cemeteryTransaction.SummaryItem = "AF: " + cemeteryTransaction.AF + "<BR/>" +
+                Resources.Mix.Plot + ": " + cemeteryTransaction.Plot.Name + "<BR/>" +
+                Resources.Mix.Type + ": " + plot.PlotType.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + cemeteryTransaction.Remark;
         }
     }
 }

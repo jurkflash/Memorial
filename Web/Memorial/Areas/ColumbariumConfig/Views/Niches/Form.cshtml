@@ -253,15 +253,18 @@
                         if (data != null && data.id != $("#Id").val()) {
                             toastr.error("Position X and Y taken");
                             available = false;
+                            $('#save').prop('disabled', true);
                         }
                         else {
                             available = true;
+                            $('#save').prop('disabled', false);
                         }
                     },
                 error: function () {
-                            toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
-                            available = false;
-                        }
+                    toastr.error(MEMORIAL_UNEXPECTED_HAPPENED);
+                    available = false;
+                    $('#save').prop('disabled', true);
+                    }
                 });
             return available;
         }

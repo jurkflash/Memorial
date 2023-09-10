@@ -3,6 +3,7 @@ using System.Web.Http;
 using Memorial.Core.Dtos;
 using System.Collections.Generic;
 using Memorial.Lib.AncestralTablet;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -10,13 +11,11 @@ namespace Memorial.Controllers.Api
     public class AncestralTabletsController : ApiController
     {
         private readonly IAncestralTablet _ancestralTablet;
-        private readonly IArea _area;
         private readonly IMaintenance _maintenance;
 
-        public AncestralTabletsController(IAncestralTablet ancestralTablet, IArea area, IMaintenance maintenance)
+        public AncestralTabletsController(IAncestralTablet ancestralTablet, IMaintenance maintenance)
         {
             _ancestralTablet = ancestralTablet;
-            _area = area;
             _maintenance = maintenance;
         }
 
@@ -24,28 +23,28 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<AncestralTabletDto> GetAvailableAncestralTabletByAreaId(int areaId)
         {
-            return _ancestralTablet.GetAvailableAncestralTabletDtosByAreaId(areaId);
+            return Mapper.Map<IEnumerable<AncestralTabletDto>>(_ancestralTablet.GetAvailableAncestralTabletsByAreaId(areaId));
         }
 
         [Route("~/api/ancestraltablets/areas/{areaId:int}/ancestralTablets")]
         [HttpGet]
-        public IEnumerable<AncestralTabletDto> GetAncestralTabletByAreaId(int areaId)
+        public IEnumerable<AncestralTabletDto> GetByAreaId(int areaId)
         {
-            return _ancestralTablet.GetAncestralTabletDtosByAreaId(areaId);
+            return Mapper.Map<IEnumerable<AncestralTabletDto>>(_ancestralTablet.GetByAreaId(areaId));
         }
 
         [Route("~/api/ancestraltablets/areas/{areaId:int}/ancestralTablets")]
         [HttpGet]
-        public IHttpActionResult GetAncestralTabletByAreaIdAndPositions(int areaId, int positionX, int positionY)
+        public IHttpActionResult GetByAreaIdAndPositions(int areaId, int positionX, int positionY)
         {
-            return Ok(_ancestralTablet.GetAncestralTabletDtoByAreaIdAndPostions(areaId, positionX, positionY));
+            return Ok(Mapper.Map<AncestralTabletDto>(_ancestralTablet.GetByAreaIdAndPostions(areaId, positionX, positionY)));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetAncestralTablet(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_ancestralTablet.GetAncestralTabletDto(id));
+            return Ok(Mapper.Map<AncestralTabletDto>(_ancestralTablet.GetById(id)));
         }
 
         [Route("~/api/ancestraltablets/items/{itemId:int}/amount")]
@@ -65,12 +64,13 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateAncestralTablet(AncestralTabletDto ancestralTabletDto)
+        public IHttpActionResult Add(AncestralTabletDto ancestralTabletDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _ancestralTablet.Create(ancestralTabletDto);
+            var ancestralTablet = Mapper.Map<Core.Domain.AncestralTablet>(ancestralTabletDto);
+            var id = _ancestralTablet.Add(ancestralTablet);
 
             if (id == 0)
                 return InternalServerError();
@@ -82,9 +82,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateAncestralTablet(int id, AncestralTabletDto ancestralTabletDto)
+        public IHttpActionResult Change(int id, AncestralTabletDto ancestralTabletDto)
         {
-            if (_ancestralTablet.Update(ancestralTabletDto))
+            var ancestralTablet = Mapper.Map<Core.Domain.AncestralTablet>(ancestralTabletDto);
+            if (_ancestralTablet.Change(id, ancestralTablet))
                 return Ok();
             else
                 return InternalServerError();
@@ -92,9 +93,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteAncestralTablet(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_ancestralTablet.Delete(id))
+            if (_ancestralTablet.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

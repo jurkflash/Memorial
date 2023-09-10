@@ -29,14 +29,15 @@ namespace Memorial.Areas.Space.Controllers
         public ActionResult Index(string AF)
         {
             var transaction = _transaction.GetByAF(AF);
+            var receipts = _receipt.GetByAF(AF).OrderByDescending(r => r.CreatedUtcTime);
             var viewModel = new NonOrderReceiptsViewModel()
             {
                 AF = AF,
                 AFTotalAmount = _transaction.GetTotalAmount(transaction),
-                AFTotalAmountPaid = _receipt.GetTotalIssuedReceiptAmount(AF),
+                AFTotalAmountPaid = receipts.Sum(r => r.Amount),
                 Amount = _transaction.GetTotalAmount(transaction),
-                RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmount(AF),
-                ReceiptDtos = Mapper.Map<IEnumerable<ReceiptDto>>(_receipt.GetByAF(AF).OrderByDescending(r => r.CreatedUtcTime))
+                RemainingAmount = _transaction.GetTotalAmount(transaction) - receipts.Sum(r => r.Amount),
+                ReceiptDtos = Mapper.Map<IEnumerable<ReceiptDto>>(receipts)
             };
 
             return View(viewModel);
@@ -77,7 +78,7 @@ namespace Memorial.Areas.Space.Controllers
             {
                 AF = AF,
                 Amount = _transaction.GetTotalAmount(transaction),
-                RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmount(AF),
+                RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(AF),
                 PaymentMethods = _paymentMethod.GetAll()
             };
             return View(viewModel);
@@ -89,7 +90,7 @@ namespace Memorial.Areas.Space.Controllers
             var receipt = Mapper.Map<Core.Domain.Receipt>(viewModel.ReceiptDto);
 
             viewModel.Amount = _transaction.GetTotalAmount(transaction);
-            viewModel.RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmount(viewModel.AF);
+            viewModel.RemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
             viewModel.PaymentMethods = _paymentMethod.GetAll();
 
             if (viewModel.ReceiptDto.Amount > viewModel.RemainingAmount)
@@ -99,7 +100,7 @@ namespace Memorial.Areas.Space.Controllers
                 return View("Form", viewModel);
             }
 
-            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmount(viewModel.AF);
+            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
             if (viewModel.ReceiptDto.Amount > totalRemainingAmount)
             {
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount over total");

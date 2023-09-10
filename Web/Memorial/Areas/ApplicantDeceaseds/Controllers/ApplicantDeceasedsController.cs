@@ -35,7 +35,7 @@ namespace Memorial.Areas.ApplicantDeceaseds.Controllers
             if (id != null)
             {
                 viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)id));
-                viewModel.DeceasedDtos = Mapper.Map<IEnumerable<DeceasedDto>>(_deceased.GetDeceasedsByApplicantId((int)id));
+                viewModel.DeceasedDtos = Mapper.Map<IEnumerable<DeceasedDto>>(_deceased.GetByApplicantId((int)id));
                 viewModel.ApplicantDeceasedDtos = Mapper.Map<IEnumerable<ApplicantDeceasedDto>>(_applicantDeceased.GetByApplicantId((int)id));
             }
 

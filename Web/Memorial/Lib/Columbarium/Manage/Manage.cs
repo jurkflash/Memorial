@@ -1,10 +1,8 @@
 ﻿using Memorial.Core;
-using System;
 using System.Linq;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -12,8 +10,6 @@ namespace Memorial.Lib.Columbarium
     {
         private const string _systemCode = "Manage";
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IColumbarium _invoice;
-        private readonly IPayment _payment;
 
         public Manage(
             IUnitOfWork unitOfWork,
@@ -22,9 +18,7 @@ namespace Memorial.Lib.Columbarium
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
-            INumber number,
-            Invoice.IColumbarium invoice,
-            IPayment payment
+            INumber number
             ) :
             base(
                 unitOfWork,
@@ -43,68 +37,50 @@ namespace Memorial.Lib.Columbarium
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
         }
 
-        public void SetManage(string AF)
+        public bool Add(Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            SetTransaction(AF);
-        }
+            columbariumTransaction.AF = _number.GetNewAF(columbariumTransaction.ColumbariumItemId, System.DateTime.Now.Year);
 
-        public float GetPrice(int itemId)
-        {
-            _item.SetItem(itemId);
-            return _item.GetPrice();
-        }
+            SummaryItem(columbariumTransaction);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
-        {
-            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
-
-            SummaryItem(columbariumTransactionDto);
-
-            if (CreateNewTransaction(columbariumTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Update(ColumbariumTransactionDto columbariumTransactionDto)
-        {
-            if (_invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Any() && columbariumTransactionDto.Price <
-                _invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            SummaryItem(columbariumTransactionDto);
-
-            UpdateTransaction(columbariumTransactionDto);
+            _unitOfWork.ColumbariumTransactions.Add(columbariumTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete()
+        public bool Change(string AF, Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            DeleteTransaction();
+            var invoices = _unitOfWork.Invoices.GetByActiveColumbariumAF(columbariumTransaction.AF).ToList();
 
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            if (invoices.Any() && columbariumTransaction.Price < invoices.Max(i => i.Amount))
+                return false;
 
+            SummaryItem(columbariumTransaction);
+
+            var columbariumTransactionInDb = GetByAF(columbariumTransaction.AF);
+            columbariumTransactionInDb.Price = columbariumTransaction.Price;
+            columbariumTransactionInDb.SummaryItem = columbariumTransaction.SummaryItem;
+            columbariumTransactionInDb.Remark = columbariumTransaction.Remark;
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveColumbariumAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByColumbariumAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.ColumbariumTransactions.GetByAF(AF);
+            _unitOfWork.ColumbariumTransactions.Remove(transactionInDb);
             _unitOfWork.Complete();
 
             return true;
@@ -118,14 +94,14 @@ namespace Memorial.Lib.Columbarium
             return true;
         }
 
-        private void SummaryItem(ColumbariumTransactionDto trx)
+        private void SummaryItem(Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            _niche.SetNiche(trx.NicheDtoId);
+            var niche = _niche.GetById(columbariumTransaction.NicheId);
 
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Niche + ": " + _niche.GetName() + "<BR/>" +
-                Resources.Mix.From + ": " + trx.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + Resources.Mix.To + ": " + trx.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            columbariumTransaction.SummaryItem = "AF: " + columbariumTransaction.AF + "<BR/>" +
+                Resources.Mix.Niche + ": " + niche.Name + "<BR/>" +
+                Resources.Mix.From + ": " + columbariumTransaction.FromDate.Value.ToString("yyyy-MMM-dd HH:mm") + " " + Resources.Mix.To + ": " + columbariumTransaction.ToDate.Value.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
+                Resources.Mix.Remark + ": " + columbariumTransaction.Remark;
         }
     }
 }

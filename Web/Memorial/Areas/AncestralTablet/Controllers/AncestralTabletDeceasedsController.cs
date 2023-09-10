@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Memorial.ViewModels;
 using Memorial.Core.Dtos;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -42,22 +43,21 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         {
             var viewModel = new AncestralTabletDeceasedsViewModel();
             
-            _ancestralTablet.SetAncestralTablet(id);
-
-            if (_ancestralTablet.GetAncestralTabletDto() != null)
+            var ancestralTablet = _ancestralTablet.GetById(id);
+            if (ancestralTablet != null)
             {
-                viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+                viewModel.AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet);
 
-                var applicantDeceaseds = _deceased.GetDeceasedBriefDtosByApplicantId((int)_ancestralTablet.GetApplicantId());
+                var applicantDeceaseds = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId((int)ancestralTablet.ApplicantId));
 
-                if (_ancestralTablet.HasApplicant())
+                if (ancestralTablet.ApplicantId != null)
                 {
-                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_ancestralTablet.GetApplicantId()));
-                    var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(ancestralTablet.Applicant);
+                    var deceaseds = _deceased.GetByAncestralTabletId(id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[0].Id).ToList();
-                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id));
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)ancestralTablet.ApplicantId, deceaseds[0].Id));
                     }
                 }
 
@@ -76,8 +76,8 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             if (viewModel.Deceased1Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.Deceased1Id);
-                if (_deceased.GetAncestralTablet() != null)
+                var deceased = _deceased.GetById((int)viewModel.Deceased1Id);
+                if (deceased.AncestralTabletId != null)
                 {
                     ModelState.AddModelError("DeceasedId", "Deceased already installed");
                     return View("Index", bind(viewModel.AncestralTabletDto.Id));

@@ -12,7 +12,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public AncestralTabletTransaction GetActive(string AF)
+        public AncestralTabletTransaction GetByAF(string AF)
         {
             return MemorialContext.AncestralTabletTransactions
                 .Include(at => at.Applicant)

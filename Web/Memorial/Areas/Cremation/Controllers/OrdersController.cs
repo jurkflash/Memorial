@@ -9,6 +9,7 @@ using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Cremation.Controllers
 {
@@ -42,14 +43,13 @@ namespace Memorial.Areas.Cremation.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             var viewModel = new CremationItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                CremationItemDto = _item.GetItemDto(),
-                CremationTransactionDtos = _order.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                CremationItemDto = Mapper.Map<CremationItemDto>(item),
+                CremationTransactionDtos = Mapper.Map<IEnumerable<CremationTransactionDto>>(_order.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
 
@@ -58,14 +58,14 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _order.SetOrder(AF);
+            var transaction = _order.GetByAF(AF);
 
             var viewModel = new CremationTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.CremationTransactionDto = _order.GetCremationDto();
-            viewModel.ApplicantId = _order.GetCremationDto().ApplicantDtoId;
-            viewModel.DeceasedId = _order.GetCremationDto().DeceasedDtoId;
-            viewModel.Header = _order.GetTransaction().CremationItem.Cremation.Site.Header;
+            viewModel.CremationTransactionDto = Mapper.Map<CremationTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.DeceasedId = transaction.DeceasedId;
+            viewModel.Header = transaction.CremationItem.Cremation.Site.Header;
             return View(viewModel);
         }
 
@@ -89,23 +89,21 @@ namespace Memorial.Areas.Cremation.Controllers
             var viewModel = new CremationTransactionsFormViewModel()
             {
                 FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll()),
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
+                DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(applicantId))
             };
 
-            _item.SetItem(itemId);
-            _cremation.SetCremation(_item.GetCremationId());
-
+            var item = _item.GetById(itemId);
             if (AF == null)
             {
                 cremationTransactionDto.ApplicantDtoId = applicantId;
-                cremationTransactionDto.CremationItemDto = _item.GetItemDto();
+                cremationTransactionDto.CremationItemDto = Mapper.Map<CremationItemDto>(item);
                 cremationTransactionDto.CremationItemDtoId = itemId;
-                cremationTransactionDto.Price = _item.GetPrice();
+                cremationTransactionDto.Price = _item.GetPrice(item);
                 viewModel.CremationTransactionDto = cremationTransactionDto;
             }
             else
             {
-                viewModel.CremationTransactionDto = _order.GetTransactionDto(AF);
+                viewModel.CremationTransactionDto = Mapper.Map<CremationTransactionDto>(_order.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -113,22 +111,23 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Save(CremationTransactionsFormViewModel viewModel)
         {
+            var cremationTransaction = Mapper.Map<CremationTransaction>(viewModel.CremationTransactionDto);
             if (viewModel.CremationTransactionDto.AF == null)
             {
-                if (_order.GetTransactionsByItemIdAndDeceasedId(viewModel.CremationTransactionDto.CremationItemDtoId, viewModel.CremationTransactionDto.DeceasedDtoId).Any())
+                if (_order.GetByItemIdAndDeceasedId(viewModel.CremationTransactionDto.CremationItemDtoId, viewModel.CremationTransactionDto.DeceasedDtoId).Any())
                 {
                     ModelState.AddModelError("CremationTransactionDto.DeceasedId", "Deceased order exists");
                     return FormForResubmit(viewModel);
                 }
 
-                if (!_order.Create(viewModel.CremationTransactionDto))
+                if (!_order.Add(cremationTransaction))
                 {
                     return View("Form", viewModel);
                 }
             }
             else
             {
-                if (!_order.Update(viewModel.CremationTransactionDto))
+                if (!_order.Change(viewModel.CremationTransactionDto.AF, cremationTransaction))
                 {
                     return View("Form", viewModel);
                 }
@@ -152,8 +151,7 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _order.SetTransaction(AF);
-            _order.Delete();
+            _order.Remove(AF);
 
             return RedirectToAction("Index", new
             {

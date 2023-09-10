@@ -3,6 +3,8 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.AncestralTablet;
+using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,33 +20,34 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/ancestraltablets/areas/{areaId:int}/items")]
         [HttpGet]
-        public IEnumerable<AncestralTabletItemDto> GetItems(int areaId)
+        public IEnumerable<AncestralTabletItemDto> GetByArea(int areaId)
         {
-            return _item.GetItemDtosByArea(areaId);
+            return Mapper.Map<IEnumerable<AncestralTabletItemDto>>(_item.GetByArea(areaId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetItem(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_item.GetItemDto(id));
+            return Ok(Mapper.Map<AncestralTabletItemDto>(_item.GetById(id)));
         }
 
         [Route("~/api/ancestraltablets/areas/{areaId:int}/availableitems")]
         [HttpGet]
         public IEnumerable<SubProductServiceDto> GetAvailableItemsByArea(int areaId)
         {
-            return _item.GetAvailableItemDtosByArea(areaId);
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_item.GetAvailableItemByArea(areaId));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateItem(AncestralTabletItemDto itemDto)
+        public IHttpActionResult Add(AncestralTabletItemDto itemDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _item.Create(itemDto);
+            var item = Mapper.Map<Core.Domain.AncestralTabletItem>(itemDto);
+            var id = _item.Add(item);
 
             if (id == 0)
                 return InternalServerError();
@@ -54,9 +57,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateItem(int id, AncestralTabletItemDto itemDto)
+        public IHttpActionResult Change(int id, AncestralTabletItemDto itemDto)
         {
-            if (_item.Update(itemDto))
+            var item = Mapper.Map<Core.Domain.AncestralTabletItem>(itemDto);
+            if (_item.Change(id, item))
                 return Ok();
             else
                 return InternalServerError();
@@ -64,9 +68,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteItem(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_item.Delete(id))
+            if (_item.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

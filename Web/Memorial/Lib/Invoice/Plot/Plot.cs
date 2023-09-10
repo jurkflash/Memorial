@@ -1,10 +1,6 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Memorial.Lib.Cemetery;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Lib.Invoice
 {
@@ -19,67 +15,52 @@ namespace Memorial.Lib.Invoice
             _number = number;
         }
 
-        public IEnumerable<Core.Domain.Invoice> GetInvoicesByAF(string AF)
+        public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
         {
             return _unitOfWork.Invoices.GetByActiveCemeteryAF(AF);
         }
 
-        public IEnumerable<Core.Dtos.InvoiceDto> GetInvoiceDtosByAF(string AF)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Invoice>, IEnumerable<InvoiceDto>>(GetInvoicesByAF(AF));
-        }
-
-        public bool HasInvoiceByAF(string AF)
-        {
-            return _unitOfWork.Invoices.GetByActiveCemeteryAF(AF).Any();
-        }
-
         override
-        public string GetAF()
+        public string GenerateIVNumber(int itemId)
         {
-            return _invoice.CemeteryTransactionAF;
+            return _number.GetNewIV(itemId, System.DateTime.Now.Year);
         }
 
-        override
-        public void NewNumber(int itemId)
+        public bool Add(int itemId, Core.Domain.Invoice invoice)
         {
-            _ivNumber = _number.GetNewIV(itemId, System.DateTime.Now.Year);
+            var iv = GenerateIVNumber(itemId);
+
+            invoice.IV = iv;
+            return Add(invoice);
         }
 
-        public bool Create(int itemId, InvoiceDto invoiceDto)
+        public bool Change(string IV, Core.Domain.Invoice invoice)
         {
-            NewNumber(itemId);
+            var transaction = _unitOfWork.CemeteryTransactions.GetByAF(invoice.CemeteryTransactionAF);
+            var total = transaction.Price +
+                (transaction.Maintenance == null ? 0 : (float)transaction.Maintenance) +
+                (transaction.Wall == null ? 0 : (float)transaction.Wall) +
+                (transaction.Dig == null ? 0 : (float)transaction.Dig) +
+                (transaction.Brick == null ? 0 : (float)transaction.Brick);
+            if (total < invoice.Amount)
+                return false;
 
-            CreateNewInvoice(invoiceDto);
+            var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountByCemeteryAF(invoice.CemeteryTransactionAF);
+            if (totalReceiptAmount < total)
+                return false;
 
+            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
+            if (invoiceInDB.Amount < invoice.Amount)
+                return false;
+
+            if (invoice.Amount == totalReceiptAmount)
+                invoice.isPaid = true;
+            else
+                invoice.isPaid = false;
+
+            Change(invoice);
+            _unitOfWork.Complete();
             return true;
         }
-
-        public bool Update(InvoiceDto invoiceDto)
-        {
-            UpdateInvoice(invoiceDto);
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteInvoice();
-
-            return true;
-        }
-
-        public bool DeleteByApplication(string AF)
-        {
-            var invoices = GetInvoicesByAF(AF);
-            foreach (var invoice in invoices)
-            {
-                _unitOfWork.Invoices.Remove(invoice);
-            }
-
-            return true;
-        }
-
-
     }
 }

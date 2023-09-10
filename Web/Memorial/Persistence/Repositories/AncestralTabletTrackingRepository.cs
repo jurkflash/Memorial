@@ -17,17 +17,17 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId && !qt.ToDeleteFlag).OrderByDescending(qt => qt.ActionDate).FirstOrDefault();
         }
 
-        public IEnumerable<AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool toDeleteFlag = false)
+        public IEnumerable<AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId, bool toDeleteFlag = false)
         {
             return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletId == ancestralTabletId && qt.ToDeleteFlag == toDeleteFlag).OrderByDescending(qt => qt.ActionDate).ToList();
         }
 
-        public AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF)
+        public AncestralTabletTracking GetByAF(string ancestralTabletTransactionAF)
         {
             return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && !qt.ToDeleteFlag).SingleOrDefault();
         }
 
-        public AncestralTabletTracking GetTrackingByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF)
+        public AncestralTabletTracking GetByAncestralTabletIdAndTransactionAF(int ancestralTabletId, string ancestralTabletTransactionAF)
         {
             return MemorialContext.AncestralTabletTrackings.Where(qt => qt.AncestralTabletTransactionAF == ancestralTabletTransactionAF && qt.AncestralTabletId == ancestralTabletId && !qt.ToDeleteFlag).SingleOrDefault();
         }

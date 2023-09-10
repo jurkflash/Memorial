@@ -1,15 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Memorial.ViewModels;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Site;
-using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
 using Memorial.Lib.AncestralTablet;
-using Memorial.Lib;
 using AutoMapper;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
@@ -21,7 +18,6 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         private readonly ISite _site;
         private readonly IArea _area;
         private readonly IItem _item;
-        private readonly IApplicant _applicant;
         private readonly IDeceased _deceased;
         private readonly IApplicantDeceased _applicantDeceased;
         private readonly ITransaction _transaction;
@@ -31,7 +27,6 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             ISite site,
             IArea area,
             IItem item,
-            IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             ITransaction transaction)
@@ -40,7 +35,6 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             _site = site;
             _area = area;
             _item = item;
-            _applicant = applicant;
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _transaction = transaction;
@@ -50,7 +44,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         {
             var viewModel = new AncestralTabletAreaIndexesViewModel()
             {
-                AncestralTabletAreaDtos = _area.GetAreaDtosBySite(siteId),
+                AncestralTabletAreaDtos = Mapper.Map<IEnumerable<AncestralTabletAreaDto>>(_area.GetBySite(siteId)),
                 ApplicantId = applicantId,
                 SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
@@ -61,7 +55,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         {
             var viewModel = new AncestralTabletIndexesViewModel()
             {
-                AncestralTabletDtos = _ancestralTablet.GetAncestralTabletDtosByAreaId(areaId),
+                AncestralTabletDtos = Mapper.Map<IEnumerable<AncestralTabletDto>>(_ancestralTablet.GetByAreaId(areaId)),
                 Positions = _ancestralTablet.GetPositionsByAreaId(areaId),
                 ApplicantId = applicantId,
                 SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
@@ -71,14 +65,13 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Items(int id, int applicantId)
         {
-            _ancestralTablet.SetAncestralTablet(id);
-            _area.SetArea(_ancestralTablet.GetAreaId());
+            var ancestralTablet = _ancestralTablet.GetById(id);
             var viewModel = new AncestralTabletItemsViewModel()
             {
-                AncestralTabletItemDtos = _item.GetItemDtosByArea(_area.GetId()),
-                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
+                AncestralTabletItemDtos = Mapper.Map<IEnumerable<AncestralTabletItemDto>>(_item.GetByArea(ancestralTablet.AncestralTabletAreaId)),
+                AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet),
                 ApplicantId = applicantId,
-                SiteDto = _ancestralTablet.GetAncestralTabletDto().AncestralTabletAreaDto.SiteDto
+                SiteDto = Mapper.Map<SiteDto>(ancestralTablet.AncestralTabletArea.Site)
             };
             return View(viewModel);
         }
@@ -87,21 +80,20 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         public PartialViewResult AncestralTabletInfo(int id)
         {
             var viewModel = new AncestralTabletInfoViewModel();
-            _ancestralTablet.SetAncestralTablet(id);
-
-            if (_ancestralTablet.GetAncestralTabletDto() != null)
+            var ancestralTablet = _ancestralTablet.GetById(id); 
+            if (ancestralTablet != null)
             {
-                viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
-                viewModel.AncestralTabletAreaDto = _area.GetAreaDto(_ancestralTablet.GetAreaId());
-                viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.AncestralTabletAreaDto.SiteDtoId));
+                viewModel.AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet);
+                viewModel.AncestralTabletAreaDto = Mapper.Map<AncestralTabletAreaDto>(ancestralTablet.AncestralTabletArea);
+                viewModel.SiteDto = Mapper.Map<SiteDto>(ancestralTablet.AncestralTabletArea.Site);
 
-                if (_ancestralTablet.HasApplicant())
+                if (ancestralTablet.ApplicantId != null)
                 {
-                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_ancestralTablet.GetApplicantId()));
-                    var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_ancestralTablet.GetAncestralTablet().Id).ToList();
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(ancestralTablet.Applicant);
+                    var deceaseds = _deceased.GetByAncestralTabletId(id).ToList();
                     if (deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlattenDto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_ancestralTablet.GetApplicantId(), deceaseds[0].Id));
+                        viewModel.DeceasedFlattenDto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)ancestralTablet.ApplicantId, deceaseds[0].Id));
                     }
                 }
             }
@@ -121,14 +113,14 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 recents.Add(new RecentDto()
                 {
                     Code = transaction.AF,
-                    ApplicantName = transaction.ApplicantDto.Name,
+                    ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
-                    ItemId = transaction.AncestralTabletItemDtoId,
-                    Text1 = transaction.AncestralTabletDto.AncestralTabletAreaDto.Name,
-                    Text2 = transaction.AncestralTabletDto.Name,
-                    ItemName = transaction.AncestralTabletItemDto.SubProductServiceDto.Name,
-                    LinkArea = transaction.AncestralTabletItemDto.SubProductServiceDto.ProductDto.Area,
-                    LinkController = transaction.AncestralTabletItemDto.SubProductServiceDto.SystemCode
+                    ItemId = transaction.AncestralTabletItemId,
+                    Text1 = transaction.AncestralTablet.AncestralTabletArea.Name,
+                    Text2 = transaction.AncestralTablet.Name,
+                    ItemName = transaction.AncestralTabletItem.SubProductService.Name,
+                    LinkArea = transaction.AncestralTabletItem.SubProductService.Product.Area,
+                    LinkController = transaction.AncestralTabletItem.SubProductService.SystemCode
                 });
             }
 

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Cemetery
 {
@@ -78,29 +77,9 @@ namespace Memorial.Lib.Cemetery
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.CemeteryItems.GetActive(id);
-        }
-
-        public Core.Domain.CemeteryItem GetItem()
-        {
-            return _item;
-        }
-
-        public CemeteryItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.CemeteryItem, CemeteryItemDto>(GetItem());
-        }
-
-        public Core.Domain.CemeteryItem GetItem(int id)
+        public Core.Domain.CemeteryItem GetById(int id)
         {
             return _unitOfWork.CemeteryItems.GetActive(id);
-        }
-
-        public CemeteryItemDto GetItemDto(int id)
-        {
-            return Mapper.Map<Core.Domain.CemeteryItem, CemeteryItemDto>(GetItem(id));
         }
 
         public IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId)
@@ -108,40 +87,12 @@ namespace Memorial.Lib.Cemetery
             return Mapper.Map<IEnumerable<Core.Domain.CemeteryItem>, IEnumerable<CemeteryItemDto>>(_unitOfWork.CemeteryItems.GetByPlot(plotId));
         }
 
-        public int GetId()
+        public float GetPrice(Core.Domain.CemeteryItem cemeteryItem)
         {
-            return _item.Id;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (cemeteryItem.Price.HasValue)
+                return cemeteryItem.Price.Value;
             else
-                return _item.SubProductService.Price;
-        }
-
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
+                return cemeteryItem.SubProductService.Price;
         }
 
         public bool Create(CemeteryItemDto cemeteryItemDto)
@@ -161,44 +112,31 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        public bool Update(CemeteryItemDto cemeteryItemDto)
+        public bool Change(int id, Core.Domain.CemeteryItem cemeteryItem)
         {
-            var cemeteryItemInDB = GetItem(cemeteryItemDto.Id);
+            var cemeteryItemInDB = GetById(id);
 
-            if ((cemeteryItemInDB.isOrder != cemeteryItemDto.isOrder)
-                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItemDto.Id).Any())
+            if ((cemeteryItemInDB.isOrder != cemeteryItem.isOrder)
+                && _unitOfWork.CemeteryTransactions.Find(pt => pt.CemeteryItemId == cemeteryItem.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(cemeteryItemDto, cemeteryItemInDB);
-
+            cemeteryItemInDB.Price = cemeteryItem.Price;
+            cemeteryItemInDB.Code = cemeteryItem.Code;
+            cemeteryItemInDB.isOrder = cemeteryItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
-        {
-            SetItem(id);
-
-            if (_item == null)
-            {
-                return false;
-            }
-
-            _unitOfWork.CemeteryItems.Remove(_item);
-
-            return true;
-        }
-
-        public void AutoCreateItem(int plotTypeId, int plotId)
+        public void AutoAddItem(int plotTypeId, int plotId)
         {
             var subs = _subProductService.GetByProductIdAndOtherId(_product.GetCemeteryProduct().Id, plotTypeId);
 
             foreach(var sub in subs)
             {
-                Create(new Core.Domain.CemeteryItem()
+                _unitOfWork.CemeteryItems.Add(new Core.Domain.CemeteryItem()
                 {
                     PlotId = plotId,
                     SubProductServiceId = sub.Id

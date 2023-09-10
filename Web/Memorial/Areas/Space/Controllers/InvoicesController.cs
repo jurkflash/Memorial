@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Memorial.Lib.Space;
 using Memorial.Core.Dtos;
@@ -40,13 +39,13 @@ namespace Memorial.Areas.Space.Controllers
         {
             var invoice = _invoice.GetByIV(IV);
 
-            var tansaction = _transaction.GetByAF(invoice.SpaceTransactionAF);
+            var transaction = _transaction.GetByAF(invoice.SpaceTransactionAF);
 
             var viewModel = new InvoiceInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.SummaryItem = tansaction.SummaryItem;
+            viewModel.SummaryItem = transaction.SummaryItem;
             viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(invoice);
-            viewModel.Header = tansaction.SpaceItem.Space.Site.Header;
+            viewModel.Header = transaction.SpaceItem.Space.Site.Header;
 
             return View(viewModel);
         }
@@ -81,7 +80,7 @@ namespace Memorial.Areas.Space.Controllers
             }
             else
             {
-                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
+                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetByIV(IV));
             }
 
             return View("Form", viewModel);
@@ -104,7 +103,7 @@ namespace Memorial.Areas.Space.Controllers
                 invoice.AllowDeposit = tansaction.SpaceItem.AllowDeposit;
                 invoice.SpaceTransactionAF = viewModel.AF;
 
-                if (_invoice.Add(tansaction.SpaceItem.Id, invoice))
+                if (_invoice.Add(tansaction.SpaceItemId, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                 {
@@ -129,8 +128,11 @@ namespace Memorial.Areas.Space.Controllers
         public ActionResult Delete(string IV, string AF)
         {
             var invoice = _invoice.GetByIV(IV);
-            var status = _receipt.GetReceiptsByInvoiceIV(IV).Any();
-            var result = _invoice.Remove(invoice);
+            var status = _receipt.GetByIV(IV).Any();
+            if (!status) 
+            {
+                var result = _invoice.Remove(invoice);
+            }
 
             return RedirectToAction("Index", new { AF = AF });
         }

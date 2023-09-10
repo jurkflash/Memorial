@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
@@ -14,7 +13,6 @@ namespace Memorial.Lib.Space
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
-        private Core.Domain.SpaceItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -36,130 +34,77 @@ namespace Memorial.Lib.Space
                 return spaceItem.SubProductService.Price;
         }
 
-
-
-
-
-        public void SetItem(int id)
+        public bool IsOrder(Core.Domain.SpaceItem spaceItem)
         {
-            _item = _unitOfWork.SpaceItems.GetActive(id);
-        }
-
-        public Core.Domain.SpaceItem GetItem()
-        {
-            return _item;
-        }
-
-        public SpaceItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem());
-        }
-
-        public Core.Domain.SpaceItem GetItem(int id)
-        {
-            return _unitOfWork.SpaceItems.GetActive(id);
-        }
-
-        public SpaceItemDto GetItemDto(int id)
-        {
-            return Mapper.Map<Core.Domain.SpaceItem, SpaceItemDto>(GetItem(id));
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (spaceItem.isOrder.HasValue)
+                return spaceItem.isOrder.Value;
             else
-                return _item.SubProductService.Price;
+                return spaceItem.SubProductService.isOrder;
         }
 
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
-        }
-
-        public bool AllowDeposit()
-        {
-            return _item.AllowDeposit;
-        }
-
-        public IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId)
+        public IEnumerable<Core.Domain.SpaceItem> GetBySpace(int spaceId)
         {
             return _unitOfWork.SpaceItems.GetBySpace(spaceId);
         }
 
-        public IEnumerable<SpaceItemDto> GetItemDtosBySpace(int spaceId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.SpaceItem>, IEnumerable<SpaceItemDto>>(GetItemBySpace(spaceId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosBySpace(int spaceId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemBySpace(int spaceId)
         {
             if (spaceId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemBySpace(spaceId);
+            var t = GetBySpace(spaceId);
             var sp = _subProductService.GetByProduct(_product.GetSpaceProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return f;
         }
 
-        public int Create(SpaceItemDto spaceItemDto)
+        public int Add(Core.Domain.SpaceItem spaceItem)
         {
-            _item = new Core.Domain.SpaceItem();
-            Mapper.Map(spaceItemDto, _item);
-
-            _unitOfWork.SpaceItems.Add(_item);
+            _unitOfWork.SpaceItems.Add(spaceItem);
 
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return spaceItem.Id;
         }
 
-        public bool Update(SpaceItemDto spaceItemDto)
+        public bool Change(int id, Core.Domain.SpaceItem spaceItem)
         {
-            var spaceItemInDB = GetItem(spaceItemDto.Id);
+            var spaceItemInDB = _unitOfWork.SpaceItems.GetActive(id);
 
-            if ((spaceItemInDB.SpaceId != spaceItemDto.SpaceDtoId
-                || spaceItemInDB.isOrder != spaceItemDto.isOrder
-                || spaceItemInDB.AllowDoubleBook != spaceItemDto.AllowDoubleBook
-                || spaceItemInDB.AllowDeposit != spaceItemDto.AllowDeposit)
+            if ((spaceItemInDB.SpaceId != spaceItem.SpaceId
+                || spaceItemInDB.isOrder != spaceItem.isOrder
+                || spaceItemInDB.AllowDoubleBook != spaceItem.AllowDoubleBook
+                || spaceItemInDB.AllowDeposit != spaceItem.AllowDeposit)
                 && _unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == spaceItemInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(spaceItemDto, spaceItemInDB);
+            spaceItemInDB.Price = spaceItem.Price;
+            spaceItemInDB.Code = spaceItem.Code;
+            spaceItemInDB.isOrder = spaceItem.isOrder;
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.SpaceTransactions.Find(ct => ct.SpaceItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
+            var item = _unitOfWork.SpaceItems.Get(id);
 
-            if(_item == null)
+            if(item == null)
             {
                 return false;
             }
 
-            _unitOfWork.SpaceItems.Remove(_item);
+            _unitOfWork.SpaceItems.Remove(item);
 
             _unitOfWork.Complete();
 

@@ -6,21 +6,10 @@ namespace Memorial.Lib.Cemetery
 {
     public interface IItem
     {
-        void AutoCreateItem(int plotTypeId, int plotId);
-        bool Create(CemeteryItemDto cemeteryItemDto);
-        bool Delete(int id);
-        string GetDescription();
-        int GetId();
-        CemeteryItem GetItem();
-        CemeteryItem GetItem(int id);
-        CemeteryItemDto GetItemDto();
-        CemeteryItemDto GetItemDto(int id);
+        void AutoAddItem(int plotTypeId, int plotId);
+        CemeteryItem GetById(int id);
         IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId);
-        string GetName();
-        float GetPrice();
-        string GetSystemCode();
-        bool IsOrder();
-        void SetItem(int id);
-        bool Update(CemeteryItemDto cemeteryItemDto);
+        bool Change(int id, Core.Domain.CemeteryItem cemeteryItem);
+        float GetPrice(Core.Domain.CemeteryItem cemeteryItem);
     }
 }

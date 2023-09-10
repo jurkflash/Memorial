@@ -1,10 +1,6 @@
 ﻿using Memorial.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Memorial.Lib.Space;
-using Memorial.Core.Dtos;
-using AutoMapper;
 
 namespace Memorial.Lib.Invoice
 {
@@ -19,47 +15,9 @@ namespace Memorial.Lib.Invoice
             _number = number;
         }
 
-        public bool Change(string IV, Core.Domain.Invoice invoice)
-        {
-            var transaction = _unitOfWork.SpaceTransactions.GetByAF(invoice.SpaceTransactionAF);
-            if (transaction.Amount + transaction.OtherCharges < invoice.Amount)
-                return false;
-
-            var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountBySpaceAF(invoice.SpaceTransactionAF);
-            if (totalReceiptAmount < transaction.Amount)
-                return false;
-
-            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
-            if (invoiceInDB.Amount < invoice.Amount)
-                return false;
-
-            if (invoice.Amount == totalReceiptAmount)
-                invoice.isPaid = true;
-            else
-                invoice.isPaid = false;
-
-            Change(invoice);
-            _unitOfWork.Complete();
-            return true;
-        }
-
-
-
-
         public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
         {
             return _unitOfWork.Invoices.GetByActiveSpaceAF(AF);
-        }
-
-        public bool HasInvoiceByAF(string AF)
-        {
-            return _unitOfWork.Invoices.GetByActiveSpaceAF(AF).Any();
-        }
-
-        override
-        public string GetAF()
-        {
-            return _invoice.SpaceTransactionAF;
         }
 
         override
@@ -76,28 +34,28 @@ namespace Memorial.Lib.Invoice
             return Add(invoice);
         }
 
-        public bool Update(InvoiceDto invoiceDto)
+        public bool Change(string IV, Core.Domain.Invoice invoice)
         {
-            UpdateInvoice(invoiceDto);
+            var transaction = _unitOfWork.SpaceTransactions.GetByAF(invoice.SpaceTransactionAF);
+            var total = transaction.Amount + transaction.OtherCharges;
+            if (total < invoice.Amount)
+                return false;
 
-            return true;
-        }
+            var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountBySpaceAF(invoice.SpaceTransactionAF);
+            if (totalReceiptAmount < total)
+                return false;
 
-        public bool Delete()
-        {
-            DeleteInvoice();
+            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
+            if (invoiceInDB.Amount < invoice.Amount)
+                return false;
 
-            return true;
-        }
+            if (invoice.Amount == totalReceiptAmount)
+                invoice.isPaid = true;
+            else
+                invoice.isPaid = false;
 
-        public bool DeleteByApplication(string AF)
-        {
-            var invoices = GetByAF(AF);
-            foreach (var invoice in invoices)
-            {
-                _unitOfWork.Invoices.Remove(invoice);
-            }
-
+            Change(invoice);
+            _unitOfWork.Complete();
             return true;
         }
     }

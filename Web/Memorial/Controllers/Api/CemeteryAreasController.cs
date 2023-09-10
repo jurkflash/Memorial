@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Cemetery;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,33 +19,34 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetAreas()
+        public IHttpActionResult GetAll()
         {
-            return Ok(_area.GetAreaDtos());
+            return Ok(Mapper.Map<IEnumerable<CemeteryAreaDto>>(_area.GetAll()));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetArea(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_area.GetAreaDto(id));
+            return Ok(Mapper.Map<CemeteryAreaDto>(_area.GetById(id)));
         }
 
         [Route("~/api/sites/{siteId:int}/cemeteries/areas")]
         [HttpGet]
-        public IEnumerable<CemeteryAreaDto> GetAreaBySite(int siteId)
+        public IEnumerable<CemeteryAreaDto> GetBySite(int siteId)
         {
-            return _area.GetAreaDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<CemeteryAreaDto>>(_area.GetBySite(siteId));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateArea(CemeteryAreaDto areaDto)
+        public IHttpActionResult Add(CemeteryAreaDto areaDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _area.Create(areaDto);
+            var area = Mapper.Map<Core.Domain.CemeteryArea>(areaDto);
+            var id = _area.Add(area);
 
             if (id == 0)
                 return InternalServerError();
@@ -56,9 +58,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateArea(int id, CemeteryAreaDto areaDto)
+        public IHttpActionResult Change(int id, CemeteryAreaDto areaDto)
         {
-            if (_area.Update(areaDto))
+            var area = Mapper.Map<Core.Domain.CemeteryArea>(areaDto);
+            if (_area.Change(id, area))
                 return Ok();
             else
                 return InternalServerError();
@@ -68,7 +71,7 @@ namespace Memorial.Controllers.Api
         [HttpDelete]
         public IHttpActionResult DeleteArea(int id)
         {
-            if (_area.Delete(id))
+            if (_area.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

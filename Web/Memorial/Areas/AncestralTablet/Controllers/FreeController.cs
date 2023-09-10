@@ -7,6 +7,8 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
+using System.Runtime.InteropServices;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -43,21 +45,21 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _ancestralTablet.SetAncestralTablet(id);
-            _item.SetItem(itemId);
+            var ancestralTablet = _ancestralTablet.GetById(id);
+            var item = _item.GetById(itemId);
 
             var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
                 AncestralTabletItemId = itemId,
-                AncestralTabletItemName = _item.GetName(),
-                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
+                AncestralTabletItemName = item.SubProductService.Name,
+                AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet),
                 AncestralTabletId = id,
-                AncestralTabletTransactionDtos = _order.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
+                AncestralTabletTransactionDtos = Mapper.Map<IEnumerable<AncestralTabletTransactionDto>>(_order.GetByAncestralTabletIdAndItemId(id, itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            if (applicantId == null || _ancestralTablet.HasApplicant())
+            if (applicantId == null || ancestralTablet.ApplicantId != null)
             {
                 viewModel.AllowNew = false;
             }
@@ -71,17 +73,16 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _order.SetTransaction(AF);
-            _ancestralTablet.SetAncestralTablet(_order.GetTransactionAncestralTabletId());
-            _area.SetArea(_order.GetTransaction().AncestralTabletItem.AncestralTabletAreaId);
-
+            var transaction = _order.GetByAF(AF);
+            var item = _item.GetById(transaction.AncestralTabletItemId);
+            var area = _area.GetById(transaction.AncestralTabletItem.AncestralTabletAreaId);
             var viewModel = new AncestralTabletTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _order.GetItemName();
-            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
-            viewModel.AncestralTabletTransactionDto = _order.GetTransactionDto();
-            viewModel.ApplicantId = _order.GetTransactionApplicantId();
-            viewModel.Header = _area.GetArea().Site.Header;
+            viewModel.ItemName = item.SubProductService.Name;
+            viewModel.AncestralTabletDto = Mapper.Map<AncestralTabletDto>(transaction.AncestralTablet);
+            viewModel.AncestralTabletTransactionDto = Mapper.Map<AncestralTabletTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.Header = area.Site.Header;
 
             return View(viewModel);
         }
@@ -101,12 +102,11 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _ancestralTablet.SetAncestralTablet(id);
-
+            var ancestralTablet = _ancestralTablet.GetById(id);
             var viewModel = new AncestralTabletTransactionsFormViewModel()
             {
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
-                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto()
+                DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(applicantId)),
+                AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet)
             };
 
             if (AF == null)
@@ -117,8 +117,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                _order.SetTransaction(AF);
-                viewModel.AncestralTabletTransactionDto = _order.GetTransactionDto(AF);
+                viewModel.AncestralTabletTransactionDto = Mapper.Map<AncestralTabletTransactionDto>(_order.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -126,10 +125,11 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Save(AncestralTabletTransactionsFormViewModel viewModel)
         {
+            var ancestralTabletTransaction = Mapper.Map<Core.Domain.AncestralTabletTransaction>(viewModel.AncestralTabletTransactionDto);
             if (viewModel.AncestralTabletTransactionDto.DeceasedDtoId != null)
             {
-                _deceased.SetDeceased((int)viewModel.AncestralTabletTransactionDto.DeceasedDtoId);
-                if (_deceased.GetAncestralTablet() != null && _deceased.GetAncestralTablet().Id != viewModel.AncestralTabletTransactionDto.AncestralTabletDtoId)
+                var deceased = _deceased.GetById((int)viewModel.AncestralTabletTransactionDto.DeceasedDtoId);
+                if (deceased.AncestralTabletId != null && deceased.AncestralTabletId != viewModel.AncestralTabletTransactionDto.AncestralTabletDtoId)
                 {
                     ModelState.AddModelError("AncestralTabletTransactionDto.DeceasedDtoId", "Invalid");
                     return FormForResubmit(viewModel);
@@ -138,7 +138,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
             if (viewModel.AncestralTabletTransactionDto.AF == null)
             {
-                if (_order.Create(viewModel.AncestralTabletTransactionDto))
+                if (_order.Add(ancestralTabletTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -154,7 +154,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                _order.Update(viewModel.AncestralTabletTransactionDto);
+                _order.Change(ancestralTabletTransaction.AF, ancestralTabletTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -167,7 +167,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult FormForResubmit(AncestralTabletTransactionsFormViewModel viewModel)
         {
-            viewModel.DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(viewModel.AncestralTabletTransactionDto.ApplicantDtoId);
+            viewModel.DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(viewModel.AncestralTabletTransactionDto.ApplicantDtoId));
 
             return View("Form", viewModel);
         }
@@ -176,8 +176,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
         {
             if (_tracking.IsLatestTransaction(id, AF))
             {
-                _order.SetTransaction(AF);
-                _order.Delete();
+                _order.Remove(AF);
             }
 
             return RedirectToAction("Index", new

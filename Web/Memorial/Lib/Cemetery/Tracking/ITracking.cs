@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Cemetery
 {

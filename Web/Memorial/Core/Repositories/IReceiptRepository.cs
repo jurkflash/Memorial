@@ -5,19 +5,19 @@ namespace Memorial.Core.Repositories
 {
     public interface IReceiptRepository : IRepository<Receipt>
     {
-        IEnumerable<Receipt> GetByAncestralTabletAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByAncestralTabletAF(string AF);
 
-        IEnumerable<Receipt> GetByCremationAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByCremationAF(string AF);
 
-        IEnumerable<Receipt> GetByCemeteryAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByCemeteryAF(string AF);
 
         IEnumerable<Receipt> GetBySpaceAF(string AF);
 
-        IEnumerable<Receipt> GetByUrnAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByUrnAF(string AF);
 
-        IEnumerable<Receipt> GetByColumbariumAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByColumbariumAF(string AF);
 
-        IEnumerable<Receipt> GetByMiscellaneousAF(string AF, bool isOrder);
+        IEnumerable<Receipt> GetByMiscellaneousAF(string AF);
 
         float GetTotalAmountByAncestralTabletAF(string AF);
 

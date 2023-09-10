@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Urn
 {
@@ -15,7 +13,6 @@ namespace Memorial.Lib.Urn
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
-        private Core.Domain.UrnItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -24,144 +21,71 @@ namespace Memorial.Lib.Urn
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.UrnItems.GetActive(id);
-        }
-
-        public Core.Domain.UrnItem GetItem()
-        {
-            return _item;
-        }
-
-        public UrnItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.UrnItem, UrnItemDto>(GetItem());
-        }
-
-        public Core.Domain.UrnItem GetItem(int id)
+        public Core.Domain.UrnItem GetById(int id)
         {
             return _unitOfWork.UrnItems.GetActive(id);
         }
 
-        public UrnItemDto GetItemDto(int id)
-        {
-            return Mapper.Map<Core.Domain.UrnItem, UrnItemDto>(GetItem(id));
-        }
-
-        public IEnumerable<UrnItemDto> GetItemDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.UrnItem>, IEnumerable<UrnItemDto>>(_unitOfWork.UrnItems.GetAllActive());
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
-        public int GetUrnId()
-        {
-            return _item.UrnId;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
-            else
-                return _item.SubProductService.Price;
-        }
-
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
-        }
-
-        public IEnumerable<Core.Domain.UrnItem> GetItemByUrn(int urnId)
+        public IEnumerable<Core.Domain.UrnItem> GetByUrn(int urnId)
         {
             return _unitOfWork.UrnItems.GetByUrn(urnId);
         }
 
-        public IEnumerable<UrnItemDto> GetItemDtosByUrn(int urnId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.UrnItem>, IEnumerable<UrnItemDto>>(GetItemByUrn(urnId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByUrn(int urnId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByUrn(int urnId)
         {
             if (urnId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemByUrn(urnId);
-            var sp = _subProductService.GetSubProductServicesByProduct(_product.GetUrnProduct().Id);
+            var t = GetByUrn(urnId);
+            var sp = _subProductService.GetByProduct(_product.GetUrnProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return (f);
         }
 
-        public int Create(UrnItemDto urnItemDto)
+        public int Add(Core.Domain.UrnItem urnItem)
         {
-            _item = new Core.Domain.UrnItem();
-            Mapper.Map(urnItemDto, _item);
-
-            _unitOfWork.UrnItems.Add(_item);
+            _unitOfWork.UrnItems.Add(urnItem);
 
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return urnItem.Id;
         }
 
-        public bool Update(UrnItemDto urnItemDto)
+        public bool Change(int id, Core.Domain.UrnItem urnItem)
         {
-            var urnItemInDB = GetItem(urnItemDto.Id);
+            var urnItemInDB = _unitOfWork.UrnItems.GetActive(id);
 
-            if ((urnItemInDB.UrnId != urnItemDto.UrnDtoId
-                || urnItemInDB.isOrder != urnItemDto.isOrder)
+            if ((urnItemInDB.UrnId != urnItem.UrnId
+                || urnItemInDB.isOrder != urnItem.isOrder)
                 && _unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == urnItemInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(urnItemDto, urnItemInDB);
-
+            urnItemInDB.Price = urnItem.Price;
+            urnItemInDB.Code = urnItem.Code;
+            urnItemInDB.isOrder = urnItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.UrnTransactions.Find(ct => ct.UrnItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
+            var urnItemInDB = _unitOfWork.UrnItems.GetActive(id);
 
-            if(_item == null)
+            if (urnItemInDB == null)
             {
                 return false;
             }
 
-            _unitOfWork.UrnItems.Remove(_item);
+            _unitOfWork.UrnItems.Remove(urnItemInDB);
 
             _unitOfWork.Complete();
 

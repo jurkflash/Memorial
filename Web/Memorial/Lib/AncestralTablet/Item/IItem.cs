@@ -1,47 +1,15 @@
 ﻿using System.Collections.Generic;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.AncestralTablet
 {
     public interface IItem
     {
-        void SetItem(int id);
-
-        Core.Domain.AncestralTabletItem GetItem();
-
-        AncestralTabletItemDto GetItemDto();
-
-        Core.Domain.AncestralTabletItem GetItem(int id);
-
-        AncestralTabletItemDto GetItemDto(int id);
-
-        IEnumerable<Core.Domain.AncestralTabletItem> GetItems();
-
-        IEnumerable<AncestralTabletItemDto> GetItemDtos();
-
-        int GetId();
-
-        string GetName();
-
-        string GetDescription();
-
-        float GetPrice();
-
-        string GetSystemCode();
-
-        bool IsOrder();
-
-        IEnumerable<Core.Domain.AncestralTabletItem> GetItemByArea(int areaId);
-
-        IEnumerable<AncestralTabletItemDto> GetItemDtosByArea(int areaId);
-
-        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByArea(int areaId);
-
-        int Create(AncestralTabletItemDto ancestralTabletItemDto);
-
-        bool Update(AncestralTabletItemDto ancestralTabletItemDto);
-
-        bool Delete(int id);
-
+        Core.Domain.AncestralTabletItem GetById(int id);
+        float GetPrice(Core.Domain.AncestralTabletItem ancestralTabletItem);
+        IEnumerable<Core.Domain.AncestralTabletItem> GetByArea(int areaId);
+        IEnumerable<Core.Domain.SubProductService> GetAvailableItemByArea(int areaId);
+        int Add(Core.Domain.AncestralTabletItem ancestralTabletItem);
+        bool Change(int id, Core.Domain.AncestralTabletItem ancestralTabletItem);
+        bool Remove(int id);
     }
 }

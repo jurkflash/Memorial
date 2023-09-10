@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
-using AutoMapper;
 
 namespace Memorial.Lib.Miscellaneous
 {
@@ -16,7 +11,6 @@ namespace Memorial.Lib.Miscellaneous
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
-        private Core.Domain.MiscellaneousItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -25,144 +19,79 @@ namespace Memorial.Lib.Miscellaneous
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.MiscellaneousItems.GetActive(id);
-        }
-
-        public Core.Domain.MiscellaneousItem GetItem()
-        {
-            return _item;
-        }
-
-        public MiscellaneousItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.MiscellaneousItem, MiscellaneousItemDto>(GetItem());
-        }
-
-        public Core.Domain.MiscellaneousItem GetItem(int id)
+        public Core.Domain.MiscellaneousItem GetById(int id)
         {
             return _unitOfWork.MiscellaneousItems.GetActive(id);
         }
 
-        public MiscellaneousItemDto GetItemDto(int id)
+        public float GetPrice(Core.Domain.MiscellaneousItem miscellaneousItem)
         {
-            return Mapper.Map<Core.Domain.MiscellaneousItem, MiscellaneousItemDto>(GetItem(id));
-        }
-
-        public IEnumerable<MiscellaneousItemDto> GetItemDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousItem>, IEnumerable<MiscellaneousItemDto>>(_unitOfWork.MiscellaneousItems.GetAllActive());
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
-        public int GetMiscellaneousId()
-        {
-            return _item.MiscellaneousId;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (miscellaneousItem.Price.HasValue)
+                return miscellaneousItem.Price.Value;
             else
-                return _item.SubProductService.Price;
+                return miscellaneousItem.SubProductService.Price;
         }
 
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
-        }
-
-        public IEnumerable<Core.Domain.MiscellaneousItem> GetItemByMiscellaneous(int miscellaneousId)
+        public IEnumerable<Core.Domain.MiscellaneousItem> GetByMiscellaneous(int miscellaneousId)
         {
             return _unitOfWork.MiscellaneousItems.GetByMiscellaneous(miscellaneousId);
         }
 
-        public IEnumerable<MiscellaneousItemDto> GetItemDtosByMiscellaneous(int miscellaneousId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.MiscellaneousItem>, IEnumerable<MiscellaneousItemDto>>(GetItemByMiscellaneous(miscellaneousId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByMiscellaneous(int miscellaneousId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByMiscellaneous(int miscellaneousId)
         {
             if (miscellaneousId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemByMiscellaneous(miscellaneousId);
+            var t = GetByMiscellaneous(miscellaneousId);
             var sp = _subProductService.GetByProduct(_product.GetMiscellaneousProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return f;
         }
 
-        public int Create(MiscellaneousItemDto miscellaneousItemDto)
+        public int Add(Core.Domain.MiscellaneousItem miscellaneousItem)
         {
-            _item = new Core.Domain.MiscellaneousItem();
-            Mapper.Map(miscellaneousItemDto, _item);
-
-            _unitOfWork.MiscellaneousItems.Add(_item);
+            _unitOfWork.MiscellaneousItems.Add(miscellaneousItem);
 
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return miscellaneousItem.Id;
         }
 
-        public bool Update(MiscellaneousItemDto miscellaneousItemDto)
+        public bool Change(int id, Core.Domain.MiscellaneousItem miscellaneousItem)
         {
-            var miscellaneousItemInDB = GetItem(miscellaneousItemDto.Id);
+            var miscellaneousItemInDB = _unitOfWork.MiscellaneousItems.GetActive(id);
 
-            if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItemDto.MiscellaneousDtoId
-                || miscellaneousItemInDB.isOrder != miscellaneousItemDto.isOrder)
+            if ((miscellaneousItemInDB.MiscellaneousId != miscellaneousItem.MiscellaneousId
+                || miscellaneousItemInDB.isOrder != miscellaneousItem.isOrder)
                 && _unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == miscellaneousItemInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(miscellaneousItemDto, miscellaneousItemInDB);
-
+            miscellaneousItemInDB.Price = miscellaneousItem.Price;
+            miscellaneousItemInDB.Code = miscellaneousItem.Code;
+            miscellaneousItemInDB.isOrder = miscellaneousItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.MiscellaneousTransactions.Find(ct => ct.MiscellaneousItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
+            var item = _unitOfWork.MiscellaneousItems.Get(id);
 
-            if(_item == null)
+            if (item == null)
             {
                 return false;
             }
 
-            _unitOfWork.MiscellaneousItems.Remove(_item);
+            _unitOfWork.MiscellaneousItems.Remove(item);
 
             _unitOfWork.Complete();
 

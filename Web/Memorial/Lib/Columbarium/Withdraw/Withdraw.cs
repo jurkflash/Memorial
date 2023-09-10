@@ -1,12 +1,10 @@
 ﻿using Memorial.Core;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -46,21 +44,11 @@ namespace Memorial.Lib.Columbarium
             _tracking = tracking;
         }
 
-        public void SetWithrdaw(string AF)
+        public bool Add(Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            SetTransaction(AF);
-        }
+            columbariumTransaction.AF = _number.GetNewAF(columbariumTransaction.ColumbariumItemId, System.DateTime.Now.Year);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
-        {
-            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
-
-            var trns = GetTransactionsByNicheId(columbariumTransactionDto.NicheDtoId);
+            var trns = GetByNicheId(columbariumTransaction.NicheId);
 
             if (trns.Count() == 0)
                 return false;
@@ -70,93 +58,108 @@ namespace Memorial.Lib.Columbarium
             {
                 trn.DeletedUtcTime = DateTime.UtcNow;
             }
-            columbariumTransactionDto.WithdrewAFS = trnsAF;
+            columbariumTransaction.WithdrewAFS = trnsAF;
 
 
-            var trackingTrns = _tracking.GetTrackingByNicheId(columbariumTransactionDto.NicheDtoId);
+            var trackingTrns = _tracking.GetTrackingByNicheId(columbariumTransaction.NicheId);
             foreach (var trackingTrn in trackingTrns)
             {
                 trackingTrn.ToDeleteFlag = true;
             }
             
 
-            _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
-            if (columbariumTransactionDto.DeceasedDto1Id != null)
+            var niche = _niche.GetById(columbariumTransaction.NicheId);
+
+            if (columbariumTransaction.Deceased1Id != null)
             {
-                _deceased.SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
-                _deceased.RemoveAncestralTablet();
-                _niche.SetHasDeceased(false);
+                var deceased = _deceased.GetById((int)columbariumTransaction.Deceased1Id);
+                deceased.AncestralTablet = null;
+                deceased.AncestralTabletId = null;
+
+                niche.hasDeceased = false;
             }
 
-            if (columbariumTransactionDto.DeceasedDto2Id != null)
+            if (columbariumTransaction.Deceased2Id != null)
             {
-                _deceased.SetDeceased((int)columbariumTransactionDto.DeceasedDto2Id);
-                _deceased.RemoveAncestralTablet();
-                _niche.SetHasDeceased(false);
+                var deceased = _deceased.GetById((int)columbariumTransaction.Deceased2Id);
+                deceased.AncestralTablet = null;
+                deceased.AncestralTabletId = null;
+                niche.hasDeceased = false;
             }
 
 
-            columbariumTransactionDto.WithdrewAncestralTabletApplicantId = (int)_niche.GetApplicantId();
-            _niche.RemoveApplicant();
+            columbariumTransaction.WithdrewColumbariumApplicantId = (int)niche.ApplicantId;
+            niche.Applicant = null;
+            niche.ApplicantId = null;
 
-
-            if (CreateNewTransaction(columbariumTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Update(ColumbariumTransactionDto columbariumTransactionDto)
-        {
-            UpdateTransaction(columbariumTransactionDto);
+            _unitOfWork.ColumbariumTransactions.Add(columbariumTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete()
+        public bool Change(string AF, Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            var AFs = _transaction.WithdrewAFS.Split(',');
+            var invoices = _unitOfWork.Invoices.GetByActiveColumbariumAF(columbariumTransaction.AF).ToList();
 
-            foreach(var AF in AFs)
+            if (invoices.Any() && GetTotalAmount(columbariumTransaction) < invoices.Max(i => i.Amount))
+                return false;
+
+            var columbariumTransactionInDb = GetByAF(AF);
+            columbariumTransactionInDb.Price = columbariumTransaction.Price;
+            columbariumTransactionInDb.Maintenance = columbariumTransaction.Maintenance;
+            columbariumTransactionInDb.LifeTimeMaintenance = columbariumTransaction.LifeTimeMaintenance;
+            columbariumTransactionInDb.SummaryItem = columbariumTransaction.SummaryItem;
+            columbariumTransactionInDb.Remark = columbariumTransaction.Remark;
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveColumbariumAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByColumbariumAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.ColumbariumTransactions.GetByAF(AF);
+
+            var AFs = transactionInDb.WithdrewAFS.Split(',');
+
+            foreach(var AF1 in AFs)
             {
-                GetTransaction(AF).DeletedUtcTime = null;
+                GetByAF(AF1).DeletedUtcTime = null;
             }
 
-            _niche.SetNiche(_transaction.NicheId);
-            if (_transaction.Deceased1Id != null)
+            var niche = _niche.GetById(transactionInDb.NicheId);
+            if (transactionInDb.Deceased1Id != null)
             {
-                _deceased.SetDeceased((int)_transaction.Deceased1Id);
-                _deceased.SetAncestralTablet(_transaction.NicheId);
-                _niche.SetHasDeceased(true);
+                var deceased = _deceased.GetById((int)transactionInDb.Deceased1Id);
+                deceased.AncestralTabletId = transactionInDb.NicheId;
+                niche.hasDeceased = true;
             }
 
-            if (_transaction.Deceased2Id != null)
+            if (transactionInDb.Deceased2Id != null)
             {
-                _deceased.SetDeceased((int)_transaction.Deceased2Id);
-                _deceased.SetAncestralTablet(_transaction.NicheId);
-                _niche.SetHasDeceased(true);
+                var deceased = _deceased.GetById((int)transactionInDb.Deceased2Id);
+                deceased.AncestralTabletId = transactionInDb.NicheId;
+                niche.hasDeceased = true;
             }
 
+            niche.ApplicantId = (int)transactionInDb.WithdrewColumbariumApplicantId;        
 
-            _niche.SetApplicant((int)_transaction.WithdrewColumbariumApplicantId);
-            
-
-            var trackings = _tracking.GetTrackingByNicheId(_transaction.NicheId, true);
+            var trackings = _tracking.GetTrackingByNicheId(transactionInDb.NicheId, true);
 
             foreach(var tracking in trackings)
             {
                 tracking.ToDeleteFlag = false;
             }
 
-            DeleteTransaction();
+            _unitOfWork.ColumbariumTransactions.Remove(transactionInDb);
 
             _unitOfWork.Complete();
 
@@ -165,7 +168,7 @@ namespace Memorial.Lib.Columbarium
 
         public bool RemoveWithdrew(int nicheId)
         {
-            var trans = GetTransactionsByNicheId(nicheId);
+            var trans = GetByNicheId(nicheId);
 
             if(trans.Count() != 1)
             {
@@ -174,7 +177,7 @@ namespace Memorial.Lib.Columbarium
 
             trans.ElementAt(0).DeletedUtcTime = DateTime.UtcNow;
 
-            var trackings = _tracking.GetTrackingByNicheId(_transaction.NicheId, true);
+            var trackings = _tracking.GetTrackingByNicheId(nicheId, true);
 
             foreach (var tracking in trackings)
             {

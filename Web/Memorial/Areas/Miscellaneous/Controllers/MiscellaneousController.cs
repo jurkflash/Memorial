@@ -40,7 +40,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         public ActionResult Index(byte siteId, int? applicantId)
         {
             var viewModel = new MiscellaneousIndexesViewModel();
-            viewModel.MiscellaneousDtos = _miscellaneous.GetMiscellaneousDtosBySite(siteId);
+            viewModel.MiscellaneousDtos = Mapper.Map<IEnumerable<MiscellaneousDto>>(_miscellaneous.GetBySite(siteId));
             viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId));
 
             if (applicantId != null)
@@ -55,9 +55,9 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var viewModel = new MiscellaneousItemsViewModel()
             {
-                MiscellaneousItemDtos = _item.GetItemDtosByMiscellaneous(miscellaneousId),
+                MiscellaneousItemDtos = Mapper.Map<IEnumerable<MiscellaneousItemDto>>(_item.GetByMiscellaneous(miscellaneousId)),
                 ApplicantId = applicantId,
-                SiteDto = _miscellaneous.GetMiscellaneousDto(miscellaneousId).SiteDto
+                SiteDto = Mapper.Map<SiteDto>(_miscellaneous.Get(miscellaneousId).Site)
             };
             return View(viewModel);
         }
@@ -74,13 +74,13 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 recents.Add(new RecentDto()
                 {
                     Code = transaction.AF,
-                    ApplicantName = transaction.ApplicantDto.Name,
+                    ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
-                    ItemId = transaction.MiscellaneousItemDtoId,
-                    Text1 = transaction.MiscellaneousItemDto.MiscellaneousDto.Name,
-                    ItemName = transaction.MiscellaneousItemDto.SubProductServiceDto.Name,
-                    LinkArea = transaction.MiscellaneousItemDto.SubProductServiceDto.ProductDto.Area,
-                    LinkController = transaction.MiscellaneousItemDto.SubProductServiceDto.SystemCode
+                    ItemId = transaction.MiscellaneousItemId,
+                    Text1 = transaction.MiscellaneousItem.Miscellaneous.Name,
+                    ItemName = transaction.MiscellaneousItem.SubProductService.Name,
+                    LinkArea = transaction.MiscellaneousItem.SubProductService.Product.Area,
+                    LinkController = transaction.MiscellaneousItem.SubProductService.SystemCode
                 });
             }
 

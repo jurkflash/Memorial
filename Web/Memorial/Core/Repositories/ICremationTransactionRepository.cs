@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface ICremationTransactionRepository : IRepository<CremationTransaction>
     {
-        CremationTransaction GetActive(string AF);
+        CremationTransaction GetByAF(string AF);
 
         IEnumerable<CremationTransaction> GetByItem(int itemId, string filter);
 

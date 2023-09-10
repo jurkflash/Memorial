@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
 using Memorial.ViewModels;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.GenderType;
@@ -21,13 +16,13 @@ namespace Memorial.Areas.Deceased.Controllers
 {
     public class DeceasedsController : Controller
     {
-        private IDeceased _deceased;
-        private IGenderType _genderType;
-        private IMaritalType _maritalType;
-        private INationalityType _nationalityType;
-        private IRelationshipType _relationshipType;
-        private IReligionType _religionType;
-        private IApplicantDeceased _applicantDeceased;
+        private readonly IDeceased _deceased;
+        private readonly IGenderType _genderType;
+        private readonly IMaritalType _maritalType;
+        private readonly INationalityType _nationalityType;
+        private readonly IRelationshipType _relationshipType;
+        private readonly IReligionType _religionType;
+        private readonly IApplicantDeceased _applicantDeceased;
 
         public DeceasedsController(
             IDeceased deceased,
@@ -80,11 +75,11 @@ namespace Memorial.Areas.Deceased.Controllers
                 ReligionTypeDtos = Mapper.Map<IEnumerable<ReligionTypeDto>>(_religionType.GetAll())
             };
 
-            var deceased = _deceased.GetDeceasedDto(id);
+            var deceased = _deceased.GetById(id);
             if (deceased != null)
             {
                 viewModel.ApplicantId = applicantId;
-                viewModel.DeceasedDto = deceased;
+                viewModel.DeceasedDto = Mapper.Map<DeceasedDto>(deceased);
                 viewModel.DeceasedDto.RelationshipTypeDtoId = _applicantDeceased.GetByApplicantDeceasedId(applicantId, id).RelationshipTypeId;
             }
 
@@ -111,15 +106,16 @@ namespace Memorial.Areas.Deceased.Controllers
                 return View("Form", viewModel);
             }
 
+            var deceased = Mapper.Map<Core.Domain.Deceased>(viewModel.DeceasedDto);
             if (viewModel.DeceasedDto.Id == 0)
             {
                 viewModel.DeceasedDto.ApplicationDtoId = viewModel.ApplicantId;
 
-                _deceased.Add(viewModel.DeceasedDto);
+                _deceased.Add(deceased, viewModel.ApplicantId, viewModel.DeceasedDto.RelationshipTypeDtoId);
             }
             else
             {
-                if (_deceased.Update(viewModel.DeceasedDto))
+                if (_deceased.Change(viewModel.DeceasedDto.Id, deceased))
                 {
                     _applicantDeceased.Change(viewModel.ApplicantId, viewModel.DeceasedDto.Id, viewModel.DeceasedDto.RelationshipTypeDtoId);
                 }
@@ -144,7 +140,7 @@ namespace Memorial.Areas.Deceased.Controllers
         [ChildActionOnly]
         public PartialViewResult PartialViewInfo(int id)
         {
-            var deceasedDto = Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased.GetDeceased(id));
+            var deceasedDto = Mapper.Map<Core.Domain.Deceased, DeceasedDto>(_deceased.GetById(id));
             return PartialView("_DeceasedInfo", deceasedDto);
         }
     }

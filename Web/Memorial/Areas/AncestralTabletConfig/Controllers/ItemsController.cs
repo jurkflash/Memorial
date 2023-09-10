@@ -2,6 +2,7 @@
 using Memorial.Lib.AncestralTablet;
 using Memorial.Lib.Catalog;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.AncestralTabletConfig.Controllers
 {
@@ -31,7 +32,7 @@ namespace Memorial.Areas.AncestralTabletConfig.Controllers
             var dto = new AncestralTabletItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<AncestralTabletItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

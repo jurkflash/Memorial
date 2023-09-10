@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Memorial.Lib.Deceased;
 using Memorial.Core;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -29,21 +30,21 @@ namespace Memorial.Lib.Columbarium
 
         private bool Add(int id, int deceasedId, byte side)
         {
-            _deceased.SetDeceased(deceasedId);
-            if (_deceased.GetDeceased() == null)
+            var deceased = _deceased.GetById(deceasedId);
+            if (deceased == null)
                 return false;
 
-            _niche.SetNiche(id);
-            if (_niche.GetNiche() == null)
+            var niche = _niche.GetById(id);
+            if (niche == null)
                 return false;
 
-            _niche.SetHasDeceased(true);
+            niche.hasDeceased = true;
 
-            _deceased.SetNiche(id);
+            deceased.NicheId = id;
 
             var tracking = _tracking.GetLatestFirstTransactionByNicheId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.ColumbariumTransactionAF);
+            var transaction = _transaction.GetByAF(tracking.ColumbariumTransactionAF);
 
             if (side == 1)
             {
@@ -82,18 +83,19 @@ namespace Memorial.Lib.Columbarium
 
         public bool Remove(int id, int deceasedId)
         {
-            if (_deceased.GetDeceasedsByNicheId(id).Count() == 1)
+            if (_deceased.GetByNicheId(id).Count() == 1)
             {
-                _niche.SetNiche(id);
-                _niche.SetHasDeceased(false);
+                var niche = _niche.GetById(id);
+                niche.hasDeceased = false;
             }
 
-            _deceased.SetDeceased(deceasedId);
-            _deceased.RemoveNiche();
+            var deceased = _deceased.GetById(deceasedId);
+            deceased.Niche = null;
+            deceased.NicheId = null;
 
             var tracking = _tracking.GetLatestFirstTransactionByNicheId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.ColumbariumTransactionAF);
+            var transaction = _transaction.GetByAF(tracking.ColumbariumTransactionAF);
 
             if (transaction.Deceased1Id == deceasedId)
             {

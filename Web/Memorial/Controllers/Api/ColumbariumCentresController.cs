@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,16 +19,16 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/sites/{siteId:int}/columbariums/centres")]
         [HttpGet]
-        public IEnumerable<ColumbariumCentreDto> GetCentres(int siteId)
+        public IEnumerable<ColumbariumCentreDto> GetBySite(int siteId)
         {
-            return _centre.GetCentreDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<ColumbariumCentreDto>>(_centre.GetBySite(siteId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetCentre(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_centre.GetCentreDto(id));
+            return Ok(Mapper.Map<ColumbariumCentreDto>(_centre.GetById(id)));
         }
 
         [Route("")]
@@ -37,7 +38,8 @@ namespace Memorial.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _centre.Create(centreDto);
+            var centre = Mapper.Map<Core.Domain.ColumbariumCentre>(centreDto);
+            var id = _centre.Add(centre);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +51,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateCentre(int id, ColumbariumCentreDto centreDto)
+        public IHttpActionResult Change(int id, ColumbariumCentreDto centreDto)
         {
-            if (_centre.Update(centreDto))
+            var centre = Mapper.Map<Core.Domain.ColumbariumCentre>(centreDto);
+            if (_centre.Change(id, centre))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +62,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteCentre(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_centre.Delete(id))
+            if (_centre.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

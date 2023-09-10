@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Memorial.ViewModels;
 using AutoMapper;
 using Memorial.Core.Dtos;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -42,28 +43,27 @@ namespace Memorial.Areas.Columbarium.Controllers
         {
             var viewModel = new NicheDeceasedsViewModel();
             
-            _niche.SetNiche(id);
-
-            if (_niche.GetNicheDto() != null)
+            var niche = _niche.GetById(id);
+            if (niche != null)
             {
-                viewModel.NicheDto = _niche.GetNicheDto();
-                viewModel.NumberOfPlacements = _niche.GetNumberOfPlacement();
+                viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
+                viewModel.NumberOfPlacements = niche.NicheType.NumberOfPlacement;
 
-                var applicantDeceaseds = _deceased.GetDeceasedBriefDtosByApplicantId((int)_niche.GetApplicantId());
+                var applicantDeceaseds = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId((int)niche.ApplicantId));
 
-                if (_niche.HasApplicant())
+                if (niche.ApplicantId != null)
                 {
-                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_niche.GetApplicantId()));
-                    var deceaseds = _deceased.GetDeceasedsByNicheId(_niche.GetNiche().Id).ToList();
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(niche.Applicant);
+                    var deceaseds = _deceased.GetByNicheId(niche.Id).ToList();
                     if (deceaseds.Count > 0)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[0].Id).ToList();
-                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[0].Id));
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)niche.ApplicantId, deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
                         applicantDeceaseds = applicantDeceaseds.Where(d => d.Id != deceaseds[1].Id).ToList();
-                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_niche.GetApplicantId(), deceaseds[1].Id));
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)niche.ApplicantId, deceaseds[1].Id));
                     }
                 }
 
@@ -89,8 +89,8 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             if (viewModel.Deceased1Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.Deceased1Id);
-                if (_deceased.GetNiche() != null)
+                var deceased = _deceased.GetById((int)viewModel.Deceased1Id);
+                if (deceased.NicheId != null)
                 {
                     ModelState.AddModelError("Deceased1Id", "Deceased already installed");
                     return View("Index", bind(viewModel.NicheDto.Id));
@@ -104,8 +104,8 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             if (viewModel.Deceased2Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.Deceased2Id);
-                if (_deceased.GetNiche() != null)
+                var deceased = _deceased.GetById((int)viewModel.Deceased2Id);
+                if (deceased.NicheId != null)
                 {
                     ModelState.AddModelError("Deceased2Id", "Deceased already installed");
                     return View("Index", bind(viewModel.NicheDto.Id));

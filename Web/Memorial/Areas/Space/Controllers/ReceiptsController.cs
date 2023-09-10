@@ -32,15 +32,15 @@ namespace Memorial.Areas.Space.Controllers
         {
             var invoice = _invoice.GetByIV(IV);
             var transaction = _transaction.GetByAF(invoice.SpaceTransactionAF);
-
+            var receipts = _receipt.GetByIV(IV).OrderByDescending(r => r.CreatedUtcTime);
             var viewModel = new OrderReceiptsViewModel()
             {
                 AF = invoice.SpaceTransactionAF,
                 AFTotalAmount = _transaction.GetTotalAmount(transaction),
-                AFTotalAmountPaid = _receipt.GetTotalIssuedReceiptAmount(invoice.SpaceTransactionAF),
-                RemainingAmount = invoice.Amount - _receipt.GetTotalIssuedReceiptAmountByIV(IV),
+                AFTotalAmountPaid = _receipt.GetTotalIssuedReceiptAmountByAF(invoice.SpaceTransactionAF),
+                RemainingAmount = invoice.Amount - receipts.Sum(r => r.Amount),
                 InvoiceDto = Mapper.Map<InvoiceDto>(invoice),
-                ReceiptDtos = Mapper.Map<IEnumerable<ReceiptDto>>(_receipt.GetReceiptsByInvoiceIV(IV).OrderByDescending(r => r.CreatedUtcTime))
+                ReceiptDtos = Mapper.Map<IEnumerable<ReceiptDto>>(receipts)
             };
 
             return View(viewModel);
@@ -92,8 +92,7 @@ namespace Memorial.Areas.Space.Controllers
             }
             else
             {
-                var receipt = _receipt.GetByRE(RE);
-                viewModel.ReceiptDto = Mapper.Map<ReceiptDto>(receipt);
+                viewModel.ReceiptDto = Mapper.Map<ReceiptDto>(_receipt.GetByRE(RE));
             }
 
             return View(viewModel);
@@ -116,7 +115,7 @@ namespace Memorial.Areas.Space.Controllers
                 return View("Form", viewModel);
             }
 
-            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmount(viewModel.AF);
+            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
             if (viewModel.ReceiptDto.Amount > totalRemainingAmount)
             {
                 ModelState.AddModelError("ReceiptDto.Amount", "Amount over total");

@@ -16,11 +16,11 @@ namespace Memorial.Lib.AncestralTablet
 
         Core.Domain.AncestralTabletTracking GetLatestFirstTransactionByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId);
+        IEnumerable<Core.Domain.AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId);
 
-        IEnumerable<Core.Domain.AncestralTabletTracking> GetTrackingByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag);
+        IEnumerable<Core.Domain.AncestralTabletTracking> GetByAncestralTabletId(int ancestralTabletId, bool ToDeleteFlag);
 
-        Core.Domain.AncestralTabletTracking GetTrackingByTransactionAF(string ancestralTabletTransactionAF);
+        Core.Domain.AncestralTabletTracking GetByAF(string ancestralTabletTransactionAF);
 
         void Delete(string ancestralTabletTransactionAF);
 

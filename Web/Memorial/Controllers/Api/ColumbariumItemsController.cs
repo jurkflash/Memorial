@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Columbarium;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,16 +19,16 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/columbariums/centres/{centreId:int}/items")]
         [HttpGet]
-        public IEnumerable<ColumbariumItemDto> GetItems(int centreId)
+        public IEnumerable<ColumbariumItemDto> GetByCentre(int centreId)
         {
-            return _item.GetItemDtosByCentre(centreId);
+            return Mapper.Map<IEnumerable<ColumbariumItemDto>>(_item.GetByCentre(centreId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetItem(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_item.GetItemDto(id));
+            return Ok(Mapper.Map<ColumbariumItemDto>(_item.GetById(id)));
         }
 
         [Route("{itemId:int}/amount")]
@@ -49,17 +50,18 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<SubProductServiceDto> GetAvailableItemsByCentre(int centreId)
         {
-            return _item.GetAvailableItemDtosByCentre(centreId);
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_item.GetAvailableItemByCentre(centreId));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateItem(ColumbariumItemDto itemDto)
+        public IHttpActionResult Add(ColumbariumItemDto itemDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _item.Create(itemDto);
+            var item = Mapper.Map<Core.Domain.ColumbariumItem>(itemDto);
+            var id = _item.Add(item);
 
             if (id == 0)
                 return InternalServerError();
@@ -69,9 +71,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateItem(int id, ColumbariumItemDto itemDto)
+        public IHttpActionResult Change(int id, ColumbariumItemDto itemDto)
         {
-            if (_item.Update(itemDto))
+            var item = Mapper.Map<Core.Domain.ColumbariumItem>(itemDto);
+            if (_item.Change(id, item))
                 return Ok();
             else
                 return InternalServerError();
@@ -79,9 +82,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteItem(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_item.Delete(id))
+            if (_item.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

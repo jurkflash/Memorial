@@ -46,7 +46,6 @@ namespace Memorial.Lib.Space
             SummaryItem(spaceTransaction);
 
             _unitOfWork.SpaceTransactions.Add(spaceTransaction);
-
             _unitOfWork.Complete();
 
             return true;

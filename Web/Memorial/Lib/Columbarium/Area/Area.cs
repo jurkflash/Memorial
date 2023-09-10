@@ -1,122 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Columbarium
 {
     public class Area : IArea
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.ColumbariumArea _area;
 
         public Area(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetArea(int id)
-        {
-            _area = _unitOfWork.ColumbariumAreas.GetActive(id);
-        }
-
-        public int GetId()
-        {
-            return _area.Id;
-        }
-
-        public string GetName()
-        {
-            return _area.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _area.Description;
-        }
-
-        public int GetCentreId()
-        {
-            return _area.ColumbariumCentreId;
-        }
-
-        public Core.Domain.ColumbariumArea GetArea()
-        {
-            return _area;
-        }
-
-        public ColumbariumAreaDto GetAreaDto()
-        {
-            return Mapper.Map<Core.Domain.ColumbariumArea, ColumbariumAreaDto>(_area);
-        }
-
-        public Core.Domain.ColumbariumArea GetArea(int areaId)
+        public Core.Domain.ColumbariumArea GetById(int areaId)
         {
             return _unitOfWork.ColumbariumAreas.GetActive(areaId);
         }
 
-        public ColumbariumAreaDto GetAreaDto(int areaId)
-        {
-            return Mapper.Map<Core.Domain.ColumbariumArea, ColumbariumAreaDto>(GetArea(areaId));
-        }
-
-        public IEnumerable<Core.Domain.ColumbariumArea> GetAreaByCentre(int centreId)
+        public IEnumerable<Core.Domain.ColumbariumArea> GetByCentre(int centreId)
         {
             return _unitOfWork.ColumbariumAreas.GetByCentre(centreId);
         }
 
-        public IEnumerable<ColumbariumAreaDto> GetAreaDtosByCentre(int centreId)
+        public int Add(Core.Domain.ColumbariumArea columbariumArea)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumArea>, IEnumerable<ColumbariumAreaDto>>(GetAreaByCentre(centreId));
-        }
-
-        public int Create(ColumbariumAreaDto columbariumAreaDto)
-        {
-            _area = new Core.Domain.ColumbariumArea();
-            Mapper.Map(columbariumAreaDto, _area);
-
-            _unitOfWork.ColumbariumAreas.Add(_area);
+            _unitOfWork.ColumbariumAreas.Add(columbariumArea);
 
             _unitOfWork.Complete();
 
-            return _area.Id;
+            return columbariumArea.Id;
         }
 
-        public bool Update(ColumbariumAreaDto columbariumAreaDto)
+        public bool Change(int id, Core.Domain.ColumbariumArea columbariumArea)
         {
-            var columbariumAreaInDB = GetArea(columbariumAreaDto.Id);
+            var columbariumAreaInDB = _unitOfWork.ColumbariumAreas.GetActive(id);
 
-            if (columbariumAreaInDB.ColumbariumCentreId != columbariumAreaDto.ColumbariumCentreDtoId
+            if (columbariumAreaInDB.ColumbariumCentreId != columbariumArea.ColumbariumCentreId
                 && _unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == columbariumAreaInDB.Id || qt.ShiftedNiche.ColumbariumAreaId == columbariumAreaInDB.Id)).Any())
             {
                 return false;
             }
 
-            Mapper.Map(columbariumAreaDto, columbariumAreaInDB);
-
+            columbariumAreaInDB.Name = columbariumArea.Name;
+            columbariumAreaInDB.Description = columbariumArea.Description;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.ColumbariumTransactions.Find(qt => (qt.Niche.ColumbariumAreaId == id || qt.ShiftedNiche.ColumbariumAreaId == id)).Any())
             {
                 return false;
             }
 
-            SetArea(id);
+            var areaInDb = _unitOfWork.ColumbariumAreas.GetActive(id);
 
-            if(_area == null)
+            if (areaInDb == null)
             {
                 return false;
             }
 
-            _unitOfWork.ColumbariumAreas.Remove(_area);
+            _unitOfWork.ColumbariumAreas.Remove(areaInDb);
 
             _unitOfWork.Complete();
 

@@ -795,7 +795,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartupAuth.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
@@ -1157,8 +1156,6 @@
     <Compile Include="Lib\AncestralTablet\Number\INumber.cs" />
     <Compile Include="Lib\AncestralTablet\Order\IOrder.cs" />
     <Compile Include="Lib\AncestralTablet\Order\Order.cs" />
-    <Compile Include="Lib\AncestralTablet\Payment\IPayment.cs" />
-    <Compile Include="Lib\AncestralTablet\Payment\Payment.cs" />
     <Compile Include="Lib\AncestralTablet\Shift\IShift.cs" />
     <Compile Include="Lib\AncestralTablet\Shift\Shift.cs" />
     <Compile Include="Lib\AncestralTablet\Tracking\ITracking.cs" />
@@ -1190,8 +1187,6 @@
     <Compile Include="Lib\Cremation\Number\Number.cs" />
     <Compile Include="Lib\Cremation\Order\Order.cs" />
     <Compile Include="Lib\Cremation\Order\IOrder.cs" />
-    <Compile Include="Lib\Cremation\Payment\IPayment.cs" />
-    <Compile Include="Lib\Cremation\Payment\Payment.cs" />
     <Compile Include="Lib\Cremation\Transaction\ITransaction.cs" />
     <Compile Include="Lib\Cremation\Transaction\Transaction.cs" />
     <Compile Include="Lib\Deceased\Deceased.cs" />
@@ -1230,8 +1225,6 @@
     <Compile Include="Lib\Miscellaneous\Miscellaneous\Miscellaneous.cs" />
     <Compile Include="Lib\Miscellaneous\Number\INumber.cs" />
     <Compile Include="Lib\Miscellaneous\Number\Number.cs" />
-    <Compile Include="Lib\Miscellaneous\Payment\IPayment.cs" />
-    <Compile Include="Lib\Miscellaneous\Payment\Payment.cs" />
     <Compile Include="Lib\Miscellaneous\RentAirCooler\RentAirCooler.cs" />
     <Compile Include="Lib\Miscellaneous\RentAirCooler\IRentAirCooler.cs" />
     <Compile Include="Lib\Miscellaneous\Transaction\ITransaction.cs" />
@@ -1249,8 +1242,6 @@
     <Compile Include="Lib\Cemetery\SecondBurial\SecondBurial.cs" />
     <Compile Include="Lib\Cemetery\Order\IOrder.cs" />
     <Compile Include="Lib\Cemetery\Order\Order.cs" />
-    <Compile Include="Lib\Cemetery\Payment\IPayment.cs" />
-    <Compile Include="Lib\Cemetery\Payment\Payment.cs" />
     <Compile Include="Lib\Cemetery\Plot\IPlot.cs" />
     <Compile Include="Lib\Cemetery\Plot\Plot.cs" />
     <Compile Include="Lib\Cemetery\Tracking\IPlotApplicantDeceaseds.cs" />
@@ -1263,12 +1254,10 @@
     <Compile Include="Lib\Cemetery\Transfer\Transfer.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\INicheDeceased.cs" />
     <Compile Include="Lib\Columbarium\QuadrangleDeceased\NicheDeceased.cs" />
-    <Compile Include="Lib\Columbarium\Payment\IPayment.cs" />
     <Compile Include="Lib\Columbarium\Manage\IManage.cs" />
     <Compile Include="Lib\Columbarium\Manage\Manage.cs" />
     <Compile Include="Lib\Columbarium\Photo\IPhoto.cs" />
     <Compile Include="Lib\Columbarium\Photo\Photo.cs" />
-    <Compile Include="Lib\Columbarium\Payment\Payment.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\IColumbarium.cs" />
     <Compile Include="Lib\Invoice\Quadrangle\Columbarium.cs" />
     <Compile Include="Lib\MaritalType\MaritalType.cs" />
@@ -1340,8 +1329,6 @@
     <Compile Include="Lib\Space\Transaction\Transaction.cs" />
     <Compile Include="Lib\Urn\Item\IItem.cs" />
     <Compile Include="Lib\Urn\Item\Item.cs" />
-    <Compile Include="Lib\Urn\Payment\IPayment.cs" />
-    <Compile Include="Lib\Urn\Payment\Payment.cs" />
     <Compile Include="Lib\Urn\Purchase\IPurchase.cs" />
     <Compile Include="Lib\Urn\Purchase\Purchase.cs" />
     <Compile Include="Lib\Urn\Transaction\ITransaction.cs" />
@@ -1350,6 +1337,9 @@
     <Compile Include="Lib\Urn\Urn\Urn.cs" />
     <Compile Include="Lib\Urn\Number\Number.cs" />
     <Compile Include="Lib\Urn\Transaction\Transaction.cs" />
+    <Compile Include="Mapping\DomainToDomain.cs" />
+    <Compile Include="Mapping\DtoToDomain.cs" />
+    <Compile Include="Mapping\DomainToDto.cs" />
     <Compile Include="Migrations\202207071625158_Initial.cs" />
     <Compile Include="Migrations\202207071625158_Initial.Designer.cs">
       <DependentUpon>202207071625158_Initial.cs</DependentUpon>
@@ -1409,6 +1399,22 @@
     <Compile Include="Migrations\202308011120442_UpdateSubProductServicesTableSBOOKData.cs" />
     <Compile Include="Migrations\202308011120442_UpdateSubProductServicesTableSBOOKData.designer.cs">
       <DependentUpon>202308011120442_UpdateSubProductServicesTableSBOOKData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309100814150_PopulateDataToPlotTypesTable.cs" />
+    <Compile Include="Migrations\202309100814150_PopulateDataToPlotTypesTable.designer.cs">
+      <DependentUpon>202309100814150_PopulateDataToPlotTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309100826014_UpdatePlotTypesTableData.cs" />
+    <Compile Include="Migrations\202309100826014_UpdatePlotTypesTableData.designer.cs">
+      <DependentUpon>202309100826014_UpdatePlotTypesTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309101023010_PopulateDataToNicheTypesTable.cs" />
+    <Compile Include="Migrations\202309101023010_PopulateDataToNicheTypesTable.designer.cs">
+      <DependentUpon>202309101023010_PopulateDataToNicheTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309101026159_UpdateNicheTypesTableData.cs" />
+    <Compile Include="Migrations\202309101026159_UpdateNicheTypesTableData.designer.cs">
+      <DependentUpon>202309101026159_UpdateNicheTypesTableData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mix.Designer.cs">
@@ -1945,6 +1951,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308011120442_UpdateSubProductServicesTableSBOOKData.resx">
       <DependentUpon>202308011120442_UpdateSubProductServicesTableSBOOKData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309100814150_PopulateDataToPlotTypesTable.resx">
+      <DependentUpon>202309100814150_PopulateDataToPlotTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309100826014_UpdatePlotTypesTableData.resx">
+      <DependentUpon>202309100826014_UpdatePlotTypesTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309101023010_PopulateDataToNicheTypesTable.resx">
+      <DependentUpon>202309101023010_PopulateDataToNicheTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309101026159_UpdateNicheTypesTableData.resx">
+      <DependentUpon>202309101026159_UpdateNicheTypesTableData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mix.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

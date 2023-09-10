@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.Cemetery
@@ -12,7 +9,6 @@ namespace Memorial.Lib.Cemetery
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IItem _item;
-        private Core.Domain.Plot _plot;
 
         public Plot(IUnitOfWork unitOfWork, IItem item)
         {
@@ -20,227 +16,84 @@ namespace Memorial.Lib.Cemetery
             _item = item;
         }
 
-        public void SetPlot(int id)
-        {
-            _plot = _unitOfWork.Plots.GetActive(id);
-        }
-
-        public Core.Domain.Plot GetPlot()
-        {
-            return _plot;
-        }
-
-        public PlotDto GetPlotDto()
-        {
-            return Mapper.Map<Core.Domain.Plot, PlotDto>(GetPlot());
-        }
-
-        public Core.Domain.Plot GetPlot(int id)
+        public Core.Domain.Plot GetById(int id)
         {
             return _unitOfWork.Plots.GetActive(id);
         }
 
-        public PlotDto GetPlotDto(int id)
-        {
-            return Mapper.Map<Core.Domain.Plot, PlotDto>(GetPlot(id));
-        }
-
         public IEnumerable<Core.Domain.PlotType> GetPlotTypesByAreaId(int id)
         {
-            return _unitOfWork.Plots.GetTypesByArea(id);
+            return _unitOfWork.Plots.GetPlotTypesByArea(id);
         }
 
-        public IEnumerable<PlotTypeDto> GetPlotTypeDtosByAreaId(int id)
-        {
-            return Mapper.Map< IEnumerable<Core.Domain.PlotType>, IEnumerable<PlotTypeDto>>(GetPlotTypesByAreaId(id));
-        }
-
-        public IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id, string filter)
+        public IEnumerable<Core.Domain.Plot> GetByAreaId(int id, string filter)
         {
             return _unitOfWork.Plots.GetByArea(id, filter);
         }
 
-        public IEnumerable<PlotDto> GetPlotDtosByAreaId(int id, string filter)
-        {
-            return Mapper.Map< IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetPlotsByAreaId(id, filter));
-        }
-
-        public IEnumerable<Core.Domain.Plot> GetPlotsByAreaIdAndTypeId(int areaId, int typeId, string filter)
+        public IEnumerable<Core.Domain.Plot> GetByAreaIdAndTypeId(int areaId, int typeId, string filter)
         {
             return _unitOfWork.Plots.GetByTypeAndArea(areaId, typeId, filter);
         }
 
-        public IEnumerable<PlotDto> GetPlotDtosByAreaIdAndTypeId(int areaId, int typeId, string filter)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetPlotsByAreaIdAndTypeId(areaId, typeId, filter));
-        }
-
-        public IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId)
+        public IEnumerable<Core.Domain.Plot> GetAvailableByTypeAndArea(int typeId, int areaId)
         {
             return _unitOfWork.Plots.GetAvailableByTypeAndArea(typeId, areaId);
         }
 
-        public IEnumerable<PlotDto> GetAvailablePlotDtosByTypeIdAndAreaId(int typeId, int areaId)
+        public int Add(Core.Domain.Plot plot)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>
-                (_unitOfWork.Plots.GetAvailableByTypeAndArea(typeId, areaId));
-        }
-
-        public IEnumerable<PlotDto> GetAvailablePlotDtosByAreaId(int typeId, int areaId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.Plot>, IEnumerable<PlotDto>>(GetAvailablePlotsByTypeIdAndAreaId(typeId, areaId));
-        }
-
-        public string GetName()
-        {
-            return _plot.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _plot.Description;
-        }
-
-        public string GetSize()
-        {
-            return _plot.Size;
-        }
-
-        public float GetPrice()
-        {
-            return _plot.Price;
-        }
-
-        public float GetMaintenance()
-        {
-            return _plot.Maintenance;
-        }
-
-        public float GetWall()
-        {
-            return _plot.Wall;
-        }
-
-        public float GetDig()
-        {
-            return _plot.Dig;
-        }
-
-        public float GetBrick()
-        {
-            return _plot.Brick;
-        }
-
-        public string GetRemark()
-        {
-            return _plot.Remark;
-        }
-
-        public bool HasDeceased()
-        {
-            return _plot.hasDeceased;
-        }
-
-        public void SetHasDeceased(bool flag)
-        {
-            _plot.hasDeceased = flag;
-        }
-
-        public bool HasCleared()
-        {
-            return _plot.hasCleared;
-        }
-
-        public void SetHasCleared(bool flag)
-        {
-            _plot.hasCleared = flag;
-        }
-
-        public bool HasApplicant()
-        {
-            return _plot.ApplicantId == null ? false : true;
-        }
-
-        public int? GetApplicantId()
-        {
-            return _plot.ApplicantId;
-        }
-
-        public void SetApplicant(int applicantId)
-        {
-            _plot.ApplicantId = applicantId;
-        }
-
-        public void RemoveApplicant()
-        {
-            _plot.Applicant = null;
-            _plot.ApplicantId = null;
-        }
-
-        public int GetAreaId()
-        {
-            return _plot.CemeteryAreaId;
-        }
-
-        public int GetNumberOfPlacement()
-        {
-            return _plot.PlotType.NumberOfPlacement;
-        }
-
-        public bool IsFengShuiPlot()
-        {
-            return _plot.PlotType.isFengShuiPlot;
-        }
-
-        public int Create(PlotDto plotDto)
-        {
-            _plot = new Core.Domain.Plot();
-            Mapper.Map(plotDto, _plot);
-
-            _unitOfWork.Plots.Add(_plot);
+            _unitOfWork.Plots.Add(plot);
 
             _unitOfWork.Complete();
 
-            _item.AutoCreateItem(plotDto.PlotTypeDtoId, _plot.Id);
+            _item.AutoAddItem(plot.PlotTypeId, plot.Id);
 
             _unitOfWork.Complete();
 
-            return _plot.Id;
+            return plot.Id;
         }
 
-        public bool Update(PlotDto plotDto)
+        public bool Change(int id, Core.Domain.Plot plot)
         {
-            var plotInDB = GetPlot(plotDto.Id);
+            var plotInDB = GetById(id);
 
-            if ((plotInDB.PlotTypeId != plotDto.PlotTypeDtoId
-                || plotInDB.CemeteryAreaId != plotDto.CemeteryAreaDtoId)
-                && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plotDto.Id).Any())
+            if ((plotInDB.PlotTypeId != plot.PlotTypeId
+                || plotInDB.CemeteryAreaId != plot.CemeteryAreaId)
+                && _unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == plot.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(plotDto, plotInDB);
-
+            plotInDB.Name = plot.Name;
+            plotInDB.Description = plot.Description;
+            plotInDB.Size = plot.Size;
+            plotInDB.Price = plot.Price;
+            plotInDB.Maintenance = plot.Maintenance;
+            plotInDB.Wall = plot.Wall;
+            plotInDB.Dig = plot.Dig;
+            plotInDB.Brick = plot.Brick;
+            plotInDB.Remark = plot.Remark;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.CemeteryTransactions.Find(ct => ct.PlotId == id).Any())
             {
                 return false;
             }
 
-            SetPlot(id);
+            var plotInDb = GetById(id);
 
-            if(_plot == null)
+            if(plotInDb == null)
             {
                 return false;
             }
 
-            _unitOfWork.Plots.Remove(_plot);
+            _unitOfWork.Plots.Remove(plotInDb);
 
             _unitOfWork.Complete();
 

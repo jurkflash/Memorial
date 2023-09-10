@@ -19,7 +19,6 @@ namespace Memorial.Lib.AncestralTablet
         protected IApplicantDeceased _applicantDeceased;
         protected INumber _number;
         protected Core.Domain.AncestralTabletTransaction _transaction;
-        protected string _AFnumber;
 
         public Transaction(
             IUnitOfWork unitOfWork, 
@@ -40,131 +39,24 @@ namespace Memorial.Lib.AncestralTablet
             _number = number;
         }
 
-        public void SetTransaction(string AF)
+        public Core.Domain.AncestralTabletTransaction GetByAF(string AF)
         {
-            _transaction = _unitOfWork.AncestralTabletTransactions.GetActive(AF);
+            return _unitOfWork.AncestralTabletTransactions.GetByAF(AF);
         }
 
-        public void SetTransaction(Core.Domain.AncestralTabletTransaction transaction)
+        public float GetTotalAmount(Core.Domain.AncestralTabletTransaction ancestralTabletTransaction)
         {
-            _transaction = transaction;
+            return ancestralTabletTransaction.Price + (ancestralTabletTransaction.Maintenance == null ? 0 : (float)ancestralTabletTransaction.Maintenance);
         }
 
-        public Core.Domain.AncestralTabletTransaction GetTransaction()
-        {
-            return _transaction;
-        }
-
-        public AncestralTabletTransactionDto GetTransactionDto()
-        {
-            return Mapper.Map<Core.Domain.AncestralTabletTransaction, AncestralTabletTransactionDto>(GetTransaction());
-        }
-
-        public Core.Domain.AncestralTabletTransaction GetTransaction(string AF)
-        {
-            return _unitOfWork.AncestralTabletTransactions.GetActive(AF);
-        }
-
-        public Core.Domain.AncestralTabletTransaction GetTransactionExclusive(string AF)
+        public Core.Domain.AncestralTabletTransaction GetExclusive(string AF)
         {
             return _unitOfWork.AncestralTabletTransactions.GetExclusive(AF);
         }
 
-        public AncestralTabletTransactionDto GetTransactionDto(string AF)
-        {
-            return Mapper.Map<Core.Domain.AncestralTabletTransaction, AncestralTabletTransactionDto>(GetTransaction(AF));
-        }
-
-        public string GetTransactionAF()
-        {
-            return _transaction.AF;
-        }
-
-        public float GetTransactionAmount()
-        {
-            return _transaction.Price +
-                (_transaction.Maintenance == null ? 0 : (float)_transaction.Maintenance);
-        }
-
-        public string GetTransactionSummaryItem()
-        {
-            return _transaction.SummaryItem;
-        }
-
-        public string GetSiteHeader()
-        {
-            return _transaction.AncestralTabletItem.AncestralTabletArea.Site.Header;
-        }
-
-
-        public int GetTransactionAncestralTabletId()
-        {
-            return _transaction.AncestralTabletId;
-        }
-
-        public int GetItemId()
-        {
-            return _transaction.AncestralTabletItemId;
-        }
-
-        public string GetItemName()
-        {
-            _item.SetItem(_transaction.AncestralTabletItemId);
-            return _item.GetName();
-        }
-
-        public string GetItemName(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetName();
-        }
-
-        public float GetItemPrice()
-        {
-            _item.SetItem(_transaction.AncestralTabletItemId);
-            return _item.GetPrice();
-        }
-
-        public float GetItemPrice(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetPrice();
-        }
-
-        public bool IsItemOrder()
-        {
-            _item.SetItem(_transaction.AncestralTabletItemId);
-            return _item.IsOrder();
-        }
-
-        public int GetTransactionApplicantId()
-        {
-            return _transaction.ApplicantId;
-        }
-
-        public int? GetTransactionDeceasedId()
-        {
-            return _transaction.DeceasedId;
-        }
-
-        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter)
+        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter)
         {
             return _unitOfWork.AncestralTabletTransactions.GetByAncestralTabletIdAndItem(ancestralTabletId, itemId, filter);
-        }
-
-        public IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(GetTransactionsByAncestralTabletIdAndItemId(ancestralTabletId, itemId, filter));
-        }
-
-        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetTransactionsByAncestralTabletIdAndItemIdAndApplicantId(int ancestralTabletId, int itemId, int applicantId)
-        {
-            return _unitOfWork.AncestralTabletTransactions.GetByAncestralTabletIdAndItemAndApplicant(ancestralTabletId, itemId, applicantId);
-        }
-
-        public IEnumerable<AncestralTabletTransactionDto> GetTransactionDtosByAncestralTabletIdAndItemIdAndApplicantId(int ancestralTabletId, int itemId, int applicantId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(GetTransactionsByAncestralTabletIdAndItemIdAndApplicantId(ancestralTabletId, itemId, applicantId));
         }
 
         public Core.Domain.AncestralTabletTransaction GetTransactionsByShiftedAncestralTabletTransactionAF(string AF)
@@ -177,44 +69,12 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletTransactions.GetByAncestralTabletId(nicheId);
         }
 
-        public IEnumerable<AncestralTabletTransactionDto> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetRecent(int siteId, int? applicantId)
         {
             if (applicantId == null)
-                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
+                return _unitOfWork.AncestralTabletTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);
             else
-                return Mapper.Map<IEnumerable<Core.Domain.AncestralTabletTransaction>, IEnumerable<AncestralTabletTransactionDto>>(_unitOfWork.AncestralTabletTransactions.GetRecent(null, siteId, applicantId));
-        }
-
-        protected bool CreateNewTransaction(AncestralTabletTransactionDto ancestralTabletTransactionDto)
-        {
-            if (_AFnumber == "")
-                return false;
-
-            _transaction = new Core.Domain.AncestralTabletTransaction();
-
-            Mapper.Map(ancestralTabletTransactionDto, _transaction);
-
-            _transaction.AF = _AFnumber;
-
-            _unitOfWork.AncestralTabletTransactions.Add(_transaction);
-
-            return true;
-        }
-
-        protected bool UpdateTransaction(AncestralTabletTransactionDto ancestralTabletTransactionDto)
-        {
-            var ancestralTabletTransactionInDb = GetTransaction(ancestralTabletTransactionDto.AF);
-
-            Mapper.Map(ancestralTabletTransactionDto, ancestralTabletTransactionInDb);
-
-            return true;
-        }
-
-        protected bool DeleteTransaction()
-        {
-            _unitOfWork.AncestralTabletTransactions.Remove(_transaction);
-
-            return true;
+                return _unitOfWork.AncestralTabletTransactions.GetRecent(null, siteId, applicantId);
         }
 
         protected bool DeleteAllTransactionWithSameAncestralTabletId()
@@ -229,22 +89,22 @@ namespace Memorial.Lib.AncestralTablet
             return true;
         }
 
-        protected bool SetTransactionDeceasedIdBasedOnAncestralTablet(AncestralTabletTransactionDto ancestralTabletTransactionDto, int ancestralTabletId)
+        protected bool SetTransactionDeceasedIdBasedOnAncestralTablet(Core.Domain.AncestralTabletTransaction ancestralTabletTransaction, int ancestralTabletId)
         {
-            _ancestralTablet.SetAncestralTablet(ancestralTabletId);
+            var ancestralTablet = _ancestralTablet.GetById(ancestralTabletId);
 
-            if (_ancestralTablet.HasDeceased())
+            if (ancestralTablet.hasDeceased)
             {
-                var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(ancestralTabletId);
+                var deceaseds = _deceased.GetByAncestralTabletId(ancestralTabletId);
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetByApplicantDeceasedId(ancestralTabletTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(ancestralTabletTransaction.ApplicantId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    ancestralTabletTransactionDto.DeceasedDtoId = deceaseds.ElementAt(0).Id;
+                    ancestralTabletTransaction.DeceasedId = deceaseds.ElementAt(0).Id;
                 }
             }
 
@@ -253,14 +113,14 @@ namespace Memorial.Lib.AncestralTablet
 
         protected bool ChangeAncestralTablet(string systemCode, int oldAncestralTabletId, int newAncestralTabletId)
         {
-            var areaId = _ancestralTablet.GetAncestralTablet(oldAncestralTabletId).AncestralTabletAreaId;
+            var areaId = _ancestralTablet.GetById(oldAncestralTabletId).AncestralTabletAreaId;
 
-            var itemId = _item.GetItemByArea(areaId).Where(i => i.SubProductService.SystemCode == systemCode).FirstOrDefault();
+            var itemId = _item.GetByArea(areaId).Where(i => i.SubProductService.SystemCode == systemCode).FirstOrDefault();
 
             if (itemId == null)
                 return false;
 
-            var transactions = GetTransactionsByAncestralTabletIdAndItemId(oldAncestralTabletId, itemId.Id, null);
+            var transactions = GetByAncestralTabletIdAndItemId(oldAncestralTabletId, itemId.Id, null);
 
             foreach (var transaction in transactions)
             {

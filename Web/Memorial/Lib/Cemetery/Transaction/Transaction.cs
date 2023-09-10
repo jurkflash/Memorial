@@ -18,8 +18,6 @@ namespace Memorial.Lib.Cemetery
         protected IDeceased _deceased;
         protected IApplicantDeceased _applicantDeceased;
         protected INumber _number;
-        protected Core.Domain.CemeteryTransaction _transaction;
-        protected string _AFnumber;
 
         public Transaction(
             IUnitOfWork unitOfWork, 
@@ -40,29 +38,18 @@ namespace Memorial.Lib.Cemetery
             _number = number;
         }
 
-        public void SetTransaction(string AF)
+        public Core.Domain.CemeteryTransaction GetByAF(string AF)
         {
-            _transaction = _unitOfWork.CemeteryTransactions.GetActive(AF);
+            return _unitOfWork.CemeteryTransactions.GetByAF(AF);
         }
 
-        public void SetTransaction(Core.Domain.CemeteryTransaction transaction)
+        public float GetTotalAmount(Core.Domain.CemeteryTransaction cemeteryTransaction)
         {
-            _transaction = transaction;
-        }
-
-        public Core.Domain.CemeteryTransaction GetTransaction()
-        {
-            return _transaction;
-        }
-
-        public CemeteryTransactionDto GetTransactionDto()
-        {
-            return Mapper.Map<Core.Domain.CemeteryTransaction, CemeteryTransactionDto>(GetTransaction());
-        }
-
-        public Core.Domain.CemeteryTransaction GetTransaction(string AF)
-        {
-            return _unitOfWork.CemeteryTransactions.GetActive(AF);
+            return cemeteryTransaction.Price +
+                (cemeteryTransaction.Maintenance == null ? 0 : (float)cemeteryTransaction.Maintenance) +
+                (cemeteryTransaction.Wall == null ? 0 : (float)cemeteryTransaction.Wall) +
+                (cemeteryTransaction.Dig == null ? 0 : (float)cemeteryTransaction.Dig) +
+                (cemeteryTransaction.Brick == null ? 0 : (float)cemeteryTransaction.Brick);
         }
 
         public Core.Domain.CemeteryTransaction GetTransactionExclusive(string AF)
@@ -70,93 +57,9 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.CemeteryTransactions.GetExclusive(AF);
         }
 
-        public CemeteryTransactionDto GetTransactionDto(string AF)
-        {
-            return Mapper.Map<Core.Domain.CemeteryTransaction, CemeteryTransactionDto>(GetTransaction(AF));
-        }
-
         public IEnumerable<Core.Domain.CemeteryTransaction> GetTransactionsByPlotId(int plotId)
         {
             return _unitOfWork.CemeteryTransactions.GetByPlotId(plotId);
-        }
-
-        public string GetTransactionAF()
-        {
-            return _transaction.AF;
-        }
-
-        public float GetTransactionTotalAmount()
-        {
-            return _transaction.Price +
-                (_transaction.Maintenance == null ? 0 : (float)_transaction.Maintenance) +
-                (_transaction.Wall == null ? 0 : (float)_transaction.Wall) +
-                (_transaction.Dig == null ? 0 : (float)_transaction.Dig) +
-                (_transaction.Brick == null ? 0 : (float)_transaction.Brick);             
-        }
-
-        public string GetTransactionSummaryItem()
-        {
-            return _transaction.SummaryItem;
-        }
-
-        public string GetSiteHeader()
-        {
-            return _transaction.Plot.CemeteryArea.Site.Header;
-        }
-
-        public int GetTransactionPlotId()
-        {
-            return _transaction.PlotId;
-        }
-
-        public int GetItemId()
-        {
-            return _transaction.CemeteryItemId;
-        }
-
-        public string GetItemName()
-        {
-            _item.SetItem(_transaction.CemeteryItemId);
-            return _item.GetName();
-        }
-
-        public string GetItemName(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetName();
-        }
-
-        public float GetItemPrice()
-        {
-            _item.SetItem(_transaction.CemeteryItemId);
-            return _item.GetPrice();
-        }
-
-        public float GetItemPrice(int id)
-        {
-            _item.SetItem(id);
-            return _item.GetPrice();
-        }
-
-        public bool IsItemOrder()
-        {
-            _item.SetItem(_transaction.CemeteryItemId);
-            return _item.IsOrder();
-        }
-
-        public int GetTransactionApplicantId()
-        {
-            return _transaction.ApplicantId;
-        }
-
-        public int? GetTransactionDeceased1Id()
-        {
-            return _transaction.Deceased1Id;
-        }
-
-        public int? GetTransactionTransferredApplicantId()
-        {
-            return _transaction.TransferredApplicantId;
         }
 
         public IEnumerable<Core.Domain.CemeteryTransaction> GetTransactionsByPlotIdAndItemId(int plotId, int itemId, string filter)
@@ -174,64 +77,22 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.CemeteryTransactions.GetByPlotIdAndDeceased(plotId, deceased1Id);
         }
 
-        public IEnumerable<Core.Domain.CemeteryTransaction> GetTransactionsByPlotIdAndItemIdAndApplicantId(int plotId, int itemId, int applicantId)
-        {
-            return _unitOfWork.CemeteryTransactions.GetByPlotIdAndItemAndApplicant(plotId, itemId, applicantId);
-        }
-
-        public IEnumerable<CemeteryTransactionDto> GetTransactionDtosByPlotIdAndItemIdAndApplicantId(int plotId, int itemId, int applicantId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(GetTransactionsByPlotIdAndItemIdAndApplicantId(plotId, itemId, applicantId));
-        }
-
         public Core.Domain.CemeteryTransaction GetLastCemeteryTransactionTransactionByPlotId(int plotId)
         {
             return _unitOfWork.CemeteryTransactions.GetLastCemeteryTransactionByPlotId(plotId);
         }
 
-        public IEnumerable<CemeteryTransactionDto> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.CemeteryTransaction> GetRecent(int siteId, int? applicantId)
         {
             if (applicantId == null)
-                return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(_unitOfWork.CemeteryTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId));
+                return _unitOfWork.CemeteryTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);
             else
-                return Mapper.Map<IEnumerable<Core.Domain.CemeteryTransaction>, IEnumerable<CemeteryTransactionDto>>(_unitOfWork.CemeteryTransactions.GetRecent(null, siteId, applicantId));
+                return _unitOfWork.CemeteryTransactions.GetRecent(null, siteId, applicantId);
         }
 
-        protected bool CreateNewTransaction(CemeteryTransactionDto cemeteryTransactionDto)
+        protected bool DeleteAllTransactionWithSamePlotId(int plotId)
         {
-            if (_AFnumber == "")
-                return false;
-
-            _transaction = new Core.Domain.CemeteryTransaction();
-
-            Mapper.Map(cemeteryTransactionDto, _transaction);
-
-            _transaction.AF = _AFnumber;
-
-            _unitOfWork.CemeteryTransactions.Add(_transaction);
-
-            return true;
-        }
-
-        protected bool UpdateTransaction(CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            var cemeteryTransactionInDb = GetTransaction(cemeteryTransactionDto.AF);
-
-            Mapper.Map(cemeteryTransactionDto, cemeteryTransactionInDb);
-
-            return true;
-        }
-
-        protected bool DeleteTransaction()
-        {
-            _unitOfWork.CemeteryTransactions.Remove(_transaction);
-
-            return true;
-        }
-
-        protected bool DeleteAllTransactionWithSamePlotId()
-        {
-            var transactions = GetTransactionsByPlotId(_transaction.PlotId);
+            var transactions = GetTransactionsByPlotId(plotId);
 
             foreach (var transaction in transactions)
             {
@@ -241,89 +102,48 @@ namespace Memorial.Lib.Cemetery
             return true;
         }
 
-        protected bool SetTransactionDeceasedIdBasedOnPlot(CemeteryTransactionDto cemeteryTransactionDto, int plotId)
+        protected bool SetTransactionDeceasedIdBasedOnPlot(Core.Domain.CemeteryTransaction cemeteryTransaction, int plotId)
         {
-            _plot.SetPlot(plotId);
-
-            if (_plot.HasDeceased())
+            var plot = _plot.GetById(plotId);
+            if (plot.hasDeceased)
             {
-                var deceaseds = _deceased.GetDeceasedsByPlotId(plotId);
+                var deceaseds = _deceased.GetByPlotId(plotId);
 
-                if (_plot.GetNumberOfPlacement() < deceaseds.Count())
+                if (plot.PlotType.NumberOfPlacement < deceaseds.Count())
                     return false;
 
                 if (deceaseds.Count() > 2)
                 {
-                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(2).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransaction.ApplicantId, deceaseds.ElementAt(2).Id) == null)
                     {
                         return false;
                     }
 
-                    cemeteryTransactionDto.DeceasedDto3Id = deceaseds.ElementAt(2).Id;
+                    cemeteryTransaction.Deceased3Id = deceaseds.ElementAt(2).Id;
                 }
 
                 if (deceaseds.Count() > 1)
                 {
-                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(1).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransaction.ApplicantId, deceaseds.ElementAt(1).Id) == null)
                     {
                         return false;
                     }
 
-                    cemeteryTransactionDto.DeceasedDto2Id = deceaseds.ElementAt(1).Id;
+                    cemeteryTransaction.Deceased2Id = deceaseds.ElementAt(1).Id;
                 }
 
                 if (deceaseds.Count() == 1)
                 {
-                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, deceaseds.ElementAt(0).Id) == null)
+                    if (_applicantDeceased.GetByApplicantDeceasedId(cemeteryTransaction.ApplicantId, deceaseds.ElementAt(0).Id) == null)
                     {
                         return false;
                     }
 
-                    cemeteryTransactionDto.DeceasedDto1Id = deceaseds.ElementAt(0).Id;
+                    cemeteryTransaction.Deceased1Id = deceaseds.ElementAt(0).Id;
                 }
             }
 
             return true;
         }
-
-        protected bool SetDeceasedIdBasedOnPlotLastTransaction(CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            if (_plot.HasDeceased())
-            {
-                var lastTransactionOfPlot = GetLastCemeteryTransactionTransactionByPlotId(_plot.GetPlot().Id);
-
-                if (lastTransactionOfPlot != null)
-                {
-                    SetDeceasedIdBasedOnPlotLastTransaction(lastTransactionOfPlot, cemeteryTransactionDto);
-                }
-            }
-
-            return true;
-        }
-
-        private bool SetDeceasedIdBasedOnPlotLastTransaction(Core.Domain.CemeteryTransaction lastCemeteryTransaction, CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            if (lastCemeteryTransaction != null)
-            {
-                if (lastCemeteryTransaction.Deceased1Id != null &&
-                    _applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased1Id) == null)
-                {
-                    return false;
-                }
-
-                if (lastCemeteryTransaction.Deceased2Id != null &&
-                    _applicantDeceased.GetByApplicantDeceasedId(cemeteryTransactionDto.ApplicantDtoId, (int)lastCemeteryTransaction.Deceased2Id) == null)
-                {
-                    return false;
-                }
-
-                cemeteryTransactionDto.DeceasedDto1Id = lastCemeteryTransaction.Deceased1Id;
-
-                cemeteryTransactionDto.DeceasedDto1Id = lastCemeteryTransaction.Deceased2Id;
-            }
-
-            return true;
-        }
-
     }
 }

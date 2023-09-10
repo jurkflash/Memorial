@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
-using Memorial.Core.Repositories;
-using AutoMapper;
-using Memorial.Persistence;
 
 namespace Memorial.Lib.Receipt
 {
@@ -33,7 +26,6 @@ namespace Memorial.Lib.Receipt
         public bool Remove(Core.Domain.Receipt receipt)
         {
             var receiptInDb = _unitOfWork.Receipts.GetByRE(receipt.RE);
-            _unitOfWork.Receipts.Remove(receiptInDb);
 
             if (receiptInDb.InvoiceIV != null)
             {
@@ -41,6 +33,8 @@ namespace Memorial.Lib.Receipt
                 var invoiceInDb = _unitOfWork.Invoices.GetByIV(receiptInDb.InvoiceIV);
                 invoiceInDb.hasReceipt = receipts.Any();
                 invoiceInDb.isPaid = receipts.Select(r => r.Amount).DefaultIfEmpty(0).Sum() == invoiceInDb.Amount;
+
+                _unitOfWork.Receipts.Remove(receiptInDb);
                 _unitOfWork.Complete();
             }
             return true;
@@ -55,10 +49,7 @@ namespace Memorial.Lib.Receipt
             receiptInDb.Amount = receipt.Amount;
             _unitOfWork.Complete();
             return true;
-        }
-
-        abstract
-        public string GenerateRENumber(int itemId);
+        }       
 
         protected bool Add(Core.Domain.Receipt receipt)
         {
@@ -68,92 +59,19 @@ namespace Memorial.Lib.Receipt
             return true;
         }
 
-
-
-
-
         public void SetReceipt(string RE)
         {
             _receipt = _unitOfWork.Receipts.GetByRE(RE);
         }
 
-        public void SetReceipt(Core.Domain.Receipt receipt)
-        {
-            _receipt = receipt;
-        }
-
-        public Core.Domain.Receipt GetReceipt()
-        {
-            return _receipt;
-        }
-        public ReceiptDto GetReceiptDto()
-        {
-            return Mapper.Map<Core.Domain.Receipt, ReceiptDto>(_receipt);
-        }
-
-        public Core.Domain.Receipt GetReceipt(string RE)
-        {
-            return _unitOfWork.Receipts.GetByRE(RE);
-        }
-
-        public ReceiptDto GetReceiptDto(string RE)
-        {
-            return Mapper.Map<Core.Domain.Receipt, ReceiptDto>(GetReceipt(RE));
-        }
-
-        public IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV)
+        public IEnumerable<Core.Domain.Receipt> GetByIV(string IV)
         {
             return _unitOfWork.Receipts.GetByIV(IV);
-        }
-
-        public IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV)
-        {
-            return Mapper.Map< IEnumerable<Core.Domain.Receipt>, IEnumerable<ReceiptDto>>(GetReceiptsByInvoiceIV(IV));
         }
 
         public string GetInvoiceIV()
         {
             return _receipt.InvoiceIV;
-        }
-
-        public float GetAmount()
-        {
-            return _receipt.Amount;
-        }
-
-        public void SetAmount(float amount)
-        {
-            _receipt.Amount = amount;
-        }
-
-        public string GetRemark()
-        {
-            return _receipt.Remark;
-        }
-
-        public void SetRemark(string remark)
-        {
-            _receipt.Remark = remark;
-        }
-
-        public int GetPaymentMethodId()
-        {
-            return _receipt.PaymentMethodId;
-        }
-
-        public int SetPaymentMethodId(byte paymentMethodId)
-        {
-            return _receipt.PaymentMethodId = paymentMethodId;
-        }
-
-        public string GetPaymentRemark()
-        {
-            return _receipt.PaymentRemark;
-        }
-
-        public void SetPaymentRemark(string paymentRemark)
-        {
-            _receipt.PaymentRemark = paymentRemark;
         }
 
         public bool isOrderReceipt()
@@ -163,50 +81,12 @@ namespace Memorial.Lib.Receipt
 
         public float GetTotalIssuedReceiptAmountByIV(string IV)
         {
-            return GetReceiptsByInvoiceIV(IV).Sum(r => r.Amount);
+            return GetByIV(IV).Sum(r => r.Amount);
         }
 
-        abstract
-        public void NewNumber(int itemId);
-
-        protected bool CreateNewReceipt(ReceiptDto receiptDto)
+        public bool DeleteByIV(string IV)
         {
-            if (string.IsNullOrEmpty(_reNumber))
-                return false;
-
-            _receipt = new Core.Domain.Receipt();
-
-            Mapper.Map(receiptDto, _receipt);
-
-            _receipt.RE = _reNumber;
-
-            _unitOfWork.Receipts.Add(_receipt);
-
-            return true;
-        }
-
-        protected bool UpdateReceipt(ReceiptDto receiptDto)
-        {
-            var receiptInDb = GetReceipt(receiptDto.RE);
-
-            Mapper.Map(receiptDto, receiptInDb);
-
-            return true;
-        }
-
-        protected bool DeleteReceipt()
-        {
-            if (_receipt == null)
-                return false;
-
-            _unitOfWork.Receipts.Remove(_receipt);
-
-            return true;
-        }
-
-        public bool DeleteOrderReceiptsByInvoiceIV(string IV)
-        {
-            var receipts = GetReceiptsByInvoiceIV(IV);
+            var receipts = GetByIV(IV);
             foreach(var receipt in receipts)
             {
                 _unitOfWork.Receipts.Remove(receipt);
@@ -219,6 +99,14 @@ namespace Memorial.Lib.Receipt
             return true;
         }
 
-        
+
+        abstract
+        public IEnumerable<Core.Domain.Receipt> GetByAF(string AF);
+
+        abstract
+        public string GenerateRENumber(int itemId);
+
+        abstract
+        public float GetTotalIssuedReceiptAmountByAF(string AF);
     }
 }

@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface IMiscellaneousTransactionRepository : IRepository<MiscellaneousTransaction>
     {
-        MiscellaneousTransaction GetActive(string AF);
+        MiscellaneousTransaction GetByAF(string AF);
 
         IEnumerable<MiscellaneousTransaction> GetByItem(int itemId, string filter);
 

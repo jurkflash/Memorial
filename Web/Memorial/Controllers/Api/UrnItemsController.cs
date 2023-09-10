@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Urn;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -20,31 +21,32 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<UrnItemDto> GetItems(int id)
         {
-            return _item.GetItemDtosByUrn(id);
+            return Mapper.Map<IEnumerable<UrnItemDto>>(_item.GetByUrn(id));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetItem(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_item.GetItemDto(id));
+            return Ok(Mapper.Map<UrnItemDto>(_item.GetById(id)));
         }
 
         [Route("~/api/urns/mains/{id:int}/availableitems")]
         [HttpGet]
         public IEnumerable<SubProductServiceDto> GetAvailableItemsByUrn(int id)
         {
-            return _item.GetAvailableItemDtosByUrn(id);
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_item.GetAvailableItemByUrn(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateItem(UrnItemDto itemDto)
+        public IHttpActionResult Add(UrnItemDto itemDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _item.Create(itemDto);
+            var item = Mapper.Map<Core.Domain.UrnItem>(itemDto);
+            var id = _item.Add(item);
 
             if (id == 0)
                 return InternalServerError();
@@ -56,7 +58,8 @@ namespace Memorial.Controllers.Api
         [HttpPut]
         public IHttpActionResult UpdateItem(int id, UrnItemDto itemDto)
         {
-            if (_item.Update(itemDto))
+            var item = Mapper.Map<Core.Domain.UrnItem>(itemDto);
+            if (_item.Change(id, item))
                 return Ok();
             else
                 return InternalServerError();
@@ -66,7 +69,7 @@ namespace Memorial.Controllers.Api
         [HttpDelete]
         public IHttpActionResult DeleteItem(int id)
         {
-            if (_item.Delete(id))
+            if (_item.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

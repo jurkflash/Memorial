@@ -3,7 +3,6 @@ using System.Linq;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -11,8 +10,6 @@ namespace Memorial.Lib.Columbarium
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWithdraw _withdraw;
-        private readonly Invoice.IColumbarium _invoice;
-        private readonly IPayment _payment;
         private readonly ITracking _tracking;
 
         public Order(
@@ -24,8 +21,6 @@ namespace Memorial.Lib.Columbarium
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             INumber number,
-            Invoice.IColumbarium invoice,
-            IPayment payment,
             ITracking tracking
             ) : 
             base(
@@ -46,182 +41,158 @@ namespace Memorial.Lib.Columbarium
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
             _tracking = tracking;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            SetTransaction(AF);
-        }
-
-        private void SetDeceased(int id)
-        {
-            _deceased.SetDeceased(id);
-        }
-
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(ColumbariumTransactionDto columbariumTransactionDto)
-        {
-            if (columbariumTransactionDto.DeceasedDto1Id != null)
-            {
-                SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetNiche() != null)
-                    return false;
-            }
-
-            NewNumber(columbariumTransactionDto.ColumbariumItemDtoId);
-
-            SummaryItem(columbariumTransactionDto);
-
-            if (CreateNewTransaction(columbariumTransactionDto))
-            {
-                _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
-                _niche.SetApplicant(columbariumTransactionDto.ApplicantDtoId);
-
-                if (columbariumTransactionDto.DeceasedDto1Id != null)
-                {
-                    SetDeceased((int)columbariumTransactionDto.DeceasedDto1Id);
-                    if (_deceased.SetNiche(columbariumTransactionDto.NicheDtoId))
-                    {
-                        _niche.SetHasDeceased(true);
-                    }
-                    else
-                        return false;
-                }
-
-                if (columbariumTransactionDto.DeceasedDto2Id != null)
-                {
-                    SetDeceased((int)columbariumTransactionDto.DeceasedDto2Id);
-                    if (_deceased.SetNiche(columbariumTransactionDto.NicheDtoId))
-                    {
-                        _niche.SetHasDeceased(true);
-                    }
-                    else
-                        return false;
-                }
-
-                _tracking.Add(columbariumTransactionDto.NicheDtoId, _AFnumber, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
-
-                _withdraw.RemoveWithdrew(columbariumTransactionDto.NicheDtoId);
-
-                _unitOfWork.Complete();
-            }
-            else
+            if (columbariumTransaction.Deceased1Id != null)
             {
                 return false;
             }
+
+            columbariumTransaction.AF = _number.GetNewAF(columbariumTransaction.ColumbariumItemId, System.DateTime.Now.Year);
+
+            SummaryItem(columbariumTransaction);
+
+            _unitOfWork.ColumbariumTransactions.Add(columbariumTransaction);
+
+            var niche = _niche.GetById(columbariumTransaction.NicheId);
+            niche.ApplicantId = columbariumTransaction.ApplicantId;
+
+            if (columbariumTransaction.Deceased1Id != null)
+            {
+                var deceased = _deceased.GetById((int)columbariumTransaction.Deceased1Id);
+                deceased.NicheId = columbariumTransaction.NicheId;
+                niche.hasDeceased = true;
+            }
+
+            if (columbariumTransaction.Deceased2Id != null)
+            {
+                var deceased = _deceased.GetById((int)columbariumTransaction.Deceased2Id);
+                deceased.NicheId = columbariumTransaction.NicheId;
+                niche.hasDeceased = true;
+            }
+
+            _tracking.Add(columbariumTransaction.NicheId, columbariumTransaction.AF, columbariumTransaction.ApplicantId, columbariumTransaction.Deceased1Id, columbariumTransaction.Deceased2Id);
+
+            _withdraw.RemoveWithdrew(columbariumTransaction.NicheId);
+
+            _unitOfWork.Complete();
             
             return true;
         }
 
-        public bool Update(ColumbariumTransactionDto columbariumTransactionDto)
+        public bool Change(string AF, Core.Domain.ColumbariumTransaction columbariumTransaction)
         {
-            if (_invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Any() && columbariumTransactionDto.Price + (float)columbariumTransactionDto.Maintenance + (float)columbariumTransactionDto.LifeTimeMaintenance < 
-                _invoice.GetInvoicesByAF(columbariumTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
+            var invoices = _unitOfWork.Invoices.GetByActiveColumbariumAF(columbariumTransaction.AF).ToList();
 
-            var columbariumTransactionInDb = GetTransaction(columbariumTransactionDto.AF);
+            if (invoices.Any() && GetTotalAmount(columbariumTransaction) < invoices.Max(i => i.Amount))
+                return false;
+
+            SummaryItem(columbariumTransaction);
+
+            var columbariumTransactionInDb = GetByAF(AF);
+            columbariumTransactionInDb.Price = columbariumTransaction.Price;
+            columbariumTransactionInDb.Maintenance = columbariumTransaction.Maintenance;
+            columbariumTransactionInDb.LifeTimeMaintenance = columbariumTransaction.LifeTimeMaintenance;
+            columbariumTransactionInDb.SummaryItem = columbariumTransaction.SummaryItem;
+            columbariumTransactionInDb.Remark = columbariumTransaction.Remark;
 
             var deceased1InDb = columbariumTransactionInDb.Deceased1Id;
 
             var deceased2InDb = columbariumTransactionInDb.Deceased2Id;
 
-            SummaryItem(columbariumTransactionDto);
+            var niche = _niche.GetById(columbariumTransaction.NicheId);
 
-            if (UpdateTransaction(columbariumTransactionDto))
-            {
-                _niche.SetNiche(columbariumTransactionDto.NicheDtoId);
+            NicheApplicantDeceaseds(niche, columbariumTransaction.Deceased1Id, deceased1InDb);
 
-                NicheApplicantDeceaseds(columbariumTransactionDto.DeceasedDto1Id, deceased1InDb);
+            NicheApplicantDeceaseds(niche, columbariumTransaction.Deceased2Id, deceased2InDb);
 
-                NicheApplicantDeceaseds(columbariumTransactionDto.DeceasedDto2Id, deceased2InDb);
+            if (columbariumTransaction.Deceased1Id == null && columbariumTransaction.Deceased2Id == null)
+                niche.hasDeceased = false;
 
-                if (columbariumTransactionDto.DeceasedDto1Id == null && columbariumTransactionDto.DeceasedDto2Id == null)
-                    _niche.SetHasDeceased(false);
-
-                _tracking.Change(columbariumTransactionDto.NicheDtoId, columbariumTransactionDto.AF, columbariumTransactionDto.ApplicantDtoId, columbariumTransactionDto.DeceasedDto1Id, columbariumTransactionDto.DeceasedDto2Id);
-
-                _unitOfWork.Complete();
-            }
-
-            return true;
-        }
-
-        private bool NicheApplicantDeceaseds(int? deceasedId, int? dbDeceasedId)
-        {
-            if (deceasedId != dbDeceasedId)
-            {
-                if (deceasedId == null)
-                {
-                    _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemoveNiche();
-                }
-                else
-                {
-                    _deceased.SetDeceased((int)deceasedId);
-                    if (_deceased.GetNiche() != null && _deceased.GetNiche().Id != _niche.GetNiche().Id)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        _deceased.SetNiche(_niche.GetNiche().Id);
-                        _niche.SetHasDeceased(true);
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            if (!_tracking.IsLatestTransaction(_transaction.NicheId, _transaction.AF))
-                return false;
-
-            DeleteAllTransactionWithSameNicheId();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
-
-
-            _niche.SetNiche(_transaction.NicheId);
-
-            var deceaseds = _deceased.GetDeceasedsByNicheId(_transaction.NicheId);
-
-            foreach (var deceased in deceaseds)
-            {
-                _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveNiche();
-            }
-
-            _niche.SetHasDeceased(false);
-
-            _niche.RemoveApplicant();
-
-            _tracking.Delete(_transaction.AF);
+            _tracking.Change(columbariumTransaction.NicheId, columbariumTransaction.AF, columbariumTransaction.ApplicantId, columbariumTransaction.Deceased1Id, columbariumTransaction.Deceased2Id);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(ColumbariumTransactionDto trx)
+        private bool NicheApplicantDeceaseds(Core.Domain.Niche niche, int? deceasedId, int? dbDeceasedId)
         {
-            _niche.SetNiche(trx.NicheDtoId);
+            if (deceasedId != dbDeceasedId)
+            {
+                if (deceasedId == null)
+                {
+                    var deceased = _deceased.GetById((int)dbDeceasedId);
+                    deceased.Niche = null;
+                    deceased.NicheId = null;
+                }
+                else
+                {
+                    var deceased = _deceased.GetById((int)deceasedId);
+                    if (deceased.NicheId != null && deceased.NicheId != niche.Id)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        deceased.NicheId = niche.Id;
+                        niche.hasDeceased = true;
+                    }
+                }
+            }
 
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Niche + ": " + _niche.GetName() + "<BR/>" +
-                Resources.Mix.Type + ": " + _niche.GetNiche().NicheType.Name + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            var transactionInDb = _unitOfWork.ColumbariumTransactions.GetByAF(AF);
+
+            if (!_tracking.IsLatestTransaction(transactionInDb.NicheId, transactionInDb.AF))
+                return false;
+
+            if (_unitOfWork.Invoices.GetByActiveColumbariumAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByColumbariumAF(AF).Any())
+                return false;
+
+            _unitOfWork.ColumbariumTransactions.Remove(transactionInDb);
+
+            DeleteAllTransactionWithSameNicheId(transactionInDb.NicheId);
+
+            var niche = _niche.GetById(transactionInDb.NicheId);
+
+            var deceaseds = _deceased.GetByNicheId(transactionInDb.NicheId);
+
+            foreach (var deceased in deceaseds)
+            {
+                deceased.Niche = null;
+                deceased.NicheId = null;
+            }
+
+            niche.hasDeceased = false;
+            niche.Applicant = null;
+            niche.ApplicantId = null;
+
+            _tracking.Delete(transactionInDb.AF);
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        private void SummaryItem(Core.Domain.ColumbariumTransaction columbariumTransaction)
+        {
+            var niche = _niche.GetById(columbariumTransaction.NicheId);
+
+            columbariumTransaction.SummaryItem = "AF: " + columbariumTransaction.AF + "<BR/>" +
+                Resources.Mix.Niche + ": " + niche.Name + "<BR/>" +
+                Resources.Mix.Type + ": " + niche.NicheType.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + columbariumTransaction.Remark;
         }
     }
 }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Repositories;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Cremation
 {
@@ -16,7 +13,6 @@ namespace Memorial.Lib.Cremation
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
-        private Core.Domain.CremationItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -25,145 +21,78 @@ namespace Memorial.Lib.Cremation
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.CremationItems.GetActive(id);
-        }
-
-        public Core.Domain.CremationItem GetItem()
-        {
-            return _item;
-        }
-
-        public CremationItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.CremationItem, CremationItemDto>(GetItem());
-        }
-
-        public Core.Domain.CremationItem GetItem(int id)
+        public Core.Domain.CremationItem GetById(int id)
         {
             return _unitOfWork.CremationItems.GetActive(id);
         }
 
-        public CremationItemDto GetItemDto(int id)
+        public float GetPrice(Core.Domain.CremationItem cremationItem)
         {
-            return Mapper.Map<Core.Domain.CremationItem, CremationItemDto>(GetItem(id));
-        }
-
-        public IEnumerable<CremationItemDto> GetItemDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.CremationItem>, IEnumerable<CremationItemDto>>(_unitOfWork.CremationItems.GetAllActive());
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
-        public int GetCremationId()
-        {
-            return _item.CremationId;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (cremationItem.Price.HasValue)
+                return cremationItem.Price.Value;
             else
-                return _item.SubProductService.Price;
+                return cremationItem.SubProductService.Price;
         }
 
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
-        }
-
-        public IEnumerable<Core.Domain.CremationItem> GetItemByCremation(int cremationId)
+        public IEnumerable<Core.Domain.CremationItem> GetByCremation(int cremationId)
         {
             return _unitOfWork.CremationItems.GetByCremation(cremationId);
         }
 
-        public IEnumerable<CremationItemDto> GetItemDtosByCremation(int cremationId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.CremationItem>, IEnumerable<CremationItemDto>>(GetItemByCremation(cremationId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCremation(int cremationId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByCremation(int cremationId)
         {
             if (cremationId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemByCremation(cremationId);
+            var t = GetByCremation(cremationId);
             var sp = _subProductService.GetByProduct(_product.GetCremationProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return f;
         }
 
-        public int Create(CremationItemDto cremationItemDto)
+        public int Add(Core.Domain.CremationItem cremationItem)
         {
-            _item = new Core.Domain.CremationItem();
-            Mapper.Map(cremationItemDto, _item);
-
-            _unitOfWork.CremationItems.Add(_item);
-
+            _unitOfWork.CremationItems.Add(cremationItem);
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return cremationItem.Id;
         }
 
-        public bool Update(CremationItemDto cremationItemDto)
+        public bool Change(int id, Core.Domain.CremationItem cremationItem)
         {
-            var cremationItemInDB = GetItem(cremationItemDto.Id);
+            var cremationItemInDB = GetById(id);
 
-            if ((cremationItemInDB.CremationId != cremationItemDto.CremationDtoId
-                || cremationItemInDB.isOrder != cremationItemDto.isOrder)
+            if ((cremationItemInDB.CremationId != cremationItem.CremationId
+                || cremationItemInDB.isOrder != cremationItem.isOrder)
                 && _unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == cremationItemInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(cremationItemDto, cremationItemInDB);
-
+            cremationItemInDB.Price = cremationItem.Price;
+            cremationItemInDB.Code = cremationItem.Code;
+            cremationItemInDB.isOrder = cremationItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.CremationTransactions.Find(ct => ct.CremationItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
+            var cremationItemInDB = GetById(id);
 
-            if(_item == null)
+            if (cremationItemInDB == null)
             {
                 return false;
             }
 
-            _unitOfWork.CremationItems.Remove(_item);
-
+            _unitOfWork.CremationItems.Remove(cremationItemInDB);
             _unitOfWork.Complete();
 
             return true;

@@ -9,7 +9,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<Plot> GetByArea(int cemeteryAreaId, string filter);
 
-        IEnumerable<PlotType> GetTypesByArea(int cemeteryAreaId);
+        IEnumerable<PlotType> GetPlotTypesByArea(int cemeteryAreaId);
 
         IEnumerable<Plot> GetByTypeAndArea(int cemeteryAreaId, int plotTypeId, string filter);
 

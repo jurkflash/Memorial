@@ -37,13 +37,12 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId); 
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 Filter = filter,
-                MiscellaneousItemDto = _item.GetItemDto(),
-                MiscellaneousTransactionDtos = _reciprocate.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item),
+                MiscellaneousTransactionDtos = Mapper.Map<IEnumerable<MiscellaneousTransactionDto>>(_reciprocate.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = true
             };
 
@@ -57,18 +56,18 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 CemeteryLandscapeCompanyDtos = Mapper.Map<IEnumerable<CemeteryLandscapeCompanyDto>>(_cemeteryLandscapeCompany.GetAll())
             };
 
+            var item = _item.GetById(itemId);
             if (AF == null)
             {
                 var miscellaneousTransactionDto = new MiscellaneousTransactionDto();
-                miscellaneousTransactionDto.MiscellaneousItemDto = _item.GetItemDto();
+                miscellaneousTransactionDto.MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item);
                 miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
                 viewModel.MiscellaneousTransactionDto = miscellaneousTransactionDto;
-                viewModel.MiscellaneousTransactionDto.Amount = _reciprocate.GetItemPrice(itemId);
+                viewModel.MiscellaneousTransactionDto.Amount = _item.GetPrice(item);
             }
             else
             {
-                _reciprocate.SetTransaction(AF);
-                viewModel.MiscellaneousTransactionDto = _reciprocate.GetTransactionDto(AF);
+                viewModel.MiscellaneousTransactionDto = Mapper.Map<MiscellaneousTransactionDto>(_reciprocate.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -76,16 +75,17 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Save(MiscellaneousTransactionsFormViewModel viewModel)
         {
+            var miscellaneousTransaction = Mapper.Map<Core.Domain.MiscellaneousTransaction>(viewModel.MiscellaneousTransactionDto);
             if (viewModel.MiscellaneousTransactionDto.AF == null)
             {
-                if (!_reciprocate.Create(viewModel.MiscellaneousTransactionDto))
+                if (!_reciprocate.Add(miscellaneousTransaction))
                 {
                     return FormForResubmit(viewModel);
                 }
             }
             else
             {
-                if (!_reciprocate.Update(viewModel.MiscellaneousTransactionDto))
+                if (!_reciprocate.Change(miscellaneousTransaction.AF, miscellaneousTransaction))
                 {
                     ModelState.AddModelError("MiscellanousTransactionDto.Price", "* Exceed receipt amount");
 
@@ -108,8 +108,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Delete(string AF, int itemId)
         {
-            _reciprocate.SetTransaction(AF);
-            _reciprocate.Delete();
+            var status = _reciprocate.Remove(AF);
 
             return RedirectToAction("Index", new
             {

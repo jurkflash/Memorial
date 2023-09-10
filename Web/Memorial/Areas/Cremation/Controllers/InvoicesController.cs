@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Memorial.Lib.Invoice;
 using Memorial.Lib.Cremation;
-using Memorial.Core;
 using Memorial.Core.Dtos;
-using Memorial.Core.Domain;
 using Memorial.ViewModels;
 using AutoMapper;
 
@@ -17,16 +12,16 @@ namespace Memorial.Areas.Cremation.Controllers
     {
         private readonly ITransaction _transaction;
         private readonly Lib.Invoice.ICremation _invoice;
-        private readonly IPayment _payment;
+        private readonly Lib.Receipt.ICremation _receipt;
 
         public InvoicesController(
             ITransaction transaction,
             Lib.Invoice.ICremation invoice,
-            IPayment payment)
+            Lib.Receipt.ICremation receipt)
         {
             _transaction = transaction;
             _invoice = invoice;
-            _payment = payment;
+            _receipt = receipt;
         }
 
         public ActionResult Index(string AF)
@@ -34,7 +29,7 @@ namespace Memorial.Areas.Cremation.Controllers
             var viewModel = new InvoicesViewModel()
             {
                 AF = AF,
-                InvoiceDtos = _invoice.GetInvoiceDtosByAF(AF)
+                InvoiceDtos = Mapper.Map<IEnumerable<InvoiceDto>>(_invoice.GetByAF(AF))
             };
 
             return View(viewModel);
@@ -42,12 +37,12 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Form(string AF, string IV = null)
         {
-            _transaction.SetTransaction(AF);
+            var tansaction = _transaction.GetByAF(AF);
 
             var viewModel = new InvoiceFormViewModel()
             {
                 AF = AF,
-                Amount = _transaction.GetTransactionAmount()
+                Amount = _transaction.GetTotalAmount(tansaction)
             };
 
             if (IV == null)
@@ -56,7 +51,7 @@ namespace Memorial.Areas.Cremation.Controllers
             }
             else
             {
-                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
+                viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetByIV(IV));
             }
 
             return View("Form", viewModel);
@@ -64,32 +59,30 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Save(InvoiceFormViewModel viewModel)
         {
+            var tansaction = _transaction.GetByAF(viewModel.AF);
             if (viewModel.Amount < viewModel.InvoiceDto.Amount)
             {
-                _transaction.SetTransaction(viewModel.AF);
+                viewModel.Amount = _transaction.GetTotalAmount(tansaction);
 
                 ModelState.AddModelError("InvoiceDto.Amount", "Amount invalid");
-                viewModel.Amount = _transaction.GetTransactionAmount();
                 return View("Form", viewModel);
             }
 
-            _payment.SetTransaction(viewModel.AF);
-
-            viewModel.InvoiceDto.CremationTransactionAF = viewModel.AF;
-
+            var invoice = Mapper.Map<Core.Domain.Invoice>(viewModel.InvoiceDto);
             if (viewModel.InvoiceDto.IV == null)
             {
-                if (_payment.CreateInvoice(viewModel.InvoiceDto))
+                invoice.CremationTransactionAF = viewModel.AF;
+                if (_invoice.Add(tansaction.CremationItemId, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                 {
-                    viewModel.Amount = _transaction.GetTransactionAmount();
+                    viewModel.Amount = _transaction.GetTotalAmount(tansaction);
                     return View("Form", viewModel);
                 }
             }
             else
             {
-                if (_payment.UpdateInvoice(viewModel.InvoiceDto))
+                if (_invoice.Change(invoice.IV, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                     return View("Form", viewModel);
@@ -98,15 +91,15 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Info(string IV, bool exportToPDF = false)
         {
-            _invoice.SetInvoice(IV);
+            var invoice = _invoice.GetByIV(IV);
 
-            _transaction.SetTransaction(_invoice.GetAF());
+            var transaction = _transaction.GetByAF(invoice.CremationTransactionAF);
 
             var viewModel = new InvoiceInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.SummaryItem = _transaction.GetTransactionSummaryItem();
-            viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(_invoice.GetInvoice(IV));
-            viewModel.Header = _transaction.GetSiteHeader();
+            viewModel.SummaryItem = transaction.SummaryItem;
+            viewModel.InvoiceDto = Mapper.Map<InvoiceDto>(invoice);
+            viewModel.Header = transaction.CremationItem.Cremation.Site.Header;
 
             return View(viewModel);
         }
@@ -131,8 +124,12 @@ namespace Memorial.Areas.Cremation.Controllers
 
         public ActionResult Delete(string IV, string AF)
         {
-            _payment.SetInvoice(IV);
-            _payment.DeleteInvoice();
+            var invoice = _invoice.GetByIV(IV);
+            var status = _receipt.GetByIV(IV).Any();
+            if (!status)
+            {
+                var result = _invoice.Remove(invoice);
+            }
 
             return RedirectToAction("Index", new { AF = AF });
         }

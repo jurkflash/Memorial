@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Cemetery;
 
@@ -22,7 +23,7 @@ namespace Memorial.Areas.CemeteryConfig.Controllers
             var dto = new PlotDto();
             if (id != null)
             {
-                dto = _plot.GetPlotDto((int)id);
+                dto = Mapper.Map<PlotDto>(_plot.GetById((int)id));
             }
             return View(dto);
         }

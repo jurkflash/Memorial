@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Domain;
+﻿using System.Collections.Generic;
 using Memorial.Core.Dtos;
 
 namespace Memorial.Lib
@@ -15,42 +11,14 @@ namespace Memorial.Lib
 
         void SetReceipt(string RE);
 
-        void SetReceipt(Core.Domain.Receipt receipt);
-
-        Core.Domain.Receipt GetReceipt();
-
-        ReceiptDto GetReceiptDto();
-
-        Core.Domain.Receipt GetReceipt(string RE);
-
-        ReceiptDto GetReceiptDto(string RE);
-
-        IEnumerable<Core.Domain.Receipt> GetReceiptsByInvoiceIV(string IV);
-
-        IEnumerable<ReceiptDto> GetReceiptDtosByInvoiceIV(string IV);
+        IEnumerable<Core.Domain.Receipt> GetByIV(string IV);
 
         string GetInvoiceIV();
-
-        float GetAmount();
-
-        void SetAmount(float amount);
-
-        string GetRemark();
-
-        void SetRemark(string remark);
-
-        int GetPaymentMethodId();
-
-        int SetPaymentMethodId(byte paymentMethodId);
-
-        string GetPaymentRemark();
-
-        void SetPaymentRemark(string paymentRemark);
 
         bool isOrderReceipt();
 
         float GetTotalIssuedReceiptAmountByIV(string IV);
 
-        bool DeleteOrderReceiptsByInvoiceIV(string IV);
+        bool DeleteByIV(string IV);
     }
 }

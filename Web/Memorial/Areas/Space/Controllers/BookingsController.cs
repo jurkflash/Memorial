@@ -93,7 +93,7 @@ namespace Memorial.Areas.Space.Controllers
             var viewModel = new SpaceTransactionsFormViewModel()
             {
                 FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll()),
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId)
+                DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(applicantId))
             };
 
             var item = _item.GetById(itemId);

@@ -40,7 +40,7 @@ namespace Memorial.Persistence.Repositories
             }
         }
 
-        public IEnumerable<PlotType> GetTypesByArea(int cemeteryAreaId)
+        public IEnumerable<PlotType> GetPlotTypesByArea(int cemeteryAreaId)
         {
             var plotTypes = MemorialContext.Plots
                     .Include(p => p.PlotType)

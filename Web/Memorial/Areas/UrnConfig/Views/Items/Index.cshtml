@@ -26,7 +26,6 @@
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
             <th>@Html.Raw(Resources.Mix.CodeBR)</th>
             <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
@@ -40,7 +39,6 @@
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
             <th>@Html.Raw(Resources.Mix.CodeBR)</th>
             <th>@Html.Raw(Resources.Mix.isOrderBR)</th>
@@ -123,9 +121,6 @@
                         }
                     },
                     {
-                        data: "subProductServiceDto.description",
-                    },
-                    {
                         render: function (data, type, item) {
                             if (item.price == null)
                                 return item.subProductServiceDto.price;
@@ -166,9 +161,6 @@
                 columns: [
                     {
                         data: "name",
-                    },
-                    {
-                        data: "description",
                     },
                     {
                         data: "price",

@@ -51,7 +51,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         {
             var viewModel = new CemeteryAreaIndexesViewModel()
             {
-                CemeteryAreaDtos = _area.GetAreaDtosBySite(siteId),
+                CemeteryAreaDtos = Mapper.Map<IEnumerable<CemeteryAreaDto>>(_area.GetBySite(siteId)),
                 ApplicantId = applicantId,
                 SiteDto = Mapper.Map<SiteDto>(_site.Get(siteId))
             };
@@ -67,8 +67,8 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             var viewModel = new PlotIndexesViewModel()
             {
-                PlotTypeDtos = _plot.GetPlotTypeDtosByAreaId(areaId),
-                CemeteryAreaDto = _area.GetAreaDto(areaId),
+                PlotTypeDtos = Mapper.Map<IEnumerable<PlotTypeDto>>(_plot.GetPlotTypesByAreaId(areaId)),
+                CemeteryAreaDto = Mapper.Map<CemeteryAreaDto>(_area.GetById(areaId)),
                 SelectedPlotTypeId = plotTypeId,
                 ApplicantId = applicantId,
                 AreaId = areaId
@@ -76,11 +76,11 @@ namespace Memorial.Areas.Cemetery.Controllers
 
             if(plotTypeId == null)
             {
-                viewModel.PlotDtos = _plot.GetPlotDtosByAreaId(areaId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
+                viewModel.PlotDtos = Mapper.Map<IEnumerable<PlotDto>>(_plot.GetByAreaId(areaId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
             }
             else
             {
-                viewModel.PlotDtos = _plot.GetPlotDtosByAreaIdAndTypeId(areaId, (int)plotTypeId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
+                viewModel.PlotDtos = Mapper.Map<IEnumerable<PlotDto>>(_plot.GetByAreaIdAndTypeId(areaId, (int)plotTypeId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage);
             }
 
             return View(viewModel);
@@ -88,12 +88,12 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Items(int id, int? applicantId)
         {
-            _plot.SetPlot(id);
+            var plot = _plot.GetById(id);
             var viewModel = new CemeteryItemsViewModel()
             {
                 CemeteryItemDtos = _item.GetItemDtosByPlot(id),
-                CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId()),
-                PlotDto = _plot.GetPlotDto(),
+                CemeteryAreaDto = Mapper.Map<CemeteryAreaDto>(_area.GetById(plot.CemeteryAreaId)),
+                PlotDto = Mapper.Map<PlotDto>(plot),
                 ApplicantId = applicantId
             };
             return View(viewModel);
@@ -103,30 +103,29 @@ namespace Memorial.Areas.Cemetery.Controllers
         public PartialViewResult PlotInfo(int id)
         {
             var viewModel = new PlotInfoViewModel();
-            _plot.SetPlot(id);
-
-            if (_plot.GetPlotDto() != null)
+            var plot = _plot.GetById(id);
+            if (plot != null)
             {
-                viewModel.PlotDto = _plot.GetPlotDto();
-                viewModel.NumberOfPlacements = _plot.GetNumberOfPlacement();
-                viewModel.CemeteryAreaDto = _area.GetAreaDto(_plot.GetAreaId());
+                viewModel.PlotDto = Mapper.Map<PlotDto>(plot);
+                viewModel.NumberOfPlacements = plot.PlotType.NumberOfPlacement;
+                viewModel.CemeteryAreaDto = Mapper.Map<CemeteryAreaDto>(_area.GetById(plot.CemeteryAreaId));
                 viewModel.SiteDto = Mapper.Map<SiteDto>(_site.Get(viewModel.CemeteryAreaDto.SiteDtoId));
 
-                if (_plot.HasApplicant())
+                if (plot.ApplicantId != null)
                 {
-                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_plot.GetApplicantId()));
-                    var deceaseds = _deceased.GetDeceasedsByPlotId(_plot.GetPlot().Id).ToList();
+                    viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)plot.ApplicantId));
+                    var deceaseds = _deceased.GetByPlotId(plot.Id).ToList();
                     if (deceaseds.Count > 0)
                     {
-                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[0].Id));
+                        viewModel.DeceasedFlatten1Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)plot.ApplicantId, deceaseds[0].Id));
                     }
                     if (deceaseds.Count > 1)
                     {
-                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[1].Id));
+                        viewModel.DeceasedFlatten2Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)plot.ApplicantId, deceaseds[1].Id));
                     }
                     if (deceaseds.Count > 2)
                     {
-                        viewModel.DeceasedFlatten3Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)_plot.GetApplicantId(), deceaseds[2].Id));
+                        viewModel.DeceasedFlatten3Dto = Mapper.Map<ApplicantDeceasedFlattenDto>(_applicantDeceased.GetApplicantDeceasedFlatten((int)plot.ApplicantId, deceaseds[2].Id));
                     }
                 }
             }
@@ -146,14 +145,14 @@ namespace Memorial.Areas.Cemetery.Controllers
                 recents.Add(new RecentDto()
                 {
                     Code = transaction.AF,
-                    ApplicantName = transaction.ApplicantDto.Name,
+                    ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
-                    ItemId = transaction.CemeteryItemDtoId,
-                    Text1 = transaction.PlotDto.CemeteryAreaDto.Name,
-                    Text2 = transaction.PlotDto.Name,
-                    ItemName = transaction.CemeteryItemDto.SubProductServiceDto.Name,
-                    LinkArea = transaction.CemeteryItemDto.SubProductServiceDto.ProductDto.Area,
-                    LinkController = transaction.CemeteryItemDto.SubProductServiceDto.SystemCode
+                    ItemId = transaction.CemeteryItemId,
+                    Text1 = transaction.Plot.CemeteryArea.Name,
+                    Text2 = transaction.Plot.Name,
+                    ItemName = transaction.CemeteryItem.SubProductService.Name,
+                    LinkArea = transaction.CemeteryItem.SubProductService.Product.Area,
+                    LinkController = transaction.CemeteryItem.SubProductService.SystemCode
                 });
             }
 

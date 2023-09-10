@@ -3,6 +3,8 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Cremation;
+using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Controllers.Api
 {
@@ -20,31 +22,32 @@ namespace Memorial.Controllers.Api
         [HttpGet]
         public IEnumerable<CremationItemDto> GetItems(int id)
         {
-            return _item.GetItemDtosByCremation(id);
+            return Mapper.Map<IEnumerable<CremationItemDto>>(_item.GetByCremation(id));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetItem(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_item.GetItemDto(id));
+            return Ok(Mapper.Map<CremationItemDto>(_item.GetById(id)));
         }
 
         [Route("~/api/cremations/mains/{id:int}/availableitems")]
         [HttpGet]
         public IEnumerable<SubProductServiceDto> GetAvailableItemsByCremation(int id)
         {
-            return _item.GetAvailableItemDtosByCremation(id);
+            return Mapper.Map<IEnumerable<SubProductServiceDto>>(_item.GetAvailableItemByCremation(id));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateItem(CremationItemDto itemDto)
+        public IHttpActionResult Add(CremationItemDto itemDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _item.Create(itemDto);
+            var item = Mapper.Map<Core.Domain.CremationItem>(itemDto);
+            var id = _item.Add(item);
 
             if (id == 0)
                 return InternalServerError();
@@ -54,9 +57,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateItem(int id, CremationItemDto itemDto)
+        public IHttpActionResult Change(int id, CremationItemDto itemDto)
         {
-            if (_item.Update(itemDto))
+            var item = Mapper.Map<Core.Domain.CremationItem>(itemDto);
+            if (_item.Change(id, item))
                 return Ok();
             else
                 return InternalServerError();
@@ -64,9 +68,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteItem(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_item.Delete(id))
+            if (_item.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

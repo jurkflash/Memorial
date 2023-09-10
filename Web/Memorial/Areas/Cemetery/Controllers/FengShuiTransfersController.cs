@@ -48,38 +48,36 @@ namespace Memorial.Areas.Cemetery.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _plot.SetPlot(id);
-            _item.SetItem(itemId);
-
+            var plot = _plot.GetById(id);
+            var item = _item.GetById(itemId);
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                CemeteryItemDto = _item.GetItemDto(),
-                PlotDto = _plot.GetPlotDto(),
+                CemeteryItemDto = Mapper.Map<CemeteryItemDto>(item),
+                PlotDto = Mapper.Map<PlotDto>(plot),
                 PlotId = id,
                 CemeteryTransactionDtos = _transfer.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            viewModel.AllowNew = applicantId != null && _plot.HasApplicant() && _plot.GetApplicantId() != applicantId && _transfer.AllowPlotDeceasePairing(_plot, (int)applicantId);
+            viewModel.AllowNew = applicantId != null && plot.ApplicantId != null && plot.ApplicantId != applicantId && _transfer.AllowPlotDeceasePairing(plot, (int)applicantId);
 
             return View(viewModel);
         }
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _transfer.SetTransaction(AF);
-            _plot.SetPlot(_transfer.GetTransactionPlotId());
-            _area.SetArea(_plot.GetAreaId());
+            var transaction = _transfer.GetByAF(AF);
+            var item = _item.GetById(transaction.CemeteryItemId);
 
             var viewModel = new CemeteryTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _transfer.GetItemName();
-            viewModel.PlotDto = _plot.GetPlotDto();
-            viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto();
-            viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)_transfer.GetTransactionTransferredApplicantId()));
-            viewModel.ApplicantId = (int)_transfer.GetTransactionTransferredApplicantId();
-            viewModel.Header = _area.GetArea().Site.Header;
+            viewModel.ItemName = item.SubProductService.Name;
+            viewModel.PlotDto = Mapper.Map<PlotDto>(transaction.Plot);
+            viewModel.CemeteryTransactionDto = Mapper.Map<CemeteryTransactionDto>(transaction);
+            viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)transaction.TransferredApplicantId));
+            viewModel.ApplicantId = (int)transaction.TransferredApplicantId;
+            viewModel.Header = transaction.Plot.CemeteryArea.Site.Header;
 
             return View(viewModel);
         }
@@ -99,26 +97,25 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _plot.SetPlot(id);
-
+            var plot = _plot.GetById(id);
             var viewModel = new CemeteryTransactionsFormViewModel();
-            viewModel.PlotDto = _plot.GetPlotDto();
+            viewModel.PlotDto = Mapper.Map<PlotDto>(plot);
 
             if (AF == null)
             {
                 var cemeteryTransactionDto = new CemeteryTransactionDto(itemId, id, applicantId);
                 cemeteryTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(applicantId));
-                cemeteryTransactionDto.PlotDto = _plot.GetPlotDto();
-                cemeteryTransactionDto.TransferredApplicantId = _plot.GetApplicantId();
+                cemeteryTransactionDto.PlotDto = Mapper.Map<PlotDto>(plot);
+                cemeteryTransactionDto.TransferredApplicantId = plot.ApplicantId;
 
+                var item = _item.GetById(itemId);
                 viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
-                viewModel.CemeteryTransactionDto.Price = _transfer.GetItemPrice(itemId);
+                viewModel.CemeteryTransactionDto.Price = _item.GetPrice(item);
                 
             }
             else
             {
-                _transfer.SetTransaction(AF);
-                viewModel.CemeteryTransactionDto = _transfer.GetTransactionDto(AF);
+                viewModel.CemeteryTransactionDto = Mapper.Map<CemeteryTransactionDto>(_transfer.GetByAF(AF));
                 viewModel.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get((int)viewModel.CemeteryTransactionDto.TransferredApplicantId));
             }
 
@@ -127,23 +124,24 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Save(CemeteryTransactionsFormViewModel viewModel)
         {
+            var cemeteryTransaction = Mapper.Map<Core.Domain.CemeteryTransaction>(viewModel.CemeteryTransactionDto);
             if (viewModel.CemeteryTransactionDto.AF == null)
             {
-                _plot.SetPlot(viewModel.CemeteryTransactionDto.PlotDtoId);
+                var plot = _plot.GetById(viewModel.CemeteryTransactionDto.PlotDtoId);
 
-                if (_plot.GetApplicantId() == viewModel.CemeteryTransactionDto.ApplicantDtoId)
+                if (plot.ApplicantId == viewModel.CemeteryTransactionDto.ApplicantDtoId)
                 {
                     ModelState.AddModelError("CemeteryTransactionDto.Applicant.Name", "Not allow to be same applicant");
                     return FormForResubmit(viewModel);
                 }
 
-                if(!_transfer.AllowPlotDeceasePairing(_plot, viewModel.CemeteryTransactionDto.ApplicantDtoId))
+                if(!_transfer.AllowPlotDeceasePairing(plot, viewModel.CemeteryTransactionDto.ApplicantDtoId))
                 {
                     ModelState.AddModelError("CemeteryTransactionDto.Applicant.Name", "Deceased not linked with new applicant");
                     return FormForResubmit(viewModel);
                 }
 
-                if (_transfer.Create(viewModel.CemeteryTransactionDto))
+                if (_transfer.Add(cemeteryTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -159,16 +157,16 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
             else
             {
-                if (_invoice.GetInvoicesByAF(viewModel.CemeteryTransactionDto.AF).Any() &&
+                if (_invoice.GetByAF(viewModel.CemeteryTransactionDto.AF).Any() &&
                     viewModel.CemeteryTransactionDto.Price <
-                _invoice.GetInvoicesByAF(viewModel.CemeteryTransactionDto.AF).Max(i => i.Amount))
+                _invoice.GetByAF(viewModel.CemeteryTransactionDto.AF).Max(i => i.Amount))
                 {
                     ModelState.AddModelError("CemeteryTransactionDto.Price", "* Exceed invoice amount");
                     return FormForResubmit(viewModel);
                 }
 
 
-                _transfer.Update(viewModel.CemeteryTransactionDto);
+                _transfer.Change(cemeteryTransaction.AF, cemeteryTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -182,7 +180,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         public ActionResult FormForResubmit(CemeteryTransactionsFormViewModel viewModel)
         {
             viewModel.CemeteryTransactionDto.ApplicantDto = Mapper.Map<ApplicantDto>(_applicant.Get(viewModel.CemeteryTransactionDto.ApplicantDtoId));
-            viewModel.CemeteryTransactionDto.PlotDto = _plot.GetPlotDto(viewModel.CemeteryTransactionDto.PlotDtoId);
+            viewModel.CemeteryTransactionDto.PlotDto = Mapper.Map<PlotDto>(_plot.GetById(viewModel.CemeteryTransactionDto.PlotDtoId));
 
             return View("Form", viewModel);
         }
@@ -191,8 +189,7 @@ namespace Memorial.Areas.Cemetery.Controllers
         {
             if (_tracking.IsLatestTransaction(id, AF))
             {
-                _transfer.SetTransaction(AF);
-                _transfer.Delete();
+                _transfer.Remove(AF);
             }
 
             return RedirectToAction("Index", new

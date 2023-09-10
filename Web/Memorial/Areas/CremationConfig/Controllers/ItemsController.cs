@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Cremation;
-using Memorial.Lib.Catalog;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.CremationConfig.Controllers
 {
@@ -29,7 +29,7 @@ namespace Memorial.Areas.CremationConfig.Controllers
             var dto = new CremationItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<CremationItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

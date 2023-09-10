@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.ApplicantDeceased
 {

@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Urn;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,26 +19,27 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/sites/{siteId:int}/urns/mains")]
         [HttpGet]
-        public IEnumerable<UrnDto> GetUrnDtosBySite(int siteId)
+        public IEnumerable<UrnDto> GetBySite(int siteId)
         {
-            return _urn.GetUrnDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<UrnDto>>(_urn.GetBySite(siteId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetUrnDto(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_urn.GetUrnDto(id));
+            return Ok(Mapper.Map<UrnDto>(_urn.Get(id)));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateUrn(UrnDto urnDto)
+        public IHttpActionResult Add(UrnDto urnDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _urn.Create(urnDto);
+            var urn = Mapper.Map<Core.Domain.Urn>(urnDto);
+            var id = _urn.Add(urn);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +51,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateUrn(int id, UrnDto urnDto)
+        public IHttpActionResult Change(int id, UrnDto urnDto)
         {
-            if (_urn.Update(urnDto))
+            var urn = Mapper.Map<Core.Domain.Urn>(urnDto);
+            if (_urn.Change(id, urn))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +62,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteUrn(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_urn.Delete(id))
+            if (_urn.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

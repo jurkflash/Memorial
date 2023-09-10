@@ -5,6 +5,7 @@ using Memorial.Core.Dtos;
 using Memorial.ViewModels;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Miscellaneous.Controllers
 {
@@ -32,14 +33,13 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _item.SetItem(itemId);
-
+            var item = _item.GetById(itemId);
             var viewModel = new MiscellaneousItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                MiscellaneousItemDto = _item.GetItemDto(),
-                MiscellaneousTransactionDtos = _rentAirCooler.GetTransactionDtosByItemId(itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item),
+                MiscellaneousTransactionDtos = Mapper.Map<IEnumerable<MiscellaneousTransactionDto>>(_rentAirCooler.GetByItemId(itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
                 AllowNew = applicantId != null
             };
 
@@ -48,13 +48,12 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _rentAirCooler.SetTransaction(AF);
-            _miscellaneous.SetMiscellaneous(_rentAirCooler.GetTransactionDto().MiscellaneousItemDto.MiscellaneousDtoId);
+            var transaction = _rentAirCooler.GetByAF(AF);
 
             var viewModel = new MiscellaneousTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.MiscellaneousTransactionDto = _rentAirCooler.GetTransactionDto();
-            viewModel.Header = _miscellaneous.GetMiscellaneous().Site.Header;
+            viewModel.MiscellaneousTransactionDto = Mapper.Map<MiscellaneousTransactionDto>(transaction);
+            viewModel.Header = transaction.MiscellaneousItem.Miscellaneous.Site.Header;
 
             return View(viewModel);
         }
@@ -76,19 +75,17 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         {
             var miscellaneousTransactionDto = new MiscellaneousTransactionDto();
 
-            _item.SetItem(itemId);
-            _miscellaneous.SetMiscellaneous(_item.GetMiscellaneousId());
-
+            var item = _item.GetById(itemId);
             if (AF == null)
             {
                 miscellaneousTransactionDto.ApplicantDtoId = applicantId;
-                miscellaneousTransactionDto.MiscellaneousItemDto = _item.GetItemDto();
+                miscellaneousTransactionDto.MiscellaneousItemDto = Mapper.Map<MiscellaneousItemDto>(item);
                 miscellaneousTransactionDto.MiscellaneousItemDtoId = itemId;
-                miscellaneousTransactionDto.Amount = _item.GetPrice();
+                miscellaneousTransactionDto.Amount = _item.GetPrice(item);
             }
             else
             {
-                miscellaneousTransactionDto = _rentAirCooler.GetTransactionDto(AF);
+                miscellaneousTransactionDto = Mapper.Map<MiscellaneousTransactionDto>(_rentAirCooler.GetByAF(AF));
             }
 
             return View(miscellaneousTransactionDto);
@@ -96,33 +93,20 @@ namespace Memorial.Areas.Miscellaneous.Controllers
 
         public ActionResult Save(MiscellaneousTransactionDto miscellaneousTransactionDto)
         {
-            if (miscellaneousTransactionDto.AF == null)
+            var miscellaneousTransaction = Mapper.Map<Core.Domain.MiscellaneousTransaction>(miscellaneousTransactionDto);
+            if ((miscellaneousTransactionDto.AF == null && _rentAirCooler.Add(miscellaneousTransaction)) ||
+                (miscellaneousTransactionDto.AF != null && _rentAirCooler.Change(miscellaneousTransaction.AF, miscellaneousTransaction)))
             {
-                if (!_rentAirCooler.Create(miscellaneousTransactionDto))
-                {
-                    return View("Form", miscellaneousTransactionDto);
-                }
-            }
-            else
-            {
-                if (!_rentAirCooler.Update(miscellaneousTransactionDto))
-                {
-                    return View("Form", miscellaneousTransactionDto);
-                }
+                return RedirectToAction("Index", new { itemId = miscellaneousTransaction.MiscellaneousItemId, applicantId = miscellaneousTransaction.ApplicantId });
             }
 
-            return RedirectToAction("Index", new
-            {
-                itemId = miscellaneousTransactionDto.MiscellaneousItemDtoId,
-                applicantId = miscellaneousTransactionDto.ApplicantDtoId
-            });
+            return View("Form", miscellaneousTransactionDto);
         }
 
 
         public ActionResult Delete(string AF, int itemId, int applicantId)
         {
-            _rentAirCooler.SetTransaction(AF);
-            _rentAirCooler.Delete();
+            var status = _rentAirCooler.Remove(AF);
 
             return RedirectToAction("Index", new
             {

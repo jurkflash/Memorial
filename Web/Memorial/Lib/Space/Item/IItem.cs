@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Memorial.Core.Domain;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Space
 {
@@ -8,39 +7,11 @@ namespace Memorial.Lib.Space
     {
         SpaceItem GetById(int id);
         float GetPrice(Core.Domain.SpaceItem spaceItem);
-
-        
-
-
-
-        void SetItem(int id);
-
-        Core.Domain.SpaceItem GetItem();
-
-        SpaceItemDto GetItemDto();
-
-        Core.Domain.SpaceItem GetItem(int id);
-
-        SpaceItemDto GetItemDto(int id);
-
-        string GetName();
-
-        float GetPrice();
-
-        bool IsOrder();
-
-        bool AllowDeposit();
-
-        IEnumerable<Core.Domain.SpaceItem> GetItemBySpace(int spaceId);
-
-        IEnumerable<SpaceItemDto> GetItemDtosBySpace(int spaceId);
-
-        IEnumerable<SubProductServiceDto> GetAvailableItemDtosBySpace(int spaceId);
-
-        int Create(SpaceItemDto spaceItemDto);
-
-        bool Update(SpaceItemDto spaceItemDto);
-
-        bool Delete(int id);
+        bool IsOrder(Core.Domain.SpaceItem spaceItem);
+        int Add(Core.Domain.SpaceItem spaceItem);
+        bool Change(int id, Core.Domain.SpaceItem spaceItem);
+        bool Remove(int id);
+        IEnumerable<Core.Domain.SpaceItem> GetBySpace(int spaceId);
+        IEnumerable<Core.Domain.SubProductService> GetAvailableItemBySpace(int spaceId);
     }
 }

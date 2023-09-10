@@ -15,7 +15,11 @@ namespace Memorial
     {
         protected void Application_Start()
         {
-            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+            Mapper.Initialize(c => {
+                c.AddProfile<DomainToDomain>();
+                c.AddProfile<DomainToDto>();
+                c.AddProfile<DtoToDomain>();
+            });
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

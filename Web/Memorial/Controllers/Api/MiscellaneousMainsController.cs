@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.Miscellaneous;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,26 +19,27 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/sites/{siteId:int}/miscellaneous/mains")]
         [HttpGet]
-        public IEnumerable<MiscellaneousDto> GetMiscellaneousDtosBySite(int siteId)
+        public IEnumerable<MiscellaneousDto> GetBySite(int siteId)
         {
-            return _miscellaneous.GetMiscellaneousDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<MiscellaneousDto>>(_miscellaneous.GetBySite(siteId));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetMiscellaneousDto(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_miscellaneous.GetMiscellaneousDto(id));
+            return Ok(Mapper.Map<MiscellaneousDto>(_miscellaneous.Get(id)));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateMiscellaneous(MiscellaneousDto miscellaneousDto)
+        public IHttpActionResult Add(MiscellaneousDto miscellaneousDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _miscellaneous.Create(miscellaneousDto);
+            var miscellaneous = Mapper.Map<Core.Domain.Miscellaneous>(miscellaneousDto);
+            var id = _miscellaneous.Add(miscellaneous);
 
             if (id == 0)
                 return InternalServerError();
@@ -49,9 +51,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateMiscellaneous(int id, MiscellaneousDto miscellaneousDto)
+        public IHttpActionResult Change(int id, MiscellaneousDto miscellaneousDto)
         {
-            if (_miscellaneous.Update(miscellaneousDto))
+            var miscellaneous = Mapper.Map<Core.Domain.Miscellaneous>(miscellaneousDto);
+            if (_miscellaneous.Change(id, miscellaneous))
                 return Ok();
             else
                 return InternalServerError();
@@ -59,9 +62,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteMiscellaneous(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_miscellaneous.Delete(id))
+            if (_miscellaneous.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

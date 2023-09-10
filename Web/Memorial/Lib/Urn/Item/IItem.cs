@@ -1,49 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Urn
 {
     public interface IItem
     {
-        void SetItem(int id);
-
-        Core.Domain.UrnItem GetItem();
-
-        UrnItemDto GetItemDto();
-
-        Core.Domain.UrnItem GetItem(int id);
-
-        UrnItemDto GetItemDto(int id);
-
-        IEnumerable<UrnItemDto> GetItemDtos();
-
-        int GetId();
-
-        int GetUrnId();
-
-        string GetName();
-
-        string GetDescription();
-
-        float GetPrice();
-
-        string GetSystemCode();
-
-        bool IsOrder();
-
-        IEnumerable<Core.Domain.UrnItem> GetItemByUrn(int urnId);
-
-        IEnumerable<UrnItemDto> GetItemDtosByUrn(int urnId);
-
-        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByUrn(int urnId);
-
-        int Create(UrnItemDto urnItemDto);
-
-        bool Update(UrnItemDto urnItemDto);
-
-        bool Delete(int id);
+        Core.Domain.UrnItem GetById(int id);
+        IEnumerable<Core.Domain.UrnItem> GetByUrn(int urnId);
+        IEnumerable<Core.Domain.SubProductService> GetAvailableItemByUrn(int urnId);
+        int Add(Core.Domain.UrnItem urnItem);
+        bool Change(int id, Core.Domain.UrnItem urnItem);
+        bool Remove(int id);
     }
 }

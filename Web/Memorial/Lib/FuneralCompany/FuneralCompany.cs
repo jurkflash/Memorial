@@ -37,8 +37,10 @@ namespace Memorial.Lib.FuneralCompany
         {
             var funeralCompanyInDb = _unitOfWork.FuneralCompanies.Get(id);
 
-            Mapper.Map(funeralCompany, funeralCompanyInDb);
-
+            funeralCompanyInDb.Name = funeralCompany.Name;
+            funeralCompanyInDb.ContactPerson = funeralCompany.ContactPerson;
+            funeralCompanyInDb.ContactNumber = funeralCompany.ContactNumber;
+            funeralCompanyInDb.Remark = funeralCompany.Remark;
             _unitOfWork.Complete();
 
             return true;

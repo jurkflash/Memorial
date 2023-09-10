@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
-
-namespace Memorial.Lib.Cemetery
+﻿namespace Memorial.Lib.Cemetery
 {
     public interface ITransfer : ITransaction
     {
-        void SetTransfer(string AF);
-
-        bool AllowPlotDeceasePairing(IPlot plot, int applicantId);
-
-        bool Create(CemeteryTransactionDto cemeteryTransactionDto);
-
-        bool Update(CemeteryTransactionDto cemeteryTransactionDto);
-
-        bool Delete();
+        bool AllowPlotDeceasePairing(Core.Domain.Plot plot, int applicantId);
+        bool Add(Core.Domain.CemeteryTransaction cemeteryTransaction);
+        bool Change(string AF, Core.Domain.CemeteryTransaction cemeteryTransaction);
+        bool Remove(string AF);
     }
 }

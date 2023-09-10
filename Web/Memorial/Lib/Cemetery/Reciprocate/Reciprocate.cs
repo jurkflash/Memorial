@@ -3,15 +3,12 @@ using System.Linq;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Cemetery
 {
     public class Reciprocate : Transaction, IReciprocate
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Receipt.IPlot _receipt;
-        private readonly IPayment _payment;
 
         public Reciprocate(
             IUnitOfWork unitOfWork,
@@ -20,9 +17,7 @@ namespace Memorial.Lib.Cemetery
             IApplicant applicant,
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
-            INumber number,
-            Receipt.IPlot receipt,
-            IPayment payment
+            INumber number
             ) :
             base(
                 unitOfWork,
@@ -41,67 +36,49 @@ namespace Memorial.Lib.Cemetery
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _number = number;
-            _receipt = receipt;
-            _payment = payment;
         }
 
-        public void SetReciprocate(string AF)
+        public bool Add(Core.Domain.CemeteryTransaction cemeteryTransaction)
         {
-            SetTransaction(AF);
-        }
+            cemeteryTransaction.AF = _number.GetNewAF(cemeteryTransaction.CemeteryItemId, System.DateTime.Now.Year);
 
-        public float GetPrice(int itemId)
-        {
-            _item.SetItem(itemId);
-            return _item.GetPrice();
-        }
+            var plot = _plot.GetById(cemeteryTransaction.PlotId);
+            cemeteryTransaction.ApplicantId = (int)plot.ApplicantId;
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            NewNumber(cemeteryTransactionDto.CemeteryItemDtoId);
-
-            _plot.SetPlot(cemeteryTransactionDto.PlotDtoId);
-            cemeteryTransactionDto.ApplicantDtoId = (int)_plot.GetApplicantId();
-
-            if (CreateNewTransaction(cemeteryTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Update(CemeteryTransactionDto cemeteryTransactionDto)
-        {
-            if (_receipt.GetNonOrderReceipts(cemeteryTransactionDto.AF).Any() && cemeteryTransactionDto.Price <
-                _receipt.GetNonOrderReceipts(cemeteryTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            UpdateTransaction(cemeteryTransactionDto);
+            _unitOfWork.CemeteryTransactions.Add(cemeteryTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete()
+        public bool Change(string AF, Core.Domain.CemeteryTransaction cemeteryTransaction)
         {
-            DeleteTransaction();
+            var invoices = _unitOfWork.Invoices.GetByActiveCemeteryAF(cemeteryTransaction.AF).ToList();
 
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            if (invoices.Any() && cemeteryTransaction.Price < invoices.Max(i => i.Amount))
+                return false;
 
+            var cemeteryTransactionInDb = GetByAF(cemeteryTransaction.AF);
+            cemeteryTransactionInDb.Price = cemeteryTransaction.Price;
+            cemeteryTransactionInDb.SummaryItem = cemeteryTransaction.SummaryItem;
+            cemeteryTransactionInDb.Remark = cemeteryTransaction.Remark;
+
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveCemeteryAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByCemeteryAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.CemeteryTransactions.GetByAF(AF);
+            _unitOfWork.CemeteryTransactions.Remove(transactionInDb);
             _unitOfWork.Complete();
 
             return true;

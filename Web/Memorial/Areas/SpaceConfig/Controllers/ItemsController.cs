@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Space;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.SpaceConfig.Controllers
 {
@@ -28,7 +29,7 @@ namespace Memorial.Areas.SpaceConfig.Controllers
             var dto = new SpaceItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<SpaceItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

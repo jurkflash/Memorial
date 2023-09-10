@@ -1,27 +1,19 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Cremation
 {
     public class Order : Transaction, IOrder
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.ICremation _invoice;
-        private readonly IPayment _payment;
 
         public Order(
             IUnitOfWork unitOfWork,
             IItem item,
             ICremation cremation,
             IApplicant applicant,
-            INumber number,
-            Invoice.ICremation invoice,
-            IPayment payment
+            INumber number
             ) : 
             base(
                 unitOfWork, 
@@ -36,77 +28,58 @@ namespace Memorial.Lib.Cremation
             _cremation = cremation;
             _applicant = applicant;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.CremationTransaction cremationTransaction)
         {
-            SetTransaction(AF);
-        }
+            cremationTransaction.AF = _number.GetNewAF(cremationTransaction.CremationItemId, System.DateTime.Now.Year);
+            SummaryItem(cremationTransaction);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(CremationTransactionDto cremationTransactionDto)
-        {
-            NewNumber(cremationTransactionDto.CremationItemDtoId);
-
-            SummaryItem(cremationTransactionDto);
-
-            if (CreateNewTransaction(cremationTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool Update(CremationTransactionDto cremationTransactionDto)
-        {
-            if (_invoice.GetInvoicesByAF(cremationTransactionDto.AF).Any() && cremationTransactionDto.Price < 
-                _invoice.GetInvoicesByAF(cremationTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            SummaryItem(cremationTransactionDto);
-
-            if (UpdateTransaction(cremationTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteTransaction();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
-
+            _unitOfWork.CremationTransactions.Add(cremationTransaction);
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(CremationTransactionDto trx)
+        public bool Change(string AF, Core.Domain.CremationTransaction cremationTransaction)
         {
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.CremateDate + ": " + trx.CremateDate.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            var invoices = _unitOfWork.Invoices.GetByActiveSpaceAF(cremationTransaction.AF).ToList();
+
+            if (invoices.Any() && cremationTransaction.Price < invoices.Max(i => i.Amount))
+                return false;
+
+            SummaryItem(cremationTransaction);
+
+            var cremationTransactionInDb = GetByAF(cremationTransaction.AF);
+            cremationTransactionInDb.Price = cremationTransaction.Price;
+            cremationTransactionInDb.SummaryItem = cremationTransaction.SummaryItem;
+            cremationTransactionInDb.Remark = cremationTransaction.Remark;
+            cremationTransactionInDb.FuneralCompanyId = cremationTransaction.FuneralCompanyId;
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveCremationAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByCremationAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.CremationTransactions.GetByAF(AF);
+            _unitOfWork.CremationTransactions.Remove(transactionInDb);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        private void SummaryItem(Core.Domain.CremationTransaction cremationTransaction)
+        {
+            cremationTransaction.SummaryItem = "AF: " + cremationTransaction.AF + "<BR/>" +
+                Resources.Mix.CremateDate + ": " + cremationTransaction.CremateDate.ToString("yyyy-MMM-dd HH:mm") + "<BR/>" +
+                Resources.Mix.Remark + ": " + cremationTransaction.Remark;
         }
 
     }

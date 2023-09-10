@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -15,7 +14,6 @@ namespace Memorial.Lib.Columbarium
         private readonly IUnitOfWork _unitOfWork;
         private readonly IProduct _product;
         private readonly ISubProductService _subProductService;
-        private Core.Domain.ColumbariumItem _item;
 
         public Item(IUnitOfWork unitOfWork, IProduct product, ISubProductService subProductService)
         {
@@ -24,147 +22,91 @@ namespace Memorial.Lib.Columbarium
             _subProductService = subProductService;
         }
 
-        public void SetItem(int id)
-        {
-            _item = _unitOfWork.ColumbariumItems.GetActive(id);
-        }
-
-        public Core.Domain.ColumbariumItem GetItem()
-        {
-            return _item;
-        }
-
-        public ColumbariumItemDto GetItemDto()
-        {
-            return Mapper.Map<Core.Domain.ColumbariumItem, ColumbariumItemDto>(GetItem());
-        }
-
-        public Core.Domain.ColumbariumItem GetItem(int id)
+        public Core.Domain.ColumbariumItem GetById(int id)
         {
             return _unitOfWork.ColumbariumItems.GetActive(id);
         }
 
-        public ColumbariumItemDto GetItemDto(int id)
+        public float GetPrice(Core.Domain.ColumbariumItem columbariumItem)
         {
-            return Mapper.Map<Core.Domain.ColumbariumItem, ColumbariumItemDto>(GetItem(id));
-        }
-
-        public int GetId()
-        {
-            return _item.Id;
-        }
-
-        public string GetName()
-        {
-            return _item.SubProductService.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _item.SubProductService.Description;
-        }
-
-        public float GetPrice()
-        {
-            if (_item.Price.HasValue)
-                return _item.Price.Value;
+            if (columbariumItem.Price.HasValue)
+                return columbariumItem.Price.Value;
             else
-                return _item.SubProductService.Price;
-        }
-
-        public string GetSystemCode()
-        {
-            return _item.SubProductService.SystemCode;
-        }
-
-        public bool IsOrder()
-        {
-            if (_item.isOrder.HasValue)
-                return _item.isOrder.Value;
-            else
-                return _item.SubProductService.isOrder;
+                return columbariumItem.SubProductService.Price;
         }
 
         public float GetAmountWithDateRange(int itemId, DateTime from, DateTime to)
         {
-            SetItem(itemId);
+            var item = _unitOfWork.ColumbariumItems.GetActive(itemId);
 
             if (from > to)
                 return -1;
 
-            var total = (((to.Year - from.Year) * 12) + to.Month - from.Month) * GetPrice();
+            var total = (((to.Year - from.Year) * 12) + to.Month - from.Month) * GetPrice(item);
 
             return total;
         }
 
-        public IEnumerable<Core.Domain.ColumbariumItem> GetItemByCentre(int centreId)
+        public IEnumerable<Core.Domain.ColumbariumItem> GetByCentre(int centreId)
         {
             return _unitOfWork.ColumbariumItems.GetByCentre(centreId);
         }
 
-        public IEnumerable<ColumbariumItemDto> GetItemDtosByCentre(int centreId)
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.ColumbariumItem>, IEnumerable<ColumbariumItemDto>>(GetItemByCentre(centreId));
-        }
-
-        public IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCentre(int centreId)
+        public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByCentre(int centreId)
         {
             if (centreId == 0)
-                return new HashSet<SubProductServiceDto>();
+                return new HashSet<Core.Domain.SubProductService>();
 
-            var t = GetItemByCentre(centreId);
+            var t = GetByCentre(centreId);
             var sp = _subProductService.GetByProduct(_product.GetColumbariumProduct().Id);
             var f = sp.Where(s => !t.Any(y => y.SubProductServiceId == s.Id));
 
-            return Mapper.Map<IEnumerable<Core.Domain.SubProductService>, IEnumerable<SubProductServiceDto>>(f);
+            return f;
         }
 
-
-        public int Create(ColumbariumItemDto columbariumItemDto)
+        public int Add(Core.Domain.ColumbariumItem columbariumItem)
         {
-            _item = new Core.Domain.ColumbariumItem();
-            Mapper.Map(columbariumItemDto, _item);
-
-            _unitOfWork.ColumbariumItems.Add(_item);
+            _unitOfWork.ColumbariumItems.Add(columbariumItem);
 
             _unitOfWork.Complete();
 
-            return _item.Id;
+            return columbariumItem.Id;
         }
 
-        public bool Update(ColumbariumItemDto columbariumItemDto)
+        public bool Change(int id, Core.Domain.ColumbariumItem columbariumItem)
         {
-            var columbariumItemInDB = GetItem(columbariumItemDto.Id);
+            var columbariumItemInDB = _unitOfWork.ColumbariumItems.GetActive(id);
 
-            if ((columbariumItemInDB.isOrder != columbariumItemDto.isOrder
-                || columbariumItemInDB.ColumbariumCentreId != columbariumItemDto.ColumbariumCentreDtoId)
-                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItemDto.Id).Any())
+            if ((columbariumItemInDB.isOrder != columbariumItem.isOrder
+                || columbariumItemInDB.ColumbariumCentreId != columbariumItem.ColumbariumCentreId)
+                && _unitOfWork.ColumbariumTransactions.Find(qi => qi.ColumbariumItemId == columbariumItem.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(columbariumItemDto, columbariumItemInDB);
-
+            columbariumItemInDB.Price = columbariumItem.Price;
+            columbariumItemInDB.Code = columbariumItem.Code;
+            columbariumItemInDB.isOrder = columbariumItem.isOrder;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.ColumbariumTransactions.Find(qt => qt.ColumbariumItemId == id).Any())
             {
                 return false;
             }
 
-            SetItem(id);
+            var item = _unitOfWork.ColumbariumItems.GetActive(id);
 
-            if(_item == null)
+            if (item == null)
             {
                 return false;
             }
 
-            _unitOfWork.ColumbariumItems.Remove(_item);
+            _unitOfWork.ColumbariumItems.Remove(item);
 
             _unitOfWork.Complete();
 

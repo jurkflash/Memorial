@@ -33,7 +33,7 @@ namespace Memorial.Areas.CremationConfig.Controllers
             var dto = new CremationDto();
             if (id != null)
             {
-                dto = _cremation.GetCremationDto((int)id);
+                dto = Mapper.Map<CremationDto>(_cremation.GetById((int)id));
             }
 
             vw.CremationDto = dto;

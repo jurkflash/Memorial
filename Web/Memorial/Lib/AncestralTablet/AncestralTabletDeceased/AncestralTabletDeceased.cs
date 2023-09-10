@@ -29,21 +29,21 @@ namespace Memorial.Lib.AncestralTablet
 
         private bool Add(int id, int deceasedId, byte side)
         {
-            _deceased.SetDeceased(deceasedId);
-            if (_deceased.GetDeceased() == null)
+            var deceased = _deceased.GetById(deceasedId);
+            if (deceased == null)
                 return false;
 
-            _ancestralTablet.SetAncestralTablet(id);
-            if (_ancestralTablet.GetAncestralTablet() == null)
+            var ancestralTablet = _ancestralTablet.GetById(id);
+            if (ancestralTablet == null)
                 return false;
 
-            _ancestralTablet.SetHasDeceased(true);
+            ancestralTablet.hasDeceased = true;
 
-            _deceased.SetAncestralTablet(id);
+            deceased.AncestralTabletId = id;
 
             var tracking = _tracking.GetLatestFirstTransactionByAncestralTabletId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.AncestralTabletTransactionAF);
+            var transaction = _transaction.GetByAF(tracking.AncestralTabletTransactionAF);
 
             if (side == 1)
             {
@@ -67,18 +67,19 @@ namespace Memorial.Lib.AncestralTablet
 
         public bool Remove(int id, int deceasedId)
         {
-            if (_deceased.GetDeceasedsByAncestralTabletId(id).Count() == 1)
+            if (_deceased.GetByAncestralTabletId(id).Count() == 1)
             {
-                _ancestralTablet.SetAncestralTablet(id);
-                _ancestralTablet.SetHasDeceased(false);
+                var ancestralTablet = _ancestralTablet.GetById(id);
+                ancestralTablet.hasDeceased = false;
             }
 
-            _deceased.SetDeceased(deceasedId);
-            _deceased.RemoveAncestralTablet();
+            var deceased = _deceased.GetById(deceasedId);
+            deceased.AncestralTablet = null;
+            deceased.AncestralTabletId = null;
 
             var tracking = _tracking.GetLatestFirstTransactionByAncestralTabletId(id);
 
-            var transaction = _transaction.GetTransaction(tracking.AncestralTabletTransactionAF);
+            var transaction = _transaction.GetByAF(tracking.AncestralTabletTransactionAF);
 
             if (transaction.DeceasedId == deceasedId)
             {

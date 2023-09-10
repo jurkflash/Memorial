@@ -6,6 +6,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.AncestralTablet.Controllers
 {
@@ -39,21 +40,21 @@ namespace Memorial.Areas.AncestralTablet.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _ancestralTablet.SetAncestralTablet(id);
-            _item.SetItem(itemId);
+            var ancestralTablet = _ancestralTablet.GetById(id);
+            var item = _item.GetById(itemId);
 
             var viewModel = new AncestralTabletItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
                 AncestralTabletItemId = itemId,
-                AncestralTabletItemName = _item.GetName(),
-                AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto(),
+                AncestralTabletItemName = item.SubProductService.Name,
+                AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet),
                 AncestralTabletId = id,
-                AncestralTabletTransactionDtos = _withdraw.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                AncestralTabletTransactionDtos = Mapper.Map<IEnumerable<AncestralTabletTransactionDto>>(_withdraw.GetByAncestralTabletIdAndItemId(id, itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
             };
 
-            if(applicantId != null && !_withdraw.GetTransactionDtosByAncestralTabletIdAndItemId(id, itemId, null).Any())
+            if(applicantId != null && !_withdraw.GetByAncestralTabletIdAndItemId(id, itemId, null).Any())
             {
                 viewModel.AllowNew = true;
             }
@@ -63,17 +64,16 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _withdraw.SetTransaction(AF);
-            _ancestralTablet.SetAncestralTablet(_withdraw.GetTransactionAncestralTabletId());
-            _area.SetArea(_withdraw.GetTransaction().AncestralTabletItem.AncestralTabletAreaId);
-
+            var transaction = _withdraw.GetByAF(AF);
+            var item = _item.GetById(transaction.AncestralTabletItemId);
+            var area = _area.GetById(transaction.AncestralTabletItem.AncestralTabletAreaId);
             var viewModel = new AncestralTabletTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _withdraw.GetItemName();
-            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
-            viewModel.AncestralTabletTransactionDto = _withdraw.GetTransactionDto();
-            viewModel.ApplicantId = _withdraw.GetTransactionApplicantId();
-            viewModel.Header = _area.GetArea().Site.Header;
+            viewModel.ItemName = item.SubProductService.Name;
+            viewModel.AncestralTabletDto = Mapper.Map<AncestralTabletDto>(transaction.AncestralTablet);
+            viewModel.AncestralTabletTransactionDto = Mapper.Map<AncestralTabletTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.Header = area.Site.Header;
 
             return View(viewModel);
         }
@@ -94,10 +94,9 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            _ancestralTablet.SetAncestralTablet(id);
-
+            var ancestralTablet = _ancestralTablet.GetById(id);
             var viewModel = new AncestralTabletTransactionsFormViewModel();
-            viewModel.AncestralTabletDto = _ancestralTablet.GetAncestralTabletDto();
+            viewModel.AncestralTabletDto = Mapper.Map<AncestralTabletDto>(ancestralTablet);
 
             if (AF == null)
             {
@@ -107,8 +106,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                _withdraw.SetTransaction(AF);
-                viewModel.AncestralTabletTransactionDto = _withdraw.GetTransactionDto(AF);
+                viewModel.AncestralTabletTransactionDto = Mapper.Map<AncestralTabletTransactionDto>(_withdraw.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -116,9 +114,10 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Save(AncestralTabletTransactionsFormViewModel viewModel)
         {
+            var ancestralTabletTransaction = Mapper.Map<Core.Domain.AncestralTabletTransaction>(viewModel.AncestralTabletTransactionDto);
             if (viewModel.AncestralTabletTransactionDto.AF == null)
             {
-                if (_withdraw.Create(viewModel.AncestralTabletTransactionDto))
+                if (_withdraw.Add(ancestralTabletTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -134,7 +133,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
             }
             else
             {
-                _withdraw.Update(viewModel.AncestralTabletTransactionDto);
+                _withdraw.Change(ancestralTabletTransaction.AF, ancestralTabletTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -147,8 +146,7 @@ namespace Memorial.Areas.AncestralTablet.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            _withdraw.SetTransaction(AF);
-            _withdraw.Delete();
+            _withdraw.Remove(AF);
 
             return RedirectToAction("Index", new
             {

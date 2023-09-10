@@ -1,27 +1,19 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Urn
 {
     public class Purchase : Transaction, IPurchase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IUrn _invoice;
-        private readonly IPayment _payment;
 
         public Purchase(
             IUnitOfWork unitOfWork,
             IItem item,
             IUrn urn,
             IApplicant applicant,
-            INumber number,
-            Invoice.IUrn invoice,
-            IPayment payment
+            INumber number
             ) : 
             base(
                 unitOfWork, 
@@ -36,78 +28,59 @@ namespace Memorial.Lib.Urn
             _urn = urn;
             _applicant = applicant;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.UrnTransaction urnTransaction)
         {
-            SetTransaction(AF);
-        }
+            urnTransaction.AF = _number.GetNewAF(urnTransaction.UrnItemId, System.DateTime.Now.Year);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
+            SummaryItem(urnTransaction);
 
-        public bool Create(UrnTransactionDto urnTransactionDto)
-        {
-            NewNumber(urnTransactionDto.UrnItemDtoId);
-
-            SummaryItem(urnTransactionDto);
-
-            if (CreateNewTransaction(urnTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool Update(UrnTransactionDto urnTransactionDto)
-        {
-            if (_invoice.GetInvoicesByAF(urnTransactionDto.AF).Any() && urnTransactionDto.Price < 
-                _invoice.GetInvoicesByAF(urnTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            SummaryItem(urnTransactionDto);
-
-            if (UpdateTransaction(urnTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
+            _unitOfWork.UrnTransactions.Add(urnTransaction);
+            _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete()
+        public bool Change(string AF, Core.Domain.UrnTransaction urnTransaction)
         {
-            DeleteTransaction();
+            var invoices = _unitOfWork.Invoices.GetByActiveSpaceAF(urnTransaction.AF).ToList();
 
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            if (invoices.Any() && urnTransaction.Price < invoices.Max(i => i.Amount))
+                return false;
 
+            SummaryItem(urnTransaction);
+
+            var urnTransactionInDb = GetByAF(urnTransaction.AF);
+            urnTransactionInDb.Price = urnTransaction.Price;
+            urnTransactionInDb.Remark = urnTransaction.Remark;
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveUrnAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByUrnAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.UrnTransactions.GetByAF(AF);
+            _unitOfWork.UrnTransactions.Remove(transactionInDb);
             _unitOfWork.Complete();
 
             return true;
         }
 
 
-        private void SummaryItem(UrnTransactionDto trx)
+        private void SummaryItem(Core.Domain.UrnTransaction urnTransaction)
         {
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.Urn + ": " + _item.GetItem(trx.UrnItemDtoId).Urn.Name + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            var item = _unitOfWork.UrnItems.GetActive(urnTransaction.UrnItemId);
+            urnTransaction.SummaryItem = "AF: " + urnTransaction.AF + "<BR/>" +
+                Resources.Mix.Urn + ": " + item.Urn.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + urnTransaction.Remark;
         }
     }
 }

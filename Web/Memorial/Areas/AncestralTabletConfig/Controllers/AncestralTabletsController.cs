@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using Memorial.Core.Dtos;
 using Memorial.Lib.AncestralTablet;
 
@@ -22,7 +23,7 @@ namespace Memorial.Areas.AncestralTabletConfig.Controllers
             var dto = new AncestralTabletDto();
             if (id != null)
             {
-                dto = _ancestralTablet.GetAncestralTabletDto((int)id);
+                dto = Mapper.Map< AncestralTabletDto>(_ancestralTablet.GetById((int)id));
             }
             return View(dto);
         }

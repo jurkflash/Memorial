@@ -5,7 +5,7 @@ namespace Memorial.Core.Repositories
 {
     public interface IAncestralTabletTransactionRepository : IRepository<AncestralTabletTransaction>
     {
-        AncestralTabletTransaction GetActive(string AF);
+        AncestralTabletTransaction GetByAF(string AF);
 
         AncestralTabletTransaction GetExclusive(string AF);
 

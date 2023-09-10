@@ -36,8 +36,10 @@ namespace Memorial.Lib.FengShuiMaster
         {
             var fengShuiMasterInDB = _unitOfWork.FengShuiMasters.Get(id);
 
-            Mapper.Map(fengShuiMaster, fengShuiMasterInDB);
-
+            fengShuiMasterInDB.Name = fengShuiMaster.Name;
+            fengShuiMasterInDB.ContactPerson = fengShuiMaster.ContactPerson;
+            fengShuiMasterInDB.ContactNumber = fengShuiMaster.ContactNumber;
+            fengShuiMasterInDB.Remark = fengShuiMaster.Remark;
             _unitOfWork.Complete();
 
             return true;

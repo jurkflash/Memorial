@@ -12,7 +12,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public CremationTransaction GetActive(string AF)
+        public CremationTransaction GetByAF(string AF)
         {
             return MemorialContext.CremationTransactions
                 .Where(ct => ct.AF == AF)                                            

@@ -7,8 +7,6 @@ namespace Memorial.Lib.ApplicantDeceased
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        private Core.Domain.ApplicantDeceased _applicantDeceased;
-
         public ApplicantDeceased(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -30,9 +28,8 @@ namespace Memorial.Lib.ApplicantDeceased
 
             if(applicantDeceasedInDb != null)
             {
-                _unitOfWork.ApplicantDeceaseds.Remove(_applicantDeceased);
+                _unitOfWork.ApplicantDeceaseds.Remove(applicantDeceasedInDb);
                 _unitOfWork.Complete();
-
             }
 
             return true;

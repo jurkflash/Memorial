@@ -73,6 +73,9 @@
                 columns: [
                     {
                         data: "name",
+                        render: function (data, type, cremation) {
+                            return "<a href='/CremationConfig/Mains/Form/" + cremation.id + "'>" + cremation.name + "</a>";
+                        }
                     },
                     {
                         data: "description"

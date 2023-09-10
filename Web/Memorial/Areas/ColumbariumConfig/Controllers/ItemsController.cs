@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Memorial.Lib.Columbarium;
 using Memorial.Core.Dtos;
+using AutoMapper;
 
 namespace Memorial.Areas.ColumbariumConfig.Controllers
 {
@@ -23,7 +24,7 @@ namespace Memorial.Areas.ColumbariumConfig.Controllers
             var dto = new ColumbariumItemDto();
             if (id != null)
             {
-                dto = _item.GetItemDto((int)id);
+                dto = Mapper.Map<ColumbariumItemDto>(_item.GetById((int)id));
             }
             return View(dto);
         }

@@ -3,6 +3,7 @@ using System.Web.Http;
 using Memorial.Core.Dtos;
 using System.Collections.Generic;
 using Memorial.Lib.Cemetery;
+using AutoMapper;
 
 namespace Memorial.Controllers.Api
 {
@@ -20,47 +21,48 @@ namespace Memorial.Controllers.Api
 
         [Route("~/api/cemeteries/types")]
         [HttpGet]
-        public IEnumerable<PlotTypeDto> GetPlotTypeDtos()
+        public IEnumerable<PlotTypeDto> GetAll()
         {
-            return _plotType.GetPlotTypeDtos();
+            return Mapper.Map<IEnumerable<PlotTypeDto>>(_plotType.GetAll());
         }
 
         [Route("~/api/cemeteries/areas/{areaId:int}/types")]
         [HttpGet]
-        public IEnumerable<PlotTypeDto> GetPlotTypeDtosByAreaId(int areaId)
+        public IEnumerable<PlotTypeDto> GetPlotTypesByAreaId(int areaId)
         {
-            return _plot.GetPlotTypeDtosByAreaId(areaId);
+            return Mapper.Map<IEnumerable<PlotTypeDto>>(_plot.GetPlotTypesByAreaId(areaId));
         }
 
         [Route("~/api/cemeteries/areas/{areaId:int}/types/{plotTypeId:int}/availableplots")]
         [HttpGet]
         public IEnumerable<PlotDto> GetAvailablePlotDtosByTypeIdAndAreaId(int areaId, int plotTypeId)
         {
-            return _plot.GetAvailablePlotDtosByTypeIdAndAreaId(plotTypeId, areaId);
+            return Mapper.Map<IEnumerable<PlotDto>>(_plot.GetAvailableByTypeAndArea(plotTypeId, areaId));
         }
 
         [Route("~/api/cemeteries/areas/{areaId:int}/types/{plotTypeId:int}/plots")]
         [HttpGet]
-        public IEnumerable<PlotDto> GetPlotDtosByAreaIdAndTypeId(int areaId, int plotTypeId)
+        public IEnumerable<PlotDto> GetByAreaIdAndTypeId(int areaId, int plotTypeId)
         {
-            return _plot.GetPlotDtosByAreaIdAndTypeId(areaId, plotTypeId, null);
+            return Mapper.Map<IEnumerable<PlotDto>>(_plot.GetByAreaIdAndTypeId(areaId, plotTypeId, null));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetPlotDto(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_plot.GetPlotDto(id));
+            return Ok(Mapper.Map<PlotDto>(_plot.GetById(id)));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreatePlot(PlotDto plotDto)
+        public IHttpActionResult Add(PlotDto plotDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _plot.Create(plotDto);
+            var plot = Mapper.Map<Core.Domain.Plot>(plotDto);
+            var id = _plot.Add(plot);
 
             if (id == 0)
                 return InternalServerError();
@@ -72,9 +74,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdatePlot(int id, PlotDto plotDto)
+        public IHttpActionResult Change(int id, PlotDto plotDto)
         {
-            if (_plot.Update(plotDto))
+            var plot = Mapper.Map<Core.Domain.Plot>(plotDto);
+            if (_plot.Change(id, plot))
                 return Ok();
             else
                 return InternalServerError();
@@ -82,9 +85,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeletePlot(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_plot.Delete(id))
+            if (_plot.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

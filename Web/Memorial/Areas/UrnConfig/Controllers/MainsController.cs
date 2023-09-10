@@ -3,6 +3,8 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Urn;
 using Memorial.Lib.Catalog;
 using Memorial.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Memorial.Areas.UrnConfig.Controllers
 {
@@ -26,12 +28,12 @@ namespace Memorial.Areas.UrnConfig.Controllers
         {
             var vw = new UrnFormViewModel();
 
-            vw.SiteDtos = _catalog.GetSiteDtosUrn();
+            vw.SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_catalog.GetSitesUrn());
 
             var dto = new UrnDto();
             if (id != null)
             {
-                dto = _urn.GetUrnDto((int)id);
+                dto = Mapper.Map<UrnDto>(_urn.Get((int)id));
             }
 
             vw.UrnDto = dto;

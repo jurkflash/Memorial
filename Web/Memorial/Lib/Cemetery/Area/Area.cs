@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using AutoMapper;
 
 namespace Memorial.Lib.Cemetery
@@ -11,120 +8,67 @@ namespace Memorial.Lib.Cemetery
     public class Area : IArea
     {
         private readonly IUnitOfWork _unitOfWork;
-        private Core.Domain.CemeteryArea _area;
 
         public Area(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void SetArea(int id)
-        {
-            _area = _unitOfWork.CemeteryAreas.GetActive(id);
-        }
-
-        public int GetId()
-        {
-            return _area.Id;
-        }
-
-        public string GetName()
-        {
-            return _area.Name;
-        }
-
-        public string GetDescription()
-        {
-            return _area.Description;
-        }
-
-        public int GetSiteId()
-        {
-            return _area.SiteId;
-        }
-
-        public Core.Domain.CemeteryArea GetArea()
-        {
-            return _area;
-        }
-
-        public CemeteryAreaDto GetAreaDto()
-        {
-            return Mapper.Map<Core.Domain.CemeteryArea, CemeteryAreaDto>(_area);
-        }
-
-        public Core.Domain.CemeteryArea GetArea(int areaId)
+        public Core.Domain.CemeteryArea GetById(int areaId)
         {
             return _unitOfWork.CemeteryAreas.GetActive(areaId);
         }
 
-        public CemeteryAreaDto GetAreaDto(int areaId)
+        public IEnumerable<Core.Domain.CemeteryArea> GetAll()
         {
-            return Mapper.Map<Core.Domain.CemeteryArea, CemeteryAreaDto>(GetArea(areaId));
+            return _unitOfWork.CemeteryAreas.GetAllActive();
         }
 
-        public IEnumerable<CemeteryAreaDto> GetAreaDtos()
-        {
-            return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(_unitOfWork.CemeteryAreas.GetAllActive());
-        }
-
-        public IEnumerable<Core.Domain.CemeteryArea> GetAreaBySite(int siteId)
+        public IEnumerable<Core.Domain.CemeteryArea> GetBySite(int siteId)
         {
             return _unitOfWork.CemeteryAreas.GetBySite(siteId);
         }
 
-        public IEnumerable<CemeteryAreaDto> GetAreaDtosBySite(int siteId)
+        public int Add(Core.Domain.CemeteryArea cemeteryArea)
         {
-            return Mapper.Map<IEnumerable<Core.Domain.CemeteryArea>, IEnumerable<CemeteryAreaDto>>(GetAreaBySite(siteId));
-        }
-
-        public int Create(CemeteryAreaDto cemeteryAreaDto)
-        {
-            _area = new Core.Domain.CemeteryArea();
-            Mapper.Map(cemeteryAreaDto, _area);
-
-            _unitOfWork.CemeteryAreas.Add(_area);
-
+            _unitOfWork.CemeteryAreas.Add(cemeteryArea);
             _unitOfWork.Complete();
 
-            return _area.Id;
+            return cemeteryArea.Id;
         }
 
-        public bool Update(CemeteryAreaDto cemeteryAreaDto)
+        public bool Change(int id, Core.Domain.CemeteryArea cemeteryArea)
         {
-            var cemeteryAreaInDB = GetArea(cemeteryAreaDto.Id);
+            var cemeteryAreaInDB = _unitOfWork.CemeteryAreas.Get(id);
 
-            if (cemeteryAreaInDB.SiteId != cemeteryAreaDto.SiteDtoId
+            if (cemeteryAreaInDB.SiteId != cemeteryArea.SiteId
                 && _unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == cemeteryAreaInDB.Id).Any())
             {
                 return false;
             }
 
-            Mapper.Map(cemeteryAreaDto, cemeteryAreaInDB);
-
+            cemeteryAreaInDB.Name = cemeteryArea.Name;
+            cemeteryAreaInDB.Description = cemeteryArea.Description;
             _unitOfWork.Complete();
 
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Remove(int id)
         {
             if (_unitOfWork.CemeteryTransactions.Find(ct => ct.Plot.CemeteryAreaId == id).Any())
             {
                 return false;
             }
 
-            SetArea(id);
-
-            if (_area == null)
+            var cemeteryAreaInDB = _unitOfWork.CemeteryAreas.Get(id);
+            if (cemeteryAreaInDB == null)
             {
                 return false;
             }
 
-            _unitOfWork.CemeteryAreas.Remove(_area);
-
+            _unitOfWork.CemeteryAreas.Remove(cemeteryAreaInDB);
             _unitOfWork.Complete();
-
             return true;
         }
     }

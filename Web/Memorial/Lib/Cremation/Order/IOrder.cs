@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
-
-namespace Memorial.Lib.Cremation
+﻿namespace Memorial.Lib.Cremation
 {
     public interface IOrder : ITransaction
     {
-        void SetOrder(string AF);
-
-        bool Create(CremationTransactionDto cremationTransactionDto);
-
-        bool Update(CremationTransactionDto cremationTransactionDto);
-
-        bool Delete();
+        bool Add(Core.Domain.CremationTransaction cremationTransaction);
+        bool Change(string AF, Core.Domain.CremationTransaction cremationTransaction);
+        bool Remove(string AF);
     }
 }

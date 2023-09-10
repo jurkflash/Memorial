@@ -3,6 +3,8 @@ using System.Web.Http;
 using System.Collections.Generic;
 using Memorial.Core.Dtos;
 using Memorial.Lib.AncestralTablet;
+using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Controllers.Api
 {
@@ -18,33 +20,34 @@ namespace Memorial.Controllers.Api
 
         [Route("")]
         [HttpGet]
-        public IHttpActionResult GetAreas()
+        public IHttpActionResult GetAll()
         {
-            return Ok(_area.GetAreaDtos());
+            return Ok(Mapper.Map<IEnumerable<AncestralTabletAreaDto>>(_area.GetAll()));
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public IHttpActionResult GetArea(int id)
+        public IHttpActionResult Get(int id)
         {
-            return Ok(_area.GetAreaDto(id));
+            return Ok(Mapper.Map<AncestralTabletAreaDto>(_area.GetById(id)));
         }
 
         [Route("~/api/sites/{siteId:int}/ancestraltablets/areas")]
         [HttpGet]
-        public IEnumerable<AncestralTabletAreaDto> GetAreaBySite(int siteId)
+        public IEnumerable<AncestralTabletAreaDto> GetBySite(int siteId)
         {
-            return _area.GetAreaDtosBySite(siteId);
+            return Mapper.Map<IEnumerable<AncestralTabletAreaDto>>(_area.GetBySite(siteId));
         }
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult CreateArea(AncestralTabletAreaDto areaDto)
+        public IHttpActionResult Add(AncestralTabletAreaDto areaDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var id = _area.Create(areaDto);
+            var area = Mapper.Map<AncestralTabletArea>(areaDto);
+            var id = _area.Add(area);
 
             if (id == 0)
                 return InternalServerError();
@@ -56,9 +59,10 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpPut]
-        public IHttpActionResult UpdateArea(int id, AncestralTabletAreaDto areaDto)
+        public IHttpActionResult Change(int id, AncestralTabletAreaDto areaDto)
         {
-            if (_area.Update(areaDto))
+            var area = Mapper.Map<AncestralTabletArea>(areaDto);
+            if (_area.Change(id, area))
                 return Ok();
             else
                 return InternalServerError();
@@ -66,9 +70,9 @@ namespace Memorial.Controllers.Api
 
         [Route("{id:int}")]
         [HttpDelete]
-        public IHttpActionResult DeleteArea(int id)
+        public IHttpActionResult Remove(int id)
         {
-            if (_area.Delete(id))
+            if (_area.Remove(id))
                 return Ok();
             else
                 return InternalServerError();

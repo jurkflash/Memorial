@@ -6,6 +6,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -39,35 +40,35 @@ namespace Memorial.Areas.Columbarium.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _niche.SetNiche(id);
-            _item.SetItem(itemId);
+            var niche = _niche.GetById(id);
+            var item = _item.GetById(itemId);
 
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                ColumbariumItemDto = _item.GetItemDto(),
-                NicheDto = _niche.GetNicheDto(),
+                ColumbariumItemDto = Mapper.Map<ColumbariumItemDto>(item),
+                NicheDto = Mapper.Map<NicheDto>(niche),
                 NicheId = id,
-                ColumbariumTransactionDtos = _manage.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
-                AllowNew = applicantId != null && _niche.HasApplicant()
+                ColumbariumTransactionDtos = Mapper.Map<IEnumerable<ColumbariumTransactionDto>>(_manage.GetByNicheIdAndItemId(id, itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                AllowNew = applicantId != null && niche.ApplicantId != null
             };
             return View(viewModel);
         }
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _manage.SetTransaction(AF);
-            _niche.SetNiche(_manage.GetTransactionNicheId());
-            _centre.SetCentre(_niche.GetNiche().ColumbariumArea.ColumbariumCentreId);
+            var transaction = _manage.GetByAF(AF);
+            var niche = _niche.GetById(transaction.NicheId);
+            var centre = _centre.GetById(niche.ColumbariumArea.ColumbariumCentreId);
 
             var viewModel = new ColumbariumTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _manage.GetItemName();
-            viewModel.NicheDto = _niche.GetNicheDto();
-            viewModel.ColumbariumTransactionDto = _manage.GetTransactionDto();
-            viewModel.ApplicantId = _manage.GetTransactionApplicantId();
-            viewModel.Header = _centre.GetCentre().Site.Header;
+            viewModel.ItemName = transaction.ColumbariumItem.SubProductService.Name;
+            viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
+            viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.Header = centre.Site.Header;
 
             return View(viewModel);
         }
@@ -87,23 +88,20 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            var item = _item.GetItemDto(itemId);
+            var item = _item.GetById(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel();
-            viewModel.ColumbariumCentreDto = item.ColumbariumCentreDto;
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(item.ColumbariumCentre);
 
             if (AF == null)
             {
-                _niche.SetNiche(id);
-
                 var columbariumTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
                 columbariumTransactionDto.NicheDtoId = id;
                 viewModel.ColumbariumTransactionDto = columbariumTransactionDto;
-                viewModel.ColumbariumTransactionDto.Price = _manage.GetPrice(itemId);
+                viewModel.ColumbariumTransactionDto.Price = _item.GetPrice(item);
             }
             else
             {
-                _manage.SetTransaction(AF);
-                viewModel.ColumbariumTransactionDto = _manage.GetTransactionDto(AF);
+                viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(_manage.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -111,9 +109,10 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Save(ColumbariumTransactionsFormViewModel viewModel)
         {
+            var columbariumTransaction = Mapper.Map<Core.Domain.ColumbariumTransaction>(viewModel.ColumbariumTransactionDto);
             if (viewModel.ColumbariumTransactionDto.AF == null)
             {
-                if (_manage.Create(viewModel.ColumbariumTransactionDto))
+                if (_manage.Add(columbariumTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -129,16 +128,16 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
             else
             {
-                if (_invoice.GetInvoicesByAF(viewModel.ColumbariumTransactionDto.AF).Any() && 
+                if (_invoice.GetByAF(viewModel.ColumbariumTransactionDto.AF).Any() && 
                     viewModel.ColumbariumTransactionDto.Price <
-                _invoice.GetInvoicesByAF(viewModel.ColumbariumTransactionDto.AF).Max(i => i.Amount))
+                _invoice.GetByAF(viewModel.ColumbariumTransactionDto.AF).Max(i => i.Amount))
                 {
                     ModelState.AddModelError("ColumbariumTransactionDto.Price", "* Exceed invoice amount");
                     return View("Form", viewModel);
                 }
 
 
-                _manage.Update(viewModel.ColumbariumTransactionDto);
+                _manage.Change(columbariumTransaction.AF, columbariumTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -151,8 +150,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            _manage.SetTransaction(AF);
-            _manage.Delete();
+            _manage.Remove(AF);
 
             return RedirectToAction("Index", new
             {

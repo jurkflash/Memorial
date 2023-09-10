@@ -37,20 +37,19 @@ namespace Memorial.Areas.Cemetery.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _plot.SetPlot(id);
-            _item.SetItem(itemId);
-
+            var plot = _plot.GetById(id);
+            var item = _item.GetById(itemId);
             var viewModel = new CemeteryItemIndexesViewModel()
             {
                 Filter = filter,
-                CemeteryItemDto = _item.GetItemDto(),
                 CemeteryItemDtoId = itemId,
-                PlotDto = _plot.GetPlotDto(),
+                CemeteryItemDto = Mapper.Map<CemeteryItemDto>(item),
+                PlotDto = Mapper.Map<PlotDto>(plot),
                 PlotId = id,
                 CemeteryTransactionDtos = _reciprocate.GetTransactionDtosByPlotIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage)
             };
 
-            if (!_plot.HasApplicant() || _plot.HasCleared())
+            if (plot.ApplicantId == null || plot.hasCleared)
             {
                 viewModel.AllowNew = false;
             }
@@ -64,42 +63,40 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Info(string AF)
         {
-            _reciprocate.SetTransaction(AF);
-            _plot.SetPlot(_reciprocate.GetTransactionPlotId());
-
+            var transaction = _reciprocate.GetByAF(AF);
+            var plot = _plot.GetById(transaction.PlotId);
             var viewModel = new CemeteryTransactionsInfoViewModel()
             {
-                ApplicantId = _reciprocate.GetTransactionApplicantId(),
-                DeceasedId = _reciprocate.GetTransactionDeceased1Id(),
-                PlotDto = _plot.GetPlotDto(),
-                ItemName = _reciprocate.GetItemName(),
-                CemeteryTransactionDto = _reciprocate.GetTransactionDto()
+                ApplicantId = transaction.ApplicantId,
+                DeceasedId = transaction.Deceased1Id,
+                PlotDto = Mapper.Map<PlotDto>(plot),
+                ItemName = transaction.CemeteryItem.SubProductService.Name,
+                CemeteryTransactionDto = Mapper.Map<CemeteryTransactionDto>(transaction)
             };
             return View(viewModel);
         }
 
         public ActionResult Form(int itemId = 0, int id = 0, string AF = null)
         {
-            _plot.SetPlot(id);
-
+            var plot = _plot.GetById(id);
             var viewModel = new CemeteryTransactionsFormViewModel()
             {
                 FengShuiMasterDtos = Mapper.Map<IEnumerable<FengShuiMasterDto>>(_fengShuiMaster.GetAll()),
-                PlotDto = _plot.GetPlotDto()
+                PlotDto = Mapper.Map<PlotDto>(plot)
             };
 
             if (AF == null)
             {
+                var item = _item.GetById(itemId);
                 var cemeteryTransactionDto = new CemeteryTransactionDto();
                 cemeteryTransactionDto.PlotDtoId = id;
                 cemeteryTransactionDto.CemeteryItemDtoId = itemId;
                 viewModel.CemeteryTransactionDto = cemeteryTransactionDto;
-                viewModel.CemeteryTransactionDto.Price = _reciprocate.GetItemPrice();
+                viewModel.CemeteryTransactionDto.Price = _item.GetPrice(item);
             }
             else
             {
-                _reciprocate.SetTransaction(AF);
-                viewModel.CemeteryTransactionDto = _reciprocate.GetTransactionDto(AF);
+                viewModel.CemeteryTransactionDto = Mapper.Map<CemeteryTransactionDto>(_reciprocate.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -107,9 +104,10 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Save(CemeteryTransactionsFormViewModel viewModel)
         {
+            var cemeteryTransaction = Mapper.Map<Core.Domain.CemeteryTransaction>(viewModel.CemeteryTransactionDto);
             if (viewModel.CemeteryTransactionDto.AF == null)
             {
-                if (_reciprocate.Create(viewModel.CemeteryTransactionDto))
+                if (_reciprocate.Add(cemeteryTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -124,7 +122,7 @@ namespace Memorial.Areas.Cemetery.Controllers
             }
             else
             {
-                if (!_reciprocate.Update(viewModel.CemeteryTransactionDto))
+                if (!_reciprocate.Change(cemeteryTransaction.AF, cemeteryTransaction))
                 {
                     ModelState.AddModelError("CemeteryTransactionDto.Price", "* Exceed receipt amount");
 
@@ -148,8 +146,7 @@ namespace Memorial.Areas.Cemetery.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id)
         {
-            _reciprocate.SetTransaction(AF);
-            _reciprocate.Delete();
+            _reciprocate.Remove(AF);
 
             return RedirectToAction("Index", new
             {

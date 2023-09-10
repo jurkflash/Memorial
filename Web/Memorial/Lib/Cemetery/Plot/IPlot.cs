@@ -1,85 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Cemetery
 {
     public interface IPlot
     {
-        void SetPlot(int id);
-
-        Core.Domain.Plot GetPlot();
-
-        PlotDto GetPlotDto();
-
-        Core.Domain.Plot GetPlot(int id);
-
-        PlotDto GetPlotDto(int id);
-
-        IEnumerable<Core.Domain.Plot> GetPlotsByAreaId(int id, string filter);
-
-        IEnumerable<PlotDto> GetPlotDtosByAreaId(int id, string filter);
-
+        Core.Domain.Plot GetById(int id);
+        IEnumerable<Core.Domain.Plot> GetByAreaId(int id, string filter);
         IEnumerable<Core.Domain.PlotType> GetPlotTypesByAreaId(int id);
-
-        IEnumerable<PlotTypeDto> GetPlotTypeDtosByAreaId(int id);
-
-        IEnumerable<Core.Domain.Plot> GetPlotsByAreaIdAndTypeId(int areaId, int typeId, string filter);
-
-        IEnumerable<PlotDto> GetPlotDtosByAreaIdAndTypeId(int areaId, int typeId, string filter);
-
-        IEnumerable<Core.Domain.Plot> GetAvailablePlotsByTypeIdAndAreaId(int typeId, int areaId);
-
-        IEnumerable<PlotDto> GetAvailablePlotDtosByTypeIdAndAreaId(int typeId, int areaId);
-
-        IEnumerable<PlotDto> GetAvailablePlotDtosByAreaId(int typeId, int areaId);
-
-        string GetName();
-
-        string GetDescription();
-
-        string GetSize();
-
-        float GetPrice();
-
-        float GetMaintenance();
-
-        float GetWall();
-
-        float GetDig();
-
-        float GetBrick();
-
-        string GetRemark();
-
-        bool HasDeceased();
-
-        void SetHasDeceased(bool flag);
-
-        bool HasCleared();
-
-        void SetHasCleared(bool flag);
-
-        bool HasApplicant();
-
-        int? GetApplicantId();
-
-        void SetApplicant(int applicantId);
-
-        void RemoveApplicant();
-
-        int GetAreaId();
-
-        int GetNumberOfPlacement();
-
-        bool IsFengShuiPlot();
-
-        int Create(PlotDto plotDto);
-
-        bool Update(PlotDto plotDto);
-
-        bool Delete(int id);
+        IEnumerable<Core.Domain.Plot> GetByAreaIdAndTypeId(int areaId, int typeId, string filter);
+        IEnumerable<Core.Domain.Plot> GetAvailableByTypeAndArea(int typeId, int areaId);
+        int Add(Core.Domain.Plot plot);
+        bool Change(int id, Core.Domain.Plot plot);
+        bool Remove(int id);
     }
 }

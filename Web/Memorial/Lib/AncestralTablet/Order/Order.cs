@@ -1,20 +1,15 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
+using Memorial.Core.Domain;
 
 namespace Memorial.Lib.AncestralTablet
 {
     public class Order : Transaction, IOrder
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Invoice.IAncestralTablet _invoice;
-        private readonly IPayment _payment;
         private readonly ITracking _tracking;
         private readonly IWithdraw _withdraw;
 
@@ -26,8 +21,6 @@ namespace Memorial.Lib.AncestralTablet
             IDeceased deceased,
             IApplicantDeceased applicantDeceased,
             INumber number,
-            Invoice.IAncestralTablet invoice,
-            IPayment payment,
             ITracking tracking,
             IWithdraw withdraw
             ) : 
@@ -48,167 +41,135 @@ namespace Memorial.Lib.AncestralTablet
             _deceased = deceased;
             _applicantDeceased = applicantDeceased;
             _number = number;
-            _invoice = invoice;
-            _payment = payment;
             _tracking = tracking;
             _withdraw = withdraw;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.AncestralTabletTransaction ancestralTabletTransaction)
         {
-            SetTransaction(AF);
-        }
-
-        private void SetDeceased(int id)
-        {
-            _deceased.SetDeceased(id);
-        }
-
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto)
-        {
-            if (ancestralTabletTransactionDto.DeceasedDtoId != null)
+            if (ancestralTabletTransaction.DeceasedId != null)
             {
-                SetDeceased((int)ancestralTabletTransactionDto.DeceasedDtoId);
-                if (_deceased.GetAncestralTablet() != null)
+                var deceased = _deceased.GetById((int)ancestralTabletTransaction.DeceasedId);
+                if (deceased.AncestralTabletId != null)
                     return false;
             }
 
-            NewNumber(ancestralTabletTransactionDto.AncestralTabletItemDtoId);
+            ancestralTabletTransaction.AF = _number.GetNewAF(ancestralTabletTransaction.AncestralTabletItemId, System.DateTime.Now.Year);
+            SummaryItem(ancestralTabletTransaction);
 
-            SummaryItem(ancestralTabletTransactionDto);
+            _unitOfWork.AncestralTabletTransactions.Add(ancestralTabletTransaction);
 
-            if (CreateNewTransaction(ancestralTabletTransactionDto))
+            var ancestralTablet = _ancestralTablet.GetById(ancestralTabletTransaction.AncestralTabletId);
+            ancestralTablet.ApplicantId = ancestralTabletTransaction.ApplicantId;
+
+            if (ancestralTabletTransaction.DeceasedId != null)
             {
-                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId);
-                _ancestralTablet.SetApplicant(ancestralTabletTransactionDto.ApplicantDtoId);
-
-                if (ancestralTabletTransactionDto.DeceasedDtoId != null)
-                {
-                    SetDeceased((int)ancestralTabletTransactionDto.DeceasedDtoId);
-                    if (_deceased.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId))
-                    {
-                        _ancestralTablet.SetHasDeceased(true);
-                    }
-                    else
-                        return false;
-                }
-
-                _tracking.Add(ancestralTabletTransactionDto.AncestralTabletDtoId, _AFnumber, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
-
-                _withdraw.RemoveWithdrew(ancestralTabletTransactionDto.AncestralTabletDtoId);
-
-                _unitOfWork.Complete();
+                var deceased = _deceased.GetById((int)ancestralTabletTransaction.DeceasedId);
+                deceased.AncestralTabletId = ancestralTabletTransaction.AncestralTabletId;
+                ancestralTablet.hasDeceased = true;
             }
-            else
-            {
-                return false;
-            }
+
+            _tracking.Add(ancestralTabletTransaction.AncestralTabletId, ancestralTabletTransaction.AF, ancestralTabletTransaction.ApplicantId, ancestralTabletTransaction.DeceasedId);
+
+            _withdraw.RemoveWithdrew(ancestralTabletTransaction.AncestralTabletId);
+
+            _unitOfWork.Complete();
             
             return true;
         }
 
-        public bool Update(AncestralTabletTransactionDto ancestralTabletTransactionDto)
+        public bool Remove(string AF)
         {
-            if (_invoice.GetInvoicesByAF(ancestralTabletTransactionDto.AF).Any() && ancestralTabletTransactionDto.Price + (float)ancestralTabletTransactionDto.Maintenance < 
-                _invoice.GetInvoicesByAF(ancestralTabletTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
+            var transactionInDb = _unitOfWork.AncestralTabletTransactions.GetByAF(AF);
 
-            var ancestralTabletTransactionInDb = GetTransaction(ancestralTabletTransactionDto.AF);
-
-            var deceased1InDb = ancestralTabletTransactionInDb.DeceasedId;
-
-            SummaryItem(ancestralTabletTransactionDto);
-
-            if (UpdateTransaction(ancestralTabletTransactionDto))
-            {
-                _ancestralTablet.SetAncestralTablet(ancestralTabletTransactionDto.AncestralTabletDtoId);
-
-                AncestralTabletApplicantDeceaseds(ancestralTabletTransactionDto.DeceasedDtoId, deceased1InDb);
-
-                if (ancestralTabletTransactionDto.DeceasedDtoId == null)
-                    _ancestralTablet.SetHasDeceased(false);
-
-                _tracking.Change(ancestralTabletTransactionDto.AncestralTabletDtoId, ancestralTabletTransactionDto.AF, ancestralTabletTransactionDto.ApplicantDtoId, ancestralTabletTransactionDto.DeceasedDtoId);
-
-                _unitOfWork.Complete();
-            }
-
-            return true;
-        }
-
-        private bool AncestralTabletApplicantDeceaseds(int? deceasedId, int? dbDeceasedId)
-        {
-            if (deceasedId != dbDeceasedId)
-            {
-                if (deceasedId == null)
-                {
-                    _deceased.SetDeceased((int)dbDeceasedId);
-                    _deceased.RemoveAncestralTablet();
-                }
-                else
-                {
-                    _deceased.SetDeceased((int)deceasedId);
-                    if (_deceased.GetAncestralTablet() != null && _deceased.GetAncestralTablet().Id != _ancestralTablet.GetAncestralTablet().Id)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        _deceased.SetAncestralTablet(_ancestralTablet.GetAncestralTablet().Id);
-                        _ancestralTablet.SetHasDeceased(true);
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            if (!_tracking.IsLatestTransaction(_transaction.AncestralTabletId, _transaction.AF))
+            if (!_tracking.IsLatestTransaction(transactionInDb.AncestralTabletId, transactionInDb.AF))
                 return false;
 
-            DeleteAllTransactionWithSameAncestralTabletId();
+            if (_unitOfWork.Invoices.GetByActiveAncestralTabletAF(AF).Any())
+                return false;
 
-            _ancestralTablet.SetAncestralTablet(_transaction.AncestralTabletId);
+            if (_unitOfWork.Receipts.GetByAncestralTabletAF(AF).Any())
+                return false;
 
-            var deceaseds = _deceased.GetDeceasedsByAncestralTabletId(_transaction.AncestralTabletId);
+            var ancestralTablet = _ancestralTablet.GetById(_transaction.AncestralTabletId);
+            var deceaseds = _deceased.GetByAncestralTabletId(_transaction.AncestralTabletId);
 
             foreach (var deceased in deceaseds)
             {
-                _deceased.SetDeceased(deceased.Id);
-                _deceased.RemoveAncestralTablet();
+                deceased.AncestralTablet = null;
+                deceased.AncestralTabletId = null;
+
             }
 
-            _ancestralTablet.SetHasDeceased(false);
-
-            _ancestralTablet.RemoveApplicant();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            ancestralTablet.hasDeceased = false;
+            ancestralTablet.Applicant = null;
+            ancestralTablet.ApplicantId = null;
 
             _tracking.Delete(_transaction.AF);
+
+            _unitOfWork.AncestralTabletTransactions.Remove(transactionInDb);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
-        private void SummaryItem(AncestralTabletTransactionDto trx)
+        public bool Change(string AF, Core.Domain.AncestralTabletTransaction ancestralTabletTransaction)
         {
-            _ancestralTablet.SetAncestralTablet(trx.AncestralTabletDtoId);
+            var invoices = _unitOfWork.Invoices.GetByActiveAncestralTabletAF(ancestralTabletTransaction.AF).ToList();
 
-            trx.SummaryItem = "AF: " + (string.IsNullOrEmpty(trx.AF) ? _AFnumber : trx.AF) + "<BR/>" +
-                Resources.Mix.AncestralTablet + ": " + _ancestralTablet.GetName() + "<BR/>" +
-                Resources.Mix.Remark + ": " + trx.Remark;
+            if (invoices.Any() && ancestralTabletTransaction.Price + (float)ancestralTabletTransaction.Maintenance < invoices.Max(i => i.Amount))
+                return false;
+
+            SummaryItem(ancestralTabletTransaction);
+
+            var ancestralTabletTransactionInDb = GetByAF(ancestralTabletTransaction.AF);
+            ancestralTabletTransactionInDb.Price = ancestralTabletTransaction.Price;
+            ancestralTabletTransactionInDb.SummaryItem = ancestralTabletTransaction.SummaryItem;
+            ancestralTabletTransactionInDb.Remark = ancestralTabletTransaction.Remark;
+
+            var ancestralTablet = _ancestralTablet.GetById(ancestralTabletTransaction.AncestralTabletId);
+            if (ancestralTabletTransaction.DeceasedId != ancestralTabletTransactionInDb.DeceasedId)
+            {
+                if (ancestralTabletTransaction.DeceasedId == null)
+                {
+                    var deceased = _deceased.GetById((int)ancestralTabletTransactionInDb.DeceasedId);
+                    deceased.AncestralTablet = null;
+                    deceased.AncestralTabletId = null;
+                }
+                else
+                {
+                    var deceased = _deceased.GetById((int)ancestralTabletTransaction.DeceasedId);
+                    if (deceased.AncestralTabletId != null && deceased.AncestralTabletId != ancestralTablet.Id)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        deceased.AncestralTabletId = ancestralTablet.Id;
+                        ancestralTablet.hasDeceased = true;
+                    }
+                }
+            }
+
+
+            if (ancestralTabletTransaction.DeceasedId == null)
+                ancestralTablet.hasDeceased = false;
+
+            _tracking.Change(ancestralTabletTransaction.AncestralTabletId, ancestralTabletTransaction.AF, ancestralTabletTransaction.ApplicantId, ancestralTabletTransaction.DeceasedId);
+
+            _unitOfWork.Complete();
+
+            return true;
         }
 
+        private void SummaryItem(AncestralTabletTransaction ancestralTabletTransaction)
+        {
+            var ancestralTablet = _ancestralTablet.GetById(ancestralTabletTransaction.AncestralTabletId);
+
+            ancestralTabletTransaction.SummaryItem = "AF: " + ancestralTabletTransaction.AF + "<BR/>" +
+                Resources.Mix.AncestralTablet + ": " + ancestralTablet.Name + "<BR/>" +
+                Resources.Mix.Remark + ": " + ancestralTabletTransaction.Remark;
+        }
     }
 }

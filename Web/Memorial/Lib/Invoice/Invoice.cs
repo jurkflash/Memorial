@@ -1,5 +1,4 @@
 ﻿using Memorial.Core;
-using AutoMapper;
 using System.Linq;
 
 namespace Memorial.Lib.Invoice
@@ -51,70 +50,6 @@ namespace Memorial.Lib.Invoice
             return invoice.Amount - totalPaid;
         }
 
-
-        public void SetInvoice(string IV)
-        {
-            _invoice = _unitOfWork.Invoices.GetByIV(IV);
-        }
-
-        public Core.Domain.Invoice GetInvoice()
-        {
-            return _invoice;
-        }
-
-        public Core.Domain.Invoice GetInvoice(string IV)
-        {
-            return _unitOfWork.Invoices.GetByIV(IV);
-        }
-
-        public string GetIV()
-        {
-            return _invoice.IV;
-        }
-
-        public float GetAmount()
-        {
-            return _invoice.Amount;
-        }
-
-        public void SetAmount(float amount)
-        {
-            _invoice.Amount = amount;
-        }
-
-        public bool IsPaid()
-        {
-            return _invoice.isPaid;
-        }
-
-        public void SetIsPaid(bool paid)
-        {
-            _invoice.isPaid = paid;
-        }
-
-        public string GetRemark()
-        {
-            return _invoice.Remark;
-        }
-
-        public void SetRemark(string remark)
-        {
-            _invoice.Remark = remark;
-        }
-
-        public bool HasReceipt()
-        {
-            return _invoice.hasReceipt;
-        }
-
-        public void SetHasReceipt(bool hasReceipt)
-        {
-            _invoice.hasReceipt = hasReceipt;
-        }
-
-        abstract
-        public string GetAF();
-
         abstract
         public string GenerateIVNumber(int itemId);
 
@@ -125,22 +60,5 @@ namespace Memorial.Lib.Invoice
 
             return true;
         }
-
-        protected bool UpdateInvoice(InvoiceDto invoiceDto)
-        {
-            var invoiceInDb = GetInvoice(invoiceDto.IV);
-
-            Mapper.Map(invoiceDto, invoiceInDb);
-
-            return true;
-        }
-
-        protected bool DeleteInvoice()
-        {
-            _unitOfWork.Invoices.Remove(_invoice);
-
-            return true;
-        }
-
     }
 }

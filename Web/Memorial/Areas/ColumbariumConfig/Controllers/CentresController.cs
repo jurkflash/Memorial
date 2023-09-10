@@ -33,7 +33,7 @@ namespace Memorial.Areas.ColumbariumConfig.Controllers
             var dto = new ColumbariumCentreDto();
             if (id != null)
             {
-                dto = _centre.GetCentreDto((int)id);
+                dto = Mapper.Map<ColumbariumCentreDto>(_centre.GetById((int)id));
             }
 
             vw.ColumbariumCentreDto = dto;

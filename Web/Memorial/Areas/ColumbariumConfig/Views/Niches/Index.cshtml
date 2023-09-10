@@ -46,7 +46,6 @@
     <thead>
         <tr>
             <th>@Html.Raw(Resources.Mix.NameBR)</th>
-            <th>@Html.Raw(Resources.Mix.DescriptionBR)</th>
             <th>@Html.Raw(Resources.Mix.XBR)</th>
             <th>@Html.Raw(Resources.Mix.YBR)</th>
             <th>@Html.Raw(Resources.Mix.PriceBR)</th>
@@ -175,9 +174,6 @@
                         render: function (data, type, item) {
                             return "<a href='/ColumbariumConfig/Niches/Form/" + item.id + "'>" + item.name + "</a>";
                         }
-                    },
-                    {
-                        data: "description"
                     },
                     {
                         data: "positionX"

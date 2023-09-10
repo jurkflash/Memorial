@@ -1,27 +1,19 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Memorial.Lib.Applicant;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Miscellaneous
 {
     public class Donation : Transaction, IDonation
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Receipt.IMiscellaneous _receipt;
-        private readonly IPayment _payment;
 
         public Donation(
             IUnitOfWork unitOfWork,
             IItem item,
             IMiscellaneous miscellaneous,
             IApplicant applicant,
-            INumber number,
-            Receipt.IMiscellaneous receipt,
-            IPayment payment
+            INumber number
             ) : 
             base(
                 unitOfWork, 
@@ -36,67 +28,47 @@ namespace Memorial.Lib.Miscellaneous
             _miscellaneous = miscellaneous;
             _applicant = applicant;
             _number = number;
-            _receipt = receipt;
-            _payment = payment;
         }
 
-        public void SetOrder(string AF)
+        public bool Add(Core.Domain.MiscellaneousTransaction miscellaneousTransaction)
         {
-            SetTransaction(AF);
-        }
+            miscellaneousTransaction.AF = _number.GetNewAF(miscellaneousTransaction.MiscellaneousItemId, System.DateTime.Now.Year);
 
-        public void NewNumber(int itemId)
-        {
-            _AFnumber = _number.GetNewAF(itemId, System.DateTime.Now.Year);
-        }
-
-        public bool Create(MiscellaneousTransactionDto miscellaneousTransactionDto)
-        {
-            NewNumber(miscellaneousTransactionDto.MiscellaneousItemDtoId);
-
-            if (CreateNewTransaction(miscellaneousTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool Update(MiscellaneousTransactionDto miscellaneousTransactionDto)
-        {
-            if (_receipt.GetNonOrderReceipts(miscellaneousTransactionDto.AF).Any() && miscellaneousTransactionDto.Amount <
-                _receipt.GetNonOrderReceipts(miscellaneousTransactionDto.AF).Max(i => i.Amount))
-            {
-                return false;
-            }
-
-            if (UpdateTransaction(miscellaneousTransactionDto))
-            {
-                _unitOfWork.Complete();
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool Delete()
-        {
-            DeleteTransaction();
-
-            _payment.SetTransaction(_transaction.AF);
-            _payment.DeleteTransaction();
+            _unitOfWork.MiscellaneousTransactions.Add(miscellaneousTransaction);
 
             _unitOfWork.Complete();
 
             return true;
         }
 
+        public bool Change(string AF, Core.Domain.MiscellaneousTransaction miscellaneousTransaction)
+        {
+            var receipts = _unitOfWork.Receipts.GetByMiscellaneousAF(miscellaneousTransaction.AF).ToList();
+
+            if (receipts.Any() && miscellaneousTransaction.Amount < receipts.Max(i => i.Amount))
+                return false;
+
+            var miscellaneousTransactionInDb = GetByAF(miscellaneousTransaction.AF);
+            miscellaneousTransactionInDb.Amount = miscellaneousTransaction.Amount;
+            miscellaneousTransactionInDb.Remark = miscellaneousTransaction.Remark;
+            _unitOfWork.Complete();
+
+            return true;
+        }
+
+        public bool Remove(string AF)
+        {
+            if (_unitOfWork.Invoices.GetByActiveMiscellaneousAF(AF).Any())
+                return false;
+
+            if (_unitOfWork.Receipts.GetByMiscellaneousAF(AF).Any())
+                return false;
+
+            var transactionInDb = _unitOfWork.MiscellaneousTransactions.GetByAF(AF);
+            _unitOfWork.MiscellaneousTransactions.Remove(transactionInDb);
+            _unitOfWork.Complete();
+
+            return true;
+        }
     }
 }

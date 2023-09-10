@@ -1,51 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Urn
 {
     public interface ITransaction
     {
-        void SetTransaction(string AF);
-
-        void SetTransaction(Core.Domain.UrnTransaction transaction);
-
-        Core.Domain.UrnTransaction GetTransaction();
-
-        UrnTransactionDto GetTransactionDto();
-
-        Core.Domain.UrnTransaction GetTransaction(string AF);
-
-        UrnTransactionDto GetTransactionDto(string AF);
-
-        string GetTransactionAF();
-
-        float GetTransactionAmount();
-
-        string GetTransactionSummaryItem();
-
-        string GetSiteHeader();
-
-        int GetItemId();
-
-        string GetItemName();
-
-        string GetItemName(int id);
-
-        float GetItemPrice();
-
-        float GetItemPrice(int id);
-
-        bool IsItemOrder();
-
-        int GetTransactionApplicantId();
-
-        IEnumerable<Core.Domain.UrnTransaction> GetTransactionsByItemId(int itemId, string filter);
-
-        IEnumerable<UrnTransactionDto> GetTransactionDtosByItemId(int itemId, string filter);
-
-        IEnumerable<UrnTransactionDto> GetRecent(int siteId, int? applicantId);
+        Core.Domain.UrnTransaction GetByAF(string AF);
+        float GetTotalAmount(Core.Domain.UrnTransaction urnTransaction);
+        IEnumerable<Core.Domain.UrnTransaction> GetByItemId(int itemId, string filter);
+        IEnumerable<Core.Domain.UrnTransaction> GetRecent(int siteId, int? applicantId);
     }
 }

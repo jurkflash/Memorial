@@ -33,7 +33,7 @@ namespace Memorial.Areas.AncestralTabletConfig.Controllers
             var dto = new AncestralTabletAreaDto();
             if (id != null)
             {
-                dto = _area.GetAreaDto((int)id);
+                dto = Mapper.Map<AncestralTabletAreaDto>(_area.GetById((int)id));
             }
 
             vw.AncestralTabletAreaDto = dto;

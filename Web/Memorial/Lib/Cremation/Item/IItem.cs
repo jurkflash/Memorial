@@ -1,49 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Cremation
 {
     public interface IItem
     {
-        void SetItem(int id);
-
-        Core.Domain.CremationItem GetItem();
-
-        CremationItemDto GetItemDto();
-
-        Core.Domain.CremationItem GetItem(int id);
-
-        CremationItemDto GetItemDto(int id);
-
-        IEnumerable<CremationItemDto> GetItemDtos();
-
-        int GetId();
-
-        int GetCremationId();
-
-        string GetName();
-
-        string GetDescription();
-
-        float GetPrice();
-
-        string GetSystemCode();
-
-        bool IsOrder();
-
-        IEnumerable<Core.Domain.CremationItem> GetItemByCremation(int cremationId);
-
-        IEnumerable<CremationItemDto> GetItemDtosByCremation(int cremationId);
-
-        IEnumerable<SubProductServiceDto> GetAvailableItemDtosByCremation(int cremationId);
-
-        int Create(CremationItemDto cremationItemDto);
-
-        bool Update(CremationItemDto cremationItemDto);
-
-        bool Delete(int id);
+        Core.Domain.CremationItem GetById(int id);
+        float GetPrice(Core.Domain.CremationItem cremationItem);
+        IEnumerable<Core.Domain.CremationItem> GetByCremation(int cremationId);
+        IEnumerable<Core.Domain.SubProductService> GetAvailableItemByCremation(int cremationId);
+        int Add(Core.Domain.CremationItem cremationItem);
+        bool Change(int id, Core.Domain.CremationItem cremationItem);
+        bool Remove(int id);
     }
 }

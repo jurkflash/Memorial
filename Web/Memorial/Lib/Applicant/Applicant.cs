@@ -37,7 +37,17 @@ namespace Memorial.Lib.Applicant
         public bool Change(int id, Core.Domain.Applicant applicant)
         {
             var applicantInDb = _unitOfWork.Applicants.Get(id);
-            Mapper.Map(applicant, applicantInDb);
+
+            if(applicant.IC != applicantInDb.IC && GetExistsByIC(applicant.IC, null))
+                return false;
+
+            applicantInDb.Name = applicant.Name;
+            applicantInDb.Name2 = applicant.Name2;
+            applicantInDb.Address = applicant.Address;
+            applicantInDb.HousePhone = applicant.HousePhone;
+            applicantInDb.MobileNumber = applicant.MobileNumber;
+            applicantInDb.Remark = applicant.Remark;
+            applicantInDb.SiteId = applicant.SiteId;
             _unitOfWork.Complete();
             return true;
         }

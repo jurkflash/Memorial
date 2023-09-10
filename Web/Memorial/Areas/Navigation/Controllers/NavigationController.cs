@@ -22,6 +22,7 @@ namespace Memorial.Areas.Navigation.Controllers
         [ChildActionOnly]
         public ActionResult Navigation(int? applicantId)
         {
+            var s = _site.GetAll();
             var viewModel = new NavigationViewModel()
             {
                 SiteDtos = Mapper.Map<IEnumerable<SiteDto>>(_site.GetAll()),

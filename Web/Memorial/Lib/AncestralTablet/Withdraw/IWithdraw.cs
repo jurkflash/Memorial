@@ -1,16 +1,10 @@
-﻿using System;
-using Memorial.Core.Dtos;
-
-namespace Memorial.Lib.AncestralTablet
+﻿namespace Memorial.Lib.AncestralTablet
 {
     public interface IWithdraw : ITransaction
     {
-        bool Create(AncestralTabletTransactionDto ancestralTabletTransactionDto);
-
-        bool Update(AncestralTabletTransactionDto ancestralTabletTransactionDto);
-
-        bool Delete();
-
+        bool Add(Core.Domain.AncestralTabletTransaction ancestralTabletTransaction);
+        bool Change(string AF, Core.Domain.AncestralTabletTransaction ancestralTabletTransaction);
+        bool Remove(string AF);
         bool RemoveWithdrew(int ancestralTabletId);
     }
 }

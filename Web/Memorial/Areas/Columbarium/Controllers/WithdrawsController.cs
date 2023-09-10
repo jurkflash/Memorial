@@ -6,6 +6,7 @@ using Memorial.ViewModels;
 using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -39,20 +40,20 @@ namespace Memorial.Areas.Columbarium.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _niche.SetNiche(id);
-            _item.SetItem(itemId);
+            var niche = _niche.GetById(id);
+            var item = _item.GetById(itemId);
 
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                ColumbariumItemDto = _item.GetItemDto(),
-                NicheDto = _niche.GetNicheDto(),
+                ColumbariumItemDto = Mapper.Map<ColumbariumItemDto>(item),
+                NicheDto = Mapper.Map<NicheDto>(niche),
                 NicheId = id,
-                ColumbariumTransactionDtos = _withdraw.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                ColumbariumTransactionDtos = Mapper.Map<IEnumerable<ColumbariumTransactionDto>>(_withdraw.GetByNicheIdAndItemId(id, itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
             };
 
-            if(applicantId != null && !_withdraw.GetTransactionDtosByNicheIdAndItemId(id, itemId, null).Any())
+            if(applicantId != null && !_withdraw.GetByNicheIdAndItemId(id, itemId, null).Any())
             {
                 viewModel.AllowNew = true;
             }
@@ -62,18 +63,18 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _withdraw.SetTransaction(AF);
-            _niche.SetNiche(_withdraw.GetTransactionNicheId());
-            _centre.SetCentre(_niche.GetNiche().ColumbariumArea.ColumbariumCentreId);
+            var transaction = _withdraw.GetByAF(AF);
+            var niche = _niche.GetById(transaction.NicheId);
+            var centre = _centre.GetById(niche.ColumbariumArea.ColumbariumCentreId);
 
             var viewModel = new ColumbariumTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _withdraw.GetItemName();
-            viewModel.NicheDto = _niche.GetNicheDto();
-            viewModel.ColumbariumTransactionDto = _withdraw.GetTransactionDto();
-            viewModel.ColumbariumCentreDto = _centre.GetCentreDto();
-            viewModel.ApplicantId = _withdraw.GetTransactionApplicantId();
-            viewModel.Header = _centre.GetCentre().Site.Header;
+            viewModel.ItemName = transaction.ColumbariumItem.SubProductService.Name;
+            viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
+            viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(transaction);
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(centre);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.Header = centre.Site.Header;
 
             return View(viewModel);
         }
@@ -94,22 +95,19 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            var item = _item.GetItemDto(itemId);
+            var item = _item.GetById(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel();
-            viewModel.ColumbariumCentreDto = item.ColumbariumCentreDto;
+            viewModel.ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(item.ColumbariumCentre);
 
             if (AF == null)
             {
-                _niche.SetNiche(id);
-
                 var columbariumTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
                 columbariumTransactionDto.NicheDtoId = id;
                 viewModel.ColumbariumTransactionDto = columbariumTransactionDto;
             }
             else
             {
-                _withdraw.SetTransaction(AF);
-                viewModel.ColumbariumTransactionDto = _withdraw.GetTransactionDto(AF);
+                viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(_withdraw.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -117,9 +115,10 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Save(ColumbariumTransactionsFormViewModel viewModel)
         {
+            var columbariumTransaction = Mapper.Map<Core.Domain.ColumbariumTransaction>(viewModel.ColumbariumTransactionDto);
             if (viewModel.ColumbariumTransactionDto.AF == null)
             {
-                if (_withdraw.Create(viewModel.ColumbariumTransactionDto))
+                if (_withdraw.Add(columbariumTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -135,7 +134,7 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
             else
             {
-                _withdraw.Update(viewModel.ColumbariumTransactionDto);
+                _withdraw.Change(columbariumTransaction.AF, columbariumTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -148,8 +147,7 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Delete(string AF, int itemId, int id, int applicantId)
         {
-            _withdraw.SetTransaction(AF);
-            _withdraw.Delete();
+            _withdraw.Remove(AF);
 
             return RedirectToAction("Index", new
             {

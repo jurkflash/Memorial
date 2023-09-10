@@ -1,61 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Memorial.Core.Dtos;
+﻿using System.Collections.Generic;
 
 namespace Memorial.Lib.Columbarium
 {
     public interface ITransaction
     {
-        void SetTransaction(string AF);
-
-        void SetTransaction(Core.Domain.ColumbariumTransaction transaction);
-
-        Core.Domain.ColumbariumTransaction GetTransaction();
-
-        Core.Domain.ColumbariumTransaction GetTransactionExclusive(string AF);
-
-        ColumbariumTransactionDto GetTransactionDto();
-
-        Core.Domain.ColumbariumTransaction GetTransaction(string AF);
-
-        ColumbariumTransactionDto GetTransactionDto(string AF);
-
-        string GetTransactionAF();
-
-        float GetTransactionTotalAmount();
-
-        string GetTransactionSummaryItem();
-
-        int GetTransactionNicheId();
-
-        string GetSiteHeader();
-
-        int GetItemId();
-
-        string GetItemName();
-
-        string GetItemName(int id);
-
-        float GetItemPrice();
-
-        float GetItemPrice(int id);
-
-        bool IsItemOrder();
-
-        int GetTransactionApplicantId();
-
-        int? GetTransactionDeceased1Id();
-
-        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemId(int nicheId, int itemId, string filter);
-
-        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemId(int nicheId, int itemId, string filter);
-
-        IEnumerable<Core.Domain.ColumbariumTransaction> GetTransactionsByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId);
-
-        IEnumerable<ColumbariumTransactionDto> GetTransactionDtosByNicheIdAndItemIdAndApplicantId(int nicheId, int itemId, int applicantId);
-
-        Core.Domain.ColumbariumTransaction GetTransactionsByShiftedColumbariumTransactionAF(string AF);
-
-        IEnumerable<ColumbariumTransactionDto> GetRecent(int siteId, int? applicantId);
+        Core.Domain.ColumbariumTransaction GetByAF(string AF);
+        float GetTotalAmount(Core.Domain.ColumbariumTransaction columbariumTransaction);
+        IEnumerable<Core.Domain.ColumbariumTransaction> GetByNicheIdAndItemId(int nicheId, int itemId, string filter);
+        Core.Domain.ColumbariumTransaction GetByShiftedColumbariumTransactionAF(string AF);
+        IEnumerable<Core.Domain.ColumbariumTransaction> GetRecent(int siteId, int? applicantId);
     }
 }

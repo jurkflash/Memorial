@@ -1,12 +1,6 @@
 ﻿using Memorial.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
-using Memorial.Lib.ApplicantDeceased;
-using Memorial.Core.Dtos;
 
 namespace Memorial.Lib.Cemetery
 {
@@ -29,48 +23,39 @@ namespace Memorial.Lib.Cemetery
             _plot = plot;
         }
 
-        public void ClearPlotApplicantAndDeceased(int plotId)
+        private void ClearPlotApplicantAndDeceased(Core.Domain.Plot plot)
         {
-            _plot.SetPlot(plotId);
-
-            var deceaseds = _deceased.GetDeceasedsByPlotId(plotId);
+            var deceaseds = _deceased.GetByPlotId(plot.Id);
 
             foreach (var deceased in deceaseds)
             {
-                _deceased.SetDeceased(deceased.Id);
-                _deceased.RemovePlot();
+                deceased.Plot = null;
+                deceased.PlotId = null;
             }
 
-            _plot.SetHasDeceased(false);
+            plot.hasDeceased = false;
 
-            _plot.RemoveApplicant();
+            plot.Applicant = null;
+            plot.ApplicantId = null;
         }
 
-        public bool SetPlotApplicantDeceaseds(int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
+        private bool SetPlotApplicantDeceaseds(Core.Domain.Plot plot, int? applicantId = null, int? deceased1Id = null, int? deceased2Id = null)
         {
             if (applicantId != null)
-                _plot.SetApplicant((int)applicantId);
+                plot.ApplicantId = (int)applicantId;
 
             if (deceased1Id != null)
             {
-                _deceased.SetDeceased((int)deceased1Id);
-                if (_deceased.SetPlot(_plot.GetPlot().Id))
-                {
-                    _plot.SetHasDeceased(true);
-                }
-                else
-                    return false;
+                var deceased = _deceased.GetById((int)deceased1Id);
+                deceased.PlotId = plot.Id;
+                plot.hasDeceased = true;
             }
 
             if (deceased2Id != null)
             {
-                _deceased.SetDeceased((int)deceased2Id);
-                if (_deceased.SetPlot(_plot.GetPlot().Id))
-                {
-                    _plot.SetHasDeceased(true);
-                }
-                else
-                    return false;
+                var deceased = _deceased.GetById((int)deceased2Id);
+                deceased.PlotId = plot.Id;
+                plot.hasDeceased = true;
             }
 
             return true;
@@ -81,13 +66,14 @@ namespace Memorial.Lib.Cemetery
             if (!_tracking.IsLatestTransaction(plotId, cemeteryTransactionAF))
                 return false;
 
-            ClearPlotApplicantAndDeceased(plotId);
+            var plot = _plot.GetById(plotId);
+            ClearPlotApplicantAndDeceased(plot);
 
             var trackingsByPlotId = _tracking.GetTrackingByPlotId(plotId);
 
             if(trackingsByPlotId.Count() > 1)
             {
-                SetPlotApplicantDeceaseds(trackingsByPlotId.ElementAt(1).ApplicantId, trackingsByPlotId.ElementAt(1).Deceased1Id, trackingsByPlotId.ElementAt(1).Deceased2Id);
+                SetPlotApplicantDeceaseds(plot, trackingsByPlotId.ElementAt(1).ApplicantId, trackingsByPlotId.ElementAt(1).Deceased1Id, trackingsByPlotId.ElementAt(1).Deceased2Id);
             }
 
             _tracking.Delete(cemeteryTransactionAF);

@@ -12,7 +12,7 @@ namespace Memorial.Persistence.Repositories
         {
         }
 
-        public UrnTransaction GetActive(string AF)
+        public UrnTransaction GetByAF(string AF)
         {
             return MemorialContext.UrnTransactions
                 .Include(ut => ut.UrnItem)

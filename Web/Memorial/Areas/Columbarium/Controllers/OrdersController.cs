@@ -9,6 +9,7 @@ using Memorial.Lib;
 using PagedList;
 using System.Collections.Generic;
 using AutoMapper;
+using Memorial.Core.Domain;
 
 namespace Memorial.Areas.Columbarium.Controllers
 {
@@ -51,20 +52,20 @@ namespace Memorial.Areas.Columbarium.Controllers
                 ViewBag.CurrentFilter = filter;
             }
 
-            _niche.SetNiche(id);
-            _item.SetItem(itemId);
+            var niche = _niche.GetById(id);
+            var item = _item.GetById(itemId);
 
             var viewModel = new ColumbariumItemIndexesViewModel()
             {
                 Filter = filter,
                 ApplicantId = applicantId,
-                ColumbariumItemDto = _item.GetItemDto(),
-                NicheDto = _niche.GetNicheDto(),
+                ColumbariumItemDto = Mapper.Map<ColumbariumItemDto>(item),
+                NicheDto = Mapper.Map<NicheDto>(niche),
                 NicheId = id,
-                ColumbariumTransactionDtos = _order.GetTransactionDtosByNicheIdAndItemId(id, itemId, filter).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
+                ColumbariumTransactionDtos = Mapper.Map<IEnumerable<ColumbariumTransactionDto>>(_order.GetByNicheIdAndItemId(id, itemId, filter)).ToPagedList(page ?? 1, Constant.MaxRowPerPage),
             };
 
-            if(applicantId == null || _niche.HasApplicant())
+            if(applicantId == null || niche.ApplicantId != null)
             {
                 viewModel.AllowNew = false;
             }
@@ -78,17 +79,17 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Info(string AF, bool exportToPDF = false)
         {
-            _order.SetTransaction(AF);
-            _niche.SetNiche(_order.GetTransactionNicheId());
+            var transaction = _order.GetByAF(AF);
+            var niche = _niche.GetById(transaction.NicheId);
 
             var viewModel = new ColumbariumTransactionsInfoViewModel();
             viewModel.ExportToPDF = exportToPDF;
-            viewModel.ItemName = _order.GetItemName();
-            viewModel.NicheDto = _niche.GetNicheDto();
-            viewModel.ColumbariumTransactionDto = _order.GetTransactionDto();
-            viewModel.ApplicantId = _order.GetTransactionApplicantId();
-            viewModel.TotalAmount = _order.GetTransactionTotalAmount();
-            viewModel.Header = _centre.GetCentre().Site.Header;
+            viewModel.ItemName = transaction.ColumbariumItem.SubProductService.Name;
+            viewModel.NicheDto = Mapper.Map<NicheDto>(niche);
+            viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(transaction);
+            viewModel.ApplicantId = transaction.ApplicantId;
+            viewModel.TotalAmount = _order.GetTotalAmount(transaction);
+            viewModel.Header = _centre.GetById(niche.ColumbariumArea.ColumbariumCentreId).Site.Header;
 
             return View(viewModel);
         }
@@ -108,29 +109,28 @@ namespace Memorial.Areas.Columbarium.Controllers
 
         public ActionResult Form(int itemId = 0, int id = 0, int applicantId = 0, string AF = null)
         {
-            var item = _item.GetItemDto(itemId);
+            var item = _item.GetById(itemId);
             var viewModel = new ColumbariumTransactionsFormViewModel()
             {
                 FuneralCompanyDtos = Mapper.Map<IEnumerable<FuneralCompanyDto>>(_funeralCompany.GetAll()),
-                DeceasedBriefDtos = _deceased.GetDeceasedBriefDtosByApplicantId(applicantId),
-                ColumbariumCentreDto = item.ColumbariumCentreDto
+                DeceasedBriefDtos = Mapper.Map<IEnumerable<DeceasedBriefDto>>(_deceased.GetByApplicantId(applicantId)),
+                ColumbariumCentreDto = Mapper.Map<ColumbariumCentreDto>(item.ColumbariumCentre)
             };
             
             if (AF == null)
             {
-                _niche.SetNiche(id);
+                var niche = _niche.GetById(id);
 
                 var columbariumTransactionDto = new ColumbariumTransactionDto(itemId, id, applicantId);
                 columbariumTransactionDto.NicheDtoId = id;
                 viewModel.ColumbariumTransactionDto = columbariumTransactionDto;
-                viewModel.ColumbariumTransactionDto.Price = _niche.GetPrice();
-                viewModel.ColumbariumTransactionDto.Maintenance = _niche.GetMaintenance();
-                viewModel.ColumbariumTransactionDto.LifeTimeMaintenance = _niche.GetLifeTimeMaintenance();
+                viewModel.ColumbariumTransactionDto.Price = niche.Price;
+                viewModel.ColumbariumTransactionDto.Maintenance = niche.Maintenance;
+                viewModel.ColumbariumTransactionDto.LifeTimeMaintenance = niche.LifeTimeMaintenance;
             }
             else
             {
-                _order.SetTransaction(AF);
-                viewModel.ColumbariumTransactionDto = _order.GetTransactionDto(AF);
+                viewModel.ColumbariumTransactionDto = Mapper.Map<ColumbariumTransactionDto>(_order.GetByAF(AF));
             }
 
             return View(viewModel);
@@ -147,8 +147,8 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             if (viewModel.ColumbariumTransactionDto.DeceasedDto1Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.ColumbariumTransactionDto.DeceasedDto1Id);
-                if (_deceased.GetNiche() != null && _deceased.GetNiche().Id != viewModel.ColumbariumTransactionDto.NicheDtoId)
+                var deceased = _deceased.GetById((int)viewModel.ColumbariumTransactionDto.DeceasedDto1Id);
+                if (deceased.NicheId != null && deceased.NicheId != viewModel.ColumbariumTransactionDto.NicheDtoId)
                 {
                     ModelState.AddModelError("ColumbariumTransactionDto.Deceased1Id", "Invalid");
                     return FormForResubmit(viewModel);
@@ -157,17 +157,18 @@ namespace Memorial.Areas.Columbarium.Controllers
 
             if (viewModel.ColumbariumTransactionDto.DeceasedDto2Id != null)
             {
-                _deceased.SetDeceased((int)viewModel.ColumbariumTransactionDto.DeceasedDto2Id);
-                if (_deceased.GetNiche() != null && _deceased.GetNiche().Id != viewModel.ColumbariumTransactionDto.NicheDtoId)
+                var deceased = _deceased.GetById((int)viewModel.ColumbariumTransactionDto.DeceasedDto2Id);
+                if (deceased.NicheId != null && deceased.NicheId != viewModel.ColumbariumTransactionDto.NicheDtoId)
                 {
                     ModelState.AddModelError("ColumbariumTransactionDto.Deceased2Id", "Invalid");
                     return FormForResubmit(viewModel);
                 }
             }
 
+            var columbariumTransaction = Mapper.Map<Core.Domain.ColumbariumTransaction>(viewModel.ColumbariumTransactionDto);
             if (viewModel.ColumbariumTransactionDto.AF == null)
             {
-                if (_order.Create(viewModel.ColumbariumTransactionDto))
+                if (_order.Add(columbariumTransaction))
                 {
                     return RedirectToAction("Index", new
                     {
@@ -183,9 +184,9 @@ namespace Memorial.Areas.Columbarium.Controllers
             }
             else
             {
-                if (_invoice.GetInvoicesByAF(viewModel.ColumbariumTransactionDto.AF).Any() && 
+                if (_invoice.GetByAF(viewModel.ColumbariumTransactionDto.AF).Any() && 
                     viewModel.ColumbariumTransactionDto.Price + (float)viewModel.ColumbariumTransactionDto.Maintenance + (float)viewModel.ColumbariumTransactionDto.LifeTimeMaintenance <
-                _invoice.GetInvoicesByAF(viewModel.ColumbariumTransactionDto.AF).Max(i => i.Amount))
+                _invoice.GetByAF(viewModel.ColumbariumTransactionDto.AF).Max(i => i.Amount))
                 {
                     ModelState.AddModelError("ColumbariumTransactionDto.Price", "* Exceed invoice amount");
                     ModelState.AddModelError("ColumbariumTransactionDto.Maintenance", "* Exceed invoice amount");
@@ -193,7 +194,7 @@ namespace Memorial.Areas.Columbarium.Controllers
                     return FormForResubmit(viewModel);
                 }
 
-                _order.Update(viewModel.ColumbariumTransactionDto);
+                _order.Change(columbariumTransaction.AF, columbariumTransaction);
             }
 
             return RedirectToAction("Index", new
@@ -216,8 +217,7 @@ namespace Memorial.Areas.Columbarium.Controllers
         {
             if (_tracking.IsLatestTransaction(id, AF))
             {
-                _order.SetTransaction(AF);
-                _order.Delete();
+                _order.Remove(AF);
             }
 
             return RedirectToAction("Index", new
