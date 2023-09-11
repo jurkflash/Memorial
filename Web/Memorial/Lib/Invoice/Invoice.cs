@@ -22,9 +22,7 @@ namespace Memorial.Lib.Invoice
         protected bool Change(Core.Domain.Invoice invoice)
         {
             var invoiceInDb = _unitOfWork.Invoices.GetByIV(invoice.IV);
-            invoiceInDb.hasReceipt = invoice.hasReceipt;
             invoiceInDb.isPaid = invoice.isPaid;
-            invoiceInDb.AllowDeposit = invoice.AllowDeposit;
             invoiceInDb.Amount = invoice.Amount;
             invoiceInDb.Remark = invoice.Remark;
             _unitOfWork.Complete();

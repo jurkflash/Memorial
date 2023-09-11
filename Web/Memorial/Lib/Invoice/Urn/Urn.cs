@@ -7,12 +7,14 @@ namespace Memorial.Lib.Invoice
     public class Urn : Invoice, IUrn
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITransaction _transaction;
         protected INumber _number;
 
-        public Urn(IUnitOfWork unitOfWork, INumber number) : base(unitOfWork)
+        public Urn(IUnitOfWork unitOfWork, INumber number, ITransaction transaction) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _number = number;
+            _transaction = transaction;
         }
 
         public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
@@ -37,25 +39,26 @@ namespace Memorial.Lib.Invoice
         public bool Change(string IV, Core.Domain.Invoice invoice)
         {
             var transaction = _unitOfWork.UrnTransactions.GetByAF(invoice.UrnTransactionAF);
-            var total = transaction.Price;
+
+            var total = _transaction.GetTotalAmount(transaction);
             if (total < invoice.Amount)
                 return false;
 
             var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountByUrnAF(invoice.UrnTransactionAF);
-            if (totalReceiptAmount < total)
+            if (totalReceiptAmount > invoice.Amount)
                 return false;
 
-            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
-            if (invoiceInDB.Amount < invoice.Amount)
+            var totalPaidInvoiceAmount = _unitOfWork.Receipts.GetTotalAmountByIV(IV);
+            if (totalPaidInvoiceAmount > invoice.Amount)
                 return false;
 
-            if (invoice.Amount == totalReceiptAmount)
+            if (invoice.Amount == total - totalReceiptAmount)
                 invoice.isPaid = true;
             else
                 invoice.isPaid = false;
 
+            invoice.IV = IV;
             Change(invoice);
-            _unitOfWork.Complete();
             return true;
         }
     }

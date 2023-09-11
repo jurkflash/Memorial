@@ -104,6 +104,11 @@ namespace Memorial.Persistence.Repositories
             return MemorialContext.Receipts.Where(r => r.MiscellaneousTransactionAF == AF).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
         }
 
+        public float GetTotalAmountByIV(string IV)
+        {
+            return MemorialContext.Receipts.Where(r => r.InvoiceIV == IV).Select(r => r.Amount).DefaultIfEmpty(0).Sum();
+        }
+
         public IEnumerable<Receipt> GetByIV(string IV)
         {
             return MemorialContext.Receipts

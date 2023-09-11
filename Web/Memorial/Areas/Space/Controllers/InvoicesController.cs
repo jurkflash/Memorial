@@ -98,10 +98,11 @@ namespace Memorial.Areas.Space.Controllers
             }
 
             var invoice = Mapper.Map<Core.Domain.Invoice>(viewModel.InvoiceDto);
+            invoice.SpaceTransactionAF = viewModel.AF;
+
             if (viewModel.InvoiceDto.IV == null)
             {
                 invoice.AllowDeposit = tansaction.SpaceItem.AllowDeposit;
-                invoice.SpaceTransactionAF = viewModel.AF;
 
                 if (_invoice.Add(tansaction.SpaceItemId, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
@@ -113,7 +114,7 @@ namespace Memorial.Areas.Space.Controllers
             }
             else
             {
-                if (_invoice.Change(invoice.IV, invoice))
+                if (_invoice.Change(viewModel.InvoiceDto.IV, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                     return View("Form", viewModel);

@@ -110,7 +110,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             }
             else
             {
-                if (_invoice.Change(invoice.IV, invoice))
+                if (_invoice.Change(viewModel.InvoiceDto.IV, invoice))
                     return RedirectToAction("Index", new { AF = viewModel.AF });
                 else
                     return View("Form", viewModel);

@@ -7,12 +7,14 @@ namespace Memorial.Lib.Invoice
     public class Columbarium : Invoice, IColumbarium
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITransaction _transaction;
         protected INumber _number;
 
-        public Columbarium(IUnitOfWork unitOfWork, INumber number) : base(unitOfWork)
+        public Columbarium(IUnitOfWork unitOfWork, INumber number, ITransaction transaction) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _number = number;
+            _transaction = transaction;
         }
 
         public IEnumerable<Core.Domain.Invoice> GetByAF(string AF)
@@ -37,27 +39,26 @@ namespace Memorial.Lib.Invoice
         public bool Change(string IV, Core.Domain.Invoice invoice)
         {
             var transaction = _unitOfWork.ColumbariumTransactions.GetByAF(invoice.ColumbariumTransactionAF);
-            var total = transaction.Price +
-                (transaction.Maintenance == null ? 0 : (float)transaction.Maintenance) +
-                (transaction.LifeTimeMaintenance == null ? 0 : (float)transaction.LifeTimeMaintenance);
+
+            var total = _transaction.GetTotalAmount(transaction);
             if (total < invoice.Amount)
                 return false;
 
             var totalReceiptAmount = _unitOfWork.Receipts.GetTotalAmountByColumbariumAF(invoice.ColumbariumTransactionAF);
-            if (totalReceiptAmount < total)
+            if (totalReceiptAmount > invoice.Amount)
                 return false;
 
-            var invoiceInDB = _unitOfWork.Invoices.GetByIV(IV);
-            if (invoiceInDB.Amount < invoice.Amount)
+            var totalPaidInvoiceAmount = _unitOfWork.Receipts.GetTotalAmountByIV(IV);
+            if (totalPaidInvoiceAmount > invoice.Amount)
                 return false;
 
-            if (invoice.Amount == totalReceiptAmount)
+            if (invoice.Amount == total - totalReceiptAmount)
                 invoice.isPaid = true;
             else
                 invoice.isPaid = false;
 
+            invoice.IV = IV;
             Change(invoice);
-            _unitOfWork.Complete();
             return true;
         }
     }

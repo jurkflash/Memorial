@@ -33,6 +33,8 @@ namespace Memorial.Core.Repositories
 
         float GetTotalAmountByMiscellaneousAF(string AF);
 
+        float GetTotalAmountByIV(string IV);
+
         IEnumerable<Receipt> GetByIV(string IV);
 
         Receipt GetByRE(string RE);
