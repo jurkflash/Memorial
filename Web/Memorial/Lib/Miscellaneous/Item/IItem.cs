@@ -11,5 +11,6 @@ namespace Memorial.Lib.Miscellaneous
         int Add(Core.Domain.MiscellaneousItem miscellaneousItem);
         bool Change(int id, Core.Domain.MiscellaneousItem miscellaneousItem);
         bool Remove(int id);
+        bool IsOrder(Core.Domain.MiscellaneousItem miscellaneousItem);
     }
 }

@@ -11,5 +11,6 @@ namespace Memorial.Lib.Cremation
         int Add(Core.Domain.CremationItem cremationItem);
         bool Change(int id, Core.Domain.CremationItem cremationItem);
         bool Remove(int id);
+        bool IsOrder(Core.Domain.CremationItem cremationItem);
     }
 }

@@ -33,6 +33,14 @@ namespace Memorial.Lib.AncestralTablet
                 return ancestralTabletItem.SubProductService.Price;
         }
 
+        public bool IsOrder(Core.Domain.AncestralTabletItem ancestralTabletItem)
+        {
+            if (ancestralTabletItem.isOrder.HasValue)
+                return ancestralTabletItem.isOrder.Value;
+            else
+                return ancestralTabletItem.SubProductService.isOrder;
+        }
+
         public IEnumerable<Core.Domain.AncestralTabletItem> GetByArea(int areaId)
         {
             return _unitOfWork.AncestralTabletItems.GetByArea(areaId);

@@ -4,8 +4,6 @@ using System.Linq;
 using Memorial.Core;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
-using AutoMapper;
-using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Columbarium
 {
@@ -33,6 +31,14 @@ namespace Memorial.Lib.Columbarium
                 return columbariumItem.Price.Value;
             else
                 return columbariumItem.SubProductService.Price;
+        }
+
+        public bool IsOrder(Core.Domain.ColumbariumItem columbariumItem)
+        {
+            if (columbariumItem.isOrder.HasValue)
+                return columbariumItem.isOrder.Value;
+            else
+                return columbariumItem.SubProductService.isOrder;
         }
 
         public float GetAmountWithDateRange(int itemId, DateTime from, DateTime to)

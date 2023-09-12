@@ -13,5 +13,6 @@ namespace Memorial.Lib.Columbarium
         int Add(Core.Domain.ColumbariumItem columbariumItem);
         bool Change(int id, Core.Domain.ColumbariumItem columbariumItem);
         bool Remove(int id);
+        bool IsOrder(Core.Domain.ColumbariumItem columbariumItem);
     }
 }

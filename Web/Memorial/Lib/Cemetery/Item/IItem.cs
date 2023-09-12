@@ -11,5 +11,6 @@ namespace Memorial.Lib.Cemetery
         IEnumerable<CemeteryItemDto> GetItemDtosByPlot(int plotId);
         bool Change(int id, Core.Domain.CemeteryItem cemeteryItem);
         float GetPrice(Core.Domain.CemeteryItem cemeteryItem);
+        bool IsOrder(Core.Domain.CemeteryItem cemeteryItem);
     }
 }

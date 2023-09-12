@@ -11,5 +11,6 @@ namespace Memorial.Lib.AncestralTablet
         int Add(Core.Domain.AncestralTabletItem ancestralTabletItem);
         bool Change(int id, Core.Domain.AncestralTabletItem ancestralTabletItem);
         bool Remove(int id);
+        bool IsOrder(Core.Domain.AncestralTabletItem ancestralTabletItem);
     }
 }

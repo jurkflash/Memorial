@@ -5,7 +5,6 @@ using Memorial.Core.Dtos;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
 using AutoMapper;
-using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Cemetery
 {
@@ -93,6 +92,14 @@ namespace Memorial.Lib.Cemetery
                 return cemeteryItem.Price.Value;
             else
                 return cemeteryItem.SubProductService.Price;
+        }
+
+        public bool IsOrder(Core.Domain.CemeteryItem cemeteryItem)
+        {
+            if (cemeteryItem.isOrder.HasValue)
+                return cemeteryItem.isOrder.Value;
+            else
+                return cemeteryItem.SubProductService.isOrder;
         }
 
         public bool Create(CemeteryItemDto cemeteryItemDto)

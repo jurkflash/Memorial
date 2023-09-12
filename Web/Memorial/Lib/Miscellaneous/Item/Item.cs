@@ -32,6 +32,14 @@ namespace Memorial.Lib.Miscellaneous
                 return miscellaneousItem.SubProductService.Price;
         }
 
+        public bool IsOrder(Core.Domain.MiscellaneousItem miscellaneousItem)
+        {
+            if (miscellaneousItem.isOrder.HasValue)
+                return miscellaneousItem.isOrder.Value;
+            else
+                return miscellaneousItem.SubProductService.isOrder;
+        }
+
         public IEnumerable<Core.Domain.MiscellaneousItem> GetByMiscellaneous(int miscellaneousId)
         {
             return _unitOfWork.MiscellaneousItems.GetByMiscellaneous(miscellaneousId);

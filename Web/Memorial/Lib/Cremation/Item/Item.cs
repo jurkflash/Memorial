@@ -34,6 +34,14 @@ namespace Memorial.Lib.Cremation
                 return cremationItem.SubProductService.Price;
         }
 
+        public bool IsOrder(Core.Domain.CremationItem cremationItem)
+        {
+            if (cremationItem.isOrder.HasValue)
+                return cremationItem.isOrder.Value;
+            else
+                return cremationItem.SubProductService.isOrder;
+        }
+
         public IEnumerable<Core.Domain.CremationItem> GetByCremation(int cremationId)
         {
             return _unitOfWork.CremationItems.GetByCremation(cremationId);
