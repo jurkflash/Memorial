@@ -10,5 +10,6 @@ namespace Memorial.Lib.Urn
         int Add(Core.Domain.UrnItem urnItem);
         bool Change(int id, Core.Domain.UrnItem urnItem);
         bool Remove(int id);
+        bool IsOrder(Core.Domain.UrnItem urnItem);
     }
 }

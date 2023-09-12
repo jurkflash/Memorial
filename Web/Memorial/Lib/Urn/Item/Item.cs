@@ -3,8 +3,6 @@ using System.Linq;
 using Memorial.Core;
 using Memorial.Lib.Product;
 using Memorial.Lib.SubProductService;
-using AutoMapper;
-using Memorial.Core.Domain;
 
 namespace Memorial.Lib.Urn
 {
@@ -29,6 +27,14 @@ namespace Memorial.Lib.Urn
         public IEnumerable<Core.Domain.UrnItem> GetByUrn(int urnId)
         {
             return _unitOfWork.UrnItems.GetByUrn(urnId);
+        }
+
+        public bool IsOrder(Core.Domain.UrnItem urnItem)
+        {
+            if (urnItem.isOrder.HasValue)
+                return urnItem.isOrder.Value;
+            else
+                return urnItem.SubProductService.isOrder;
         }
 
         public IEnumerable<Core.Domain.SubProductService> GetAvailableItemByUrn(int urnId)
