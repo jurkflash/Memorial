@@ -8,6 +8,7 @@ using System.Web.Routing;
 using AutoMapper;
 using Memorial.App_Start;
 using System.Web.Http;
+using Serilog;
 
 namespace Memorial
 {
@@ -24,6 +25,19 @@ namespace Memorial
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var log = new LoggerConfiguration()
+            .WriteTo.File(System.Web.Hosting.HostingEnvironment.MapPath("~/bin/Logs/log.txt"))
+            .CreateLogger();
+            Log.Logger = log;
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            if (exception != null)
+            {
+                Log.Logger.Error(exception, exception.Message.ToString());
+            }
         }
     }
 }
