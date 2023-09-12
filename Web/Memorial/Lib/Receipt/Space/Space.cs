@@ -9,34 +9,47 @@ namespace Memorial.Lib.Receipt
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPaymentMethod _paymentMethod;
+        private readonly ITransaction _transaction;
+        private readonly IItem _item;
         protected INumber _number;
 
         public Space(
             IUnitOfWork unitOfWork,
             IPaymentMethod paymentMethod,
+            ITransaction transaction,
+            IItem item,
             INumber number
             ) : base(unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _paymentMethod = paymentMethod;
+            _transaction = transaction;
+            _item = item;
             _number = number;
         }
 
         public bool Change(string RE, Core.Domain.Receipt receipt)
         {
-            float total = 0;
-            var transaction = _unitOfWork.SpaceTransactions.GetByAF(receipt.SpaceTransactionAF);
-            total = transaction.Amount + transaction.OtherCharges;
-
-            var receiptInDb = _unitOfWork.Receipts.GetByRE(RE);
             if (_paymentMethod.Get(receipt.PaymentMethodId).RequireRemark && receipt.PaymentRemark == "")
                 return false;
 
-            if(transaction.SpaceItem.isOrder == true)
+            float total = 0;
+            var transaction = _unitOfWork.SpaceTransactions.GetByAF(receipt.SpaceTransactionAF);
+            total = _transaction.GetTotalAmount(transaction);
+
+            var receiptInDb = _unitOfWork.Receipts.GetByRE(RE);
+            var item = _item.GetById(transaction.SpaceItemId);
+            if (_item.IsOrder(item))
             {
                 var invoice = _unitOfWork.Invoices.GetByIV(receipt.InvoiceIV);
-                if (invoice.Amount < GetTotalIssuedReceiptAmountByIV(receipt.InvoiceIV) - receiptInDb.Amount + receipt.Amount)
+                var receiptsTotalAmount = GetTotalIssuedReceiptAmountByIV(receipt.InvoiceIV);
+                if (invoice.Amount < receiptsTotalAmount - receiptInDb.Amount + receipt.Amount)
                     return false;
+
+                if (invoice.Amount > receiptsTotalAmount - receiptInDb.Amount + receipt.Amount)
+                    invoice.isPaid = false;
+                else
+                    invoice.isPaid = true;
             }
 
             if(receiptInDb.Amount != receipt.Amount && total < (GetTotalIssuedReceiptAmountByAF(receipt.SpaceTransactionAF) - receiptInDb.Amount + receipt.Amount))
@@ -44,6 +57,7 @@ namespace Memorial.Lib.Receipt
                 return false;
             }
 
+            receipt.RE = RE;
             return Change(receipt);
         }
 
@@ -55,29 +69,33 @@ namespace Memorial.Lib.Receipt
 
         public bool Add(int itemId, Core.Domain.Receipt receipt)
         {
+            if (_paymentMethod.Get(receipt.PaymentMethodId).RequireRemark && receipt.PaymentRemark == "")
+                return false;
+
             float total = 0;
             Core.Domain.Invoice invoiceInDb = null;
             var transaction = _unitOfWork.SpaceTransactions.GetByAF(receipt.SpaceTransactionAF);
             var receiptsTotalAmount = _unitOfWork.Receipts.GetTotalAmountBySpaceAF(receipt.SpaceTransactionAF);
-            total = transaction.Amount + transaction.OtherCharges;
+            total = _transaction.GetTotalAmount(transaction);
 
-            if (receipt.InvoiceIV != null)
+            var item = _item.GetById(itemId);
+            if(_item.IsOrder(item))
             {
                 invoiceInDb = _unitOfWork.Invoices.GetByIV(receipt.InvoiceIV);
                 total = invoiceInDb.Amount;
-            }
 
-            if (total < receipt.Amount || receiptsTotalAmount < receipt.Amount)
-                return false;
-
-            if(receipt.InvoiceIV != null)
-            {
-                invoiceInDb.hasReceipt = true;
                 var amount = GetTotalIssuedReceiptAmountByIV(receipt.InvoiceIV);
-                if(invoiceInDb.Amount - amount == receipt.Amount)
-                {
+                if (total - amount < receipt.Amount)
+                    return false;
+
+                if (total - amount == receipt.Amount)
                     invoiceInDb.isPaid = true;
-                }
+                invoiceInDb.hasReceipt = true;
+            }
+            else
+            {
+                if (total - receiptsTotalAmount < receipt.Amount)
+                    return false;
             }
 
             var re = GenerateRENumber(itemId);

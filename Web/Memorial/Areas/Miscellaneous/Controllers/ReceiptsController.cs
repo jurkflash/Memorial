@@ -120,18 +120,18 @@ namespace Memorial.Areas.Miscellaneous.Controllers
                 return View("Form", viewModel);
             }
 
-            var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
-            if (viewModel.ReceiptDto.Amount > totalRemainingAmount)
-            {
-                ModelState.AddModelError("ReceiptDto.Amount", "Amount over total");
-
-                return View("Form", viewModel);
-            }
-
             receipt.MiscellaneousTransactionAF = viewModel.AF;
 
             if (viewModel.ReceiptDto.RE == null)
             {
+                var totalRemainingAmount = _transaction.GetTotalAmount(transaction) - _receipt.GetTotalIssuedReceiptAmountByAF(viewModel.AF);
+                if (viewModel.ReceiptDto.Amount > totalRemainingAmount)
+                {
+                    ModelState.AddModelError("ReceiptDto.Amount", "Amount over total");
+
+                    return View("Form", viewModel);
+                }
+
                 receipt.InvoiceIV = viewModel.InvoiceDto.IV;
 
                 if (_receipt.Add(transaction.MiscellaneousItemId, receipt))
@@ -145,7 +145,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             }
             else
             {
-                var status = _receipt.Change(receipt.RE, receipt);
+                var status = _receipt.Change(viewModel.ReceiptDto.RE, receipt);
             }
 
             return RedirectToAction("Index", new { IV = viewModel.InvoiceDto.IV });

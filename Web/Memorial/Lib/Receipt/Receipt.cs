@@ -31,7 +31,7 @@ namespace Memorial.Lib.Receipt
             {
                 var receipts = _unitOfWork.Receipts.GetByIV(receiptInDb.InvoiceIV).ToList();
                 var invoiceInDb = _unitOfWork.Invoices.GetByIV(receiptInDb.InvoiceIV);
-                invoiceInDb.hasReceipt = receipts.Any();
+                invoiceInDb.hasReceipt = receipts.Count == 1 ? false : true;
                 invoiceInDb.isPaid = receipts.Select(r => r.Amount).DefaultIfEmpty(0).Sum() == invoiceInDb.Amount;
 
                 _unitOfWork.Receipts.Remove(receiptInDb);
@@ -55,7 +55,6 @@ namespace Memorial.Lib.Receipt
         {
             _unitOfWork.Receipts.Add(receipt);
             _unitOfWork.Complete();
-
             return true;
         }
 
