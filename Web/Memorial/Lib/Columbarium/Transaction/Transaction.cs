@@ -68,7 +68,7 @@ namespace Memorial.Lib.Columbarium
             return _unitOfWork.ColumbariumTransactions.GetByNicheId(nicheId);
         }
 
-        public IEnumerable<Core.Domain.ColumbariumTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.ColumbariumTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.ColumbariumTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

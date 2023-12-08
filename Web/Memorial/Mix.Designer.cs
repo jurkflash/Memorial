@@ -898,6 +898,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info View&lt;br /&gt;.
+        /// </summary>
+        public static string InfoViewBR {
+            get {
+                return ResourceManager.GetString("InfoViewBR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 單 Invoice.
         /// </summary>
         public static string Invoice {
@@ -1371,6 +1380,15 @@ namespace Resources {
         public static string Receipts {
             get {
                 return ResourceManager.GetString("Receipts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent 最近申請記錄.
+        /// </summary>
+        public static string RecentApplicationRecord {
+            get {
+                return ResourceManager.GetString("RecentApplicationRecord", resourceCulture);
             }
         }
         

@@ -42,7 +42,7 @@ namespace Memorial.Lib.Urn
             return _unitOfWork.UrnTransactions.GetByItem(itemId, filter);        
         }
 
-        public IEnumerable<Core.Domain.UrnTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.UrnTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.UrnTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

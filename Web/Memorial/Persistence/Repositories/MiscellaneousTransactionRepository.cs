@@ -60,15 +60,17 @@ namespace Memorial.Persistence.Repositories
                                             && mt.MiscellaneousItemId == itemId).ToList();
         }
 
-        public IEnumerable<MiscellaneousTransaction> GetRecent(int? number, int siteId, int? applicantId)
+        public IEnumerable<MiscellaneousTransaction> GetRecent(int? number, byte? siteId, int? applicantId)
         {
             var result = MemorialContext.MiscellaneousTransactions
-                .Where(t => t.MiscellaneousItem.Miscellaneous.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.MiscellaneousItem)
                 .Include(t => t.MiscellaneousItem.Miscellaneous)
                 .Include(t => t.MiscellaneousItem.SubProductService)
                 .Include(t => t.MiscellaneousItem.SubProductService.Product);
+
+            if (siteId != null)
+                result = result.Where(t => t.MiscellaneousItem.Miscellaneous.SiteId == siteId);
 
             if (applicantId != null)
                 result = result.Where(t => t.ApplicantId == applicantId);

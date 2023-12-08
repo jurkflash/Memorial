@@ -69,7 +69,7 @@ namespace Memorial.Areas.Applicant.Controllers
                 return View("Form", viewModel);
             }
 
-            if (viewModel.ApplicantDto.Id == 0 && _applicant.Add(applicant) > 0)
+            if (viewModel.ApplicantDto.Id == 0 && _applicant.Add(applicant) == 0)
                 return View("Form", viewModel);
 
             if (viewModel.ApplicantDto.Id != 0 && !_applicant.Change(viewModel.ApplicantDto.Id, applicant))

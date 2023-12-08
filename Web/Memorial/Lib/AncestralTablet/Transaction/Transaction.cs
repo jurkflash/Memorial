@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Memorial.Core;
-using Memorial.Core.Dtos;
 using Memorial.Lib.Applicant;
 using Memorial.Lib.Deceased;
 using Memorial.Lib.ApplicantDeceased;
-using AutoMapper;
 
 namespace Memorial.Lib.AncestralTablet
 {
@@ -69,7 +67,7 @@ namespace Memorial.Lib.AncestralTablet
             return _unitOfWork.AncestralTabletTransactions.GetByAncestralTabletId(nicheId);
         }
 
-        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.AncestralTabletTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.AncestralTabletTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

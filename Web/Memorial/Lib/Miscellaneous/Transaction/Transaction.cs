@@ -42,7 +42,7 @@ namespace Memorial.Lib.Miscellaneous
             return _unitOfWork.MiscellaneousTransactions.GetByItem(itemId, filter);
         }
 
-        public IEnumerable<Core.Domain.MiscellaneousTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.MiscellaneousTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.MiscellaneousTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

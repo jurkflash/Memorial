@@ -19,6 +19,6 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<CremationTransaction> GetByItemAndApplicant(int itemId, int applicantId);
 
-        IEnumerable<CremationTransaction> GetRecent(int? number, int siteId, int? applicantId);
+        IEnumerable<CremationTransaction> GetRecent(int? number, byte? siteId, int? applicantId);
     }
 }

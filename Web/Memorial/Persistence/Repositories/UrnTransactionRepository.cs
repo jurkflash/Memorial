@@ -52,15 +52,17 @@ namespace Memorial.Persistence.Repositories
                                             && ut.UrnItemId == itemId).ToList();
         }
 
-        public IEnumerable<UrnTransaction> GetRecent(int? number, int siteId, int? applicantId)
+        public IEnumerable<UrnTransaction> GetRecent(int? number, byte? siteId, int? applicantId)
         {
             var result = MemorialContext.UrnTransactions
-                .Where(t => t.UrnItem.Urn.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.UrnItem)
                 .Include(t => t.UrnItem.Urn)
                 .Include(t => t.UrnItem.SubProductService)
                 .Include(t => t.UrnItem.SubProductService.Product);
+
+            if (siteId != null)
+                result = result.Where(t => t.UrnItem.Urn.SiteId == siteId);
 
             if (applicantId != null)
                 result = result.Where(t => t.ApplicantId == applicantId);

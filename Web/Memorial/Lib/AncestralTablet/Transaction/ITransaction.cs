@@ -9,6 +9,6 @@ namespace Memorial.Lib.AncestralTablet
         float GetTotalAmount(Core.Domain.AncestralTabletTransaction ancestralTabletTransaction);
         IEnumerable<Core.Domain.AncestralTabletTransaction> GetByAncestralTabletIdAndItemId(int ancestralTabletId, int itemId, string filter);
         Core.Domain.AncestralTabletTransaction GetTransactionsByShiftedAncestralTabletTransactionAF(string AF);
-        IEnumerable<Core.Domain.AncestralTabletTransaction> GetRecent(int siteId, int? applicantId);
+        IEnumerable<Core.Domain.AncestralTabletTransaction> GetRecent(byte? siteId, int? applicantId);
     }
 }

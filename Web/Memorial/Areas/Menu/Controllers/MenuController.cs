@@ -36,7 +36,7 @@ namespace Memorial.Areas.Menu.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Recent(byte siteId, int? applicantId)
+        public ActionResult Recent(byte? siteId, int? applicantId)
         {
             var viewModel = new RecentViewModel()
             {

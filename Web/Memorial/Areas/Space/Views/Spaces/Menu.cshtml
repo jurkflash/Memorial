@@ -20,11 +20,11 @@
         @foreach (var recent in Model)
         {
             <tr>
-                <td>@Html.ActionLink(recent.Code, "Index", recent.LinkController, new { itemId = recent.ItemId, filter = recent.Code, area = recent.LinkArea, applicantId = 0 }, null)</td>
+                <td>@Html.ActionLink(recent.AF, "Index", recent.LinkController, new { itemId = recent.ItemId, filter = recent.AF, area = recent.LinkArea, applicantId = 0 }, null)</td>
                 <td>@recent.ApplicantName</td>
                 <td>@recent.ItemName</td>
                 <td>@recent.Text1</td>
-                <td>@recent.CreatedDate</td>
+                <td><span data-utcTime="@recent.CreatedDate.ToString("yyyy-MM-dd HH:mm")"></span></td>
             </tr>
         }
     </tbody>

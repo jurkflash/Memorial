@@ -27,3 +27,6 @@
         }
     </tbody>
 </table>
+
+<h4>@Html.Raw(Resources.Mix.RecentApplicationRecord)</h4>
+@{Html.RenderAction("Recent", "Urns", new { area = "Urn", siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId });}

@@ -684,4 +684,10 @@
   <data name="EditDeceased" xml:space="preserve">
     <value>修改逝世者 Edit Deceased</value>
   </data>
+  <data name="RecentApplicationRecord" xml:space="preserve">
+    <value>Recent 最近申請記錄</value>
+  </data>
+  <data name="InfoViewBR" xml:space="preserve">
+    <value>Info View&lt;br /&gt;</value>
+  </data>
 </root>

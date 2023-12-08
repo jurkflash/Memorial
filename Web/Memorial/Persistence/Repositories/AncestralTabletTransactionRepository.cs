@@ -104,15 +104,17 @@ namespace Memorial.Persistence.Repositories
                 .ToList();
         }
 
-        public IEnumerable<AncestralTabletTransaction> GetRecent(int? number, int siteId, int? applicantId)
+        public IEnumerable<AncestralTabletTransaction> GetRecent(int? number, byte? siteId, int? applicantId)
         {
             var result = MemorialContext.AncestralTabletTransactions
-                .Where(t => t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId)
                 .Include(t => t.Applicant)
                 .Include(t => t.AncestralTablet)
                 .Include(t => t.AncestralTabletItem.AncestralTabletArea)
                 .Include(t => t.AncestralTabletItem.SubProductService)
                 .Include(t => t.AncestralTabletItem.SubProductService.Product);
+
+            if (siteId != null)
+                result = result.Where(t => t.AncestralTabletItem.AncestralTabletArea.SiteId == siteId);
 
             if (applicantId != null)
                 result = result.Where(t => t.ApplicantId == applicantId);

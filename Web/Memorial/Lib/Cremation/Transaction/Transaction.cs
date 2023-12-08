@@ -47,7 +47,7 @@ namespace Memorial.Lib.Cremation
             return _unitOfWork.CremationTransactions.GetByItemAndDeceased(itemId, deceasedId);
         }
 
-        public IEnumerable<Core.Domain.CremationTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.CremationTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.CremationTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

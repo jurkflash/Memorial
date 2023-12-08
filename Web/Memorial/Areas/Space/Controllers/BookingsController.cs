@@ -72,7 +72,7 @@ namespace Memorial.Areas.Space.Controllers
             viewModel.DeceasedId = transaction.DeceasedId;
             viewModel.Header = transaction.SpaceItem.Space.Site.Header;
 
-            return View(item.FormView, viewModel);
+            return View(item.FormView ?? "Info", viewModel);
         }
 
         public ActionResult PrintAll(string AF)

@@ -8,6 +8,6 @@ namespace Memorial.Lib.Cremation
         float GetTotalAmount(Core.Domain.CremationTransaction transaction);
         IEnumerable<Core.Domain.CremationTransaction> GetByItemId(int itemId, string filter);
         IEnumerable<Core.Domain.CremationTransaction> GetByItemIdAndDeceasedId(int itemId, int deceasedId);
-        IEnumerable<Core.Domain.CremationTransaction> GetRecent(int siteId, int? applicantId);
+        IEnumerable<Core.Domain.CremationTransaction> GetRecent(byte? siteId, int? applicantId);
     }
 }

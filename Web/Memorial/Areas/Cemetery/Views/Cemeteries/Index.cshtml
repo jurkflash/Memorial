@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.ActionLink(Model.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) > 
+@Html.ActionLink(Model.SiteDto.Name, "Catalog", "Menu", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Menu" }, null) >
 @Html.ActionLink(Resources.Mix.Cemetery, "Index", "Cemeteries", new { siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId, area = "Cemetery" }, null)
 
 <h2>@Html.Raw(Resources.Mix.Area)</h2>
@@ -27,4 +27,6 @@
     </tbody>
 </table>
 
+<h4>@Html.Raw(Resources.Mix.RecentApplicationRecord)</h4>
+@{Html.RenderAction("Recent", "Cemeteries", new { area = "Cemetery", siteId = Model.SiteDto.Id, applicantId = Model.ApplicantId });}
 

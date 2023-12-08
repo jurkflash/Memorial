@@ -83,6 +83,9 @@ namespace Memorial.Lib.Space
 
             spaceItemInDB.Price = spaceItem.Price;
             spaceItemInDB.Code = spaceItem.Code;
+            spaceItemInDB.AllowDeposit = spaceItem.AllowDeposit;
+            spaceItemInDB.AllowDoubleBook = spaceItem.AllowDoubleBook;
+            spaceItemInDB.FormView = spaceItem.FormView;
             spaceItemInDB.isOrder = spaceItem.isOrder;
 
             _unitOfWork.Complete();

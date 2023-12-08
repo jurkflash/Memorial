@@ -12,6 +12,6 @@ namespace Memorial.Lib.Cemetery
         IEnumerable<CemeteryTransactionDto> GetTransactionDtosByPlotIdAndItemId(int plotId, int itemId, string filter);
         Core.Domain.CemeteryTransaction GetTransactionsByPlotIdAndDeceased1Id(int plotId, int deceased1Id);
         Core.Domain.CemeteryTransaction GetLastCemeteryTransactionTransactionByPlotId(int plotId);
-        IEnumerable<Core.Domain.CemeteryTransaction> GetRecent(int siteId, int? applicantId);
+        IEnumerable<Core.Domain.CemeteryTransaction> GetRecent(byte? siteId, int? applicantId);
     }
 }

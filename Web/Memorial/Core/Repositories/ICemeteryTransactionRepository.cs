@@ -27,7 +27,7 @@ namespace Memorial.Core.Repositories
 
         IEnumerable<CemeteryTransaction> GetByPlotIdAndItemAndApplicant(int plotId, int itemId, int applicantId);
 
-        IEnumerable<CemeteryTransaction> GetRecent(int? number, int siteId, int? applicantId);
+        IEnumerable<CemeteryTransaction> GetRecent(int? number, byte? siteId, int? applicantId);
 
     }
 }

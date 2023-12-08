@@ -7,6 +7,6 @@ namespace Memorial.Lib.Miscellaneous
         Core.Domain.MiscellaneousTransaction GetByAF(string AF);
         float GetTotalAmount(Core.Domain.MiscellaneousTransaction miscellaneousTransaction);
         IEnumerable<Core.Domain.MiscellaneousTransaction> GetByItemId(int itemId, string filter);
-        IEnumerable<Core.Domain.MiscellaneousTransaction> GetRecent(int siteId, int? applicantId);
+        IEnumerable<Core.Domain.MiscellaneousTransaction> GetRecent(byte? siteId, int? applicantId);
     }
 }

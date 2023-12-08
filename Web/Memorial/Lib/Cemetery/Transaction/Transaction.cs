@@ -82,7 +82,7 @@ namespace Memorial.Lib.Cemetery
             return _unitOfWork.CemeteryTransactions.GetLastCemeteryTransactionByPlotId(plotId);
         }
 
-        public IEnumerable<Core.Domain.CemeteryTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.CemeteryTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.CemeteryTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);

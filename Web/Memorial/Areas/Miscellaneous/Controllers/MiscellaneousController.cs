@@ -63,7 +63,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult Recent(int siteId, int? applicantId)
+        public PartialViewResult Recent(byte? siteId, int? applicantId)
         {
             List<RecentDto> recents = new List<RecentDto>();
 
@@ -73,7 +73,7 @@ namespace Memorial.Areas.Miscellaneous.Controllers
             {
                 recents.Add(new RecentDto()
                 {
-                    Code = transaction.AF,
+                    AF = transaction.AF,
                     ApplicantName = transaction.Applicant.Name,
                     CreatedDate = transaction.CreatedUtcTime,
                     ItemId = transaction.MiscellaneousItemId,

@@ -52,7 +52,7 @@ namespace Memorial.Lib.Space
             return spaceTransaction.Amount + spaceTransaction.OtherCharges;
         }
 
-        public IEnumerable<Core.Domain.SpaceTransaction> GetRecent(int siteId, int? applicantId)
+        public IEnumerable<Core.Domain.SpaceTransaction> GetRecent(byte? siteId, int? applicantId)
         {
             if (applicantId == null)
                 return _unitOfWork.SpaceTransactions.GetRecent(Constant.RecentTransactions, siteId, applicantId);
