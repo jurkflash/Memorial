@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Memorial.Core.Domain.AccessControl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AncestralTablet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cemetery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Columbarium)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cremation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Miscellaneous)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Urn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Space)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActiveStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedById)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedById)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AncestralTablet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cemetery)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Columbarium)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cremation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Miscellaneous)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Urn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Space)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActiveStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedById)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedById)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedById)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

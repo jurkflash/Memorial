@@ -1,0 +1,131 @@
+﻿@model Memorial.Core.Domain.AccessControl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AccessControl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AncestralTablet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AncestralTablet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cemetery)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cemetery)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Columbarium)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Columbarium)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cremation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cremation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Miscellaneous)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Miscellaneous)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Urn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Urn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Space)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Space)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
